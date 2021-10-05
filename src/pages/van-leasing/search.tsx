@@ -16,9 +16,15 @@ import {
   SortField,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
-import { vehicleList } from '../../../generated/vehicleList';
+import {
+  vehicleList,
+  vehicleListVariables,
+} from '../../../generated/vehicleList';
 import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedContainer/gql';
-import { GetProductCard } from '../../../generated/GetProductCard';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../generated/GetProductCard';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
 
@@ -71,7 +77,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const cookieString = context?.req?.headers?.cookie || '';
   if (!Object.keys(context.query).length) {
     vehiclesList = await client
-      .query({
+      .query<vehicleList, vehicleListVariables>({
         query: GET_VEHICLE_LIST,
         variables: {
           vehicleTypes: [VehicleTypeEnum.LCV],
@@ -92,7 +98,7 @@ export async function getServerSideProps(context: NextPageContext) {
       responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
       if (responseCapIds.length) {
         productCardsData = await client
-          .query({
+          .query<GetProductCard, GetProductCardVariables>({
             query: GET_PRODUCT_CARDS_DATA,
             variables: {
               capIds: responseCapIds,

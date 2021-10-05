@@ -7,7 +7,10 @@ import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
+import {
+  ReviewsHubCategoryQuery,
+  ReviewsHubCategoryQueryVariables,
+} from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
 import {
@@ -58,7 +61,10 @@ const ReviewHub: NextPage<IReviewHubPage> = ({
 export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
 
-  const { data } = await client.query({
+  const { data } = await client.query<
+    ReviewsHubCategoryQuery,
+    ReviewsHubCategoryQueryVariables
+  >({
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
@@ -85,7 +91,10 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
   try {
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      ReviewsHubCategoryQuery,
+      ReviewsHubCategoryQueryVariables
+    >({
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',

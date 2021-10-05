@@ -2,7 +2,10 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import InsurancePageContainer from '../../containers/InsurancePageContainer/InsurancePageContainer';
 import createApolloClient from '../../apolloClient';
 import GET_INSURANCE_LANDING_PAGE from '../../containers/InsurancePageContainer/gql';
-import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
+import {
+  GetInsuranceLandingPage,
+  GetInsuranceLandingPageVariables,
+} from '../../../generated/GetInsuranceLandingPage';
 import { decodeData, encodeData } from '../../utils/data';
 
 interface IInsurancePage {
@@ -16,7 +19,10 @@ const InsurancePage: NextPage<IInsurancePage> = ({ data: encodedData }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GetInsuranceLandingPage,
+      GetInsuranceLandingPageVariables
+    >({
       query: GET_INSURANCE_LANDING_PAGE,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

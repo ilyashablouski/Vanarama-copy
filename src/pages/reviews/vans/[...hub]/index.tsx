@@ -25,6 +25,14 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
+import {
+  ReviewsHubCategoryQuery,
+  ReviewsHubCategoryQueryVariables,
+} from '../../../../../generated/ReviewsHubCategoryQuery';
+import {
+  ReviewsPageQuery,
+  ReviewsPageQueryVariables,
+} from '../../../../../generated/ReviewsPageQuery';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -130,7 +138,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const hub = context?.params?.hub as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      ReviewsHubCategoryQuery | ReviewsPageQuery,
+      ReviewsHubCategoryQueryVariables | ReviewsPageQueryVariables
+    >({
       query:
         hub.length === 1 ? GENERIC_PAGE_QUESTION_HUB : GENERIC_PAGE_QUESTION,
       variables: {

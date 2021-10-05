@@ -16,6 +16,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -59,7 +63,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.page as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `maintenance/${paths?.join('/')}`,

@@ -13,6 +13,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 function WishlistPage({ data: encodedData, error }: IGenericPage) {
   // De-obfuscate data for user
@@ -41,7 +45,10 @@ function WishlistPage({ data: encodedData, error }: IGenericPage) {
 export async function getStaticProps(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({}, context);
-    const { data: genericPage, errors } = await client.query({
+    const { data: genericPage, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'wishlist',

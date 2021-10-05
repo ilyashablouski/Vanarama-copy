@@ -22,6 +22,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
+import {
+  LegalPageQuery,
+  LegalPageQueryVariables,
+} from '../../../generated/LegalPageQuery';
 
 const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   if (error || !data) {
@@ -85,7 +89,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      LegalPageQuery,
+      LegalPageQueryVariables
+    >({
       query: LEGAL_PAGE_QUERY,
       variables: {
         slug: `legal/${paths?.join('/')}`,

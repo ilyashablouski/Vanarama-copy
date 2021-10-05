@@ -9,6 +9,10 @@ import {
   PageCollection,
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 const AuthorPage: NextPage<IGenericPage> = ({ data, loading }) => {
   return <SimplePageContainer data={data} loading={!!loading} />;
@@ -37,7 +41,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.author as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `authors/${paths?.join('/')}`,
