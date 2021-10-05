@@ -18,17 +18,13 @@ interface IProps {
 }
 
 function BreadcrumbsItem({ isLastItem, itemData }: IProps) {
-  if (isLastItem) {
-    return (
-      <li className="breadcrumbs__item">
-        <Text size="small" color="darker" className="breadcrumbs__text">
-          {itemData.link.label}
-        </Text>
-      </li>
-    );
-  }
-
-  return (
+  return isLastItem ? (
+    <li className="breadcrumbs__item">
+      <Text size="small" color="darker" className="breadcrumbs__text">
+        {itemData.link.label}
+      </Text>
+    </li>
+  ) : (
     <li className="breadcrumbs__item">
       <RouterLink
         classNames={{ color: 'teal', size: 'small' }}
