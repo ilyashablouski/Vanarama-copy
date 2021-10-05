@@ -16,7 +16,12 @@ import { useMobileViewport } from '../../../hooks/useMediaQuery';
 import { IImacaViewer } from './interfaces';
 
 const Disclaimer = () => (
-  <Text tag="p" size="xsmall" color="dark" className="imaca-viewer__disclaimer">
+  <Text
+    tag="p"
+    size="regular"
+    color="black"
+    className="imaca-viewer__disclaimer"
+  >
     The trim &amp; wheels are for illustration purposes only. For exact trim see
     full spec below.
   </Text>
