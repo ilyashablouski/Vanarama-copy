@@ -1,121 +1,156 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Breadcrumbs /> renders correctly with optional props 1`] = `
-<nav
-  data-testid="breadcrumbs"
->
-  <ul
-    className="breadcrumb"
+Array [
+  <nav
+    className="breadcrumbs breadcrumbs--mobile"
+    data-testid="breadcrumbs"
   >
-    <li
-      className="breadcrumb-item -parent"
-      style={
-        Object {
-          "display": "none",
-        }
-      }
+    <ul
+      className="breadcrumbs__list"
     >
-      <a
-        className="breadcrumb-item--parent link -teal -small"
-        data-menu={null}
-        data-testid="router-link"
-        href="/"
-        onClick={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseOver={[Function]}
+      <li
+        className="breadcrumbs__item"
       >
-        <div
-          style={
-            Object {
-              "color": "#ccc",
-              "fontSize": "24px",
-              "lineHeight": 1.75,
-              "opacity": 0.75,
-            }
-          }
+        <a
+          className="breadcrumbs__link link -teal -small"
+          data-menu={null}
+          data-testid="router-link"
+          href="/"
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseOver={[Function]}
         >
-          <span>
-            <span
-              className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-              style={Object {}}
-            >
-              ‌
-            </span>
-          </span>
-        </div>
-        Page1
-      </a>
-    </li>
-    <li
-      className="breadcrumb-item -parent"
-      style={
-        Object {
-          "display": "grid",
-        }
-      }
-    >
-      <a
-        className="breadcrumb-item--parent link -teal -small"
-        data-menu={null}
-        data-testid="router-link"
-        href="/"
-        onClick={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseOver={[Function]}
-      >
-        <div
-          style={
-            Object {
-              "color": "#ccc",
-              "fontSize": "24px",
-              "lineHeight": 1.75,
-              "opacity": 0.75,
-            }
-          }
-        >
-          <span>
-            <span
-              className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-              style={Object {}}
-            >
-              ‌
-            </span>
-          </span>
-        </div>
-        Back to 
-        Page2
-      </a>
-    </li>
-    <li
-      className="breadcrumb-item -child"
-      style={
-        Object {
-          "display": "none",
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "color": "#ccc",
-            "fontSize": "24px",
-            "lineHeight": 1.75,
-            "opacity": 0.75,
-          }
-        }
-      >
-        <span>
-          <span
-            className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-            style={Object {}}
+          <i
+            className="icon -teal"
           >
-            ‌
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polyline
+                points="328 112 184 256 328 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+          Back to 
+          Page2
+        </a>
+      </li>
+    </ul>
+  </nav>,
+  <nav
+    className="breadcrumbs breadcrumbs--desktop"
+    data-testid="breadcrumbs"
+  >
+    <ul
+      className="breadcrumbs__list"
+    >
+      <li
+        className="breadcrumbs__item"
+      >
+        <a
+          className="breadcrumbs__link link -teal -small"
+          data-menu={null}
+          data-testid="router-link"
+          href="/"
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseOver={[Function]}
+        >
+          Page1
+        </a>
+        <div
+          style={
+            Object {
+              "color": "#ccc",
+              "fontSize": "24px",
+              "lineHeight": 1.75,
+              "opacity": 0.75,
+            }
+          }
+        >
+          <span>
+            <span
+              className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
+              style={Object {}}
+            >
+              ‌
+            </span>
           </span>
-        </span>
-      </div>
-    </li>
-  </ul>
-</nav>
+        </div>
+      </li>
+      <li
+        className="breadcrumbs__item"
+      >
+        <a
+          className="breadcrumbs__link link -teal -small"
+          data-menu={null}
+          data-testid="router-link"
+          href="/"
+          onClick={[Function]}
+          onFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseOver={[Function]}
+        >
+          Page2
+        </a>
+        <div
+          style={
+            Object {
+              "color": "#ccc",
+              "fontSize": "24px",
+              "lineHeight": 1.75,
+              "opacity": 0.75,
+            }
+          }
+        >
+          <span>
+            <span
+              className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
+              style={Object {}}
+            >
+              ‌
+            </span>
+          </span>
+        </div>
+      </li>
+      <li
+        className="breadcrumbs__item"
+      >
+        <div
+          style={
+            Object {
+              "color": "#ccc",
+              "fontSize": "24px",
+              "lineHeight": 1.75,
+              "opacity": 0.75,
+            }
+          }
+        >
+          <span>
+            <span
+              className="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
+              style={Object {}}
+            >
+              ‌
+            </span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </nav>,
+]
 `;
