@@ -37,10 +37,7 @@ import {
   GetVehicleConfigListVariables,
 } from '../../../generated/GetVehicleConfigList';
 import { ILoginFormValues } from '../../components/LoginForm/interfaces';
-import {
-  setPersonLoggedIn,
-  setLocalPersonState,
-} from '../../utils/personHelpers';
+import { setPersonLoggedIn } from '../../utils/personHelpers';
 import {
   updateWishlistState,
   getLocalWishlistState,
@@ -71,13 +68,6 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
       quotesQuery.data?.myOrders.length,
     ),
   ]);
-
-export const savePersonLocally = (
-  getPersonQuery: ApolloQueryResult<GetPerson>,
-) => {
-  setPersonLoggedIn(getPersonQuery.data?.getPerson);
-  return setLocalPersonState(getPersonQuery.data);
-};
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {
@@ -175,9 +165,8 @@ const LoginFormContainer = ({
               person: personQuery.data?.getPerson,
             },
           })
-            // TODO: remove next line after integration of new person state
-            .then(() => savePersonLocally(personQuery))
-            .then(requestCompanies)
+            .then(() => setPersonLoggedIn(personQuery.data?.getPerson))
+            .then(() => requestCompanies(personQuery.data?.getPerson))
             .then(getPartyUuidsFromCompanies)
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
             .then(requestOrders)

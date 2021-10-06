@@ -3,7 +3,7 @@ import localForage from 'localforage';
 import { GetPerson } from '../../generated/GetPerson';
 import { initialPersonState, personVar } from '../cache';
 import createApolloClient from '../apolloClient';
-import { getStoredPerson, setStoredPerson } from '../gql/storedPerson';
+import { getStoredPerson } from '../gql/storedPerson';
 
 const client = createApolloClient({});
 
@@ -12,9 +12,6 @@ export const getLocalPersonState = () =>
     getStoredPerson(client),
     localForage.getItem<string>('personUuid'),
   ]);
-
-export const setLocalPersonState = (person: GetPerson) =>
-  setStoredPerson(client, person.getPerson);
 
 export const setPersonLoggedIn = (person: GetPerson['getPerson']) => {
   personVar({
