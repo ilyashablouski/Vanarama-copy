@@ -97,7 +97,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       metaData: data.manufacturerPage.metaData,
       isServer: !!context.req,
       manufacturers: manufacturers || null,
-      manufacturersUrls: encodeData(manufacturersUrls) || null,
+      manufacturersUrls: manufacturersUrls
+        ? encodeData(manufacturersUrls)
+        : null,
     },
   };
 }

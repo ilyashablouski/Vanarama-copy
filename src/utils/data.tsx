@@ -4,7 +4,7 @@ const ENCODED_KEY_PREFIX = '__b64__';
 const KEYS_TO_ENCODE = ['schema'];
 const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
-export function encodeData(data: any) {
+export function encodeData<T>(data: NonNullable<T>) {
   // using for remove all references
   const newData = JSON.parse(JSON.stringify(data));
 
@@ -18,7 +18,7 @@ export function encodeData(data: any) {
   return newData;
 }
 
-export function decodeData(data: any) {
+export function decodeData<T>(data: T) {
   const newData = clonedeep(data);
 
   modifyObjectStringValues({

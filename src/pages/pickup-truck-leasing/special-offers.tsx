@@ -111,8 +111,8 @@ export async function getServerSideProps(context: NextPageContext) {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,
-      vehiclesList: encodeData(vehiclesList) || null,
-      productCardsData: encodeData(productCardsData) || null,
+      vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
+      productCardsData: productCardsData ? encodeData(productCardsData) : null,
       responseCapIds: responseCapIds || null,
     },
   };
