@@ -271,12 +271,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
 
-  const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
-    undefined,
-  );
+  const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
-  const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
+  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [partnershipDescription, setPartnershipDescription] = useState<string>(
     '',
   );
@@ -311,6 +309,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();
+
     if (partnerActive) {
       setPartnershipActive(true);
       setCustomCTAColor(partnerActive.color);
@@ -917,7 +916,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
-    // Chrome sroll down page after load new offers
+    // Chrome scroll down page after load new offers
     // using for prevent it
     setPageOffset(window.pageYOffset);
     if (vehiclesList.length < totalCount) {
@@ -936,6 +935,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     // makes, model, bodystyles in model page should not to be added
     // makes, model in range page should not to be added
     // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
+    // fuels for active partnership should not to be added
     if (
       (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
       entry[1]?.[0]
@@ -945,11 +945,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         value: isBudgetPage ? '' : `£${entry[1]}`,
       };
     }
+
     const value =
       ((isManufacturerPage || isRangePage || isModelPage) &&
         entry[0] === FilterFields.manufacturer) ||
       ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
-      (isFuelPage && entry[0] === FilterFields.fuelTypes) ||
+      ((isFuelPage || isPartnershipActive) &&
+        entry[0] === FilterFields.fuelTypes) ||
       (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
       ((isModelPage || isBodyStylePage) && entry[0] === FilterFields.bodyStyles)
         ? ''
@@ -982,7 +984,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <PartnershipLogoHeader />
       <div className="row:title">
-        {!partnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
+        {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
 
         {isNewPage ? null : (
           <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
@@ -1148,7 +1150,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         !isModelPage &&
         !isDynamicFilterPage &&
         !isAllManufacturersPage &&
-        !partnershipActive && (
+        !isPartnershipActive && (
           <div className="-mv-400 -stretch-left">
             <Checkbox
               id="specialOffer"
@@ -1166,7 +1168,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           <FiltersContainer
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
-            hideTags={partnershipActive}
             tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
