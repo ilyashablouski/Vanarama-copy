@@ -210,7 +210,9 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
-      productDerivatives: encodeData(productDerivatives) || null,
+      productDerivatives: productDerivatives
+        ? encodeData(productDerivatives)
+        : null,
       carsData: carsData || null,
       vansData: vansData || null,
       responseVansCapIds: responseVansCapIds || null,

@@ -236,10 +236,14 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
-        vehiclesList: encodeData(vehiclesList) || null,
-        productCardsData: encodeData(productCardsData) || null,
-        topOffersList: encodeData(topOffersList) || null,
-        topOffersCardsData: encodeData(topOffersCardsData) || null,
+        vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
+        productCardsData: productCardsData
+          ? encodeData(productCardsData)
+          : null,
+        topOffersList: topOffersList ? encodeData(topOffersList) : null,
+        topOffersCardsData: topOffersCardsData
+          ? encodeData(topOffersCardsData)
+          : null,
         defaultSort: defaultSort || null,
       },
     };

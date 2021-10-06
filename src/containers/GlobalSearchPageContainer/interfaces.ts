@@ -34,7 +34,7 @@ export interface IProps {
   filtersData?: IProductFilter;
   initialFilters: IFiltersData;
   metaData: PageMetaData;
-  preLoadProductDerivatives: IProductDerivatives;
+  preLoadProductDerivatives?: IProductDerivatives;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   defaultSort?: ProductDerivativeSort[];
