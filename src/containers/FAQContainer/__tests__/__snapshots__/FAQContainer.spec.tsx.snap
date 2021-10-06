@@ -7,43 +7,17 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       class="row:title"
     >
       <nav
+        class="breadcrumbs breadcrumbs--mobile"
         data-testid="breadcrumbs"
       >
         <ul
-          class="breadcrumb"
+          class="breadcrumbs__list"
         >
           <li
-            class="breadcrumb-item -parent"
-            style="display: none;"
+            class="breadcrumbs__item"
           >
             <a
-              class="breadcrumb-item--parent link -teal -small"
-              data-testid="router-link"
-              href="/"
-            >
-              <i
-                class="icon -teal"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <polyline
-                    points="328 112 184 256 328 400"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                  />
-                </svg>
-              </i>
-              Home
-            </a>
-          </li>
-          <li
-            class="breadcrumb-item -parent"
-            style="display: grid;"
-          >
-            <a
-              class="breadcrumb-item--parent link -teal -small"
+              class="breadcrumbs__link link -teal -small"
               data-testid="link"
               href="/van-insurance.html"
             >
@@ -65,12 +39,70 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               Van Insurance
             </a>
           </li>
+        </ul>
+      </nav>
+      <nav
+        class="breadcrumbs breadcrumbs--desktop"
+        data-testid="breadcrumbs"
+      >
+        <ul
+          class="breadcrumbs__list"
+        >
           <li
-            class="breadcrumb-item -child"
-            style="display: none;"
+            class="breadcrumbs__item"
+          >
+            <a
+              class="breadcrumbs__link link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumbs__item"
+          >
+            <a
+              class="breadcrumbs__link link -teal -small"
+              data-testid="link"
+              href="/van-insurance.html"
+            >
+              Van Insurance
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumbs__item"
           >
             <span
-              class="text breadcrumb-item--child -small -darker"
+              class="text breadcrumbs__text -small -darker"
             >
               FAQ
             </span>
