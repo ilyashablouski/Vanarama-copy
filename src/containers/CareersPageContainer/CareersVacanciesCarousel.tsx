@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { SwiperSlide } from 'swiper/react';
 
+import { IClassNamesProps } from 'models/IClassNamesProps';
 import {
   GenericPageQuery_genericPage_sectionsAsArray_carousel as ICarouselData,
   GenericPageQuery_genericPage_sectionsAsArray_carousel_cards as ICard,
@@ -11,7 +12,6 @@ import { Nullable } from '../../types/common';
 
 import Skeleton from '../../components/Skeleton';
 import RouterLink from '../../components/RouterLink';
-import { IClassNamesProps } from 'models/IClassNamesProps';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
