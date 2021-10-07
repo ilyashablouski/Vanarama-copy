@@ -1187,6 +1187,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 isFuelPage={isFuelPage}
                 isTransmissionPage={isTransmissionPage}
                 isPreloadList={!!preLoadVehiclesList}
+                isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 preLoadFilters={preLoadFiltersData}
                 isSpecialOffers={
