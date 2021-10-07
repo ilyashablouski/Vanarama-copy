@@ -100,11 +100,11 @@ module.exports = {
     // Rewrites.
     async rewrites() {
       let remoteRewriteList = [];
-      const MP_HMC_URL = 'https://hmc.vanarama.dev/hmc';
+      const MP_HMC_URL = 'https://hmc.vanarama.dev';
       const localRewriteList = [
         {
           source: '/hmc',
-          destination: MP_HMC_URL,
+          destination: `${MP_HMC_URL}/hmc`,
         },
         {
           source: '/hmc/:path*',
