@@ -20,6 +20,7 @@ import { OrderInputObject } from '../../../../../generated/globalTypes';
 import usePerson from '../../../../hooks/usePerson';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
+import { useStoredPersonUuidQuery, useSavePersonUuidMutation } from "gql/storedPersonUuid";
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -56,11 +57,12 @@ export const BusinessAboutPage: NextPage = () => {
   const loginFormRef = useRef<HTMLDivElement>(null);
 
   const {
-    personUuid,
-    setPersonUuid,
     personLoggedIn,
     setPersonLoggedIn,
   } = usePerson();
+
+  const [savePersonUuid] = useSavePersonUuidMutation();
+  const {data} = useStoredPersonUuidQuery();
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
@@ -120,8 +122,12 @@ export const BusinessAboutPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={person => {
+                savePersonUuid({
+                  variables: {
+                    uuid: person?.uuid
+                  }
+                });
                 pushAuthorizationEventDataLayer();
-                setPersonUuid(person?.uuid);
                 setPersonLoggedIn(true);
                 return router.replace(router.pathname, router.asPath);
               }}
@@ -139,7 +145,7 @@ export const BusinessAboutPage: NextPage = () => {
       )}
       <BusinessAboutFormContainer
         orderId={orderId}
-        personUuid={personUuid}
+        personUuid={data?.storedPersonUuid || undefined}
         personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
