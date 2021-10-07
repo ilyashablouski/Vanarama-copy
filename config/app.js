@@ -100,14 +100,15 @@ module.exports = {
     // Rewrites.
     async rewrites() {
       let remoteRewriteList = [];
+      const MP_HMC_URL = 'https://hmc.vanarama.dev/hmc';
       const localRewriteList = [
         {
           source: '/hmc',
-          destination: 'https://msf-hmc.vercel.app/hmc',
+          destination: MP_HMC_URL,
         },
         {
           source: '/hmc/:path*',
-          destination: `https://msf-hmc.vercel.app/hmc/:path*`,
+          destination: `${MP_HMC_URL}/hmc/:path*`,
         },
       ];
 
