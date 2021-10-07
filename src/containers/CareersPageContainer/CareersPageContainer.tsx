@@ -3,6 +3,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import SchemaJSON from 'core/atoms/schema-json';
 
+import RouterLink from 'components/RouterLink';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sectionsAsArray as ISections,
@@ -16,8 +17,6 @@ import LeadText from '../../components/LeadText';
 import JumpMenu from '../../components/JumpMenu';
 import FeaturedSection from '../../components/FeaturedSection';
 import { HeroBackground as Hero, HeroHeading } from '../../components/Hero';
-
-import CareersVacanciesCarousel from './CareersVacanciesCarousel';
 
 interface IProps {
   data: GenericPageQuery;
@@ -67,7 +66,6 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
   const sections = data?.genericPage.sectionsAsArray;
 
   const hero = sections?.hero?.[0];
-  const vacanciesCarousel = sections?.carousel?.[0];
 
   return (
     <>
@@ -84,11 +82,25 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
 
       {renderSections(sections)}
 
-      {vacanciesCarousel && (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <CareersVacanciesCarousel {...vacanciesCarousel} />
-        </LazyLoadComponent>
-      )}
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            withoutDefaultClassName
+            classNames={{
+              color: 'teal',
+              size: 'regular',
+              solid: true,
+            }}
+            link={{
+              label: 'See Vacancies',
+              href: 'https://vanarama.careers.adp.com/',
+            }}
+          >
+            <div className="button--inner">See Vacancies</div>
+          </RouterLink>
+        </div>
+      </LazyLoadComponent>
 
       {data?.genericPage.metaData && (
         <>
