@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { SwiperSlide } from 'swiper/react';
 
-import { IClassNamesProps } from 'models/IClassNamesProps';
 import {
   GenericPageQuery_genericPage_sectionsAsArray_carousel as ICarouselData,
   GenericPageQuery_genericPage_sectionsAsArray_carousel_cards as ICard,
@@ -22,17 +21,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
-
-const CAREERS_LINK = {
-  label: 'See Vacancies',
-  href: '/careers/vacancies.html',
-};
-
-const DEFAULT_LINK_CLASSNAMES: IClassNamesProps = {
-  color: 'teal',
-  solid: true,
-  size: 'regular',
-};
 
 const renderCarouselCards = (cards: Nullable<ICard>[]) =>
   cards.map(card =>
@@ -75,8 +63,15 @@ const CareersVacanciesCarousel = ({ cards, name }: ICarouselData) => (
       <RouterLink
         className="button"
         withoutDefaultClassName
-        classNames={DEFAULT_LINK_CLASSNAMES}
-        link={CAREERS_LINK}
+        classNames={{
+          color: 'teal',
+          size: 'regular',
+          solid: true,
+        }}
+        link={{
+          label: 'See Vacancies',
+          href: '/careers/vacancies.html',
+        }}
       >
         <div className="button--inner">See Vacancies</div>
       </RouterLink>

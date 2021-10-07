@@ -4,6 +4,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 
 import RouterLink from 'components/RouterLink';
+import { IClassNamesProps } from 'models/IClassNamesProps';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sectionsAsArray as ISections,
@@ -21,6 +22,17 @@ import { HeroBackground as Hero, HeroHeading } from '../../components/Hero';
 interface IProps {
   data: GenericPageQuery;
 }
+
+const CAREERS_LINK = {
+  label: 'See Vacancies',
+  href: '/careers/vacancies.html',
+};
+
+const DEFAULT_LINK_CLASSNAMES: IClassNamesProps = {
+  color: 'teal',
+  solid: true,
+  size: 'regular',
+};
 
 const renderSections = (sections: Nullable<ISections>) =>
   sections?.featured?.map((section, index) => {
@@ -87,15 +99,8 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
           <RouterLink
             className="button"
             withoutDefaultClassName
-            classNames={{
-              color: 'teal',
-              size: 'regular',
-              solid: true,
-            }}
-            link={{
-              label: 'See Vacancies',
-              href: 'https://vanarama.careers.adp.com/',
-            }}
+            classNames={DEFAULT_LINK_CLASSNAMES}
+            link={CAREERS_LINK}
           >
             <div className="button--inner">See Vacancies</div>
           </RouterLink>
