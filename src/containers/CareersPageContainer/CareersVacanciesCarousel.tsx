@@ -11,6 +11,7 @@ import { Nullable } from '../../types/common';
 
 import Skeleton from '../../components/Skeleton';
 import RouterLink from '../../components/RouterLink';
+import { IClassNamesProps } from 'models/IClassNamesProps';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -21,6 +22,17 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
+
+const CAREERS_LINK = {
+  label: 'See Vacancies',
+  href: '/careers/vacancies.html',
+};
+
+const DEFAULT_LINK_CLASSNAMES: IClassNamesProps = {
+  color: 'teal',
+  solid: true,
+  size: 'regular',
+};
 
 const renderCarouselCards = (cards: Nullable<ICard>[]) =>
   cards.map(card =>
@@ -63,15 +75,8 @@ const CareersVacanciesCarousel = ({ cards, name }: ICarouselData) => (
       <RouterLink
         className="button"
         withoutDefaultClassName
-        classNames={{
-          color: 'teal',
-          size: 'regular',
-          solid: true,
-        }}
-        link={{
-          label: 'See Vacancies',
-          href: '/careers/vacancies.html',
-        }}
+        classNames={DEFAULT_LINK_CLASSNAMES}
+        link={CAREERS_LINK}
       >
         <div className="button--inner">See Vacancies</div>
       </RouterLink>
