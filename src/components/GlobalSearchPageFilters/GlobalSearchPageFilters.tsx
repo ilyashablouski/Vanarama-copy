@@ -196,7 +196,10 @@ const GlobalSearchPageFilters = ({
 
     setActiveFilters({
       ...activeFilters,
-      [name]: [...selectedValues, inputValue],
+      [name]: [
+        ...selectedValues.filter(value => value !== inputValue),
+        inputValue,
+      ],
     });
   };
 
