@@ -3,6 +3,7 @@ import storedPersonUuid from './query/storedPersonUuid';
 
 import savePerson from './mutation/savePerson';
 import savePersonUuid from './mutation/savePersonUuid';
+import saveOrder from './mutation/saveOrder';
 
 export default {
   Query: {
@@ -12,5 +13,6 @@ export default {
   Mutation: {
     savePerson,
     savePersonUuid,
+    saveOrder,
   },
 };

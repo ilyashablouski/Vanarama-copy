@@ -11,4 +11,5 @@ extend type Query {
 extend type Mutation {
   savePerson(person: PersonInputObject): PersonType
   savePersonUuid(uuid: ID): ID
+  saveOrder(data: OrderInputObject) : OrderInputObject
 }

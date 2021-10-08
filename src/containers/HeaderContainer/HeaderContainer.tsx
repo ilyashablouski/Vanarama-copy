@@ -63,7 +63,7 @@ const HeaderContainer: FC = () => {
     operationResult => {
       if (operationResult?.storedPerson) {
         addHeapUserIdentity(
-          operationResult?.storedPerson?.emailAddresses[0].value,
+          operationResult?.storedPerson?.emailAddresses?.[0].value,
         );
         addHeapUserProperties({
           uuid: operationResult?.storedPerson?.uuid,

@@ -70,6 +70,7 @@ import {
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
+import { useSaveOrderMutation } from '../../gql/storedOrder';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -365,6 +366,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data?.vehicleImages],
   );
 
+  const [saveOrderMutation] = useSaveOrderMutation();
+
   const bannerList = useMemo(() => {
     const banners = pdpContentData?.pdpContent?.banners ?? [];
 
@@ -393,11 +396,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
     setIsModalVisible(false);
 
-    return localForage
-      .setItem('order', {
-        ...values,
-        rating: vehicleDetails?.averageRating || 0,
-      })
+    return saveOrderMutation({
+      variables: {
+        data: {
+          ...values,
+          rating: vehicleDetails?.averageRating || 0,
+        },
+      },
+    })
       .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
       .then(() => localForage.removeItem('orderId'))
       .then(() => localForage.removeItem('personEmail'))
