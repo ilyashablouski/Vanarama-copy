@@ -69,6 +69,7 @@ const SearchPageFilters = ({
   isTransmissionPage,
   isDynamicFilterPage,
   isPreloadList,
+  isPartnershipActive,
   setSearchFilters,
   filtersData,
   setFiltersData,
@@ -556,7 +557,7 @@ const SearchPageFilters = ({
                           (filter.accessor === FilterFields.bodyStyles &&
                             (isPickups || isModelPage || isBodyPage)) ||
                           (filter.accessor === FilterFields.fuelTypes &&
-                            isFuelPage) ||
+                            (isFuelPage || isPartnershipActive)) ||
                           (filter.accessor === FilterFields.transmissions &&
                             isTransmissionPage) ||
                           // disable if only one option is available
