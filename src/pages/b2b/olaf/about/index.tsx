@@ -7,7 +7,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import {
   useStoredPersonUuidQuery,
   useSavePersonUuidMutation,
-} from './../../../../gql/storedPersonUuid';
+} from '../../../../gql/storedPersonUuid';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
