@@ -95,7 +95,7 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
       {renderSections(sections)}
 
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <div className="-justify-content-row -pt-500">
+        <div className="-justify-content-row -pt-300">
           <RouterLink
             className="button"
             withoutDefaultClassName
