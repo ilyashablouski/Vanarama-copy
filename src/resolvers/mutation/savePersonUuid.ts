@@ -1,16 +1,12 @@
 import localforage from 'localforage';
 
-interface ISavePersonArgs {
+interface ISavePersonUuidArgs {
   uuid: string | null;
 }
 
 export default function savePersonUuid(
   rootValue: unknown,
-  args: ISavePersonArgs,
+  args: ISavePersonUuidArgs,
 ) {
-  if (typeof window !== 'undefined') {
-    return localforage.setItem<string | null>('storedPerson', args.uuid);
-  }
-
-  return null;
+  return localforage.setItem<string | null>('personUuid', args.uuid);
 }
