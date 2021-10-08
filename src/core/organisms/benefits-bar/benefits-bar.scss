@@ -119,6 +119,7 @@
 
     svg {
       --class-color: white;
+      image-rendering: -webkit-optimize-contrast;
     }
   }
 
