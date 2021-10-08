@@ -3,6 +3,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import SchemaJSON from 'core/atoms/schema-json';
 
+import RouterLink from 'components/RouterLink';
+import { IClassNamesProps } from 'models/IClassNamesProps';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sectionsAsArray as ISections,
@@ -17,11 +19,20 @@ import JumpMenu from '../../components/JumpMenu';
 import FeaturedSection from '../../components/FeaturedSection';
 import { HeroBackground as Hero, HeroHeading } from '../../components/Hero';
 
-import CareersVacanciesCarousel from './CareersVacanciesCarousel';
-
 interface IProps {
   data: GenericPageQuery;
 }
+
+const CAREERS_LINK = {
+  label: 'See Vacancies',
+  href: '/careers/vacancies.html',
+};
+
+const DEFAULT_LINK_CLASSNAMES: IClassNamesProps = {
+  color: 'teal',
+  solid: true,
+  size: 'regular',
+};
 
 const renderSections = (sections: Nullable<ISections>) =>
   sections?.featured?.map((section, index) => {
@@ -67,7 +78,6 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
   const sections = data?.genericPage.sectionsAsArray;
 
   const hero = sections?.hero?.[0];
-  const vacanciesCarousel = sections?.carousel?.[0];
 
   return (
     <>
@@ -84,11 +94,18 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
 
       {renderSections(sections)}
 
-      {vacanciesCarousel && (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <CareersVacanciesCarousel {...vacanciesCarousel} />
-        </LazyLoadComponent>
-      )}
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <div className="-justify-content-row -pt-300">
+          <RouterLink
+            className="button"
+            withoutDefaultClassName
+            classNames={DEFAULT_LINK_CLASSNAMES}
+            link={CAREERS_LINK}
+          >
+            <div className="button--inner">See Vacancies</div>
+          </RouterLink>
+        </div>
+      </LazyLoadComponent>
 
       {data?.genericPage.metaData && (
         <>

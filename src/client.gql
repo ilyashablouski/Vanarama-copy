@@ -6,9 +6,11 @@ extend type Query {
   isSessionFinished: Boolean
   storedPerson: PersonType
   storedPersonUuid: ID
+  storedPersonEmail: String
 }
 
 extend type Mutation {
   savePerson(person: PersonInputObject): PersonType
   savePersonUuid(uuid: ID): ID
+  savePersonEmail(email: String): String
 }
