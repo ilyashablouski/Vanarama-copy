@@ -22,6 +22,7 @@ export function useStoredPersonEmailQuery(
   onError?: (error: ApolloError) => void,
 ) {
   return useQuery<GetStoredPersonEmail>(GET_STORED_PERSON_EMAIL_QUERY, {
+    ssr: false,
     onCompleted,
     onError,
   });

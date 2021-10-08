@@ -8,9 +8,5 @@ export default function savePersonEmail(
   rootValue: unknown,
   args: ISavePersonEmailArgs,
 ) {
-  if (typeof window !== 'undefined') {
-    return localforage.setItem<string | null>('personEmail', args.email);
-  }
-
-  return null;
+  return localforage.setItem<string | null>('personEmail', args.email);
 }

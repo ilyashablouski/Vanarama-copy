@@ -8,9 +8,5 @@ export default function savePersonUuid(
   rootValue: unknown,
   args: ISavePersonUuidArgs,
 ) {
-  if (typeof window !== 'undefined') {
-    return localforage.setItem<string | null>('personUuid', args.uuid);
-  }
-
-  return null;
+  return localforage.setItem<string | null>('personUuid', args.uuid);
 }

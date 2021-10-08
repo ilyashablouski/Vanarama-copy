@@ -22,6 +22,7 @@ export function useStoredPersonUuidQuery(
   onError?: (error: ApolloError) => void,
 ) {
   return useQuery<GetStoredPersonUuid>(GET_STORED_PERSON_UUID_QUERY, {
+    ssr: false,
     onCompleted,
     onError,
   });
