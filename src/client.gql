@@ -5,7 +5,8 @@ extend type Query {
   lastStep: JSON
   isSessionFinished: Boolean
   storedPerson: PersonType
-  storedPersonUuid: ID
+  storedPersonUuid: ID,
+  getOrder: OrderInputObject
 }
 
 extend type Mutation {
