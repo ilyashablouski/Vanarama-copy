@@ -6,9 +6,5 @@ interface ISaveOrderArgs {
 }
 
 export default function saveOrder(rootValue: unknown, args: ISaveOrderArgs) {
-  if (typeof window !== 'undefined') {
-    return localforage.setItem<OrderInputObject>('order', args.data);
-  }
-
-  return null;
+  return localforage.setItem<OrderInputObject>('order', args.data);
 }
