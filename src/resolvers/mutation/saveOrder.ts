@@ -1,10 +1,9 @@
 import localforage from 'localforage';
-import { OrderInputObject } from '../../../generated/globalTypes';
+import { SaveOrderVariables } from '../../../generated/SaveOrder';
 
-interface ISaveOrderArgs {
-  data: OrderInputObject;
-}
-
-export default function saveOrder(rootValue: unknown, args: ISaveOrderArgs) {
-  return localforage.setItem<OrderInputObject>('order', args.data);
+export default function saveOrder(
+  rootValue: unknown,
+  args: SaveOrderVariables,
+) {
+  return localforage.setItem<SaveOrderVariables>('order', args);
 }

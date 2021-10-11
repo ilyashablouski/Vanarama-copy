@@ -1,7 +1,7 @@
 import storedPerson from './query/storedPerson';
 import storedPersonUuid from './query/storedPersonUuid';
 import storedPersonEmail from './query/storedPersonEmail';
-import getOrder from './query/getOrder';
+import storedOrder from './query/storedOrder';
 
 import savePerson from './mutation/savePerson';
 import savePersonUuid from './mutation/savePersonUuid';
@@ -12,7 +12,7 @@ export default {
   Query: {
     storedPerson,
     storedPersonUuid,
-    getOrder,
+    storedOrder,
     storedPersonEmail,
   },
   Mutation: {

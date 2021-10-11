@@ -1,3 +1,8 @@
+type OrderInputObjectWithRating {
+  order: OrderInputObject
+  rating: Float
+}
+
 extend type Query {
   uuid: ID
   leaseTypes: JSON
@@ -5,14 +10,14 @@ extend type Query {
   lastStep: JSON
   isSessionFinished: Boolean
   storedPerson: PersonType
-  storedPersonUuid: ID,
-  getOrder: OrderInputObject
+  storedPersonUuid: ID
+  storedOrder: OrderInputObjectWithRating
   storedPersonEmail: String
 }
 
 extend type Mutation {
   savePerson(person: PersonInputObject): PersonType
   savePersonUuid(uuid: ID): ID
-  saveOrder(data: OrderInputObject) : OrderInputObject
+  saveOrder(order: OrderInputObject, rating: Float): OrderInputObjectWithRating
   savePersonEmail(email: String): String
 }
