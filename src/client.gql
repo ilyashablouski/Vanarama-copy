@@ -7,10 +7,12 @@ extend type Query {
   storedPerson: PersonType
   storedPersonUuid: ID,
   getOrder: OrderInputObject
+  storedPersonEmail: String
 }
 
 extend type Mutation {
   savePerson(person: PersonInputObject): PersonType
   savePersonUuid(uuid: ID): ID
   saveOrder(data: OrderInputObject) : OrderInputObject
+  savePersonEmail(email: String): String
 }
