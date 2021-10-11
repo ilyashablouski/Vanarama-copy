@@ -1,6 +1,14 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
 import { OrderInputObject } from '../../generated/globalTypes';
 
+interface OrderInputObjectWithRating extends OrderInputObject {
+  rating?: number;
+}
+
+interface IOrderStorageData {
+  getOrder: OrderInputObjectWithRating;
+}
+
 export const GET_ORDER_QUERY = gql`
   query GetOrder {
     getOrder @client
@@ -8,26 +16,26 @@ export const GET_ORDER_QUERY = gql`
 `;
 
 export function useGetOrderQuery(
-  onCompleted?: (data: OrderInputObject) => void,
+  onCompleted?: (data: IOrderStorageData) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useQuery<OrderInputObject>(GET_ORDER_QUERY, {
+  return useQuery<IOrderStorageData>(GET_ORDER_QUERY, {
     onCompleted,
     onError,
   });
 }
 
 export const SAVE_ORDER_MUTATION = gql`
-  mutation SaveOrder($data: OrderInputObject) {
+  mutation SaveOrder($data: OrderInputObjectWithRating) {
     saveOrder(data: $data) @client
   }
 `;
 
 export function useSaveOrderMutation(
-  onCompleted?: (data: OrderInputObject) => void,
+  onCompleted?: (data: OrderInputObjectWithRating) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useMutation<OrderInputObject>(SAVE_ORDER_MUTATION, {
+  return useMutation<OrderInputObjectWithRating>(SAVE_ORDER_MUTATION, {
     onCompleted,
     onError,
   });
