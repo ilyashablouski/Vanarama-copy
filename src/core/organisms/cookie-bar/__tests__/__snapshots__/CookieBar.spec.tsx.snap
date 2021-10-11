@@ -2,18 +2,20 @@
 
 exports[`<CookieBar /> should render correctly 1`] = `
 <CookieBar
+  hideComponent={[MockFunction]}
+  isVisible={true}
   onAccept={[MockFunction]}
   onAfterHide={[MockFunction]}
-  onBeforeShow={[MockFunction]}
   onDecline={[MockFunction]}
 >
   <div
-    className="cookie-dialog -hidden"
+    className="cookie-dialog"
     onTransitionEnd={[Function]}
     role="dialog"
   >
     <button
       className="cookie-dialog__close"
+      onClick={[MockFunction]}
       type="button"
     >
       <Memo()>
