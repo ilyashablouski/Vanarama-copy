@@ -83,6 +83,7 @@ const GlobalSearchPageFilters = ({
   );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [currentManufacturer, setCurrentManufacturer] = useState('');
+  const [currentRangeName, setCurrentRangeName] = useState('');
   const [getProductFilters] = useProductFilters(
     isAllProductsRequest ? undefined : searchTerm,
     async dataResult => {
@@ -178,6 +179,7 @@ const GlobalSearchPageFilters = ({
     let selectedValues = activeFilters[name as keyof typeof filtersMapper]
       ? [...(activeFilters[name as keyof typeof filtersMapper] as string[])]
       : [];
+
     if (name === 'manufacturerNames') {
       selectedValues = selectedValues.filter(
         value => value !== currentManufacturer,
@@ -194,12 +196,16 @@ const GlobalSearchPageFilters = ({
       return;
     }
 
+    if (name === 'rangeName') {
+      selectedValues = selectedValues.filter(
+        value => value !== currentRangeName,
+      );
+      setCurrentRangeName(inputValue);
+    }
+
     setActiveFilters({
       ...activeFilters,
-      [name]: [
-        ...selectedValues.filter(value => value !== inputValue),
-        inputValue,
-      ],
+      [name]: [...selectedValues, inputValue],
     });
   };
 
@@ -234,6 +240,7 @@ const GlobalSearchPageFilters = ({
         });
       }
       setCurrentManufacturer('');
+      setCurrentRangeName('');
     }
   };
 
