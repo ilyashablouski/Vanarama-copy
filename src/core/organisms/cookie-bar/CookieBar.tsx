@@ -1,4 +1,4 @@
-import React, { AnimationEvent, useState } from 'react';
+import React from 'react';
 import cx from 'classnames';
 
 import Text from 'core/atoms/text';
@@ -8,41 +8,32 @@ import CloseSharp from '../../assets/icons/CloseSharp';
 import RouterLink from '../../../components/RouterLink';
 
 interface IProps {
+  isVisible: boolean;
+  hideComponent: () => void;
+  onAfterHide: () => void;
   onAccept: () => void;
   onDecline: () => void;
-  onBeforeShow: () => void;
-  onAfterHide: () => void;
 }
 
-function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
-  const [isVisible, setVisible] = useState(true);
-
-  function hideCookieBar() {
-    setVisible(false);
-  }
-
+function CookieBar({
+  isVisible,
+  hideComponent,
+  onAfterHide,
+  onAccept,
+  onDecline,
+}: IProps) {
   function handleAcceptClick() {
-    hideCookieBar();
+    hideComponent();
     onAccept();
   }
 
   function handleDeclineClick() {
-    hideCookieBar();
+    hideComponent();
     onDecline();
   }
 
-  function handleAnimationStart({
-    animationName,
-  }: AnimationEvent<HTMLDivElement>) {
-    if (animationName === 'fadeIn') {
-      onBeforeShow();
-    }
-  }
-
-  function handleAnimationEnd({
-    animationName,
-  }: AnimationEvent<HTMLDivElement>) {
-    if (animationName === 'fadeOut') {
+  function handleTransitionEnd() {
+    if (!isVisible) {
       onAfterHide();
     }
   }
@@ -50,16 +41,15 @@ function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
   return (
     <div
       role="dialog"
-      onAnimationStart={handleAnimationStart}
-      onAnimationEnd={handleAnimationEnd}
+      onTransitionEnd={handleTransitionEnd}
       className={cx('cookie-dialog', {
-        '-hide': !isVisible,
+        '-hidden': !isVisible,
       })}
     >
       <button
         type="button"
         className="cookie-dialog__close"
-        onClick={hideCookieBar}
+        onClick={hideComponent}
       >
         <CloseSharp />
       </button>

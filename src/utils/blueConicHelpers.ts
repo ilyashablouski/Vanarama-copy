@@ -8,6 +8,13 @@ interface IBlueConicProfile {
 declare global {
   interface Window {
     blueConicClient?: {
+      event: {
+        subscribe: (
+          eventName: string,
+          handlerObject: object,
+          handlerFunction: () => void,
+        ) => void;
+      };
       profile: {
         updateProfile: () => void;
         getProfile: () => IBlueConicProfile;
@@ -22,8 +29,13 @@ const blueConicIds = [
   'personalised_content',
 ];
 
-function isBlueConicClientReady() {
-  return !!window.blueConicClient;
+export function isBlueConicClientReady() {
+  // https://support.blueconic.com/hc/en-us/articles/202605221-JavaScript-front-end-API#blueconicclient-methods
+  return (
+    typeof window.blueConicClient !== 'undefined' &&
+    typeof window.blueConicClient.event !== 'undefined' &&
+    typeof window.blueConicClient.event.subscribe !== 'undefined'
+  );
 }
 
 function getUserProfile() {
@@ -45,10 +57,6 @@ export function declineCookieBlueConic() {
 }
 
 export function shouldRenderCookieBar() {
-  if (!isBlueConicClientReady()) {
-    return false;
-  }
-
   const profile = getUserProfile();
 
   return !(
