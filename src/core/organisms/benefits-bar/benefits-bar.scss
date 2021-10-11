@@ -120,6 +120,12 @@
     svg {
       --class-color: white;
     }
+
+    img {
+      height: 25px;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
   }
 
 }

@@ -6,7 +6,6 @@ import ChevronBack from 'core/assets/icons/ChevronBack';
 import ChevronForward from 'core/assets/icons/ChevronForward';
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
-import TrustPilot from 'core/assets/icons/TrustPilot';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
 import { ICarouselProps } from '../carousel/interface';
@@ -25,7 +24,12 @@ const Slider: FC<ICarouselProps> = () => {
     },
     {
       title: 'Rated Excellent',
-      icon: <TrustPilot />,
+      icon: (
+        <img
+          alt="Trust pilot logo"
+          src="/Assets/images/benefits-bar/trust-pilot-logo.png"
+        />
+      ),
     },
     {
       title: 'Road Tax & Roadside Assistance Included',
