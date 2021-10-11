@@ -270,7 +270,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     if (redirectTo && redirectStatusCode) {
       return {
         redirect: {
-          destination: redirectTo,
+          destination: `/${redirectTo}`,
           statusCode: redirectStatusCode,
         },
       };
