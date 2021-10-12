@@ -4,6 +4,10 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
+import {
+  useStoredPersonUuidQuery,
+  useSavePersonUuidMutation,
+} from '../../../../gql/storedPersonUuid';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
@@ -55,12 +59,10 @@ export const BusinessAboutPage: NextPage = () => {
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
-  const {
-    personUuid,
-    setPersonUuid,
-    personLoggedIn,
-    setPersonLoggedIn,
-  } = usePerson();
+  const { personLoggedIn, setPersonLoggedIn } = usePerson();
+
+  const [savePersonUuid] = useSavePersonUuidMutation();
+  const { data } = useStoredPersonUuidQuery();
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
@@ -120,8 +122,12 @@ export const BusinessAboutPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={person => {
+                savePersonUuid({
+                  variables: {
+                    uuid: person?.uuid,
+                  },
+                });
                 pushAuthorizationEventDataLayer();
-                setPersonUuid(person?.uuid);
                 setPersonLoggedIn(true);
                 return router.replace(router.pathname, router.asPath);
               }}
@@ -139,7 +145,7 @@ export const BusinessAboutPage: NextPage = () => {
       )}
       <BusinessAboutFormContainer
         orderId={orderId}
-        personUuid={personUuid}
+        personUuid={data?.storedPersonUuid || undefined}
         personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
