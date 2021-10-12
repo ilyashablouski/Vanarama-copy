@@ -912,18 +912,30 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         }));
   };
 
-  const shouldRenderTopOffersContainer =
-    isManufacturerPage ||
-    isSpecialOfferPage ||
-    isRangePage ||
-    isDynamicFilterPage;
+  const shouldRenderTopOffersContainer = useMemo(
+    () =>
+      isManufacturerPage ||
+      isSpecialOfferPage ||
+      isRangePage ||
+      isDynamicFilterPage,
+    [isManufacturerPage, isSpecialOfferPage, isRangePage, isDynamicFilterPage],
+  );
 
-  const shouldRenderCheckbox =
-    !isManufacturerPage &&
-    !isSpecialOfferPage &&
-    !isRangePage &&
-    !isModelPage &&
-    !isDynamicFilterPage;
+  const shouldRenderCheckbox = useMemo(
+    () =>
+      !isManufacturerPage &&
+      !isSpecialOfferPage &&
+      !isRangePage &&
+      !isModelPage &&
+      !isDynamicFilterPage,
+    [
+      isManufacturerPage,
+      isSpecialOfferPage,
+      isRangePage,
+      isModelPage,
+      isDynamicFilterPage,
+    ],
+  );
 
   return (
     <>

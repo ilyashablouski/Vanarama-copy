@@ -5,7 +5,12 @@ import Heading from 'core/atoms/heading';
 import RouterLink from '../../components/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { Nullish } from '../../types/common';
-import { IHeading, IImage, ILink, IParagraph } from './interfaces';
+import {
+  IMarkdownHeading,
+  IMarkdownImage,
+  IMarkdownLink,
+  IMarkdownParagraph,
+} from '../../types/markdown';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -17,7 +22,7 @@ interface IProps {
 }
 
 const getMarkdownRenderers = (withoutImage: Nullish<boolean>) => ({
-  link: (props: ILink) => {
+  link: (props: IMarkdownLink) => {
     const { href, children } = props;
     return (
       <RouterLink
@@ -26,7 +31,7 @@ const getMarkdownRenderers = (withoutImage: Nullish<boolean>) => ({
       />
     );
   },
-  image: (props: IImage) => {
+  image: (props: IMarkdownImage) => {
     const { src, alt } = props;
     return !withoutImage ? (
       <img
@@ -37,18 +42,21 @@ const getMarkdownRenderers = (withoutImage: Nullish<boolean>) => ({
       />
     ) : null;
   },
-  heading: (props: IHeading) => (
+  heading: (props: IMarkdownHeading) => (
     <Heading {...props} size="lead" color="darker" tag="h3" />
   ),
-  paragraph: (props: IParagraph) => <Text {...props} tag="p" color="darker" />,
+  paragraph: (props: IMarkdownParagraph) => (
+    <Text {...props} tag="p" color="darker" />
+  ),
 });
 
 const SearchPageMarkdown = ({ markdown, withoutImage }: IProps) => (
-  <ReactMarkdown
-    className="markdown"
-    allowDangerousHtml
-    source={markdown ?? ''}
-    renderers={getMarkdownRenderers(withoutImage)}
-  />
+  // <ReactMarkdown
+  //   className="markdown"
+  //   allowDangerousHtml
+  //   source={markdown ?? ''}
+  //   renderers={getMarkdownRenderers(withoutImage)}
+  // />
+  <div>d</div>
 );
 export default SearchPageMarkdown;
