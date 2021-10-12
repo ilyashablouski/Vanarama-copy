@@ -58,8 +58,8 @@ const savePersonUuid = (data: IPerson) => {
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
-  const { data } = useGetOrderQuery();
-  const order = data?.storedOrder?.order;
+  const { data: orderData } = useGetOrderQuery();
+  const order = orderData?.storedOrder?.order;
   const orderId = useGetOrderId();
 
   const loginFormRef = useRef<HTMLDivElement>(null);
