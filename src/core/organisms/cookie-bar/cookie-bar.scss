@@ -1,17 +1,3 @@
-@keyframes fadeIn {
-  0% {
-    visibility: hidden;
-    opacity: 0;
-  }
-}
-
-@keyframes fadeOut {
-  100% {
-    visibility: hidden;
-    opacity: 0;
-  }
-}
-
 .cookie-dialog {
   position: fixed;
   left: 30px;
@@ -23,11 +9,13 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  animation: fadeIn .45s ease-out 5.45s backwards;
+  transition: all .45s ease-out 1.45s;
   z-index: 999;
 
-  &.-hide {
-    animation: fadeOut .45s ease-out forwards;
+  &.-hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition-delay: 0s;
   }
 
   @include mobile {
