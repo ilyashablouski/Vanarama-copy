@@ -1,16 +1,14 @@
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useGetOrderQuery } from 'gql/storedOrder';
 import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { GET_PERSON_INFORMATION } from '../address-history';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { CreateExpenseMutation_createUpdateIncomeAndExpense as IIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
-import useGetOrderId from '../../../hooks/useGetOrderId';
+import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
+import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -19,17 +17,14 @@ type QueryParams = OLAFQueryParams & {
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
-  const orderId = useGetOrderId();
-  const { data: orderData } = useGetOrderQuery();
+
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
+
+  const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
 
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-
-  let personUuid = uuid || '';
-  const { data } = useQuery(GET_PERSON_INFORMATION);
-  if (data?.uuid) {
-    personUuid = data.uuid;
-  }
+  const { data } = useStoredPersonUuidQuery();
+  const personUuid = uuid || data?.storedPersonUuid || '';
 
   const onCompleteClick = (
     createUpdateIncomeAndExpense: IIncomeAndExpense | null,
@@ -37,7 +32,7 @@ const ExpensesPage: NextPage = () => {
     createUpdateCA({
       variables: {
         input: {
-          orderUuid: orderId,
+          orderUuid: order?.uuid || '',
           incomeAndExpenses: createUpdateIncomeAndExpense,
         },
       },

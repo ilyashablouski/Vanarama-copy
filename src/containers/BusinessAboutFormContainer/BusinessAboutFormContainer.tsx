@@ -2,7 +2,10 @@ import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
-import { useGetOrderQuery } from '../../gql/storedOrder';
+import {
+  useStoredOrderQuery,
+  useSaveOrderMutation,
+} from '../../gql/storedOrder';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -59,17 +62,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onRegistrationClick,
   personLoggedIn,
 }) => {
-  const { data: orderData } = useGetOrderQuery();
-  const order = orderData?.storedOrder?.order;
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderId,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
+  const [saveOrderMutation] = useSaveOrderMutation();
+  const { data: orderData } = useStoredOrderQuery();
+  const order = orderData?.storedOrder?.order;
 
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
@@ -172,7 +173,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         },
       },
     }).then(response =>
-      localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid),
+      saveOrderMutation({
+        variables: {
+          order: response.data?.createUpdateOrder,
+        },
+      }),
     );
 
   const handleCreateUpdateCreditApplication = (
@@ -238,8 +243,12 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           )
           .then(({ data }) =>
             handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid)
-              .then(orderUuid =>
-                handleCreateUpdateCreditApplication(values, data, orderUuid),
+              .then(orderUpdateResult =>
+                handleCreateUpdateCreditApplication(
+                  values,
+                  data,
+                  orderUpdateResult.data?.saveOrder?.order?.uuid,
+                ),
               )
               .then(() => {
                 const result = {

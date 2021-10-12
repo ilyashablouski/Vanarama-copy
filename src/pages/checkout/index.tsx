@@ -3,15 +3,16 @@ import Cookies from 'js-cookie';
 import { NextPage } from 'next';
 
 import Loading from 'core/atoms/loading';
-import { useGetOrderQuery } from 'gql/storedOrder';
+import { useStoredOrderQuery } from 'gql/storedOrder';
 import CheckoutPageContainer from '../../containers/CheckoutPageContainer';
 import useGetQuote from '../../hooks/useGetQuote';
 import { useCarDerivativeQuery } from '../../gql/order';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 const CheckoutPage: NextPage = () => {
-  const { data: orderData } = useGetOrderQuery();
+  const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
+
   const quote = useGetQuote();
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
 

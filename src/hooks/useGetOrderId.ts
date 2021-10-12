@@ -1,20 +1,7 @@
-import { useEffect, useState } from 'react';
-import localForage from 'localforage';
+import { useStoredOrderQuery } from '../gql/storedOrder';
 
 export default function useGetOrderId(): string {
-  const [orderId, setOrderId] = useState('');
+  const { data } = useStoredOrderQuery();
 
-  useEffect(() => {
-    const getOrderID = async () => {
-      const orderIdStorage = await localForage.getItem<string>('orderId');
-
-      if (orderIdStorage) {
-        setOrderId(orderIdStorage);
-      }
-    };
-
-    getOrderID();
-  }, []);
-
-  return orderId;
+  return data?.storedOrder?.order?.uuid || '';
 }

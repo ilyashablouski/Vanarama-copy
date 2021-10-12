@@ -1,16 +1,18 @@
 import dynamic from 'next/dynamic';
 import { useState, useRef } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { gql, useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
-import { useGetOrderQuery } from 'gql/storedOrder';
 import {
   useStoredPersonUuidQuery,
   useSavePersonUuidMutation,
-} from 'gql/storedPersonUuid';
+} from '../../../gql/storedPersonUuid';
+import {
+  useStoredOrderQuery,
+  useSaveOrderMutation,
+} from '../../../gql/storedOrder';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
@@ -31,7 +33,6 @@ import {
 } from '../../../../generated/globalTypes';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
-import useGetOrderId from '../../../hooks/useGetOrderId';
 import usePerson from '../../../hooks/usePerson';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
@@ -50,6 +51,12 @@ export const handleAccountFetchError = () =>
     '',
   );
 
+const DEFAULT_LINE_ITEMS = [
+  {
+    quantity: 1,
+  },
+];
+
 const savePersonUuid = (data: IPerson) => {
   localForage.setItem('personUuid', data.uuid);
   localForage.setItem('personEmail', data.emailAddresses[0].value);
@@ -57,10 +64,6 @@ const savePersonUuid = (data: IPerson) => {
 
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
-  const client = useApolloClient();
-  const { data: orderData } = useGetOrderQuery();
-  const order = orderData?.storedOrder?.order;
-  const orderId = useGetOrderId();
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
@@ -75,10 +78,14 @@ const AboutYouPage: NextPage = () => {
   const [setPersonUuid] = useSavePersonUuidMutation();
   const { data } = useStoredPersonUuidQuery();
 
+  const [saveOrderMutation] = useSaveOrderMutation();
+  const { data: orderData } = useStoredOrderQuery();
+  const order = orderData?.storedOrder?.order;
+
   const { refetch } = usePersonByUuidData(data?.storedPersonUuid || '');
 
-  const [updateOrderHandle] = useCreateUpdateOrder(() => {});
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
+  const [updateOrderHandle] = useCreateUpdateOrder();
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
   const { redirect } = router.query as OLAFQueryParams;
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
@@ -92,45 +99,30 @@ const AboutYouPage: NextPage = () => {
             input: {
               personUuid: data?.storedPersonUuid || '',
               leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
-              lineItems: order?.lineItems || [
-                {
-                  quantity: 1,
-                },
-              ],
+              lineItems: order?.lineItems || DEFAULT_LINE_ITEMS,
               partyUuid: resp.data?.personByUuid?.partyUuid,
-              uuid: orderId,
+              uuid: order?.uuid,
             },
           },
         })
           .then(response =>
-            localForage.setItem<string | undefined>(
-              'orderId',
-              response.data?.createUpdateOrder?.uuid,
-            ),
+            saveOrderMutation({
+              variables: {
+                order: response.data?.createUpdateOrder,
+              },
+            }),
           )
-          .then(savedOrderId =>
+          .then(result =>
             createUpdateCA({
               variables: {
                 input: {
-                  orderUuid: savedOrderId || '',
+                  orderUuid: result.data?.saveOrder?.order?.uuid || '',
                   aboutDetails: createUpdatePerson,
                   creditApplicationType: CATypeEnum.B2C_PERSONAL,
                 },
               },
             }),
           ),
-      )
-      .then(() =>
-        client.writeQuery({
-          query: gql`
-            query WriteCachedPersonInformation {
-              uuid @client
-            }
-          `,
-          data: {
-            uuid: data?.storedPersonUuid,
-          },
-        }),
       )
       .then(() => getUrlParam({ uuid: createUpdatePerson.uuid }))
       .then(params => redirect || `/olaf/address-history${params}`)
@@ -194,7 +186,7 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
-        orderId={orderId}
+        orderId={order?.uuid || ''}
         personLoggedIn={personLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)

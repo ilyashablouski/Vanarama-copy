@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderInputObject } from "./globalTypes";
+import { OrderInputObject, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateOrder
@@ -43,6 +43,11 @@ export interface CreateUpdateOrder_createUpdateOrder {
   uuid: string;
   createdAt: CustomDateTime | null;
   salesChannel: string;
+  referenceNumber: string | null;
+  personUuid: string | null;
+  partyUuid: string | null;
+  leaseType: LeaseTypeEnum;
+  additionalData: CustomJson | null;
   status: string;
   lineItems: CreateUpdateOrder_createUpdateOrder_lineItems[];
 }
