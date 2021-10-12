@@ -78,7 +78,7 @@ import {
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
 import NewRangeContent from './NewRangeContent';
-import { ISearchPageContainerProps } from '../../pages/car-leasing/interface';
+import { ISearchPageContainerProps } from './interfaces';
 import SearchPageCarousel from './SearchPageCarousel';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageMarkdown from './SearchPageMarkdown';
