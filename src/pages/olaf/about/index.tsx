@@ -6,6 +6,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
+import { useGetOrderQuery } from 'gql/storedOrder';
 import {
   useStoredPersonUuidQuery,
   useSavePersonUuidMutation,
@@ -30,7 +31,6 @@ import {
 } from '../../../../generated/globalTypes';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
-import useGetOrder from '../../../hooks/useGetOrder';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 import usePerson from '../../../hooks/usePerson';
 
@@ -58,7 +58,8 @@ const savePersonUuid = (data: IPerson) => {
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
-  const order = useGetOrder();
+  const { data: orderData } = useGetOrderQuery();
+  const order = orderData?.storedOrder?.order;
   const orderId = useGetOrderId();
 
   const loginFormRef = useRef<HTMLDivElement>(null);
