@@ -1,4 +1,11 @@
-import { gql, useQuery, useMutation, ApolloError } from '@apollo/client';
+import {
+  gql,
+  useQuery,
+  useMutation,
+  ApolloError,
+  ApolloClient,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { GetStoredPersonEmail } from '../../generated/GetStoredPersonEmail';
 import {
   SavePersonEmail,
@@ -39,4 +46,15 @@ export function useSavePersonEmailMutation(
       onError,
     },
   );
+}
+
+export function getStoredPersonEmail(
+  client: ApolloClient<NormalizedCacheObject>,
+) {
+  return client
+    .query<GetStoredPersonEmail>({
+      query: GET_STORED_PERSON_EMAIL_QUERY,
+    })
+    .then(operation => operation.data?.storedPersonEmail)
+    .catch(() => null);
 }
