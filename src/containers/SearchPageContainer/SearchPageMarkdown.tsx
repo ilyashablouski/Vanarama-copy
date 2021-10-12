@@ -51,12 +51,11 @@ const getMarkdownRenderers = (withoutImage: Nullish<boolean>) => ({
 });
 
 const SearchPageMarkdown = ({ markdown, withoutImage }: IProps) => (
-  // <ReactMarkdown
-  //   className="markdown"
-  //   allowDangerousHtml
-  //   source={markdown ?? ''}
-  //   renderers={getMarkdownRenderers(withoutImage)}
-  // />
-  <div>d</div>
+  <ReactMarkdown
+    className="markdown"
+    allowDangerousHtml
+    source={markdown ?? ''}
+    renderers={getMarkdownRenderers(withoutImage)}
+  />
 );
 export default SearchPageMarkdown;
