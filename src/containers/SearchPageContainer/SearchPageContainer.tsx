@@ -79,9 +79,9 @@ import {
 } from '../../utils/windowSessionStorage';
 import NewRangeContent from './NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
-import SearchPageCarousel from './SearchPageCarousel';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageMarkdown from './SearchPageMarkdown';
+import RelatedCarousel from './RelatedCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -948,16 +948,12 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           customDescription={partnershipDescription}
         />
       </div>
-      {pageData && (
-        <>
-          {isModelPage && (
-            <div className="row:text -columns">
-              <div>
-                <SearchPageMarkdown markdown={pageData?.genericPage.body} />
-              </div>
-            </div>
-          )}
-        </>
+      {pageData && isModelPage && (
+        <div className="row:text -columns">
+          <div>
+            <SearchPageMarkdown markdown={pageData?.genericPage.body} />
+          </div>
+        </div>
       )}
 
       {isNewPage && isRangePage
@@ -1148,8 +1144,8 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             />
           ) : null}
 
-          {carousel?.cards?.length && (
-            <SearchPageCarousel carouselData={carousel} />
+          {!!carousel?.cards?.length && (
+            <RelatedCarousel cards={carousel.cards} title={carousel.title} />
           )}
         </>
       )}

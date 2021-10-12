@@ -21,6 +21,28 @@ interface IProps {
 }
 
 const TopCategoryInfoBlock = ({ pageData }: IProps) => {
+  const headingTag = getTitleTag(
+    getSectionsData(
+      ['sectionsAsArray', 'featured', '0', 'titleTag'],
+      pageData?.genericPage,
+    ) || 'p',
+  ) as keyof JSX.IntrinsicElements;
+
+  const headingText = getSectionsData(
+    ['sectionsAsArray', 'featured', '0', 'title'],
+    pageData?.genericPage,
+  );
+
+  const markdownBody = getSectionsData(
+    ['sectionsAsArray', 'featured', '0', 'body'],
+    pageData?.genericPage,
+  );
+
+  const imageUrl = getSectionsData(
+    ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+    pageData?.genericPage,
+  );
+
   return (
     <section className="row:featured-left">
       <div>
@@ -28,27 +50,14 @@ const TopCategoryInfoBlock = ({ pageData }: IProps) => {
           className="-mb-400"
           size="large"
           color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['sectionsAsArray', 'featured', '0', 'titleTag'],
-                pageData?.genericPage,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
+          tag={headingTag}
         >
-          {getSectionsData(
-            ['sectionsAsArray', 'featured', '0', 'title'],
-            pageData?.genericPage,
-          )}
+          {headingText}
         </Heading>
         <div className="markdown full-width">
           <ReactMarkdown
             allowDangerousHtml
-            source={getSectionsData(
-              ['sectionsAsArray', 'featured', '0', 'body'],
-              pageData?.genericPage,
-            )}
+            source={markdownBody}
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -74,10 +83,7 @@ const TopCategoryInfoBlock = ({ pageData }: IProps) => {
       <Image
         className="card-image range__featured-image"
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        src={getSectionsData(
-          ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
-          pageData?.genericPage,
-        )}
+        src={imageUrl}
       />
     </section>
   );
