@@ -96,11 +96,6 @@ const DropdownsBlockComponent = ({
 
   const onResetForm = () => {
     const selects = formRef.current?.querySelectorAll('select');
-
-    if (!selects) {
-      return;
-    }
-
     selects?.forEach(select => {
       const firstOption = select.querySelector('option');
       firstOption?.setAttribute('selected', 'selected');
