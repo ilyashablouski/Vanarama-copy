@@ -1,4 +1,11 @@
-import { gql, useQuery, useMutation, ApolloError } from '@apollo/client';
+import {
+  gql,
+  useQuery,
+  useMutation,
+  ApolloError,
+  ApolloClient,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { GetStoredPersonUuid } from '../../generated/GetStoredPersonUuid';
 import {
   SavePersonUuid,
@@ -39,4 +46,15 @@ export function useSavePersonUuidMutation(
       onError,
     },
   );
+}
+
+export function getStoredPersonUuid(
+  client: ApolloClient<NormalizedCacheObject>,
+) {
+  return client
+    .query<GetStoredPersonUuid>({
+      query: GET_STORED_PERSON_UUID_QUERY,
+    })
+    .then(operation => operation.data?.storedPersonUuid)
+    .catch(() => null);
 }
