@@ -8,6 +8,10 @@ import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
 import { useGetOrderQuery } from 'gql/storedOrder';
 import {
+  useStoredPersonUuidQuery,
+  useSavePersonUuidMutation,
+} from 'gql/storedPersonUuid';
+import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
 } from '../../../utils/dataLayerHelpers';
@@ -66,13 +70,12 @@ const AboutYouPage: NextPage = () => {
     null,
   );
 
-  const {
-    personUuid,
-    setPersonUuid,
-    personLoggedIn,
-    setPersonLoggedIn,
-  } = usePerson();
-  const { refetch } = usePersonByUuidData(personUuid || '');
+  const { personLoggedIn, setPersonLoggedIn } = usePerson();
+
+  const [setPersonUuid] = useSavePersonUuidMutation();
+  const { data } = useStoredPersonUuidQuery();
+
+  const { refetch } = usePersonByUuidData(data?.storedPersonUuid || '');
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
@@ -87,7 +90,7 @@ const AboutYouPage: NextPage = () => {
         updateOrderHandle({
           variables: {
             input: {
-              personUuid: personUuid || '',
+              personUuid: data?.storedPersonUuid || '',
               leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
               lineItems: order?.lineItems || [
                 {
@@ -125,7 +128,7 @@ const AboutYouPage: NextPage = () => {
             }
           `,
           data: {
-            uuid: personUuid,
+            uuid: data?.storedPersonUuid,
           },
         }),
       )
@@ -170,7 +173,11 @@ const AboutYouPage: NextPage = () => {
             <LoginFormContainer
               onCompleted={person => {
                 pushAuthorizationEventDataLayer();
-                setPersonUuid(person?.uuid);
+                setPersonUuid({
+                  variables: {
+                    uuid: person?.uuid,
+                  },
+                });
                 setPersonLoggedIn(true);
                 return router.replace(router.pathname, router.asPath);
               }}
@@ -200,7 +207,7 @@ const AboutYouPage: NextPage = () => {
           toggleLogInVisibility(true);
         }}
         onRegistrationClick={handleRegistrationClick}
-        personUuid={personUuid}
+        personUuid={data?.storedPersonUuid || undefined}
       />
     </OLAFLayout>
   );

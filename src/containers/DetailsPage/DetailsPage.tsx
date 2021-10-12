@@ -678,7 +678,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                 text={
                   <div>
                     Free Home charger*
-                    <span>Worth £900 + FREE installation.</span>
+                    <span>Worth £1049 + FREE installation.</span>
                   </div>
                 }
                 icon={<FreeHomeCharger />}
