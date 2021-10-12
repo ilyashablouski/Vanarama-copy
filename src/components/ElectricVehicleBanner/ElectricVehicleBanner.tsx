@@ -11,7 +11,7 @@ const ElectricVehicleBanner = () => {
       <Text
         color="white"
         className="promotion-item-regular-text"
-      >{` Worth £900*`}</Text>
+      >{` Worth £1049*`}</Text>
     </div>
   );
 };
