@@ -83,7 +83,6 @@ const GlobalSearchPageFilters = ({
   );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [currentManufacturer, setCurrentManufacturer] = useState('');
-  const [currentRangeName, setCurrentRangeName] = useState('');
   const [getProductFilters] = useProductFilters(
     isAllProductsRequest ? undefined : searchTerm,
     async dataResult => {
@@ -197,10 +196,14 @@ const GlobalSearchPageFilters = ({
     }
 
     if (name === 'rangeName') {
-      selectedValues = selectedValues.filter(
-        value => value !== currentRangeName,
-      );
-      setCurrentRangeName(inputValue);
+      setActiveFilters({
+        ...activeFilters,
+        rangeName:
+          selectedValues.length === activeFilters.manufacturerNames?.length
+            ? [...selectedValues?.slice(0, -1), inputValue]
+            : [...selectedValues, inputValue],
+      });
+      return;
     }
 
     setActiveFilters({
@@ -240,7 +243,6 @@ const GlobalSearchPageFilters = ({
         });
       }
       setCurrentManufacturer('');
-      setCurrentRangeName('');
     }
   };
 
