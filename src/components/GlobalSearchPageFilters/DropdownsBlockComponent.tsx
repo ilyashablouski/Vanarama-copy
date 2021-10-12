@@ -94,6 +94,19 @@ const DropdownsBlockComponent = ({
     formRef.current?.reset();
   };
 
+  const onResetForm = () => {
+    const selects = formRef.current?.querySelectorAll('select');
+
+    if (!selects) {
+      return;
+    }
+
+    selects?.forEach(select => {
+      const firstOption = select.querySelector('option');
+      firstOption?.setAttribute('selected', 'selected');
+    });
+  };
+
   if (
     (!filtersMapper[key as keyof IFiltersData]?.length ||
       (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
@@ -172,7 +185,7 @@ const DropdownsBlockComponent = ({
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
     >
-      <form ref={formRef}>
+      <form ref={formRef} onReset={onResetForm}>
         {(innerSelects as IInnerSelect[])?.map(
           ({ title, key: selectKey, placeholder }) => (
             <Fragment key={title}>
