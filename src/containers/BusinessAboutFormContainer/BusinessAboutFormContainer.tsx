@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
+import { useGetOrderQuery } from '../../gql/storedOrder';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -30,7 +31,6 @@ import {
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
-import useGetOrder from '../../hooks/useGetOrder';
 import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -59,7 +59,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onRegistrationClick,
   personLoggedIn,
 }) => {
-  const order = useGetOrder();
+  const order = useGetOrderQuery()?.data?.storedOrder?.order;
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);

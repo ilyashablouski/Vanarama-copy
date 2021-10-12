@@ -5,6 +5,7 @@ import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import Modal from 'core/molecules/modal';
+import { useGetOrderQuery } from 'gql/storedOrder';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -21,7 +22,6 @@ import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
-import useGetOrder from '../../hooks/useGetOrder';
 import {
   OrderInputObject,
   VehicleTypeEnum,
@@ -113,7 +113,8 @@ const OLAFLayout: React.FC<IProps> = ({
   setDerivativeData,
 }) => {
   const router = useRouter();
-  const order = useGetOrder();
+  const order = useGetOrderQuery()?.data?.storedOrder?.order || null;
+  const rating = useGetOrderQuery()?.data?.storedOrder?.rating || undefined;
   const orderId = useGetOrderId();
 
   const [
@@ -261,7 +262,7 @@ const OLAFLayout: React.FC<IProps> = ({
                 title: `${derivative?.manufacturer.name || ''} ${derivative
                   ?.model.name || ''}`,
                 description: derivative?.name || '',
-                score: order?.rating,
+                score: rating,
                 dataTestId: 'olaf_about_title_derivative',
                 size: 'large',
                 ratingSize: 'lead',

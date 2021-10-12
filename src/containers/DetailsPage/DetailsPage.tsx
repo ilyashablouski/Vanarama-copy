@@ -13,7 +13,7 @@ import MediaGallery from 'core/organisms/media-gallery';
 import decode from 'decode-html';
 
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-
+import { useSaveOrderMutation } from 'gql/storedOrder';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -365,6 +365,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data?.vehicleImages],
   );
 
+  const [saveOrderMutation] = useSaveOrderMutation();
+
   const bannerList = useMemo(() => {
     const banners = pdpContentData?.pdpContent?.banners ?? [];
 
@@ -393,11 +395,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
     setIsModalVisible(false);
 
-    return localForage
-      .setItem('order', {
-        ...values,
+    return saveOrderMutation({
+      variables: {
+        order: values,
         rating: vehicleDetails?.averageRating || 0,
-      })
+      },
+    })
       .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
       .then(() => localForage.removeItem('orderId'))
       .then(() => localForage.removeItem('personEmail'))

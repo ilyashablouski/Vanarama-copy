@@ -2,6 +2,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useGetOrderQuery } from 'gql/storedOrder';
 import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
@@ -10,7 +11,6 @@ import { GET_PERSON_INFORMATION } from '../address-history';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { CreateExpenseMutation_createUpdateIncomeAndExpense as IIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
-import useGetOrder from '../../../hooks/useGetOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -20,7 +20,7 @@ const ExpensesPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
   const orderId = useGetOrderId();
-  const order = useGetOrder();
+  const order = useGetOrderQuery()?.data?.storedOrder?.order;
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
