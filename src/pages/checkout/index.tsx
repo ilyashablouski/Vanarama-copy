@@ -10,7 +10,8 @@ import { useCarDerivativeQuery } from '../../gql/order';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 const CheckoutPage: NextPage = () => {
-  const order = useGetOrderQuery()?.data?.storedOrder?.order;
+  const { data: orderData } = useGetOrderQuery();
+  const order = orderData?.storedOrder?.order;
   const quote = useGetQuote();
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
 

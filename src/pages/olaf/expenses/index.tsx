@@ -20,7 +20,8 @@ const ExpensesPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
   const orderId = useGetOrderId();
-  const order = useGetOrderQuery()?.data?.storedOrder?.order;
+  const { data: orderData } = useGetOrderQuery();
+  const order = orderData?.storedOrder?.order;
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 

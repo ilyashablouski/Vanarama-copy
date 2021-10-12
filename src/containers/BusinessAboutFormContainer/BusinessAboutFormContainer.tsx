@@ -59,7 +59,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onRegistrationClick,
   personLoggedIn,
 }) => {
-  const order = useGetOrderQuery()?.data?.storedOrder?.order;
+  const { data: orderData } = useGetOrderQuery();
+  const order = orderData?.storedOrder?.order;
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);

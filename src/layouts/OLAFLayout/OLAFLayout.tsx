@@ -113,8 +113,9 @@ const OLAFLayout: React.FC<IProps> = ({
   setDerivativeData,
 }) => {
   const router = useRouter();
-  const order = useGetOrderQuery()?.data?.storedOrder?.order || null;
-  const rating = useGetOrderQuery()?.data?.storedOrder?.rating || undefined;
+  const { data } = useGetOrderQuery();
+  const order = data?.storedOrder?.order || null;
+  const rating = data?.storedOrder?.rating || undefined;
   const orderId = useGetOrderId();
 
   const [
