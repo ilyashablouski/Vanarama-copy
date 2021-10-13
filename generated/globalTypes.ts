@@ -769,11 +769,11 @@ export interface QuoteInputObject {
   freeInsurance?: boolean | null;
   funderId?: number | null;
   leadTime?: string | null;
-  leaseCost?: RentalCost | null;
+  leaseCost?: RentalCostInputObject | null;
   leaseType?: LeaseTypeEnum | null;
-  maintenanceCost?: RentalCost | null;
+  maintenanceCost?: RentalCostInputObject | null;
   mileage?: number | null;
-  nextBestPrice?: NextBestPrice | null;
+  nextBestPrice?: NextBestPriceInputObject | null;
   processingFee?: number | null;
   stock?: string | null;
   stockBatchId?: number | null;
@@ -789,6 +789,12 @@ export interface QuoteInputObject {
 export interface RateInputObject {
   max?: number | null;
   min?: number | null;
+}
+
+export interface RentalCostInputObject {
+  excessMileage?: number | null;
+  initialRental?: number | null;
+  monthlyRental?: number | null;
 }
 
 /**

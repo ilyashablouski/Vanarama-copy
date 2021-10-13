@@ -3,6 +3,17 @@ type OrderInputObjectWithRating {
   rating: Float
 }
 
+input RentalCostInputObject {
+  excessMileage: Float
+  initialRental: Float
+  monthlyRental: Float
+}
+
+type NextBestPriceInputObject {
+  maintained: Float
+  nonMaintained: Float
+}
+
 input QuoteInputObject {
   availability: String
   capId: ID
@@ -11,11 +22,11 @@ input QuoteInputObject {
   freeInsurance: Boolean
   funderId: Int
   leadTime: String
-  leaseCost: RentalCost
+  leaseCost: RentalCostInputObject
   leaseType: LeaseTypeEnum
-  maintenanceCost: RentalCost
+  maintenanceCost: RentalCostInputObject
   mileage: Int
-  nextBestPrice: NextBestPrice
+  nextBestPrice: NextBestPriceInputObject
   processingFee: Float
   stock: String
   stockBatchId: Int
