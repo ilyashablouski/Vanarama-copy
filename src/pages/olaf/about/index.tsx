@@ -33,6 +33,7 @@ import { GetDerivative_derivative as IDerivative } from '../../../../generated/G
 import Skeleton from '../../../components/Skeleton';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 import { isUserAuthenticated } from '../../../utils/authentication';
+import { GetPerson } from '../../../../generated/GetPerson';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -95,9 +96,24 @@ const AboutYouPage: NextPage = () => {
       router.push(
         `/account/login-register?redirect=${router?.asPath || '/'}`,
         '/account/login-register',
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [router?.asPath],
+  );
+
+  const handleLogInCompletion = useCallback<
+    (data?: GetPerson['getPerson']) => Promise<Boolean>
+  >(
+    person =>
+      setPersonUuid({
+        variables: {
+          uuid: person?.uuid,
+        },
+      })
+        .then(() => router.replace(router.pathname, router.asPath))
+        .finally(() => pushAuthorizationEventDataLayer()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router.pathname, router.asPath],
   );
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
@@ -184,15 +200,7 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={person =>
-                setPersonUuid({
-                  variables: {
-                    uuid: person?.uuid,
-                  },
-                })
-                  .then(() => router.replace(router.pathname, router.asPath))
-                  .finally(() => pushAuthorizationEventDataLayer())
-              }
+              onCompleted={handleLogInCompletion}
               onError={handleAccountFetchError}
             />
           )}
