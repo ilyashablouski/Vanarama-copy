@@ -261,8 +261,8 @@ export const evVanHubOffersRequest = async (
     { data: productsElectricOnlyVanDerivatives },
     { data: productsHybridOnlyVanDerivatives },
   ] = await Promise.all([
-    getCarDerivatives(client, VehicleTypeEnum.CAR, productsElectricOnlyVanIds),
-    getCarDerivatives(client, VehicleTypeEnum.CAR, productsHybridOnlyVanIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsElectricOnlyVanIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsHybridOnlyVanIds),
   ]);
 
   const vehicleListUrlData = await getVehicleListUrlQuery(client, [

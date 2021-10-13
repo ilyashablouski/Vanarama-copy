@@ -16,10 +16,10 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
-import NewRangeCarousel from './NewRangeCarousel';
 import Skeleton from '../../components/Skeleton';
 import { getRangeReviews } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import RelatedCarousel from './RelatedCarousel';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -488,7 +488,9 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-      {newCarousel && <NewRangeCarousel newCarousel={newCarousel} />}
+      {!!newCarousel.cards?.length && (
+        <RelatedCarousel cards={newCarousel.cards} title={newCarousel.title} />
+      )}
     </>
   );
 };
