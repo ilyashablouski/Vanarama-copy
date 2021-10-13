@@ -90,6 +90,16 @@ const AboutYouPage: NextPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginFormRef?.current]);
 
+  const handleRegistrationClick = useCallback(
+    () =>
+      router.push(
+        `/account/login-register?redirect=${router?.asPath || '/'}`,
+        '/account/login-register',
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      ),
+    [router?.asPath],
+  );
+
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);
     await refetch({
@@ -150,12 +160,6 @@ const AboutYouPage: NextPage = () => {
         }, 200),
       );
   };
-
-  const handleRegistrationClick = () =>
-    router.push(
-      `/account/login-register?redirect=${router?.asPath || '/'}`,
-      '/account/login-register',
-    );
 
   return (
     <OLAFLayout

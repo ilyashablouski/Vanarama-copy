@@ -107,23 +107,26 @@ export const BusinessAboutPage: NextPage = () => {
 
   const handleCreateUpdateBusinessPersonCompletion = useCallback<
     (result: SubmitResult) => Promise<boolean>
-  >(result => {
-    const slug =
-      result.companyType === CompanyTypes.limited ||
-      result.companyType === CompanyTypes.partnership
-        ? ''
-        : 'sole-trader/';
-    const url = redirect || `/b2b/olaf/${slug}company-details`;
+  >(
+    result => {
+      const slug =
+        result.companyType === CompanyTypes.limited ||
+        result.companyType === CompanyTypes.partnership
+          ? ''
+          : 'sole-trader/';
+      const url = redirect || `/b2b/olaf/${slug}company-details`;
 
-    return router
-      .push(url, url.replace('[companyUuid]', companyUuid || ''))
-      .finally(() =>
-        setTimeout(() => {
-          pushAboutYouDataLayer(detailsData, derivativeData);
-        }, 200),
-      );
+      return router
+        .push(url, url.replace('[companyUuid]', companyUuid || ''))
+        .finally(() =>
+          setTimeout(() => {
+            pushAboutYouDataLayer(detailsData, derivativeData);
+          }, 200),
+        );
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [redirect, companyUuid, detailsData, derivativeData],
+  );
 
   return (
     <OLAFLayout
