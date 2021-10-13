@@ -13,9 +13,14 @@ import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { IHeading, IImage, ILink, IParagraph } from './interface';
 import { convertHeadingToSlug } from '../../utils/markdownHelpers';
 import ArticleLink from '../../components/ArticleLink';
+import {
+  IMarkdownHeading,
+  IMarkdownImage,
+  IMarkdownLink,
+  IMarkdownParagraph,
+} from '../../types/markdown';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -33,18 +38,18 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
-export const renderHeading = (props: IHeading) =>
+export const renderHeading = (props: IMarkdownHeading) =>
   React.createElement(
     `h${props.level}`,
     { id: convertHeadingToSlug(props) },
     props.children,
   );
 
-export const renderLink = (props: ILink) => (
+export const renderLink = (props: IMarkdownLink) => (
   <ArticleLink href={props.href}>{props.children}</ArticleLink>
 );
 
-export const renderImage = (props: IImage) => (
+export const renderImage = (props: IMarkdownImage) => (
   <img
     width="90%"
     src={props.src}
@@ -56,7 +61,7 @@ export const renderImage = (props: IImage) => (
   />
 );
 
-export const renderParagraph = (props: IParagraph) => {
+export const renderParagraph = (props: IMarkdownParagraph) => {
   const { children } = props;
   const isChangeToIframe = children.filter((el: any) =>
     el.props.value?.match('<a'),
