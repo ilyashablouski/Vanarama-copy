@@ -30,6 +30,7 @@ type NewRangeContentProps = {
   newCarousel: GenericPageQuery_genericPage_sections_carousel;
   isNewPage: boolean;
   isRangePage: boolean;
+  isCarousel: boolean;
 };
 
 interface ItemAccordion {
@@ -43,6 +44,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   isNewPage,
   newCarousel,
   isRangePage,
+  isCarousel,
 }) => {
   let countListAccordion = 0;
 
@@ -488,7 +490,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-      {!!newCarousel.cards?.length && (
+      {isCarousel && (
         <RelatedCarousel cards={newCarousel.cards} title={newCarousel.title} />
       )}
     </>
