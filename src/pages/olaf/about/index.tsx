@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { gql, useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
@@ -32,7 +32,8 @@ import {
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
 import useGetOrderId from '../../../hooks/useGetOrderId';
-import usePerson from '../../../hooks/usePerson';
+import { isUserAuthenticated } from '../../../utils/authentication';
+import { GetPerson } from '../../../../generated/GetPerson';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -70,7 +71,7 @@ const AboutYouPage: NextPage = () => {
     null,
   );
 
-  const { personLoggedIn, setPersonLoggedIn } = usePerson();
+  const isPersonLoggedIn = isUserAuthenticated();
 
   const [setPersonUuid] = useSavePersonUuidMutation();
   const { data } = useStoredPersonUuidQuery();
@@ -80,6 +81,40 @@ const AboutYouPage: NextPage = () => {
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const { redirect } = router.query as OLAFQueryParams;
+
+  const handleLogInCLick = useCallback(() => {
+    loginFormRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+    toggleLogInVisibility(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginFormRef?.current]);
+
+  const handleRegistrationClick = useCallback(
+    () =>
+      router.push(
+        `/account/login-register?redirect=${router?.asPath || '/'}`,
+        '/account/login-register',
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router?.asPath],
+  );
+
+  const handleLogInCompletion = useCallback<
+    (data?: GetPerson['getPerson']) => Promise<Boolean>
+  >(
+    person =>
+      setPersonUuid({
+        variables: {
+          uuid: person?.uuid,
+        },
+      })
+        .then(() => router.replace(router.pathname, router.asPath))
+        .finally(() => pushAuthorizationEventDataLayer()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router.pathname, router.asPath],
+  );
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);
@@ -142,12 +177,6 @@ const AboutYouPage: NextPage = () => {
       );
   };
 
-  const handleRegistrationClick = () =>
-    router.push(
-      `/account/login-register?redirect=${router?.asPath || '/'}`,
-      '/account/login-register',
-    );
-
   return (
     <OLAFLayout
       setDetailsData={setDetailsData}
@@ -160,7 +189,7 @@ const AboutYouPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you. This will be used for your credit check.
       </Text>
-      {!personLoggedIn && (
+      {!isPersonLoggedIn && (
         <div ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
@@ -171,16 +200,7 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={person => {
-                pushAuthorizationEventDataLayer();
-                setPersonUuid({
-                  variables: {
-                    uuid: person?.uuid,
-                  },
-                });
-                setPersonLoggedIn(true);
-                return router.replace(router.pathname, router.asPath);
-              }}
+              onCompleted={handleLogInCompletion}
               onError={handleAccountFetchError}
             />
           )}
@@ -195,17 +215,11 @@ const AboutYouPage: NextPage = () => {
       )}
       <AboutFormContainer
         orderId={orderId}
-        personLoggedIn={personLoggedIn}
+        personLoggedIn={isPersonLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)
         }
-        onLogInClick={() => {
-          loginFormRef?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-          toggleLogInVisibility(true);
-        }}
+        onLogInClick={handleLogInCLick}
         onRegistrationClick={handleRegistrationClick}
         personUuid={data?.storedPersonUuid || undefined}
       />
