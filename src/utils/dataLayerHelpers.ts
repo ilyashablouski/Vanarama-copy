@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import Cookies from 'js-cookie';
-import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
 import { NextRouter } from 'next/router';
 import { routerItems } from '../core/atoms/breadcrumbs-v2/helpers';
@@ -24,6 +23,8 @@ import { getSessionStorage } from './windowSessionStorage';
 import { CurrencyCodeEnum } from '../../entities/global';
 import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
+import { getStoredPersonEmail } from '../gql/storedPersonEmail';
+import { getStoredPersonUuid } from '../gql/storedPersonUuid';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -233,13 +234,12 @@ export const pushPageData = async ({
     return;
   }
   // setDataLayer();
-  const [person, personUuid] = await Promise.all([
+  const [person, personUuid, email] = await Promise.all([
     getStoredPerson(client),
-    localForage.getItem<string | null>('personUuid'),
+    getStoredPersonUuid(client),
+    getStoredPersonEmail(client),
   ]);
-  const personEmail =
-    (person?.emailAddresses && person?.emailAddresses[0]?.value) ||
-    (await localForage.getItem<string | null>('personEmail'));
+  const personEmail = person?.emailAddresses?.[0]?.value || email;
 
   let data = {};
 
