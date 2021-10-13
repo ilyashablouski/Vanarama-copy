@@ -762,7 +762,25 @@ export interface QuickCreditCheckerInputObject {
 }
 
 export interface QuoteInputObject {
-  quote?: Quote | null;
+  availability?: string | null;
+  capId?: string | null;
+  colour?: string | null;
+  financeType?: number | null;
+  freeInsurance?: boolean | null;
+  funderId?: number | null;
+  leadTime?: string | null;
+  leaseCost?: RentalCost | null;
+  leaseType?: LeaseTypeEnum | null;
+  maintenanceCost?: RentalCost | null;
+  mileage?: number | null;
+  nextBestPrice?: NextBestPrice | null;
+  processingFee?: number | null;
+  stock?: string | null;
+  stockBatchId?: number | null;
+  term?: number | null;
+  trim?: string | null;
+  upfront?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
 }
 
 /**

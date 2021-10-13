@@ -4,7 +4,25 @@ type OrderInputObjectWithRating {
 }
 
 input QuoteInputObject {
-  quote: Quote
+  availability: String
+  capId: ID
+  colour: ID
+  financeType: Int
+  freeInsurance: Boolean
+  funderId: Int
+  leadTime: String
+  leaseCost: RentalCost
+  leaseType: LeaseTypeEnum
+  maintenanceCost: RentalCost
+  mileage: Int
+  nextBestPrice: NextBestPrice
+  processingFee: Float
+  stock: String
+  stockBatchId: Int
+  term: Int
+  trim: ID
+  upfront: Int
+  vehicleType: VehicleTypeEnum
 }
 
 extend type Query {
