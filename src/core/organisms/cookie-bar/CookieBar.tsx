@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { AnimationEvent, useState } from 'react';
 import cx from 'classnames';
 
 import Text from 'core/atoms/text';
@@ -8,32 +8,41 @@ import CloseSharp from '../../assets/icons/CloseSharp';
 import RouterLink from '../../../components/RouterLink';
 
 interface IProps {
-  isVisible: boolean;
-  hideComponent: () => void;
-  onAfterHide: () => void;
   onAccept: () => void;
   onDecline: () => void;
+  onBeforeShow: () => void;
+  onAfterHide: () => void;
 }
 
-function CookieBar({
-  isVisible,
-  hideComponent,
-  onAfterHide,
-  onAccept,
-  onDecline,
-}: IProps) {
+function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
+  const [isVisible, setVisible] = useState(true);
+
+  function hideCookieBar() {
+    setVisible(false);
+  }
+
   function handleAcceptClick() {
-    hideComponent();
+    hideCookieBar();
     onAccept();
   }
 
   function handleDeclineClick() {
-    hideComponent();
+    hideCookieBar();
     onDecline();
   }
 
-  function handleTransitionEnd() {
-    if (!isVisible) {
+  function handleAnimationStart({
+    animationName,
+  }: AnimationEvent<HTMLDivElement>) {
+    if (animationName === 'fadeIn') {
+      onBeforeShow();
+    }
+  }
+
+  function handleAnimationEnd({
+    animationName,
+  }: AnimationEvent<HTMLDivElement>) {
+    if (animationName === 'fadeOut') {
       onAfterHide();
     }
   }
@@ -41,15 +50,16 @@ function CookieBar({
   return (
     <div
       role="dialog"
-      onTransitionEnd={handleTransitionEnd}
+      onAnimationStart={handleAnimationStart}
+      onAnimationEnd={handleAnimationEnd}
       className={cx('cookie-dialog', {
-        '-hidden': !isVisible,
+        '-hide': !isVisible,
       })}
     >
       <button
         type="button"
         className="cookie-dialog__close"
-        onClick={hideComponent}
+        onClick={hideCookieBar}
       >
         <CloseSharp />
       </button>
