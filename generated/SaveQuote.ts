@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleProductInputObject, VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
+import { QuoteObjectInput, VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveQuote
@@ -50,5 +50,5 @@ export interface SaveQuote {
 }
 
 export interface SaveQuoteVariables {
-  quote?: VehicleProductInputObject | null;
+  input?: QuoteObjectInput | null;
 }

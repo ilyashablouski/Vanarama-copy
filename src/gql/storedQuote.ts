@@ -1,8 +1,9 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
-import { GetQuote, GetQuote_storedQuote } from '../../generated/GetQuote';
+import { GetQuote } from '../../generated/GetQuote';
+import { SaveQuote, SaveQuoteVariables } from '../../generated/SaveQuote';
 
 export const GET_QUOTE_QUERY = gql`
-  query GetQuote {
+  query GetStoredQuote {
     storedQuote @client {
       term
       funderId
@@ -46,8 +47,8 @@ export function useGetQuoteQuery(
 }
 
 export const SAVE_QUOTE_MUTATION = gql`
-  mutation SaveQuote($quote: VehicleProductInputObject) {
-    saveQuote(quote: $quote) @client {
+  mutation SaveQuote($input: QuoteObjectInput) {
+    saveQuote(input: $input) @client {
       term
       funderId
       mileage
@@ -80,10 +81,10 @@ export const SAVE_QUOTE_MUTATION = gql`
 `;
 
 export function useSaveQuoteMutation(
-  onCompleted?: (arg: GetQuote_storedQuote) => void,
+  onCompleted?: (mutationResult: SaveQuote) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useMutation<GetQuote_storedQuote>(SAVE_QUOTE_MUTATION, {
+  return useMutation<SaveQuote, SaveQuoteVariables>(SAVE_QUOTE_MUTATION, {
     onCompleted,
     onError,
   });

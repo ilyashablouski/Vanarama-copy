@@ -1,9 +1,9 @@
 import localforage from 'localforage';
-import { GetQuote_storedQuote } from '../../../generated/GetQuote';
+import { SaveQuoteVariables } from '../../../generated/SaveQuote';
 
 export default function saveQuote(
   rootValue: unknown,
-  args: GetQuote_storedQuote,
+  args: SaveQuoteVariables,
 ) {
-  return localforage.setItem<GetQuote_storedQuote>('quote', args);
+  return localforage.setItem<SaveQuoteVariables>('quote', args);
 }

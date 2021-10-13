@@ -761,6 +761,10 @@ export interface QuickCreditCheckerInputObject {
   person: PersonInputObject;
 }
 
+export interface QuoteObjectInput {
+  quote?: Quote | null;
+}
+
 /**
  * Rate filter
  */
