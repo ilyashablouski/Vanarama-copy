@@ -32,7 +32,7 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
         <div className="row:cards-3col -a-center -mb-500">
           {cards?.map((item: CardItem, index: number) => {
             return (
-              <>
+              <React.Fragment key={index.toString()}>
                 <div key={index.toString()}>
                   <Image
                     src={
@@ -44,7 +44,7 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
                   />
                   <p className="heading -lead -black -pv-300">{item.body}</p>
                 </div>
-              </>
+              </React.Fragment>
             );
           })}
         </div>

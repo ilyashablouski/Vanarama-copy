@@ -433,3 +433,26 @@ export const getNumberOfVehicles = (id: number) =>
 
 export const trimSlug = (slug: string) =>
   slug.charAt(0) === '/' ? slug.substring(1) : slug;
+
+export const scrollIntoPreviousView = (
+  pageOffset: number,
+  prevPosition: number,
+  setPrevPosition: React.Dispatch<number>,
+) => {
+  function scrollTo() {
+    window.scrollTo({
+      top: pageOffset,
+      // @ts-ignore
+      behavior: 'instant',
+    });
+    if (prevPosition) {
+      setPrevPosition(0);
+    }
+  }
+  if (pageOffset < document.body.clientHeight) {
+    scrollTo();
+  } else {
+    // render delay
+    setTimeout(() => scrollTo(), 400);
+  }
+};
