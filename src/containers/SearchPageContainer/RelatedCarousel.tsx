@@ -25,7 +25,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 });
 
 interface IProps {
-  cards: (ICarouselCard | null)[];
+  cards: (ICarouselCard | null)[] | null;
   title: Nullable<string>;
 }
 
@@ -69,7 +69,7 @@ const renderCarouselSlide = (card: ICarouselCard) => (
 
 const RelatedCarousel = ({ cards, title }: IProps) => {
   const resultCards = useMemo(
-    () => cards.filter(item => !!item) as ICarouselCard[],
+    () => cards?.filter(item => !!item) as ICarouselCard[],
     [cards],
   );
 
