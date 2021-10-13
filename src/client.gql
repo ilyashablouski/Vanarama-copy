@@ -13,6 +13,7 @@ extend type Query {
   storedPersonUuid: ID
   storedOrder: OrderInputObjectWithRating
   storedPersonEmail: String
+  storedQuote: Quote
 }
 
 extend type Mutation {
@@ -20,4 +21,5 @@ extend type Mutation {
   savePersonUuid(uuid: ID): ID
   saveOrder(order: OrderInputObject, rating: Float): OrderInputObjectWithRating
   savePersonEmail(email: String): String
+  saveQuote(quote: VehicleProductInputObject): Quote
 }
