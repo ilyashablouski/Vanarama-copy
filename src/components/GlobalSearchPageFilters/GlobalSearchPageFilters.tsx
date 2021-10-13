@@ -178,6 +178,7 @@ const GlobalSearchPageFilters = ({
     let selectedValues = activeFilters[name as keyof typeof filtersMapper]
       ? [...(activeFilters[name as keyof typeof filtersMapper] as string[])]
       : [];
+
     if (name === 'manufacturerNames') {
       selectedValues = selectedValues.filter(
         value => value !== currentManufacturer,
@@ -194,12 +195,20 @@ const GlobalSearchPageFilters = ({
       return;
     }
 
+    if (name === 'rangeName') {
+      setActiveFilters({
+        ...activeFilters,
+        rangeName:
+          selectedValues.length === activeFilters.manufacturerNames?.length
+            ? [...selectedValues?.slice(0, -1), inputValue]
+            : [...selectedValues, inputValue],
+      });
+      return;
+    }
+
     setActiveFilters({
       ...activeFilters,
-      [name]: [
-        ...selectedValues.filter(value => value !== inputValue),
-        inputValue,
-      ],
+      [name]: [...selectedValues, inputValue],
     });
   };
 
