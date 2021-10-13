@@ -1,5 +1,5 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
-import { GetQuote } from '../../generated/GetQuote';
+import { GetStoredQuote } from '../../generated/GetStoredQuote';
 import { SaveQuote, SaveQuoteVariables } from '../../generated/SaveQuote';
 
 export const GET_QUOTE_QUERY = gql`
@@ -37,17 +37,17 @@ export const GET_QUOTE_QUERY = gql`
 `;
 
 export function useGetQuoteQuery(
-  onCompleted?: (data: GetQuote) => void,
+  onCompleted?: (data: GetStoredQuote) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useQuery<GetQuote>(GET_QUOTE_QUERY, {
+  return useQuery<GetStoredQuote>(GET_QUOTE_QUERY, {
     onCompleted,
     onError,
   });
 }
 
 export const SAVE_QUOTE_MUTATION = gql`
-  mutation SaveQuote($input: QuoteObjectInput) {
+  mutation SaveQuote($input: QuoteInputObject) {
     saveQuote(input: $input) @client {
       term
       funderId

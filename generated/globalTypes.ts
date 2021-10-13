@@ -761,7 +761,7 @@ export interface QuickCreditCheckerInputObject {
   person: PersonInputObject;
 }
 
-export interface QuoteObjectInput {
+export interface QuoteInputObject {
   quote?: Quote | null;
 }
 

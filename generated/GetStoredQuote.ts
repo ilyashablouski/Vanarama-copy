@@ -6,27 +6,27 @@
 import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetQuote
+// GraphQL query operation: GetStoredQuote
 // ====================================================
 
-export interface GetQuote_storedQuote_nextBestPrice {
+export interface GetStoredQuote_storedQuote_nextBestPrice {
   maintained: number | null;
   nonMaintained: number | null;
 }
 
-export interface GetQuote_storedQuote_leaseCost {
+export interface GetStoredQuote_storedQuote_leaseCost {
   monthlyRental: number | null;
   initialRental: number | null;
   excessMileage: number | null;
 }
 
-export interface GetQuote_storedQuote_maintenanceCost {
+export interface GetStoredQuote_storedQuote_maintenanceCost {
   monthlyRental: number | null;
   initialRental: number | null;
   excessMileage: number | null;
 }
 
-export interface GetQuote_storedQuote {
+export interface GetStoredQuote_storedQuote {
   term: number | null;
   funderId: number | null;
   mileage: number | null;
@@ -39,12 +39,12 @@ export interface GetQuote_storedQuote {
   leaseType: LeaseTypeEnum | null;
   stockBatchId: number | null;
   processingFee: number | null;
-  nextBestPrice: GetQuote_storedQuote_nextBestPrice | null;
-  leaseCost: GetQuote_storedQuote_leaseCost | null;
-  maintenanceCost: GetQuote_storedQuote_maintenanceCost | null;
+  nextBestPrice: GetStoredQuote_storedQuote_nextBestPrice | null;
+  leaseCost: GetStoredQuote_storedQuote_leaseCost | null;
+  maintenanceCost: GetStoredQuote_storedQuote_maintenanceCost | null;
   freeInsurance: boolean | null;
 }
 
-export interface GetQuote {
-  storedQuote: GetQuote_storedQuote | null;
+export interface GetStoredQuote {
+  storedQuote: GetStoredQuote_storedQuote | null;
 }

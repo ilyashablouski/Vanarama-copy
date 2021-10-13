@@ -3,7 +3,7 @@ type OrderInputObjectWithRating {
   rating: Float
 }
 
-input QuoteObjectInput {
+input QuoteInputObject {
   quote: Quote
 }
 
@@ -25,5 +25,5 @@ extend type Mutation {
   savePersonUuid(uuid: ID): ID
   saveOrder(order: OrderInputObject, rating: Float): OrderInputObjectWithRating
   savePersonEmail(email: String): String
-  saveQuote(input: QuoteObjectInput): Quote
+  saveQuote(input: QuoteInputObject): Quote
 }

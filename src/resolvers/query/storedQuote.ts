@@ -1,6 +1,6 @@
 import localforage from 'localforage';
-import { GetQuote } from '../../../generated/GetQuote';
+import { GetStoredQuote } from '../../../generated/GetStoredQuote';
 
 export default function storedQuote() {
-  return localforage.getItem<GetQuote>('quote');
+  return localforage.getItem<GetStoredQuote>('quote');
 }

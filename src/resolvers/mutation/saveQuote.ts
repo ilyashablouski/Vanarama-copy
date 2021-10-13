@@ -5,5 +5,5 @@ export default function saveQuote(
   rootValue: unknown,
   args: SaveQuoteVariables,
 ) {
-  return localforage.setItem<SaveQuoteVariables>('quote', args);
+  return localforage.setItem<SaveQuoteVariables>('quote', args?.input?.quote);
 }
