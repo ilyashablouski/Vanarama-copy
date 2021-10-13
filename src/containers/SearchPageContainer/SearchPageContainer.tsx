@@ -937,6 +937,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     ],
   );
 
+  const isCarousel = useMemo(() => !!carousel?.cards?.length, [
+    carousel?.cards?.length,
+  ]);
+
   return (
     <>
       <PartnershipLogoHeader />
@@ -1153,10 +1157,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               isNewPage={isNewPage}
               isRangePage={isRangePage}
               pageData={pageData}
+              isCarousel={isCarousel}
             />
           ) : null}
 
-          {!!carousel?.cards?.length && (
+          {isCarousel && (
             <RelatedCarousel cards={carousel.cards} title={carousel.title} />
           )}
         </>
