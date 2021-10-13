@@ -94,14 +94,6 @@ const DropdownsBlockComponent = ({
     formRef.current?.reset();
   };
 
-  const onResetForm = () => {
-    const selects = formRef.current?.querySelectorAll('select');
-    selects?.forEach(select => {
-      const firstOption = select.querySelector('option');
-      firstOption?.setAttribute('selected', 'selected');
-    });
-  };
-
   if (
     (!filtersMapper[key as keyof IFiltersData]?.length ||
       (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
@@ -180,7 +172,7 @@ const DropdownsBlockComponent = ({
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
     >
-      <form ref={formRef} onReset={onResetForm}>
+      <form ref={formRef}>
         {(innerSelects as IInnerSelect[])?.map(
           ({ title, key: selectKey, placeholder }) => (
             <Fragment key={title}>
@@ -192,12 +184,16 @@ const DropdownsBlockComponent = ({
                   data-testid={`${selectKey}-form`}
                   onChange={onNativeChange}
                   disabled={isDisabledSelect(key, selectKey)}
+                  defaultValue={
+                    multiselect
+                      ? ''
+                      : (activeFilters?.[selectKey as keyof IFiltersData] as
+                          | string
+                          | number[])?.[0]
+                  }
                 >
                   <option
                     disabled
-                    key={`placeholder-${
-                      filtersMapper?.[selectKey as keyof IFiltersData]?.[0]
-                    }`}
                     value=""
                     selected={
                       multiselect ||
