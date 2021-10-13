@@ -608,6 +608,11 @@ export interface MyAccountInputObject {
   telephoneNumber?: string | null;
 }
 
+export interface NextBestPriceInputObject {
+  maintained?: number | null;
+  nonMaintained?: number | null;
+}
+
 /**
  * Input object to create an order
  */

@@ -9,7 +9,7 @@ input RentalCostInputObject {
   monthlyRental: Float
 }
 
-type NextBestPriceInputObject {
+input NextBestPriceInputObject {
   maintained: Float
   nonMaintained: Float
 }
