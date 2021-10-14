@@ -12,7 +12,6 @@ import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
 import Head from '../../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
-import { features } from '../../../components/ProductCarousel/helpers';
 import Skeleton from '../../../components/Skeleton';
 import TileLink from '../../../components/TileLink/TileLink';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
@@ -20,14 +19,15 @@ import getTitleTag from '../../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../../utils/layout';
 import { evOffersRequest, IEvOffersData } from '../../../utils/offers';
 import { getFeaturedSectionsAsArray } from '../../../utils/sections';
-import truncateString from '../../../utils/truncateString';
-import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
+import VehicleCard from '../../../components/VehicleCard/VehicleCard';
+import truncateString from '../../../utils/truncateString';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -35,10 +35,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
-const Price = dynamic(() => import('core/atoms/price'));
-const ProductCard = dynamic(() =>
-  import('core/molecules/cards/ProductCard/ProductCard'),
-);
 const RouterLink = dynamic(() =>
   import('../../../components/RouterLink/RouterLink'),
 );
@@ -47,12 +43,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  ssr: false,
-});
-const Flame = dynamic(() => import('core/assets/icons/Flame'), {
-  ssr: false,
 });
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
@@ -70,9 +60,9 @@ const EVansPage: NextPage<IProps> = ({
     quality: 59,
   };
   const { sections } = data?.genericPage;
+
   useEffect(() => {
-    const featuresArry: any = getFeaturedSectionsAsArray(sections);
-    setFeaturesArray(featuresArry);
+    setFeaturesArray(getFeaturedSectionsAsArray(sections));
   }, [sections]);
 
   const HeroSection = () => (
@@ -137,80 +127,20 @@ const EVansPage: NextPage<IProps> = ({
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
             );
-            return (
-              <ProductCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            return item ? (
+              <VehicleCard
+                data={item}
                 key={item?.capId || index}
-                header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: item?.isOnOffer ? 'Hot Offer' : '',
-                  text: item?.leadTime || '',
-                }}
-                features={features(
-                  item?.keyInformation || [],
-                  item?.capId || '',
-                  Icon,
-                )}
-                imageSrc={
-                  item?.imageUrl ||
-                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                }
-                onWishlist={() => true}
+                isPersonalPrice={false}
+                url={productUrl?.url}
                 title={{
-                  title: '',
-                  link: (
-                    <RouterLink
-                      link={{
-                        href: productUrl?.url,
-                        label: '',
-                      }}
-                      onClick={() =>
-                        sessionStorage.setItem('capId', item?.capId || '')
-                      }
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
-                    >
-                      <Heading tag="span" size="large" className="-pb-100">
-                        {truncateString(
-                          `${item?.manufacturerName} ${item?.modelName}`,
-                        )}
-                      </Heading>
-                      <Heading tag="span" size="small" color="dark">
-                        {item?.derivativeName || ''}
-                      </Heading>
-                    </RouterLink>
+                  title: truncateString(
+                    `${item?.manufacturerName} ${item?.modelName}`,
                   ),
-                  score: item?.averageRating || 5,
+                  description: item?.derivativeName || '',
                 }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={item?.businessRate}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
-                  <RouterLink
-                    link={{
-                      href: productUrl?.url,
-                      label: 'View Offer',
-                    }}
-                    onClick={() =>
-                      sessionStorage.setItem('capId', item?.capId || '')
-                    }
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    className="button"
-                    dataTestId="view-offer"
-                  >
-                    <div className="button--inner">View Offer</div>
-                  </RouterLink>
-                </div>
-              </ProductCard>
-            );
+              />
+            ) : null;
           })}
       </div>
       <div className="-justify-content-row -pt-500">
