@@ -36,10 +36,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
 }) => {
   const [updateLimitedBankDetails] = useUpdateLimitedBankDetails();
   const [updateSoleTraderBankDetails] = useUpdateSoleTraderBankDetails();
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderUuid,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const { setBankUuid, getBankUuid } = useGetSetBankUuid();
   const { loading, error, data } = useGetCreditApplicationByOrderUuid(
     orderUuid,

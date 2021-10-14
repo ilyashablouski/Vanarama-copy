@@ -29,10 +29,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
     companyUuid,
   );
   const [updateSoleTraderDetails] = useUpdateSoleTraderMutation();
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderId,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
 
   if (soleTraderDetailsFormData.loading) {
     return <Loading size="large" />;

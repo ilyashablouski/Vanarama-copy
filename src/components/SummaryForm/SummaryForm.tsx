@@ -76,7 +76,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
 
   const onCreditCheckComplete = () => {
     createUpdateCA({
