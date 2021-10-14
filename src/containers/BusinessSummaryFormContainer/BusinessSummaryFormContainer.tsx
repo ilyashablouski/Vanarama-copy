@@ -60,7 +60,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   const [
     createUpdateCA,
     creditApplicationMutationOptions,
-  ] = useCreateUpdateCreditApplication(orderId, () => {});
+  ] = useCreateUpdateCreditApplication();
   const [
     submitFullCreditChecker,
     creditCheckerMutationOptions,

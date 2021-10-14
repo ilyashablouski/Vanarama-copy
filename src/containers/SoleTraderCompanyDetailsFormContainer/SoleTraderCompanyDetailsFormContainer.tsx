@@ -36,10 +36,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderId,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
 
   const [natureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);

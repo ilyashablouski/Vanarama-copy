@@ -763,8 +763,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
 `;
 
 export function useCreateUpdateCreditApplication(
-  orderId: string,
-  onCompleted: (data: CreateUpdateCreditApplication) => void,
+  onCompleted?: (data: CreateUpdateCreditApplication) => void,
 ) {
   return useMutation<
     CreateUpdateCreditApplication,

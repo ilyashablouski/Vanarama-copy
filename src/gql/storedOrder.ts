@@ -1,9 +1,9 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
 import { SaveOrder } from '../../generated/SaveOrder';
-import { GetOrder } from '../../generated/GetOrder';
+import { GetStoredOrder } from '../../generated/GetStoredOrder';
 
-export const GET_ORDER_QUERY = gql`
-  query GetOrder {
+export const GET_STORED_ORDER_QUERY = gql`
+  query GetStoredOrder {
     storedOrder @client {
       order
       rating
@@ -11,11 +11,12 @@ export const GET_ORDER_QUERY = gql`
   }
 `;
 
-export function useGetOrderQuery(
-  onCompleted?: (data: GetOrder) => void,
+export function useStoredOrderQuery(
+  onCompleted?: (data: GetStoredOrder) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useQuery<GetOrder>(GET_ORDER_QUERY, {
+  return useQuery<GetStoredOrder>(GET_STORED_ORDER_QUERY, {
+    ssr: false,
     onCompleted,
     onError,
   });
