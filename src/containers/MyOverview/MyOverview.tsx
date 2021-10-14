@@ -298,6 +298,12 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   const [saveOrderMutation] = useSaveOrderMutation();
+  const saveOrder = (order: OrderInputObject) =>
+    saveOrderMutation({
+      variables: {
+        order,
+      },
+    });
 
   const onClickOrderBtn = (
     selectedOrder: GetMyOrders_myOrders,
@@ -308,14 +314,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     const order = createOrderInputFromMyOrder(selectedOrder);
     const lastFinishedStep = findLastFinishedStep(creditApplication);
 
-    const saveOrder = saveOrderMutation({
-      variables: {
-        order,
-      },
-    });
-
     Promise.all([
-      saveOrder,
+      saveOrder(order),
       localForage.setItem('orderId', order.uuid),
       localForage.setItem('personUuid', customer?.uuid),
     ])
