@@ -50,5 +50,5 @@ export interface SaveQuote {
 }
 
 export interface SaveQuoteVariables {
-  input?: QuoteInputObject | null;
+  quote?: QuoteInputObject | null;
 }

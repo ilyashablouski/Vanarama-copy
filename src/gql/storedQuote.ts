@@ -47,8 +47,8 @@ export function useGetQuoteQuery(
 }
 
 export const SAVE_QUOTE_MUTATION = gql`
-  mutation SaveQuote($input: QuoteInputObject) {
-    saveQuote(input: $input) @client {
+  mutation SaveQuote($quote: QuoteInputObject) {
+    saveQuote(quote: $quote) @client {
       term
       funderId
       mileage
