@@ -1,5 +1,4 @@
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,10 +6,10 @@ import EmploymentFormContainer from '../../../containers/EmploymentFormContainer
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { GET_PERSON_INFORMATION } from '../address-history';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { SaveEmploymentHistoryMutation_createUpdateEmploymentHistory as IEmploymentHistory } from '../../../../generated/SaveEmploymentHistoryMutation';
-import useGetOrderId from '../../../hooks/useGetOrderId';
+import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
+import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -19,15 +18,14 @@ type QueryParams = OLAFQueryParams & {
 const EmploymentHistoryPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
-  const orderId = useGetOrderId();
 
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
 
-  let personUuid = uuid || '';
-  const { data } = useQuery(GET_PERSON_INFORMATION);
-  if (data?.uuid) {
-    personUuid = data.uuid;
-  }
+  const { data: orderData } = useStoredOrderQuery();
+  const order = orderData?.storedOrder?.order;
+
+  const { data } = useStoredPersonUuidQuery();
+  const personUuid = uuid || data?.storedPersonUuid || '';
 
   const onCompleteClick = (
     createUpdateEmploymentHistory: IEmploymentHistory[] | null,
@@ -35,7 +33,7 @@ const EmploymentHistoryPage: NextPage = () => {
     createUpdateCA({
       variables: {
         input: {
-          orderUuid: orderId,
+          orderUuid: order?.uuid || '',
           employmentHistories: createUpdateEmploymentHistory,
         },
       },

@@ -65,10 +65,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     SAVE_COMPANY_DETAILS,
   );
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderId,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const { data, loading, refetch } = useGetCreditApplicationByOrderUuid(
     orderId,
   );

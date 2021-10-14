@@ -3,47 +3,42 @@ import React, { useEffect, useState } from 'react';
 import CookieBar from 'core/organisms/cookie-bar';
 
 import {
+  acceptBlueConicCookie,
+  declineBlueConicCookie,
   shouldRenderCookieBar,
-  acceptCookieBlueConic,
-  declineCookieBlueConic,
-  isBlueConicClientReady,
+  isBlueConicClientLoaded,
+  updateBlueConicCookiePreferences,
 } from '../../utils/blueConicHelpers';
 
 function CookieBarContainer() {
-  const [isComponentVisible, setComponentVisible] = useState(false);
   const [shouldComponentRender, setShouldComponentRender] = useState(true);
 
-  function handleBlueConicClientReady() {
-    if (!shouldRenderCookieBar()) {
-      setShouldComponentRender(false);
-      return;
-    }
-
-    setComponentVisible(true);
-  }
-
   useEffect(() => {
-    if (isBlueConicClientReady()) {
-      return handleBlueConicClientReady();
+    if (isBlueConicClientLoaded()) {
+      updateBlueConicCookiePreferences();
+    } else {
+      window.addEventListener(
+        'onBlueConicLoaded',
+        updateBlueConicCookiePreferences,
+        false,
+      );
     }
-
-    window.addEventListener(
-      'onBlueConicLoaded',
-      handleBlueConicClientReady,
-      false,
-    );
 
     return () => {
       window.removeEventListener(
         'onBlueConicLoaded',
-        handleBlueConicClientReady,
+        updateBlueConicCookiePreferences,
         false,
       );
     };
   }, []);
 
-  function hideComponent() {
-    setComponentVisible(false);
+  async function handleBeforeComponentShow() {
+    const shouldRender = await shouldRenderCookieBar();
+
+    if (!shouldRender) {
+      setShouldComponentRender(false);
+    }
   }
 
   function handleAfterComponentHide() {
@@ -52,11 +47,10 @@ function CookieBarContainer() {
 
   return shouldComponentRender ? (
     <CookieBar
-      isVisible={isComponentVisible}
-      hideComponent={hideComponent}
+      onAccept={acceptBlueConicCookie}
+      onDecline={declineBlueConicCookie}
+      onBeforeShow={handleBeforeComponentShow}
       onAfterHide={handleAfterComponentHide}
-      onAccept={acceptCookieBlueConic}
-      onDecline={declineCookieBlueConic}
     />
   ) : null;
 }
