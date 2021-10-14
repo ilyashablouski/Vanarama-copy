@@ -20,4 +20,5 @@ extend type Mutation {
   savePersonUuid(uuid: ID): ID
   saveOrder(order: OrderInputObject, rating: Float): OrderInputObjectWithRating
   savePersonEmail(email: String): String
+  deletePersonEmail: Boolean
 }
