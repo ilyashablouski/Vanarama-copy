@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -21,9 +21,10 @@ import {
 } from '../../../../utils/dataLayerHelpers';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
-import usePerson from '../../../../hooks/usePerson';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
+import { isUserAuthenticated } from '../../../../utils/authentication';
+import { GetPerson } from '../../../../../generated/GetPerson';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -59,7 +60,7 @@ export const BusinessAboutPage: NextPage = () => {
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
-  const { personLoggedIn, setPersonLoggedIn } = usePerson();
+  const isPersonLoggedIn = isUserAuthenticated();
 
   const [savePersonUuid] = useSavePersonUuidMutation();
   const { data } = useStoredPersonUuidQuery();
@@ -70,28 +71,62 @@ export const BusinessAboutPage: NextPage = () => {
     null,
   );
 
-  const handleRegistrationClick = () =>
-    router.push(
-      `/account/login-register?redirect=${router?.asPath || '/'}`,
-      '/account/login-register',
-    );
+  const handleLogInCLick = useCallback(() => {
+    loginFormRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+    toggleLogInVisibility(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginFormRef?.current]);
 
-  const handleCreateUpdateBusinessPersonCompletion = async (
-    result: SubmitResult,
-  ) => {
-    const slug =
-      result.companyType === CompanyTypes.limited ||
-      result.companyType === CompanyTypes.partnership
-        ? ''
-        : 'sole-trader/';
-    const url = redirect || `/b2b/olaf/${slug}company-details`;
+  const handleLogInCompletion = useCallback<
+    (data?: GetPerson['getPerson']) => Promise<Boolean>
+  >(
+    person =>
+      savePersonUuid({
+        variables: {
+          uuid: person?.uuid,
+        },
+      })
+        .then(() => router.replace(router.pathname, router.asPath))
+        .finally(() => pushAuthorizationEventDataLayer()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router.pathname, router.asPath],
+  );
 
-    router.push(url, url.replace('[companyUuid]', companyUuid || '')).then(() =>
-      setTimeout(() => {
-        pushAboutYouDataLayer(detailsData, derivativeData);
-      }, 200),
-    );
-  };
+  const handleRegistrationClick = useCallback(
+    () =>
+      router.push(
+        `/account/login-register?redirect=${router?.asPath || '/'}`,
+        '/account/login-register',
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [router.asPath],
+  );
+
+  const handleCreateUpdateBusinessPersonCompletion = useCallback<
+    (result: SubmitResult) => Promise<boolean>
+  >(
+    result => {
+      const slug =
+        result.companyType === CompanyTypes.limited ||
+        result.companyType === CompanyTypes.partnership
+          ? ''
+          : 'sole-trader/';
+      const url = redirect || `/b2b/olaf/${slug}company-details`;
+
+      return router
+        .push(url, url.replace('[companyUuid]', companyUuid || ''))
+        .finally(() =>
+          setTimeout(() => {
+            pushAboutYouDataLayer(detailsData, derivativeData);
+          }, 200),
+        );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [redirect, companyUuid, detailsData, derivativeData],
+  );
 
   return (
     <OLAFLayout
@@ -110,7 +145,7 @@ export const BusinessAboutPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company.
       </Text>
-      {!personLoggedIn && (
+      {!isPersonLoggedIn && (
         <div ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
@@ -121,16 +156,7 @@ export const BusinessAboutPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={person => {
-                savePersonUuid({
-                  variables: {
-                    uuid: person?.uuid,
-                  },
-                });
-                pushAuthorizationEventDataLayer();
-                setPersonLoggedIn(true);
-                return router.replace(router.pathname, router.asPath);
-              }}
+              onCompleted={handleLogInCompletion}
               onError={handleAccountFetchError}
             />
           )}
@@ -146,16 +172,10 @@ export const BusinessAboutPage: NextPage = () => {
       <BusinessAboutFormContainer
         orderId={orderId}
         personUuid={data?.storedPersonUuid || undefined}
-        personLoggedIn={personLoggedIn}
+        personLoggedIn={isPersonLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
-        onLogInCLick={() => {
-          loginFormRef?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-          toggleLogInVisibility(true);
-        }}
+        onLogInCLick={handleLogInCLick}
         onRegistrationClick={handleRegistrationClick}
       />
     </OLAFLayout>

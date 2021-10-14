@@ -6,14 +6,14 @@
 import { OrderInputObject } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetOrder
+// GraphQL query operation: GetStoredOrder
 // ====================================================
 
-export interface GetOrder_storedOrder {
+export interface GetStoredOrder_storedOrder {
   order: OrderInputObject | null;
   rating: number | null;
 }
 
-export interface GetOrder {
-  storedOrder: GetOrder_storedOrder | null;
+export interface GetStoredOrder {
+  storedOrder: GetStoredOrder_storedOrder | null;
 }

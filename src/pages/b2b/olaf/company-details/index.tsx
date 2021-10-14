@@ -6,7 +6,7 @@ import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
-import useGetOrderId from '../../../../hooks/useGetOrderId';
+import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
 const handleSubmitError = () =>
@@ -22,8 +22,9 @@ type QueryParams = OLAFQueryParams & {
 
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
+  const { data } = useStoredOrderQuery();
+
   const { companyUuid, redirect } = router.query as QueryParams;
   const isEdited = !!router.query.redirect;
 
@@ -37,7 +38,7 @@ export const CompanyDetailsPage: NextPage = () => {
       <CompanyDetailsFormContainer
         companyUuid={companyUuid}
         personUuid={personUuid}
-        orderId={orderId}
+        orderId={data?.storedOrder?.order?.uuid || ''}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}
         isEdited={isEdited}

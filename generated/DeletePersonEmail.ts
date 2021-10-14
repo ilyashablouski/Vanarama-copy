@@ -4,9 +4,9 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetOrderInformation
+// GraphQL mutation operation: DeletePersonEmail
 // ====================================================
 
-export interface GetOrderInformation {
-  uuid: string | null;
+export interface DeletePersonEmail {
+  deletePersonEmail: boolean | null;
 }

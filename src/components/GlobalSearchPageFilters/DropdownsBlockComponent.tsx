@@ -184,12 +184,16 @@ const DropdownsBlockComponent = ({
                   data-testid={`${selectKey}-form`}
                   onChange={onNativeChange}
                   disabled={isDisabledSelect(key, selectKey)}
+                  defaultValue={
+                    multiselect
+                      ? ''
+                      : (activeFilters?.[selectKey as keyof IFiltersData] as
+                          | string
+                          | number[])?.[0]
+                  }
                 >
                   <option
                     disabled
-                    key={`placeholder-${
-                      filtersMapper?.[selectKey as keyof IFiltersData]?.[0]
-                    }`}
                     value=""
                     selected={
                       multiselect ||
