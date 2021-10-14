@@ -16,10 +16,10 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
-import NewRangeCarousel from './NewRangeCarousel';
 import Skeleton from '../../components/Skeleton';
 import { getRangeReviews } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import RelatedCarousel from './RelatedCarousel';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -30,6 +30,7 @@ type NewRangeContentProps = {
   newCarousel: GenericPageQuery_genericPage_sections_carousel;
   isNewPage: boolean;
   isRangePage: boolean;
+  isCarousel: boolean;
 };
 
 interface ItemAccordion {
@@ -43,6 +44,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   isNewPage,
   newCarousel,
   isRangePage,
+  isCarousel,
 }) => {
   let countListAccordion = 0;
 
@@ -488,7 +490,9 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-      {newCarousel && <NewRangeCarousel newCarousel={newCarousel} />}
+      {isCarousel && (
+        <RelatedCarousel cards={newCarousel.cards} title={newCarousel.title} />
+      )}
     </>
   );
 };

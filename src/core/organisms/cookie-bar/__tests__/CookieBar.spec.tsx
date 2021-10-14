@@ -7,11 +7,10 @@ describe('<CookieBar />', () => {
   it('should render correctly', () => {
     const wrapper = mount(
       <CookieBar
-        isVisible
-        hideComponent={jest.fn()}
-        onAfterHide={jest.fn()}
         onAccept={jest.fn()}
         onDecline={jest.fn()}
+        onBeforeShow={jest.fn()}
+        onAfterHide={jest.fn()}
       />,
     );
     expect(wrapper).toMatchSnapshot();
