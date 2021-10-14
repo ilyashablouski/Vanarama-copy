@@ -5,7 +5,7 @@ import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import Modal from 'core/molecules/modal';
-import { useGetOrderQuery } from 'gql/storedOrder';
+import { useStoredOrderQuery } from 'gql/storedOrder';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -26,7 +26,6 @@ import {
   OrderInputObject,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
-import useGetOrderId from '../../hooks/useGetOrderId';
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
 import Banner from '../../components/Banner/Banner';
@@ -113,15 +112,14 @@ const OLAFLayout: React.FC<IProps> = ({
   setDerivativeData,
 }) => {
   const router = useRouter();
-  const { data } = useGetOrderQuery();
+  const { data } = useStoredOrderQuery();
   const order = data?.storedOrder?.order || null;
   const rating = data?.storedOrder?.rating || undefined;
-  const orderId = useGetOrderId();
 
   const [
     getLeaseData,
     { data: leaseData, loading: leaseDataLoading },
-  ] = useGetLeaseCompanyDataByOrderUuid(orderId);
+  ] = useGetLeaseCompanyDataByOrderUuid(order?.uuid || '');
   const { data: sessionState } = useSessionState();
 
   const [isModalVisible, setModalVisibility] = useState(false);
@@ -161,11 +159,11 @@ const OLAFLayout: React.FC<IProps> = ({
   }, [order, setDerivativeData, setDetailsData, derivativeData]);
 
   useEffect(() => {
-    if (orderId) {
+    if (order?.uuid) {
       getLeaseData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orderId]);
+  }, [order?.uuid]);
 
   const funder = useMemo(() => getFunderName(leaseData), [leaseData]);
   const term = useMemo(() => getFunderTerm(leaseData, order), [

@@ -224,6 +224,11 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
       uuid
       createdAt
       salesChannel
+      referenceNumber
+      personUuid
+      partyUuid
+      leaseType
+      additionalData
       status
       lineItems {
         uuid
@@ -255,7 +260,7 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
 `;
 
 export function useCreateUpdateOrder(
-  onCompleted: (data: CreateUpdateOrder) => void,
+  onCompleted?: (data: CreateUpdateOrder) => void,
 ) {
   return useMutation<CreateUpdateOrder, CreateUpdateOrderVariables>(
     CREATE_UPDATE_ORDER_MUTATION,

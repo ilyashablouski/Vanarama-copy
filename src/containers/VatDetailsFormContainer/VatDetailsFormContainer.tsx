@@ -30,10 +30,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
 }) => {
   const [updateLimitedVatDetails] = useUpdateLimitedVatDetails();
   const [updateSoleTraderVatDetails] = useUpdateSoleTraderVatDetails();
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderId,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const { loading, error, data } = useGetCreditApplicationByOrderUuid(orderId);
   const defaultValues = mapDefaultValues(data?.creditApplicationByOrderUuid);
 

@@ -41,10 +41,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   onError,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
-  const [createUpdateApplication] = useCreateUpdateCreditApplication(
-    orderUuid,
-    () => {},
-  );
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const getDirectorDetailsQuery = useGetDirectorDetailsQuery(companyUuid);
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
