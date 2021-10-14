@@ -70,7 +70,7 @@ import {
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
-import { useDeletePersonEmailMutation } from "../../gql/storedPersonEmail";
+import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
