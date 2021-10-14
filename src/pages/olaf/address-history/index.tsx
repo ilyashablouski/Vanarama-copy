@@ -1,5 +1,4 @@
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery, gql } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -10,12 +9,7 @@ import useGetOrderId from '../../../hooks/useGetOrderId';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { SaveAddressHistoryMutation_createUpdateAddress as IAddress } from '../../../../generated/SaveAddressHistoryMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
-
-export const GET_PERSON_INFORMATION = gql`
-  query GetOrderInformation {
-    uuid @client
-  }
-`;
+import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   uuid?: string;
@@ -26,13 +20,9 @@ const AddressHistoryPage: NextPage = () => {
   const { uuid, redirect } = router.query as QueryParams;
   const orderId = useGetOrderId();
 
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-
-  let personUuid = uuid || '';
-  const { data } = useQuery(GET_PERSON_INFORMATION);
-  if (data?.uuid) {
-    personUuid = data.uuid;
-  }
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
+  const { data } = useStoredPersonUuidQuery();
+  const personUuid = uuid || data?.storedPersonUuid || '';
 
   const onCompleteClick = (createUpdateAddress: IAddress[] | null) => {
     createUpdateCA({

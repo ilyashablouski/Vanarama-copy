@@ -1,6 +1,6 @@
 import localforage from 'localforage';
-import { GetOrder } from '../../../generated/GetOrder';
+import { GetStoredOrder } from '../../../generated/GetStoredOrder';
 
 export default function storedOrder() {
-  return localforage.getItem<GetOrder>('order');
+  return localforage.getItem<GetStoredOrder>('order');
 }
