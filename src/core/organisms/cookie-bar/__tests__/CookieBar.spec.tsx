@@ -9,7 +9,6 @@ describe('<CookieBar />', () => {
       <CookieBar
         onAccept={jest.fn()}
         onDecline={jest.fn()}
-        onBeforeShow={jest.fn()}
         onAfterHide={jest.fn()}
       />,
     );
