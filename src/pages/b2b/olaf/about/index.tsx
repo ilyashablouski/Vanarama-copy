@@ -21,7 +21,6 @@ import {
 } from '../../../../utils/dataLayerHelpers';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
-import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../../utils/authentication';
 import { GetPerson } from '../../../../../generated/GetPerson';
@@ -56,7 +55,6 @@ type QueryParams = OLAFQueryParams & {
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const orderId = useGetOrderId();
   const { companyUuid, redirect } = router.query as QueryParams;
 
   const loginFormRef = useRef<HTMLDivElement>(null);
@@ -180,7 +178,6 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
-        orderId={orderId}
         personUuid={personUuid}
         personLoggedIn={isPersonLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
