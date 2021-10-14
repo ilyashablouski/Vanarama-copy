@@ -9,6 +9,7 @@ import savePersonUuid from './mutation/savePersonUuid';
 import savePersonEmail from './mutation/savePersonEmail';
 import saveOrder from './mutation/saveOrder';
 import saveQuote from './mutation/saveQuote';
+import deletePersonEmail from './mutation/deletePersonEmail';
 
 export default {
   Query: {
@@ -24,5 +25,6 @@ export default {
     saveOrder,
     savePersonEmail,
     saveQuote,
+    deletePersonEmail,
   },
 };
