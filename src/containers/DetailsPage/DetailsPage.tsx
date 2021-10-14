@@ -70,6 +70,7 @@ import {
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
+import { useDeletePersonEmailMutation } from "../../gql/storedPersonEmail";
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -366,6 +367,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
 
   const [saveOrderMutation] = useSaveOrderMutation();
+  const [deletePersonEmailMutation] = useDeletePersonEmailMutation();
 
   const bannerList = useMemo(() => {
     const banners = pdpContentData?.pdpContent?.banners ?? [];
@@ -403,7 +405,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     })
       .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
       .then(() => localForage.removeItem('orderId'))
-      .then(() => localForage.removeItem('personEmail'))
+      .then(() => deletePersonEmailMutation())
       .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         let url =
