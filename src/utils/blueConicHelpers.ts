@@ -1,4 +1,4 @@
-import localforage from 'localforage';
+import { getLocalStorage, setLocalStorage } from './windowLocalStorage';
 
 interface IBlueConicProfile {
   setRefusedObjectives: (ids: string[]) => void;
@@ -62,10 +62,8 @@ function setBlueConicRefusedObjectives() {
   updateUserProfile();
 }
 
-export async function updateBlueConicCookiePreferences() {
-  const cookiePreferences = await localforage.getItem(
-    COOKIE_PREFERENCES_STORAGE_KEY,
-  );
+export function updateBlueConicCookiePreferences() {
+  const cookiePreferences = getLocalStorage(COOKIE_PREFERENCES_STORAGE_KEY);
 
   switch (cookiePreferences) {
     case CookiePreferencesTypeEnum.ACCEPT:
@@ -79,24 +77,16 @@ export async function updateBlueConicCookiePreferences() {
   }
 }
 
-export async function shouldRenderCookieBar() {
-  const cookiePreferences = await localforage.getItem(
-    COOKIE_PREFERENCES_STORAGE_KEY,
-  );
-
-  return !cookiePreferences;
-}
-
 export function acceptBlueConicCookie() {
   setBlueConicConsentedObjectives();
-  localforage.setItem(
+  setLocalStorage(
     COOKIE_PREFERENCES_STORAGE_KEY,
     CookiePreferencesTypeEnum.ACCEPT,
   );
 }
 export function declineBlueConicCookie() {
   setBlueConicRefusedObjectives();
-  localforage.setItem(
+  setLocalStorage(
     COOKIE_PREFERENCES_STORAGE_KEY,
     CookiePreferencesTypeEnum.DECLINE,
   );
