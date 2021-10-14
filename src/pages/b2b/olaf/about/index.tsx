@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -21,10 +21,10 @@ import {
 } from '../../../../utils/dataLayerHelpers';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
-import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../../utils/authentication';
 import { GetPerson } from '../../../../../generated/GetPerson';
+import { useStoredPersonQuery } from '../../../../gql/storedPerson';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -55,7 +55,6 @@ type QueryParams = OLAFQueryParams & {
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const orderId = useGetOrderId();
   const { companyUuid, redirect } = router.query as QueryParams;
 
   const loginFormRef = useRef<HTMLDivElement>(null);
@@ -63,7 +62,16 @@ export const BusinessAboutPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [savePersonUuid] = useSavePersonUuidMutation();
-  const { data } = useStoredPersonUuidQuery();
+  const { data: personUuidData } = useStoredPersonUuidQuery();
+  const { data: personData } = useStoredPersonQuery();
+
+  const personUuid = useMemo(
+    () =>
+      personUuidData?.storedPersonUuid ||
+      personData?.storedPerson?.uuid ||
+      undefined,
+    [personUuidData?.storedPersonUuid, personData?.storedPerson?.uuid],
+  );
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
@@ -170,8 +178,7 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
-        orderId={orderId}
-        personUuid={data?.storedPersonUuid || undefined}
+        personUuid={personUuid}
         personLoggedIn={isPersonLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
