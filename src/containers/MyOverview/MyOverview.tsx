@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import Select from 'core/atoms/select';
 import localForage from 'localforage';
+import { useSaveOrderMutation } from 'gql/storedOrder';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
   LeaseTypeEnum,
@@ -296,6 +297,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     changeFilter(mapTabIndexToOrderType(value));
   };
 
+  const [saveOrderMutation] = useSaveOrderMutation();
+
   const onClickOrderBtn = (
     selectedOrder: GetMyOrders_myOrders,
     customer?: Person | null,
@@ -305,8 +308,14 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     const order = createOrderInputFromMyOrder(selectedOrder);
     const lastFinishedStep = findLastFinishedStep(creditApplication);
 
+    const saveOrder = saveOrderMutation({
+      variables: {
+        order,
+      },
+    });
+
     Promise.all([
-      localForage.setItem('order', order),
+      saveOrder,
       localForage.setItem('orderId', order.uuid),
       localForage.setItem('personUuid', customer?.uuid),
     ])
