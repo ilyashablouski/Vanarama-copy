@@ -5,7 +5,6 @@ import CookieBar from 'core/organisms/cookie-bar';
 import {
   acceptBlueConicCookie,
   declineBlueConicCookie,
-  shouldRenderCookieBar,
   isBlueConicClientLoaded,
   updateBlueConicCookiePreferences,
 } from '../../utils/blueConicHelpers';
@@ -15,14 +14,14 @@ function CookieBarContainer() {
 
   useEffect(() => {
     if (isBlueConicClientLoaded()) {
-      updateBlueConicCookiePreferences();
-    } else {
-      window.addEventListener(
-        'onBlueConicLoaded',
-        updateBlueConicCookiePreferences,
-        false,
-      );
+      return updateBlueConicCookiePreferences();
     }
+
+    window.addEventListener(
+      'onBlueConicLoaded',
+      updateBlueConicCookiePreferences,
+      false,
+    );
 
     return () => {
       window.removeEventListener(
@@ -33,14 +32,6 @@ function CookieBarContainer() {
     };
   }, []);
 
-  async function handleBeforeComponentShow() {
-    const shouldRender = await shouldRenderCookieBar();
-
-    if (!shouldRender) {
-      setShouldComponentRender(false);
-    }
-  }
-
   function handleAfterComponentHide() {
     setShouldComponentRender(false);
   }
@@ -49,7 +40,6 @@ function CookieBarContainer() {
     <CookieBar
       onAccept={acceptBlueConicCookie}
       onDecline={declineBlueConicCookie}
-      onBeforeShow={handleBeforeComponentShow}
       onAfterHide={handleAfterComponentHide}
     />
   ) : null;

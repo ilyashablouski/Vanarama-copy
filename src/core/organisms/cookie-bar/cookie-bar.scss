@@ -1,11 +1,11 @@
-@keyframes fadeIn {
+@keyframes cookieBarFadeIn {
   0% {
     visibility: hidden;
     opacity: 0;
   }
 }
 
-@keyframes fadeOut {
+@keyframes cookieBarFadeOut {
   100% {
     visibility: hidden;
     opacity: 0;
@@ -23,11 +23,11 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  animation: fadeIn .45s ease-out 1.45s backwards;
+  animation: cookieBarFadeIn .45s ease-out 1.45s backwards;
   z-index: 999;
 
   &.-hide {
-    animation: fadeOut .45s ease-out forwards;
+    animation: cookieBarFadeOut .45s ease-out forwards;
   }
 
   @include mobile {
