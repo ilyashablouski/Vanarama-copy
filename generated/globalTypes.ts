@@ -608,6 +608,11 @@ export interface MyAccountInputObject {
   telephoneNumber?: string | null;
 }
 
+export interface NextBestPriceInputObject {
+  maintained?: number | null;
+  nonMaintained?: number | null;
+}
+
 /**
  * Input object to create an order
  */
@@ -761,12 +766,40 @@ export interface QuickCreditCheckerInputObject {
   person: PersonInputObject;
 }
 
+export interface QuoteInputObject {
+  availability?: string | null;
+  capId?: string | null;
+  colour?: string | null;
+  financeType?: number | null;
+  freeInsurance?: boolean | null;
+  funderId?: number | null;
+  leadTime?: string | null;
+  leaseCost?: RentalCostInputObject | null;
+  leaseType?: LeaseTypeEnum | null;
+  maintenanceCost?: RentalCostInputObject | null;
+  mileage?: number | null;
+  nextBestPrice?: NextBestPriceInputObject | null;
+  processingFee?: number | null;
+  stock?: string | null;
+  stockBatchId?: number | null;
+  term?: number | null;
+  trim?: string | null;
+  upfront?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
+}
+
 /**
  * Rate filter
  */
 export interface RateInputObject {
   max?: number | null;
   min?: number | null;
+}
+
+export interface RentalCostInputObject {
+  excessMileage?: number | null;
+  initialRental?: number | null;
+  monthlyRental?: number | null;
 }
 
 /**
