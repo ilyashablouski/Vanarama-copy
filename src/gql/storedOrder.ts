@@ -17,6 +17,7 @@ export function useStoredOrderQuery(
 ) {
   return useQuery<GetStoredOrder>(GET_STORED_ORDER_QUERY, {
     ssr: false,
+    fetchPolicy: 'no-cache',
     onCompleted,
     onError,
   });
