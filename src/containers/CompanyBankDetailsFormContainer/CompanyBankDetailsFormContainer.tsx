@@ -9,7 +9,6 @@ import {
   useUpdateLimitedBankDetails,
   useUpdateSoleTraderBankDetails,
 } from './gql';
-import useGetSetBankUuid from '../../hooks/useGetSetBankUuid';
 import { IProps } from './interfaces';
 import {
   mapFormValues,
@@ -17,6 +16,10 @@ import {
   mapBankAccountsForCreditApplication,
 } from './mappers';
 import Skeleton from '../../components/Skeleton';
+import {
+  useStoredBankUuidQuery,
+  useSaveStoredBankUuidMutation,
+} from '../../gql/storedBankUuid';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -37,11 +40,13 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const [updateLimitedBankDetails] = useUpdateLimitedBankDetails();
   const [updateSoleTraderBankDetails] = useUpdateSoleTraderBankDetails();
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
-  const { setBankUuid, getBankUuid } = useGetSetBankUuid();
   const { loading, error, data } = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
   const account = mapDefaultValues(data?.creditApplicationByOrderUuid);
+  const [saveStoredBankUuidMutation] = useSaveStoredBankUuidMutation();
+  const { data: bankUuidData } = useStoredBankUuidQuery();
+  const accountUuid = bankUuidData?.storedPersonBankUuid || undefined;
 
   if (loading) {
     return <Loading size="large" />;
@@ -56,7 +61,6 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   }
 
   const handleUpdateBankDetails = async (values: ICompanyBankDetails) => {
-    const accountUuid = await getBankUuid();
     const input = {
       variables: {
         input: {
@@ -82,7 +86,11 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleSubmit = async (values: ICompanyBankDetails) => {
     try {
       const res = await handleUpdateBankDetails(values);
-      setBankUuid(pluckBankAccountData(res)?.[0]?.uuid);
+      saveStoredBankUuidMutation({
+        variables: {
+          bankUuid: pluckBankAccountData(res)?.[0]?.uuid,
+        },
+      });
       await createUpdateApplication({
         variables: {
           input: {
