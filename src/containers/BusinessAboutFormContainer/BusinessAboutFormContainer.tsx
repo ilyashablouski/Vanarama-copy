@@ -54,7 +54,6 @@ const savePersonUuid = async (data: SaveBusinessAboutYou) => {
 };
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
-  orderId,
   personUuid,
   onCompleted,
   onError,
@@ -73,7 +72,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const order = orderData?.storedOrder?.order;
 
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
-    orderId,
+    order?.uuid || '',
   );
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
@@ -168,7 +167,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         input: {
           lineItems: order?.lineItems || [],
           leaseType: order?.leaseType || LeaseTypeEnum.BUSINESS,
-          uuid: orderId,
+          uuid: order?.uuid,
           personUuid: businessPersonUuid,
         },
       },

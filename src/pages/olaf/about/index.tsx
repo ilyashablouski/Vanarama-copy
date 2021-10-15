@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -35,6 +35,7 @@ import { GetDerivative_derivative as IDerivative } from '../../../../generated/G
 import Skeleton from '../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../utils/authentication';
 import { GetPerson } from '../../../../generated/GetPerson';
+import { useStoredPersonQuery } from '../../../gql/storedPerson';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -77,13 +78,22 @@ const AboutYouPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [setPersonUuid] = useSavePersonUuidMutation();
-  const { data } = useStoredPersonUuidQuery();
+  const { data: storedPersonUuidData } = useStoredPersonUuidQuery();
+  const { data: storedPersonData } = useStoredPersonQuery();
+
+  const personUuid = useMemo(
+    () =>
+      storedPersonData?.storedPerson?.uuid ||
+      storedPersonUuidData?.storedPersonUuid ||
+      '',
+    [storedPersonData?.storedPerson, storedPersonUuidData?.storedPersonUuid],
+  );
 
   const [saveOrderMutation] = useSaveOrderMutation();
   const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
 
-  const { refetch } = usePersonByUuidData(data?.storedPersonUuid || '');
+  const { refetch } = usePersonByUuidData(personUuid);
 
   const [updateOrderHandle] = useCreateUpdateOrder();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
@@ -132,7 +142,7 @@ const AboutYouPage: NextPage = () => {
         updateOrderHandle({
           variables: {
             input: {
-              personUuid: data?.storedPersonUuid || '',
+              personUuid,
               leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
               lineItems: order?.lineItems || DEFAULT_LINE_ITEMS,
               partyUuid: resp.data?.personByUuid?.partyUuid,
@@ -213,7 +223,7 @@ const AboutYouPage: NextPage = () => {
         }
         onLogInClick={handleLogInCLick}
         onRegistrationClick={handleRegistrationClick}
-        personUuid={data?.storedPersonUuid || undefined}
+        personUuid={personUuid}
       />
     </OLAFLayout>
   );
