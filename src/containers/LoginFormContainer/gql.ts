@@ -3,6 +3,8 @@ import {
   LoginUserMutation as Mutation,
   LoginUserMutationVariables as MutationVariables,
 } from '../../../generated/LoginUserMutation';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { GetPerson } from '../../../generated/GetPerson';
 
 export const LOGIN_USER_MUTATION = gql`
   mutation LoginUserMutation($username: String!, $password: String!) {
@@ -34,4 +36,30 @@ export function makeLoginUserMutationMock(email: string, password: string) {
       },
     },
   };
+}
+
+export const PERSON_DATA_FRAGMENT = gql`
+  fragment PersonData on PersonType {
+    uuid
+    firstName
+    lastName
+    partyUuid
+    emailAddresses {
+      value
+      partyId
+    }
+  }
+`;
+
+export const GET_PERSON_QUERY = gql`
+  query GetPerson {
+    getPerson {
+      ...PersonData
+    }
+  }
+  ${PERSON_DATA_FRAGMENT}
+`;
+
+export function usePersonImperativeQuery() {
+  return useImperativeQuery<GetPerson>(GET_PERSON_QUERY);
 }
