@@ -6,7 +6,11 @@ import css from '!!raw-loader!../../../public/styles/base.css';
 
 const Inline = () => (
   // eslint-disable-next-line react/no-danger
-  <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
+  <style
+    dangerouslySetInnerHTML={{
+      __html: decode(css),
+    }}
+  />
 );
 
 export default React.memo(Inline);

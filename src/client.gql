@@ -3,6 +3,39 @@ type OrderInputObjectWithRating {
   rating: Float
 }
 
+input RentalCostInputObject {
+  excessMileage: Float
+  initialRental: Float
+  monthlyRental: Float
+}
+
+input NextBestPriceInputObject {
+  maintained: Float
+  nonMaintained: Float
+}
+
+input QuoteInputObject {
+  availability: String
+  capId: ID
+  colour: ID
+  financeType: Int
+  freeInsurance: Boolean
+  funderId: Int
+  leadTime: String
+  leaseCost: RentalCostInputObject
+  leaseType: LeaseTypeEnum
+  maintenanceCost: RentalCostInputObject
+  mileage: Int
+  nextBestPrice: NextBestPriceInputObject
+  processingFee: Float
+  stock: String
+  stockBatchId: Int
+  term: Int
+  trim: ID
+  upfront: Int
+  vehicleType: VehicleTypeEnum
+}
+
 extend type Query {
   leaseTypes: JSON
   sortOrder: JSON
@@ -13,6 +46,7 @@ extend type Query {
   storedOrder: OrderInputObjectWithRating
   storedPersonEmail: String
   storedPersonBankUuid: ID
+  storedQuote: Quote
 }
 
 extend type Mutation {
@@ -20,6 +54,7 @@ extend type Mutation {
   savePersonUuid(uuid: ID): ID
   saveOrder(order: OrderInputObject, rating: Float): OrderInputObjectWithRating
   savePersonEmail(email: String): String
+  saveQuote(quote: QuoteInputObject): Quote
   deletePersonEmail: Boolean
   savePersonBankUuid(bankUuid: ID): ID
 }
