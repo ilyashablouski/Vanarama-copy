@@ -4,10 +4,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
-import {
-  useStoredPersonUuidQuery,
-  useSavePersonUuidMutation,
-} from '../../../../gql/storedPersonUuid';
+import { useSavePersonUuidMutation } from '../../../../gql/storedPersonUuid';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
@@ -24,7 +21,7 @@ import { OrderInputObject } from '../../../../../generated/globalTypes';
 import Skeleton from '../../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../../utils/authentication';
 import { GetPerson } from '../../../../../generated/GetPerson';
-import { useStoredPersonQuery } from '../../../../gql/storedPerson';
+import { useStoredOLAFDataQuery } from '../../../../gql/storedOLAFData';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -62,15 +59,14 @@ export const BusinessAboutPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [savePersonUuid] = useSavePersonUuidMutation();
-  const { data: personUuidData } = useStoredPersonUuidQuery();
-  const { data: personData } = useStoredPersonQuery();
+  const { data: storedData } = useStoredOLAFDataQuery();
 
   const personUuid = useMemo(
     () =>
-      personUuidData?.storedPersonUuid ||
-      personData?.storedPerson?.uuid ||
+      storedData?.storedPersonUuid ||
+      storedData?.storedPerson?.uuid ||
       undefined,
-    [personUuidData?.storedPersonUuid, personData?.storedPerson?.uuid],
+    [storedData?.storedPersonUuid, storedData?.storedPerson?.uuid],
   );
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);

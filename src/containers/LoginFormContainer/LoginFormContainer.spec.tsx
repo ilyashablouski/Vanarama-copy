@@ -2,8 +2,8 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
-import LoginFormContainer, { GET_PERSON_QUERY } from './LoginFormContainer';
-import { makeLoginUserMutationMock } from './gql';
+import LoginFormContainer from './LoginFormContainer';
+import { makeLoginUserMutationMock, GET_PERSON_QUERY } from './gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
 import {

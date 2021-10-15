@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import { gql, ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client';
 import localForage from 'localforage';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { ILogInFormContainerProps } from './interfaces';
-import { useLoginUserMutation } from './gql';
+import { useLoginUserMutation, usePersonImperativeQuery } from './gql';
 import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
@@ -69,21 +69,6 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
     ),
   ]);
 
-export const GET_PERSON_QUERY = gql`
-  query GetPerson {
-    getPerson {
-      uuid
-      firstName
-      lastName
-      partyUuid
-      emailAddresses {
-        value
-        partyId
-      }
-    }
-  }
-`;
-
 const LoginFormContainer = ({
   onCompleted,
   onError,
@@ -98,7 +83,7 @@ const LoginFormContainer = ({
     GetCompaniesByPersonUuid,
     GetCompaniesByPersonUuidVariables
   >(GET_COMPANIES_BY_PERSON_UUID);
-  const getPerson = useImperativeQuery<GetPerson>(GET_PERSON_QUERY);
+  const getPerson = usePersonImperativeQuery();
   const getWishlistVehicleIds = useImperativeQuery<
     GetWishlistVehicleIds,
     GetWishlistVehicleIdsVariables
