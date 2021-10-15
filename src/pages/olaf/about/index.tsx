@@ -30,6 +30,7 @@ import Skeleton from '../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../utils/authentication';
 import { GetPerson } from '../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../gql/storedOLAFData';
+import { useSavePersonEmailMutation } from '../../../gql/storedPersonEmail';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -53,11 +54,6 @@ const DEFAULT_LINE_ITEMS = [
   },
 ];
 
-const savePersonUuid = (data: IPerson) => {
-  localForage.setItem('personUuid', data.uuid);
-  localForage.setItem('personEmail', data.emailAddresses[0].value);
-};
-
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const { redirect } = router.query as OLAFQueryParams;
@@ -74,6 +70,7 @@ const AboutYouPage: NextPage = () => {
 
   const [setPersonUuid] = useSavePersonUuidMutation();
   const [saveOrderMutation] = useSaveOrderMutation();
+  const [savePersonEmailMutation] = useSavePersonEmailMutation();
   const { data: storedData } = useStoredOLAFDataQuery();
   const order = storedData?.storedOrder?.order;
 
@@ -121,8 +118,17 @@ const AboutYouPage: NextPage = () => {
     [router.pathname, router.asPath],
   );
 
+  const savePersonDataInLocalStorage = (data: IPerson) => {
+    localForage.setItem('personUuid', data.uuid);
+    savePersonEmailMutation({
+      variables: {
+        email: data.emailAddresses[0].value,
+      },
+    });
+  };
+
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
-    savePersonUuid(createUpdatePerson);
+    savePersonDataInLocalStorage(createUpdatePerson);
     await refetch({
       uuid: createUpdatePerson.uuid,
     })
