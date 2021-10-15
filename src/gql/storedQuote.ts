@@ -1,39 +1,15 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
 import { GetStoredQuote } from '../../generated/GetStoredQuote';
 import { SaveQuote, SaveQuoteVariables } from '../../generated/SaveQuote';
+import { QUOTE_DATA_FRAGMENT } from '../containers/CustomiseLeaseContainer/gql';
 
 export const GET_QUOTE_QUERY = gql`
   query GetStoredQuote {
     storedQuote @client {
-      term
-      funderId
-      mileage
-      upfront
-      trim
-      colour
-      leadTime
-      stock
-      vehicleType
-      leaseType
-      stockBatchId
-      processingFee
-      nextBestPrice {
-        maintained
-        nonMaintained
-      }
-      leaseCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      maintenanceCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      freeInsurance
+      ...quoteData
     }
   }
+  ${QUOTE_DATA_FRAGMENT}
 `;
 
 export function useGetQuoteQuery(
@@ -49,35 +25,10 @@ export function useGetQuoteQuery(
 export const SAVE_QUOTE_MUTATION = gql`
   mutation SaveQuote($quote: QuoteInputObject) {
     saveQuote(quote: $quote) @client {
-      term
-      funderId
-      mileage
-      upfront
-      trim
-      colour
-      leadTime
-      stock
-      vehicleType
-      leaseType
-      stockBatchId
-      processingFee
-      nextBestPrice {
-        maintained
-        nonMaintained
-      }
-      leaseCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      maintenanceCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      freeInsurance
+      ...quoteData
     }
   }
+  ${QUOTE_DATA_FRAGMENT}
 `;
 
 export function useSaveQuoteMutation(
