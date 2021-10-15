@@ -283,7 +283,7 @@ export const CarsPage: NextPage<IProps> = ({
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
-                    text: 'In Stock - 14-21 Days Delivery',
+                    text: item?.leadTime || 'Factory Order',
                   }}
                   features={features(
                     item?.keyInformation || [],
@@ -322,7 +322,7 @@ export const CarsPage: NextPage<IProps> = ({
                         </Heading>
                       </RouterLink>
                     ),
-                    score: item?.averageRating || 5,
+                    score: item?.averageRating ?? 0,
                   }}
                   extrasRender={
                     getFuelType(item) === FuelTypeEnum.ELECTRIC ||

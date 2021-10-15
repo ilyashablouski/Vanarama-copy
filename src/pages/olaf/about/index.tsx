@@ -5,14 +5,8 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
-import {
-  useStoredPersonUuidQuery,
-  useSavePersonUuidMutation,
-} from '../../../gql/storedPersonUuid';
-import {
-  useStoredOrderQuery,
-  useSaveOrderMutation,
-} from '../../../gql/storedOrder';
+import { useSavePersonUuidMutation } from '../../../gql/storedPersonUuid';
+import { useSaveOrderMutation } from '../../../gql/storedOrder';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
@@ -35,7 +29,7 @@ import { GetDerivative_derivative as IDerivative } from '../../../../generated/G
 import Skeleton from '../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../utils/authentication';
 import { GetPerson } from '../../../../generated/GetPerson';
-import { useStoredPersonQuery } from '../../../gql/storedPerson';
+import { useStoredOLAFDataQuery } from '../../../gql/storedOLAFData';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -66,6 +60,7 @@ const savePersonUuid = (data: IPerson) => {
 
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
+  const { redirect } = router.query as OLAFQueryParams;
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
@@ -78,26 +73,19 @@ const AboutYouPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [setPersonUuid] = useSavePersonUuidMutation();
-  const { data: storedPersonUuidData } = useStoredPersonUuidQuery();
-  const { data: storedPersonData } = useStoredPersonQuery();
+  const [saveOrderMutation] = useSaveOrderMutation();
+  const { data: storedData } = useStoredOLAFDataQuery();
+  const order = storedData?.storedOrder?.order;
 
   const personUuid = useMemo(
-    () =>
-      storedPersonData?.storedPerson?.uuid ||
-      storedPersonUuidData?.storedPersonUuid ||
-      '',
-    [storedPersonData?.storedPerson, storedPersonUuidData?.storedPersonUuid],
+    () => storedData?.storedPerson?.uuid || storedData?.storedPersonUuid || '',
+    [storedData?.storedPerson, storedData?.storedPersonUuid],
   );
-
-  const [saveOrderMutation] = useSaveOrderMutation();
-  const { data: orderData } = useStoredOrderQuery();
-  const order = orderData?.storedOrder?.order;
 
   const { refetch } = usePersonByUuidData(personUuid);
 
   const [updateOrderHandle] = useCreateUpdateOrder();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
-  const { redirect } = router.query as OLAFQueryParams;
 
   const handleLogInCLick = useCallback(() => {
     loginFormRef?.current?.scrollIntoView({

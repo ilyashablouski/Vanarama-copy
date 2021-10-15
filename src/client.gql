@@ -45,6 +45,7 @@ extend type Query {
   storedPersonUuid: ID
   storedOrder: OrderInputObjectWithRating
   storedPersonEmail: String
+  storedPersonBankUuid: ID
   storedQuote: Quote
 }
 
@@ -55,4 +56,5 @@ extend type Mutation {
   savePersonEmail(email: String): String
   saveQuote(quote: QuoteInputObject): Quote
   deletePersonEmail: Boolean
+  savePersonBankUuid(bankUuid: ID): ID
 }
