@@ -8,11 +8,13 @@ import {
 } from '../../OrdersInformation/gql';
 import { useStoredPersonQuery } from '../../../gql/storedPerson';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import { useSaveOrderMutation } from '../../../gql/storedOrder';
 
 jest.mock('../../OrdersInformation/gql');
 jest.mock('../../../gql/storedPerson');
 jest.mock('@apollo/client');
 jest.mock('../../../hooks/useImperativeQuery');
+jest.mock('../../../gql/storedOrder');
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -148,6 +150,8 @@ describe('<MyOverview />', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
+  (useSaveOrderMutation as jest.Mock).mockReturnValue([]);
 
   it('renders quotes correctly with data', async () => {
     (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
