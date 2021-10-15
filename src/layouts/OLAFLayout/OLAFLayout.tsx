@@ -76,6 +76,7 @@ const VANARAMA_ADVANTAGES = [
   {
     label: 'No Admin Fees',
     key: '3',
+    dataAbTestId: 'online-application-form_list_no-admin-fees',
   },
   {
     label: 'Free, Safe & Contactless Delivery',
@@ -306,7 +307,11 @@ const OLAFLayout: React.FC<IProps> = ({
                   </Heading>
                   <List>
                     {VANARAMA_ADVANTAGES.map(item => (
-                      <li className="-custom" key={item.key}>
+                      <li
+                        className="-custom"
+                        key={item.key}
+                        data-abtestid={item.dataAbTestId}
+                      >
                         <Icon
                           size="regular"
                           color="teal"

@@ -60,14 +60,26 @@ exports[`<OlafCard /> Olaf Card should render correctly 1`] = `
           "dataTestId": "processingFee",
           "isOrange": true,
           "label": "Processing Fee",
+          "labelElementAttributes": Object {
+            "dataAbTestId": "online-application-form_structured-list_processing-fee-label",
+          },
           "name": "processingFee",
           "value": "FREE",
+          "valueElementAttributes": Object {
+            "dataAbTestId": "online-application-form_structured-list_processing-fee-value",
+          },
         },
         Object {
           "dataTestId": undefined,
           "label": "Initial Rental",
+          "labelElementAttributes": Object {
+            "dataAbTestId": "online-application-form_structured-list_initial-rental-label",
+          },
           "name": "rental",
           "value": "£815.70 (inc VAT)",
+          "valueElementAttributes": Object {
+            "dataAbTestId": "online-application-form_structured-list_initial-rental-value",
+          },
         },
         Object {
           "dataTestId": undefined,
