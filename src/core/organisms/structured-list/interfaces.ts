@@ -3,6 +3,12 @@ import { IBaseProps } from 'core/interfaces/base';
 import { TSize } from '../../../types/size';
 import { TColor } from '../../../types/color';
 
+type ListTypeId = {
+  listItem: string;
+  listItemLabel: string;
+  listItemValue: string;
+};
+
 export interface IList extends IBaseProps {
   selectEdit?: boolean;
   textEdit?: boolean;
@@ -16,7 +22,7 @@ export interface IList extends IBaseProps {
   label: string;
   value: string | (string | JSX.Element)[];
   isOrange?: boolean;
-  dataAbTestId?: string;
+  dataAbTestId?: ListTypeId;
 }
 
 export interface IStructuredListProps extends IBaseProps {
@@ -40,10 +46,29 @@ export interface IStructuredListProps extends IBaseProps {
   headingDataTestId?: string;
 }
 
+interface IElementAttributes {
+  dataAbTestId: string;
+}
+
 export interface IListItemProps extends IList {
   wrap?: boolean;
   editing: boolean;
   dataTestId?: string;
   testId?: number;
+  id?: string;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
+  labelElementAttributes?: IElementAttributes;
+  valueElementAttributes?: IElementAttributes;
+}
+
+export interface IOrderListData {
+  value: string | (string | JSX.Element)[];
+  label: string;
+  id?: string;
+  dataTestId?: string;
+  dataAbTestId?: string;
+  labelElementAttributes?: IElementAttributes;
+  valueElementAttributes?: IElementAttributes;
+  isOrange?: boolean;
+  key: string;
 }
