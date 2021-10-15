@@ -89,21 +89,23 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
           ) : (
             <Loading className="row-loader" />
           )}
-          <RouterLink
-            classNames={{
-              color: 'teal',
-            }}
-            link={{
-              href: `/account/my-orders`,
-              label: '',
-              query: { uuid: person?.uuid },
-            }}
-            as="/account/my-orders"
-            onClick={ev => !ordersLength && ev.preventDefault()}
-            dataTestId="orders-link"
-          >
-            View Orders
-          </RouterLink>
+          {ordersLength && (
+            <RouterLink
+              classNames={{
+                color: 'teal',
+              }}
+              link={{
+                href: `/account/my-orders`,
+                label: '',
+                query: { uuid: person?.uuid },
+              }}
+              as="/account/my-orders"
+              onClick={ev => ev.preventDefault()}
+              dataTestId="orders-link"
+            >
+              View Orders
+            </RouterLink>
+          )}
         </Card>
 
         <Card
@@ -117,20 +119,22 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
             size="regular"
             color="dark"
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
-          <RouterLink
-            classNames={{
-              color: 'teal',
-            }}
-            link={{
-              href: `/account/my-quotes`,
-              label: '',
-            }}
-            as="account/my-quotes"
-            onClick={ev => !quotesLength && ev.preventDefault()}
-            dataTestId="quotes-link"
-          >
-            View Quotes
-          </RouterLink>
+          {quotesLength && (
+            <RouterLink
+              classNames={{
+                color: 'teal',
+              }}
+              link={{
+                href: `/account/my-quotes`,
+                label: '',
+              }}
+              as="account/my-quotes"
+              onClick={ev => ev.preventDefault()}
+              dataTestId="quotes-link"
+            >
+              View Quotes
+            </RouterLink>
+          )}
         </Card>
       </div>
     </div>
