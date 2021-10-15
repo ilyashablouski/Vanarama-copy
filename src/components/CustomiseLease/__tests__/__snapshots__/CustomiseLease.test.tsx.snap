@@ -483,12 +483,14 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
+            data-abtestid="product-page_structured-list_processing-fee-label"
             data-testid="data_id-0-Processing Fee:"
           >
             Processing Fee:
           </div>
           <div
             className="structured-list-td"
+            data-abtestid="product-page_structured-list_processing-fee-value"
             data-testid="processingFee"
           >
             FREE
@@ -1269,12 +1271,14 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
+            data-abtestid="product-page_structured-list_processing-fee-label"
             data-testid="data_id-0-Processing Fee:"
           >
             Processing Fee:
           </div>
           <div
             className="structured-list-td"
+            data-abtestid="product-page_structured-list_processing-fee-value"
             data-testid="processingFee"
           >
             FREE

@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { IOrderListData } from 'core/organisms/structured-list/interfaces';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
@@ -91,7 +92,7 @@ export const getOrderList = ({
       item?.optionId === trim,
   )?.label;
 
-  const orderList = [
+  const orderList: IOrderListData[] = [
     {
       label: 'Processing Fee:',
       value:
@@ -105,6 +106,12 @@ export const getOrderList = ({
           : `£${quoteByCapId?.processingFee}`,
       dataTestId: 'processingFee',
       dataAbTestId: 'product-page_structured-list_processing-fee',
+      labelElementAttributes: {
+        dataAbTestId: 'product-page_structured-list_processing-fee-label',
+      },
+      valueElementAttributes: {
+        dataAbTestId: 'product-page_structured-list_processing-fee-value',
+      },
       isOrange: true,
     },
     {
