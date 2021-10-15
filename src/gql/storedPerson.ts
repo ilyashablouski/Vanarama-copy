@@ -8,35 +8,24 @@ import {
 } from '@apollo/client';
 import { GetStoredPerson } from '../../generated/GetStoredPerson';
 import { SavePerson, SavePersonVariables } from '../../generated/SavePerson';
+import { PERSON_DATA_FRAGMENT } from '../containers/LoginFormContainer/gql';
 
 export const GET_STORED_PERSON_QUERY = gql`
   query GetStoredPerson {
     storedPerson @client {
-      uuid
-      firstName
-      lastName
-      partyUuid
-      emailAddresses {
-        value
-        partyId
-      }
+      ...PersonData
     }
   }
+  ${PERSON_DATA_FRAGMENT}
 `;
 
 export const SAVE_PERSON_MUTATION = gql`
   mutation SavePerson($person: PersonInputObject) {
     savePerson(person: $person) @client {
-      uuid
-      firstName
-      lastName
-      partyUuid
-      emailAddresses {
-        value
-        partyId
-      }
+      ...PersonData
     }
   }
+  ${PERSON_DATA_FRAGMENT}
 `;
 
 export function useStoredPersonQuery(

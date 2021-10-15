@@ -5,6 +5,38 @@ import {
 } from '../../../generated/GetQuoteDetails';
 import { IQuoteDataInputs } from './interfaces';
 
+export const QUOTE_DATA_FRAGMENT = gql`
+  fragment quoteData on Quote {
+    term
+    funderId
+    mileage
+    upfront
+    trim
+    colour
+    leadTime
+    stock
+    vehicleType
+    leaseType
+    stockBatchId
+    processingFee
+    nextBestPrice {
+      maintained
+      nonMaintained
+    }
+    leaseCost {
+      monthlyRental
+      initialRental
+      excessMileage
+    }
+    maintenanceCost {
+      monthlyRental
+      initialRental
+      excessMileage
+    }
+    freeInsurance
+  }
+`;
+
 export const GET_QUOTE_DATA = gql`
   query GetQuoteDetails(
     $capId: ID!
@@ -26,35 +58,10 @@ export const GET_QUOTE_DATA = gql`
       colour: $colour
       trim: $trim
     ) {
-      term
-      funderId
-      mileage
-      upfront
-      trim
-      colour
-      leadTime
-      stock
-      vehicleType
-      leaseType
-      stockBatchId
-      processingFee
-      nextBestPrice {
-        maintained
-        nonMaintained
-      }
-      leaseCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      maintenanceCost {
-        monthlyRental
-        initialRental
-        excessMileage
-      }
-      freeInsurance
+      ...quoteData
     }
   }
+  ${QUOTE_DATA_FRAGMENT}
 `;
 
 export function useQuoteData({
