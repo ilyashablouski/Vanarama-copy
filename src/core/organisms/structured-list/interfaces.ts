@@ -40,10 +40,29 @@ export interface IStructuredListProps extends IBaseProps {
   headingDataTestId?: string;
 }
 
+interface IElementAttributes {
+  dataAbTestId: string;
+}
+
 export interface IListItemProps extends IList {
   wrap?: boolean;
   editing: boolean;
   dataTestId?: string;
   testId?: number;
+  id?: string;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
+  labelElementAttributes?: IElementAttributes;
+  valueElementAttributes?: IElementAttributes;
+}
+
+export interface IOrderListData {
+  value: string | (string | JSX.Element)[];
+  label: string;
+  id?: string;
+  dataTestId?: string;
+  dataAbTestId?: string;
+  labelElementAttributes?: IElementAttributes;
+  valueElementAttributes?: IElementAttributes;
+  isOrange?: boolean;
+  key?: string;
 }
