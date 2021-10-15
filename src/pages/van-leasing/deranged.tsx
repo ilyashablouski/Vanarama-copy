@@ -8,7 +8,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { IGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -19,7 +19,6 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import DerangedPageContainer from '../../containers/DerangedPageContainer/DerangedPageContainer';
-import { GENERIC_PAGE_DERANGED } from '../../containers/DerangedPageContainer/gql';
 
 function DerangedPage({ data: encodedData, error }: IGenericPage) {
   // De-obfuscate data for user
@@ -38,9 +37,7 @@ function DerangedPage({ data: encodedData, error }: IGenericPage) {
   return (
     <>
       {metaData && <Head metaData={metaData} />}
-
       {schema && <SchemaJSON json={JSON.stringify(schema)} />}
-
       <DerangedPageContainer data={data} />
     </>
   );
@@ -53,10 +50,10 @@ export async function getStaticProps(context: PreviewNextPageContext) {
       GenericPageQuery,
       GenericPageQueryVariables
     >({
-      query: GENERIC_PAGE_DERANGED,
+      query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/deranged',
-        ...(context?.preview && { isPreview: context?.preview }),
+        ...(!!context?.preview && { isPreview: context.preview }),
       },
     });
 

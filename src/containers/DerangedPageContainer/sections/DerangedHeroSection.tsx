@@ -30,7 +30,7 @@ const DerangedHeroSection = ({ title, body, image }: IHeroSection) => {
             <HeroTitle text={body || ''} className="hero--deranged-text" />
           </div>
         </div>
-        <div className="hero--right" style={{ order: 0 }}>
+        <div className="hero--right hero--deranged-null-order">
           <Image
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             alt="Hero Image"
