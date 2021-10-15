@@ -3,12 +3,6 @@ import { IBaseProps } from 'core/interfaces/base';
 import { TSize } from '../../../types/size';
 import { TColor } from '../../../types/color';
 
-type ListTypeId = {
-  listItem: string;
-  listItemLabel: string;
-  listItemValue: string;
-};
-
 export interface IList extends IBaseProps {
   selectEdit?: boolean;
   textEdit?: boolean;
@@ -22,7 +16,7 @@ export interface IList extends IBaseProps {
   label: string;
   value: string | (string | JSX.Element)[];
   isOrange?: boolean;
-  dataAbTestId?: ListTypeId;
+  dataAbTestId?: string;
 }
 
 export interface IStructuredListProps extends IBaseProps {
@@ -70,5 +64,5 @@ export interface IOrderListData {
   labelElementAttributes?: IElementAttributes;
   valueElementAttributes?: IElementAttributes;
   isOrange?: boolean;
-  key: string;
+  key?: string;
 }
