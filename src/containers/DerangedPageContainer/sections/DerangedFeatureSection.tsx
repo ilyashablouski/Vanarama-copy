@@ -38,26 +38,20 @@ const DerangedFeatureSection: FC<IDerangedFeatureSection> = ({
   featureNumber,
   sectionData,
 }) => {
+  const feature = getFeaturedClassPartial(
+    sectionData[`featured${featureNumber}` as keyof ISectionData],
+  );
+
+  const titleTag = getTitleTag(
+    getSectionsData([`featured${featureNumber}`, 'titleTag'], sectionData) ||
+      'p',
+  ) as keyof JSX.IntrinsicElements;
+
   return (
-    <section
-      className={`row:${getFeaturedClassPartial(
-        sectionData[`featured${featureNumber}` as keyof ISectionData],
-      )}`}
-    >
+    <section className={`row:${feature}`}>
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <div className="-inset -middle -col-400">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                getSectionsData(
-                  [`featured${featureNumber}`, 'titleTag'],
-                  sectionData,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
+          <Heading size="large" color="black" tag={titleTag}>
             {getSectionsData(
               [`featured${featureNumber}`, 'title'],
               sectionData,
