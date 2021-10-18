@@ -22,6 +22,8 @@ const ListItem: FC<IListItemProps> = props => {
     isOrange,
     wrap,
     dataAbTestId,
+    labelElementAttributes,
+    valueElementAttributes,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -36,7 +38,11 @@ const ListItem: FC<IListItemProps> = props => {
   };
 
   const renderDefault = () => (
-    <div className="structured-list-td" data-testid={dataTestId}>
+    <div
+      className="structured-list-td"
+      data-testid={dataTestId}
+      data-abtestid={valueElementAttributes?.dataAbTestId}
+    >
       {typeof input === 'string'
         ? input
         : input.map((item, index) => (
@@ -102,6 +108,7 @@ const ListItem: FC<IListItemProps> = props => {
           'structured-list-content--nowrap': !wrap,
         })}
         data-testid={`data_id-${testId}-${label}`}
+        data-abtestid={labelElementAttributes?.dataAbTestId}
       >
         {label}
       </div>
