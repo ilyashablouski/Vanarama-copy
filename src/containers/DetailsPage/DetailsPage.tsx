@@ -71,6 +71,7 @@ import {
 } from './helpers';
 import { Nullable } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
+import { useSaveQuoteMutation } from '../../gql/storedQuote';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -368,6 +369,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const [saveOrderMutation] = useSaveOrderMutation();
   const [deletePersonEmailMutation] = useDeletePersonEmailMutation();
+  const [saveQuoteMutation] = useSaveQuoteMutation();
 
   const bannerList = useMemo(() => {
     const banners = pdpContentData?.pdpContent?.banners ?? [];
@@ -403,7 +405,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         rating: vehicleDetails?.averageRating || 0,
       },
     })
-      .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
+      .then(() =>
+        saveQuoteMutation({
+          variables: {
+            quote: leaseScannerData?.quoteByCapId,
+          },
+        }),
+      )
       .then(() => localForage.removeItem('orderId'))
       .then(() => deletePersonEmailMutation())
       .then(() => localForage.removeItem('personUuid'))

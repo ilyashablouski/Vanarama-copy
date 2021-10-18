@@ -35,4 +35,5 @@ RUN yarn build
 EXPOSE 8080
 
 # Running the app
+ENTRYPOINT ["./start.sh"]
 CMD [ "yarn", "start" ]

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { IList } from 'core/organisms/structured-list/interfaces';
 import Price from '../../../atoms/price';
 import Text from '../../../atoms/text';
 import StructuredList from '../../../organisms/structured-list';
@@ -59,7 +60,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
     warrantyDetails,
     freeInsurance,
   } = props;
-  const data = [
+  const data: IList[] = [
     {
       name: 'processingFee',
       label: 'Processing Fee',
@@ -67,12 +68,28 @@ const OlafCard: FC<IOlafCardProps> = props => {
       dataTestId: 'processingFee',
       dataAbTestId: 'online-application-form_structured-list_processing-fee',
       isOrange: true,
+      labelElementAttributes: {
+        dataAbTestId:
+          'online-application-form_structured-list_processing-fee-label',
+      },
+      valueElementAttributes: {
+        dataAbTestId:
+          'online-application-form_structured-list_processing-fee-value',
+      },
     },
     {
       name: 'rental',
       label: 'Initial Rental',
       value: olafDetails.initailRental,
       dataTestId: initialRentalDataTestId,
+      labelElementAttributes: {
+        dataAbTestId:
+          'online-application-form_structured-list_initial-rental-label',
+      },
+      valueElementAttributes: {
+        dataAbTestId:
+          'online-application-form_structured-list_initial-rental-value',
+      },
     },
     {
       name: 'contractLength',
