@@ -19,12 +19,13 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import DerangedPageContainer from '../../containers/DerangedPageContainer/DerangedPageContainer';
+import { isDerangedHubFeatureEnabled } from '../../utils/helpers';
 
 function DerangedPage({ data: encodedData, error }: IGenericPage) {
   // De-obfuscate data for user
   const data = decodeData(encodedData);
 
-  if (error || !data) {
+  if (error || !data || !isDerangedHubFeatureEnabled()) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
