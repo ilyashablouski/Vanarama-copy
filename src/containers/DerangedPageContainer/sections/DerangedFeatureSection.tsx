@@ -8,10 +8,7 @@ import Skeleton from '../../../components/Skeleton';
 import getTitleTag from '../../../utils/getTitleTag';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HomePageData_homePage_sections_featured1_iconList as IIconList } from '../../../../generated/HomePageData';
-import {
-  GenericPageQuery_genericPage_sections,
-  GenericPageQuery_genericPage_sections as ISectionData,
-} from '../../../../generated/GenericPageQuery';
+import { GenericPageQuery_genericPage_sections as ISectionData } from '../../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { getFeaturedClassPartial } from '../../../utils/layout';
 
@@ -44,9 +41,7 @@ const DerangedFeatureSection: FC<IDerangedFeatureSection> = ({
   return (
     <section
       className={`row:${getFeaturedClassPartial(
-        sectionData[
-          `featured${featureNumber}` as keyof GenericPageQuery_genericPage_sections
-        ],
+        sectionData[`featured${featureNumber}` as keyof ISectionData],
       )}`}
     >
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>

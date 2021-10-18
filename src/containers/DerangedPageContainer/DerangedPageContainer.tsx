@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -21,7 +21,7 @@ interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
 
-const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
   return (
     <>
       {data.genericPage.sections?.hero && (
