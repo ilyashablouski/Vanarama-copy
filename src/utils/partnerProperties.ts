@@ -73,6 +73,7 @@ export function setPartnerProperties(
   if (data) {
     Cookies.set(PARTNER_COOKIE_NAME, data, {
       expires,
+      secure: true,
     });
   }
 }
@@ -82,10 +83,12 @@ export function removePartnerProperties() {
 }
 
 export function setSessionFuelTypes(fuelTypes: string[]) {
-  Cookies.set(CUSTOM_SESSION_FUEL_TYPES, fuelTypes);
+  Cookies.set(CUSTOM_SESSION_FUEL_TYPES, fuelTypes, {
+    secure: true,
+  });
 }
 export function getSessionFuelTypes() {
-  Cookies.get(CUSTOM_SESSION_FUEL_TYPES);
+  return Cookies.get(CUSTOM_SESSION_FUEL_TYPES);
 }
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
