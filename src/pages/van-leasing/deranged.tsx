@@ -20,26 +20,46 @@ import {
 } from '../../../generated/GenericPageQuery';
 import DerangedPageContainer from '../../containers/DerangedPageContainer/DerangedPageContainer';
 import { isDerangedHubFeatureEnabled } from '../../utils/helpers';
+import {
+  GetConversionsCarList,
+  GetConversionsCarListVariables,
+} from '../../../generated/GetConversionsCarList';
+import { GET_CONVERSIONS_CAR_LIST } from '../../gql/conversions';
+import {
+  ConversionTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
-function DerangedPage({ data: encodedData, error }: IGenericPage) {
-  // De-obfuscate data for user
-  const data = decodeData(encodedData);
+interface IDerangedPage {
+  genericPageData: IGenericPage;
+  derangedCarList: GetConversionsCarList;
+}
 
-  if (error || !data || !isDerangedHubFeatureEnabled()) {
+function DerangedPage({ genericPageData, derangedCarList }: IDerangedPage) {
+  if (
+    genericPageData.error ||
+    !genericPageData.data ||
+    !isDerangedHubFeatureEnabled()
+  ) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  const metaData = getSectionsData(['metaData'], data.genericPage);
+  const pageData = decodeData(genericPageData.data);
+
+  const metaData = getSectionsData(['metaData'], pageData.genericPage);
   const schema = getSectionsData(
     ['metaData', 'schema'],
-    data.genericPage.metaData,
+    pageData.genericPage.metaData,
   );
 
   return (
     <>
       {metaData && <Head metaData={metaData} />}
       {schema && <SchemaJSON json={JSON.stringify(schema)} />}
-      <DerangedPageContainer data={data} />
+      <DerangedPageContainer
+        pageData={pageData}
+        derangedCarList={derangedCarList}
+      />
     </>
   );
 }
@@ -58,14 +78,28 @@ export async function getStaticProps(context: PreviewNextPageContext) {
       },
     });
 
+    const { data: derangedCarList } = await client.query<
+      GetConversionsCarList,
+      GetConversionsCarListVariables
+    >({
+      query: GET_CONVERSIONS_CAR_LIST,
+      variables: {
+        conversionsVehicleType: VehicleTypeEnum.LCV,
+        conversionsConversionTypes: [ConversionTypeEnum.DERANGED],
+      },
+    });
+
     return {
       revalidate: context?.preview
         ? 1
         : Number(process.env.REVALIDATE_INTERVAL) ||
           Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
-        data: encodeData(genericPage),
-        error: errors ? errors[0] : null,
+        genericPageData: {
+          data: encodeData(genericPage),
+          error: errors ? errors[0] : null,
+        },
+        derangedCarList,
       },
     };
   } catch (error) {

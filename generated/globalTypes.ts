@@ -7,6 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum ConversionTypeEnum {
+  DERANGED = "DERANGED",
+  REFRIGERATED = "REFRIGERATED",
+}
+
 /**
  * CreditApplication Type
  */
@@ -63,8 +68,10 @@ export enum MyOrdersTypeEnum {
  * Opportunity subtype enum
  */
 export enum OpportunitySubtypeEnum {
+  DERANGED = "DERANGED",
   GAPINSURANCE = "GAPINSURANCE",
   MULTIYEAR = "MULTIYEAR",
+  REFRIGERATED = "REFRIGERATED",
   SHORTTERM = "SHORTTERM",
   TOOLSINTRANSIT = "TOOLSINTRANSIT",
 }

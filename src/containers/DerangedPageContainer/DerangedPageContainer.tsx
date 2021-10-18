@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { GetConversionsCarList } from '../../../generated/GetConversionsCarList';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -11,14 +12,15 @@ const DerangedHeroSection = dynamic(
 );
 
 interface IDerangedPageContainer {
-  data: GenericPageQuery;
+  pageData: GenericPageQuery;
+  derangedCarList: GetConversionsCarList;
 }
 
-const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
+const DerangedPageContainer: FC<IDerangedPageContainer> = ({ pageData }) => {
   return (
     <>
-      {data.genericPage.sections?.hero && (
-        <DerangedHeroSection {...data.genericPage.sections.hero} />
+      {pageData.genericPage.sections?.hero && (
+        <DerangedHeroSection {...pageData.genericPage.sections.hero} />
       )}
     </>
   );
