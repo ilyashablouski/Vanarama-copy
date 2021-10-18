@@ -35,6 +35,7 @@ import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationR
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
+import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -42,16 +43,6 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-
-const savePersonUuid = async (data: SaveBusinessAboutYou) => {
-  await Promise.all([
-    localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid),
-    localForage.setItem(
-      'personEmail',
-      data.createUpdateBusinessPerson?.emailAddresses[0].value,
-    ),
-  ]);
-};
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
   personUuid,
@@ -63,7 +54,20 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
-  const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
+  const [savePersonEmailMutation] = useSavePersonEmailMutation();
+
+  const savePersonDataInLocalStorage = async (data: SaveBusinessAboutYou) => {
+    await Promise.all([
+      localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid),
+      savePersonEmailMutation({
+        variables: {
+          email: data.createUpdateBusinessPerson?.emailAddresses[0].value,
+        },
+      }),
+    ]);
+  };
+
+  const [saveDetails] = useSaveAboutYouMutation(savePersonDataInLocalStorage);
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
