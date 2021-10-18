@@ -26,41 +26,36 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 const DerangedTilesSection = ({ tiles, tilesTitle }: ITilesSection) => {
+  const titleTag = getTitleTag(
+    getSectionsData(['titleTag'], tiles) || 'p',
+  ) as keyof JSX.IntrinsicElements;
+
   return (
     <section className="row:features-4col">
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(['titleTag'], tiles) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
+        <Heading size="large" color="black" tag={titleTag}>
           {tilesTitle || ''}
         </Heading>
-        {tiles &&
-          tiles.map((tile: TileData, index) => (
-            <div key={tile.title || index}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <TileLink tile={tile} />
-                <Text tag="p">{tile.body || ''}</Text>
-              </Tile>
-            </div>
-          ))}
+        {tiles?.map((tile: TileData, index) => (
+          <div key={tile.title || index}>
+            <Tile className="-plain -button -align-center" plain>
+              <div className="tile-icon">
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  inline
+                  round
+                  size="large"
+                  src={
+                    tile.image?.file?.url ||
+                    ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                  }
+                />
+              </div>
+              <TileLink tile={tile} />
+              <Text tag="p">{tile.body || ''}</Text>
+            </Tile>
+          </div>
+        ))}
       </LazyLoadComponent>
     </section>
   );
