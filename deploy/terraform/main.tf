@@ -50,6 +50,7 @@ resource "random_id" "secret_key_base" {
   byte_length = 16
 }
 
+# to be deprecated
 resource "aws_ssm_parameter" "secret-key-base" {
   name       = "/${var.env}/${var.stack}/${var.app}/secret-key-base"
   type       = "SecureString"
@@ -63,9 +64,35 @@ resource "aws_ssm_parameter" "secret-key-base" {
   }
 }
 
+resource "aws_ssm_parameter" "secret_key_base" {
+  name       = "/${var.env}/${var.stack}/${var.app}/SECRET_KEY_BASE"
+  type       = "SecureString"
+  value      = "${random_id.secret_key_base.hex}"
 
+  tags = {
+    env        = "${var.env}"
+    stack      = "${var.stack}"
+    app        = "${var.app}"
+    created-by = "terraform"
+  }
+}
+
+# to be deprecated
 resource "aws_ssm_parameter" "redis-cache-host" {
   name       = "/${var.env}/${var.stack}/${var.app}/redis-host"
+  type       = "SecureString"
+  value      = "${data.terraform_remote_state.grid.outputs.redis_endpoint}"
+
+  tags = {
+    env        = "${var.env}"
+    stack      = "${var.stack}"
+    app        = "${var.app}"
+    created-by = "terraform"
+  }
+}
+
+resource "aws_ssm_parameter" "redis_cache_host" {
+  name       = "/${var.env}/${var.stack}/${var.app}/REDIS_CACHE_HOST"
   type       = "SecureString"
   value      = "${data.terraform_remote_state.grid.outputs.redis_endpoint}"
 
