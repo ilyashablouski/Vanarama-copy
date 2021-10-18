@@ -20,3 +20,4 @@ export PRERENDER_SERVICE_URL="https://prerender-service-production.herokuapp.com
 export MICROBLINK_URL="https://microblink-secure.motorama.com"
 export STATIC_DOMAIN="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/STATIC_DOMAIN" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export HEAP_ID="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/HEAP_ID" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+export REVALIDATE_INTERVAL="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/REVALIDATE_INTERVAL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
