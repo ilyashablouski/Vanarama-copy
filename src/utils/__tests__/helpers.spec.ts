@@ -162,6 +162,12 @@ describe('getOrderList', () => {
     ).toEqual([
       {
         dataAbTestId: 'product-page_structured-list_processing-fee',
+        labelElementAttributes: {
+          dataAbTestId: 'product-page_structured-list_processing-fee-label',
+        },
+        valueElementAttributes: {
+          dataAbTestId: 'product-page_structured-list_processing-fee-value',
+        },
         dataTestId: 'processingFee',
         id: 'processingFee',
         isOrange: true,
