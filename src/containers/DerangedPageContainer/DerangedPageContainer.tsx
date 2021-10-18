@@ -2,23 +2,11 @@ import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
-const DerangedTilesSection = dynamic(
-  () => import('./sections/DerangedTilesSection'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
-const DerangedLeagueSection = dynamic(
-  () => import('./sections/DerangedLeagueSection'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -29,15 +17,23 @@ interface IDerangedPageContainer {
 }
 
 const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
+  const { hero, tiles } = data.genericPage.sections || {};
   return (
     <>
-      {data.genericPage.sections?.hero && (
-        <DerangedHeroSection {...data.genericPage.sections.hero} />
+      {hero && (
+        <DerangedHeroSection
+          title={hero.title || ''}
+          body={hero.body || ''}
+          image={hero.image}
+        />
       )}
-      {data.genericPage.sections?.tiles && (
-        <DerangedTilesSection {...data.genericPage.sections.tiles} />
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          title={tiles.tilesTitle || ''}
+          tiles={tiles.tiles || []}
+        />
       )}
-      <DerangedLeagueSection />
+      <NationalLeagueBanner />
     </>
   );
 };
