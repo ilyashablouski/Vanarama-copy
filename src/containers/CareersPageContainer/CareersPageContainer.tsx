@@ -12,6 +12,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { Nullable } from '../../types/common';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 import Head from '../../components/Head/Head';
 import LeadText from '../../components/LeadText';
@@ -25,7 +26,9 @@ interface IProps {
 
 const CAREERS_LINK = {
   label: 'See Vacancies',
-  href: '/careers/vacancies.html',
+  linkType: LinkTypes.external,
+  href: 'https://vanarama.careers.adp.com/',
+  target: '_blank',
 };
 
 const DEFAULT_LINK_CLASSNAMES: IClassNamesProps = {
