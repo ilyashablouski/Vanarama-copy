@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import PartnershipFeatureSection from '../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -10,47 +11,26 @@ const DerangedHeroSection = dynamic(
   },
 );
 
-const DerangedFeatureSection = dynamic(
-  () => import('./sections/DerangedFeatureSection'),
-  {
-    loading: () => <Skeleton count={4} />,
-  },
-);
-
 interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
 
 const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
+  const { hero, featured1, featured2, featured3, featured4 } =
+    data.genericPage.sections || {};
   return (
     <>
-      {data.genericPage.sections?.hero && (
-        <DerangedHeroSection {...data.genericPage.sections.hero} />
-      )}
-      {data.genericPage.sections?.featured1 && (
-        <DerangedFeatureSection
-          featureNumber="1"
-          sectionData={data.genericPage.sections}
+      {hero && (
+        <DerangedHeroSection
+          title={hero.title || ''}
+          body={hero.body || ''}
+          image={hero.image}
         />
       )}
-      {data.genericPage.sections?.featured2 && (
-        <DerangedFeatureSection
-          featureNumber="2"
-          sectionData={data.genericPage.sections}
-        />
-      )}
-      {data.genericPage.sections?.featured3 && (
-        <DerangedFeatureSection
-          featureNumber="3"
-          sectionData={data.genericPage.sections}
-        />
-      )}
-      {data.genericPage.sections?.featured4 && (
-        <DerangedFeatureSection
-          featureNumber="4"
-          sectionData={data.genericPage.sections}
-        />
-      )}
+      {featured1 && <PartnershipFeatureSection featured={featured1} />}
+      {featured2 && <PartnershipFeatureSection featured={featured2} />}
+      {featured3 && <PartnershipFeatureSection featured={featured3} />}
+      {featured4 && <PartnershipFeatureSection featured={featured4} />}
     </>
   );
 };
