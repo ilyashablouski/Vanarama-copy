@@ -10,6 +10,20 @@ const DerangedHeroSection = dynamic(
   },
 );
 
+const DerangedTilesSection = dynamic(
+  () => import('./sections/DerangedTilesSection'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const DerangedLeagueSection = dynamic(
+  () => import('./sections/DerangedLeagueSection'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
 interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
@@ -20,6 +34,10 @@ const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
       {data.genericPage.sections?.hero && (
         <DerangedHeroSection {...data.genericPage.sections.hero} />
       )}
+      {data.genericPage.sections?.tiles && (
+        <DerangedTilesSection {...data.genericPage.sections.tiles} />
+      )}
+      <DerangedLeagueSection />
     </>
   );
 };
