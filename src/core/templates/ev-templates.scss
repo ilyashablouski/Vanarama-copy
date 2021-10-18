@@ -400,6 +400,19 @@
         }
       }
 
+      //deranged page
+      .hero--deranged-text {
+        text-align: left;
+      }
+
+      .hero--deranged-image {
+        padding-bottom: 50px;
+      }
+
+      .hero--right.hero--deranged-null-order {
+        order: 0;
+      }
+
       //insurance page
       .hero--image.hero--image-insurance {
         padding-top: 32%;
