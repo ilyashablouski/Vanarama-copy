@@ -63,8 +63,10 @@ export enum MyOrdersTypeEnum {
  * Opportunity subtype enum
  */
 export enum OpportunitySubtypeEnum {
+  DERANGED = "DERANGED",
   GAPINSURANCE = "GAPINSURANCE",
   MULTIYEAR = "MULTIYEAR",
+  REFRIGERATED = "REFRIGERATED",
   SHORTTERM = "SHORTTERM",
   TOOLSINTRANSIT = "TOOLSINTRANSIT",
 }

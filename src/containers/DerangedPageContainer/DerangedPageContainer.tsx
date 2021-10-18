@@ -10,6 +10,13 @@ const DerangedHeroSection = dynamic(
   },
 );
 
+const DerangedFeatureSection = dynamic(
+  () => import('./sections/DerangedFeatureSection'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+
 interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
@@ -19,6 +26,30 @@ const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
     <>
       {data.genericPage.sections?.hero && (
         <DerangedHeroSection {...data.genericPage.sections.hero} />
+      )}
+      {data.genericPage.sections?.featured1 && (
+        <DerangedFeatureSection
+          featureNumber="1"
+          sectionData={data.genericPage.sections}
+        />
+      )}
+      {data.genericPage.sections?.featured2 && (
+        <DerangedFeatureSection
+          featureNumber="2"
+          sectionData={data.genericPage.sections}
+        />
+      )}
+      {data.genericPage.sections?.featured3 && (
+        <DerangedFeatureSection
+          featureNumber="3"
+          sectionData={data.genericPage.sections}
+        />
+      )}
+      {data.genericPage.sections?.featured4 && (
+        <DerangedFeatureSection
+          featureNumber="4"
+          sectionData={data.genericPage.sections}
+        />
       )}
     </>
   );
