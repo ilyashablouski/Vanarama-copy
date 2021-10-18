@@ -5,15 +5,16 @@ import { NextPage } from 'next';
 import Loading from 'core/atoms/loading';
 import { useStoredOrderQuery } from 'gql/storedOrder';
 import CheckoutPageContainer from '../../containers/CheckoutPageContainer';
-import useGetQuote from '../../hooks/useGetQuote';
 import { useCarDerivativeQuery } from '../../gql/order';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { useGetQuoteQuery } from '../../gql/storedQuote';
 
 const CheckoutPage: NextPage = () => {
   const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
 
-  const quote = useGetQuote();
+  const { data: quoteData } = useGetQuoteQuery();
+  const quote = quoteData?.storedQuote;
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
 
   const { data, loading } = useCarDerivativeQuery(
