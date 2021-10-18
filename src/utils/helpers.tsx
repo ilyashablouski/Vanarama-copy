@@ -272,3 +272,7 @@ export const parseVehicleConfigId = (configId: string) => {
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
+
+export const isDerangedHubFeatureEnabled = () => {
+  return Cookies.get('DIG-7592') === '1';
+};
