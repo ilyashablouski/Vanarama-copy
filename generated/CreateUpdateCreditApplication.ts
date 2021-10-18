@@ -320,18 +320,33 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
   uuid: string;
 }
 
+export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct_freeInsurance {
+  optIn: boolean | null;
+  eligible: boolean | null;
+}
+
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
-  term: number | null;
-  annualMileage: number | null;
+  financeType: string | null;
+  depositPayment: number | null;
   monthlyPayment: number | null;
+  term: number | null;
+  finalPayment: number | null;
+  leadTime: string | null;
+  annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
   funderData: CustomJson | null;
-  depositPayment: number | null;
+  colour: string | null;
+  trim: string | null;
+  maintenance: boolean | null;
+  stockBatchId: number | null;
+  maintenancePrice: number | null;
+  partnerSlug: string | null;
   vehicleType: VehicleTypeEnum;
+  freeInsurance: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct_freeInsurance | null;
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem {
