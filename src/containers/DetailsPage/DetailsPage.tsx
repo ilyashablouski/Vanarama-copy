@@ -399,22 +399,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
     setIsModalVisible(false);
 
-    return saveOrderMutation({
-      variables: {
-        order: values,
-        rating: vehicleDetails?.averageRating || 0,
-      },
-    })
+    return Promise.all([
+      saveOrderMutation({
+        variables: {
+          order: values,
+          rating: vehicleDetails?.averageRating || 0,
+        },
+      }),
+      saveQuoteMutation({
+        variables: {
+          quote: leaseScannerData?.quoteByCapId,
+        },
+      }),
+    ])
       .then(() =>
-        saveQuoteMutation({
-          variables: {
-            quote: leaseScannerData?.quoteByCapId,
-          },
-        }),
+        Promise.all([
+          deletePersonEmailMutation(),
+          localForage.removeItem('personUuid'),
+        ]),
       )
-      .then(() => localForage.removeItem('orderId'))
-      .then(() => deletePersonEmailMutation())
-      .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         let url =
           leaseType === LeaseTypeEnum.PERSONAL
