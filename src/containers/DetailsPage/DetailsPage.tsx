@@ -66,12 +66,13 @@ import {
 } from '../../../generated/GetPdpContent';
 import {
   buildAccordionItems,
-  filterBannersByTitle,
+  filterBannersBySlug,
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
+import { PdpBanners } from '../../models/enum/PdpBanners';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -375,7 +376,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     const banners = pdpContentData?.pdpContent?.banners ?? [];
 
     return !isFreeInsurance
-      ? filterBannersByTitle(banners, 'free insurance')
+      ? filterBannersBySlug(banners, PdpBanners.freeInsurance)
       : banners;
   }, [isFreeInsurance, pdpContentData?.pdpContent?.banners]);
   const shouldBannersRender = !!bannerList.length;
@@ -399,22 +400,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
     setIsModalVisible(false);
 
-    return saveOrderMutation({
-      variables: {
-        order: values,
-        rating: vehicleDetails?.averageRating || 0,
-      },
-    })
+    return Promise.all([
+      saveOrderMutation({
+        variables: {
+          order: values,
+          rating: vehicleDetails?.averageRating || 0,
+        },
+      }),
+      saveQuoteMutation({
+        variables: {
+          quote: leaseScannerData?.quoteByCapId,
+        },
+      }),
+    ])
       .then(() =>
-        saveQuoteMutation({
-          variables: {
-            quote: leaseScannerData?.quoteByCapId,
-          },
-        }),
+        Promise.all([
+          deletePersonEmailMutation(),
+          localForage.removeItem('personUuid'),
+        ]),
       )
-      .then(() => localForage.removeItem('orderId'))
-      .then(() => deletePersonEmailMutation())
-      .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         let url =
           leaseType === LeaseTypeEnum.PERSONAL

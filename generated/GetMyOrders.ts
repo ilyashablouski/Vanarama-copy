@@ -335,10 +335,12 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications {
   uuid: string;
 }
 
+export interface GetMyOrders_myOrders_lineItems_vehicleProduct_freeInsurance {
+  optIn: boolean | null;
+  eligible: boolean | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
-  finalPayment: number | null;
-  leadTime: string | null;
-  maintenancePrice: number | null;
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
@@ -346,6 +348,8 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
   depositPayment: number | null;
   monthlyPayment: number | null;
   term: number | null;
+  finalPayment: number | null;
+  leadTime: string | null;
   annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
@@ -353,8 +357,11 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
-  vehicleType: VehicleTypeEnum;
+  stockBatchId: number | null;
+  maintenancePrice: number | null;
   partnerSlug: string | null;
+  vehicleType: VehicleTypeEnum;
+  freeInsurance: GetMyOrders_myOrders_lineItems_vehicleProduct_freeInsurance | null;
 }
 
 export interface GetMyOrders_myOrders_lineItems {

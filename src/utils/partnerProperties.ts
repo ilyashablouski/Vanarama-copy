@@ -73,19 +73,27 @@ export function setPartnerProperties(
   if (data) {
     Cookies.set(PARTNER_COOKIE_NAME, data, {
       expires,
+      sameSite: 'lax',
+      secure: true,
     });
   }
 }
 
 export function removePartnerProperties() {
-  Cookies.remove(PARTNER_COOKIE_NAME);
+  Cookies.remove(PARTNER_COOKIE_NAME, {
+    sameSite: 'lax',
+    secure: true,
+  });
 }
 
 export function setSessionFuelTypes(fuelTypes: string[]) {
-  Cookies.set(CUSTOM_SESSION_FUEL_TYPES, fuelTypes);
+  Cookies.set(CUSTOM_SESSION_FUEL_TYPES, fuelTypes, {
+    sameSite: 'lax',
+    secure: true,
+  });
 }
 export function getSessionFuelTypes() {
-  Cookies.get(CUSTOM_SESSION_FUEL_TYPES);
+  return Cookies.get(CUSTOM_SESSION_FUEL_TYPES);
 }
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
@@ -99,7 +107,10 @@ export function clearInactiveSessionFuelTypes() {
     Cookies.get(CUSTOM_SESSION_FUEL_TYPES) &&
     !getSessionStorage(PARTNER_SESSION_ACTIVE)
   ) {
-    Cookies.remove(CUSTOM_SESSION_FUEL_TYPES);
+    Cookies.remove(CUSTOM_SESSION_FUEL_TYPES, {
+      sameSite: 'lax',
+      secure: true,
+    });
   }
 }
 
