@@ -41,7 +41,6 @@ export interface IOlafCardProps extends ICardProps {
   olafDetails: IOlafDetails;
   roadsideAssistance?: GetDerivative_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetDerivative_vehicleDetails_warrantyDetails | null;
-  freeInsurance?: boolean | null;
 }
 
 const OlafCard: FC<IOlafCardProps> = props => {
@@ -58,7 +57,6 @@ const OlafCard: FC<IOlafCardProps> = props => {
     descriptionDataTestId,
     roadsideAssistance,
     warrantyDetails,
-    freeInsurance,
   } = props;
   const data: IListItemProps[] = [
     {
@@ -185,7 +183,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
         </Text>
       </div>
       <StructuredList dataTestId="order-details" list={data} />
-      {freeInsurance && <FreeInsuranceLabel />}
+      {olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
     </Card>
   );
 };

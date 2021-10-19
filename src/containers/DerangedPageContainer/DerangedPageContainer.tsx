@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -14,12 +15,22 @@ interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
 
-const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
+  const { hero, featured1, featured2, featured3, featured4 } =
+    data.genericPage.sections || {};
   return (
     <>
-      {data.genericPage.sections?.hero && (
-        <DerangedHeroSection {...data.genericPage.sections.hero} />
+      {hero && (
+        <DerangedHeroSection
+          title={hero.title || ''}
+          body={hero.body || ''}
+          image={hero.image}
+        />
       )}
+      {featured1 && <FeaturedSection featured={featured1} />}
+      {featured2 && <FeaturedSection featured={featured2} />}
+      {featured3 && <FeaturedSection featured={featured3} />}
+      {featured4 && <FeaturedSection featured={featured4} />}
     </>
   );
 };

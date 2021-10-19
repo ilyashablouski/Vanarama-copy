@@ -229,6 +229,7 @@ export const GET_PDP_CONTENT = gql`
         }
       }
       banners {
+        slug
         title
         description
         image {
