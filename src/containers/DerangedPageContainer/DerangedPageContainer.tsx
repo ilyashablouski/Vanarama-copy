@@ -28,19 +28,20 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
   pageData,
   derangedVehicleList,
 }) => {
-  const { hero, featured1, featured2, featured3, featured4 } = pageData.genericPage.sections || {};
+  const { hero, featured1, featured2, featured3, featured4 } =
+    pageData.genericPage.sections || {};
   const { conversions } = derangedVehicleList || {};
   return (
     <>
       {hero && (
-          <DerangedHeroSection
-              title={hero.title || ''}
-              body={hero.body || ''}
-              image={hero.image}
-          />
+        <DerangedHeroSection
+          title={hero.title || ''}
+          body={hero.body || ''}
+          image={hero.image}
+        />
       )}
       {conversions && conversions.length > 0 && (
-          <DerangedVehicleSection vehicleList={conversions} />
+        <DerangedVehicleSection vehicleList={conversions} />
       )}
       {featured1 && <FeaturedSection featured={featured1} />}
       {featured2 && <FeaturedSection featured={featured2} />}
