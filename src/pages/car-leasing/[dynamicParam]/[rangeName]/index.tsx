@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { SlugNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import {
@@ -40,9 +40,8 @@ import {
   vehicleList,
   vehicleListVariables,
 } from '../../../../../generated/vehicleList';
-import { formatUrl, notFoundPageHandler } from '../../../../utils/url';
+import { formatUrl } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
-import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
   filterList,
@@ -78,8 +77,6 @@ const Page: NextPage<IProps> = ({
   topOffersList: topOffersListEncodedData,
   topOffersCardsData: topOffersCardsEncodedData,
   responseCapIds,
-  error,
-  notFoundPageData,
   filtersData,
   rangeParam,
   manufacturerParam,
@@ -113,16 +110,6 @@ const Page: NextPage<IProps> = ({
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (error) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
     return <FeaturedAndTilesContainer data={pageData} />;
@@ -324,16 +311,18 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         newRangePageSlug: contextData.req?.resolvedUrl || '',
       },
     };
-  } catch {
-    const { res } = context;
-    if (res) {
-      return notFoundPageHandler(res, client);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
-    return {
-      props: {
-        error: true,
-      },
-    };
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 
