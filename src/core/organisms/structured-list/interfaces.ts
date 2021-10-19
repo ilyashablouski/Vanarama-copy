@@ -47,6 +47,8 @@ interface IElementAttributes {
 }
 
 export interface IListItemProps extends IBaseProps {
+  id?: string;
+  key?: string;
   selectEdit?: boolean;
   textEdit?: boolean;
   label: string;
@@ -59,24 +61,10 @@ export interface IListItemProps extends IBaseProps {
   };
   isOrange?: boolean;
   wrap?: boolean;
-  editing: boolean;
-  dataTestId?: string;
+  editing?: boolean;
   testId?: number;
-  id?: string;
   dataAbTestId?: string;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
   labelElementAttributes?: IElementAttributes;
   valueElementAttributes?: IElementAttributes;
-}
-
-export interface IOrderListData {
-  value: string | (string | JSX.Element)[];
-  label: string;
-  id?: string;
-  dataTestId?: string;
-  dataAbTestId?: string;
-  labelElementAttributes?: IElementAttributes;
-  valueElementAttributes?: IElementAttributes;
-  isOrange?: boolean;
-  key?: string;
 }

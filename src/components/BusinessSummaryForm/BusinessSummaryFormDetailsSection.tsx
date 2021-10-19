@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import React from 'react';
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import { SummaryFormDetailsSectionCompany } from '../../../generated/SummaryFormDetailsSectionCompany';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { addressToDisplay } from '../../utils/address';
@@ -41,7 +42,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
       ? company.emailAddresses[0].value
       : company.emailAddresses.find(_ => _.primary)?.value || '';
 
-  const list = [
+  const list: IListItemProps[] = [
     {
       label: 'Business Name',
       value: company.legalName || '',
