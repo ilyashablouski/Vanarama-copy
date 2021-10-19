@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 // eslint-disable-next-line import/prefer-default-export
-export const GET_CONVERSIONS_CAR_LIST = gql`
-  query GetConversionsCarList(
+export const GET_CONVERSIONS_VEHICLE_LIST = gql`
+  query GetConversionsVehicleList(
     $conversionsCapIds: [ID]
     $conversionsVehicleType: VehicleTypeEnum
     $conversionsOnOffer: Boolean

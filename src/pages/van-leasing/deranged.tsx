@@ -1,51 +1,50 @@
 import React from 'react';
 import DefaultErrorPage from 'next/error';
-
+import { NextPage } from 'next';
 import Head from 'components/Head';
-
 import { PreviewNextPageContext } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../utils/env';
 
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import DerangedPageContainer from '../../containers/DerangedPageContainer/DerangedPageContainer';
-import { isDerangedHubFeatureEnabled } from '../../utils/helpers';
-import {
-  GetConversionsCarList,
-  GetConversionsCarListVariables,
-} from '../../../generated/GetConversionsCarList';
-import { GET_CONVERSIONS_CAR_LIST } from '../../gql/conversions';
+import { GET_CONVERSIONS_VEHICLE_LIST } from '../../gql/conversions';
 import {
   ConversionTypeEnum,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
+import {
+  GetConversionsVehicleList,
+  GetConversionsVehicleListVariables,
+} from '../../../generated/GetConversionsVehicleList';
 
 interface IDerangedPage {
   genericPageData: IGenericPage;
-  derangedCarList: GetConversionsCarList;
+  derangedVehicleList: GetConversionsVehicleList;
+  isFeatureFlag: boolean;
 }
 
-function DerangedPage({ genericPageData, derangedCarList }: IDerangedPage) {
+const DerangedPage: NextPage<IDerangedPage> = ({
+  genericPageData,
+  derangedVehicleList,
+  isFeatureFlag,
+}: IDerangedPage) => {
   if (
+    !isFeatureFlag ||
     genericPageData.error ||
     !genericPageData.data ||
-    !isDerangedHubFeatureEnabled()
+    !derangedVehicleList
   ) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
   const pageData = decodeData(genericPageData.data);
-
   const metaData = getSectionsData(['metaData'], pageData.genericPage);
   const schema = getSectionsData(
     ['metaData', 'schema'],
@@ -58,16 +57,30 @@ function DerangedPage({ genericPageData, derangedCarList }: IDerangedPage) {
       {schema && <SchemaJSON json={JSON.stringify(schema)} />}
       <DerangedPageContainer
         pageData={pageData}
-        derangedCarList={derangedCarList}
+        derangedVehicleList={derangedVehicleList}
       />
     </>
   );
-}
+};
 
-export async function getStaticProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
+  const client = createApolloClient({}, context);
+
+  const cookie = context.req?.headers?.cookie
+    ?.split(';')
+    .map(item => item.trim())
+    .includes('DIG-7592=1');
+
+  if (!cookie) {
+    return {
+      props: {
+        isFeatureFlag: false,
+      },
+    };
+  }
+
   try {
-    const client = createApolloClient({}, context);
-    const { data: genericPage, errors } = await client.query<
+    const { data: genericPage } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
@@ -78,11 +91,11 @@ export async function getStaticProps(context: PreviewNextPageContext) {
       },
     });
 
-    const { data: derangedCarList } = await client.query<
-      GetConversionsCarList,
-      GetConversionsCarListVariables
+    const { data: conversions } = await client.query<
+      GetConversionsVehicleList,
+      GetConversionsVehicleListVariables
     >({
-      query: GET_CONVERSIONS_CAR_LIST,
+      query: GET_CONVERSIONS_VEHICLE_LIST,
       variables: {
         conversionsVehicleType: VehicleTypeEnum.LCV,
         conversionsConversionTypes: [ConversionTypeEnum.DERANGED],
@@ -90,27 +103,16 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     });
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         genericPageData: {
           data: encodeData(genericPage),
-          error: errors ? errors[0] : null,
         },
-        derangedCarList,
+        derangedVehicleList: conversions,
+        isFeatureFlag: true,
       },
     };
   } catch (error) {
-    return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
-      props: {
-        error,
-      },
-    };
+    return false;
   }
 }
 

@@ -6,20 +6,20 @@
 import { VehicleTypeEnum, ConversionTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetConversionsCarList
+// GraphQL query operation: GetConversionsVehicleList
 // ====================================================
 
-export interface GetConversionsCarList_conversions_keyInformation {
+export interface GetConversionsVehicleList_conversions_keyInformation {
   name: string | null;
   value: string | null;
 }
 
-export interface GetConversionsCarList_conversions_lowestPrices {
+export interface GetConversionsVehicleList_conversions_lowestPrices {
   leaseType: LeaseTypeEnum | null;
   value: number | null;
 }
 
-export interface GetConversionsCarList_conversions {
+export interface GetConversionsVehicleList_conversions {
   type: string | null;
   conversionId: number | null;
   vehicleType: VehicleTypeEnum | null;
@@ -34,15 +34,15 @@ export interface GetConversionsCarList_conversions {
   imageUrl: string | null;
   availability: number | null;
   leadTime: string | null;
-  keyInformation: (GetConversionsCarList_conversions_keyInformation | null)[] | null;
-  lowestPrices: (GetConversionsCarList_conversions_lowestPrices | null)[] | null;
+  keyInformation: (GetConversionsVehicleList_conversions_keyInformation | null)[] | null;
+  lowestPrices: (GetConversionsVehicleList_conversions_lowestPrices | null)[] | null;
 }
 
-export interface GetConversionsCarList {
-  conversions: (GetConversionsCarList_conversions | null)[] | null;
+export interface GetConversionsVehicleList {
+  conversions: (GetConversionsVehicleList_conversions | null)[] | null;
 }
 
-export interface GetConversionsCarListVariables {
+export interface GetConversionsVehicleListVariables {
   conversionsCapIds?: (string | null)[] | null;
   conversionsVehicleType?: VehicleTypeEnum | null;
   conversionsOnOffer?: boolean | null;
