@@ -45,15 +45,32 @@ const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 //   'MyAccount',
 // ];
 
-const httpLink = new HttpLink({
-  uri: process.env.API_URL!,
-  fetch,
-  credentials: 'include',
-  headers: {
-    'x-api-key': process.env.API_KEY!,
-  },
-  useGETForQueries: false,
-});
+const createEnhancedFetch = (cookie: string) => {
+  const enhancedFetch = (url: RequestInfo, init: RequestInit) => {
+    return fetch(url, {
+      ...init,
+      headers: {
+        ...init.headers,
+        Cookie: cookie,
+      },
+    }).then(response => response);
+  };
+
+  return enhancedFetch;
+};
+
+const httpLink = (cookie: string) => {
+  const enhancedFetch = createEnhancedFetch(cookie);
+  return new HttpLink({
+    uri: process.env.API_URL!,
+    fetch: enhancedFetch,
+    credentials: 'include',
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+    },
+    useGETForQueries: false,
+  });
+};
 
 // const persistedQueryLink = new ApolloLink((operation, forward) => {
 //   return forward(operation);
@@ -263,7 +280,7 @@ const attachedAdditionalDataLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-function apolloClientLink() {
+function apolloClientLink(cookie: string) {
   const links = [
     logLink,
     errorLink,
@@ -272,7 +289,7 @@ function apolloClientLink() {
     // persistedQueryLink,
     creditApplicationQueryValidationLink,
     attachedAdditionalDataLink,
-    httpLink,
+    httpLink(cookie),
   ];
 
   // NOTE: Type 'RetryLink' is missing the following properties from type 'ApolloLink': onError, setOnError
@@ -283,11 +300,12 @@ export default function createApolloClient(
   initialState: any,
   ctx?: NextPageContext,
 ) {
+  const cookie = ctx?.req?.headers.cookie || '';
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
-    link: apolloClientLink(),
+    link: apolloClientLink(cookie),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     resolvers,
     cache: new InMemoryCache({

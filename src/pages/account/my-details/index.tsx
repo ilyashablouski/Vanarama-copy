@@ -1,21 +1,18 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { ParsedUrlQuery } from 'querystring';
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import withApollo from '../../../hocs/withApollo';
+import { PreviewNextPageContext } from 'types/common';
+import createApolloClient from 'apolloClient';
+import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import { useStoredPersonQuery } from '../../../gql/storedPerson';
+import { GetPerson } from '../../../../generated/GetPerson';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -27,7 +24,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 interface IProps {
-  query: ParsedUrlQuery;
+  data: GetPerson;
 }
 
 const handleNetworkError = () =>
@@ -65,37 +62,9 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = () => {
-  const router = useRouter();
-  const redirectToRegistration = () =>
-    router.replace(
-      `/account/login-register?redirect=${router.pathname}`,
-      '/account/login-register',
-    );
+const MyDetailsPage: NextPage<IProps> = ({ data }) => {
   const [resetPassword, setResetPassword] = useState(false);
-  const { data, loading, error } = useStoredPersonQuery(
-    result => {
-      if (!result?.storedPerson) {
-        redirectToRegistration();
-      }
-    },
-    () => redirectToRegistration(),
-  );
-
-  const person = useMemo(() => data?.storedPerson || null, [data]);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  // condition was changed to fix DIG-7370
-  if (error) {
-    return (
-      <Text tag="p" color="danger" size="lead">
-        Sorry, an unexpected error occurred. Please try again!
-      </Text>
-    );
-  }
+  const person = data.getPerson;
 
   return (
     <>
@@ -151,4 +120,27 @@ const MyDetailsPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(MyDetailsPage);
+export async function getServerSideProps(context: PreviewNextPageContext) {
+  const client = createApolloClient({}, context);
+  const cookie = context.req?.headers.cookie;
+
+  if (cookie) {
+    const { data } = await client.query({
+      query: GET_PERSON_QUERY,
+    });
+    return {
+      props: {
+        data,
+      },
+    };
+  }
+
+  context?.res?.writeHead(302, { Location: '/account/login-register' });
+  context?.res?.end();
+
+  return {
+    props: {},
+  };
+}
+
+export default MyDetailsPage;
