@@ -9,16 +9,18 @@ import { GetVehicleDetails } from '../../../../generated/GetVehicleDetails';
 import { IWishlistProduct } from '../../../types/wishlist';
 import {
   convertProductDetailsToWishlistProduct,
-  filterBannersByTitle,
+  filterBannersBySlug,
   pdpCarType,
   pdpVanType,
   removeImacaColoursDuplications,
 } from '../helpers';
+import { PdpBanners } from '../../../models/enum/PdpBanners';
 
 const capId = '93456';
 
 const banners = (): IPdpBanner[] => [
   {
+    slug: 'free-insurance-banner',
     description: 'Worth Avg £538',
     image: {
       file: {
@@ -33,6 +35,7 @@ const banners = (): IPdpBanner[] => [
     title: "Special Offer: Lease This Car Online & Get 1 Year's FREE Insurance",
   },
   {
+    slug: 'redundancy',
     description:
       'When you lease this car online, if the worst happens, you can return it anytime.',
     image: {
@@ -295,7 +298,7 @@ describe('filterBannersByTitle', () => {
   const bannerList = banners();
 
   it('should remove banners with specified title', () => {
-    expect(filterBannersByTitle(bannerList, 'free insurance')).toEqual(
+    expect(filterBannersBySlug(bannerList, PdpBanners.freeInsurance)).toEqual(
       bannerList.slice(1),
     );
   });
