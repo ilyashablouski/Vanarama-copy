@@ -273,9 +273,6 @@ const OLAFLayout: React.FC<IProps> = ({
               warrantyDetails={
                 derivativeData?.data?.vehicleDetails?.warrantyDetails
               }
-              freeInsurance={
-                derivativeData?.data?.vehicleDetails?.freeInsurance
-              }
             />
             {isBenefitsVisible && (
               <>
