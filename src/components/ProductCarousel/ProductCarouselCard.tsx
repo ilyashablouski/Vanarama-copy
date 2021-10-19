@@ -129,7 +129,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
             </Heading>
           </RouterLink>
         ),
-        score: product.averageRating || 5,
+        score: product.averageRating ?? 0,
       }}
       extrasRender={
         getVehicle(product, data.derivatives)?.fuelType?.name ===

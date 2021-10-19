@@ -14,7 +14,37 @@ import {
   CreateUpdateOrderVariables,
 } from '../../generated/CreateUpdateOrder';
 
+export const VEHICLE_PRODUCT_DATA_FRAGMENT = gql`
+  fragment vehicleProduct on VehicleProductType {
+    derivativeCapId
+    description
+    vsku
+    financeType
+    depositPayment
+    monthlyPayment
+    term
+    finalPayment
+    leadTime
+    annualMileage
+    depositMonths
+    funderId
+    funderData
+    colour
+    trim
+    maintenance
+    stockBatchId
+    maintenancePrice
+    partnerSlug
+    vehicleType
+    freeInsurance {
+      optIn
+      eligible
+    }
+  }
+`;
+
 export const GET_ORDER_BY_UUID_DATA = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   query GetOrderByUuid($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
@@ -36,24 +66,7 @@ export const GET_ORDER_BY_UUID_DATA = gql`
           uuid
         }
         vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          financeType
-          depositPayment
-          monthlyPayment
-          term
-          annualMileage
-          depositMonths
-          funderId
-          funderData
-          colour
-          trim
-          maintenance
-          freeInsurance {
-            optIn
-            eligible
-          }
+          ...vehicleProduct
         }
       }
     }
@@ -161,6 +174,7 @@ export function useCarDerivativeQuery(
 }
 
 export const GET_OLAF_DATA = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   query GetOlafData($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
@@ -182,27 +196,7 @@ export const GET_OLAF_DATA = gql`
           uuid
         }
         vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          financeType
-          depositPayment
-          monthlyPayment
-          term
-          leadTime
-          maintenancePrice
-          annualMileage
-          depositMonths
-          funderId
-          funderData
-          colour
-          trim
-          maintenance
-          vehicleType
-          freeInsurance {
-            optIn
-            eligible
-          }
+          ...vehicleProduct
         }
       }
     }
@@ -219,6 +213,7 @@ export function useOlafData(uuid: string) {
 }
 
 export const CREATE_UPDATE_ORDER_MUTATION = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   mutation CreateUpdateOrder($input: OrderInputObject!) {
     createUpdateOrder(input: $input) {
       uuid
@@ -237,22 +232,7 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
         productId
         productType
         vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          term
-          annualMileage
-          monthlyPayment
-          depositMonths
-          funderId
-          funderData
-          stockBatchId
-          maintenancePrice
-          partnerSlug
-          freeInsurance {
-            optIn
-            eligible
-          }
+          ...vehicleProduct
         }
       }
     }

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderInputObject, LeaseTypeEnum } from "./globalTypes";
+import { OrderInputObject, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateOrder
@@ -18,15 +18,23 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
-  term: number | null;
-  annualMileage: number | null;
+  financeType: string | null;
+  depositPayment: number | null;
   monthlyPayment: number | null;
+  term: number | null;
+  finalPayment: number | null;
+  leadTime: string | null;
+  annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
   funderData: CustomJson | null;
+  colour: string | null;
+  trim: string | null;
+  maintenance: boolean | null;
   stockBatchId: number | null;
   maintenancePrice: number | null;
   partnerSlug: string | null;
+  vehicleType: VehicleTypeEnum;
   freeInsurance: CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct_freeInsurance | null;
 }
 

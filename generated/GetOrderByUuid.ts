@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LeaseTypeEnum } from "./globalTypes";
+import { LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetOrderByUuid
@@ -27,6 +27,8 @@ export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct {
   depositPayment: number | null;
   monthlyPayment: number | null;
   term: number | null;
+  finalPayment: number | null;
+  leadTime: string | null;
   annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
@@ -34,6 +36,10 @@ export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct {
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
+  stockBatchId: number | null;
+  maintenancePrice: number | null;
+  partnerSlug: string | null;
+  vehicleType: VehicleTypeEnum;
   freeInsurance: GetOrderByUuid_orderByUuid_lineItems_vehicleProduct_freeInsurance | null;
 }
 
