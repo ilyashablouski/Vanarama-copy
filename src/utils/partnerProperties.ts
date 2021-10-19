@@ -80,7 +80,10 @@ export function setPartnerProperties(
 }
 
 export function removePartnerProperties() {
-  Cookies.remove(PARTNER_COOKIE_NAME, { sameSite: 'lax', secure: true });
+  Cookies.remove(PARTNER_COOKIE_NAME, {
+    sameSite: 'lax',
+    secure: true,
+  });
 }
 
 export function setSessionFuelTypes(fuelTypes: string[]) {
