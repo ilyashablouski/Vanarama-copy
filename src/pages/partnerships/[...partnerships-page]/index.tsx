@@ -1,12 +1,11 @@
 import createApolloClient from 'apolloClient';
+import { ApolloError } from '@apollo/client';
 import { NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { notFoundPageHandler } from 'utils/url';
-import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 import { PreviewNextPageContext } from 'types/common';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
@@ -75,8 +74,6 @@ interface IProps extends IPartnerOffersData {
   data: Partner;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
-  notFoundPageData: any;
-  error: any;
 }
 
 const PartnershipsHomePage: NextPage<IProps> = ({
@@ -90,7 +87,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   vehicleListUrlData,
   searchPodVansData,
   searchPodCarsData,
-  notFoundPageData,
 }) => {
   const {
     colourPrimary,
@@ -187,15 +183,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       href: '/pickup-truck-leasing/search',
     },
   ];
-  if (notFoundPageData) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
 
   return (
     <>
@@ -394,15 +381,17 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     };
   } catch (error) {
-    if (context.res) {
-      return notFoundPageHandler(context.res, client);
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
 
-    return {
-      props: {
-        error: error.message,
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 
