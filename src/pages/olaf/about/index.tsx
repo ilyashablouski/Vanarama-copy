@@ -147,7 +147,11 @@ const AboutYouPage: NextPage = () => {
           .then(response =>
             saveOrderMutation({
               variables: {
-                order: response.data?.createUpdateOrder,
+                order: {
+                  ...storedData?.storedOrder?.order,
+                  uuid: response.data?.createUpdateOrder?.uuid,
+                },
+                rating: storedData?.storedOrder?.rating,
               },
             }),
           )
