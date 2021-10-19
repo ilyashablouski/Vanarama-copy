@@ -66,12 +66,13 @@ import {
 } from '../../../generated/GetPdpContent';
 import {
   buildAccordionItems,
-  filterBannersByTitle,
+  filterBannersBySlug,
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
+import { PdpBanners } from '../../models/enum/PdpBanners';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -375,7 +376,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     const banners = pdpContentData?.pdpContent?.banners ?? [];
 
     return !isFreeInsurance
-      ? filterBannersByTitle(banners, 'free insurance')
+      ? filterBannersBySlug(banners, PdpBanners.freeInsurance)
       : banners;
   }, [isFreeInsurance, pdpContentData?.pdpContent?.banners]);
   const shouldBannersRender = !!bannerList.length;

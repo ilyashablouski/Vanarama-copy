@@ -34,6 +34,7 @@ export interface GetPdpContent_pdpContent_banners_link {
 }
 
 export interface GetPdpContent_pdpContent_banners {
+  slug: string;
   title: string | null;
   description: string | null;
   image: GetPdpContent_pdpContent_banners_image | null;
