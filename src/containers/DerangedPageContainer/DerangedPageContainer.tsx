@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { GetConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -23,24 +24,28 @@ interface IDerangedPageContainer {
   derangedVehicleList: GetConversionsVehicleList;
 }
 
-const DerangedPageContainer: FC<IDerangedPageContainer> = ({
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
   pageData,
   derangedVehicleList,
 }) => {
-  const { hero } = pageData.genericPage.sections || {};
+  const { hero, featured1, featured2, featured3, featured4 } = pageData.genericPage.sections || {};
   const { conversions } = derangedVehicleList || {};
   return (
     <>
       {hero && (
-        <DerangedHeroSection
-          title={hero.title || ''}
-          body={hero.body || ''}
-          image={hero.image}
-        />
+          <DerangedHeroSection
+              title={hero.title || ''}
+              body={hero.body || ''}
+              image={hero.image}
+          />
       )}
       {conversions && conversions.length > 0 && (
-        <DerangedVehicleSection vehicleList={conversions} />
+          <DerangedVehicleSection vehicleList={conversions} />
       )}
+      {featured1 && <FeaturedSection featured={featured1} />}
+      {featured2 && <FeaturedSection featured={featured2} />}
+      {featured3 && <FeaturedSection featured={featured3} />}
+      {featured4 && <FeaturedSection featured={featured4} />}
     </>
   );
 };
