@@ -14,8 +14,10 @@ import {
   GetLeaseCompanyData as ILeaseData,
   GetLeaseCompanyDataVariables as ILeaseDataVariables,
 } from '../../generated/GetLeaseCompanyData';
+import { VEHICLE_PRODUCT_DATA_FRAGMENT } from './order';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   query GetCreditApplicationByOrderUuid($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
@@ -302,17 +304,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
           uuid
         }
         vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          term
-          annualMileage
-          monthlyPayment
-          depositMonths
-          funderId
-          funderData
-          depositPayment
-          vehicleType
+          ...vehicleProduct
         }
       }
       creditApplicationType
@@ -451,6 +443,7 @@ export function useGetCreditApplicationByOrderUuid(id: string) {
 }
 
 export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   mutation CreateUpdateCreditApplication(
     $input: CreditApplicationInputObject!
   ) {
@@ -739,17 +732,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           uuid
         }
         vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          term
-          annualMileage
-          monthlyPayment
-          depositMonths
-          funderId
-          funderData
-          depositPayment
-          vehicleType
+          ...vehicleProduct
         }
       }
       creditApplicationType

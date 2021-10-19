@@ -21,10 +21,7 @@ import {
   VehicleConfigurationByUrl,
   VehicleConfigurationByUrlVariables,
 } from '../../../../generated/VehicleConfigurationByUrl';
-import {
-  getVehicleConfigurationPath,
-  notFoundPageHandler,
-} from '../../../utils/url';
+import { getVehicleConfigurationPath } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
 import {
@@ -36,8 +33,6 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { INotFoundPageData } from '../../../models/ISearchPageProps';
-import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { toPriceFormat } from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
@@ -77,10 +72,8 @@ import { pdpCarType } from '../../../containers/DetailsPage/helpers';
 interface IProps {
   query?: ParsedUrlQuery;
   data?: GetVehicleDetails;
-  error?: string;
   capId?: number;
   quote?: GetQuoteDetails;
-  notFoundPageData?: INotFoundPageData;
   errors: any[];
   genericPageHead: GenericPageHeadQuery;
   genericPages: GenericPages[];
@@ -95,9 +88,7 @@ interface IProps {
 const CarDetailsPage: NextPage<IProps> = ({
   capId,
   data,
-  error,
   quote,
-  notFoundPageData,
   genericPageHead,
   genericPages,
   trim,
@@ -107,27 +98,6 @@ const CarDetailsPage: NextPage<IProps> = ({
   pdpContent,
   imacaAssets,
 }) => {
-  if (notFoundPageData) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
-
-  if (error) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error}
-      </div>
-    );
-  }
-
   // De-obfuscate data for user
   const productCard = decodeData(encodedData);
 
@@ -412,15 +382,15 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   } catch (error) {
     const apolloError = error as ApolloError;
 
-    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
-      return notFoundPageHandler(context.res, client);
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
 
-    return {
-      props: {
-        error: error.message,
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

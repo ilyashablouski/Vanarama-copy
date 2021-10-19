@@ -432,6 +432,73 @@ export interface GenericPageQuery_genericPage_sections_featured3 {
   testimonials: (GenericPageQuery_genericPage_sections_featured3_testimonials | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured4_iconList {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_link {
+  url: string | null;
+  text: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_cards_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sections_featured4_cards_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_cards {
+  name: string | null;
+  title: string | null;
+  image: GenericPageQuery_genericPage_sections_featured4_cards_image | null;
+  body: string | null;
+  link: GenericPageQuery_genericPage_sections_featured4_cards_link | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sections_featured4_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4 {
+  layout: (string | null)[] | null;
+  body: string | null;
+  title: string | null;
+  titleTag: string | null;
+  video: string | null;
+  targetId: string | null;
+  defaultHeight: number | null;
+  iconList: (GenericPageQuery_genericPage_sections_featured4_iconList | null)[] | null;
+  link: GenericPageQuery_genericPage_sections_featured4_link | null;
+  cards: (GenericPageQuery_genericPage_sections_featured4_cards | null)[] | null;
+  image: GenericPageQuery_genericPage_sections_featured4_image | null;
+  testimonials: (GenericPageQuery_genericPage_sections_featured4_testimonials | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_carousel_cards_image_file {
   url: string;
   fileName: string;
@@ -519,6 +586,7 @@ export interface GenericPageQuery_genericPage_sections {
   featured1: GenericPageQuery_genericPage_sections_featured1 | null;
   featured2: GenericPageQuery_genericPage_sections_featured2 | null;
   featured3: GenericPageQuery_genericPage_sections_featured3 | null;
+  featured4: GenericPageQuery_genericPage_sections_featured4 | null;
   carousel: GenericPageQuery_genericPage_sections_carousel | null;
   tiles: GenericPageQuery_genericPage_sections_tiles | null;
   steps: GenericPageQuery_genericPage_sections_steps | null;

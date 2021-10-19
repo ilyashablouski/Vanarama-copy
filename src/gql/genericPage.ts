@@ -172,6 +172,9 @@ export const GENERIC_PAGE = gql`
         featured3 {
           ...GenericPageQueryFeatured
         }
+        featured4 {
+          ...GenericPageQueryFeatured
+        }
         carousel {
           title
           name

@@ -316,7 +316,6 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
     Promise.all([
       saveOrder(order),
-      localForage.setItem('orderId', order.uuid),
       localForage.setItem('personUuid', customer?.uuid),
     ])
       .then(() => client.clearStore())

@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -16,8 +17,9 @@ interface IDerangedPageContainer {
   data: GenericPageQuery;
 }
 
-const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
-  const { hero, tiles } = data.genericPage.sections || {};
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
+  const { hero, featured1, featured2, featured3, featured4, tiles } =
+    data.genericPage.sections || {};
   return (
     <>
       {hero && (
@@ -26,7 +28,11 @@ const DerangedPageContainer: FC<IDerangedPageContainer> = ({ data }) => {
           body={hero.body || ''}
           image={hero.image}
         />
-      )}
+      )}      
+      {featured1 && <FeaturedSection featured={featured1} />}
+      {featured2 && <FeaturedSection featured={featured2} />}
+      {featured3 && <FeaturedSection featured={featured3} />}
+      {featured4 && <FeaturedSection featured={featured4} />}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tiles.tilesTitle || ''}
