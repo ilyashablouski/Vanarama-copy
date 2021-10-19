@@ -14,6 +14,7 @@ import { Nullable, Nullish } from '../../types/common';
 import { formatProductPageUrl } from '../../utils/url';
 
 import RouterLink from '../../components/RouterLink';
+import { PdpBanners } from '../../models/enum/PdpBanners';
 
 export const removeImacaColoursDuplications = (
   colourList: Array<IImacaColour>,
@@ -25,14 +26,10 @@ export const removeImacaColoursDuplications = (
   );
 };
 
-export const filterBannersByTitle = (
+export const filterBannersBySlug = (
   bannerList: Nullable<IPdpBanner>[],
-  title: string,
-) =>
-  bannerList.filter(banner => {
-    const bannerTitle = banner?.title?.toLowerCase();
-    return !bannerTitle?.includes(title);
-  });
+  excludedSlug: PdpBanners,
+) => bannerList.filter(banner => banner?.slug !== excludedSlug);
 
 export const convertProductDetailsToWishlistProduct = (
   data: Nullish<GetVehicleDetails>,

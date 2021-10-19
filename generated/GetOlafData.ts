@@ -27,8 +27,8 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   depositPayment: number | null;
   monthlyPayment: number | null;
   term: number | null;
+  finalPayment: number | null;
   leadTime: string | null;
-  maintenancePrice: number | null;
   annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
@@ -36,6 +36,9 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
+  stockBatchId: number | null;
+  maintenancePrice: number | null;
+  partnerSlug: string | null;
   vehicleType: VehicleTypeEnum;
   freeInsurance: GetOlafData_orderByUuid_lineItems_vehicleProduct_freeInsurance | null;
 }
