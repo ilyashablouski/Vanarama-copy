@@ -4,7 +4,6 @@ import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
-import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import {
   GET_CAR_DATA,
   GET_IMACA_ASSETS,
@@ -21,10 +20,7 @@ import {
   VehicleConfigurationByUrl,
   VehicleConfigurationByUrlVariables,
 } from '../../../../generated/VehicleConfigurationByUrl';
-import {
-  getVehicleConfigurationPath,
-  notFoundPageHandler,
-} from '../../../utils/url';
+import { getVehicleConfigurationPath } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
 import {
@@ -36,7 +32,6 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { toPriceFormat } from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
@@ -77,10 +72,8 @@ import {
 interface IProps {
   query?: ParsedUrlQuery;
   data?: GetVehicleDetails;
-  error?: string;
   capId?: number;
   quote?: GetQuoteDetails;
-  notFoundPageData?: INotFoundPageData;
   genericPageHead: GenericPageHeadQuery;
   genericPages: GenericPages[];
   trim: ITrimList[];
@@ -93,9 +86,7 @@ interface IProps {
 const VanDetailsPage: NextPage<IProps> = ({
   capId,
   data,
-  error,
   quote,
-  notFoundPageData,
   genericPageHead,
   genericPages,
   trim,
@@ -105,27 +96,6 @@ const VanDetailsPage: NextPage<IProps> = ({
   imacaAssets,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
-
-  if (notFoundPageData) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
-
-  if (error) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error}
-      </div>
-    );
-  }
 
   // De-obfuscate data for user
   const productCard = decodeData(encodedData);
@@ -420,15 +390,15 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   } catch (error) {
     const apolloError = error as ApolloError;
 
-    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
-      return notFoundPageHandler(context.res, client);
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
 
-    return {
-      props: {
-        error: error.message,
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 
