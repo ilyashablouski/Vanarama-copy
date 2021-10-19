@@ -1,18 +1,10 @@
-import { ServerResponse } from 'http';
-import { ApolloClient } from '@apollo/client';
-import { GENERIC_PAGE } from '../gql/genericPage';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
-import {
-  GenericPageQuery,
-  GenericPageQueryVariables,
-} from '../../generated/GenericPageQuery';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -216,43 +208,6 @@ export const PAGES_WITHOUT_LEASE_RESET = [
   '/[...details-page]',
   '/olaf',
 ];
-
-/**
- * make request for 404 page data on server side
- * @param res
- * @param client
- */
-export const notFoundPageHandler = async (
-  res: ServerResponse,
-  client: ApolloClient<any>,
-) => {
-  res.statusCode = 404;
-  const { data } = await client.query<
-    GenericPageQuery,
-    GenericPageQueryVariables
-  >({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: '404',
-    },
-  });
-  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
-  const cards = getSectionsData(
-    ['sections', 'cards', 'cards'],
-    data?.genericPage,
-  );
-  const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
-  return {
-    props: {
-      error: true,
-      notFoundPageData: {
-        name: name || null,
-        cards: cards || null,
-        featured: featured || null,
-      },
-    },
-  };
-};
 
 export const formatToSlugFormat = (value: string) =>
   value

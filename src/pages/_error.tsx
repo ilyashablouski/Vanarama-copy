@@ -24,7 +24,7 @@ const DEFAULT_LINK = {
 };
 const DEFAULT_HEADING = 'Oops, Something Went Wrong';
 const DEFAULT_DESCRIPTION =
-  'We’re having a few technical issues which we’re working on to resolveASAP!\nPlease try refreshing the page or try again later.';
+  'We’re having a few technical issues which we’re working on to resolve ASAP!\nPlease try refreshing the page or try again later.';
 
 const Error = ({ heading, description, redirectLink }: IErrorPageProps) => {
   return (
