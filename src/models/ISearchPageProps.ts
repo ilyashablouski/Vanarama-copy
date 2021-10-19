@@ -1,4 +1,3 @@
-import { ApolloError } from '@apollo/client';
 import {
   GenericPageQuery_genericPage_sections_cards_cards as ICards,
   GenericPageQuery_genericPage_sections_featured as IFeatured,
@@ -7,8 +6,6 @@ import {
 
 export interface ISearchPageProps {
   isServer: boolean;
-  error?: ApolloError;
-  notFoundPageData?: INotFoundPageData;
   metaData: IPageMetaData;
 }
 
