@@ -100,7 +100,6 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
                 query: { uuid: person?.uuid },
               }}
               as="/account/my-orders"
-              onClick={ev => ev.preventDefault()}
               dataTestId="orders-link"
             >
               View Orders
@@ -129,7 +128,6 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
                 label: '',
               }}
               as="account/my-quotes"
-              onClick={ev => ev.preventDefault()}
               dataTestId="quotes-link"
             >
               View Quotes
