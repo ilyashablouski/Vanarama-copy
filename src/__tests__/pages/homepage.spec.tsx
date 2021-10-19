@@ -759,7 +759,6 @@ describe('<HomePage />', () => {
       <MockedProvider addTypename={false} mocks={mocked}>
         <HomePage
           data={homePageData.result.data}
-          loading={false}
           productsVanDerivatives={derivatives}
           productsCarDerivatives={derivatives}
           productsPickupDerivatives={derivatives}
