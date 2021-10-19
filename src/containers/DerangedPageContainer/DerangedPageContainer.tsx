@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import PartnershipFeatureSection from '../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -27,10 +27,10 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
           image={hero.image}
         />
       )}
-      {featured1 && <PartnershipFeatureSection featured={featured1} />}
-      {featured2 && <PartnershipFeatureSection featured={featured2} />}
-      {featured3 && <PartnershipFeatureSection featured={featured3} />}
-      {featured4 && <PartnershipFeatureSection featured={featured4} />}
+      {featured1 && <FeaturedSection featured={featured1} />}
+      {featured2 && <FeaturedSection featured={featured2} />}
+      {featured3 && <FeaturedSection featured={featured3} />}
+      {featured4 && <FeaturedSection featured={featured4} />}
     </>
   );
 };
