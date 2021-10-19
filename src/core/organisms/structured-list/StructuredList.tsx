@@ -6,7 +6,7 @@ import Text from '../../atoms/text';
 import Link from '../../atoms/link';
 import ListItem from './ListItem';
 
-import { IStructuredListProps } from './interfaces';
+import { IOrderListData, IStructuredListProps } from './interfaces';
 
 const StructuredList: FC<IStructuredListProps> = ({
   className,
@@ -62,14 +62,12 @@ const StructuredList: FC<IStructuredListProps> = ({
         </div>
       )}
       <div className="structured-list-tbody">
-        {list.map((item, index: number) => (
+        {list.map((item: IOrderListData, index: number) => (
           <ListItem
             wrap={itemWrap}
-            key={`${item.dataTestId}_${index.toString()}`}
             testId={index}
             onChange={onChange}
             editing={editing}
-            dataTestId={item.dataTestId}
             {...item}
           />
         ))}
