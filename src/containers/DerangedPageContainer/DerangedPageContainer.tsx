@@ -1,8 +1,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import SchemaJSON from 'core/atoms/schema-json';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { GetConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
+import { getSectionsData } from '../../utils/getSectionsData';
+import Head from '../../components/Head/Head';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -40,7 +43,7 @@ const NationalLeagueBanner = dynamic(
 );
 
 interface IDerangedPageContainer {
-  pageData: GenericPageQuery;
+  pageData?: GenericPageQuery;
   derangedVehicleList: GetConversionsVehicleList;
 }
 
@@ -49,8 +52,9 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
   derangedVehicleList,
 }) => {
   const { hero, featured1, featured2, featured3, featured4, tiles } =
-    pageData.genericPage.sections || {};
+    pageData?.genericPage?.sections || {};
   const { conversions } = derangedVehicleList || {};
+  const metaData = getSectionsData(['metaData'], pageData?.genericPage);
   return (
     <>
       {hero && (
@@ -74,6 +78,12 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
         />
       )}
       <NationalLeagueBanner />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

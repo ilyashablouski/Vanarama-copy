@@ -32,7 +32,7 @@ const DerangedVehicleCard = React.memo(
     };
 
     const price = data?.lowestPrices?.find(
-      item => item?.leaseType === 'PERSONAL',
+      item => item?.leaseType === 'BUSINESS',
     );
 
     return (
@@ -62,7 +62,12 @@ const DerangedVehicleCard = React.memo(
             separator="."
             priceDescription="Per Month Exc.VAT"
           />
-          <Button color="teal" fill="solid" label="Load More" size="regular" />
+          <Button
+            color="teal"
+            fill="solid"
+            label="Enquire Now"
+            size="regular"
+          />
         </div>
       </Card>
     );

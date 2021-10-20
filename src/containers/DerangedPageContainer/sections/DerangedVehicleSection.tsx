@@ -38,20 +38,18 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
       </div>
       <div className="row:results">
         <div className="row:cards-3col">
-          {vehicleList?.map(vehicle => {
-            return (
-              <DerangedVehicleCard
-                lazyLoad
-                key={`${vehicle?.conversionId || ''}${vehicle?.capId ||
-                  ''}${vehicle?.vehicleType || ''}`}
-                title={{
-                  title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
-                  description: vehicle?.derivativeName || '',
-                }}
-                data={vehicle}
-              />
-            );
-          })}
+          {vehicleList?.map(vehicle => (
+            <DerangedVehicleCard
+              lazyLoad
+              key={`${vehicle?.conversionId || ''}${vehicle?.capId ||
+                ''}${vehicle?.vehicleType || ''}`}
+              title={{
+                title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
+                description: vehicle?.derivativeName || '',
+              }}
+              data={vehicle}
+            />
+          ))}
         </div>
       </div>
     </section>

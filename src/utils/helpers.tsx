@@ -272,3 +272,15 @@ export const parseVehicleConfigId = (configId: string) => {
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
+
+enum FeatureFlags {
+  DERANGED = 'DIG-7592=1',
+}
+
+export const parseCookieString = (cookieString?: string) => {
+  return cookieString?.split(';').map(item => item.trim());
+};
+
+export const isDerangedHubFeatureEnabled = (cookieArray?: string[]) => {
+  return cookieArray?.includes(FeatureFlags.DERANGED);
+};
