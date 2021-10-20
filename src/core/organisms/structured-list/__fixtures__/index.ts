@@ -1,4 +1,6 @@
-export const defaultList = [
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
+
+export const defaultList: IListItemProps[] = [
   {
     label: 'Email',
     value: 'example@example.com',
@@ -19,7 +21,7 @@ export const defaultList = [
   },
 ];
 
-export const editableList = [
+export const editableList: IListItemProps[] = [
   {
     textEdit: true,
     label: 'Email',
