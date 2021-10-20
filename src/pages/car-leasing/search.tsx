@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
@@ -42,58 +42,62 @@ const Page: NextPage<IProps> = ({
   vehiclesList,
   productCardsData,
   responseCapIds,
-}) => {
-  return (
-    <SearchPageContainer
-      isServer={isServer}
-      isCarSearch
-      isSimpleSearchPage
-      metaData={metaData}
-      pageData={decodeData(pageData)}
-      preLoadVehiclesList={decodeData(vehiclesList)}
-      preLoadProductCardsData={decodeData(productCardsData)}
-      preLoadResponseCapIds={responseCapIds}
-    />
-  );
-};
+}) => (
+  <SearchPageContainer
+    isServer={isServer}
+    isCarSearch
+    isSimpleSearchPage
+    metaData={metaData}
+    pageData={decodeData(pageData)}
+    preLoadVehiclesList={decodeData(vehiclesList)}
+    preLoadProductCardsData={decodeData(productCardsData)}
+    preLoadResponseCapIds={responseCapIds}
+  />
+);
+
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
-  const contextData = {
-    req: {
-      url: context.req?.url || '',
-    },
-    query: { ...context.query },
-  };
-  const { data } = (await ssrCMSQueryExecutor(
-    client,
-    contextData,
-    true,
-    '',
-  )) as ApolloQueryResult<GenericPageQuery>;
-  const cookieString = context?.req?.headers?.cookie || '';
-  if (!Object.keys(context.query).length) {
-    vehiclesList = await client
-      .query<vehicleList, vehicleListVariables>({
-        query: GET_VEHICLE_LIST,
-        variables: {
-          vehicleTypes: [VehicleTypeEnum.CAR],
-          leaseType: LeaseTypeEnum.PERSONAL,
-          fuelTypes: getCustomFuelTypesFromCookies(
-            cookieString,
-            'customSessionFuelTypes',
-          ),
-          onOffer: null,
-          first: RESULTS_PER_REQUEST,
-          sort: [
-            { field: SortField.offerRanking, direction: SortDirection.ASC },
-          ],
-        },
-      })
-      .then(resp => resp.data);
-    try {
+
+  try {
+    const contextData = {
+      req: {
+        url: context.req?.url || '',
+      },
+      query: { ...context.query },
+    };
+    const { data } = (await ssrCMSQueryExecutor(
+      client,
+      contextData,
+      true,
+      '',
+    )) as ApolloQueryResult<GenericPageQuery>;
+    const cookieString = context?.req?.headers?.cookie || '';
+    if (!Object.keys(context.query).length) {
+      vehiclesList = await client
+        .query<vehicleList, vehicleListVariables>({
+          query: GET_VEHICLE_LIST,
+          variables: {
+            vehicleTypes: [VehicleTypeEnum.CAR],
+            leaseType: LeaseTypeEnum.PERSONAL,
+            fuelTypes: getCustomFuelTypesFromCookies(
+              cookieString,
+              'customSessionFuelTypes',
+            ),
+            onOffer: null,
+            first: RESULTS_PER_REQUEST,
+            sort: [
+              {
+                field: SortField.offerRanking,
+                direction: SortDirection.ASC,
+              },
+            ],
+          },
+        })
+        .then(resp => resp.data);
+
       responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
       if (responseCapIds.length) {
         productCardsData = await client
@@ -106,22 +110,34 @@ export async function getServerSideProps(context: NextPageContext) {
           })
           .then(resp => resp.data);
       }
-    } catch {
-      return false;
     }
-  }
 
-  return {
-    props: {
-      context: cookieString,
-      pageData: encodeData(data),
-      metaData: data?.genericPage.metaData || null,
-      vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
-      productCardsData: productCardsData ? encodeData(productCardsData) : null,
-      responseCapIds: responseCapIds || null,
-      isServer: !!context.req,
-    },
-  };
+    return {
+      props: {
+        context: cookieString,
+        pageData: encodeData(data),
+        metaData: data?.genericPage.metaData || null,
+        vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
+        productCardsData: productCardsData
+          ? encodeData(productCardsData)
+          : null,
+        responseCapIds: responseCapIds || null,
+        isServer: !!context.req,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
 }
 
 export default Page;
