@@ -6,14 +6,18 @@ import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { getReviewsHubCategoryStaticProps } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import { decodeData } from '../../../utils/data';
+import { ReviewsHubCategoryQuery } from '../../../../generated/ReviewsHubCategoryQuery';
 
-interface IReviewHub {
-  data: any;
+interface IElectricGuides {
+  data: ReviewsHubCategoryQuery;
   loading: boolean;
   error: ApolloError | undefined;
 }
 
-const ReviewHub: NextPage<IReviewHub> = ({ data: encodedData, error }) => {
+const ElectricGuides: NextPage<IElectricGuides> = ({
+  data: encodedData,
+  error,
+}) => {
   const data = decodeData(encodedData);
 
   if (error || !data) {
@@ -35,7 +39,7 @@ const ReviewHub: NextPage<IReviewHub> = ({ data: encodedData, error }) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
-  return getReviewsHubCategoryStaticProps(client, 'reviews/vans', context);
+  return getReviewsHubCategoryStaticProps(client, 'guides/electric', context);
 }
 
-export default ReviewHub;
+export default ElectricGuides;
