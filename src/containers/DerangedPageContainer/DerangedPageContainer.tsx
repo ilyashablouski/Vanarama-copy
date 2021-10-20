@@ -2,10 +2,18 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import FeaturedSection from '../../components/FeaturedSection';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const FeaturedSection = dynamic(
+  () => import('../../components/FeaturedSection'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -16,7 +24,7 @@ interface IDerangedPageContainer {
 }
 
 const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
-  const { hero, featured1, featured2, featured3, featured4 } =
+  const { hero, featured1, featured2, featured3, featured4, tiles } =
     data.genericPage.sections || {};
   return (
     <>
@@ -31,6 +39,13 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
       {featured2 && <FeaturedSection featured={featured2} />}
       {featured3 && <FeaturedSection featured={featured3} />}
       {featured4 && <FeaturedSection featured={featured4} />}
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          title={tiles.tilesTitle || ''}
+          tiles={tiles.tiles || []}
+        />
+      )}
+      <NationalLeagueBanner />
     </>
   );
 };
