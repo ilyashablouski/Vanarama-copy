@@ -4,10 +4,16 @@ import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
-import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const FeaturedSection = dynamic(
+  () => import('../../components/FeaturedSection'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -28,7 +34,7 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({ data }) => {
           body={hero.body || ''}
           image={hero.image}
         />
-      )}      
+      )}
       {featured1 && <FeaturedSection featured={featured1} />}
       {featured2 && <FeaturedSection featured={featured2} />}
       {featured3 && <FeaturedSection featured={featured3} />}
