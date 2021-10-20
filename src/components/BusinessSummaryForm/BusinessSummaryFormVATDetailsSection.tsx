@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import React, { useMemo } from 'react';
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { VatDetails } from '../../../generated/VatDetails';
 
@@ -37,7 +38,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
     [vatDetails.turnoverPercentageOutsideUk],
   );
 
-  const list = [
+  const list: IListItemProps[] = [
     {
       label: 'VAT Number',
       value: vatDetails.vatNumber || '',

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IList } from 'core/organisms/structured-list/interfaces';
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import Price from '../../../atoms/price';
 import Text from '../../../atoms/text';
 import StructuredList from '../../../organisms/structured-list';
@@ -58,7 +58,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
     roadsideAssistance,
     warrantyDetails,
   } = props;
-  const data: IList[] = [
+  const data: IListItemProps[] = [
     {
       name: 'processingFee',
       label: 'Processing Fee',
