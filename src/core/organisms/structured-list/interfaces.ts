@@ -23,7 +23,7 @@ export interface IList extends IBaseProps {
 
 export interface IStructuredListProps extends IBaseProps {
   itemWrap?: boolean;
-  list: IList[];
+  list: IListItemProps[];
   editable?: boolean;
   heading?: string;
   headingSize?: TSize;
@@ -46,25 +46,25 @@ interface IElementAttributes {
   dataAbTestId: string;
 }
 
-export interface IListItemProps extends IList {
-  wrap?: boolean;
-  editing: boolean;
-  dataTestId?: string;
-  testId?: number;
+export interface IListItemProps extends IBaseProps {
   id?: string;
+  key?: string;
+  selectEdit?: boolean;
+  textEdit?: boolean;
+  label: string;
+  value: string | (string | JSX.Element)[];
+  name?: string;
+  placeholder?: string;
+  options?: {
+    data: string[];
+    favourites: string[];
+  };
+  isOrange?: boolean;
+  wrap?: boolean;
+  editing?: boolean;
+  testId?: number;
+  dataAbTestId?: string;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
   labelElementAttributes?: IElementAttributes;
   valueElementAttributes?: IElementAttributes;
-}
-
-export interface IOrderListData {
-  value: string | (string | JSX.Element)[];
-  label: string;
-  id?: string;
-  dataTestId?: string;
-  dataAbTestId?: string;
-  labelElementAttributes?: IElementAttributes;
-  valueElementAttributes?: IElementAttributes;
-  isOrange?: boolean;
-  key?: string;
 }
