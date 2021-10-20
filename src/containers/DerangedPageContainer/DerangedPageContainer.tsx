@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { GetConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
-import FeaturedSection from '../../components/FeaturedSection';
 
 const DerangedHeroSection = dynamic(
   () => import('./sections/DerangedHeroSection'),
@@ -16,6 +15,13 @@ const DerangedVehicleSection = dynamic(
   () => import('./sections/DerangedVehicleSection'),
   {
     loading: () => <Skeleton count={1} />,
+  },
+);
+
+const FeaturedSection = dynamic(
+  () => import('../../components/FeaturedSection'),
+  {
+    loading: () => <Skeleton count={4} />,
   },
 );
 
