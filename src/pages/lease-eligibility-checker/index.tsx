@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
@@ -19,13 +20,13 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import Lease from '../../components/EligibilityChecker/Landing/Lease';
 import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
-const ErrorMessage = dynamic(
-  () => import('../../components/ErrorMessage/ErrorMessage'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -50,12 +51,8 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
   data,
   error,
 }) => {
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
-  if (!data?.eligibilityCheckerLandingPage) {
-    return null;
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
   }
 
   const accordionItems = (questions: (QuestionAnswers | null)[]) => {
@@ -178,20 +175,35 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<EligibilityCheckerPageData>({
+    const { data } = await client.query<EligibilityCheckerPageData>({
       query: ELIGIBILITY_CHECKER_CONTENT,
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
-      props: { data },
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
+      props: {
+        data,
+      },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

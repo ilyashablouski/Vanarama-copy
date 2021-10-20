@@ -14,6 +14,11 @@ export interface SlugNextPageContext extends NextPageContext {
   resolvedUrl?: string;
 }
 
+export interface IErrorProps {
+  statusCode: number;
+  message: string;
+}
+
 export interface IMetaDataSection {
   breadcrumbs: Nullable<IBreadcrumb[]>;
   canonicalUrl: Nullable<string>;

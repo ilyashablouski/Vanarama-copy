@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
@@ -20,14 +21,23 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../../generated/GenericPageQuery';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
+import { convertErrorToProps } from '../../../utils/helpers';
+import ErrorPage from '../../_error';
 
-const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
+const EligibilityChecker: NextPage<IGenericPage> = ({
+  data: encodedData,
+  error,
+}) => {
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   // De-obfuscate data for user
   const data = decodeData(encodedData);
-
-  if (!data?.genericPage) {
-    return <></>;
-  }
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -109,7 +119,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Lease Finance',
-      ...(context?.preview && { isPreview: context?.preview }),
+      isPreview: !!context?.preview,
     },
   });
   const items = data?.pageCollection?.items;
@@ -125,29 +135,42 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: `lease-finance/${paths?.join('/')}`,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

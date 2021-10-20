@@ -1,4 +1,4 @@
-import { ApolloError, gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import createApolloClient from '../apolloClient';
 import {
   GenericPageQuery,
@@ -18,11 +18,12 @@ import {
   SearchPageSlug,
   SearchPageSlugVariables,
 } from '../../generated/SearchPageSlug';
+import { IErrorProps } from '../types/common';
 
 export interface IGenericPage {
   data?: GenericPageQuery | undefined;
   loading?: boolean | undefined;
-  error?: ApolloError;
+  error?: IErrorProps;
   pageHead?: GenericPageHeadQuery;
 }
 
