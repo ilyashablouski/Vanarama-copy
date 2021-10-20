@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
-import createApolloClient from 'apolloClient';
+import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
 import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
@@ -25,6 +25,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   data: GetPerson;
+  error: string;
 }
 
 const handleNetworkError = () =>
@@ -62,8 +63,17 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = ({ data }) => {
+const MyDetailsPage: NextPage<IProps> = ({ data, error }) => {
   const [resetPassword, setResetPassword] = useState(false);
+
+  if (error) {
+    return (
+      <Text tag="p" color="danger" size="lead">
+        {error}
+      </Text>
+    );
+  }
+
   const person = data.getPerson;
 
   return (
@@ -122,9 +132,8 @@ const MyDetailsPage: NextPage<IProps> = ({ data }) => {
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
-  const cookie = context.req?.headers.cookie;
 
-  if (cookie) {
+  try {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
@@ -133,14 +142,17 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         data,
       },
     };
+  } catch (error) {
+    if (error.graphQLErrors[0].extensions.code === AUTHORIZATION_ERROR_CODE) {
+      context?.res?.writeHead(302, { Location: '/account/login-register' });
+      context?.res?.end();
+    }
+    return {
+      props: {
+        error: error.graphQLErrors[0].extensions.code,
+      },
+    };
   }
-
-  context?.res?.writeHead(302, { Location: '/account/login-register' });
-  context?.res?.end();
-
-  return {
-    props: {},
-  };
 }
 
 export default MyDetailsPage;
