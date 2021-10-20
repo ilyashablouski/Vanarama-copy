@@ -35,6 +35,9 @@ const PersonalInformationContainer: React.FC<IProps> = ({ person }) => {
     refetch();
   });
 
+  console.log(data.myAccountDetailsByPersonUuid)
+  console.log(data.myAccountDetailsByPersonUuid)
+
   useEffect(() => {
     if (personUuid && !data) {
       refetch();

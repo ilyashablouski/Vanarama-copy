@@ -143,13 +143,13 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     };
   } catch (error) {
-    if (error.graphQLErrors[0].extensions.code === AUTHORIZATION_ERROR_CODE) {
+    if (error?.graphQLErrors[0]?.extensions.code === AUTHORIZATION_ERROR_CODE) {
       context?.res?.writeHead(302, { Location: '/account/login-register' });
       context?.res?.end();
     }
     return {
       props: {
-        error: error.graphQLErrors[0].extensions.code,
+        error: error.message,
       },
     };
   }
