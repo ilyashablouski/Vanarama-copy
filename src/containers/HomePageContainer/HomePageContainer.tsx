@@ -87,13 +87,11 @@ const optimisationOptions = {
 
 export interface IHomePageContainer extends ISpecialOffersData {
   data: HomePageData | undefined;
-  loading: boolean;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
-  // loading,
   data,
   productsVanDerivatives,
   productsCarDerivatives,

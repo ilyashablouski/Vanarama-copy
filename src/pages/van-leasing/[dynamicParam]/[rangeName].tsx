@@ -112,6 +112,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseCapIds;
   let topOffersCardsData;
   let defaultSort;
+
   try {
     const contextData = {
       req: {
@@ -152,23 +153,21 @@ export async function getServerSideProps(context: NextPageContext) {
           },
         })
         .then(resp => resp.data);
-      try {
-        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
-        if (responseCapIds.length) {
-          productCardsData = await client
-            .query<GetProductCard, GetProductCardVariables>({
-              query: GET_PRODUCT_CARDS_DATA,
-              variables: {
-                capIds: responseCapIds,
-                vehicleType: VehicleTypeEnum.LCV,
-              },
-            })
-            .then(resp => resp.data);
-        }
-      } catch {
-        return false;
+
+      responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+      if (responseCapIds.length) {
+        productCardsData = await client
+          .query<GetProductCard, GetProductCardVariables>({
+            query: GET_PRODUCT_CARDS_DATA,
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: VehicleTypeEnum.LCV,
+            },
+          })
+          .then(resp => resp.data);
       }
     }
+
     const { data: filtersData } = await client.query<
       filterList,
       filterListVariables
