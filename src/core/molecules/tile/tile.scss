@@ -19,6 +19,11 @@
     margin-top: 0;
   }
 
+  .tile-icon {
+    display: flex;
+    justify-content: center;
+  }
+
   &.-button {
     position: relative;
     background: rgba($teal, 0);

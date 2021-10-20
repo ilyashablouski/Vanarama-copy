@@ -8,7 +8,10 @@ import { IListItemProps } from './interfaces';
 
 const ListItem: FC<IListItemProps> = props => {
   const {
+    wrap,
     testId,
+    onChange,
+    editing,
     selectEdit,
     textEdit,
     label,
@@ -16,11 +19,8 @@ const ListItem: FC<IListItemProps> = props => {
     name = '',
     placeholder,
     options,
-    editing,
-    onChange,
     dataTestId,
     isOrange,
-    wrap,
     dataAbTestId,
     labelElementAttributes,
     valueElementAttributes,

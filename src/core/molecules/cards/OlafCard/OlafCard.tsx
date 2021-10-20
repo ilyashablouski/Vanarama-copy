@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IList } from 'core/organisms/structured-list/interfaces';
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import Price from '../../../atoms/price';
 import Text from '../../../atoms/text';
 import StructuredList from '../../../organisms/structured-list';
@@ -41,7 +41,6 @@ export interface IOlafCardProps extends ICardProps {
   olafDetails: IOlafDetails;
   roadsideAssistance?: GetDerivative_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetDerivative_vehicleDetails_warrantyDetails | null;
-  freeInsurance?: boolean | null;
 }
 
 const OlafCard: FC<IOlafCardProps> = props => {
@@ -58,9 +57,8 @@ const OlafCard: FC<IOlafCardProps> = props => {
     descriptionDataTestId,
     roadsideAssistance,
     warrantyDetails,
-    freeInsurance,
   } = props;
-  const data: IList[] = [
+  const data: IListItemProps[] = [
     {
       name: 'processingFee',
       label: 'Processing Fee',
@@ -185,7 +183,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
         </Text>
       </div>
       <StructuredList dataTestId="order-details" list={data} />
-      {freeInsurance && <FreeInsuranceLabel />}
+      {olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
     </Card>
   );
 };
