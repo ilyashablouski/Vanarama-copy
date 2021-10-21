@@ -22,6 +22,12 @@ interface IDerangedVehicleCardProps {
   lazyLoad?: boolean;
   title: { title: string; description: string };
   data: IDerangedCard;
+  handleClick: (
+    imageSrc: string,
+    title: string,
+    description: string,
+    conversionId?: number | null,
+  ) => void;
 }
 
 const DerangedVehicleCard = React.memo(

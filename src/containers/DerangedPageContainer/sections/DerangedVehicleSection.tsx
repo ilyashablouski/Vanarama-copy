@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { GetConversionsVehicleList_conversions } from '../../../../generated/GetConversionsVehicleList';
 import DerangedVehicleCard from '../../../components/DerangedVehicleCard/DerangedVehicleCard';
 import Skeleton from '../../../components/Skeleton';
-
-interface IProps {
-  vehicleList: (GetConversionsVehicleList_conversions | null)[];
-}
+import DerangedModalForm from './DerangedModalForm';
+import { ISelectedVehicle } from './interfaces';
+import DEFAULT_DERANGED_FORM_VALUE from './constants';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -15,7 +14,33 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
+interface IProps {
+  vehicleList: (GetConversionsVehicleList_conversions | null)[];
+}
+
 const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
+  const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
+  const [isFormSend, setIsFormSend] = useState<boolean>(false);
+  const [selectedVehicle, setSelectedVehicle] = useState<ISelectedVehicle>(
+    DEFAULT_DERANGED_FORM_VALUE,
+  );
+
+  const handleClick = (
+    imageSrc: string,
+    title: string,
+    description: string,
+    conversionId?: number | null,
+  ) => {
+    const selectedCar = {
+      imageSrc,
+      title,
+      description,
+      conversionId,
+    };
+    setSelectedVehicle(selectedCar);
+    setIsShowDrawer(true);
+  };
+
   return (
     <section className="row:bg-light">
       <div className="row:lead-text">
@@ -50,11 +75,20 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
                     description: vehicle?.derivativeName || '',
                   }}
                   data={vehicle}
+                  handleClick={handleClick}
                 />
               ),
           )}
         </div>
       </div>
+      <DerangedModalForm
+        setIsShowDrawer={setIsShowDrawer}
+        isShowDrawer={isShowDrawer}
+        isFormSend={isFormSend}
+        setIsFormSend={setIsFormSend}
+        selectedVehicle={selectedVehicle}
+        setSelectedVehicle={setSelectedVehicle}
+      />
     </section>
   );
 };
