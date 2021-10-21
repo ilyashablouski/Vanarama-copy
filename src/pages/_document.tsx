@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-fragments */
+
 import Document, { Html, Main, Head } from 'next/document';
 import dynamic from 'next/dynamic';
 
