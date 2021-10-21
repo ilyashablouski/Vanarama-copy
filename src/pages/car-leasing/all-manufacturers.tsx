@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { PreviewNextPageContext } from 'types/common';
 import {
   GET_MANUFACTURER_LIST,
@@ -52,56 +52,71 @@ const Page: NextPage<IProps> = ({
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   let manufacturers;
-  const contextData = {
-    req: {
-      url: context.req?.url || '',
-    },
-    query: { ...context.query },
-  };
-  const { data } = (await ssrCMSQueryExecutor(
-    client,
-    contextData,
-    true,
-    'isAllManufacturersPage',
-  )) as ApolloQueryResult<any>;
-  if (!Object.keys(context.query).length) {
-    manufacturers = await client
-      .query<manufacturerList, manufacturerListVariables>({
-        query: GET_MANUFACTURER_LIST,
-        variables: {
-          vehicleType: VehicleTypeEnum.CAR,
-          leaseType: LeaseTypeEnum.PERSONAL,
-        },
-      })
-      .then(resp => resp.data);
+
+  try {
+    const contextData = {
+      req: {
+        url: context.req?.url || '',
+      },
+      query: { ...context.query },
+    };
+    const { data } = (await ssrCMSQueryExecutor(
+      client,
+      contextData,
+      true,
+      'isAllManufacturersPage',
+    )) as ApolloQueryResult<any>;
+    if (!Object.keys(context.query).length) {
+      manufacturers = await client
+        .query<manufacturerList, manufacturerListVariables>({
+          query: GET_MANUFACTURER_LIST,
+          variables: {
+            vehicleType: VehicleTypeEnum.CAR,
+            leaseType: LeaseTypeEnum.PERSONAL,
+          },
+        })
+        .then(resp => resp.data);
+    }
+    const slugs = manufacturers?.manufacturerList?.map(manufacturer => {
+      return `car-leasing/${formatToSlugFormat(
+        manufacturer?.manufacturerName || '',
+      )}`;
+    });
+    const manufacturersUrls =
+      slugs &&
+      (await client
+        .query<genericPagesQuery, genericPagesQueryVariables>({
+          query: GET_LEGACY_URLS,
+          variables: {
+            slugs,
+            ...(context?.preview && { isPreview: context?.preview }),
+          },
+        })
+        .then(resp => resp?.data?.genericPages?.items));
+    return {
+      props: {
+        topInfoSection: encodeData(data.manufacturerPage.sections),
+        metaData: data.manufacturerPage.metaData,
+        isServer: !!context.req,
+        manufacturers: manufacturers || null,
+        manufacturersUrls: manufacturersUrls
+          ? encodeData(manufacturersUrls)
+          : null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
-  const slugs = manufacturers?.manufacturerList?.map(manufacturer => {
-    return `car-leasing/${formatToSlugFormat(
-      manufacturer?.manufacturerName || '',
-    )}`;
-  });
-  const manufacturersUrls =
-    slugs &&
-    (await client
-      .query<genericPagesQuery, genericPagesQueryVariables>({
-        query: GET_LEGACY_URLS,
-        variables: {
-          slugs,
-          ...(context?.preview && { isPreview: context?.preview }),
-        },
-      })
-      .then(resp => resp?.data?.genericPages?.items));
-  return {
-    props: {
-      topInfoSection: encodeData(data.manufacturerPage.sections),
-      metaData: data.manufacturerPage.metaData,
-      isServer: !!context.req,
-      manufacturers: manufacturers || null,
-      manufacturersUrls: manufacturersUrls
-        ? encodeData(manufacturersUrls)
-        : null,
-    },
-  };
 }
 
 export default withApollo(Page);

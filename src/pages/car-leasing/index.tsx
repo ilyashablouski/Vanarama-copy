@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -607,7 +608,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     >({
       query: HUB_CAR_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const { data: searchPodCarsData } = await client.query<
@@ -634,8 +635,18 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
-  } catch {
-    return false;
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 
