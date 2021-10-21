@@ -11,7 +11,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
-import { CookieBarScript } from '../components/CookieBarScript';
+// import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
 
