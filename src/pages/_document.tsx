@@ -9,7 +9,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
-// import { CookieBarScript } from '../components/CookieBarScript';
+import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
 
@@ -33,7 +33,7 @@ const isLocalEnv = process?.env?.LOCAL === 'true';
 
 // Script environments
 const scriptEnvs = {
-  gtm: [Env.PRE_PROD, Env.PROD],
+  gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
   blueconic: [Env.PRE_PROD, Env.PROD],
   vwo: [Env.PRE_PROD, Env.PROD],
 };
@@ -53,7 +53,7 @@ class MyDocument extends Document {
                 data-cfasync="false"
                 src="https://g562.vanarama.com/script.js"
               />
-              {/* <CookieBarScript /> */}
+              <CookieBarScript />
             </>
           )}
           {!isLocalEnv && <RollbarScript />}
