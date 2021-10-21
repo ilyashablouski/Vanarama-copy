@@ -81,13 +81,19 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
         <RouterLink
           link={{
             href: reviewCard.link?.legacyUrl || reviewCard.link?.url || '#',
-            label: 'Read Review >',
+            label: reviewCard.link?.text
+              ? `${reviewCard.link?.text} >`
+              : 'Read Review >',
           }}
           className="button"
           classNames={{ color: 'teal', size: 'small', clear: true }}
           withoutDefaultClassName
         >
-          <div className="button--inner">Read Review &gt;</div>
+          <div className="button--inner">
+            {reviewCard.link?.text
+              ? `${reviewCard.link?.text} >`
+              : 'Read Review >'}
+          </div>
         </RouterLink>
       </Card>
     ));
