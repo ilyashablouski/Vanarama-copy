@@ -4,10 +4,11 @@ import { ApolloError } from '@apollo/client';
 import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 
 import {
   GenericPageQuery,
+  GenericPageQuery_genericPage as IGenericPage,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import DerangedPageContainer from '../../containers/DerangedPageContainer/DerangedPageContainer';
@@ -24,16 +25,16 @@ import {
 import { FeatureFlags } from '../../utils/helpers';
 
 interface IDerangedPage {
-  genericPageData: IGenericPage;
+  data: IGenericPage;
   conversions: (ConversionsVehicleList | null)[] | null;
 }
 
 const DerangedPage: NextPage<IDerangedPage> = ({
-  genericPageData,
+  data,
   conversions,
 }: IDerangedPage) => (
   <DerangedPageContainer
-    genericPage={decodeData(genericPageData?.data)}
+    genericPage={decodeData(data)}
     conversions={conversions}
   />
 );
@@ -52,10 +53,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({}, context);
 
-    const { data: genericPage } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
+    const {
+      data: { genericPage },
+    } = await client.query<GenericPageQuery, GenericPageQueryVariables>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/deranged',
@@ -78,9 +78,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
 
     return {
       props: {
-        genericPageData: {
-          data: encodeData(genericPage),
-        },
+        data: encodeData(genericPage),
         conversions,
       },
     };

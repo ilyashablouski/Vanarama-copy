@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { GenericPageQuery_genericPage as IGenericPage } from '../../../generated/GenericPageQuery';
 import { GetConversionsVehicleList_conversions as ConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
-import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 
 const DerangedHeroSection = dynamic(
@@ -43,16 +42,21 @@ const NationalLeagueBanner = dynamic(
 );
 
 interface IDerangedPageContainer {
-  genericPage?: GenericPageQuery;
+  genericPage: IGenericPage;
   conversions: (ConversionsVehicleList | null)[] | null;
 }
 
-const DerangedPageContainer: React.FC<IDerangedPageContainer> = props => {
-  const genericPage = getSectionsData(['genericPage'], props);
-  const conversions = getSectionsData(['conversions'], props);
-  const metaData = getSectionsData(['metaData'], genericPage?.genericPage);
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
+  genericPage,
+  conversions,
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [vehicleList, setVehicleList] = useState<
+    (ConversionsVehicleList | null)[] | null
+  >(conversions);
+  const { metaData } = genericPage;
   const { hero, featured1, featured2, featured3, featured4, tiles } =
-    genericPage?.genericPage?.sections || {};
+    genericPage.sections || {};
 
   return (
     <>
@@ -63,8 +67,8 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = props => {
           image={hero.image}
         />
       )}
-      {conversions && conversions?.length > 0 && (
-        <DerangedVehicleSection vehicleList={conversions} />
+      {vehicleList?.length && (
+        <DerangedVehicleSection vehicleList={vehicleList} />
       )}
       {featured1 && <FeaturedSection featured={featured1} />}
       {featured2 && <FeaturedSection featured={featured2} />}
