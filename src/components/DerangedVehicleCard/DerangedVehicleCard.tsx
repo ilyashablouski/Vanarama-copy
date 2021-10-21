@@ -21,17 +21,17 @@ interface IDerangedVehicleCardProps {
   loadImage?: boolean;
   lazyLoad?: boolean;
   title: { title: string; description: string };
-  data: IDerangedCard | null;
+  data: IDerangedCard;
 }
 
 const DerangedVehicleCard = React.memo(
   ({ lazyLoad, loadImage, title, data }: IDerangedVehicleCardProps) => {
     const imageProps = {
       imageSrc:
-        data?.imageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+        data.imageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
     };
 
-    const price = data?.lowestPrices?.find(
+    const price = data.lowestPrices?.find(
       item => item?.leaseType === 'BUSINESS',
     );
 
@@ -42,17 +42,17 @@ const DerangedVehicleCard = React.memo(
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
-          accentIcon: data?.isOnOffer ? (
+          accentIcon: data.isOnOffer ? (
             <Icon icon={<Flame />} color="white" className="sm hydrated" />
           ) : null,
-          accentText: data?.isOnOffer ? 'Hot Offer' : '',
-          text: data?.leadTime || '',
+          accentText: data.isOnOffer ? 'Hot Offer' : '',
+          text: data.leadTime || '',
         }}
-        features={features(data?.keyInformation || [], data?.capId || '', Icon)}
+        features={features(data.keyInformation || [], data.capId || '', Icon)}
         title={{
           title: title.title,
           description: title.description,
-          score: data?.averageRating || undefined,
+          score: data.averageRating || undefined,
         }}
       >
         <div className="-flex-h">

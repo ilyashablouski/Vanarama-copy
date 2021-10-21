@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import { GetConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
+import { GetConversionsVehicleList_conversions as ConversionsVehicleList } from '../../../generated/GetConversionsVehicleList';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 
@@ -31,30 +31,29 @@ const FeaturedSection = dynamic(
 const WhyLeaseWithVanaramaTiles = dynamic(
   () => import('../../components/WhyLeaseWithVanaramaTiles'),
   {
-    loading: () => <Skeleton count={4} />,
+    loading: () => <Skeleton count={1} />,
   },
 );
 
 const NationalLeagueBanner = dynamic(
   () => import('../../components/NationalLeagueBanner'),
   {
-    loading: () => <Skeleton count={4} />,
+    loading: () => <Skeleton count={1} />,
   },
 );
 
 interface IDerangedPageContainer {
-  pageData?: GenericPageQuery;
-  derangedVehicleList: GetConversionsVehicleList;
+  genericPage?: GenericPageQuery;
+  conversions: (ConversionsVehicleList | null)[] | null;
 }
 
-const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
-  pageData,
-  derangedVehicleList,
-}) => {
+const DerangedPageContainer: React.FC<IDerangedPageContainer> = props => {
+  const genericPage = getSectionsData(['genericPage'], props);
+  const conversions = getSectionsData(['conversions'], props);
+  const metaData = getSectionsData(['metaData'], genericPage?.genericPage);
   const { hero, featured1, featured2, featured3, featured4, tiles } =
-    pageData?.genericPage?.sections || {};
-  const { conversions } = derangedVehicleList || {};
-  const metaData = getSectionsData(['metaData'], pageData?.genericPage);
+    genericPage?.genericPage?.sections || {};
+
   return (
     <>
       {hero && (
@@ -64,7 +63,7 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
           image={hero.image}
         />
       )}
-      {conversions && conversions.length > 0 && (
+      {conversions && conversions?.length > 0 && (
         <DerangedVehicleSection vehicleList={conversions} />
       )}
       {featured1 && <FeaturedSection featured={featured1} />}

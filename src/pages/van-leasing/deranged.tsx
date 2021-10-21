@@ -18,31 +18,30 @@ import {
 } from '../../../generated/globalTypes';
 import {
   GetConversionsVehicleList,
+  GetConversionsVehicleList_conversions as ConversionsVehicleList,
   GetConversionsVehicleListVariables,
 } from '../../../generated/GetConversionsVehicleList';
-import {
-  isDerangedHubFeatureEnabled,
-  parseCookieString,
-} from '../../utils/helpers';
+import { FeatureFlags } from '../../utils/helpers';
 
 interface IDerangedPage {
   genericPageData: IGenericPage;
-  derangedVehicleList: GetConversionsVehicleList;
+  conversions: (ConversionsVehicleList | null)[] | null;
 }
 
 const DerangedPage: NextPage<IDerangedPage> = ({
   genericPageData,
-  derangedVehicleList,
+  conversions,
 }: IDerangedPage) => (
   <DerangedPageContainer
-    pageData={decodeData(genericPageData?.data)}
-    derangedVehicleList={derangedVehicleList}
+    genericPage={decodeData(genericPageData?.data)}
+    conversions={conversions}
   />
 );
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const cookieArray = parseCookieString(context.req?.headers?.cookie);
-  const isDerangedFeatureEnabled = isDerangedHubFeatureEnabled(cookieArray);
+  const isDerangedFeatureEnabled = context.req?.headers?.cookie?.includes(
+    FeatureFlags.DERANGED,
+  );
 
   if (!isDerangedFeatureEnabled) {
     return {
@@ -64,7 +63,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
-    const { data: conversions } = await client.query<
+    const {
+      data: { conversions },
+    } = await client.query<
       GetConversionsVehicleList,
       GetConversionsVehicleListVariables
     >({
@@ -80,7 +81,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         genericPageData: {
           data: encodeData(genericPage),
         },
-        derangedVehicleList: conversions,
+        conversions,
       },
     };
   } catch (error) {
