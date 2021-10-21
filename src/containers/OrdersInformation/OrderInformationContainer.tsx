@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import localForage from 'localforage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
@@ -26,8 +26,8 @@ const OrderInformationContainer: React.FC<IProps> = ({
   quotes,
   uuid,
 }) => {
-  const ordersLength = orders?.length;
-  const quotesLength = quotes?.length;
+  const ordersLength = useMemo(() => orders?.length, [orders]);
+  const quotesLength = useMemo(() => quotes?.length, [quotes]);
 
   useEffect(() => {
     localForage.setItem<number | undefined>('ordersLength', ordersLength);

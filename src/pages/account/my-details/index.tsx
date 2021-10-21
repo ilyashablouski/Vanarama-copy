@@ -5,10 +5,11 @@ import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
 import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
-import { gql, ApolloError } from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationContainer/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
+import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
@@ -36,14 +37,6 @@ interface IProps {
   orders: GetMyOrders_myOrders[];
   quotes: GetMyOrders_myOrders[];
 }
-
-const GET_PERSON_QUERY = gql`
-  query GetPerson {
-    getPerson {
-      uuid
-    }
-  }
-`;
 
 const handleNetworkError = () =>
   toast.error(
@@ -158,38 +151,44 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
-    const { data: personData } = await client.query({
-      query: GET_PERSON_INFORMATION_DATA,
-      variables: {
-        personUuid: data.getPerson.uuid,
-      },
-    });
-    const { data: partyUuidData } = await client.query({
-      query: GET_COMPANIES_BY_PERSON_UUID,
-      variables: {
-        personUuid: data.getPerson.uuid,
-      },
-    });
-    const { data: orders } = await client.query({
-      query: GET_MY_ORDERS_DATA,
-      variables: {
-        partyUuid: [
-          partyUuidData.companiesByPersonUuid[0].partyUuid,
-          data.getPerson.uuid,
-        ],
-        filter: MyOrdersTypeEnum.ALL_ORDERS,
-      },
-    });
-    const { data: quotes } = await client.query({
-      query: GET_MY_ORDERS_DATA,
-      variables: {
-        partyUuid: [
-          partyUuidData.companiesByPersonUuid[0].partyUuid,
-          data.getPerson.uuid,
-        ],
-        filter: MyOrdersTypeEnum.ALL_QUOTES,
-      },
-    });
+
+    const [{ data: personData }, { data: partyUuidData }] = await Promise.all([
+      client.query({
+        query: GET_PERSON_INFORMATION_DATA,
+        variables: {
+          personUuid: data.getPerson.uuid,
+        },
+      }),
+      client.query({
+        query: GET_COMPANIES_BY_PERSON_UUID,
+        variables: {
+          personUuid: data.getPerson.uuid,
+        },
+      }),
+    ]);
+
+    const [{ data: orders }, { data: quotes }] = await Promise.all([
+      client.query({
+        query: GET_MY_ORDERS_DATA,
+        variables: {
+          partyUuid: [
+            partyUuidData.companiesByPersonUuid[0].partyUuid,
+            data.getPerson.uuid,
+          ],
+          filter: MyOrdersTypeEnum.ALL_ORDERS,
+        },
+      }),
+      client.query({
+        query: GET_MY_ORDERS_DATA,
+        variables: {
+          partyUuid: [
+            partyUuidData.companiesByPersonUuid[0].partyUuid,
+            data.getPerson.uuid,
+          ],
+          filter: MyOrdersTypeEnum.ALL_QUOTES,
+        },
+      }),
+    ]);
 
     return {
       props: {

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
 import {
   MyAccount,
@@ -27,32 +27,25 @@ interface IProps {
 
 const PersonalInformationContainer: React.FC<IProps> = props => {
   const { person, uuid: personUuid } = props;
-
-  const [skip, setSkip] = useState(true);
   const [personData, setPersonData] = useState<IPerson | null>(person);
 
-  const { loading, data, error, refetch } = useQuery<
+  const onPersonDataLoad = (data: MyAccount) => {
+    setPersonData(data.myAccountDetailsByPersonUuid);
+  };
+
+  const [loadPersonData, { loading, error }] = useLazyQuery<
     MyAccount,
     MyAccountVariables
   >(GET_PERSON_INFORMATION_DATA, {
     variables: {
       personUuid: personUuid || '',
     },
-    skip,
+    onCompleted: onPersonDataLoad,
   });
 
   const [createDetailsHandle] = useCreatePerson(() => {
-    setSkip(false);
-    refetch().then(result =>
-      setPersonData(result.data.myAccountDetailsByPersonUuid),
-    );
+    loadPersonData();
   });
-
-  useEffect(() => {
-    if (personUuid && !data) {
-      refetch();
-    }
-  }, [personUuid, refetch, data]);
 
   if (loading) {
     return <Loading size="large" />;
