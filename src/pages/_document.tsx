@@ -34,7 +34,7 @@ const isLocalEnv = process?.env?.LOCAL === 'true';
 // Script environments
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
-  blueconic: [Env.PRE_PROD, Env.PROD],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
   vwo: [Env.PRE_PROD, Env.PROD],
 };
 
