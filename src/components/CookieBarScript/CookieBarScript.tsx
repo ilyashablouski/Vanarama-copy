@@ -33,6 +33,7 @@ const CookieBarScript: FC = () => {
     <script
       async
       data-cfasync="false"
+      type="text/javascript"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: code,

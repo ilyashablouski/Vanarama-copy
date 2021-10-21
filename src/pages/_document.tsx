@@ -11,7 +11,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
-// import { CookieBarScript } from '../components/CookieBarScript';
+import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
 
@@ -55,6 +55,7 @@ class MyDocument extends Document {
               src="https://g562.vanarama.com/script.js"
             />
           )}
+          {scriptEnvs.blueconic.includes(env) && <CookieBarScript />}
           {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
