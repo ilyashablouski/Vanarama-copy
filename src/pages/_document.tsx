@@ -63,10 +63,10 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           <NextScript />
           {scriptEnvs.vwo.includes(env) && <VWOScript />}
+          <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMScript />
