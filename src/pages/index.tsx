@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { ApolloError } from '@apollo/client';
 import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../apolloClient';
 import {
@@ -19,7 +20,6 @@ import { decodeData, encodeData } from '../utils/data';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
-  loading,
   productsVanDerivatives,
   productsCarDerivatives,
   productsPickupDerivatives,
@@ -31,7 +31,6 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   vehicleListUrlData,
 }) => (
   <HomePageContainer
-    loading={loading}
     data={decodeData(data)}
     productsCar={productsCar}
     productsPickup={productsPickup}
@@ -47,57 +46,68 @@ export const HomePage: NextPage<IHomePageContainer> = ({
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
-  const { data, loading } = await client.query<
-    HomePageData,
-    HomePageDataVariables
-  >({
-    query: ALL_HOME_CONTENT,
-    variables: {
-      ...(context?.preview && { isPreview: context?.preview }),
-    },
-  });
-  const {
-    productsVanDerivatives,
-    productsCarDerivatives,
-    productsPickupDerivatives,
-    productsCar,
-    productsPickup,
-    productsVan,
-    vehicleListUrlData,
-  } = await specialOffersRequest(client);
-  const [
-    { data: searchPodVansData },
-    { data: searchPodCarsData },
-  ] = await Promise.all([
-    client.query<IFilterList, IFilterListVariables>({
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.LCV],
-      },
-    }),
-    client.query<IFilterList, IFilterListVariables>({
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-      },
-    }),
-  ]);
 
-  return {
-    props: {
-      data: encodeData(data) || null,
-      loading,
-      productsVanDerivatives: productsVanDerivatives || null,
-      productsCarDerivatives: productsCarDerivatives || null,
-      productsPickupDerivatives: productsPickupDerivatives || null,
-      productsCar: productsCar || null,
-      productsPickup: productsPickup || null,
-      productsVan: productsVan || null,
-      searchPodVansData: encodeData(searchPodVansData),
-      searchPodCarsData: encodeData(searchPodCarsData),
-      vehicleListUrlData: encodeData(vehicleListUrlData) || null,
-    },
-  };
+  try {
+    const { data } = await client.query<HomePageData, HomePageDataVariables>({
+      query: ALL_HOME_CONTENT,
+      variables: {
+        isPreview: !!context?.preview,
+      },
+    });
+    const {
+      productsVanDerivatives,
+      productsCarDerivatives,
+      productsPickupDerivatives,
+      productsCar,
+      productsPickup,
+      productsVan,
+      vehicleListUrlData,
+    } = await specialOffersRequest(client);
+    const [
+      { data: searchPodVansData },
+      { data: searchPodCarsData },
+    ] = await Promise.all([
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.LCV],
+        },
+      }),
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.CAR],
+        },
+      }),
+    ]);
+
+    return {
+      props: {
+        data: encodeData(data) || null,
+        productsVanDerivatives: productsVanDerivatives || null,
+        productsCarDerivatives: productsCarDerivatives || null,
+        productsPickupDerivatives: productsPickupDerivatives || null,
+        productsCar: productsCar || null,
+        productsPickup: productsPickup || null,
+        productsVan: productsVan || null,
+        searchPodVansData: encodeData(searchPodVansData),
+        searchPodCarsData: encodeData(searchPodCarsData),
+        vehicleListUrlData: encodeData(vehicleListUrlData) || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
 }
 
 export default HomePage;
