@@ -63,7 +63,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
         key={index.toString()}
         title={{
           title: reviewCard.title || '',
-          score: Number(reviewCard.reviewRating) || 0,
+          score: Number(reviewCard.reviewRating) || undefined,
           link: (
             <RouterLink
               link={{
