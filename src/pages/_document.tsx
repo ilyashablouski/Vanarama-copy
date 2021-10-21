@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-fragments */
-
 import Document, { Html, Main, Head } from 'next/document';
 import dynamic from 'next/dynamic';
 
@@ -37,7 +35,7 @@ const isLocalEnv = process?.env?.LOCAL === 'true';
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
   blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
-  vwo: [Env.PRE_PROD, Env.PROD],
+  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 class MyDocument extends Document {
@@ -63,10 +61,10 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+          <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           <NextScript />
           {scriptEnvs.vwo.includes(env) && <VWOScript />}
-          <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMScript />
