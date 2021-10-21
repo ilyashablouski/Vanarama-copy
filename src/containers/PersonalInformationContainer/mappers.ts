@@ -4,11 +4,11 @@ import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../gene
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IPersonInformationFormValues,
-  person: IPerson | null | undefined,
+  personUuid: string,
   serviceId: string | undefined,
 ) => {
   return {
-    personUuid: person?.personUuid || '',
+    personUuid: personUuid || '',
     firstName: values.firstName,
     lastName: values.lastName,
     telephoneNumber: values.telephoneNumber,

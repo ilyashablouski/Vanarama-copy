@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
 import {
@@ -9,7 +9,6 @@ import {
 } from '../../../generated/MyAccount';
 
 import { GET_PERSON_INFORMATION_DATA, useCreatePerson } from './gql';
-import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
 
@@ -21,8 +20,17 @@ const getKey = (person: IPerson | null): string => {
   return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}${person?.emailConsent}`;
 };
 
-const PersonalInformationContainer: React.FC<IProps> = ({ person }) => {
-  const personUuid = person?.uuid;
+interface IProps {
+  person: IPerson;
+  uuid: string;
+}
+
+const PersonalInformationContainer: React.FC<IProps> = props => {
+  const { person, uuid: personUuid } = props;
+
+  const [skip, setSkip] = useState(true);
+  const [personData, setPersonData] = useState<IPerson>(person);
+
   const { loading, data, error, refetch } = useQuery<
     MyAccount,
     MyAccountVariables
@@ -30,13 +38,15 @@ const PersonalInformationContainer: React.FC<IProps> = ({ person }) => {
     variables: {
       personUuid: personUuid || '',
     },
-  });
-  const [createDetailsHandle] = useCreatePerson(() => {
-    refetch();
+    skip,
   });
 
-  console.log(data.myAccountDetailsByPersonUuid)
-  console.log(data.myAccountDetailsByPersonUuid)
+  const [createDetailsHandle] = useCreatePerson(() => {
+    setSkip(false);
+    refetch().then(result =>
+      setPersonData(result.data.myAccountDetailsByPersonUuid),
+    );
+  });
 
   useEffect(() => {
     if (personUuid && !data) {
@@ -52,22 +62,14 @@ const PersonalInformationContainer: React.FC<IProps> = ({ person }) => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data) {
-    return null;
-  }
-
   return (
     <PersonalInformation
-      person={data.myAccountDetailsByPersonUuid}
-      key={getKey(data.myAccountDetailsByPersonUuid)}
+      person={personData}
+      key={getKey(personData)}
       submit={(values, serviceId) =>
         createDetailsHandle({
           variables: {
-            input: formValuesToInput(
-              values,
-              data?.myAccountDetailsByPersonUuid,
-              serviceId,
-            ),
+            input: formValuesToInput(values, personUuid, serviceId),
           },
         })
       }

@@ -5,13 +5,18 @@ import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
 import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
-import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
+import { gql } from '@apollo/client';
+import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationContainer/gql';
+import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
+import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import { GetPerson } from '../../../../generated/GetPerson';
+import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/MyAccount';
+import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import { GetMyOrders } from '../../../../generated/GetMyOrders';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -24,9 +29,21 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 interface IProps {
-  data: GetPerson;
-  error: string;
+  person: MyAccount_myAccountDetailsByPersonUuid;
+  errorMessage: string;
+  uuid: string;
+  partyUuid: string;
+  orders: GetMyOrders;
+  quotes: GetMyOrders;
 }
+
+const GET_PERSON_QUERY = gql`
+  query GetPerson {
+    getPerson {
+      uuid
+    }
+  }
+`;
 
 const handleNetworkError = () =>
   toast.error(
@@ -63,18 +80,22 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = ({ data, error }) => {
+const MyDetailsPage: NextPage<IProps> = ({
+  person,
+  uuid,
+  errorMessage,
+  orders,
+  quotes,
+}) => {
   const [resetPassword, setResetPassword] = useState(false);
 
-  if (error) {
+  if (errorMessage) {
     return (
       <Text tag="p" color="danger" size="lead">
-        {error}
+        {errorMessage}
       </Text>
     );
   }
-
-  const person = data.getPerson;
 
   return (
     <>
@@ -89,10 +110,10 @@ const MyDetailsPage: NextPage<IProps> = ({ data, error }) => {
           My Details
         </Heading>
       </div>
-      <OrderInformationContainer person={person} />
+      <OrderInformationContainer orders={orders} quotes={quotes} uuid={uuid} />
       <div className="row:my-details">
         <div className="my-details--form">
-          <PersonalInformationFormContainer person={person} />
+          <PersonalInformationFormContainer person={person} uuid={uuid} />
         </div>
         <div className="my-details--form ">
           <Heading tag="span" size="large" color="black" className="-mb-300">
@@ -115,7 +136,7 @@ const MyDetailsPage: NextPage<IProps> = ({ data, error }) => {
             </div>
           ) : (
             <PasswordChangeContainer
-              uuid={person?.uuid}
+              uuid={uuid}
               onCompleted={() => {
                 toast.success('Your New Password Has Been Saved', '');
                 setResetPassword(false);
@@ -137,9 +158,45 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
+    const { data: personData } = await client.query({
+      query: GET_PERSON_INFORMATION_DATA,
+      variables: {
+        personUuid: data.getPerson.uuid,
+      },
+    });
+    const { data: partyUuidData } = await client.query({
+      query: GET_COMPANIES_BY_PERSON_UUID,
+      variables: {
+        personUuid: data.getPerson.uuid,
+      },
+    });
+    const { data: orders } = await client.query({
+      query: GET_MY_ORDERS_DATA,
+      variables: {
+        partyUuid: [
+          partyUuidData.companiesByPersonUuid[0].partyUuid,
+          data.getPerson.uuid,
+        ],
+        filter: MyOrdersTypeEnum.ALL_ORDERS,
+      },
+    });
+    const { data: quotes } = await client.query({
+      query: GET_MY_ORDERS_DATA,
+      variables: {
+        partyUuid: [
+          partyUuidData.companiesByPersonUuid[0].partyUuid,
+          data.getPerson.uuid,
+        ],
+        filter: MyOrdersTypeEnum.ALL_QUOTES,
+      },
+    });
+
     return {
       props: {
-        data,
+        person: personData.myAccountDetailsByPersonUuid,
+        uuid: data.getPerson.uuid,
+        orders: orders.myOrders,
+        quotes: quotes.myOrders,
       },
     };
   } catch (error) {
@@ -149,7 +206,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     }
     return {
       props: {
-        error: error.message,
+        errorMessage: error.message,
       },
     };
   }

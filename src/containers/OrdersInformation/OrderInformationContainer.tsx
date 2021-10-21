@@ -1,25 +1,9 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import localForage from 'localforage';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { GET_MY_ORDERS_DATA } from './gql';
-import { IProps } from './interfaces';
-import { useImperativeQuery } from '../../hooks/useImperativeQuery';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
-import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
-import {
-  GetCompaniesByPersonUuid,
-  GetCompaniesByPersonUuidVariables,
-} from '../../../generated/GetCompaniesByPersonUuid';
-import {
-  GetMyOrders,
-  GetMyOrdersVariables,
-} from '../../../generated/GetMyOrders';
-import {
-  getPartyUuidsFromCompanies,
-  filterExistingUuids,
-  saveOrders,
-} from '../LoginFormContainer/LoginFormContainer';
+import { GetMyOrders } from '../../../generated/GetMyOrders';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -31,45 +15,24 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
-const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
-  const [ordersLength, setOrdersLength] = useState<number | null>(null);
-  const [quotesLength, setQuotesLength] = useState<number | null>(null);
+interface IProps {
+  orders: GetMyOrders;
+  quotes: GetMyOrders;
+  uuid: string;
+}
 
-  const getCompaniesData = useImperativeQuery<
-    GetCompaniesByPersonUuid,
-    GetCompaniesByPersonUuidVariables
-  >(GET_COMPANIES_BY_PERSON_UUID);
-  const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
-    GET_MY_ORDERS_DATA,
-  );
+const OrderInformationContainer: React.FC<IProps> = ({
+  orders,
+  quotes,
+  uuid,
+}) => {
+  const ordersLength = orders?.length;
+  const quotesLength = quotes?.length;
 
   useEffect(() => {
-    if (person?.partyUuid && quotesLength === null && ordersLength === null) {
-      getCompaniesData({
-        personUuid: person.uuid,
-      })
-        .then(getPartyUuidsFromCompanies)
-        .then(filterExistingUuids(person.partyUuid))
-        .then(partyUuid =>
-          Promise.all([
-            getOrdersData({
-              partyUuid,
-              filter: MyOrdersTypeEnum.ALL_ORDERS,
-            }),
-            getOrdersData({
-              partyUuid,
-              filter: MyOrdersTypeEnum.ALL_QUOTES,
-            }),
-          ]),
-        )
-        .then(saveOrders)
-        .catch(() => [])
-        .then(([orders, quotes]) => {
-          setOrdersLength(orders || 0);
-          setQuotesLength(quotes || 0);
-        });
-    }
-  }, [person, getOrdersData, quotesLength, ordersLength, getCompaniesData]);
+    localForage.setItem<number | undefined>('ordersLength', ordersLength);
+    localForage.setItem<number | undefined>('quotesLength', quotesLength);
+  }, [ordersLength, quotesLength]);
 
   return (
     <div className="row:bg-light">
@@ -97,7 +60,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
               link={{
                 href: `/account/my-orders`,
                 label: '',
-                query: { uuid: person?.uuid },
+                query: { uuid },
               }}
               as="/account/my-orders"
               onClick={ev => ev.preventDefault()}
