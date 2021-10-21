@@ -276,3 +276,7 @@ export const isCookieBarFeatureEnabled = () => {
 export enum FeatureFlags {
   DERANGED = 'DIG-7592=1',
 }
+
+export const isBlackFridayCampaignEnabled = () => {
+  return Cookies.get('DIG-7658') === '1';
+};

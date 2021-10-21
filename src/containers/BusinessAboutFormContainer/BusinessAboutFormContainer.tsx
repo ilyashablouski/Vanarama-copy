@@ -178,7 +178,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     }).then(response =>
       saveOrderMutation({
         variables: {
-          order: response.data?.createUpdateOrder,
+          order: {
+            ...(order! || {}),
+            uuid: response?.data?.createUpdateOrder?.uuid,
+          },
+          rating: orderData?.storedOrder?.rating,
         },
       }),
     );

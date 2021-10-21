@@ -148,8 +148,8 @@ const AboutYouPage: NextPage = () => {
             saveOrderMutation({
               variables: {
                 order: {
-                  ...storedData?.storedOrder?.order,
-                  uuid: response.data?.createUpdateOrder?.uuid,
+                  ...(order! || {}),
+                  uuid: response?.data?.createUpdateOrder?.uuid,
                 },
                 rating: storedData?.storedOrder?.rating,
               },

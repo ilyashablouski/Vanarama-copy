@@ -1,5 +1,5 @@
 import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
-import { SaveOrder } from '../../generated/SaveOrder';
+import { SaveOrder, SaveOrderVariables } from '../../generated/SaveOrder';
 import { GetStoredOrder } from '../../generated/GetStoredOrder';
 
 export const GET_STORED_ORDER_QUERY = gql`
@@ -33,10 +33,10 @@ export const SAVE_ORDER_MUTATION = gql`
 `;
 
 export function useSaveOrderMutation(
-  onCompleted?: (args: SaveOrder) => void,
+  onCompleted?: (data: SaveOrder) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useMutation<SaveOrder>(SAVE_ORDER_MUTATION, {
+  return useMutation<SaveOrder, SaveOrderVariables>(SAVE_ORDER_MUTATION, {
     onCompleted,
     onError,
   });
