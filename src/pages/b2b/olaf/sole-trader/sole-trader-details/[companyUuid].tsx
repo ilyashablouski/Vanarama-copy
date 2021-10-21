@@ -8,7 +8,7 @@ import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
-import useGetOrderId from '../../../../../hooks/useGetOrderId';
+import { useStoredOrderQuery } from '../../../../../gql/storedOrder';
 
 const handleSubmitError = () => {
   toast.error(
@@ -23,7 +23,7 @@ type QueryParams = OLAFQueryParams & {
 
 export const SoleTraderDetailsPage: NextPage = () => {
   const router = useRouter();
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const { companyUuid, redirect } = router.query as QueryParams;
 
@@ -35,7 +35,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <SoleTraderDetailsFormContainer
-        orderId={orderId}
+        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
         personUuid={personUuid}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
