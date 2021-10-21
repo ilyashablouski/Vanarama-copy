@@ -108,7 +108,7 @@ const logLink = new ApolloLink((operation, forward) => {
       console.log(
         `\n[GraphQL response]: Received data for ${operation.operationName}`,
       );
-      console.log(result.data);
+      console.log(`GraphQL response data`, result.data);
     }
 
     return result;
