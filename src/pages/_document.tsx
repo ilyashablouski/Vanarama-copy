@@ -55,7 +55,7 @@ class MyDocument extends Document {
                 data-cfasync="false"
                 src="https://g562.vanarama.com/script.js"
               /> */}
-              <CookieBarScript />
+              {/* <CookieBarScript /> */}
             </React.Fragment>
           )}
           {!isLocalEnv && <RollbarScript />}
