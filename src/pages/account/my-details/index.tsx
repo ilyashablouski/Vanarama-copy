@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
 import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
-import { gql } from '@apollo/client';
+import { gql, ApolloError } from '@apollo/client';
 import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationContainer/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
@@ -16,7 +16,7 @@ import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/MyAccount';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
-import { GetMyOrders } from '../../../../generated/GetMyOrders';
+import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -33,8 +33,8 @@ interface IProps {
   errorMessage: string;
   uuid: string;
   partyUuid: string;
-  orders: GetMyOrders;
-  quotes: GetMyOrders;
+  orders: GetMyOrders_myOrders[];
+  quotes: GetMyOrders_myOrders[];
 }
 
 const GET_PERSON_QUERY = gql`
@@ -200,13 +200,18 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     };
   } catch (error) {
-    if (error?.graphQLErrors[0]?.extensions.code === AUTHORIZATION_ERROR_CODE) {
+    const apolloError = error as ApolloError;
+
+    if (
+      apolloError?.graphQLErrors[0]?.extensions?.code ===
+      AUTHORIZATION_ERROR_CODE
+    ) {
       context?.res?.writeHead(302, { Location: '/account/login-register' });
       context?.res?.end();
     }
     return {
       props: {
-        errorMessage: error.message,
+        errorMessage: apolloError.message,
       },
     };
   }

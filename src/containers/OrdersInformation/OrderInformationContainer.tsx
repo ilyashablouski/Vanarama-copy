@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import localForage from 'localforage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
-import { GetMyOrders } from '../../../generated/GetMyOrders';
+import { GetMyOrders_myOrders } from '../../../generated/GetMyOrders';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -16,8 +16,8 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 });
 
 interface IProps {
-  orders: GetMyOrders;
-  quotes: GetMyOrders;
+  orders: GetMyOrders_myOrders[];
+  quotes: GetMyOrders_myOrders[];
   uuid: string;
 }
 

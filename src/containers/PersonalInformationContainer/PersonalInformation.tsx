@@ -29,7 +29,7 @@ const PersonalInformationContainer: React.FC<IProps> = props => {
   const { person, uuid: personUuid } = props;
 
   const [skip, setSkip] = useState(true);
-  const [personData, setPersonData] = useState<IPerson>(person);
+  const [personData, setPersonData] = useState<IPerson | null>(person);
 
   const { loading, data, error, refetch } = useQuery<
     MyAccount,
