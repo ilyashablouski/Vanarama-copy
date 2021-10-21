@@ -1,7 +1,7 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import {
   GET_RANGES,
@@ -49,9 +49,8 @@ import {
   rangeListVariables,
   rangeList_rangeList as IRange,
 } from '../../../../generated/rangeList';
-import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
+import { formatToSlugFormat } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
-import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import {
   genericPagesQuery,
   genericPagesQueryVariables,
@@ -90,8 +89,6 @@ const Page: NextPage<IProps> = ({
   responseCapIds,
   ranges,
   rangesUrls,
-  error,
-  notFoundPageData,
   defaultSort,
   vehiclesList: encodedData,
   productCardsData: productEncodedData,
@@ -120,16 +117,6 @@ const Page: NextPage<IProps> = ({
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam]);
-
-  if (error) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
 
   return (
     <SearchPageContainer
@@ -165,7 +152,7 @@ const Page: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-  const { query, req, res } = context;
+  const { query, req } = context;
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
@@ -182,58 +169,60 @@ export async function getServerSideProps(context: NextPageContext) {
     isBudgetType,
     isFuelType,
   } = pageType;
-  if (isBodyStylePage || isFuelType || isTransmissionPage || isBudgetType) {
-    if (isBodyStylePage) {
-      query.bodyStyles =
-        bodyUrlsSlugMapper[
-          query.dynamicParam as keyof typeof bodyUrlsSlugMapper
-        ];
-      filter.bodyStyles = [query.bodyStyles];
-    } else if (isTransmissionPage) {
-      query.transmissions = (query.dynamicParam as string).replace('-', ' ');
-      filter.transmissions = [query.transmissions];
-    } else if (isFuelType) {
-      query.fuelTypes =
-        fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
-      filter.fuelTypes = query.fuelTypes.split(',');
-    } else if (isBudgetType) {
-      const rate = budgetMapper[
-        query.dynamicParam as keyof typeof budgetMapper
-      ].split('|');
-      filter.rate = {
-        min: parseInt(rate[0], 10) || undefined,
-        max: parseInt(rate[1], 10) || undefined,
-      };
-      query.pricePerMonth =
-        budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
-    }
-    // length should be 2, because we added manually query param for dynamic param
-    // it's use for correct filters preselect
-    defaultSort = sortObjectGenerator([
-      {
-        field: SortField.offerRanking,
-        direction: SortDirection.ASC,
-      },
-      {
-        field: SortField.availability,
-        direction: SortDirection.ASC,
-      },
-    ]);
-    if (Object.keys(context.query).length === 2) {
-      vehiclesList = await client
-        .query<vehicleList, vehicleListVariables>({
-          query: GET_VEHICLE_LIST,
-          variables: {
-            vehicleTypes: [VehicleTypeEnum.LCV],
-            leaseType: LeaseTypeEnum.BUSINESS,
-            onOffer: null,
-            first: RESULTS_PER_REQUEST,
-            sort: defaultSort,
-            ...filter,
-          },
-        })
-        .then(resp => resp.data);
-      try {
+
+  try {
+    if (isBodyStylePage || isFuelType || isTransmissionPage || isBudgetType) {
+      if (isBodyStylePage) {
+        query.bodyStyles =
+          bodyUrlsSlugMapper[
+            query.dynamicParam as keyof typeof bodyUrlsSlugMapper
+          ];
+        filter.bodyStyles = [query.bodyStyles];
+      } else if (isTransmissionPage) {
+        query.transmissions = (query.dynamicParam as string).replace('-', ' ');
+        filter.transmissions = [query.transmissions];
+      } else if (isFuelType) {
+        query.fuelTypes =
+          fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
+        filter.fuelTypes = query.fuelTypes.split(',');
+      } else if (isBudgetType) {
+        const rate = budgetMapper[
+          query.dynamicParam as keyof typeof budgetMapper
+        ].split('|');
+        filter.rate = {
+          min: parseInt(rate[0], 10) || undefined,
+          max: parseInt(rate[1], 10) || undefined,
+        };
+        query.pricePerMonth =
+          budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
+      }
+      // length should be 2, because we added manually query param for dynamic param
+      // it's use for correct filters preselect
+      defaultSort = sortObjectGenerator([
+        {
+          field: SortField.offerRanking,
+          direction: SortDirection.ASC,
+        },
+        {
+          field: SortField.availability,
+          direction: SortDirection.ASC,
+        },
+      ]);
+      if (Object.keys(context.query).length === 2) {
+        vehiclesList = await client
+          .query<vehicleList, vehicleListVariables>({
+            query: GET_VEHICLE_LIST,
+            variables: {
+              vehicleTypes: [VehicleTypeEnum.LCV],
+              leaseType: LeaseTypeEnum.BUSINESS,
+              onOffer: null,
+              first: RESULTS_PER_REQUEST,
+              sort: defaultSort,
+              ...filter,
+            },
+          })
+          .then(resp => resp.data);
+
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
@@ -246,83 +235,81 @@ export async function getServerSideProps(context: NextPageContext) {
             })
             .then(resp => resp.data);
         }
-      } catch {
-        return false;
       }
-    }
-  } else {
-    query.make = (query.dynamicParam as string).toLowerCase();
-    filter.manufacturerSlug = query.make;
-    ranges = await client
-      .query<rangeList, rangeListVariables>({
-        query: GET_RANGES,
-        variables: {
-          vehicleTypes: VehicleTypeEnum.LCV,
-          manufacturerSlug: query.make,
-          leaseType: LeaseTypeEnum.BUSINESS,
-        },
-      })
-      .then(resp => resp.data);
-    const slugs =
-      ranges.rangeList &&
-      ranges.rangeList.map(
-        (range: IRange) =>
-          `van-leasing/${formatToSlugFormat(
-            query.make as string,
-          )}/${formatToSlugFormat(range.rangeName || '')}`,
-      );
-    rangesUrls =
-      slugs &&
-      (await client
-        .query<genericPagesQuery, genericPagesQueryVariables>({
-          query: GET_LEGACY_URLS,
+    } else {
+      query.make = (query.dynamicParam as string).toLowerCase();
+      filter.manufacturerSlug = query.make;
+      ranges = await client
+        .query<rangeList, rangeListVariables>({
+          query: GET_RANGES,
           variables: {
-            slugs,
+            vehicleTypes: VehicleTypeEnum.LCV,
+            manufacturerSlug: query.make,
+            leaseType: LeaseTypeEnum.BUSINESS,
           },
         })
-        .then(resp => resp?.data?.genericPages?.items));
-  }
-  const { data: filtersData } = await client.query<
-    filterList,
-    filterListVariables
-  >({
-    query: GET_SEARCH_POD_DATA,
-    variables: {
-      onOffer: null,
-      vehicleTypes: [VehicleTypeEnum.LCV],
-      ...filter,
-    },
-  });
-  const [type] = Object.entries(pageType).find(([, value]) => value) || '';
-  const topOffersList = await client
-    .query<vehicleList, vehicleListVariables>({
-      query: GET_VEHICLE_LIST,
+        .then(resp => resp.data);
+      const slugs =
+        ranges.rangeList &&
+        ranges.rangeList.map(
+          (range: IRange) =>
+            `van-leasing/${formatToSlugFormat(
+              query.make as string,
+            )}/${formatToSlugFormat(range.rangeName || '')}`,
+        );
+      rangesUrls =
+        slugs &&
+        (await client
+          .query<genericPagesQuery, genericPagesQueryVariables>({
+            query: GET_LEGACY_URLS,
+            variables: {
+              slugs,
+            },
+          })
+          .then(resp => resp?.data?.genericPages?.items));
+    }
+    const { data: filtersData } = await client.query<
+      filterList,
+      filterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
       variables: {
+        onOffer: null,
         vehicleTypes: [VehicleTypeEnum.LCV],
-        leaseType: LeaseTypeEnum.BUSINESS,
-        onOffer: true,
-        first: pageType.isManufacturerPage ? 6 : 9,
-        sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,
       },
-    })
-    .then(resp => resp.data);
-  const topOffersListCapIds = getCapsIds(
-    topOffersList.vehicleList?.edges || [],
-  );
-  if (topOffersListCapIds.length) {
-    topOffersCardsData = await client
-      .query<GetProductCard, GetProductCardVariables>({
-        query: GET_PRODUCT_CARDS_DATA,
+    });
+    const [type] = Object.entries(pageType).find(([, value]) => value) || '';
+    const topOffersList = await client
+      .query<vehicleList, vehicleListVariables>({
+        query: GET_VEHICLE_LIST,
         variables: {
-          capIds: topOffersListCapIds,
-          vehicleType: VehicleTypeEnum.LCV,
+          vehicleTypes: [VehicleTypeEnum.LCV],
+          leaseType: LeaseTypeEnum.BUSINESS,
+          onOffer: true,
+          first: pageType.isManufacturerPage ? 6 : 9,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
+          ...filter,
         },
       })
       .then(resp => resp.data);
-  }
+    const topOffersListCapIds = getCapsIds(
+      topOffersList.vehicleList?.edges || [],
+    );
+    if (topOffersListCapIds.length) {
+      topOffersCardsData = await client
+        .query<GetProductCard, GetProductCardVariables>({
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: topOffersListCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        })
+        .then(resp => resp.data);
+    }
 
-  try {
     const contextData = {
       req: {
         url: context.req?.url || '',
@@ -357,16 +344,18 @@ export async function getServerSideProps(context: NextPageContext) {
         error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    if (res) {
-      return notFoundPageHandler(res, client);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
-    return {
-      props: {
-        error: true,
-        pageType,
-      },
-    };
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

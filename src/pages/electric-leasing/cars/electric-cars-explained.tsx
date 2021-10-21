@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
@@ -47,7 +48,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
       variables: {
         slug: path,
         sectionsAsArray: true,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
@@ -70,8 +71,18 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
         searchParam: 'car-leasing',
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

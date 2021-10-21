@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { IOrderListData } from 'core/organisms/structured-list/interfaces';
+import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
@@ -92,7 +92,7 @@ export const getOrderList = ({
       item?.optionId === trim,
   )?.label;
 
-  const orderList: IOrderListData[] = [
+  const orderList: IListItemProps[] = [
     {
       label: 'Processing Fee:',
       value:
@@ -275,4 +275,8 @@ export const isCookieBarFeatureEnabled = () => {
 
 export const isDerangedHubFeatureEnabled = () => {
   return Cookies.get('DIG-7592') === '1';
+};
+
+export const isBlackFridayCampaignEnabled = () => {
+  return Cookies.get('DIG-7658') === '1';
 };

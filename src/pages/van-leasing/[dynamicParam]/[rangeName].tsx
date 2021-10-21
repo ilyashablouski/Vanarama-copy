@@ -1,7 +1,7 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../apolloClient';
 import { GET_VEHICLE_LIST } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
@@ -28,9 +28,7 @@ import {
   vehicleList,
   vehicleListVariables,
 } from '../../../../generated/vehicleList';
-import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
-import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import {
   filterList,
@@ -55,8 +53,6 @@ const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   responseCapIds,
-  error,
-  notFoundPageData,
   filtersData,
   vehiclesList: encodedData,
   productCardsData: productEncodedData,
@@ -91,16 +87,6 @@ const Page: NextPage<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (error) {
-    return (
-      <PageNotFoundContainer
-        featured={notFoundPageData?.featured}
-        cards={notFoundPageData?.cards}
-        name={notFoundPageData?.name}
-      />
-    );
-  }
-
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -126,6 +112,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseCapIds;
   let topOffersCardsData;
   let defaultSort;
+
   try {
     const contextData = {
       req: {
@@ -166,23 +153,21 @@ export async function getServerSideProps(context: NextPageContext) {
           },
         })
         .then(resp => resp.data);
-      try {
-        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
-        if (responseCapIds.length) {
-          productCardsData = await client
-            .query<GetProductCard, GetProductCardVariables>({
-              query: GET_PRODUCT_CARDS_DATA,
-              variables: {
-                capIds: responseCapIds,
-                vehicleType: VehicleTypeEnum.LCV,
-              },
-            })
-            .then(resp => resp.data);
-        }
-      } catch {
-        return false;
+
+      responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+      if (responseCapIds.length) {
+        productCardsData = await client
+          .query<GetProductCard, GetProductCardVariables>({
+            query: GET_PRODUCT_CARDS_DATA,
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: VehicleTypeEnum.LCV,
+            },
+          })
+          .then(resp => resp.data);
       }
     }
+
     const { data: filtersData } = await client.query<
       filterList,
       filterListVariables
@@ -247,16 +232,18 @@ export async function getServerSideProps(context: NextPageContext) {
         defaultSort: defaultSort || null,
       },
     };
-  } catch {
-    const { res } = context;
-    if (res) {
-      return notFoundPageHandler(res, client);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
     }
-    return {
-      props: {
-        error: true,
-      },
-    };
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

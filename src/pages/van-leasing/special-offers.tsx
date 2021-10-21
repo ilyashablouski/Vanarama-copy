@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -462,55 +463,65 @@ export const VanOffers: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
-  let data;
+
   try {
-    const { data: content } = await client.query<
+    const { data } = await client.query<
       VanOffersPageData,
       VanOffersPageDataVariables
     >({
       query: VAN_OFFERS_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    data = content;
-  } catch (e) {
-    throw new Error(e);
+
+    const {
+      productsPickup,
+      productsSmallVan,
+      productsMediumVan,
+      productsLargeVan,
+      productsDropsideTipper,
+      productsSpecialist,
+      productsPickupDerivatives,
+      productsSmallVanDerivatives,
+      productsMediumVanDerivatives,
+      productsLargeVanDerivatives,
+      productsDropsideTipperDerivatives,
+      productsSpecialistDerivatives,
+      vehicleListUrlData,
+    } = await vansSpecialOffersRequest(client);
+    return {
+      props: {
+        pageData: encodeData(data),
+        productsPickup: productsPickup || null,
+        productsSmallVan: productsSmallVan || null,
+        productsMediumVan: productsMediumVan || null,
+        productsLargeVan: productsLargeVan || null,
+        productsDropsideTipper: productsDropsideTipper || null,
+        productsSpecialist: productsSpecialist || null,
+        productsPickupDerivatives: productsPickupDerivatives || null,
+        productsSmallVanDerivatives: productsSmallVanDerivatives || null,
+        productsMediumVanDerivatives: productsMediumVanDerivatives || null,
+        productsLargeVanDerivatives: productsLargeVanDerivatives || null,
+        productsDropsideTipperDerivatives:
+          productsDropsideTipperDerivatives || null,
+        productsSpecialistDerivatives: productsSpecialistDerivatives || null,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
-  const {
-    productsPickup,
-    productsSmallVan,
-    productsMediumVan,
-    productsLargeVan,
-    productsDropsideTipper,
-    productsSpecialist,
-    productsPickupDerivatives,
-    productsSmallVanDerivatives,
-    productsMediumVanDerivatives,
-    productsLargeVanDerivatives,
-    productsDropsideTipperDerivatives,
-    productsSpecialistDerivatives,
-    vehicleListUrlData,
-  } = await vansSpecialOffersRequest(client);
-  return {
-    props: {
-      pageData: encodeData(data),
-      productsPickup: productsPickup || null,
-      productsSmallVan: productsSmallVan || null,
-      productsMediumVan: productsMediumVan || null,
-      productsLargeVan: productsLargeVan || null,
-      productsDropsideTipper: productsDropsideTipper || null,
-      productsSpecialist: productsSpecialist || null,
-      productsPickupDerivatives: productsPickupDerivatives || null,
-      productsSmallVanDerivatives: productsSmallVanDerivatives || null,
-      productsMediumVanDerivatives: productsMediumVanDerivatives || null,
-      productsLargeVanDerivatives: productsLargeVanDerivatives || null,
-      productsDropsideTipperDerivatives:
-        productsDropsideTipperDerivatives || null,
-      productsSpecialistDerivatives: productsSpecialistDerivatives || null,
-      vehicleListUrlData: encodeData(vehicleListUrlData),
-    },
-  };
 }
 
 export default VanOffers;

@@ -10,8 +10,8 @@ import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNo
 import { useGetQuoteQuery } from '../../gql/storedQuote';
 
 const CheckoutPage: NextPage = () => {
-  const { data: orderData } = useStoredOrderQuery();
-  const order = orderData?.storedOrder?.order;
+  const { data: storedOrderData } = useStoredOrderQuery();
+  const order = storedOrderData?.storedOrder?.order;
 
   const { data: quoteData } = useGetQuoteQuery();
   const quote = quoteData?.storedQuote;
@@ -25,13 +25,14 @@ const CheckoutPage: NextPage = () => {
   if (Cookies.get('DIG-6240') !== '1') {
     return <PageNotFoundContainer name="Checkout" />;
   }
+
   if (loading || !order || !quote) {
     return <Loading size="xlarge" />;
   }
 
   return (
     <CheckoutPageContainer
-      order={order}
+      storedOrder={storedOrderData?.storedOrder}
       quote={quote}
       derivative={data?.derivative}
       vehicleImages={data?.vehicleImages}

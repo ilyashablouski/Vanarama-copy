@@ -3,14 +3,20 @@ import dynamic from 'next/dynamic';
 import config from '../../InsurancePageContainer/config';
 import Skeleton from '../../../components/Skeleton';
 import HeroCurve from '../../../components/Hero/HeroCurve';
-import { GenericPageQuery_genericPage_sections_hero as IHeroSection } from '../../../../generated/GenericPageQuery';
+import { GenericPageQuery_genericPage_sections_hero_image as IHeroImage } from '../../../../generated/GenericPageQuery';
 import { HeroHeading, HeroTitle } from '../../../components/Hero';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={2} />,
 });
 
-const DerangedHeroSection = ({ title, body, image }: IHeroSection) => {
+interface IProps {
+  title: string;
+  body: string;
+  image: IHeroImage | null;
+}
+
+const DerangedHeroSection: React.FC<IProps> = ({ title, body, image }) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero">
