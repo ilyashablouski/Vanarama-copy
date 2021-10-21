@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
-import localForage from 'localforage';
+import { saveOrders } from 'containers/LoginFormContainer/LoginFormContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { GetMyOrders_myOrders } from '../../../generated/GetMyOrders';
@@ -30,9 +30,8 @@ const OrderInformationContainer: React.FC<IProps> = ({
   const quotesLength = useMemo(() => quotes?.length, [quotes]);
 
   useEffect(() => {
-    localForage.setItem<number | undefined>('ordersLength', ordersLength);
-    localForage.setItem<number | undefined>('quotesLength', quotesLength);
-  }, [ordersLength, quotesLength]);
+    saveOrders(orders, quotes);
+  }, [orders, quotes]);
 
   return (
     <div className="row:bg-light">
