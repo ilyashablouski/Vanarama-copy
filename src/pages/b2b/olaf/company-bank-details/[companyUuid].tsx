@@ -10,7 +10,7 @@ import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
-import {useStoredOrderQuery} from "../../../../gql/storedOrder";
+import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 
 const handleSubmitError = () =>
   toast.error(
