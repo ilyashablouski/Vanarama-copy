@@ -1,12 +1,13 @@
 import React from 'react';
 import { IBaseProps } from 'core/interfaces/base';
 import { FormContextValues } from 'react-hook-form';
-import { IOrderStorageData } from '../../hooks/useGetOrder';
 import {
   GetDerivative,
   GetDerivative_vehicleImages,
 } from '../../../generated/GetDerivative';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { GetStoredOrder } from '../../../generated/GetStoredOrder';
+import { OrderInputObject } from '../../../generated/globalTypes';
 
 export interface IAdditionalOptionsFormValues {
   redundancy?: boolean;
@@ -36,7 +37,7 @@ export interface IAdditionalOptionProps extends IBaseProps {
 }
 
 export interface CheckoutPageContainerProps {
-  order: IOrderStorageData;
+  storedOrder?: GetStoredOrder['storedOrder'];
   derivative?: GetDerivative['derivative'];
   vehicleImages?: GetDerivative['vehicleImages'];
   vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
@@ -44,7 +45,7 @@ export interface CheckoutPageContainerProps {
 }
 
 export interface OrderPanelProps {
-  order: IOrderStorageData;
+  order?: OrderInputObject | null;
   quote: GetQuoteDetails['quoteByCapId'];
   vehicleImage?: GetDerivative_vehicleImages | null;
   vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
