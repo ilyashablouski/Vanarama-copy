@@ -31,7 +31,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   person: MyAccount_myAccountDetailsByPersonUuid;
-  errorMessage: string;
+  error: boolean;
   uuid: string;
   partyUuid: string;
   orders: GetMyOrders_myOrders[];
@@ -76,16 +76,16 @@ const metaData = {
 const MyDetailsPage: NextPage<IProps> = ({
   person,
   uuid,
-  errorMessage,
+  error,
   orders,
   quotes,
 }) => {
   const [resetPassword, setResetPassword] = useState(false);
 
-  if (errorMessage) {
+  if (error) {
     return (
       <Text tag="p" color="danger" size="lead">
-        {errorMessage}
+        Sorry, an unexpected error occurred. Please try again!
       </Text>
     );
   }
@@ -210,7 +210,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     }
     return {
       props: {
-        errorMessage: apolloError.message,
+        error: true,
       },
     };
   }
