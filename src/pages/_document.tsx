@@ -9,7 +9,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
-import { CookieBarScript } from '../components/CookieBarScript';
+// import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
 
@@ -53,7 +53,7 @@ class MyDocument extends Document {
                 data-cfasync="false"
                 src="https://g562.vanarama.com/script.js"
               />
-              <CookieBarScript />
+              {/* <CookieBarScript /> */}
             </>
           )}
           {!isLocalEnv && <RollbarScript />}
