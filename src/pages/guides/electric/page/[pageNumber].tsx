@@ -14,13 +14,13 @@ import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCate
 import Head from '../../../../components/Head/Head';
 import { decodeData } from '../../../../utils/data';
 
-export interface IReviewHubPage {
+export interface IElectricGuidesPage {
   data: ReviewsHubCategoryQuery | undefined;
   error: ApolloError | undefined;
   pageNumber?: number;
 }
 
-const ReviewHub: NextPage<IReviewHubPage> = ({
+const ElectricGuidesPage: NextPage<IElectricGuidesPage> = ({
   data: encodedData,
   pageNumber,
   error,
@@ -56,12 +56,12 @@ const ReviewHub: NextPage<IReviewHubPage> = ({
 
 export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
-  return getReviewsHubCategoryStaticPath(client, 'reviews/vans', context);
+  return getReviewsHubCategoryStaticPath(client, 'guides/electric', context);
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
-  return getReviewsHubCategoryStaticProps(client, 'reviews/vans', context);
+  return getReviewsHubCategoryStaticProps(client, 'guides/electric', context);
 }
 
-export default ReviewHub;
+export default ElectricGuidesPage;
