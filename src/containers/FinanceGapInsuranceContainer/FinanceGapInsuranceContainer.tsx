@@ -15,6 +15,7 @@ import {
   OpportunityTypeEnum,
 } from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 const Modal = dynamic(() => import('core/molecules/modal'));
 
@@ -24,10 +25,7 @@ interface IProps {
 }
 
 export const handleNetworkError = () =>
-  toast.error(
-    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    '',
-  );
+  toast.error(ErrorsTypes.requestIssue, '');
 
 const toThankYouPage = () => {
   /*

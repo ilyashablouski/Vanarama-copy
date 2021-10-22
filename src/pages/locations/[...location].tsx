@@ -40,6 +40,7 @@ import {
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import ErrorPage from '../_error';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -85,10 +86,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
         handleNetworkError();
       }
       if (creationError?.message) {
-        toast.error(
-          'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-          creationError?.message,
-        );
+        toast.error(ErrorsTypes.requestIssue, creationError?.message);
       }
     },
   );

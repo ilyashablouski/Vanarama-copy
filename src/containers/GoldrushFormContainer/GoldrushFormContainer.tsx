@@ -4,6 +4,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 import Skeleton from '../../components/Skeleton';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -34,10 +35,7 @@ const Link = dynamic(() => import('core/atoms/link'));
 export const DEFAULT_POSTCODE = 'HP27DE';
 
 export const handleNetworkError = () =>
-  toast.error(
-    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    '',
-  );
+  toast.error(ErrorsTypes.requestIssue, '');
 
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,

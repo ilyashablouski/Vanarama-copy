@@ -4,6 +4,7 @@ import CompetitionHeroSection from '../CompetitionLandingPageContainer/sections/
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import CompetitionTypeSection from './sections/CompetitionTypeSection';
 import CompetitionFormSection from './sections/CompetitionFormSection';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 interface IProps {
   sections: Section | null | undefined;
@@ -11,10 +12,7 @@ interface IProps {
 }
 
 export const handleNetworkError = () =>
-  toast.error(
-    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    '',
-  );
+  toast.error(ErrorsTypes.requestIssue, '');
 
 const CompetitionPageContainer = ({ sections, breadcrumbsData }: IProps) => {
   const hero = sections?.hero;

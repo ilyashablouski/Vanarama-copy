@@ -12,6 +12,7 @@ import {
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 import HeroCurve from './HeroCurve';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 const ArrowForward = dynamic(() => import('core/assets/icons/ArrowForward'), {
   ssr: false,
@@ -50,10 +51,7 @@ const Hero: React.FC<IHeroProps> = ({
         handleNetworkError();
       }
       if (error?.message) {
-        toast.error(
-          'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-          error?.message,
-        );
+        toast.error(ErrorsTypes.requestIssue, error?.message);
       }
     },
   );

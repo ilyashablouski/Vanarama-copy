@@ -14,6 +14,7 @@ import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 // import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
 import BenefitsBar from '../../core/organisms/benefits-bar/BenefitsBar';
+import ErrorsTypes from '../../models/enum/ErrorsTypes';
 
 const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
   loading: () => <Skeleton count={5} />,
@@ -43,10 +44,7 @@ const CompetitionHero: React.FC<ICompetitionHeroProps> = ({
         handleNetworkError();
       }
       if (error?.message) {
-        toast.error(
-          'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-          error?.message,
-        );
+        toast.error(ErrorsTypes.requestIssue, error?.message);
       }
     },
   );
