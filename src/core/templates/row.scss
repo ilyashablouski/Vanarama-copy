@@ -465,19 +465,9 @@
         }
         @include tablet {
           grid-column: content / half;
-          max-width: 100%;
-
-          & img {
-            max-width: 100%;
-          }
         }
         @include mobile {
           grid-column: content;
-          max-width: 100%;
-
-          & img {
-            max-width: 100%;
-          }
         }
       }
 
