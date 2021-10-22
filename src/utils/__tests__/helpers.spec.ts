@@ -7,6 +7,7 @@ import {
   getVehicleConfigId,
   parseVehicleConfigId,
   toDataAbTestIdFormat,
+  convertErrorToProps,
 } from '../helpers';
 
 describe('arraysAreEqual', () => {
@@ -310,6 +311,17 @@ describe('parseVehicleConfigId', () => {
     expect(parseVehicleConfigId(`${vehicleType}-${capId}`)).toEqual({
       vehicleType,
       capId,
+    });
+  });
+});
+
+describe('convertErrorToProps', () => {
+  const errorMessage = 'test error message';
+
+  it('convertErrorToProps should correct convert error object', () => {
+    expect(convertErrorToProps(new Error(errorMessage))).toEqual({
+      statusCode: 500,
+      message: errorMessage,
     });
   });
 });

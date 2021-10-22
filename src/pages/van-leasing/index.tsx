@@ -1,9 +1,10 @@
+import { useContext } from 'react';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useContext } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
@@ -46,6 +47,13 @@ import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import HeadingSection from '../../components/HeadingSection';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import ErrorPage from '../_error';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -83,6 +91,7 @@ interface IProps extends IVansPageOffersData {
   data: HubVanPageData;
   searchPodVansData: IFilterList;
   offer?: IExtProdCardData;
+  error?: IErrorProps;
 }
 
 export const VansPage: NextPage<IProps> = ({
@@ -96,10 +105,16 @@ export const VansPage: NextPage<IProps> = ({
   productsLargeVanDerivatives,
   vehicleListUrlData: encodeVehicleListUrlData,
   offer,
+  error,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
   const titleTagText = getSectionsData(
@@ -735,7 +750,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     >({
       query: HUB_VAN_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const { data: searchPodVansData } = await client.query<
@@ -782,9 +797,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       offers.find(card => card?.offerPosition === 1) || null;
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
         searchPodVansData,
@@ -798,8 +811,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         offer,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        revalidate,
+        notFound: true,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
