@@ -30,18 +30,18 @@ interface IDerangedPage {
 }
 
 const DerangedPage: NextPage<IDerangedPage> = ({
-                                                 data,
-                                                 conversions,
-                                               }: IDerangedPage) => (
-    <DerangedPageContainer
-        genericPage={decodeData(data)}
-        conversions={conversions}
-    />
+  data,
+  conversions,
+}: IDerangedPage) => (
+  <DerangedPageContainer
+    genericPage={decodeData(data)}
+    conversions={conversions}
+  />
 );
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const isDerangedFeatureEnabled = isDerangedFeatureFlagEnabled(
-      context.req?.headers?.cookie,
+    context.req?.headers?.cookie,
   );
 
   if (!isDerangedFeatureEnabled) {
@@ -66,9 +66,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const {
       data: { conversions },
     } = await client.query<
-        GetConversionsVehicleList,
-        GetConversionsVehicleListVariables
-        >({
+      GetConversionsVehicleList,
+      GetConversionsVehicleListVariables
+    >({
       query: GET_CONVERSIONS_VEHICLE_LIST,
       variables: {
         conversionsVehicleType: VehicleTypeEnum.LCV,

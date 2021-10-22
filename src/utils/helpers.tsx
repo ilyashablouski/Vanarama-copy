@@ -295,8 +295,8 @@ export enum FeatureFlags {
 }
 
 function isFeatureFlagEnabled(
-    cookies: Cookies.CookiesStatic<object> | string | undefined,
-    featureFlag: string,
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+  featureFlag: string,
 ): boolean {
   if (!cookies) {
     return false;
@@ -310,7 +310,7 @@ function isFeatureFlagEnabled(
 }
 
 export function isDerangedFeatureFlagEnabled(
-    cookies: Cookies.CookiesStatic<object> | string | undefined,
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
 }
