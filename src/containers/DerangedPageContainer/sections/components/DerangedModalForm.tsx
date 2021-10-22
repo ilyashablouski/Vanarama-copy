@@ -1,25 +1,28 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import Drawer from 'core/molecules/drawer/Drawer';
-import Icon from 'core/atoms/icon';
-import CheckmarkCircle from 'core/assets/icons/CheckmarkCircle';
 import * as toast from 'core/atoms/toast/Toast';
 import dynamic from 'next/dynamic';
-import Skeleton from '../../../components/Skeleton';
-import { ISelectedVehicle } from './interfaces';
-import { useOpportunityCreation } from '../../GoldrushFormContainer/gql';
-import { handleNetworkError } from '../../GoldrushFormContainer/GoldrushFormContainer';
+import Skeleton from '../../../../components/Skeleton';
+import { ISelectedVehicle } from '../interfaces';
+import { useOpportunityCreation } from '../../../GoldrushFormContainer/gql';
+import { handleNetworkError } from '../../../GoldrushFormContainer/GoldrushFormContainer';
 import {
   OpportunitySubtypeEnum,
   OpportunityTypeEnum,
-} from '../../../../generated/globalTypes';
-import DEFAULT_DERANGED_FORM_VALUE from './constants';
+} from '../../../../../generated/globalTypes';
+import DEFAULT_DERANGED_FORM_VALUE from '../constants';
+import ModalFormSuccessMessage from './ModalFormSuccessMessage';
+import { IGoldrushFromValues } from '../../../../components/GoldrushForm/interfaces';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={2} />,
 });
-const GoldrushForm = dynamic(() => import('../../../components/GoldrushForm'), {
-  loading: () => <Skeleton count={1} />,
-});
+const GoldrushForm = dynamic(
+  () => import('../../../../components/GoldrushForm'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -55,6 +58,22 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
       }
     },
   );
+  const onSubmit = (values: IGoldrushFromValues) => {
+    createOpportunity({
+      variables: {
+        email: values.email,
+        phoneNumber: values.phoneNumber,
+        fullName: values.fullName,
+        privacyPolicy: Boolean(values.privacyPolicy),
+        termsAndConditions: Boolean(values.termsAndCons),
+        opportunityType: OpportunityTypeEnum.CALLBACK,
+        opportunitySubtype: OpportunitySubtypeEnum.DERANGED,
+        communicationsConsent: Boolean(values.consent),
+        capId: selectedVehicle.conversionId,
+      },
+    });
+  };
+
   return (
     <Drawer
       onCloseDrawer={() => {
@@ -89,21 +108,7 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
           </Text>
           {!isFormSend ? (
             <GoldrushForm
-              onSubmit={values => {
-                createOpportunity({
-                  variables: {
-                    email: values.email,
-                    phoneNumber: values.phoneNumber,
-                    fullName: values.fullName,
-                    privacyPolicy: Boolean(values.privacyPolicy),
-                    termsAndConditions: Boolean(values.termsAndCons),
-                    opportunityType: OpportunityTypeEnum.CALLBACK,
-                    opportunitySubtype: OpportunitySubtypeEnum.DERANGED,
-                    communicationsConsent: Boolean(values.consent),
-                    capId: selectedVehicle.conversionId,
-                  },
-                });
-              }}
+              onSubmit={values => onSubmit(values)}
               isSubmitting={loading}
               callBack
               isLabelsShown={{
@@ -118,16 +123,7 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
               }}
             />
           ) : (
-            <div className="drawer--form-content">
-              <Icon size="xlarge" color="success" icon={<CheckmarkCircle />} />
-              <Text
-                size="lead"
-                color="success"
-                className="deranged--form-success"
-              >
-                Your enquiry has been sent
-              </Text>
-            </div>
+            <ModalFormSuccessMessage />
           )}
         </div>
       }

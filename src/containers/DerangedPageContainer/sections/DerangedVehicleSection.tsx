@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { GetConversionsVehicleList_conversions } from '../../../../generated/GetConversionsVehicleList';
 import DerangedVehicleCard from '../../../components/DerangedVehicleCard/DerangedVehicleCard';
 import Skeleton from '../../../components/Skeleton';
-import DerangedModalForm from './DerangedModalForm';
+import DerangedModalForm from './components/DerangedModalForm';
 import { ISelectedVehicle } from './interfaces';
 import DEFAULT_DERANGED_FORM_VALUE from './constants';
 
