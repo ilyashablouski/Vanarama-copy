@@ -1,4 +1,3 @@
-import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
@@ -13,6 +12,7 @@ import {
   isPartnerSessionActive,
 } from '../../utils/partnerProperties';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { IErrorProps } from '../../types/common';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -39,7 +39,7 @@ const ErrorMessage = dynamic(
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
   loading?: boolean;
-  error?: ApolloError | undefined;
+  error?: IErrorProps;
 }
 
 const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {

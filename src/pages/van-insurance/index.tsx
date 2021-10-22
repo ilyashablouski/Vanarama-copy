@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import InsurancePageContainer from '../../containers/InsurancePageContainer/InsurancePageContainer';
 import createApolloClient from '../../apolloClient';
@@ -7,40 +8,71 @@ import {
   GetInsuranceLandingPageVariables,
 } from '../../../generated/GetInsuranceLandingPage';
 import { decodeData, encodeData } from '../../utils/data';
+import ErrorPage from '../_error';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
 
 interface IInsurancePage {
   data: GetInsuranceLandingPage | undefined;
+  error?: IErrorProps;
 }
 
-const InsurancePage: NextPage<IInsurancePage> = ({ data: encodedData }) => {
-  return <InsurancePageContainer data={decodeData(encodedData)} />;
+const InsurancePage: NextPage<IInsurancePage> = ({
+  data: encodedData,
+  error,
+}) => {
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
+  return <InsurancePageContainer data={data} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GetInsuranceLandingPage,
       GetInsuranceLandingPageVariables
     >({
       query: GET_INSURANCE_LANDING_PAGE,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
