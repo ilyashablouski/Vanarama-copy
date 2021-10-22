@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { ApolloError } from '@apollo/client';
 import { ParsedUrlQueryInput } from 'querystring';
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
@@ -9,7 +10,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion';
 import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
 
-import { Nullable, Nullish } from '../../types/common';
+import { IErrorProps, Nullable, Nullish } from '../../types/common';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
@@ -33,6 +34,12 @@ import { freeInsuranceSmallPrint } from '../car-leasing/free-car-insurance';
 import FeaturedSection from '../../components/FeaturedSection';
 import ArticleCarousel from '../../components/ArticleCarousel';
 import ProductCarousel from '../../components/ProductCarousel';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -53,6 +60,7 @@ interface IProps extends IEvOffersData {
   productCard?: Nullish<ProductCardData>;
   productDerivatives?: Nullish<GetDerivatives>;
   searchParam: string;
+  error?: IErrorProps;
 }
 
 const mapQuestionAnswersToAccordionItems = (
@@ -70,6 +78,7 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   productCard,
   vehicleListUrlData,
   searchParam,
+  error,
 }) => {
   const { cachedLeaseType } = useLeaseType(null);
 
@@ -112,6 +121,10 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
       }
     }
   }, []);
+
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
 
   return (
     <>
@@ -220,9 +233,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       variables: {
         slug: 'redundancy-and-life-event-cover',
         sectionsAsArray: true,
-        ...(context?.preview && {
-          isPreview: context?.preview,
-        }),
+        isPreview: !!context?.preview,
       },
     });
 
@@ -233,9 +244,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await specialOffersRequest(client);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
         productDerivatives: productsCarDerivatives || null,
@@ -244,8 +253,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         searchParam: 'car-leasing',
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
