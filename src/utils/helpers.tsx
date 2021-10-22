@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { ApolloError } from '@apollo/client';
 import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
@@ -7,7 +8,7 @@ import {
 import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { Nullish } from '../types/common';
+import { IErrorProps, Nullish } from '../types/common';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -266,6 +267,26 @@ export const parseVehicleConfigId = (configId: string) => {
   return { vehicleType, capId } as {
     vehicleType: VehicleTypeEnum;
     capId: string;
+  };
+};
+
+export const convertErrorToProps = (
+  error: Error | ApolloError,
+): IErrorProps => {
+  if (
+    'networkError' in error &&
+    error.networkError &&
+    'statusCode' in error.networkError
+  ) {
+    return {
+      statusCode: error.networkError.statusCode,
+      message: error.networkError.message,
+    };
+  }
+
+  return {
+    statusCode: 500,
+    message: error.message,
   };
 };
 
