@@ -45,6 +45,7 @@ import {
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import HeadingSection from '../../components/HeadingSection';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -100,6 +101,9 @@ export const PickupsPage: NextPage<IProps> = ({
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
+  const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
+  const headerText = data?.hubPickupPage.sections?.leadText?.heading;
+  const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
     () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
@@ -134,17 +138,6 @@ export const PickupsPage: NextPage<IProps> = ({
   return (
     <>
       <Hero searchPodVansData={searchPodVansData}>
-        {/*  <HeroHeading
-          text={data?.hubPickupPage.sections?.hero?.title || ''}
-          titleTag={
-            getTitleTag(
-              data?.hubPickupPage.sections?.hero?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
-        <br /> */}
         <div className="nlol">
           <p>Find Your</p>
           <h2>New Lease Of Life</h2>
@@ -183,22 +176,11 @@ export const PickupsPage: NextPage<IProps> = ({
         )}
       </Hero>
 
-      <section className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubPickupPage.sections?.leadText?.titleTag || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data?.hubPickupPage.sections?.leadText?.heading}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {data?.hubPickupPage.sections?.leadText?.description}
-        </Text>
-      </section>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
 
       <hr className="-fullwidth" />
 

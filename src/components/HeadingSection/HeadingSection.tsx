@@ -2,14 +2,15 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../Skeleton';
 import getTitleTag from '../../utils/getTitleTag';
+import { Nullish } from '../../types/common';
 
 interface IPageHeadingSection {
-  titleTag?: string;
-  header: string;
-  description?: string;
+  titleTag?: Nullable<string>;
+  header: Nullish<string>;
+  description?: Nullable<string>;
 }
 
-const PageHeadingSection = ({
+const HeadingSection = ({
   titleTag,
   header,
   description,
@@ -21,21 +22,21 @@ const PageHeadingSection = ({
     loading: () => <Skeleton count={1} />,
   });
   return (
-    <div className="row:lead-text">
+    <section className="row:lead-text">
       <Heading
         size="xlarge"
         color="black"
         tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
       >
-        {header}
+        {header || ''}
       </Heading>
       {description && (
         <Text tag="span" size="lead" color="darker">
-          {description}
+          {description || ''}
         </Text>
       )}
-    </div>
+    </section>
   );
 };
 
-export default PageHeadingSection;
+export default HeadingSection;
