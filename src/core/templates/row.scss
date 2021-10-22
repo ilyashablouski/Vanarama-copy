@@ -613,6 +613,15 @@
       }
     }
 
+    .deranged--result-title {
+      text-align: center;
+    }
+
+    .deranged--result-subtitle {
+      margin: 0.5rem auto 2rem auto;
+      text-align: center;
+    }
+
     > .accordion {
       @include margin-inline(auto);
     }

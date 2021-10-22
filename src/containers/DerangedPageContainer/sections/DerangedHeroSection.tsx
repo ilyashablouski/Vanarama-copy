@@ -18,7 +18,7 @@ interface IProps {
 
 const DerangedHeroSection: React.FC<IProps> = ({ title, body, image }) => {
   return (
-    <div className="row:bg-hero">
+    <section className="row:bg-hero">
       <div className="row:hero">
         <div className="hero--left">
           <Image
@@ -50,7 +50,7 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body, image }) => {
           <HeroCurve />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
