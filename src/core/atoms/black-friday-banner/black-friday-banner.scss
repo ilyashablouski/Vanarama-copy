@@ -66,7 +66,11 @@
       z-index: 1;
 
       @include mobile-tablet {
-        font-size: 1.25rem;
+        font-size: $font-size-500;
+      }
+
+      @media (max-width: 364px) {
+        font-size: $font-size-400;
       }
     }
   }
@@ -115,6 +119,10 @@
       @media (max-width: 984px) {
         line-height: 1;
       }
+      
+      @media (max-width: 364px) {
+        font-size: $font-size-200;
+      }
 
       span {
         font-size: $font-size-400;
@@ -123,6 +131,10 @@
 
         @media (min-width: 985px) {
           display: none;
+        }
+
+        @media (max-width: 364px) {
+          font-size: $font-size-300;
         }
       }
     }
@@ -156,6 +168,10 @@
         @include mobile-tablet {
           width: 176px;
         }
+
+        @media (max-width: 364px) {
+          width: 156px;
+        }
       }
     }
   }
@@ -172,6 +188,10 @@
         @media (max-width: 984px) {
           min-height: 32px;
         }
+
+        @media (max-width: 364px) {
+          width: 156px;
+        }
       }
 
       &__text {
@@ -184,6 +204,10 @@
 
           @include mobile-tablet {
             font-size: $font-size-400;
+          }
+
+          @media (max-width: 364px) {
+            font-size: $font-size-300;
           }
         }
       }
