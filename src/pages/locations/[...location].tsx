@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
@@ -33,6 +34,12 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { HeroBackground as Hero } from '../../components/Hero';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -68,26 +75,26 @@ const GoldrushForm = dynamic(
 const HERO_BACKGROUND_URL =
   'https://res.cloudinary.com/diun8mklf/image/upload/v1587843424/vanarama/Screenshot_2020-04-25_at_8.36.35_pm_wtp06s.png';
 
-export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
+export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [createOpportunity, { loading }] = useOpportunityCreation(
     () => setShowModal(true),
-    error => {
-      if (error?.networkError) {
+    creationError => {
+      if (creationError?.networkError) {
         handleNetworkError();
       }
-      if (error?.message) {
+      if (creationError?.message) {
         toast.error(
           'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-          error?.message,
+          creationError?.message,
         );
       }
     },
   );
 
-  if (!data?.genericPage) {
-    return null;
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
   }
 
   const hero: IHero = getSectionsData(['sections', 'hero'], data.genericPage);
@@ -378,7 +385,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Location',
-      ...(context?.preview && { isPreview: context?.preview }),
+      isPreview: !!context?.preview,
     },
   });
   const items = data?.pageCollection?.items;
@@ -394,29 +401,42 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.location as string[];
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: `locations/${paths?.join('/')}`,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
