@@ -47,15 +47,13 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://plugins.blueconic.net" />
           <link rel="preconnect" href="https://vanarama.blueconic.net" />
           {scriptEnvs.blueconic.includes(env) && (
-            <>
-              <script
-                async
-                data-cfasync="false"
-                src="https://g562.vanarama.com/script.js"
-              />
-              <CookieBarScript />
-            </>
+            <script
+              async
+              data-cfasync="false"
+              src="https://g562.vanarama.com/script.js"
+            />
           )}
+          {scriptEnvs.blueconic.includes(env) && <CookieBarScript />}
           {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}

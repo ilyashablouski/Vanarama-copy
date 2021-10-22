@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import * as localForage from 'localforage';
 
 import { useRouter } from 'next/router';
 import decode from 'decode-html';
@@ -26,8 +25,8 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { sum } from '../../utils/array';
-import { IOrderStorageData } from '../../hooks/useGetOrder';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { useSaveOrderMutation } from '../../gql/storedOrder';
 
 const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
   {
@@ -80,16 +79,17 @@ const createLineItem = (
   } as VehicleProductInputObject);
 
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
-  order,
+  storedOrder,
   quote,
   derivative,
   vehicleImages,
   vehicleConfiguration,
 }) => {
   const router = useRouter();
-  const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
-    order,
-  ]);
+  const vehicleProduct = useMemo(
+    () => storedOrder?.order?.lineItems?.[0].vehicleProduct,
+    [storedOrder?.order],
+  );
   // enabled by default for cars only
   const redundancy = useMemo(
     () => vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
@@ -114,8 +114,9 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   });
 
   const isPersonalPrice = useMemo(
-    () => order.leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL,
-    [order],
+    () =>
+      storedOrder?.order?.leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL,
+    [storedOrder?.order],
   );
   const values = methods.watch();
   const includedItems = useMemo(
@@ -135,23 +136,38 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
     [quote, values.monthlyMaintenance, vehicleProduct?.monthlyPayment],
   );
 
+  const [saveOrderMutation] = useSaveOrderMutation();
+
   const onSubmit = useCallback(() => {
     const newOrder = {
-      ...order,
+      ...(storedOrder!.order || {}),
+      leaseType: storedOrder?.order?.leaseType || LeaseTypeEnum.PERSONAL,
       lineItems: [
         {
           vehicleProduct: createLineItem(values, quote, vehicleProduct),
-          ...(order.lineItems?.[0] || {}),
+          ...(storedOrder!.order!.lineItems[0] || {}),
         },
       ],
     };
-    localForage
-      .setItem<IOrderStorageData>('order', newOrder)
+
+    saveOrderMutation({
+      variables: {
+        order: newOrder,
+        rating: storedOrder?.rating,
+      },
+    })
       .then(() => (isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about'))
       .then(url => router.push(url, url))
-      .then(() => {});
+      .catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPersonalPrice, order, quote, vehicleProduct, values]);
+  }, [
+    isPersonalPrice,
+    storedOrder?.order,
+    storedOrder?.rating,
+    quote,
+    vehicleProduct,
+    values,
+  ]);
 
   return (
     <>
@@ -167,7 +183,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
           <div className="side-bar-layout">
             <div>
               <OrderPanel
-                order={order}
+                order={storedOrder!.order}
                 quote={quote}
                 vehicleImage={vehicleImages?.[0]}
                 vehicleConfiguration={vehicleConfiguration}
