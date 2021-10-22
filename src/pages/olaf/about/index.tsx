@@ -31,6 +31,7 @@ import { isUserAuthenticated } from '../../../utils/authentication';
 import { GetPerson } from '../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../gql/storedOLAFData';
 import { useSavePersonEmailMutation } from '../../../gql/storedPersonEmail';
+import ErrorMessages from '../../../models/enum/ErrorMessages';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -43,10 +44,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 
 export const handleAccountFetchError = () =>
-  toast.error(
-    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    '',
-  );
+  toast.error(ErrorMessages.requestIssue, '');
 
 const DEFAULT_LINE_ITEMS = [
   {

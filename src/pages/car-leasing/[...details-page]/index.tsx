@@ -200,7 +200,7 @@ const CarDetailsPage: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({});
-  const path = context.req?.url?.split('?')[0] || '';
+  const path = context.resolvedUrl || '';
 
   try {
     const { data } = await client.query<

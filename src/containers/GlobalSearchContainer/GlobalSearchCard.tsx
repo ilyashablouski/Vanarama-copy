@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
@@ -25,6 +25,7 @@ interface IProps {
 }
 
 const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
+  const router = useRouter();
   const isSpecialOffer = useMemo(() => data.onOffer, [data.onOffer]);
   const isCar = useMemo(() => data.vehicleType === VehicleTypeEnum.CAR, [
     data.vehicleType,
@@ -80,7 +81,7 @@ const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
           size="xsmall"
           className="arrow-cta"
           label={<span className="arrow-cta" />}
-          onClick={() => Router.push(`/${data.url}` || '')}
+          onClick={() => router.push(`/${data.url}` || '')}
         />
       </div>
     </div>
