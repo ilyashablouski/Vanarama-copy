@@ -8,6 +8,7 @@ import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
+import BlackFridayPDPBanner from 'core/atoms/black-friday-banner/BlackFridayPDPBanner';
 import MediaGallery from 'core/organisms/media-gallery';
 // @ts-ignore
 import decode from 'decode-html';
@@ -27,7 +28,10 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat } from '../../utils/helpers';
+import {
+  isBlackFridayCampaignEnabled,
+  toPriceFormat,
+} from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -73,9 +77,9 @@ import { Nullable } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
 import { PdpBanners } from '../../models/enum/PdpBanners';
+import FreeInsuranceBanner from './FreeInsuranceBanner';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
-const Text = dynamic(() => import('core/atoms/text'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
@@ -130,11 +134,6 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
-
-const INSURANCE_LINK = {
-  href: '/car-leasing/free-car-insurance',
-  label: 'Find Out More',
-};
 
 interface IDetailsPageProps {
   capId: number;
@@ -606,21 +605,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </NextHead>
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isFreeInsurance && (
-          <div className="pdp-free-insurance-banner">
-            <Text
-              tag="span"
-              color="black"
-              className="pdp-free-insurance-banner--text"
-            >
-              1 Year&apos;s FREE Insurance
-            </Text>
-            <RouterLink
-              link={INSURANCE_LINK}
-              classNames={{ color: 'black', size: 'regular' }}
-              className="pdp-free-insurance-banner--link"
-            />
-          </div>
+        {isBlackFridayCampaignEnabled() ? (
+          <BlackFridayPDPBanner />
+        ) : (
+          isFreeInsurance && <FreeInsuranceBanner />
         )}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
