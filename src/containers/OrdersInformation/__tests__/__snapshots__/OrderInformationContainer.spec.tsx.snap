@@ -24,9 +24,20 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       <span
         className="text -regular -dark"
       >
-        You have (0) orders.
+        You have (1) orders.
       </span>
-      0
+      <a
+        className="link -teal"
+        data-menu={null}
+        data-testid="orders-link"
+        href="/account/my-orders"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        View Orders
+      </a>
     </div>
     <div
       className="card"
@@ -45,9 +56,20 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       <span
         className="text -regular -dark"
       >
-        You have (0) quotes.
+        You have (2) quotes.
       </span>
-      0
+      <a
+        className="link -teal"
+        data-menu={null}
+        data-testid="quotes-link"
+        href="/account/my-quotes"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        View Quotes
+      </a>
     </div>
   </div>
 </div>
