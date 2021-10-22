@@ -14,7 +14,7 @@ import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 // import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
 import BenefitsBar from '../../core/organisms/benefits-bar/BenefitsBar';
-import ErrorsTypes from '../../models/enum/ErrorsTypes';
+import ErrorMessages from '../../models/enum/ErrorMessages';
 
 const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
   loading: () => <Skeleton count={5} />,
@@ -44,7 +44,7 @@ const CompetitionHero: React.FC<ICompetitionHeroProps> = ({
         handleNetworkError();
       }
       if (error?.message) {
-        toast.error(ErrorsTypes.requestIssue, error?.message);
+        toast.error(ErrorMessages.requestIssue, error?.message);
       }
     },
   );

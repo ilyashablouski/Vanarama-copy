@@ -4,7 +4,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 import Skeleton from '../../components/Skeleton';
-import ErrorsTypes from '../../models/enum/ErrorsTypes';
+import ErrorMessages from '../../models/enum/ErrorMessages';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -35,7 +35,7 @@ const Link = dynamic(() => import('core/atoms/link'));
 export const DEFAULT_POSTCODE = 'HP27DE';
 
 export const handleNetworkError = () =>
-  toast.error(ErrorsTypes.requestIssue, '');
+  toast.error(ErrorMessages.requestIssue, '');
 
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,

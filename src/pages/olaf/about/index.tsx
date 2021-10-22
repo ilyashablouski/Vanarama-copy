@@ -31,7 +31,7 @@ import { isUserAuthenticated } from '../../../utils/authentication';
 import { GetPerson } from '../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../gql/storedOLAFData';
 import { useSavePersonEmailMutation } from '../../../gql/storedPersonEmail';
-import ErrorsTypes from '../../../models/enum/ErrorsTypes';
+import ErrorMessages from '../../../models/enum/ErrorMessages';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -44,7 +44,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 
 export const handleAccountFetchError = () =>
-  toast.error(ErrorsTypes.requestIssue, '');
+  toast.error(ErrorMessages.requestIssue, '');
 
 const DEFAULT_LINE_ITEMS = [
   {
