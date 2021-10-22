@@ -25,10 +25,10 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 interface IDerangedModalForm {
-  setIsShowDrawer: Dispatch<SetStateAction<boolean>>;
   isShowDrawer: boolean;
-  setIsFormSend: Dispatch<SetStateAction<boolean>>;
+  setIsShowDrawer: Dispatch<SetStateAction<boolean>>;
   isFormSend: boolean;
+  setIsFormSend: Dispatch<SetStateAction<boolean>>;
   selectedVehicle: ISelectedVehicle;
   setSelectedVehicle: Dispatch<SetStateAction<ISelectedVehicle>>;
 }
@@ -42,9 +42,7 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
   setSelectedVehicle,
 }) => {
   const [createOpportunity, { loading }] = useOpportunityCreation(
-    () => {
-      setIsFormSend(true);
-    },
+    () => setIsFormSend(true),
     error => {
       if (error?.networkError) {
         handleNetworkError();
@@ -101,6 +99,7 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
                     termsAndConditions: Boolean(values.termsAndCons),
                     opportunityType: OpportunityTypeEnum.CALLBACK,
                     opportunitySubtype: OpportunitySubtypeEnum.DERANGED,
+                    communicationsConsent: Boolean(values.consent),
                     capId: selectedVehicle.conversionId,
                   },
                 });

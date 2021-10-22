@@ -31,7 +31,13 @@ interface IDerangedVehicleCardProps {
 }
 
 const DerangedVehicleCard = React.memo(
-  ({ lazyLoad, loadImage, title, data }: IDerangedVehicleCardProps) => {
+  ({
+    lazyLoad,
+    loadImage,
+    title,
+    data,
+    handleClick,
+  }: IDerangedVehicleCardProps) => {
     const imageProps = {
       imageSrc:
         data.imageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
@@ -73,6 +79,14 @@ const DerangedVehicleCard = React.memo(
             fill="solid"
             label="Enquire Now"
             size="regular"
+            onClick={() =>
+              handleClick(
+                imageProps.imageSrc,
+                title.title,
+                title.description,
+                data.conversionId,
+              )
+            }
           />
         </div>
       </Card>
