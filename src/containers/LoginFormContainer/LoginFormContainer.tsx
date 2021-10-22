@@ -61,8 +61,8 @@ export const saveOrders = (
   quotes: GetMyOrders_myOrders[],
 ) =>
   Promise.all([
-    localForage.setItem<number | undefined>('ordersLength', orders.length),
-    localForage.setItem<number | undefined>('quotesLength', quotes.length),
+    localForage.setItem<number | undefined>('ordersLength', orders?.length),
+    localForage.setItem<number | undefined>('quotesLength', quotes?.length),
   ]);
 
 const LoginFormContainer = ({
@@ -151,8 +151,8 @@ const LoginFormContainer = ({
             .then(getPartyUuidsFromCompanies)
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
             .then(requestOrders)
-            .then(result =>
-              saveOrders(result[0].data.myOrders, result[1].data.myOrders),
+            .then(([{ data: orders }, { data: quotes }]) =>
+              saveOrders(orders?.myOrders, quotes?.myOrders),
             )
             .then(() => personQuery),
         )

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
-import { saveOrders } from 'containers/LoginFormContainer/LoginFormContainer';
+import { saveOrders } from '../LoginFormContainer/LoginFormContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { GetMyOrders_myOrders } from '../../../generated/GetMyOrders';
