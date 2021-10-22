@@ -224,7 +224,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <HeadingSection titleTag={titleTag || ''} header={flag || ''} />
+      <HeadingSection titleTag={titleTag} header={flag} />
 
       <section className="tabs-wrap row:tabbed">
         <Tabs

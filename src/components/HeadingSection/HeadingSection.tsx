@@ -4,6 +4,13 @@ import Skeleton from '../Skeleton';
 import getTitleTag from '../../utils/getTitleTag';
 import { Nullish } from '../../types/common';
 
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+
 interface IPageHeadingSection {
   titleTag?: Nullable<string>;
   header: Nullish<string>;
@@ -14,14 +21,8 @@ const HeadingSection = ({
   titleTag,
   header,
   description,
-}: IPageHeadingSection) => {
-  const Heading = dynamic(() => import('core/atoms/heading'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const Text = dynamic(() => import('core/atoms/text'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  return (
+}: IPageHeadingSection) =>
+  header || description ? (
     <section className="row:lead-text">
       {header && (
         <Heading
@@ -38,7 +39,6 @@ const HeadingSection = ({
         </Text>
       )}
     </section>
-  );
-};
+  ) : null;
 
 export default HeadingSection;
