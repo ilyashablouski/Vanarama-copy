@@ -23,16 +23,18 @@ const HeadingSection = ({
   });
   return (
     <section className="row:lead-text">
-      <Heading
-        size="xlarge"
-        color="black"
-        tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
-      >
-        {header || ''}
-      </Heading>
+      {header && (
+        <Heading
+          size="xlarge"
+          color="black"
+          tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
+        >
+          {header}
+        </Heading>
+      )}
       {description && (
         <Text tag="span" size="lead" color="darker">
-          {description || ''}
+          {description}
         </Text>
       )}
     </section>
