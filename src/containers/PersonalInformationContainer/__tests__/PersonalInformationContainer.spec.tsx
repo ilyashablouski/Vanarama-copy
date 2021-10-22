@@ -1,4 +1,4 @@
-import { render, act, waitFor, RenderResult, screen } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import { useLazyQuery } from '@apollo/client';
 import PersonalInformation from '../PersonalInformation';
 import { useCreatePerson } from '../gql';
