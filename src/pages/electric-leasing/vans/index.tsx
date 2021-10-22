@@ -28,6 +28,7 @@ import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import VehicleCard from '../../../components/VehicleCard/VehicleCard';
 import truncateString from '../../../utils/truncateString';
+import HeadingSection from '../../../components/HeadingSection';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -60,6 +61,9 @@ const EVansPage: NextPage<IProps> = ({
     quality: 59,
   };
   const { sections } = data?.genericPage;
+  const titleTagText = sections?.leadText?.titleTag;
+  const headerText = sections?.leadText?.heading;
+  const descriptionText = sections?.leadText?.description;
 
   useEffect(() => {
     setFeaturesArray(getFeaturedSectionsAsArray(sections));
@@ -96,25 +100,6 @@ const EVansPage: NextPage<IProps> = ({
         />
       </div>
     </Hero>
-  );
-
-  const HeadingSection = () => (
-    <div className="row:lead-text">
-      <Heading
-        size="xlarge"
-        color="black"
-        tag={
-          getTitleTag(
-            sections?.leadText?.titleTag || null,
-          ) as keyof JSX.IntrinsicElements
-        }
-      >
-        {sections?.leadText?.heading}
-      </Heading>
-      <Text tag="span" size="lead" color="darker">
-        {sections?.leadText?.description}
-      </Text>
-    </div>
   );
 
   const CardsSection = () => (
@@ -282,7 +267,11 @@ const EVansPage: NextPage<IProps> = ({
   return (
     <>
       <HeroSection />
-      <HeadingSection />
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
       <CardsSection />
       {featuresArray.map(({ title, body, image, titleTag, video }, index) => (
         <Section
