@@ -1,13 +1,14 @@
-import { ApolloError, gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import {
   LegalPageQuery,
   LegalPageQueryVariables,
 } from '../../../generated/LegalPageQuery';
+import { IErrorProps } from '../../types/common';
 
 export interface ILegalPage {
   data?: LegalPageQuery | undefined;
   loading?: boolean | undefined;
-  error?: ApolloError;
+  error?: IErrorProps;
 }
 
 export const LEGAL_PAGE_QUERY = gql`
