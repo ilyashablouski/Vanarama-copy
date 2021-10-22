@@ -46,6 +46,8 @@ import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import HeadingSection from '../../components/HeadingSection';
+
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -113,6 +115,18 @@ export const VansPage: NextPage<IProps> = ({
 
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
+  const titleTagText = getSectionsData(
+    ['leadText', 'titleTag'],
+    data?.hubVanPage.sections,
+  );
+  const headerText = getSectionsData(
+    ['leadText', 'heading'],
+    data?.hubVanPage.sections,
+  );
+  const descriptionText = getSectionsData(
+    ['leadText', 'description'],
+    data?.hubVanPage.sections,
+  );
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
@@ -132,26 +146,6 @@ export const VansPage: NextPage<IProps> = ({
   return (
     <>
       <Hero searchPodVansData={searchPodVansData}>
-        {/* <HeroHeading
-          text={
-            getSectionsData(['hero', 'title'], data?.hubVanPage.sections) || ''
-          }
-          titleTag={
-            getTitleTag(
-              getSectionsData(
-                ['hero', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle
-          text={
-            getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
-          }
-        />
-        <br /> */}
         <div className="nlol">
           <p>Find Your</p>
           <h2>New Lease Of Life</h2>
@@ -188,28 +182,13 @@ export const VansPage: NextPage<IProps> = ({
           />
         )}
       </Hero>
-      <div className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['leadText', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['leadText', 'heading'], data?.hubVanPage.sections)}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {getSectionsData(
-            ['leadText', 'description'],
-            data?.hubVanPage.sections,
-          )}
-        </Text>
-      </div>
+
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
+
       <hr className="-fullwidth" />
       {offer && (
         <div className="row:featured-product">

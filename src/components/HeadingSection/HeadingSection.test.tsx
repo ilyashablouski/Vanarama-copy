@@ -1,13 +1,13 @@
 import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PageHeadingSection from '.';
+import HeadingSection from '.';
 
-describe('PageHeadingSection', () => {
+describe('HeadingSection', () => {
   beforeEach(async () => {
     await preloadAll();
     render(
-      <PageHeadingSection
+      <HeadingSection
         header="This is a header"
         description="and this is a description"
       />,

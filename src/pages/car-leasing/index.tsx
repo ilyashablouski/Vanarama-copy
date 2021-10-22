@@ -55,6 +55,7 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import HeadingSection from '../../components/HeadingSection';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -100,6 +101,9 @@ export const CarsPage: NextPage<IProps> = ({
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
+  const titleTagText = data?.hubCarPage.sections?.leadText?.titleTag;
+  const headerText = data?.hubCarPage.sections?.leadText?.heading;
+  const descriptionText = data?.hubCarPage.sections?.leadText?.description;
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(
@@ -138,17 +142,6 @@ export const CarsPage: NextPage<IProps> = ({
         smallPrint={freeInsuranceSmallPrint}
         customCTALink="/car-leasing/free-car-insurance"
       >
-        {/* <HeroHeading
-          text={data?.hubCarPage.sections?.hero?.title || ''}
-          titleTag={
-            getTitleTag(
-              data?.hubCarPage.sections?.hero?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
-        <br /> */}
         <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year&apos;s FREE Insurance</h2>
@@ -184,22 +177,11 @@ export const CarsPage: NextPage<IProps> = ({
         )}
       </Hero>
 
-      <section className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubCarPage.sections?.leadText?.titleTag || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data?.hubCarPage.sections?.leadText?.heading}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {data?.hubCarPage.sections?.leadText?.description}
-        </Text>
-      </section>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
 
       <section className="row:eligibility-checker-cta">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>

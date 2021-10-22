@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { PreviewNextPageContext } from 'types/common';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
-import PageHeadingSection from '../../../components/PageHeadingSection';
+import HeadingSection from '../../../components/HeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
@@ -224,7 +224,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <PageHeadingSection titleTag={titleTag || ''} header={flag || ''} />
+      <HeadingSection titleTag={titleTag} header={flag} />
 
       <section className="tabs-wrap row:tabbed">
         <Tabs
