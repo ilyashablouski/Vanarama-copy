@@ -27,12 +27,13 @@ const GlobalSearchContainer = () => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
   const suggestions = useGlobalSearch(debouncedSearchTerm);
-  const onSubmit = (value: string) => {
+  const onSubmit = (target: HTMLTextAreaElement) => {
+    target.blur();
     router.push(
       {
         pathname: '/search',
         query: {
-          searchTerm: value,
+          searchTerm: target.value,
         },
       },
       undefined,
@@ -83,9 +84,7 @@ const GlobalSearchContainer = () => {
             }
           }}
           onKeyPress={e =>
-            e.key === 'Enter'
-              ? onSubmit((e.target as HTMLTextAreaElement).value)
-              : null
+            e.key === 'Enter' ? onSubmit(e.target as HTMLTextAreaElement) : null
           }
         />
         {!isOpenResults && (
