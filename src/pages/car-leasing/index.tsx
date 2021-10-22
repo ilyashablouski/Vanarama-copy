@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
@@ -55,6 +54,7 @@ import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -76,9 +76,7 @@ const ProductCard = dynamic(() =>
 const Choiceboxes = dynamic(() => import('core/atoms/choiceboxes'), {
   loading: () => <Skeleton count={3} />,
 });
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
-});
+
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
 });
@@ -551,15 +549,7 @@ export const CarsPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <FeaturedOnSection />
 
