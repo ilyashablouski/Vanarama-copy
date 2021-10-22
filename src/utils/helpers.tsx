@@ -269,13 +269,34 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
+export enum FeatureFlags {
+  DERANGED = 'DIG-7592',
+}
+
+function isFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+  featureFlag: string,
+): boolean {
+  if (!cookies) {
+    return false;
+  }
+
+  if (typeof cookies !== 'string') {
+    return cookies.get(featureFlag) === '1';
+  }
+
+  return cookies.includes(`${featureFlag}=1`);
+}
+
+export function isDerangedFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
+}
+
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
-
-export enum FeatureFlags {
-  DERANGED = 'DIG-7592=1',
-}
 
 export const isBlackFridayCampaignEnabled = () => {
   return Cookies.get('DIG-7658') === '1';

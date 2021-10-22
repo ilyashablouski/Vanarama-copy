@@ -22,7 +22,7 @@ import {
   GetConversionsVehicleList_conversions as ConversionsVehicleList,
   GetConversionsVehicleListVariables,
 } from '../../../generated/GetConversionsVehicleList';
-import { FeatureFlags } from '../../utils/helpers';
+import { isDerangedFeatureFlagEnabled } from '../../utils/helpers';
 
 interface IDerangedPage {
   data: IGenericPage;
@@ -40,8 +40,8 @@ const DerangedPage: NextPage<IDerangedPage> = ({
 );
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const isDerangedFeatureEnabled = context.req?.headers?.cookie?.includes(
-    FeatureFlags.DERANGED,
+  const isDerangedFeatureEnabled = isDerangedFeatureFlagEnabled(
+    context.req?.headers?.cookie,
   );
 
   if (!isDerangedFeatureEnabled) {
