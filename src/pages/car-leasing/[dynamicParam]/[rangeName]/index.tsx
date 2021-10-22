@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
-import { SlugNextPageContext } from 'types/common';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -137,7 +137,7 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: SlugNextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const manufacturerName = (context?.query
     ?.dynamicParam as string).toLowerCase();
