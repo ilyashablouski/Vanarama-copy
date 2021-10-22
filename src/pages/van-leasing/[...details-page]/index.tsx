@@ -221,8 +221,7 @@ const VanDetailsPage: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({});
-  const path = context.req?.url || '';
-
+  const path = context.resolvedUrl || '';
   try {
     const { data } = await client.query<
       GenericPageHeadQuery,
