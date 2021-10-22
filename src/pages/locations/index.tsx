@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -16,10 +17,13 @@ import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
 import { decodeData, encodeData } from '../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -35,16 +39,14 @@ const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
 
 export const LocationsPage: NextPage<IGenericPage> = ({
   data: encodedData,
-  loading,
+  error,
 }) => {
-  const data = decodeData(encodedData);
-  if (loading) {
-    return <Loading size="large" />;
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
   }
 
-  if (!data?.genericPage) {
-    return <></>;
-  }
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -134,30 +136,42 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'locations',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
-        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

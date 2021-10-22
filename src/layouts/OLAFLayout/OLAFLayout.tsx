@@ -1,11 +1,14 @@
-import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
+import React, { useState, useEffect, ReactNode, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useStoredOrderQuery } from 'gql/storedOrder';
+
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
+import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
+import BlackFridaySummaryBanner from 'core/atoms/black-friday-banner/BlackFridaySummaryBanner';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
-import { useRouter } from 'next/router';
-import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import Modal from 'core/molecules/modal';
-import { useStoredOrderQuery } from 'gql/storedOrder';
+
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -37,6 +40,7 @@ import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
 
 import { isSessionFinishedCache } from '../../cache';
+import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -274,6 +278,9 @@ const OLAFLayout: React.FC<IProps> = ({
                 derivativeData?.data?.vehicleDetails?.warrantyDetails
               }
             />
+            {isBlackFridayCampaignEnabled() && (
+              <BlackFridaySummaryBanner className="-mt-400" />
+            )}
             {isBenefitsVisible && (
               <>
                 <Card className="-mt-400">
