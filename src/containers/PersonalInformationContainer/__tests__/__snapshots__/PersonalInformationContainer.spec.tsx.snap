@@ -1,38 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render PersonalInformationContainer 1`] = `
-<body>
-  <div>
-    <div
-      class="my-details--form"
-      style="grid-column-end: 6;"
-    >
-      <div
-        style="font-size: 24px; line-height: 1.75; opacity: 0.75; color: rgb(204, 204, 204);"
-      >
-        <span>
-          <span
-            class="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-          >
-            ‌
-          </span>
-          <span
-            class="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-          >
-            ‌
-          </span>
-          <span
-            class="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
-          >
-            ‌
-          </span>
-        </span>
-      </div>
-    </div>
-  </div>
-</body>
-`;
-
 exports[`should render PersonalInformationContainer correctly 1`] = `
 <body>
   <div>
