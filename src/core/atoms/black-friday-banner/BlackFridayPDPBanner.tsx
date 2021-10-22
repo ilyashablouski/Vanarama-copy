@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Text from 'core/atoms/text';
 import Icon from 'core/atoms/icon';
@@ -7,8 +8,10 @@ import LayerIcon from 'core/assets/icons/black-friday/Layer';
 import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
-const BlackFridayPDPBanner = () => (
-  <section className="bf-banner bf-banner--pdp">
+import { IBaseProps } from 'core/interfaces/base';
+
+const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
+  <section className={cx('bf-banner bf-banner--pdp', className)}>
     <Icon
       className="bf-banner__ear"
       icon={<EarLeftIcon />}
