@@ -120,7 +120,7 @@ export async function getServerSideProps(context: NextPageContext) {
           .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
             query: GET_CARDS_DATA,
             variables: {
-              capIds: responseCarsCapIds as string[],
+              capIds: responseCarsCapIds,
               vehicleType: VehicleTypeEnum.CAR,
             },
           })
@@ -131,7 +131,7 @@ export async function getServerSideProps(context: NextPageContext) {
           .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
             query: GET_CARDS_DATA,
             variables: {
-              capIds: responseVansCapIds as string[],
+              capIds: responseVansCapIds,
               vehicleType: VehicleTypeEnum.LCV,
             },
           })

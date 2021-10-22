@@ -331,6 +331,11 @@
           margin-right: -$rem-400;
           padding: 1ch $rem-400;
         }
+
+        > .bf-banner {
+          margin-left: -$rem-400;
+          margin-right: -$rem-400;
+        }
       }
 
       &--mobile-download {
@@ -485,11 +490,19 @@
 
       &--promo {
         @include desktop {
-          grid-column: 2 / span 8;
+          grid-column: 2 / span 7;
         }
 
         @include tablet {
           grid-column: full / column 7;
+        }
+
+        @include mobile {
+          .bf-banner,
+          .pdp-free-insurance-banner {
+            margin-left: -$rem-400;
+            margin-right: -$rem-400;
+          }
         }
       }
 
