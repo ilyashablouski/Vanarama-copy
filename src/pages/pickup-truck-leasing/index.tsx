@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -45,6 +46,13 @@ import {
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
+import ErrorPage from '../_error';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -87,6 +95,7 @@ const ProductCard = dynamic(
 interface IProps extends IPickupsPageOffersData {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
+  error?: IErrorProps;
 }
 
 export const PickupsPage: NextPage<IProps> = ({
@@ -94,6 +103,7 @@ export const PickupsPage: NextPage<IProps> = ({
   searchPodVansData,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
+  error,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
@@ -127,6 +137,10 @@ export const PickupsPage: NextPage<IProps> = ({
     width: 620,
     quality: 59,
   };
+
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
 
   return (
     <>
@@ -725,7 +739,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     >({
       query: HUB_PICKUP_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const { data: searchPodVansData } = await client.query<
@@ -744,9 +758,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await pickupsPageOffersRequest(client);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
         searchPodVansData,
@@ -754,8 +766,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
