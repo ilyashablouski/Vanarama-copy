@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import { PreviewNextPageContext } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import React from 'react';
@@ -19,18 +18,19 @@ import {
   BlogPosts,
   BlogPostsVariables,
 } from '../../../../../generated/BlogPosts';
+import ErrorPage from '../../../_error';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
   error,
   pageNumber,
 }) => {
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   // De-obfuscate data for user
   const data = decodeData(encodedData);
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
@@ -64,7 +64,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/cars',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const paths = buildStaticPaths(data);

@@ -1,22 +1,23 @@
-import dynamic from 'next/dynamic';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 import createApolloClient from '../../apolloClient';
-import Skeleton from '../../components/Skeleton';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
-
-const CommunityPage: NextPage<IGenericPage> = ({ data, loading }) => {
-  if (loading) {
-    return <Loading size="large" />;
+const CommunityPage: NextPage<IGenericPage> = ({ data, error }) => {
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
   }
 
   const body = getSectionsData(['body'], data?.genericPage);
@@ -49,29 +50,42 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'community',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
