@@ -7,6 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum ConversionTypeEnum {
+  DERANGED = "DERANGED",
+  REFRIGERATED = "REFRIGERATED",
+}
+
 /**
  * CreditApplication Type
  */

@@ -3,7 +3,6 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
@@ -32,6 +31,7 @@ import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
@@ -49,9 +49,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
 });
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -352,15 +349,7 @@ export const EVHubPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <FeaturedOnSection />
 
