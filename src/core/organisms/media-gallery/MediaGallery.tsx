@@ -13,6 +13,8 @@ import MediaVideo from 'core/assets/icons/MediaVideo';
 import MediaRotate from 'core/assets/icons/MediaRotate';
 import MediaPicture from 'core/assets/icons/MediaPicture';
 
+import ColorWheelIcon from 'core/assets/icons/ColorWheel';
+import Text from 'core/atoms/text';
 import { IMediaGalleryProps } from './interfaces';
 
 import ImacaViewer from './ImacaViewer';
@@ -85,6 +87,23 @@ function MediaGallery({
                 //     </div>
                 //   ) : null
                 // }
+                renderImageDecoration={() =>
+                  shouldRenderImaca && (
+                    <button
+                      type="button"
+                      className="gallery-select-color-btn"
+                      onClick={() => setActiveTab(0)}
+                    >
+                      <Icon
+                        className="colours-toggle__icon"
+                        icon={<ColorWheelIcon />}
+                        color="dark"
+                        size="lead"
+                      />
+                      <Text>Select Colour</Text>
+                    </button>
+                  )
+                }
               />
             </TabPanel>
             {videoSrc && (
