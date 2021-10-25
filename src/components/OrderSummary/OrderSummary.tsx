@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { getOrderList } from '../../utils/helpers';
+
+import BlackFridaySummaryBanner from 'core/atoms/black-friday-banner/BlackFridaySummaryBanner';
+
+import {
+  getOrderList,
+  isBlackFridayCampaignEnabled,
+} from '../../utils/helpers';
 import { IProps } from './interfaces';
 import Skeleton from '../Skeleton';
 import FreeInsuranceLabel from '../FreeInsuranceLabel';
@@ -77,6 +83,9 @@ const OrderSummary: React.FC<IProps> = ({
         editable={false}
         list={orderSummaryList}
       />
+      {isBlackFridayCampaignEnabled() && (
+        <BlackFridaySummaryBanner className="-mt-300" />
+      )}
       {!isShowFreeInsuranceMerch && isShowFreeHomeChargerMerch && (
         <FreeHomeChargerLabel />
       )}

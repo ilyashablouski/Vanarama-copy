@@ -2,7 +2,6 @@ import { useState, FC } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
@@ -31,6 +30,8 @@ import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import HeadingSection from '../../components/HeadingSection';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -40,9 +41,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
 });
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -140,28 +138,14 @@ export const EVHubPage: NextPage<IProps> = ({
   const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
   const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const sections = data?.genericPage.sections;
+  const titleTagText = sections?.leadText?.titleTag;
+  const headerText = sections?.leadText?.heading;
+  const descriptionText = sections?.leadText?.description;
 
   return (
     <>
       <Hero>
         <div className="hero--left">
-          {/* <HeroHeading
-          text={
-            sections?.hero?.title || ''
-          }
-          titleTag={
-            getTitleTag(
-              sections?.hero?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle
-          text={
-            sections?.hero?.body || ''
-          }
-        />
-        <br /> */}
           <div className="nlol" style={{ left: 'auto' }}>
             <p>Find Your</p>
             <h2>New Lease Of Life</h2>
@@ -190,22 +174,11 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <div className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              sections?.leadText?.titleTag || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {sections?.leadText?.heading}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {sections?.leadText?.description}
-        </Text>
-      </div>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
 
       <section className="tabs-wrap row:tabbed">
         <Tabs
@@ -362,15 +335,7 @@ export const EVHubPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <FeaturedOnSection />
 

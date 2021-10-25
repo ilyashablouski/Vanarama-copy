@@ -1,9 +1,9 @@
+import { useContext } from 'react';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useContext } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
@@ -45,6 +45,16 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import HeadingSection from '../../components/HeadingSection';
+
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import ErrorPage from '../_error';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -67,9 +77,6 @@ const Step = dynamic(() => import('core/molecules/step'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
 });
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
-});
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
@@ -82,6 +89,7 @@ interface IProps extends IVansPageOffersData {
   data: HubVanPageData;
   searchPodVansData: IFilterList;
   offer?: IExtProdCardData;
+  error?: IErrorProps;
 }
 
 export const VansPage: NextPage<IProps> = ({
@@ -95,12 +103,30 @@ export const VansPage: NextPage<IProps> = ({
   productsLargeVanDerivatives,
   vehicleListUrlData: encodeVehicleListUrlData,
   offer,
+  error,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
+  const titleTagText = getSectionsData(
+    ['leadText', 'titleTag'],
+    data?.hubVanPage.sections,
+  );
+  const headerText = getSectionsData(
+    ['leadText', 'heading'],
+    data?.hubVanPage.sections,
+  );
+  const descriptionText = getSectionsData(
+    ['leadText', 'description'],
+    data?.hubVanPage.sections,
+  );
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
@@ -120,26 +146,6 @@ export const VansPage: NextPage<IProps> = ({
   return (
     <>
       <Hero searchPodVansData={searchPodVansData}>
-        {/* <HeroHeading
-          text={
-            getSectionsData(['hero', 'title'], data?.hubVanPage.sections) || ''
-          }
-          titleTag={
-            getTitleTag(
-              getSectionsData(
-                ['hero', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle
-          text={
-            getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
-          }
-        />
-        <br /> */}
         <div className="nlol">
           <p>Find Your</p>
           <h2>New Lease Of Life</h2>
@@ -176,28 +182,13 @@ export const VansPage: NextPage<IProps> = ({
           />
         )}
       </Hero>
-      <div className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['leadText', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['leadText', 'heading'], data?.hubVanPage.sections)}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {getSectionsData(
-            ['leadText', 'description'],
-            data?.hubVanPage.sections,
-          )}
-        </Text>
-      </div>
+
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
+
       <hr className="-fullwidth" />
       {offer && (
         <div className="row:featured-product">
@@ -718,15 +709,7 @@ export const VansPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <FeaturedOnSection />
 
@@ -757,7 +740,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     >({
       query: HUB_VAN_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const { data: searchPodVansData } = await client.query<
@@ -804,9 +787,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       offers.find(card => card?.offerPosition === 1) || null;
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
         searchPodVansData,
@@ -820,8 +801,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         offer,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        revalidate,
+        notFound: true,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

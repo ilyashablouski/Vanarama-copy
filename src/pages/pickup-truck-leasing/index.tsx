@@ -1,7 +1,7 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Router from 'next/router';
 import { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -45,6 +45,16 @@ import {
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import HeadingSection from '../../components/HeadingSection';
+
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
+import ErrorPage from '../_error';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -83,13 +93,11 @@ const ProductCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
-});
 
 interface IProps extends IPickupsPageOffersData {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
+  error?: IErrorProps;
 }
 
 export const PickupsPage: NextPage<IProps> = ({
@@ -97,9 +105,13 @@ export const PickupsPage: NextPage<IProps> = ({
   searchPodVansData,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
+  error,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
+  const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
+  const headerText = data?.hubPickupPage.sections?.leadText?.heading;
+  const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
     () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
@@ -131,20 +143,13 @@ export const PickupsPage: NextPage<IProps> = ({
     quality: 59,
   };
 
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
+
   return (
     <>
       <Hero searchPodVansData={searchPodVansData}>
-        {/*  <HeroHeading
-          text={data?.hubPickupPage.sections?.hero?.title || ''}
-          titleTag={
-            getTitleTag(
-              data?.hubPickupPage.sections?.hero?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
-        <br />
-        <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
-        <br /> */}
         <div className="nlol">
           <p>Find Your</p>
           <h2>New Lease Of Life</h2>
@@ -183,22 +188,11 @@ export const PickupsPage: NextPage<IProps> = ({
         )}
       </Hero>
 
-      <section className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubPickupPage.sections?.leadText?.titleTag || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data?.hubPickupPage.sections?.leadText?.heading}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {data?.hubPickupPage.sections?.leadText?.description}
-        </Text>
-      </section>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
 
       <hr className="-fullwidth" />
 
@@ -640,15 +634,7 @@ export const PickupsPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <section className="row:featured-logos">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
@@ -736,7 +722,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     >({
       query: HUB_PICKUP_CONTENT,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
     const { data: searchPodVansData } = await client.query<
@@ -755,9 +741,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await pickupsPageOffersRequest(client);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: encodeData(data),
         searchPodVansData,
@@ -765,8 +749,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

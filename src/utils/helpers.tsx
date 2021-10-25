@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { ApolloError } from '@apollo/client';
 import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
@@ -7,7 +8,7 @@ import {
 import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { Nullish } from '../types/common';
+import { IErrorProps, Nullish } from '../types/common';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -269,13 +270,54 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
-export const isCookieBarFeatureEnabled = () => {
-  return Cookies.get('DIG-6994') === '1';
+export const convertErrorToProps = (
+  error: Error | ApolloError,
+): IErrorProps => {
+  if (
+    'networkError' in error &&
+    error.networkError &&
+    'statusCode' in error.networkError
+  ) {
+    return {
+      statusCode: error.networkError.statusCode,
+      message: error.networkError.message,
+    };
+  }
+
+  return {
+    statusCode: 500,
+    message: error.message,
+  };
 };
 
 export enum FeatureFlags {
-  DERANGED = 'DIG-7592=1',
+  DERANGED = 'DIG-7592',
 }
+
+function isFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+  featureFlag: string,
+): boolean {
+  if (!cookies) {
+    return false;
+  }
+
+  if (typeof cookies !== 'string') {
+    return cookies.get(featureFlag) === '1';
+  }
+
+  return cookies.includes(`${featureFlag}=1`);
+}
+
+export function isDerangedFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
+}
+
+export const isCookieBarFeatureEnabled = () => {
+  return Cookies.get('DIG-6994') === '1';
+};
 
 export const isBlackFridayCampaignEnabled = () => {
   return Cookies.get('DIG-7658') === '1';

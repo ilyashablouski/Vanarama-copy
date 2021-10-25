@@ -8,10 +8,12 @@ export type Component = ReactChild | Array<Component> | ReactPortal;
 
 export interface PreviewNextPageContext extends NextPageContext {
   preview?: boolean;
+  resolvedUrl?: string;
 }
 
-export interface SlugNextPageContext extends NextPageContext {
-  resolvedUrl?: string;
+export interface IErrorProps {
+  statusCode: number;
+  message: string;
 }
 
 export interface IMetaDataSection {

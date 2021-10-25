@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { ApolloError } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, NextPage } from 'next';
@@ -18,6 +19,13 @@ import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
+import ErrorPage from '../_error';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -48,6 +56,7 @@ const RouterLink = dynamic(() =>
 
 interface IProps extends ISpecialOffersData {
   genericPageCMS?: any;
+  error?: IErrorProps;
 }
 
 export const OffersPage: NextPage<IProps> = ({
@@ -59,18 +68,18 @@ export const OffersPage: NextPage<IProps> = ({
   productsVan,
   vehicleListUrlData: encodedData,
   productsVanDerivatives,
+  error,
 }) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
   const carRef = useRef<HTMLDivElement>();
+
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   // De-obfuscate data for user
   const vehicleListUrlData = decodeData(encodedData);
-
-  // NOTE: can still be made use of for products loading states combined
-
-  /* if (loading) {
-    return <Loading size="large" />;
-  } */
 
   const metaData = getSectionsData(['metaData'], genericPageCMS?.genericPage);
   const featuredImage = getSectionsData(
@@ -315,9 +324,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_HEAD,
       variables: {
         slug: 'leasing-offers',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
+
     const {
       productsVanDerivatives,
       productsCarDerivatives,
@@ -327,10 +337,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       productsVan,
       vehicleListUrlData,
     } = await specialOffersRequest(client);
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         genericPageCMS: data,
         productsVanDerivatives: productsVanDerivatives || null,
@@ -342,8 +351,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
