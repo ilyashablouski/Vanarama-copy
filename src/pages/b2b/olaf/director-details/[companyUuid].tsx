@@ -7,8 +7,8 @@ import DirectorDetailsFormContainer from '../../../../containers/DirectorDetails
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
-import useGetOrderId from '../../../../hooks/useGetOrderId';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
+import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 
 const handleSubmitError = () =>
   toast.error(
@@ -23,7 +23,7 @@ type QueryParams = OLAFQueryParams & {
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const { companyUuid, directorUuid, redirect } = router.query as QueryParams;
 
@@ -38,7 +38,7 @@ export const DirectorDetailsPage: NextPage = () => {
         directorUuid={directorUuid}
         companyUuid={companyUuid}
         personUuid={personUuid}
-        orderUuid={orderId}
+        orderUuid={storedOrderData?.storedOrder?.order?.uuid || ''}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}
       />
