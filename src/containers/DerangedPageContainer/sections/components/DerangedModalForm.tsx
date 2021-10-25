@@ -13,6 +13,7 @@ import {
 import DEFAULT_DERANGED_FORM_VALUE from '../constants';
 import ModalFormSuccessMessage from './ModalFormSuccessMessage';
 import { IGoldrushFromValues } from '../../../../components/GoldrushForm/interfaces';
+import ErrorMessages from '../../../../models/enum/ErrorMessages';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={2} />,
@@ -51,10 +52,7 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
         handleNetworkError();
       }
       if (error?.message) {
-        toast.error(
-          'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-          error?.message,
-        );
+        toast.error(ErrorMessages.requestIssue, error?.message);
       }
     },
   );
@@ -74,15 +72,17 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
     });
   };
 
+  const onCloseDrawer = () => {
+    if (isFormSend) {
+      setSelectedVehicle(DEFAULT_DERANGED_FORM_VALUE);
+    }
+    setIsFormSend(false);
+    setIsShowDrawer(false);
+  };
+
   return (
     <Drawer
-      onCloseDrawer={() => {
-        if (isFormSend) {
-          setSelectedVehicle(DEFAULT_DERANGED_FORM_VALUE);
-        }
-        setIsFormSend(false);
-        setIsShowDrawer(false);
-      }}
+      onCloseDrawer={onCloseDrawer}
       isShowDrawer={isShowDrawer}
       title="Please Fill In Your Details"
       renderContent={
