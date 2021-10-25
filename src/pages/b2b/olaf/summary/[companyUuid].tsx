@@ -10,8 +10,8 @@ import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
-import useGetOrderId from '../../../../hooks/useGetOrderId';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
+import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 
 const handleSubmitError = () =>
   toast.error(
@@ -26,7 +26,7 @@ type QueryParams = {
 const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
   const { companyUuid } = router.query as QueryParams;
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const isSoleTrader = useSoleTraderJourney();
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
@@ -40,7 +40,7 @@ const BusinessSummaryPage: NextPage = () => {
         pushSummaryDataLayer({
           detailsData,
           derivativeData,
-          orderId,
+          orderId: storedOrderData?.storedOrder?.order?.uuid || '',
           emailAddress,
         });
       }, 200),
@@ -57,7 +57,7 @@ const BusinessSummaryPage: NextPage = () => {
         onComplete={handleComplete}
         onError={handleSubmitError}
         personUuid={personUuid}
-        orderId={orderId}
+        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
         companyUuid={companyUuid}
       />
     </OLAFLayout>
