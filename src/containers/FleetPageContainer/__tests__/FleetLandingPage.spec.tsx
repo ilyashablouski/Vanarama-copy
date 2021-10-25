@@ -5,7 +5,7 @@ import { screen, render, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import FleetLandingPage from '../FleetLandingPage';
 
-import { GetFleetLandingPage_fleetLandingPage as FleetPageData } from '../../../../generated/GetFleetLandingPage';
+import { GenericPageQuery_genericPage as FleetPageData } from '../../../../generated/GenericPageQuery';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -15,7 +15,7 @@ jest.mock('next/router', () => ({
 
 // ARRANGE
 const DATA = {
-  fleetLandingPage: {
+  genericPage: {
     id: '1iXmVZNIGFolU38Jol4j08',
     sections: {
       featured1: {
