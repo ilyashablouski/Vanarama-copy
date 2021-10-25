@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Text from 'core/atoms/text';
 import Icon from 'core/atoms/icon';
 
-import LayerIcon from 'core/assets/icons/black-friday/Layer';
+import BadgeIcon from 'core/assets/icons/black-friday/BadgeIcon';
 
 import { IBaseProps } from 'core/interfaces/base';
 import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
@@ -18,8 +18,8 @@ const BlackFridayPlainBanner = ({ className }: IBaseProps) => (
       size="initial-size"
     />
     <div className="bf-banner__inner">
-      <div className="bf-banner__sticker">
-        <Icon icon={<LayerIcon />} size="initial-size" />
+      <div className="bf-banner__badge">
+        <Icon icon={<BadgeIcon />} size="initial-size" />
         <Text size="xlarge" tag="span">
           Black Friday
         </Text>

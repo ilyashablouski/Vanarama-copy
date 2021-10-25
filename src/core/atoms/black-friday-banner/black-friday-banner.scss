@@ -32,7 +32,7 @@
     }
   }
 
-  &__sticker {
+  &__badge {
     position: relative;
     display: inline-flex;
     justify-content: center;
@@ -162,7 +162,7 @@
 
   &--pdp {
     .bf-banner {
-      &__sticker {
+      &__badge {
         width: 244px;
 
         @include mobile-tablet {
@@ -178,7 +178,7 @@
 
   &--summary {
     .bf-banner {
-      &__sticker {
+      &__badge {
         width: 204px;
 
         @include mobile-tablet {
@@ -235,7 +235,7 @@
         }
       }
 
-      &__sticker {
+      &__badge {
         width: 213px;
 
         @include mobile-tablet {
