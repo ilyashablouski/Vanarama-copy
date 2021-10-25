@@ -9,8 +9,8 @@ import { OLAFQueryParams } from '../../../utils/url';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../generated/globalTypes';
-import useGetOrderId from '../../../hooks/useGetOrderId';
 import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
+import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -19,7 +19,7 @@ type QueryParams = OLAFQueryParams & {
 const SummaryPage: NextPage = () => {
   const router = useRouter();
   const { uuid } = router.query as QueryParams;
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
@@ -33,7 +33,7 @@ const SummaryPage: NextPage = () => {
         pushSummaryDataLayer({
           detailsData,
           derivativeData,
-          orderId,
+          orderId: storedOrderData?.storedOrder?.order?.uuid || '',
           emailAddress,
         });
       }, 200),
@@ -48,7 +48,7 @@ const SummaryPage: NextPage = () => {
       <SummaryFormContainer
         onComplete={handleComplete}
         personUuid={personUuid}
-        orderId={orderId}
+        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
       />
     </OLAFLayout>
   );

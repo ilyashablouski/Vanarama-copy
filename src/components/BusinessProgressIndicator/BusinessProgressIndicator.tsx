@@ -9,9 +9,9 @@ import { IBusinessProgressIndicatorProps } from './interfaces';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
-import useGetOrderId from '../../hooks/useGetOrderId';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
+import { useStoredOrderQuery } from '../../gql/storedOrder';
 
 const ProgressIndicator = dynamic(() =>
   import('core/molecules/progress-indicator'),
@@ -33,7 +33,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const { pathname, query, asPath } = useRouter();
   const { companyUuid } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const isMobile = useMobileViewport();
 
@@ -41,7 +41,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const steps = useMemo(
     () =>
       isSoleTraderJourney ? generateSoleTraderSteps() : generateLimitedSteps(),
-    [orderId],
+    [storedOrderData?.storedOrder?.order?.uuid],
   );
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;

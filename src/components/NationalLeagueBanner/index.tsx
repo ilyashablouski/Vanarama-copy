@@ -1,8 +1,13 @@
 import Router from 'next/router';
-import League from 'core/organisms/league';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import dynamic from 'next/dynamic';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import Skeleton from '../Skeleton';
+
+const League = dynamic(() => import('core/organisms/league'), {
+  loading: () => <Skeleton count={2} />,
+});
 
 const NationalLeagueBanner = () => (
   <section className="row:league">
