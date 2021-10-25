@@ -34,7 +34,7 @@ const BenefitsSection = dynamic(() => import('./sections/BenefitsSection'), {
 });
 
 interface IFleetLandingPage {
-  data: GenericPageQuery | undefined;
+  data?: GenericPageQuery;
 }
 
 const FleetLandingPage = ({ data }: IFleetLandingPage) => {
