@@ -2,10 +2,10 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
-import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 const HeroSection = dynamic(() => import('./sections/HeroSection'), {
   loading: () => <Skeleton count={5} />,
@@ -34,60 +34,52 @@ const BenefitsSection = dynamic(() => import('./sections/BenefitsSection'), {
 });
 
 interface IFleetLandingPage {
-  data: GetFleetLandingPage | undefined;
+  data?: GenericPageQuery;
 }
 
 const FleetLandingPage = ({ data }: IFleetLandingPage) => {
   return (
     <>
-      {data?.fleetLandingPage?.sections?.hero && (
-        <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
+      {data?.genericPage?.sections?.hero && (
+        <HeroSection {...data?.genericPage?.sections?.hero} />
       )}
-      {data?.fleetLandingPage?.sections?.leadText && (
-        <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
+      {data?.genericPage?.sections?.leadText && (
+        <LeadTextSection {...data?.genericPage?.sections?.leadText} />
       )}
-      {data?.fleetLandingPage?.sections?.featured1 && (
+      {data?.genericPage?.sections?.featured1 && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <TestimonialSection
-            {...data?.fleetLandingPage?.sections?.featured1}
-          />
+          <TestimonialSection {...data?.genericPage?.sections?.featured1} />
         </LazyLoadComponent>
       )}
-      {data?.fleetLandingPage?.sections?.featured2 && (
+      {data?.genericPage?.sections?.featured2 && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <MediaFeatureSection
-            {...data?.fleetLandingPage?.sections?.featured2}
-          />
+          <MediaFeatureSection {...data?.genericPage?.sections?.featured2} />
         </LazyLoadComponent>
       )}
-      {data?.fleetLandingPage?.sections?.featured3 && (
+      {data?.genericPage?.sections?.featured3 && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <MediaFeatureSection
-            {...data?.fleetLandingPage?.sections?.featured3}
-          />
+          <MediaFeatureSection {...data?.genericPage?.sections?.featured3} />
         </LazyLoadComponent>
       )}
-      {data?.fleetLandingPage?.sections?.featured4 && (
+      {data?.genericPage?.sections?.featured4 && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <MediaFeatureSection
-            {...data?.fleetLandingPage?.sections?.featured4}
-          />
+          <MediaFeatureSection {...data?.genericPage?.sections?.featured4} />
         </LazyLoadComponent>
       )}
       <hr className="-fullwidth" />
-      {data?.fleetLandingPage?.sections?.tiles && (
+      {data?.genericPage?.sections?.tiles && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
+          <BenefitsSection {...data?.genericPage?.sections?.tiles} />
         </LazyLoadComponent>
       )}
-      {data?.fleetLandingPage.metaData && (
+      {data?.genericPage?.metaData && (
         <>
           <Head
-            metaData={data?.fleetLandingPage.metaData}
-            featuredImage={data?.fleetLandingPage.featuredImage}
+            metaData={data?.genericPage.metaData}
+            featuredImage={data?.genericPage.featuredImage}
           />
           <SchemaJSON
-            json={JSON.stringify(data?.fleetLandingPage.metaData.schema)}
+            json={JSON.stringify(data?.genericPage.metaData.schema)}
           />
         </>
       )}

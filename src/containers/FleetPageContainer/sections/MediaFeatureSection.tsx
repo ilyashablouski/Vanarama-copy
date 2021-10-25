@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
-import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
+import { GenericPageQuery_genericPage_sections_featured as IMediaFeature } from '../../../../generated/GenericPageQuery';
 import LayoutTypes from '../../../models/enum/LayoutTypes';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
