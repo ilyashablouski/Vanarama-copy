@@ -205,6 +205,10 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       apolloError?.graphQLErrors[0]?.extensions?.code ===
       AUTHORIZATION_ERROR_CODE
     ) {
+      context?.res?.setHeader('set-cookie', [
+        'ac=deleted; path=/; Max-Age=-1',
+        'ic=deleted; path=/; Max-Age=-1',
+      ]);
       context?.res?.writeHead(302, { Location: '/account/login-register' });
       context?.res?.end();
     }
