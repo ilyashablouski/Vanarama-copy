@@ -75,6 +75,7 @@ const HeaderContainer: FC = () => {
 
   useEffect(() => {
     refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath]);
 
   const [partnership, setPartnership] = useState<string | null>(null);

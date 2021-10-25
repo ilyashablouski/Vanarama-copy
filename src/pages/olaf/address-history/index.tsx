@@ -5,11 +5,11 @@ import React from 'react';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import useGetOrderId from '../../../hooks/useGetOrderId';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { SaveAddressHistoryMutation_createUpdateAddress as IAddress } from '../../../../generated/SaveAddressHistoryMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
+import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid?: string;
@@ -18,7 +18,7 @@ type QueryParams = OLAFQueryParams & {
 const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
-  const orderId = useGetOrderId();
+  const { data: storedOrderData } = useStoredOrderQuery();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication();
   const { data } = useStoredPersonUuidQuery();
@@ -28,7 +28,7 @@ const AddressHistoryPage: NextPage = () => {
     createUpdateCA({
       variables: {
         input: {
-          orderUuid: orderId,
+          orderUuid: storedOrderData?.storedOrder?.order?.uuid || '',
           addresses: createUpdateAddress,
         },
       },
