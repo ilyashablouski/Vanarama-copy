@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react';
 
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
-import BlackFridayPDPBanner from './BlackFridayPDPBanner';
-import BlackFridaySummaryBanner from './BlackFridaySummaryBanner';
+import BlackFridayBanner from './BlackFridayBanner';
+import BlackFridayPlainBanner from './BlackFridayPlainBanner';
 
 storiesOf(`${atomicDir(base)}/BlackFridayBanner`, module)
-  .add('PDP', () => <BlackFridayPDPBanner />)
-  .add('Summary', () => <BlackFridaySummaryBanner />);
+  .add('PDP', () => <BlackFridayBanner />)
+  .add('Summary', () => <BlackFridayPlainBanner />);

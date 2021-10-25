@@ -4,7 +4,7 @@ import { useStoredOrderQuery } from 'gql/storedOrder';
 
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
-import BlackFridaySummaryBanner from 'core/atoms/black-friday-banner/BlackFridaySummaryBanner';
+import BlackFridayPlainBanner from 'core/atoms/black-friday-banner/BlackFridayPlainBanner';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
@@ -279,7 +279,7 @@ const OLAFLayout: React.FC<IProps> = ({
               }
             />
             {isBlackFridayCampaignEnabled() && (
-              <BlackFridaySummaryBanner className="-mt-400" />
+              <BlackFridayPlainBanner className="-mt-400" />
             )}
             {isBenefitsVisible && (
               <>

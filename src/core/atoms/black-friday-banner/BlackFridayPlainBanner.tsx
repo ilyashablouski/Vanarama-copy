@@ -8,7 +8,7 @@ import LayerIcon from 'core/assets/icons/black-friday/Layer';
 
 import { IBaseProps } from 'core/interfaces/base';
 
-const BlackFridaySummaryBanner = ({ className }: IBaseProps) => (
+const BlackFridayPlainBanner = ({ className }: IBaseProps) => (
   <div className={cx('bf-banner bf-banner--summary', className)}>
     <div className="bf-banner__inner">
       <div className="bf-banner__sticker">
@@ -24,4 +24,4 @@ const BlackFridaySummaryBanner = ({ className }: IBaseProps) => (
   </div>
 );
 
-export default BlackFridaySummaryBanner;
+export default BlackFridayPlainBanner;

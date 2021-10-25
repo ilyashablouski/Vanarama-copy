@@ -10,7 +10,7 @@ import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 import { IBaseProps } from 'core/interfaces/base';
 
-const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
+const BlackFridayBanner = ({ className }: IBaseProps) => (
   <section className={cx('bf-banner bf-banner--pdp', className)}>
     <Icon
       className="bf-banner__ear"
@@ -40,4 +40,4 @@ const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
   </section>
 );
 
-export default BlackFridayPDPBanner;
+export default BlackFridayBanner;
