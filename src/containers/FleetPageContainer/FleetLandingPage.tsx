@@ -72,7 +72,7 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
           <BenefitsSection {...data?.genericPage?.sections?.tiles} />
         </LazyLoadComponent>
       )}
-      {data?.genericPage.metaData && (
+      {data?.genericPage?.metaData && (
         <>
           <Head
             metaData={data?.genericPage.metaData}

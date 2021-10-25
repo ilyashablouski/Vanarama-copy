@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import getTitleTag from '../../../utils/getTitleTag';
-import { GetFleetLandingPage_fleetLandingPage_sections_leadText as ILeadText } from '../../../../generated/GetFleetLandingPage';
+import { GenericPageQuery_genericPage_sections_leadText as ILeadText } from '../../../../generated/GenericPageQuery';
 import Skeleton from '../../../components/Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {

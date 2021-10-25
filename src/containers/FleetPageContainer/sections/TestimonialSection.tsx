@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
-import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
+import { GenericPageQuery_genericPage_sections_featured as IFeature } from '../../../../generated/GenericPageQuery';
 import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
@@ -31,7 +31,7 @@ const TestimonialSection = ({
   title,
   body,
   testimonials,
-}: ISideText) => {
+}: IFeature) => {
   return (
     <div className="row:featured-right">
       {testimonials && testimonials[0] && (

@@ -8,7 +8,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { encodeData } from '../../utils/data';
+import { decodeData, encodeData } from '../../utils/data';
 import { convertErrorToProps } from '../../utils/helpers';
 import {
   GenericPageQuery,
@@ -16,7 +16,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 
 const FleetPage: NextPage<IGenericPage> = ({ data }) => {
-  return <FleetLandingPage data={data} />;
+  return <FleetLandingPage data={decodeData(data)} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {

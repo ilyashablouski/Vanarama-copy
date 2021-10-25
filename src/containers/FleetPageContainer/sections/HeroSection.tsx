@@ -1,7 +1,7 @@
 import React from 'react';
 // import dynamic from 'next/dynamic';
 import Image from 'core/atoms/image';
-import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
+import { GenericPageQuery_genericPage_sections_hero as IHeroData } from '../../../../generated/GenericPageQuery';
 import config from '../config';
 import Hero, {
   HeroTitle,
