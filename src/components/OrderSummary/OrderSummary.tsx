@@ -84,7 +84,7 @@ const OrderSummary: React.FC<IProps> = ({
         list={orderSummaryList}
       />
       {isBlackFridayCampaignEnabled() && (
-        <BlackFridayPlainBanner className="-mt-300" />
+        <BlackFridayPlainBanner className="bf-banner--summary -mt-300" />
       )}
       {!isShowFreeInsuranceMerch && isShowFreeHomeChargerMerch && (
         <FreeHomeChargerLabel />

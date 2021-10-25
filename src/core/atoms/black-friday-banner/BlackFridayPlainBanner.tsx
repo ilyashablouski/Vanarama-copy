@@ -7,9 +7,16 @@ import Icon from 'core/atoms/icon';
 import LayerIcon from 'core/assets/icons/black-friday/Layer';
 
 import { IBaseProps } from 'core/interfaces/base';
+import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
+import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 const BlackFridayPlainBanner = ({ className }: IBaseProps) => (
-  <div className={cx('bf-banner bf-banner--summary', className)}>
+  <div className={cx('bf-banner', className)}>
+    <Icon
+      className="bf-banner__ear"
+      icon={<EarLeftIcon />}
+      size="initial-size"
+    />
     <div className="bf-banner__inner">
       <div className="bf-banner__sticker">
         <Icon icon={<LayerIcon />} size="initial-size" />
@@ -21,6 +28,11 @@ const BlackFridayPlainBanner = ({ className }: IBaseProps) => (
         £250 Cashback
       </Text>
     </div>
+    <Icon
+      className="bf-banner__ear"
+      icon={<EarRightIcon />}
+      size="initial-size"
+    />
   </div>
 );
 

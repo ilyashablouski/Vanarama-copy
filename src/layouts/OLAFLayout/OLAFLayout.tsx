@@ -279,7 +279,7 @@ const OLAFLayout: React.FC<IProps> = ({
               }
             />
             {isBlackFridayCampaignEnabled() && (
-              <BlackFridayPlainBanner className="-mt-400" />
+              <BlackFridayPlainBanner className="bf-banner--summary -mt-400" />
             )}
             {isBenefitsVisible && (
               <>
