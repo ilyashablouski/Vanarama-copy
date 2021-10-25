@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-import BlackFridaySummaryBanner from 'core/atoms/black-friday-banner/BlackFridaySummaryBanner';
+import BlackFridayPlainBanner from 'core/atoms/black-friday-banner/BlackFridayPlainBanner';
 
 import {
   getOrderList,
@@ -84,7 +84,7 @@ const OrderSummary: React.FC<IProps> = ({
         list={orderSummaryList}
       />
       {isBlackFridayCampaignEnabled() && (
-        <BlackFridaySummaryBanner className="-mt-300" />
+        <BlackFridayPlainBanner className="bf-banner--summary -mt-300" />
       )}
       {!isShowFreeInsuranceMerch && isShowFreeHomeChargerMerch && (
         <FreeHomeChargerLabel />
