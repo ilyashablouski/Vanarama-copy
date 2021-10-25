@@ -35,6 +35,7 @@ function MediaGallery({
   className,
 }: IMediaGalleryProps) {
   const [activeTab, setActiveTab] = useState(activeTabIndex ?? 1);
+  const [isOpenColourSelect, setIsOpenColourSelect] = useState(false);
   const shouldRenderImaca = useMemo(() => !!imacaAssets?.colours?.length, [
     imacaAssets,
   ]);
@@ -47,6 +48,7 @@ function MediaGallery({
   }, []);
 
   function handleChangeTab(index: number) {
+    setIsOpenColourSelect(false);
     setActiveTab(index);
   }
 
@@ -67,6 +69,7 @@ function MediaGallery({
             {shouldRenderImaca && (
               <TabPanel index={0}>
                 <ImacaViewer
+                  isOpenColourSelect={isOpenColourSelect}
                   colour={colour}
                   setColour={setColour}
                   assets={imacaAssets!}
@@ -92,7 +95,10 @@ function MediaGallery({
                     <button
                       type="button"
                       className="gallery-select-color-btn"
-                      onClick={() => setActiveTab(0)}
+                      onClick={() => {
+                        setIsOpenColourSelect(true);
+                        setActiveTab(0);
+                      }}
                     >
                       <Icon
                         className="colours-toggle__icon"
