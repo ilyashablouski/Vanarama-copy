@@ -1,42 +1,34 @@
-import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import React from 'react';
+import { ApolloError } from '@apollo/client';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
-import GET_FLEET_PAGE_CONTENT from '../../containers/FleetPageContainer/gql';
-import {
-  GetFleetLandingPage,
-  GetFleetLandingPageVariables,
-} from '../../../generated/GetFleetLandingPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { IErrorProps } from '../../types/common';
+import { decodeData, encodeData } from '../../utils/data';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
-interface IFleetPage {
-  data: GetFleetLandingPage | undefined;
-  error?: IErrorProps;
-}
-
-const FleetPage: NextPage<IFleetPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  return <FleetLandingPage data={data} />;
+const FleetPage: NextPage<IGenericPage> = ({ data }) => {
+  return <FleetLandingPage data={decodeData(data)} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
     const { data } = await client.query<
-      GetFleetLandingPage,
-      GetFleetLandingPageVariables
+      GenericPageQuery,
+      GenericPageQueryVariables
     >({
-      query: GET_FLEET_PAGE_CONTENT,
+      query: GENERIC_PAGE,
       variables: {
+        slug: 'fleet',
         isPreview: !!context?.preview,
       },
     });
@@ -44,7 +36,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (error) {
