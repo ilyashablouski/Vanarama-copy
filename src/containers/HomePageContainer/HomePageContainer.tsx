@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -29,6 +28,7 @@ import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insura
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -62,9 +62,6 @@ const IconList = dynamic(() => import('core/organisms/icon-list'), {
 const IconListItem = dynamic(() =>
   import('core/organisms/icon-list').then(mod => mod.IconListItem),
 );
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
-});
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
   {
@@ -587,15 +584,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </section>
       )}
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <League
-            clickReadMore={() => Router.push('/fan-hub.html')}
-            altText="vanarama national league"
-            link="/fan-hub.html"
-          />
-        </LazyLoadComponent>
-      </section>
+      <NationalLeagueBanner />
 
       <FeaturedOnSection />
 

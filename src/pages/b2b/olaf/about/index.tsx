@@ -22,6 +22,7 @@ import Skeleton from '../../../../components/Skeleton';
 import { isUserAuthenticated } from '../../../../utils/authentication';
 import { GetPerson } from '../../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../../gql/storedOLAFData';
+import ErrorMessages from '../../../../models/enum/ErrorMessages';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -41,10 +42,7 @@ const handleCreateUpdateBusinessPersonError = () =>
   );
 
 const handleAccountFetchError = () =>
-  toast.error(
-    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    '',
-  );
+  toast.error(ErrorMessages.requestIssue, '');
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
