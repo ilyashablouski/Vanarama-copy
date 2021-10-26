@@ -10,8 +10,12 @@ import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 import { IBaseProps } from 'core/interfaces/base';
 
-const BlackFridayBanner = ({ className }: IBaseProps) => (
-  <section className={cx('bf-banner bf-banner--pdp', className)}>
+interface IProps extends IBaseProps {
+  rightText: string;
+}
+
+const BlackFridayBanner = ({ className, rightText }: IProps) => (
+  <section className={cx('bf-banner', className)}>
     <Icon
       className="bf-banner__ear"
       icon={<EarLeftIcon />}
@@ -29,7 +33,7 @@ const BlackFridayBanner = ({ className }: IBaseProps) => (
       </div>
       <Text className="bf-banner__text -after" size="large">
         <span>£250 Cashback</span>
-        Ends 26th November
+        {rightText}
       </Text>
     </div>
     <Icon
