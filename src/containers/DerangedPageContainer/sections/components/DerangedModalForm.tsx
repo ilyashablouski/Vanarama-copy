@@ -86,8 +86,8 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
       isShowDrawer={isShowDrawer}
       title="Please Fill In Your Details"
       renderContent={
-        <div className="drawer-container">
-          <Text className="drawer-subtitle">
+        <div className="drawer__container">
+          <Text className="drawer__subtitle">
             We&apos;ll be in touch within 1-2 business hour
           </Text>
           <Image
@@ -96,11 +96,11 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
             alt="Deranged Image"
             plain
           />
-          <Text className="heading drawer-brand" size="regular" color="black">
+          <Text className="heading drawer__brand" size="regular" color="black">
             {selectedVehicle.title}
           </Text>
           <Text
-            className="heading drawer-description"
+            className="heading drawer__description"
             color="dark"
             size="xsmall"
           >

@@ -10,9 +10,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 const ModalFormSuccessMessage = () => {
   return (
-    <div className="drawer--form-content">
+    <div className="drawer__form__content">
       <Icon size="xlarge" color="success" icon={<CheckmarkCircle />} />
-      <Text size="lead" color="success" className="deranged--form-success">
+      <Text
+        size="lead"
+        color="success"
+        className="drawer__form__content__success"
+      >
         Your enquiry has been sent
       </Text>
     </div>
