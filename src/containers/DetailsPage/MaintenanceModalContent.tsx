@@ -1,9 +1,11 @@
 import dynamic from 'next/dynamic';
+import Cookies from 'js-cookie';
 import Ellipse from 'core/assets/icons/Ellipse';
 import EllipseOutline from 'core/assets/icons/EllipseOutline';
 import Heading from 'core/atoms/heading';
-import { includedItems, notIncludedItems } from './config';
+import { includedOldItems, notIncludedItems, includedNewItems } from './config';
 import Skeleton from '../../components/Skeleton';
+import { isUpdatedServicePlanFeatureFlagEnabled } from '../../utils/helpers';
 
 const Text = dynamic(() => import('core/atoms/text'));
 const IconList = dynamic(() => import('core/organisms/icon-list'), {
@@ -15,6 +17,9 @@ const IconListItem = dynamic(() =>
 );
 
 const MaintenanceModalContent = () => {
+  const includedItems = isUpdatedServicePlanFeatureFlagEnabled(Cookies)
+    ? includedNewItems
+    : includedOldItems;
   return (
     <>
       <Text tag="p" color="dark" className="-mv-400" size="regular">
