@@ -606,7 +606,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       <div className="pdp--promo">
         <PartnershipLogoHeader />
         {isBlackFridayCampaignEnabled() ? (
-          <BlackFridayBanner />
+          <BlackFridayBanner
+            className="bf-banner--pdp"
+            rightText="Ends 26th November"
+          />
         ) : (
           isFreeInsurance && <FreeInsuranceBanner />
         )}
