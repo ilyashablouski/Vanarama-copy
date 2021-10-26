@@ -1,4 +1,4 @@
-import { ApolloClient, DocumentNode } from '@apollo/client';
+import { ApolloClient, ApolloError, DocumentNode } from '@apollo/client';
 import { GetStaticPropsContext } from 'next';
 import {
   BlogPosts,
@@ -11,6 +11,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from './env';
+import { convertErrorToProps } from './helpers';
 
 export const ARTICLES_PER_PAGE = 9;
 
@@ -21,42 +22,45 @@ export const getBlogPosts = async (
   context: GetStaticPropsContext,
 ) => {
   try {
-    const { data: blogPosts, errors } = await client.query<
+    const { data: blogPosts } = await client.query<
       BlogPosts,
       BlogPostsVariables
     >({
       query,
       variables: {
         slug,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
 
     // Obfuscate data from Googlebot
     const data = encodeData(blogPosts);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
         pageNumber:
           parseInt((context?.params?.pageNumber as string) || '', 10) || null,
       },
     };
-  } catch (err) {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        data: null,
-        pageNumber: null,
+        error: convertErrorToProps(error),
       },
     };
   }
