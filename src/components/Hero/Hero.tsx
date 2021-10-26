@@ -112,24 +112,28 @@ const Hero: React.FC<IHeroProps> = ({
           <HeroCurve />
         </div>
       </div>
-      <div className="nlol-small-print-cta">
-        <div className="nlol-small-print-section">
-          {smallPrint && <p>{smallPrint}</p>}
-        </div>
-        <div className="nlol-cta-section">
+      {smallPrint || customCTALink ? (
+        <div className="nlol-small-print-cta">
+          {smallPrint && (
+            <div className="nlol-small-print-section">
+              <p>{smallPrint}</p>
+            </div>
+          )}
           {customCTALink && (
-            <a href={customCTALink}>
-              Find out more{' '}
-              <Icon
-                icon={<ArrowForward />}
-                className="-regular md hydrated"
-                name="arrow-forward"
-                color="teal"
-              />
-            </a>
+            <div className="nlol-cta-section">
+              <a href={customCTALink}>
+                Find out more{' '}
+                <Icon
+                  icon={<ArrowForward />}
+                  className="-regular md hydrated"
+                  name="arrow-forward"
+                  color="teal"
+                />
+              </a>
+            </div>
           )}
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

@@ -1,3 +1,1 @@
-import Container from './HomePageContainer';
-
-export default Container;
+export { default } from './HomePageContainer';
