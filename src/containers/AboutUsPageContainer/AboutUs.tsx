@@ -13,10 +13,8 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import getTitleTag from '../../utils/getTitleTag';
+import { IErrorProps } from '../../types/common';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -43,9 +41,9 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 });
 
 export interface IAboutPageProps {
-  loading: boolean;
   data: Query;
   children?: ReactNode;
+  error?: IErrorProps;
 }
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
@@ -116,15 +114,7 @@ const renderMeetCard = (card: ICard | undefined) =>
   )) ||
   null;
 
-const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (!data) {
-    return <></>;
-  }
-
+const AboutUs: React.FC<IAboutPageProps> = ({ data }) => {
   const { metaData, sections, featuredImage, body } = data.aboutUsLandingPage;
 
   const directorsCard = sections?.cards?.cards?.find(
