@@ -327,12 +327,14 @@ export const GET_MY_ORDERS_DATA = gql`
 export function useMyOrdersData(
   partyByUuid: string[],
   filter: MyOrdersTypeEnum,
+  onCompleted?: (data: GetMyOrders) => void,
 ) {
   return useLazyQuery<GetMyOrders, GetMyOrdersVariables>(GET_MY_ORDERS_DATA, {
     variables: {
       partyUuid: partyByUuid,
       filter,
     },
+    onCompleted,
     fetchPolicy: 'network-only',
   });
 }
