@@ -40,7 +40,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items, 'careers'),
+    paths: getPathsFromPageCollection(items, 'careers-at-vanarama'),
     fallback: 'blocking',
   };
 }
@@ -56,7 +56,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     >({
       query: GENERIC_PAGE,
       variables: {
-        slug: `careers/${paths?.join('/')}`,
+        slug: `careers-at-vanarama/${paths?.join('/')}`,
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
