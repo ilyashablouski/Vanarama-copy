@@ -1,6 +1,5 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
@@ -85,17 +84,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       },
     };
   } catch (error) {
-    const apolloError = error as ApolloError;
     const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
-
-    // handle graphQLErrors as 404
-    // Next will render our custom pages/404
-    if (apolloError?.graphQLErrors?.length) {
-      return {
-        notFound: true,
-        revalidate,
-      };
-    }
 
     return {
       revalidate,
