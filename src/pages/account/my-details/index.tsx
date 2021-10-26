@@ -18,6 +18,7 @@ import Skeleton from '../../../components/Skeleton';
 import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/MyAccount';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
+import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -151,7 +152,14 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
-
+    if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
+      return {
+        redirect: {
+          destination: '/account/login-register?redirect=/account/my-details',
+          permanent: false,
+        },
+      };
+    }
     const [{ data: personData }, { data: partyUuidData }] = await Promise.all([
       client.query({
         query: GET_PERSON_INFORMATION_DATA,
@@ -172,7 +180,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         query: GET_MY_ORDERS_DATA,
         variables: {
           partyUuid: [
-            partyUuidData.companiesByPersonUuid[0].partyUuid,
+            partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
             data.getPerson.uuid,
           ],
           filter: MyOrdersTypeEnum.ALL_ORDERS,
@@ -182,7 +190,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         query: GET_MY_ORDERS_DATA,
         variables: {
           partyUuid: [
-            partyUuidData.companiesByPersonUuid[0].partyUuid,
+            partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
             data.getPerson.uuid,
           ],
           filter: MyOrdersTypeEnum.ALL_QUOTES,
@@ -208,9 +216,14 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       context?.res?.setHeader('set-cookie', [
         'ac=; path=/; Max-Age=-1',
         'ic=; path=/; Max-Age=-1',
+        'ic_local=; path=/; Max-Age=-1',
       ]);
-      context?.res?.writeHead(302, { Location: '/account/login-register' });
-      context?.res?.end();
+      return {
+        redirect: {
+          destination: '/account/login-register?redirect=/account/my-details',
+          permanent: false,
+        },
+      };
     }
     return {
       props: {

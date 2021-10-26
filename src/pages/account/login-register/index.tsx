@@ -2,8 +2,9 @@ import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
+import localforage from 'localforage';
 import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
@@ -11,6 +12,7 @@ import withApollo from '../../../hocs/withApollo';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { PRIVATE_ROUTES } from '../../../utils/url';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -87,6 +89,17 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
     return router.push(nextUrl);
   }, [redirect, router]);
+
+  const redirectFromPrivateRoute = useMemo(
+    () => redirect && PRIVATE_ROUTES.includes(redirect),
+    [redirect],
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && redirectFromPrivateRoute) {
+      localforage.clear();
+    }
+  }, [redirectFromPrivateRoute]);
 
   return (
     <>
