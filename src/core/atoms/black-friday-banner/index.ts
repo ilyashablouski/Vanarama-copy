@@ -1,4 +1,4 @@
-import BlackFridayPDPBanner from './BlackFridayPDPBanner';
-import BlackFridaySummaryBanner from './BlackFridaySummaryBanner';
+import BlackFridayBanner from './BlackFridayBanner';
+import BlackFridayPlainBanner from './BlackFridayPlainBanner';
 
-export { BlackFridayPDPBanner, BlackFridaySummaryBanner };
+export { BlackFridayBanner, BlackFridayPlainBanner };
