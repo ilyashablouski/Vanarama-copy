@@ -348,21 +348,3 @@ Array [
   </div>,
 ]
 `;
-
-exports[`<AboutUs /> renders correctly with loading 1`] = `
-<div
-  className="loading -large"
->
-  <svg
-    className="loading--svg"
-    viewBox="-75 -75 150 150"
-  >
-    <circle
-      className="loading--stroke"
-      cx="0"
-      cy="0"
-      r="37.5"
-    />
-  </svg>
-</div>
-`;
