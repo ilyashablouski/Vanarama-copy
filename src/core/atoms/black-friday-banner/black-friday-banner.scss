@@ -163,10 +163,10 @@
   &--pdp {
     .bf-banner {
       &__badge {
-        width: 244px;
+        width: 245px;
 
         @include mobile-tablet {
-          width: 176px;
+          width: 175px;
         }
 
         @media (max-width: 364px) {
@@ -272,6 +272,51 @@
       &__ear {
         @include mobile-tablet {
           display: none;
+        }
+      }
+    }
+  }
+
+  &--hmc {
+    margin-bottom: calc(var(--page-gap) / 2);
+    --page-gap: calc(var(--layout-gap) / 1.5);
+    @include tablet {
+      margin-left: -3rem;
+      margin-right: -3rem;
+    }
+    @include mobile {
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding: 0 16px;
+    }
+
+    .bf-banner {
+      &__badge {
+        width: 245px;
+
+        @include mobile-tablet {
+          width: 175px;
+        }
+
+        @media (max-width: 364px) {
+          width: 156px;
+        }
+      }
+
+      &__text {
+        &.-after {
+          text-transform: uppercase;
+          @include desktop {
+            font-size: $font-size-500;
+          }
+
+          @include mobile-tablet {
+            font-size: $font-size-400;
+          }
+
+          @media (max-width: 364px) {
+            font-size: $font-size-300;
+          }
         }
       }
     }
