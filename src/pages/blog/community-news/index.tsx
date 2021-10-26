@@ -1,7 +1,6 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
-import React from 'react';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import withApollo from '../../../hocs/withApollo';
 import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -18,17 +17,19 @@ import {
   getBreadCrumbsItems,
 } from '../../../utils/breadcrumbs';
 import { BlogPosts, BlogPostsVariables } from '../../../../generated/BlogPosts';
+import { convertErrorToProps } from '../../../utils/helpers';
+import ErrorPage from '../../_error';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
   error,
 }) => {
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
   // De-obfuscate data for user
   const data = decodeData(encodedData);
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
@@ -54,14 +55,14 @@ const CategoryPage: NextPage<IBlogCategory> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data: blogPosts, errors } = await client.query<
+    const { data: blogPosts } = await client.query<
       BlogPosts,
       BlogPostsVariables
     >({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/community-news',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
@@ -69,22 +70,28 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const data = encodeData(blogPosts);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        error: convertErrorToProps(error),
       },
     };
   }

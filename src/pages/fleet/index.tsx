@@ -1,6 +1,5 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React from 'react';
 import { ApolloError } from '@apollo/client';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
@@ -14,9 +13,17 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import ErrorPage from '../_error';
 
-const FleetPage: NextPage<IGenericPage> = ({ data }) => {
-  return <FleetLandingPage data={decodeData(data)} />;
+const FleetPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
+  if (error || !encodedData) {
+    return <ErrorPage errorData={error} />;
+  }
+
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
+  return <FleetLandingPage data={data} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
