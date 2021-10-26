@@ -15,17 +15,11 @@ const OFFERS_LINK = {
 
 const BlackFridayHeroBanner = () => (
   <div className="bf-hero">
-    <div className="bf-hero__car">
-      <img
-        className="-vehicle"
-        src="/Assets/images/black-friday/car.png"
-        alt=""
-      />
-      <img
-        className="-light"
-        src="/Assets/images/black-friday/light.png"
-        alt=""
-      />
+    <div className="bf-hero__car -vehicle">
+      <img src="/Assets/images/black-friday/car.png" alt="" />
+    </div>
+    <div className="bf-hero__car -light">
+      <img src="/Assets/images/black-friday/light.png" alt="" />
     </div>
     <div className="bf-hero__badge">
       <Image

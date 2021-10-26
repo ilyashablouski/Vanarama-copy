@@ -23,7 +23,6 @@ import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
-import { HeroBlackFriday } from '../../components/Hero';
 import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -67,12 +66,12 @@ const ProductCarousel = dynamic(
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-
+const HomePageHero = dynamic(() => import('./HomePageHero'));
+const HeroBlackFriday = dynamic(() =>
+  import('../../components/Hero/HeroBlackFriday'),
+);
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
-});
-const HomePageHero = dynamic(() => import('./HomePageHero'), {
-  ssr: false,
 });
 
 export interface IHomePageContainer extends ISpecialOffersData {

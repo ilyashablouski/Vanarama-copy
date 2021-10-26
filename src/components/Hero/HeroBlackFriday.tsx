@@ -16,27 +16,25 @@ const HeroBlackFriday: React.FC<IHeroProps> = ({
   searchPodVansData,
   activeSearchIndex,
   searchType,
-}) => {
-  return (
-    <div className="row:bg-bf-hero">
-      <div className="row:hero">
-        <div className="hero--left">
-          <BlackFridayHeroBanner />
-          <RouterLink className="terms-and-conditions" link={TERMS_LINK}>
-            *Terms and conditions apply.
-          </RouterLink>
-        </div>
-        <div className="hero--right">
-          <SearchPodContainer
-            searchPodCarsData={searchPodCarsData}
-            searchPodVansData={searchPodVansData}
-            activeSearchIndex={activeSearchIndex}
-            searchType={searchType}
-          />
-        </div>
+}) => (
+  <div className="row:bg-bf-hero">
+    <div className="row:hero">
+      <div className="hero--left">
+        <BlackFridayHeroBanner />
+        <RouterLink className="terms-and-conditions" link={TERMS_LINK}>
+          *Terms and conditions apply.
+        </RouterLink>
+      </div>
+      <div className="hero--right">
+        <SearchPodContainer
+          searchPodCarsData={searchPodCarsData}
+          searchPodVansData={searchPodVansData}
+          activeSearchIndex={activeSearchIndex}
+          searchType={searchType}
+        />
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default HeroBlackFriday;
