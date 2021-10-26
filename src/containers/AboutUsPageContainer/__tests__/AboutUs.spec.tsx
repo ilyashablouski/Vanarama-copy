@@ -110,21 +110,10 @@ describe('<AboutUs />', () => {
   });
   it('renders correctly with data', async () => {
     const getComponent = () => {
-      return renderer
-        .create(<AboutUs data={mockData.data} loading={mockData.loading} />)
-        .toJSON();
+      return renderer.create(<AboutUs data={mockData.data} />).toJSON();
     };
 
     const tree = await getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders correctly with loading', async () => {
-    const getComponent = () => {
-      return renderer.create(<AboutUs data={mockData.data} loading />).toJSON();
-    };
-
-    const tree = getComponent();
     expect(tree).toMatchSnapshot();
   });
 });
