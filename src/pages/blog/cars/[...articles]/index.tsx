@@ -1,6 +1,5 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
-import React from 'react';
 import { PreviewNextPageContext } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
@@ -29,16 +28,18 @@ import {
   BlogPost as BlogPostData,
   BlogPostVariables,
 } from '../../../../../generated/BlogPost';
+import { convertErrorToProps } from '../../../../utils/helpers';
+import ErrorPage from '../../../_error';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
-  error,
   blogPosts: encodedData,
-  blogPostsError,
+  error,
 }) => {
-  if (error || blogPostsError || !data) {
-    return <DefaultErrorPage statusCode={404} />;
+  if (error || !data || !encodedData) {
+    return <ErrorPage errorData={error} />;
   }
+
   // De-obfuscate data for user
   const blogPosts = decodeData(encodedData);
 
@@ -77,7 +78,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/cars',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
@@ -100,24 +101,21 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<
-      BlogPostData,
-      BlogPostVariables
-    >({
+    const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/cars/${context?.params?.articles}`,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    const {
-      data: blogPosts,
-      loading: blogPostsLoading,
-      errors: blogPostsError,
-    } = await client.query<BlogPosts, BlogPostsVariables>({
+    const { data: blogPosts } = await client.query<
+      BlogPosts,
+      BlogPostsVariables
+    >({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/cars',
+        isPreview: !!context?.preview,
       },
     });
 
@@ -133,27 +131,30 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const newBlogPostsData = encodeData(newBlogPosts);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
-        error: errors ? errors[0] : null,
         blogPosts: newBlogPostsData,
-        blogPostsLoading,
-        blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        error: convertErrorToProps(error),
       },
-      notFound: true,
     };
   }
 }

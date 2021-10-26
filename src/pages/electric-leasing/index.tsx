@@ -1,4 +1,5 @@
 import { useState, FC } from 'react';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -32,6 +33,13 @@ import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
+import ErrorPage from '../_error';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -67,6 +75,7 @@ const ProductCarousel = dynamic(
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
+  error?: IErrorProps;
 }
 
 const FeaturedSection: FC<any> = ({
@@ -125,9 +134,14 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvVanDerivatives,
   productsEvCarDerivatives,
   vehicleListUrlData,
+  error,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
+
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
 
   const optimisationOptions = {
     height: 620,
@@ -370,7 +384,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
@@ -383,9 +397,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await evOffersRequest(client);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: data || null,
         productsEvCar: productsEvCar || null,
@@ -395,8 +407,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         vehicleListUrlData: vehicleListUrlData || null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
