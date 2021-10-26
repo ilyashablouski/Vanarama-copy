@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
@@ -10,30 +10,32 @@ import {
   GenericPageTestimonialsQuery,
   GenericPageTestimonialsQueryVariables,
 } from '../../../generated/GenericPageTestimonialsQuery';
-import Skeleton from '../../components/Skeleton';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
 } from '../../../generated/TestimonialsData';
-
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps } from '../../types/common';
+import ErrorPage from '../_error';
 
 interface ICustomerTestimonialPage {
   data: GenericPageTestimonialsQuery | undefined;
-  loading: boolean;
   testimonialsData: TestimonialsData | undefined;
+  error?: IErrorProps;
 }
 
 const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
   data,
-  loading,
   testimonialsData,
+  error,
 }) => {
-  if (loading) {
-    return <Loading size="large" />;
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
   }
 
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -79,30 +81,44 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         query: GENERIC_PAGE_TESTIMONIALS,
         variables: {
           slug: 'about-us/customer-testimonials',
-          ...(context?.preview && { isPreview: context?.preview }),
+          isPreview: !!context?.preview,
         },
       }),
       client.query<TestimonialsData, TestimonialsDataVariables>({
         query: TESTIMONIALS_DATA,
-        variables: { size: 4, page: 1 },
+        variables: {
+          size: 4,
+          page: 1,
+        },
       }),
     ]);
-    const error =
-      genericTestimonialsPageQuery.error || testimonialsDataQuery.error;
-    if (error) {
-      throw new Error(error.message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
