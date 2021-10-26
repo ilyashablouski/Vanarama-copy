@@ -4,14 +4,18 @@ import cx from 'classnames';
 import Text from 'core/atoms/text';
 import Icon from 'core/atoms/icon';
 
-import LayerIcon from 'core/assets/icons/black-friday/Layer';
+import BadgeIcon from 'core/assets/icons/black-friday/BadgeIcon';
 import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 import { IBaseProps } from 'core/interfaces/base';
 
-const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
-  <section className={cx('bf-banner bf-banner--pdp', className)}>
+interface IProps extends IBaseProps {
+  rightText: string;
+}
+
+const BlackFridayBanner = ({ className, rightText }: IProps) => (
+  <section className={cx('bf-banner', className)}>
     <Icon
       className="bf-banner__ear"
       icon={<EarLeftIcon />}
@@ -21,15 +25,15 @@ const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
       <Text className="bf-banner__text -before" size="large">
         £250 Cashback
       </Text>
-      <div className="bf-banner__sticker">
-        <Icon icon={<LayerIcon />} size="initial-size" />
+      <div className="bf-banner__badge">
+        <Icon icon={<BadgeIcon />} size="initial-size" />
         <Text size="xlarge" tag="span">
           Black Friday
         </Text>
       </div>
       <Text className="bf-banner__text -after" size="large">
         <span>£250 Cashback</span>
-        Ends 26th November
+        {rightText}
       </Text>
     </div>
     <Icon
@@ -40,4 +44,4 @@ const BlackFridayPDPBanner = ({ className }: IBaseProps) => (
   </section>
 );
 
-export default BlackFridayPDPBanner;
+export default BlackFridayBanner;

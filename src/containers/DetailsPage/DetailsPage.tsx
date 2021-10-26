@@ -8,7 +8,7 @@ import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
-import BlackFridayPDPBanner from 'core/atoms/black-friday-banner/BlackFridayPDPBanner';
+import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
 import MediaGallery from 'core/organisms/media-gallery';
 // @ts-ignore
 import decode from 'decode-html';
@@ -606,7 +606,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       <div className="pdp--promo">
         <PartnershipLogoHeader />
         {isBlackFridayCampaignEnabled() ? (
-          <BlackFridayPDPBanner />
+          <BlackFridayBanner
+            className="bf-banner--pdp"
+            rightText="Ends 26th November"
+          />
         ) : (
           isFreeInsurance && <FreeInsuranceBanner />
         )}

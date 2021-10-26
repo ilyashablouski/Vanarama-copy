@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -5,7 +6,6 @@ import Router from 'next/router';
 import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import DefaultErrorPage from 'next/error';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -26,10 +26,9 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -49,19 +48,11 @@ const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
   loading: () => <Skeleton count={1} />,
 });
 
-export const ContactUsPage: NextPage<IGenericPage> = ({
-  data,
-  loading,
-  error,
-}) => {
+export const ContactUsPage: NextPage<IGenericPage> = ({ data, error }) => {
   const [show, setShow] = useState(false);
 
   if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
-  if (loading) {
-    return <Loading size="large" />;
+    return <ErrorPage errorData={error} />;
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
@@ -253,34 +244,40 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'contact-us',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        error: convertErrorToProps(error),
       },
     };
   }
