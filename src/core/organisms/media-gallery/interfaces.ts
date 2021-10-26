@@ -28,6 +28,7 @@ export interface IImacaViewer extends IBaseProps {
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   upscaleCanvas: boolean;
+  isOpenColourSelect?: boolean;
 }
 
 export interface IImageCarouselProps extends IBaseProps {

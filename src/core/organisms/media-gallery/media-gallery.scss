@@ -15,6 +15,36 @@
 .image-carousel {
   position: relative;
 
+  .gallery-select-color-btn {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    position: absolute;
+    left: 0;
+    bottom: 26px;
+    width: 140px;
+    height: 40px;
+    border-radius: 0 48px 48px 0;
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    z-index: 1;
+    cursor: pointer;
+    @include mobile {
+      bottom: 18px;
+      width: 120px;
+    }
+    .icon {
+      height: auto;
+      display: flex;
+      width: 20px;
+    }
+    .text {
+      @include mobile {
+       font-size: 12px;
+      }
+      font-weight: bold;
+    }
+  }
+
   &__fs-toggle {
     position: absolute;
     right: 5px;
