@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
@@ -32,10 +32,19 @@ function ImacaViewer({
   colour,
   setColour,
   upscaleCanvas,
+  isOpenColourSelect,
 }: IImacaViewer) {
   const [isFullScreen, setFullScreen] = useState(false);
   const [isHintVisible, setHintVisible] = useState(true);
-  const [isColorSelectionOpen, setColorSelectionOpen] = useState(false);
+  const [isColorSelectionOpen, setColorSelectionOpen] = useState(
+    isOpenColourSelect || false,
+  );
+
+  useEffect(() => {
+    if (isOpenColourSelect) {
+      setColorSelectionOpen(isOpenColourSelect);
+    }
+  }, [isOpenColourSelect]);
 
   const isMobileLayout = useMobileViewport();
 
