@@ -1,5 +1,4 @@
-import React from 'react';
-import DefaultErrorPage from 'next/error';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 
 import {
@@ -14,10 +13,12 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
 const CareersLandingPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
+    return <ErrorPage errorData={error} />;
   }
 
   return <CareersPageContainer data={data} />;
@@ -27,7 +28,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
@@ -35,27 +36,33 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       variables: {
         slug: 'careers-at-vanarama',
         sectionsAsArray: true,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        error: convertErrorToProps(error),
       },
     };
   }
