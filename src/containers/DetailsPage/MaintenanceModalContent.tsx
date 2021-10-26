@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import Ellipse from 'core/assets/icons/Ellipse';
 import EllipseOutline from 'core/assets/icons/EllipseOutline';
 import Heading from 'core/atoms/heading';
-import { includedOldItems, notIncludedItems, includedNewItems } from './config';
+import { includedItems, notIncludedItems } from './config';
 import Skeleton from '../../components/Skeleton';
 import { isUpdatedServicePlanFeatureFlagEnabled } from '../../utils/helpers';
 
@@ -17,9 +17,14 @@ const IconListItem = dynamic(() =>
 );
 
 const MaintenanceModalContent = () => {
-  const includedItems = isUpdatedServicePlanFeatureFlagEnabled(Cookies)
-    ? includedNewItems
-    : includedOldItems;
+  const updatedIncludedItems = isUpdatedServicePlanFeatureFlagEnabled(Cookies)
+    ? [
+        {
+          value: 'RAC Accident Assist',
+        },
+        ...includedItems,
+      ]
+    : includedItems;
   return (
     <>
       <Text tag="p" color="dark" className="-mv-400" size="regular">
@@ -35,7 +40,7 @@ const MaintenanceModalContent = () => {
         What’s Included?
       </Heading>
       <IconList className="maintenanceConditions">
-        {includedItems.map(({ value, innerItems }, index) => (
+        {updatedIncludedItems.map(({ value, innerItems }, index) => (
           <IconListItem
             iconColor="dark"
             key={index.toString()}
