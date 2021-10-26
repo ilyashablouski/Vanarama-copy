@@ -18,17 +18,13 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import Hero, {
-  // HeroHeading,
-  // HeroTitle,
-  HeroPrompt,
-} from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
-import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import { HeroBlackFriday } from '../../components/Hero';
+import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -75,12 +71,9 @@ const RouterLink = dynamic(() =>
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
 });
-
-const optimisationOptions = {
-  height: 620,
-  width: 620,
-  quality: 59,
-};
+const HomePageHero = dynamic(() => import('./HomePageHero'), {
+  ssr: false,
+});
 
 export interface IHomePageContainer extends ISpecialOffersData {
   data: HomePageData | undefined;
@@ -118,71 +111,19 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      <Hero
-        searchPodVansData={searchPodVansData}
-        searchPodCarsData={searchPodCarsData}
-        activeSearchIndex={2}
-        smallPrint={freeInsuranceSmallPrint}
-        customCTALink="/car-leasing/free-car-insurance"
-      >
-        {/* <div className="hero--title">
-          <>
-            <HeroHeading
-              text={
-                getSectionsData(['hero', 'title'], data?.homePage?.sections) ||
-                ''
-              }
-              titleTag={
-                getTitleTag(
-                  getSectionsData(
-                    ['hero', 'titleTag'],
-                    data?.homePage?.sections,
-                  ) || 'p',
-                ) as keyof JSX.IntrinsicElements
-              }
-            />
-            <br />
-            <HeroTitle
-              text={
-                getSectionsData(['hero', 'body'], data?.homePage?.sections) ||
-                ''
-              }
-            />
-          </>
-        </div> */}
-        <div className="nlol nlol-free-insurance">
-          <p>Find Your New Lease Of Life</p>
-          <h2>1 Year&apos;s FREE Insurance</h2>
-          <p>On Car Hot Offers</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.homePage?.sections,
-              ) || null
-            }
-          />
-        </div>
-        {data?.homePage?.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-            text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isBlackFridayCampaignEnabled() ? (
+        <HeroBlackFriday
+          searchPodCarsData={searchPodCarsData}
+          searchPodVansData={searchPodVansData}
+          activeSearchIndex={2}
+        />
+      ) : (
+        <HomePageHero
+          searchPodCarsData={searchPodCarsData}
+          searchPodVansData={searchPodVansData}
+          data={data}
+        />
+      )}
       {data?.homePage && (
         <section className="row:lead-text">
           <Heading
