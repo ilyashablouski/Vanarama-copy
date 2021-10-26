@@ -292,6 +292,7 @@ export const convertErrorToProps = (
 
 export enum FeatureFlags {
   DERANGED = 'DIG-7592',
+  UPDATED_SERVICE_PLAN = 'DIG-7556',
 }
 
 function isFeatureFlagEnabled(
@@ -313,6 +314,12 @@ export function isDerangedFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
+}
+
+export function isUpdatedServicePlanFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
 }
 
 export const isCookieBarFeatureEnabled = () => {
