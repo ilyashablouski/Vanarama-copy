@@ -181,6 +181,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         variables: {
           partyUuid: [
             partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
+            partyUuidData.companiesByPersonUuid?.[1]?.partyUuid,
             data.getPerson.partyUuid,
           ],
           filter: MyOrdersTypeEnum.ALL_ORDERS,
@@ -191,6 +192,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         variables: {
           partyUuid: [
             partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
+            partyUuidData.companiesByPersonUuid?.[1]?.partyUuid,
             data.getPerson.uuid,
           ],
           filter: MyOrdersTypeEnum.ALL_QUOTES,
