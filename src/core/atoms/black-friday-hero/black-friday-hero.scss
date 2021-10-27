@@ -1,0 +1,258 @@
+.row {
+  &\:bg-bf-hero {
+    position: relative;
+    background: #161616;
+    overflow: hidden;
+
+    @include desktop {
+      padding-bottom: 3rem !important;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("/Assets/images/black-friday/smoke.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+
+      @include mobile {
+        top: 50%;
+        left: 50%;
+        bottom: 0;
+        width: 960px;
+        height: 375px;
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    .row\:hero {
+      background: none;
+    }
+
+    .hero--left,
+    .hero--right {
+      background: none;
+    }
+
+    .hero--left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include desktop {
+        align-items: flex-end;
+      }
+    }
+
+    .bf-hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: 0;
+
+      @include mobile {
+        padding-top: 105px;
+      }
+
+      &__car {
+        position: absolute;
+        top: 15%;
+        right: 110%;
+        width: 438px;
+        height: 230px;
+        pointer-events: none;
+        z-index: 1;
+
+        &.-vehicle {
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        &.-light {
+          mix-blend-mode: color-dodge;
+
+          img {
+            position: absolute;
+            top: 49%;
+            left: 87%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 200%;
+          }
+        }
+
+        @include mobile-tablet {
+          width: 418px;
+          height: 220px;
+        }
+
+        @include tablet {
+          top: 8%;
+          right: 107%;
+        }
+
+        @include mobile {
+          top: 0;
+          left: 50%;
+          right: unset;
+          transform: translate(-50%, -100%) rotate(90deg);
+        }
+      }
+
+      &__badge {
+        position: relative;
+        margin-bottom: 16px;
+        pointer-events: none;
+
+        @include mobile-tablet {
+          margin-bottom: 0;
+        }
+
+        .image {
+          position: relative;
+          width: 556px;
+
+          &:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 0;
+            padding-top: 66%;
+          }
+
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+
+          @include tablet {
+            width: 436px;
+          }
+
+          @include mobile {
+            width: 254px;
+          }
+        }
+
+        .text {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          margin-top: 0;
+          font-size: 3rem;
+          font-weight: $font-weight-black;
+          font-family: $font-family-heading;
+          letter-spacing: 0;
+          text-transform: uppercase;
+          white-space: nowrap;
+          color: #161616 !important;
+          z-index: 1;
+
+          &.-top {
+            top: 16%;
+          }
+
+          &.-center {
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: $white !important;
+          }
+
+          &.-bottom {
+            bottom: 16%;
+          }
+
+          @include tablet {
+            font-size: 2.375rem;
+          }
+
+          @include mobile {
+            font-size: 1.4rem;
+          }
+        }
+      }
+
+      &__details {
+        position: relative;
+        z-index: 0;
+      }
+
+      &__title {
+        display: block;
+        margin-bottom: 8px;
+        font-size: $font-size-700;
+        font-weight: $font-weight-black;
+        font-family: $font-family-heading;
+        letter-spacing: 0;
+        white-space: nowrap;
+        color: $orange;
+
+        @include mobile-tablet {
+          font-size: 2.25rem;
+        }
+
+        @include mobile {
+          margin-bottom: 4px;
+        }
+      }
+
+      &__text {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.125rem;
+        font-weight: $font-weight-light;
+        font-family: $font-family-heading;
+        letter-spacing: 0;
+        white-space: nowrap;
+        color: $white !important;
+
+        @include mobile {
+          margin-bottom: 4px;
+          font-size: 1.125rem;
+        }
+      }
+
+      &__link {
+        font-size: 1.125rem;
+        font-weight: $font-weight-light;
+        font-family: $font-family-heading;
+        white-space: nowrap;
+        color: $white;
+
+        .icon {
+          display: inline-flex;
+          height: auto;
+          margin-left: 10px;
+        }
+
+        @include mobile {
+          font-size: 1.125rem;
+        }
+      }
+    }
+
+    .terms-and-conditions {
+      margin-top: 16px;
+      font-size: $font-size-300;
+      font-weight: $font-weight-light;
+      font-family: $font-family-heading;
+      color: $medium;
+
+      @include desktop {
+        margin-right: auto;
+      }
+    }
+  }
+}

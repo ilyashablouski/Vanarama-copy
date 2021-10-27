@@ -1,4 +1,4 @@
-import SchemaJSON from 'core/atoms/schema-json';
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
+import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
@@ -29,6 +30,13 @@ import {
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import VehicleCard from '../../../components/VehicleCard';
 import HeadingSection from '../../../components/HeadingSection';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
+import { convertErrorToProps } from '../../../utils/helpers';
+import { IErrorProps } from '../../../types/common';
+import ErrorPage from '../../_error';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -48,12 +56,14 @@ const Tile = dynamic(() => import('core/molecules/tile'), {
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
+  error?: IErrorProps;
 }
 
 const ECarsPage: NextPage<IProps> = ({
   data,
   productsElectricOnlyCar,
   vehicleListUrlData,
+  error,
 }) => {
   const [featuresArray, setFeaturesArray] = useState([]);
   const optimisationOptions = {
@@ -67,9 +77,13 @@ const ECarsPage: NextPage<IProps> = ({
   const descriptionText = sections?.leadText?.description;
 
   useEffect(() => {
-    const featuresArry: any = getFeaturedSectionsAsArray(sections);
-    setFeaturesArray(featuresArry);
+    const newFeaturesArray = getFeaturedSectionsAsArray(sections);
+    setFeaturesArray(newFeaturesArray);
   }, [sections]);
+
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
 
   const HeroSection = () => (
     <Hero>
@@ -308,36 +322,49 @@ const ECarsPage: NextPage<IProps> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing/cars',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     const {
       productsElectricOnlyCar,
       vehicleListUrlData,
     } = await evOffersRequest(client);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data: data || null,
         productsElectricOnlyCar: productsElectricOnlyCar || null,
         vehicleListUrlData: vehicleListUrlData || null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

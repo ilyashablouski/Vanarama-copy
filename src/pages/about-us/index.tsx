@@ -1,10 +1,11 @@
 import { NextPage } from 'next';
-import SchemaJSON from 'core/atoms/schema-json';
+import { ApolloError } from '@apollo/client';
 import { PreviewNextPageContext } from 'types/common';
 import { useEffect, useState } from 'react';
 import getPartnerProperties, {
   isPartnerSessionActive,
 } from 'utils/partnerProperties';
+import SchemaJSON from 'core/atoms/schema-json';
 import { IBreadcrumb } from 'types/breadcrumbs';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
@@ -19,10 +20,16 @@ import {
   GetAboutUsPageData,
   GetAboutUsPageDataVariables,
 } from '../../../generated/GetAboutUsPageData';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
+import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
 const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   data: encodedData,
-  loading,
+  error,
 }) => {
   // De-obfuscate data for user
   const data = decodeData(encodedData);
@@ -52,6 +59,10 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
+
   return (
     <>
       {breadcrumbs && (
@@ -59,7 +70,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
           <Breadcrumbs items={breadcrumbs} />
         </div>
       )}
-      <AboutUs data={data} loading={loading} />
+      <AboutUs data={data} />
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={featuredImage} />
@@ -73,31 +84,44 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
 export async function getStaticProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   try {
-    const { data: rawData, loading, errors } = await client.query<
+    const { data: rawData } = await client.query<
       GetAboutUsPageData,
       GetAboutUsPageDataVariables
     >({
       query: GET_ABOUT_US_PAGE_DATA,
       variables: {
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
 
     // Obfuscate data from Googlebot
     const data = encodeData(rawData);
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
-      props: { data, loading },
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
+      props: {
+        data,
+      },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

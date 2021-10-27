@@ -1,6 +1,7 @@
+import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { PreviewNextPageContext } from 'types/common';
-import { GENERIC_PAGE } from '../../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
 import {
@@ -13,14 +14,19 @@ import {
   PageCollection,
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
+import { convertErrorToProps } from '../../../utils/helpers';
+import ErrorPage from '../../_error';
 
-interface IAboutUsPage {
-  data: GenericPageQuery | undefined;
-  loading: boolean;
-}
+const AboutUsPage: NextPage<IGenericPage> = ({ data, error }) => {
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
 
-const AboutUsPage: NextPage<IAboutUsPage> = ({ data }) => {
-  return <SimplePageContainer data={data} loading={!data} />;
+  return <SimplePageContainer data={data} />;
 };
 
 export async function getStaticPaths(context: PreviewNextPageContext) {
@@ -29,7 +35,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'About Us',
-      ...(context?.preview && { isPreview: context?.preview }),
+      isPreview: !!context?.preview,
     },
   });
   const items = data?.pageCollection?.items;
@@ -46,29 +52,42 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
     >({
       query: GENERIC_PAGE,
       variables: {
         slug: `about-us/${paths?.join('/')}`,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 
