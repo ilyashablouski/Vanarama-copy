@@ -428,8 +428,6 @@ export const addApolloState = <T>(
       },
     };
   }
-  console.log('PAGE PROPS', pageProps);
-  console.log('PAGE PROPS TEMP', pagePropsTemp);
   return pagePropsTemp || pageProps;
 };
 
