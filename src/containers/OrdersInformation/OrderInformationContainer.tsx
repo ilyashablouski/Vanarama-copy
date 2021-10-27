@@ -79,6 +79,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
           title={{
             title: 'My Orders',
           }}
+          className="card--details"
         >
           {typeof ordersLength === 'number' ? (
             <Text
@@ -112,11 +113,13 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
           title={{
             title: 'My Quotes',
           }}
+          className="card--details"
         >
           <Text
             tag="span"
             size="regular"
             color="dark"
+            className="text--quotes"
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
           {quotesLength && (
             <RouterLink
