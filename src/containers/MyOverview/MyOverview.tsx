@@ -67,7 +67,7 @@ interface IMyOverviewProps {
   orders: GetMyOrders;
   quote: boolean;
   person: Person;
-  partyUuid: string;
+  partyUuid: string[];
 }
 
 const createDefaultBreadcrumbs = (isQuote?: boolean) => [
@@ -205,7 +205,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 
   // call query for get Orders when user change orders type (all/completed/in progress)
   const [getOrders, { loading }] = useMyOrdersData(
-    [person?.partyUuid || '', partyUuid || ''],
+    [person?.partyUuid || '', ...partyUuid || ''],
     filter,
     onCompletedGetOrders,
   );

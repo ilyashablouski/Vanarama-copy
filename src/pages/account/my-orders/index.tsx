@@ -14,7 +14,7 @@ import { GetPerson_getPerson } from '../../../../generated/GetPerson';
 interface IProps {
   orders: GetMyOrders;
   person: GetPerson_getPerson;
-  partyUuid: string;
+  partyUuid: string[];
 }
 
 const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
@@ -45,6 +45,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
 
     const partyUuid = [
       partyUuidData.companiesByPersonUuid[0].partyUuid,
+      partyUuidData.companiesByPersonUuid[1].partyUuid,
       data.getPerson.partyUuid,
     ];
 
@@ -60,7 +61,10 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       props: {
         orders,
         person: data.getPerson,
-        partyUuid: partyUuidData.companiesByPersonUuid[0].partyUuid,
+        partyUuid: [
+          partyUuidData.companiesByPersonUuid[0].partyUuid,
+          partyUuidData.companiesByPersonUuid[1].partyUuid,
+        ],
       },
     };
   } catch (error) {
