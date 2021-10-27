@@ -240,4 +240,31 @@ describe('<MyOverview />', () => {
     const tree = getComponent();
     expect(tree).toMatchSnapshot();
   });
+
+  it('renders correctly when there are no orders', async () => {
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue([
+      () => {},
+      {
+        loading: false,
+      },
+    ]);
+
+    const getComponent = () => {
+      return renderer
+        .create(
+          <MyOverview
+            quote={false}
+            person={mockPersonsValue}
+            partyUuid={['partyUuid', 'partyUuid']}
+            orders={{ myOrders: [] } as GetMyOrders}
+            error={false}
+          />,
+        )
+        .toJSON();
+    };
+
+    const tree = getComponent();
+    expect(tree).toMatchSnapshot();
+  });
 });
