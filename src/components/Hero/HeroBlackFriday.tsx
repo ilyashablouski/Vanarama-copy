@@ -6,22 +6,21 @@ import SearchPodContainer from '../../containers/SearchPodContainer';
 
 import { IHeroProps } from './interface';
 
-const BASE_IMAGE_URL = '/Assets/images/black-friday';
 const HERO_BANNER_VARIANTS = {
   cars: {
-    vehicleImageUrl: `${BASE_IMAGE_URL}/car.png`,
+    vehicleImageName: `car.png`,
     classNameMod: '-cars-hub',
   },
   vans: {
-    vehicleImageUrl: `${BASE_IMAGE_URL}/van.png`,
+    vehicleImageName: `van.png`,
     classNameMod: '-vans-hub',
   },
   pickups: {
-    vehicleImageUrl: `${BASE_IMAGE_URL}/pickup.png`,
+    vehicleImageName: `pickup.png`,
     classNameMod: '-pickups-hub',
   },
   electric: {
-    vehicleImageUrl: `${BASE_IMAGE_URL}/car.png`,
+    vehicleImageName: `car.png`,
     classNameMod: '-electric-hub',
   },
 };
@@ -39,13 +38,13 @@ const HeroBlackFriday: React.FC<IProps> = ({
   variant,
   withoutSearchPod,
 }) => {
-  const { classNameMod, vehicleImageUrl } = HERO_BANNER_VARIANTS[variant];
+  const { classNameMod, vehicleImageName } = HERO_BANNER_VARIANTS[variant];
 
   return (
     <div className={cx('row:bg-bf-hero', classNameMod)}>
       <div className="row:hero">
         <div className="hero--left">
-          <BlackFridayHeroBanner vehicleImageUrl={vehicleImageUrl} />
+          <BlackFridayHeroBanner vehicleImageName={vehicleImageName} />
         </div>
         {!withoutSearchPod && (
           <div className="hero--right">
