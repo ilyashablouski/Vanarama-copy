@@ -121,7 +121,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
             color="dark"
             className="text--quotes"
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
-          {quotesLength && (
+          {!!quotesLength && (
             <RouterLink
               classNames={{
                 color: 'teal',
