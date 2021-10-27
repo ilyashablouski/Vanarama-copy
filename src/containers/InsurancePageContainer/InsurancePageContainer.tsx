@@ -19,7 +19,7 @@ const InsuranceTypesSection = dynamic(
   },
 );
 const MediaFeatureSection = dynamic(
-  () => import('../FleetPageContainer/sections/MediaFeatureSection'),
+  () => import('./sections/MediaFeatureSection'),
   {
     loading: () => <Skeleton count={5} />,
   },

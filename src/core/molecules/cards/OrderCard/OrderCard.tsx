@@ -45,7 +45,7 @@ const OrderCard: FC<IOrderDetailsProps> = props => {
     },
     {
       name: 'maintenance',
-      label: 'Maintanence',
+      label: 'Maintenance',
       value: orderDetails.maintenance,
     },
     { name: 'fuel', label: 'Fuel', value: orderDetails.fuel },
@@ -54,7 +54,7 @@ const OrderCard: FC<IOrderDetailsProps> = props => {
       label: 'Transmission',
       value: orderDetails.transmission,
     },
-    { name: 'color', label: 'Color', value: orderDetails.color },
+    { name: 'colour', label: 'Colour', value: orderDetails.color },
     { name: 'trim', label: 'Trim', value: orderDetails.trim },
   ];
 

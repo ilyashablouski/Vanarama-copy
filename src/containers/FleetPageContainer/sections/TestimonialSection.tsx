@@ -2,10 +2,10 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
-import { GenericPageQuery_genericPage_sections_featured as IFeature } from '../../../../generated/GenericPageQuery';
 import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
+import { GenericPageQueryFeatured as IFeatured } from '../../../../generated/GenericPageQueryFeatured';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -26,12 +26,15 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 const goToTop = () => window.scrollTo(0, 0);
 
-const TestimonialSection = ({
-  titleTag,
-  title,
-  body,
-  testimonials,
-}: IFeature) => {
+interface IFeaturedEx {
+  featured: IFeatured | null | undefined;
+}
+
+const TestimonialSection = ({ featured }: IFeaturedEx) => {
+  const { title, titleTag, body, testimonials } = featured || {};
+  const headingTag = getTitleTag(
+    titleTag || 'p',
+  ) as keyof JSX.IntrinsicElements;
   return (
     <div className="row:featured-right">
       {testimonials && testimonials[0] && (
@@ -48,12 +51,8 @@ const TestimonialSection = ({
         />
       )}
       <div>
-        <Heading
-          size="large"
-          color="black"
-          tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
-        >
-          {title}
+        <Heading size="large" color="black" tag={headingTag}>
+          {title || ''}
         </Heading>
         <ReactMarkdown
           allowDangerousHtml
