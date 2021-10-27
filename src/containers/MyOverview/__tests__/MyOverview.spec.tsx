@@ -35,6 +35,7 @@ jest.mock('next/router', () => ({
 const mockOrdersValue = {
   myOrders: [
     {
+      uuid: '1',
       leaseType: LeaseTypeEnum.PERSONAL,
       createdAt: '2020-06-16T07:40:49.880Z',
       lineItems: [
@@ -57,6 +58,7 @@ const mockOrdersValue = {
       ],
     },
     {
+      uuid: '2',
       leaseType: LeaseTypeEnum.BUSINESS,
       createdAt: '2020-06-16T07:40:40.000Z',
       lineItems: [
