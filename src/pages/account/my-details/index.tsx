@@ -179,7 +179,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         variables: {
           partyUuid: [
             partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
-            data.getPerson.uuid,
+            data.getPerson.partyUuid,
           ],
           filter: MyOrdersTypeEnum.ALL_ORDERS,
         },
