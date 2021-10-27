@@ -433,4 +433,5 @@ export const addApolloState = <T>(
   return pagePropsTemp || pageProps;
 };
 
-export const useApollo = (apolloCache?: NormalizedCacheObject) => initializeApollo(apolloCache);
+export const useApollo = (apolloCache?: NormalizedCacheObject) =>
+  initializeApollo(apolloCache);
