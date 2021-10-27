@@ -62,7 +62,7 @@ exports[`<OrderCard /> should render correctly 1`] = `
     <span
       key="maintenance"
     >
-      Maintanence
+      Maintenance
        
       No
     </span>
@@ -81,9 +81,9 @@ exports[`<OrderCard /> should render correctly 1`] = `
       Manual
     </span>
     <span
-      key="color"
+      key="colour"
     >
-      Color
+      Colour
        
       Solid - Polar white
     </span>
