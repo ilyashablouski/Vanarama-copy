@@ -329,7 +329,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div
+    <section
       class="row:lead-text"
     >
       <p
@@ -342,7 +342,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
       >
         The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free
       </span>
-    </div>
+    </section>
     <div
       class="row:featured-right"
     >
@@ -474,112 +474,58 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         </button>
       </div>
     </div>
-    <div
+    <section
       class="row:featured-left"
     >
-      <div>
+      <div
+        class="-inset -middle -col-400"
+      >
         <p
           class="heading -black -large"
         >
           What's In It For My Business?
         </p>
-        <h3
-          class="heading -primary -regular"
+        <div
+          class=""
         >
-          Every fleet is different:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Your fleet needs are unique and that's why entrusting yours to a company you trust is important.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Best price for your business:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Choosing a fleet management company that works with a network of funders means they can provide the very best prices on the market first time.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Compliance as standard:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Duty of care is a key concern and goes hand-in-hand with staying compliant. Driver risk assessments and safety checks need to be carried out on time and to high standards, so work with a company that understands how to keep you organised.
-        </p>
+          <div
+            class="markdown"
+          >
+            <h3
+              class="heading -darker -lead"
+            >
+              Every fleet is different:
+            </h3>
+            <p>
+              Your fleet needs are unique and that's why entrusting yours to a company you trust is important.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Best price for your business:
+            </h3>
+            <p>
+              Choosing a fleet management company that works with a network of funders means they can provide the very best prices on the market first time.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Compliance as standard:
+            </h3>
+            <p>
+              Duty of care is a key concern and goes hand-in-hand with staying compliant. Driver risk assessments and safety checks need to be carried out on time and to high standards, so work with a company that understands how to keep you organised.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div
+    </section>
+    <section
       class="row:featured-right"
     >
-      <div>
-        <p
-          class="heading -black -large"
-        >
-          What's In It For Me?
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Hassle-free fleet reporting:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          From MOT notifications to duty of care compliance tasks, keeping information at your fingertips is vital to effective fleet management.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Protect your fleet:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Having your fleet managed and insured through one channel makes life less complicated for you.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Cost-effective fleet maintenance:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Easy access to all routine servicing and repairs, tyre replacement, MOTs and vehicle breakdown cover is true peace-of-mind.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Sale and lease back:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          Removing vehicles from outright purchase and into a lease agreement allows you to grow your business faster by giving you the option to invest cash into your business rather than the vehicles.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Controlling costs:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          A robust reporting platform will allow you to look at maintenance budgets, total driver costs and whole-life fleet costings at a moment's notice.
-        </p>
-      </div>
       <div
         class="image -expand"
       >
         <img
-          alt="AudiQ30718 4 k5ojqt"
           class="image--native"
           data-cfasync="false"
           loading="eager"
@@ -588,136 +534,263 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 1200w"
         />
       </div>
-    </div>
-    <div
+      <div
+        class="-inset -middle -col-400"
+      >
+        <p
+          class="heading -black -large"
+        >
+          What's In It For Me?
+        </p>
+        <div
+          class=""
+        >
+          <div
+            class="markdown"
+          >
+            <h3
+              class="heading -darker -lead"
+            >
+              Hassle-free fleet reporting:
+            </h3>
+            <p>
+              From MOT notifications to duty of care compliance tasks, keeping information at your fingertips is vital to effective fleet management.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Protect your fleet:
+            </h3>
+            <p>
+              Having your fleet managed and insured through one channel makes life less complicated for you.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Cost-effective fleet maintenance:
+            </h3>
+            <p>
+              Easy access to all routine servicing and repairs, tyre replacement, MOTs and vehicle breakdown cover is true peace-of-mind.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Sale and lease back:
+            </h3>
+            <p>
+              Removing vehicles from outright purchase and into a lease agreement allows you to grow your business faster by giving you the option to invest cash into your business rather than the vehicles.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Controlling costs:
+            </h3>
+            <p>
+              A robust reporting platform will allow you to look at maintenance budgets, total driver costs and whole-life fleet costings at a moment's notice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
       class="row:featured-left"
     >
-      <div>
+      <div
+        class="-inset -middle -col-400"
+      >
         <p
           class="heading -black -large"
         >
           What's In It For The Drivers?
         </p>
-        <h3
-          class="heading -primary -regular"
+        <div
+          class=""
         >
-          Maintenance when it's needed:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          No matter which maintenance package you choose, the drivers themselves can arrange bookings through the Driverhelpline application or by calling the support team.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Comprehensive vehicle management:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          How great would it be if drivers knew that support was just a tap on an app away? They'll benefit from the same up-to-date reporting and service-on-demand functions as you. Drivers know they're being compliant, and you can rest easy.
-        </p>
-        <h3
-          class="heading -primary -regular"
-        >
-          Peace of mind and support:
-        </h3>
-        <p
-          class="text -regular -darker"
-        >
-          For drivers, the fleet management relationship shouldn't be centred on vehicle delivery, they want support. And they'll have questions they need answered. That's when having a dedicated app filled with the information they need, and a dedicated support team really will pay for itself.
-        </p>
+          <div
+            class="markdown"
+          >
+            <h3
+              class="heading -darker -lead"
+            >
+              Maintenance when it's needed:
+            </h3>
+            <p>
+              No matter which maintenance package you choose, the drivers themselves can arrange bookings through the Driverhelpline application or by calling the support team.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Comprehensive vehicle management:
+            </h3>
+            <p>
+              How great would it be if drivers knew that support was just a tap on an app away? They'll benefit from the same up-to-date reporting and service-on-demand functions as you. Drivers know they're being compliant, and you can rest easy.
+            </p>
+            <h3
+              class="heading -darker -lead"
+            >
+              Peace of mind and support:
+            </h3>
+            <p>
+              For drivers, the fleet management relationship shouldn't be centred on vehicle delivery, they want support. And they'll have questions they need answered. That's when having a dedicated app filled with the information they need, and a dedicated support team really will pay for itself.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
     <hr
       class="-fullwidth"
     />
-    <div
+    <section
       class="row:features-4col"
     >
       <p
-        class="heading -black -lead"
-      >
-        Not Quite Convinced? Also Included:
-      </p>
-      <div
-        class="tile -button -plain tile--centered"
-      >
-        <span />
-        <span
-          class="tile--link"
+        class="heading -black -large"
+      />
+      <div>
+        <div
+          class="tile -plain -button -align-center -plain"
         >
-          <p
-            class="heading -black -regular"
+          <div
+            style="display: flex; justify-content: center;"
           >
-            Price Protection
-          </p>
-        </span>
-        <p
-          class="text -regular -darker"
-        >
-          Pretium facilisi etiam pretium, cras interdum enim, nullam.
-        </p>
-      </div>
-      <div
-        class="tile -button -plain tile--centered"
-      >
-        <span />
-        <span
-          class="tile--link"
-        >
-          <p
-            class="heading -black -regular"
+            <div
+              class="image -large -round -inline"
+            >
+              <img
+                class="image--native"
+                data-cfasync="false"
+                loading="eager"
+                sizes="(min-width:320px) 800px, 1200px"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
+              />
+            </div>
+          </div>
+          <span
+            class="tile--link"
           >
-            Customer Reviews
-          </p>
-        </span>
-        <p
-          class="text -regular -darker"
-        >
-          Pretium facilisi etiam pretium, cras interdum enim, nullam.
-        </p>
-      </div>
-      <div
-        class="tile -button -plain tile--centered"
-      >
-        <span />
-        <span
-          class="tile--link"
-        >
+            <span
+              class="heading -black -regular"
+            >
+              Price Protection
+            </span>
+          </span>
           <p
-            class="heading -black -regular"
+            class="text -regular -darker"
           >
-            Quote Online
+            Pretium facilisi etiam pretium, cras interdum enim, nullam.
           </p>
-        </span>
-        <p
-          class="text -regular -darker"
-        >
-          Pretium facilisi etiam pretium, cras interdum enim, nullam.
-        </p>
+        </div>
       </div>
-      <div
-        class="tile -button -plain tile--centered"
-      >
-        <span />
-        <span
-          class="tile--link"
+      <div>
+        <div
+          class="tile -plain -button -align-center -plain"
         >
+          <div
+            style="display: flex; justify-content: center;"
+          >
+            <div
+              class="image -large -round -inline"
+            >
+              <img
+                class="image--native"
+                data-cfasync="false"
+                loading="eager"
+                sizes="(min-width:320px) 800px, 1200px"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
+              />
+            </div>
+          </div>
+          <span
+            class="tile--link"
+          >
+            <span
+              class="heading -black -regular"
+            >
+              Customer Reviews
+            </span>
+          </span>
           <p
-            class="heading -black -regular"
+            class="text -regular -darker"
           >
-            Confused About Leasing?
+            Pretium facilisi etiam pretium, cras interdum enim, nullam.
           </p>
-        </span>
-        <p
-          class="text -regular -darker"
-        >
-          Pretium facilisi etiam pretium, cras interdum enim, nullam.
-        </p>
+        </div>
       </div>
-    </div>
+      <div>
+        <div
+          class="tile -plain -button -align-center -plain"
+        >
+          <div
+            style="display: flex; justify-content: center;"
+          >
+            <div
+              class="image -large -round -inline"
+            >
+              <img
+                class="image--native"
+                data-cfasync="false"
+                loading="eager"
+                sizes="(min-width:320px) 800px, 1200px"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
+              />
+            </div>
+          </div>
+          <span
+            class="tile--link"
+          >
+            <span
+              class="heading -black -regular"
+            >
+              Quote Online
+            </span>
+          </span>
+          <p
+            class="text -regular -darker"
+          >
+            Pretium facilisi etiam pretium, cras interdum enim, nullam.
+          </p>
+        </div>
+      </div>
+      <div>
+        <div
+          class="tile -plain -button -align-center -plain"
+        >
+          <div
+            style="display: flex; justify-content: center;"
+          >
+            <div
+              class="image -large -round -inline"
+            >
+              <img
+                class="image--native"
+                data-cfasync="false"
+                loading="eager"
+                sizes="(min-width:320px) 800px, 1200px"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
+              />
+            </div>
+          </div>
+          <span
+            class="tile--link"
+          >
+            <span
+              class="heading -black -regular"
+            >
+              Confused About Leasing?
+            </span>
+          </span>
+          <p
+            class="text -regular -darker"
+          >
+            Pretium facilisi etiam pretium, cras interdum enim, nullam.
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </body>
 `;
