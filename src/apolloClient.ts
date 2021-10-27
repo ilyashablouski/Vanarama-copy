@@ -369,13 +369,13 @@ export function initializeApollo(
   initialState?: NormalizedCacheObject,
   ctx?: NextPageContext,
 ) {
-  const apolloClientTemp =
+  const initializedApolloClient =
     apolloClient ?? createApolloClient(initialState, ctx);
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
-    const existingCache = apolloClientTemp.cache.extract();
+    const existingCache = initializedApolloClient.cache.extract();
 
     // Merge the existing cache into data passed from getStaticProps/getServerSideProps
     const data = merge(initialState, existingCache, {
@@ -390,13 +390,13 @@ export function initializeApollo(
       ],
     });
     // Restore the cache with the merged data
-    apolloClientTemp.restore(data);
+    initializedApolloClient.restore(data);
   }
   if (!apolloClient) {
-    apolloClient = apolloClientTemp;
+    apolloClient = initializedApolloClient;
   }
 
-  return apolloClientTemp;
+  return initializedApolloClient;
 }
 
 interface IPageProps<T> {
