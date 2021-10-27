@@ -28,8 +28,8 @@ const ProductCard: FC<IProductCardProps> = props => {
 
   return (
     <Card {...props}>
-      {isBlackFridayCampaignEnabled() && <BlackFridayCardLabel />}
       {!!features?.length && <CardIcons icons={features} />}
+      {isBlackFridayCampaignEnabled() && <BlackFridayCardLabel />}
       {children}
       <div className="card-footer">
         {onCompare && (
