@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../../../components/Skeleton';
 import { ISelectedVehicle } from '../interfaces';
 import { useOpportunityCreation } from '../../../GoldrushFormContainer/gql';
-import { handleNetworkError } from '../../../GoldrushFormContainer/GoldrushFormContainer';
 import {
   OpportunitySubtypeEnum,
   OpportunityTypeEnum,
@@ -48,11 +47,8 @@ const DerangedModalForm: React.FC<IDerangedModalForm> = ({
   const [createOpportunity, { loading }] = useOpportunityCreation(
     () => setIsFormSend(true),
     error => {
-      if (error?.networkError) {
-        handleNetworkError();
-      }
-      if (error?.message) {
-        toast.error(ErrorMessages.requestIssue, error?.message);
+      if (error.networkError || error.message) {
+        toast.error(ErrorMessages.requestIssue, error.message || '');
       }
     },
   );
