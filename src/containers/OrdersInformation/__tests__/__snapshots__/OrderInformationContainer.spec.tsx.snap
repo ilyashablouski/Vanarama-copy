@@ -8,7 +8,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
     className="row:cards-3col"
   >
     <div
-      className="card"
+      className="card card--details"
       data-testid="card"
     >
       <div
@@ -38,7 +38,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       </div>
     </div>
     <div
-      className="card"
+      className="card card--details"
       data-testid="card"
     >
       <div
@@ -52,7 +52,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         </span>
       </div>
       <span
-        className="text -regular -dark"
+        className="text text--quotes -regular -dark"
       >
         You have (0) quotes.
       </span>

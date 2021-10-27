@@ -849,6 +849,16 @@ $small: 0.875rem;
       }
     }
   }
+
+  .text {
+    &--quotes {
+      grid-area: content !important;
+    }
+  }
+
+  &--details {
+    min-height: 112px;
+  }
 }
 
 .extras {
