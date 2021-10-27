@@ -4,8 +4,7 @@ import { NextPage } from 'next';
 import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
-import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
-import { ApolloError } from '@apollo/client';
+import { addApolloState, initializeApollo } from 'apolloClient';
 import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationContainer/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
@@ -146,12 +145,8 @@ const MyDetailsPage: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = createApolloClient({}, context);
-
+  const client = initializeApollo(undefined, context);
   try {
-    const { data } = await client.query({
-      query: GET_PERSON_QUERY,
-    });
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
       return {
         redirect: {
@@ -160,6 +155,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         },
       };
     }
+    const { data } = await client.query({
+      query: GET_PERSON_QUERY,
+    });
     const [{ data: personData }, { data: partyUuidData }] = await Promise.all([
       client.query({
         query: GET_PERSON_INFORMATION_DATA,
@@ -199,37 +197,21 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         },
       }),
     ]);
-
-    return {
+    return addApolloState(client, {
       props: {
         person: personData.myAccountDetailsByPersonUuid,
         uuid: data.getPerson.uuid,
         orders: orders.myOrders,
         quotes: quotes.myOrders,
       },
-    };
-  } catch (error) {
-    const apolloError = error as ApolloError;
-
-    if (
-      apolloError?.graphQLErrors[0]?.extensions?.code ===
-      AUTHORIZATION_ERROR_CODE
-    ) {
-      context?.res?.setHeader('set-cookie', [
-        'ac=; path=/; Max-Age=-1',
-        'ic=; path=/; Max-Age=-1',
-        'ic_local=; path=/; Max-Age=-1',
-      ]);
-      return {
-        redirect: {
-          destination: '/account/login-register?redirect=/account/my-details',
-          permanent: false,
-        },
-      };
-    }
+    });
+  } catch {
+    const props = addApolloState(client, { props: {} });
     return {
-      props: {
-        error: true,
+      props,
+      redirect: {
+        destination: '/account/login-register?redirect=/account/my-details',
+        permanent: false,
       },
     };
   }

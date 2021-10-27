@@ -271,9 +271,3 @@ export const getMetadataForPagination = (
         : canonicalUrl,
   };
 };
-
-export const PRIVATE_ROUTES = [
-  '/account/my-details',
-  '/account/my-orders',
-  '/account/my-quotes',
-];

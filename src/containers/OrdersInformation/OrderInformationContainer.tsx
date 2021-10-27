@@ -32,7 +32,6 @@ const OrderInformationContainer: React.FC<IProps> = ({
   useEffect(() => {
     saveOrders(orders, quotes);
   }, [orders, quotes]);
-
   return (
     <div className="row:bg-light">
       <div className="row:cards-3col">
