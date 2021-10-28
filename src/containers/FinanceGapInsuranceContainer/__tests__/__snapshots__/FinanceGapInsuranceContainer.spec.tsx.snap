@@ -423,6 +423,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   data-testid="goldrush-form_full-name"
                   id="goldrush-form_full-name"
                   name="fullName"
+                  placeholder=""
                   type="text"
                 />
               </div>
@@ -448,6 +449,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   data-testid="goldrush-form_email"
                   id="goldrush-form_email"
                   name="email"
+                  placeholder=""
                   type="text"
                 />
               </div>
@@ -473,6 +475,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   data-testid="goldrush-form_phone-number"
                   id="goldrush-form_phone-number"
                   name="phoneNumber"
+                  placeholder=""
                   type="text"
                 />
               </div>
@@ -498,6 +501,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   data-testid="goldrush-form_postcode"
                   id="goldrush-form_postcode"
                   name="postcode"
+                  placeholder=""
                   type="text"
                 />
               </div>
