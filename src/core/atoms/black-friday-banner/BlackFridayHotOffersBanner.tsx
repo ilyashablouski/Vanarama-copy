@@ -11,14 +11,34 @@ import EarRightIcon from 'core/assets/icons/black-friday/EarRightLarge';
 import { IBaseProps } from 'core/interfaces/base';
 
 const BASE_IMAGE_URL = '/Assets/images/black-friday';
+export const BANNER_VARIANTS = {
+  cars: {
+    vehicleImageName: `car.png`,
+    classNameMod: '-cars-hub',
+  },
+  vans: {
+    vehicleImageName: `van.png`,
+    classNameMod: '-vans-hub',
+  },
+  pickups: {
+    vehicleImageName: `pickup.png`,
+    classNameMod: '-pickups-hub',
+  },
+  electric: {
+    vehicleImageName: `car.png`,
+    classNameMod: '-electric-hub',
+  },
+};
 
 interface IProps extends IBaseProps {
-  variant: string;
+  variant: keyof typeof BANNER_VARIANTS;
 }
 
-const BlackFridayHotOffersBanner = ({ className, variant }: IProps) => {
+const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
+  const { classNameMod, vehicleImageName } = BANNER_VARIANTS[variant];
+
   return (
-    <div className={cx('bf-banner bf-banner--hot-offers', className)}>
+    <div className={cx('bf-banner bf-banner--hot-offers', classNameMod)}>
       <Icon
         className="bf-banner__ear"
         icon={<EarLeftIcon />}
@@ -27,7 +47,7 @@ const BlackFridayHotOffersBanner = ({ className, variant }: IProps) => {
       <div className="bf-banner__inner">
         <div className="bf-banner__container">
           <div className="bf-banner__car -vehicle">
-            <img src={`${BASE_IMAGE_URL}/car.png`} alt="" />
+            <img src={`${BASE_IMAGE_URL}/${vehicleImageName}`} alt="" />
           </div>
           <div className="bf-banner__car -light">
             <img src={`${BASE_IMAGE_URL}/light.png`} alt="" />

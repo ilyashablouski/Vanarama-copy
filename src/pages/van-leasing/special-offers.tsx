@@ -26,7 +26,6 @@ import {
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
-import { VehiclesTypeEnum } from '../../../entities/global';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -106,7 +105,7 @@ export const VanOffers: NextPage<IProps> = ({
           </Text>
         </div>
         {isBlackFridayCampaignEnabled() && (
-          <BlackFridayHotOffersBanner variant={VehiclesTypeEnum.VANS} />
+          <BlackFridayHotOffersBanner variant="vans" />
         )}
       </section>
 

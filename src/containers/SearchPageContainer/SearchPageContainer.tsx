@@ -83,7 +83,6 @@ import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageMarkdown from './SearchPageMarkdown';
 import RelatedCarousel from './RelatedCarousel';
-import { VehiclesTypeEnum } from '../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -942,10 +941,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     ],
   );
 
-  const blackFridayBannerVariant = isPickups
-    ? VehiclesTypeEnum.PICKUPS
-    : VehiclesTypeEnum.CARS;
-
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
@@ -976,7 +971,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           />
         </div>
         {isBlackFridayCampaignEnabled() && (
-          <BlackFridayHotOffersBanner variant={blackFridayBannerVariant} />
+          <BlackFridayHotOffersBanner
+            variant={isPickups ? 'pickups' : 'cars'}
+          />
         )}
       </section>
       {pageData && isModelPage && (
