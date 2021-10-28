@@ -328,7 +328,6 @@ export const isCookieBarFeatureEnabled = () => {
 };
 
 const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
-
 export const isBlackFridayCampaignEnabled = () => {
   const currentTime = Date.now();
 
