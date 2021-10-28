@@ -1,20 +1,19 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
+import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import Head from '../../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
 import Skeleton from '../../../components/Skeleton';
-import TileLink from '../../../components/TileLink/TileLink';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import getTitleTag from '../../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../../utils/layout';
@@ -25,9 +24,7 @@ import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
-  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../../generated/GenericPageQuery';
-import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import VehicleCard from '../../../components/VehicleCard';
 import HeadingSection from '../../../components/HeadingSection';
 import {
@@ -49,9 +46,6 @@ const RouterLink = dynamic(() =>
 );
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
 });
 
 interface IProps extends IEvOffersData {
@@ -75,6 +69,9 @@ const ECarsPage: NextPage<IProps> = ({
   const titleTagText = sections?.leadText?.titleTag;
   const headerText = sections?.leadText?.heading;
   const descriptionText = sections?.leadText?.description;
+  const tiles = data?.genericPage.sections?.tiles?.tiles;
+  const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
 
   useEffect(() => {
     const newFeaturesArray = getFeaturedSectionsAsArray(sections);
@@ -236,44 +233,6 @@ const ECarsPage: NextPage<IProps> = ({
     </section>
   );
 
-  const WhyLeaseWithVanarama = () => (
-    <section className="row:features-4col">
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              sections?.tiles?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {sections?.tiles?.tilesTitle}
-        </Heading>
-        {sections?.tiles?.tiles?.map((tile: TileData, index) => (
-          <div key={tile.title || index}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <TileLink tile={tile} />
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
-      </LazyLoadComponent>
-    </section>
-  );
-
   const TrustPilotBanner = () => (
     <section className="row:trustpilot">
       <TrustPilot />
@@ -300,7 +259,13 @@ const ECarsPage: NextPage<IProps> = ({
           video={video}
         />
       ))}
-      <WhyLeaseWithVanarama />
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
       <NationalLeagueBanner />
       <FeaturedOnBanner />
       <TrustPilotBanner />

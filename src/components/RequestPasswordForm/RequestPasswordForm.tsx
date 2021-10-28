@@ -32,7 +32,8 @@ const RequestPasswordForm = ({
     >
       {error && (
         <FormError dataTestId="login-form_error">
-          Sorry we do not recognise this email address
+          Sorry we do not recognise this email address. Please check and try
+          again.
         </FormError>
       )}
       <Formgroup

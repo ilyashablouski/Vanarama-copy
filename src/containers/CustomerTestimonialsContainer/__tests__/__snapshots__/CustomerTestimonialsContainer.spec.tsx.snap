@@ -280,10 +280,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
     <div
       class="row:bg-lighter"
     >
-      <div
+      <section
         class="row:features-4col"
       >
-        <h2
+        <p
           class="heading -black -large"
         />
         <div>
@@ -297,7 +297,6 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 class="image -large -round -inline"
               >
                 <img
-                  alt="redundancy-life-event-cover"
                   class="image--native"
                   data-cfasync="false"
                   loading="eager"
@@ -334,7 +333,6 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 class="image -large -round -inline"
               >
                 <img
-                  alt="Vanarama-Price-Promise-Icon"
                   class="image--native"
                   data-cfasync="false"
                   loading="eager"
@@ -371,7 +369,6 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 class="image -large -round -inline"
               >
                 <img
-                  alt="Insurance-Icon"
                   class="image--native"
                   data-cfasync="false"
                   loading="eager"
@@ -397,7 +394,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
             </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
     <section
       class="row:featured-right"

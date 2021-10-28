@@ -9,7 +9,9 @@ import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import TrustPilot from 'core/molecules/trustpilot';
 import useLeaseType from '../../hooks/useLeaseType';
-import FeaturedOnSection from '../../components/FeaturedOnBanner';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import FeaturedOnBanner from '../../components/FeaturedOnBanner';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { evOffersRequest, IEvOffersData } from '../../utils/offers';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -17,7 +19,6 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
-  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import {
@@ -27,11 +28,9 @@ import {
   HeroPrompt,
 } from '../../components/Hero';
 import getTitleTag from '../../utils/getTitleTag';
-import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
@@ -49,9 +48,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
 });
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -161,6 +157,9 @@ export const EVHubPage: NextPage<IProps> = ({
   const titleTagText = sections?.leadText?.titleTag;
   const headerText = sections?.leadText?.heading;
   const descriptionText = sections?.leadText?.description;
+  const tiles = data?.genericPage.sections?.tiles?.tiles;
+  const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
 
   return (
     <>
@@ -324,45 +323,17 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection {...sections?.featured2} />
       <FeaturedSection {...sections?.featured3} />
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.tiles?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.tiles?.tilesTitle}
-          </Heading>
-          {sections?.tiles?.tiles?.map((tile: TileData, index) => (
-            <div key={tile.title || index}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <TileLink tile={tile} />
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ))}
-        </LazyLoadComponent>
-      </section>
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
 
       <NationalLeagueBanner />
 
-      <FeaturedOnSection />
+      <FeaturedOnBanner />
 
       <section className="row:trustpilot">
         <TrustPilot />

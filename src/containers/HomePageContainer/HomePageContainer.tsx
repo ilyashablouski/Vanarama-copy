@@ -8,7 +8,6 @@ import TrustPilot from 'core/molecules/trustpilot';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
-  HomePageData_homePage_sections_tiles_tiles as TileData,
   HomePageData_homePage_sections_cards_cards as CardData,
   HomePageData_homePage_sections_featured1_iconList as IIconList,
 } from '../../../generated/HomePageData';
@@ -17,12 +16,12 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
-import TileLink from '../../components/TileLink/TileLink';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -45,9 +44,6 @@ const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
   loading: () => <Skeleton count={1} />,
 });
 const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
 const IconList = dynamic(() => import('core/organisms/icon-list'), {
@@ -101,6 +97,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
   const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
   const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
+  const tiles = data?.homePage.sections?.tiles?.tiles;
+  const tilesTitle = data?.homePage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.homePage.sections?.tiles?.titleTag;
 
   return (
     <>
@@ -478,51 +477,12 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </section>
       )}
 
-      {data?.homePage && (
-        <section className="row:features-4col">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <Heading
-              size="large"
-              color="black"
-              tag={
-                getTitleTag(
-                  getSectionsData(
-                    ['tiles', 'titleTag'],
-                    data?.homePage?.sections,
-                  ) || 'p',
-                ) as keyof JSX.IntrinsicElements
-              }
-            >
-              {getSectionsData(
-                ['tiles', 'tilesTitle'],
-                data?.homePage?.sections,
-              )}
-            </Heading>
-            {(getSectionsData(
-              ['tiles', 'tiles'],
-              data?.homePage?.sections,
-            ) as TileData[])?.map((tile: TileData, index) => (
-              <div key={tile.title || index}>
-                <Tile className="-plain -button -align-center" plain>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      inline
-                      round
-                      size="large"
-                      src={
-                        tile.image?.file?.url ||
-                        ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                      }
-                    />
-                  </div>
-                  <TileLink tile={tile} />
-                  <Text tag="p">{tile.body}</Text>
-                </Tile>
-              </div>
-            ))}
-          </LazyLoadComponent>
-        </section>
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
       )}
 
       <NationalLeagueBanner />

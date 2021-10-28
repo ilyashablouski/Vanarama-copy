@@ -28,11 +28,11 @@ import {
   HubCarPageData,
   HubCarPageDataVariables,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
-  HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
 import Hero, { HeroPrompt } from '../../components/Hero';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -40,7 +40,6 @@ import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
-import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
@@ -63,9 +62,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
 });
 const Step = dynamic(() => import('core/molecules/step'), {
   loading: () => <Skeleton count={3} />,
@@ -107,6 +103,9 @@ export const CarsPage: NextPage<IProps> = ({
   const titleTagText = data?.hubCarPage.sections?.leadText?.titleTag;
   const headerText = data?.hubCarPage.sections?.leadText?.heading;
   const descriptionText = data?.hubCarPage.sections?.leadText?.description;
+  const tiles = data?.hubCarPage.sections?.tiles?.tiles;
+  const tilesTitle = data?.hubCarPage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.hubCarPage.sections?.tiles?.titleTag;
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(
@@ -519,43 +518,13 @@ export const CarsPage: NextPage<IProps> = ({
         </div>
       </section>
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                data?.hubCarPage.sections?.tiles?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {data && data?.hubCarPage.sections?.tiles?.tilesTitle}
-          </Heading>
-          {data?.hubCarPage.sections?.tiles?.tiles?.map(
-            (tile: TileData, index) => (
-              <div key={tile.title || index}>
-                <Tile className="-plain -button -align-center" plain>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      inline
-                      round
-                      size="large"
-                      src={
-                        tile.image?.file?.url ||
-                        'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                      }
-                    />
-                  </div>
-                  <TileLink tile={tile} />
-                  <Text tag="p">{tile.body}</Text>
-                </Tile>
-              </div>
-            ),
-          )}
-        </LazyLoadComponent>
-      </section>
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
 
       <NationalLeagueBanner />
 
