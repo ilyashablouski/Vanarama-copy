@@ -131,7 +131,7 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = initializeApollo(undefined, context);
+  const client = initializeApollo(undefined, context, true);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
       return {
