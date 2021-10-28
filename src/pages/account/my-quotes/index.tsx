@@ -13,14 +13,14 @@ import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 
 interface IProps {
-  orders: GetMyOrders;
+  quotes: GetMyOrders;
   person: GetPerson_getPerson;
   partyUuid: string[];
 }
 
-const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
+const MyOrdersPage: NextPage<IProps> = ({ quotes, person, partyUuid }) => {
   return (
-    <MyOverview quote orders={orders} person={person} partyUuid={partyUuid} />
+    <MyOverview quote dataArr={quotes} person={person} partyUuid={partyUuid} />
   );
 };
 
@@ -52,7 +52,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       (companies: CompaniesByPersonUuid) => companies.partyUuid,
     );
 
-    const { data: orders } = await client.query({
+    const { data: quotes } = await client.query({
       query: GET_MY_ORDERS_DATA,
       variables: {
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
@@ -62,7 +62,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
 
     return addApolloState(client, {
       props: {
-        orders,
+        quotes,
         person: data.getPerson,
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
       },

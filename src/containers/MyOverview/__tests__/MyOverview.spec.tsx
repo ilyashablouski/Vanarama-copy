@@ -155,7 +155,7 @@ describe('<MyOverview />', () => {
             quote
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
-            orders={mockOrdersValue as GetMyOrders}
+            dataArr={mockOrdersValue as GetMyOrders}
           />,
         )
         .toJSON();
@@ -179,7 +179,7 @@ describe('<MyOverview />', () => {
             quote={false}
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
-            orders={mockOrdersValue as GetMyOrders}
+            dataArr={mockOrdersValue as GetMyOrders}
           />,
         )
         .toJSON();
@@ -205,7 +205,7 @@ describe('<MyOverview />', () => {
             quote
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
-            orders={mockOrdersValue as GetMyOrders}
+            dataArr={mockOrdersValue as GetMyOrders}
           />,
         )
         .toJSON();
@@ -231,7 +231,7 @@ describe('<MyOverview />', () => {
             quote={false}
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
-            orders={{ myOrders: [] } as GetMyOrders}
+            dataArr={{ myOrders: [] } as GetMyOrders}
           />,
         )
         .toJSON();

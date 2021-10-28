@@ -64,7 +64,7 @@ const OrderCard = dynamic(
 );
 
 interface IMyOverviewProps {
-  orders: GetMyOrders;
+  dataArr: GetMyOrders;
   quote: boolean;
   person: Person;
   partyUuid: string[];
@@ -172,13 +172,13 @@ const mapTabIndexToOrderType = (value: React.SetStateAction<number>) => {
 };
 
 const MyOverview: React.FC<IMyOverviewProps> = ({
-  orders: ordersForFirstRender,
+  dataArr: dataArrForFirstRender,
   quote,
   person,
   partyUuid,
 }) => {
   const router = useRouter();
-  const [orders, setOrders] = useState(ordersForFirstRender);
+  const [dataArr, setDataArr] = useState(dataArrForFirstRender);
 
   const client = useApolloClient();
   const { setCachedLastStep } = useProgressHistory();
@@ -201,7 +201,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     quote,
   ]);
 
-  const onCompletedGetOrders = (data: GetMyOrders) => setOrders(data);
+  const onCompletedGetOrders = (data: GetMyOrders) => setDataArr(data);
 
   // call query for get Orders when user change orders type (all/completed/in progress)
   const [getOrders, { loading }] = useMyOrdersData(
@@ -211,7 +211,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   );
 
   // collect car and lcv capId from orders
-  const capIdArrayData = getCapIdsFromMyOrders(orders);
+  const capIdArrayData = getCapIdsFromMyOrders(dataArr);
 
   // call query for get DerivativesData
   const getCarsDerivative = useImperativeQuery<
@@ -241,8 +241,8 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   ]);
 
   useEffect(() => {
-    if (orders && !initData) {
-      setInitData(orders);
+    if (dataArr && !initData) {
+      setInitData(dataArr);
     }
   });
 
@@ -258,10 +258,10 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   // create array with number of page for pagination
   const pages = useMemo(
     () =>
-      Array(countPages(orders))
+      Array(countPages(dataArr))
         .fill(0)
         .map((_, i) => i + 1),
-    [orders],
+    [dataArr],
   );
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
@@ -328,7 +328,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
 
-    const sortedOffers = orders.myOrders
+    const sortedOffers = dataArr.myOrders
       .slice()
       .sort((a, b) => sortOrders(a, b, sortOrder.type));
 
@@ -412,7 +412,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
           My {quote ? 'Quotes' : 'Orders'}
         </Heading>
       </div>
-      {!orders?.myOrders?.length && !loading ? (
+      {!dataArr?.myOrders?.length && !loading ? (
         <div
           className="dpd-content"
           style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
@@ -434,10 +434,10 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
             {loading ? (
               <Loading size="large" />
             ) : (
-              orders?.myOrders?.length && (
+              dataArr?.myOrders?.length && (
                 <>
                   <Text tag="span" color="darker" size="regular">
-                    Showing {orders?.myOrders?.length} Orders
+                    Showing {dataArr?.myOrders?.length} Orders
                   </Text>
                   <Select
                     value={`${sortOrder.type}_${sortOrder.direction}`}

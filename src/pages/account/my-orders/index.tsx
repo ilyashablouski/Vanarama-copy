@@ -22,7 +22,7 @@ const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
   return (
     <MyOverview
       quote={false}
-      orders={orders}
+      dataArr={orders}
       person={person}
       partyUuid={partyUuid}
     />
