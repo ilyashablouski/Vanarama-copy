@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -15,7 +15,6 @@ import {
   HubVanPageDataVariables,
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
-  HubVanPageData_hubVanPage_sections_tiles_tiles as TileData,
 } from '../../../generated/HubVanPageData';
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
@@ -29,7 +28,6 @@ import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getCardsName, getSectionsData } from '../../utils/getSectionsData';
-import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
@@ -47,13 +45,17 @@ import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import ErrorPage from '../_error';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isBlackFridayCampaignEnabled,
+} from '../../utils/helpers';
 import { IErrorProps } from '../../types/common';
 
 const ArrowForwardSharp = dynamic(
@@ -68,15 +70,15 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
 const Step = dynamic(() => import('core/molecules/step'), {
   loading: () => <Skeleton count={3} />,
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
 });
+const HeroBlackFriday = dynamic(() =>
+  import('../../components/Hero/HeroBlackFriday'),
+);
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
@@ -132,6 +134,9 @@ export const VansPage: NextPage<IProps> = ({
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
     offer?.capId,
   );
+  const tiles = data?.hubVanPage.sections?.tiles?.tiles;
+  const tilesTitle = data?.hubVanPage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.hubVanPage.sections?.tiles?.titleTag;
 
   const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
@@ -145,43 +150,48 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.hubVanPage.sections,
-              ) ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-            }
-          />
-        </div>
-        {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-            }
-            text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isBlackFridayCampaignEnabled() ? (
+        <HeroBlackFriday searchPodVansData={searchPodVansData} variant="vans" />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                getSectionsData(
+                  ['hero', 'image', 'file', 'url'],
+                  data?.hubVanPage.sections,
+                ) ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+              }
+            />
+          </div>
+          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
+                ''
+              }
+              url={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+              }
+              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -635,50 +645,14 @@ export const VansPage: NextPage<IProps> = ({
       </section>
 
       <hr className="fullWidth" />
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                getSectionsData(
-                  ['tiles', 'titleTag'],
-                  data?.hubVanPage.sections,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {getSectionsData(
-              ['tiles', 'tilesTitle'],
-              data?.hubVanPage.sections,
-            )}
-          </Heading>
-          {(getSectionsData(
-            ['tiles', 'tiles'],
-            data?.hubVanPage.sections,
-          ) as TileData[])?.map((tile: TileData, index) => (
-            <div key={tile.title || index}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <TileLink tile={tile} />
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ))}
-        </LazyLoadComponent>
-      </section>
+
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
 
       <section className="row:manufacturer-grid">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
