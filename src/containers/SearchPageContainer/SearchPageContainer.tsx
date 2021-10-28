@@ -967,7 +967,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           <CommonDescriptionContainer
             pageData={pageData}
             customDescription={partnershipDescription}
-            className="-mt-300"
           />
         </div>
         {isBlackFridayCampaignEnabled() && (

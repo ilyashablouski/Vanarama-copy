@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 
-const EarLeftIcon: FC = memo(() => (
+const EarLeftLargeIcon: FC = memo(() => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="80"
@@ -17,4 +17,4 @@ const EarLeftIcon: FC = memo(() => (
   </svg>
 ));
 
-export default EarLeftIcon;
+export default EarLeftLargeIcon;

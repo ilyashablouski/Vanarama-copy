@@ -2,8 +2,6 @@ import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
 
-import { IBaseProps } from 'core/interfaces/base';
-
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
@@ -15,7 +13,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface IProps extends IBaseProps {
+interface IProps {
   pageData?: GenericPageQuery;
   customDescription?: string;
 }
