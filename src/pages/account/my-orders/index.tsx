@@ -10,6 +10,7 @@ import { GET_PERSON_QUERY } from '../../../containers/LoginFormContainer/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
+import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 
 interface IProps {
   orders: GetMyOrders;
@@ -50,16 +51,14 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
-    const partyUuid = [
-      partyUuidData.companiesByPersonUuid[0].partyUuid,
-      partyUuidData.companiesByPersonUuid[1].partyUuid,
-      data.getPerson.partyUuid,
-    ];
+    const partyUuids = partyUuidData.companiesByPersonUuid.map(
+      (companies: CompaniesByPersonUuid) => companies.partyUuid,
+    );
 
     const { data: orders } = await client.query({
       query: GET_MY_ORDERS_DATA,
       variables: {
-        partyUuid,
+        partyUuid: [...partyUuids, data.getPerson.partyUuid],
         filter: MyOrdersTypeEnum.ALL_ORDERS,
       },
     });
@@ -68,10 +67,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       props: {
         orders,
         person: data.getPerson,
-        partyUuid: [
-          partyUuidData.companiesByPersonUuid[0].partyUuid,
-          partyUuidData.companiesByPersonUuid[1].partyUuid,
-        ],
+        partyUuid: [...partyUuids, data.getPerson.partyUuid],
       },
     };
   } catch (error) {
