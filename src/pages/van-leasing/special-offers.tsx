@@ -1,20 +1,22 @@
+import React, { useMemo } from 'react';
 import { NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
-import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PreviewNextPageContext } from 'types/common';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import { Nullable, PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import {
   VanOffersPageData,
   VanOffersPageDataVariables,
-  VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets as VanIconBullet,
+  VanOffersPageData as IPageData,
+  VanOffersPageData_vanOffersPage_metaData as IMetaData,
 } from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
-import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import {
@@ -23,6 +25,8 @@ import {
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
+import { VehiclesTypeEnum } from '../../../entities/global';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -37,22 +41,28 @@ const Text = dynamic(() => import('core/atoms/text'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
+
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
   {
     loading: () => <Skeleton count={4} />,
   },
 );
+const BlackFridayHotOffersBanner = dynamic(() =>
+  import('core/atoms/black-friday-banner/BlackFridayHotOffersBanner'),
+);
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 
 interface IProps extends IVansSpecialOffersData {
-  pageData: any;
+  pageData: Nullable<IPageData>;
+  metaData: Nullable<IMetaData>;
 }
 
 export const VanOffers: NextPage<IProps> = ({
   pageData: encodedData,
+  metaData,
   productsPickup,
   productsSmallVan,
   productsMediumVan,
@@ -67,26 +77,38 @@ export const VanOffers: NextPage<IProps> = ({
   productsSpecialistDerivatives,
   vehicleListUrlData: encodeVehicleListUrlData,
 }) => {
-  const { cachedLeaseType } = useLeaseType(false);
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
 
+  const { cachedLeaseType } = useLeaseType(false);
+
   const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
-  const metaDataName = getSectionsData(
-    ['metaData', 'name'],
-    data?.vanOffersPage,
+
+  const metaDataName = metaData?.name;
+  const breadcrumbsItems = useMemo(
+    () =>
+      metaData?.breadcrumbs?.map((el: any) => ({
+        link: { href: el.href ?? '', label: el.label },
+      })),
+    [metaData],
   );
 
   return (
     <>
-      <div className="row:title">
-        <Heading color="black" size="xlarge" tag="h1">
-          {metaDataName}
-        </Heading>
-        <Text size="large" color="darker">
-          {data?.vanOffersPage.intro}
-        </Text>
-      </div>
+      <section className="row:featured-bf">
+        <div className="row:title">
+          <Breadcrumbs items={breadcrumbsItems} />
+          <Heading color="black" size="xlarge" tag="h1">
+            {metaDataName}
+          </Heading>
+          <Text size="regular" color="darker">
+            {data?.vanOffersPage.intro}
+          </Text>
+        </div>
+        {isBlackFridayCampaignEnabled() && (
+          <BlackFridayHotOffersBanner variant={VehiclesTypeEnum.VANS} />
+        )}
+      </section>
 
       {productsSmallVan?.productCarousel &&
         productsSmallVan?.productCarousel?.length > 0 && (
@@ -383,7 +405,7 @@ export const VanOffers: NextPage<IProps> = ({
           </Heading>
           <hr />
           {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
-            (item: VanIconBullet, index: number) => (
+            (item, index) => (
               <>
                 <Icon
                   key={`${item?.text || index}-icon`}
@@ -493,6 +515,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     return {
       props: {
         pageData: encodeData(data),
+        metaData: data?.vanOffersPage?.metaData || null,
         productsPickup: productsPickup || null,
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,

@@ -8,6 +8,7 @@ import Heading from 'core/atoms/heading';
 import ArrowForward from 'core/assets/icons/ArrowForward';
 import RouterLink from '../../../components/RouterLink';
 
+const BASE_IMAGE_URL = '/Assets/images/black-friday';
 const OFFERS_LINK = {
   label: 'See Our Hot Offers',
   href: '/leasing-offers',
@@ -16,10 +17,10 @@ const OFFERS_LINK = {
 const BlackFridayHeroBanner = () => (
   <div className="bf-hero">
     <div className="bf-hero__car -vehicle">
-      <img src="/Assets/images/black-friday/car.png" alt="" />
+      <img src={`${BASE_IMAGE_URL}/car.png`} alt="" />
     </div>
     <div className="bf-hero__car -light">
-      <img src="/Assets/images/black-friday/light.png" alt="" />
+      <img src={`${BASE_IMAGE_URL}/light.png`} alt="" />
     </div>
     <div className="bf-hero__badge">
       <Image
