@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { PreviewNextPageContext } from 'types/common';
@@ -21,7 +21,6 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
   GenericPageQuery_genericPage_sections_hero as IHero,
-  GenericPageQuery_genericPage_sections_tiles_tiles as ITileData,
 } from '../../../generated/GenericPageQuery';
 import {
   PageCollection,
@@ -34,6 +33,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { HeroBackground as Hero } from '../../components/Hero';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -58,9 +58,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={1} />,
 });
 const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={1} />,
 });
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
@@ -98,7 +95,6 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
   const hero: IHero = getSectionsData(['sections', 'hero'], data.genericPage);
   const leadText = getSectionsData(['sections', 'leadText'], data.genericPage);
   const featured = getSectionsData(['sections', 'featured1'], data.genericPage);
-  const tiles = getSectionsData(['sections', 'tiles'], data.genericPage);
   const featured1 = getSectionsData(
     ['sections', 'featured2'],
     data.genericPage,
@@ -108,6 +104,9 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
+  const tiles = data?.genericPage.sections?.tiles?.tiles;
+  const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
+  const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
 
   return (
     <>
@@ -271,55 +270,11 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
         </div>
       )}
       {tiles && (
-        <section className="row:features-4col">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(tiles.titleTag || 'p') as keyof JSX.IntrinsicElements
-            }
-          >
-            {data && tiles.tilesTitle}
-          </Heading>
-          {tiles.tiles?.map((tile: ITileData, index: number) => (
-            <div key={tile.title || index}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                {tile.link ? (
-                  <RouterLink
-                    link={{
-                      href: tile.link.legacyUrl || tile.link.url || '#',
-                      label: '',
-                    }}
-                    className="tile--link"
-                  >
-                    <Heading tag="span" size="regular" color="black">
-                      {tile.title}
-                    </Heading>
-                  </RouterLink>
-                ) : (
-                  <span className="tile--link">
-                    <Heading tag="span" size="regular" color="black">
-                      {tile.title}
-                    </Heading>
-                  </span>
-                )}
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ))}
-        </section>
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
       )}
       {featured1 && (
         <div className="row:text -columns">

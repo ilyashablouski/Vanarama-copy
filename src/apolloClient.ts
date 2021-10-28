@@ -4,6 +4,7 @@ import {
   ApolloLink,
   InMemoryCache,
   HttpLink,
+  NormalizedCacheObject,
 } from '@apollo/client';
 // import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -14,13 +15,21 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
+import merge from 'deepmerge';
+
+import isEqual from 'lodash.isequal';
 import { getAdditionalDataVariable } from './utils/helpers';
 import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
+import { GET_SSR_AUTH_STATUS } from './gql/session';
+import { isServer } from './utils/deviceType';
 
-const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
+export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
+let apolloClient: ApolloClient<NormalizedCacheObject>;
+
+export const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
 // const QUERIES_WITHOUT_CDN_CACHING = [
 //   'GetLeaseCompanyData',
@@ -45,15 +54,32 @@ const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 //   'MyAccount',
 // ];
 
-const httpLink = new HttpLink({
-  uri: process.env.API_URL!,
-  fetch,
-  credentials: 'include',
-  headers: {
-    'x-api-key': process.env.API_KEY!,
-  },
-  useGETForQueries: false,
-});
+const createEnhancedFetch = (cookie: string) => {
+  const enhancedFetch = (url: RequestInfo, init: RequestInit) => {
+    return fetch(url, {
+      ...init,
+      headers: {
+        ...init.headers,
+        Cookie: cookie,
+      },
+    }).then(response => response);
+  };
+
+  return enhancedFetch;
+};
+
+const httpLink = (cookie: string) => {
+  const enhancedFetch = createEnhancedFetch(cookie);
+  return new HttpLink({
+    uri: process.env.API_URL!,
+    fetch: enhancedFetch,
+    credentials: 'include',
+    headers: {
+      'x-api-key': process.env.API_KEY!,
+    },
+    useGETForQueries: false,
+  });
+};
 
 // const persistedQueryLink = new ApolloLink((operation, forward) => {
 //   return forward(operation);
@@ -130,10 +156,18 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
         { sensitivity: 'base' },
       ) === 0,
   );
+  // handle unauthorised on SSR side
+  if (authorizationError && typeof window === 'undefined') {
+    operation.getContext().cache.writeQuery({
+      query: GET_SSR_AUTH_STATUS,
+      data: {
+        isSSRAuthError: true,
+      },
+    });
+    return forward(operation);
+  }
 
-  // handle only auth errors and
-  // avoid error handling on server
-  // because of functionality that only can be called on client
+  // skip others errors
   if (!authorizationError || typeof window === 'undefined') {
     return forward(operation);
   }
@@ -143,13 +177,25 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   localforage.clear().finally(() => {
     const currentPath = Router.router?.asPath || '/';
     const isOlaf = currentPath.includes('/olaf/');
-
-    if (!isOlaf) {
+    const ssrAuthStatus = operation
+      .getContext()
+      .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
+    // don't make client redirect if ssr unauthorised error happened
+    if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
       // redirect to login-register from private pages except olaf
       Router.replace(
         `/account/login-register?redirect=${currentPath}`,
         '/account/login-register',
       );
+    }
+    // clear SSR authentication variable
+    if (ssrAuthStatus?.isSSRAuthError) {
+      operation.getContext().cache.writeQuery({
+        query: GET_SSR_AUTH_STATUS,
+        data: {
+          isSSRAuthError: false,
+        },
+      });
     }
 
     isSessionFinishedCache(true);
@@ -264,7 +310,7 @@ const attachedAdditionalDataLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-function apolloClientLink() {
+function apolloClientLink(cookie: string) {
   const links = [
     logLink,
     errorLink,
@@ -273,7 +319,7 @@ function apolloClientLink() {
     // persistedQueryLink,
     creditApplicationQueryValidationLink,
     attachedAdditionalDataLink,
-    httpLink,
+    httpLink(cookie),
   ];
 
   // NOTE: Type 'RetryLink' is missing the following properties from type 'ApolloLink': onError, setOnError
@@ -284,11 +330,12 @@ export default function createApolloClient(
   initialState: any,
   ctx?: NextPageContext,
 ) {
+  const cookie = ctx?.req?.headers.cookie || '';
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
-    ssrMode: Boolean(ctx),
-    link: apolloClientLink(),
+    ssrMode: isServer(),
+    link: apolloClientLink(cookie),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     resolvers,
     cache: new InMemoryCache({
@@ -315,6 +362,82 @@ export default function createApolloClient(
           keyFields: ['companyNumber'],
         },
       },
-    }).restore(initialState),
+    }),
   });
 }
+
+/**
+ * @param initialState - Apollo Cache State
+ * @param ctx - Next.JS context
+ * @param forceCreateClient - set to true for force create new Apollo client
+ * */
+export function initializeApollo(
+  initialState?: NormalizedCacheObject,
+  ctx?: NextPageContext,
+  forceCreateClient?: boolean,
+) {
+  const initializedApolloClient = !forceCreateClient
+    ? apolloClient ?? createApolloClient(initialState, ctx)
+    : createApolloClient(initialState, ctx);
+  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
+  // gets hydrated here
+  if (initialState) {
+    // Get existing cache, loaded during client side data fetching
+    const existingCache = initializedApolloClient.cache.extract();
+
+    // Merge the existing cache into data passed from getStaticProps/getServerSideProps
+    const data = merge(initialState, existingCache, {
+      // combine arrays using object equality (like in sets)
+      arrayMerge: (destinationArray, sourceArray) => [
+        ...sourceArray,
+        ...destinationArray.filter(destination =>
+          sourceArray.every(source => {
+            return !isEqual(destination, source);
+          }),
+        ),
+      ],
+    });
+    // Restore the cache with the merged data
+    initializedApolloClient.restore(data);
+  }
+  if (!apolloClient) {
+    apolloClient = initializedApolloClient;
+  }
+
+  return initializedApolloClient;
+}
+
+interface IPageProps<T> {
+  props: T;
+}
+
+type TApolloCache = {
+  [APOLLO_STATE_PROP_NAME]?: NormalizedCacheObject;
+};
+
+type TPropsWithApolloCache<T extends TApolloCache> = {
+  [Property in keyof T]: T[Property];
+};
+
+interface IPropsWithApolloCache<T> {
+  props: TPropsWithApolloCache<T>;
+}
+
+export const addApolloState = <T>(
+  client: ApolloClient<NormalizedCacheObject>,
+  pageProps: IPageProps<T>,
+): IPropsWithApolloCache<T> => {
+  let pagePropsTemp;
+  if (pageProps?.props) {
+    pagePropsTemp = {
+      props: {
+        ...pageProps.props,
+        [APOLLO_STATE_PROP_NAME]: client.cache.extract(),
+      },
+    };
+  }
+  return pagePropsTemp || pageProps;
+};
+
+export const useApollo = (apolloCache?: NormalizedCacheObject) =>
+  initializeApollo(apolloCache);
