@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import {
   LoginUserMutation as Mutation,
   LoginUserMutationVariables as MutationVariables,
@@ -62,4 +62,8 @@ export const GET_PERSON_QUERY = gql`
 
 export function usePersonImperativeQuery() {
   return useImperativeQuery<GetPerson>(GET_PERSON_QUERY);
+}
+
+export function useAuthReset() {
+  return useLazyQuery<GetPerson>(GET_PERSON_QUERY);
 }
