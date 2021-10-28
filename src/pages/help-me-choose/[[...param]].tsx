@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
+import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
 import withApollo from '../../hocs/withApollo';
 import { HELP_ME_CHOOSE } from '../../gql/help-me-choose';
 import { FilterListObject } from '../../../generated/globalTypes';
@@ -26,6 +27,7 @@ import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeCho
 import Skeleton from '../../components/Skeleton';
 import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
 import Head from '../../components/Head/Head';
+import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -230,6 +232,12 @@ const HelpMeChoose: NextPage = () => {
         <Loading size="large" />
       ) : (
         <>
+          {isBlackFridayCampaignEnabled() && (
+            <BlackFridayBanner
+              className="bf-banner--hmc"
+              rightText="On every vehicle"
+            />
+          )}
           <HelpMeChooseProgressIndicator
             steps={steps}
             setSteps={setSteps}

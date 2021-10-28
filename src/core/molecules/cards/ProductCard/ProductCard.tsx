@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-
+import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
 import { ICardProps } from '../interfaces';
 import Card from '..';
 import CardIcons, { TIcon } from '../CardIcons';
@@ -7,6 +7,7 @@ import Button from '../../../atoms/button';
 import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 import Heart from '../../../assets/icons/Heart';
+import { isBlackFridayCampaignEnabled } from '../../../../utils/helpers';
 
 export interface IProductCardProps extends ICardProps {
   features?: TIcon[];
@@ -28,6 +29,7 @@ const ProductCard: FC<IProductCardProps> = props => {
   return (
     <Card {...props}>
       {!!features?.length && <CardIcons icons={features} />}
+      {isBlackFridayCampaignEnabled() && <BlackFridayCardLabel />}
       {children}
       <div className="card-footer">
         {onCompare && (

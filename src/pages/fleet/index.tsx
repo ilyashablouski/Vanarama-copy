@@ -3,7 +3,7 @@ import React from 'react';
 import { ApolloError } from '@apollo/client';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -12,20 +12,31 @@ import { decodeData, encodeData } from '../../utils/data';
 import { convertErrorToProps } from '../../utils/helpers';
 import {
   GenericPageQuery,
+  GenericPageQuery_genericPage as IGenericPage,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import ErrorPage from '../_error';
+import { IErrorProps } from '../../types/common';
 
-const FleetPage: NextPage<IGenericPage> = ({ data }) => {
-  return <FleetLandingPage data={decodeData(data)} />;
+interface IFleetPage {
+  data: IGenericPage;
+  error?: IErrorProps;
+}
+
+const FleetPage: NextPage<IFleetPage> = ({ data, error }) => {
+  if (error || !data) {
+    return <ErrorPage errorData={error} />;
+  }
+
+  return <FleetLandingPage genericPage={decodeData(data)} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
+    const {
+      data: { genericPage },
+    } = await client.query<GenericPageQuery, GenericPageQueryVariables>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'fleet',
@@ -36,7 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        data: encodeData(data),
+        data: encodeData(genericPage),
       },
     };
   } catch (error) {
