@@ -327,9 +327,10 @@ export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
 
+const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
+
 export const isBlackFridayCampaignEnabled = () => {
   const currentTime = Date.now();
-  const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
 
   if (currentTime >= blackFridayTime) {
     return true;
