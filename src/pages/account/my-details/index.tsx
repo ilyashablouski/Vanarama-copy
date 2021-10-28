@@ -18,6 +18,7 @@ import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/My
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
+import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -173,26 +174,22 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       }),
     ]);
 
+    const partyUuids = partyUuidData.companiesByPersonUuid.map(
+      (companies: CompaniesByPersonUuid) => companies.partyUuid,
+    );
+
     const [{ data: orders }, { data: quotes }] = await Promise.all([
       client.query({
         query: GET_MY_ORDERS_DATA,
         variables: {
-          partyUuid: [
-            partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
-            partyUuidData.companiesByPersonUuid?.[1]?.partyUuid,
-            data.getPerson.partyUuid,
-          ],
+          partyUuid: [...partyUuids, data.getPerson.partyUuid],
           filter: MyOrdersTypeEnum.ALL_ORDERS,
         },
       }),
       client.query({
         query: GET_MY_ORDERS_DATA,
         variables: {
-          partyUuid: [
-            partyUuidData.companiesByPersonUuid?.[0]?.partyUuid,
-            partyUuidData.companiesByPersonUuid?.[1]?.partyUuid,
-            data.getPerson.uuid,
-          ],
+          partyUuid: [...partyUuids, data.getPerson.partyUuid],
           filter: MyOrdersTypeEnum.ALL_QUOTES,
         },
       }),
