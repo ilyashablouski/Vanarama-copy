@@ -39,34 +39,42 @@
       background: none;
     }
 
-    .hero--left {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      @include desktop {
-        align-items: flex-end;
-      }
-    }
-
     .bf-hero {
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin: 0;
 
-      @include mobile {
-        padding-top: 105px;
+      @include desktop {
+        align-items: flex-end;
+      }
+
+      &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      &__group {
+        position: relative;
+        margin-bottom: $rem-400;
+
+        @include mobile-tablet {
+          margin-bottom: 0;
+        }
+
+        @include mobile {
+          padding-top: 105px;
+        }
       }
 
       &__car {
         position: absolute;
-        top: 15%;
+        top: 50%;
         right: 110%;
         width: 438px;
         height: 230px;
+        transform: translateY(-50%);
         pointer-events: none;
         z-index: 1;
 
@@ -82,7 +90,7 @@
 
           img {
             position: absolute;
-            top: 49%;
+            top: 50%;
             left: 87%;
             transform: translateY(-50%);
             width: 100%;
@@ -96,7 +104,6 @@
         }
 
         @include tablet {
-          top: 8%;
           right: 107%;
         }
 
@@ -110,12 +117,7 @@
 
       &__badge {
         position: relative;
-        margin-bottom: 16px;
         pointer-events: none;
-
-        @include mobile-tablet {
-          margin-bottom: 0;
-        }
 
         .image {
           position: relative;
@@ -186,12 +188,13 @@
 
       &__details {
         position: relative;
+        margin: 0 auto;
         z-index: 0;
       }
 
       &__title {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: $rem-200;
         font-size: $font-size-700;
         font-weight: $font-weight-black;
         font-family: $font-family-heading;
@@ -204,13 +207,13 @@
         }
 
         @include mobile {
-          margin-bottom: 4px;
+          margin-bottom: $rem-100;
         }
       }
 
       &__text {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: $rem-200;
         font-size: 1.125rem;
         font-weight: $font-weight-light;
         font-family: $font-family-heading;
@@ -219,7 +222,7 @@
         color: $white !important;
 
         @include mobile {
-          margin-bottom: 4px;
+          margin-bottom: $rem-100;
           font-size: 1.125rem;
         }
       }
@@ -234,24 +237,67 @@
         .icon {
           display: inline-flex;
           height: auto;
-          margin-left: 10px;
+          margin-left: 0.625rem;
         }
 
         @include mobile {
           font-size: 1.125rem;
         }
       }
+
+      &__terms {
+        margin-top: $rem-400;
+        font-size: $font-size-300;
+        font-weight: $font-weight-light;
+        font-family: $font-family-heading;
+        color: $medium;
+
+        @include desktop {
+          margin-right: auto;
+        }
+      }
     }
 
-    .terms-and-conditions {
-      margin-top: 16px;
-      font-size: $font-size-300;
-      font-weight: $font-weight-light;
-      font-family: $font-family-heading;
-      color: $medium;
+    &.-vans-hub {
+      .bf-hero {
+        &__car {
+          &.-light img {
+            left: 90%;
+          }
+        }
+      }
+    }
 
-      @include desktop {
-        margin-right: auto;
+    &.-pickups-hub {
+      .bf-hero {
+        &__car {
+          &.-light img {
+            left: 93%;
+            height: 190%;
+          }
+        }
+      }
+    }
+
+    &.-electric-hub {
+      .hero--left {
+        @include tablet-desktop {
+          grid-column: content;
+        }
+      }
+
+      .bf-hero {
+        &__inner {
+          @include tablet-desktop {
+            width: 100%;
+          }
+        }
+
+        &__group {
+          @include tablet-desktop {
+            margin-left: 41%;
+          }
+        }
       }
     }
   }

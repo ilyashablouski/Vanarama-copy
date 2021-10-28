@@ -26,7 +26,7 @@ const query = gql`
 `;
 
 const variables = {
-  slug: 'careers',
+  slug: 'careers-at-vanarama',
 };
 
 const requestHeaders = {

@@ -51,7 +51,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isBlackFridayCampaignEnabled,
+} from '../../utils/helpers';
 import { IErrorProps } from '../../types/common';
 import ErrorPage from '../_error';
 
@@ -88,6 +91,9 @@ const ProductCard = dynamic(
   {
     loading: () => <Skeleton count={3} />,
   },
+);
+const HeroBlackFriday = dynamic(() =>
+  import('../../components/Hero/HeroBlackFriday'),
 );
 
 interface IProps extends IPickupsPageOffersData {
@@ -148,44 +154,52 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              data?.hubPickupPage.sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-            }
-          />
-        </div>
-        {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-              ''
-            }
-            url={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
-              ''
-            }
-            text={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
-            }
-            btnVisible={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isBlackFridayCampaignEnabled() ? (
+        <HeroBlackFriday
+          searchPodVansData={searchPodVansData}
+          variant="pickups"
+        />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+              }
+            />
+          </div>
+          {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.text || ''
+              }
+              url={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
+                ''
+              }
+              text={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
+              }
+              btnVisible={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
