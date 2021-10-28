@@ -156,7 +156,6 @@ describe('<MyOverview />', () => {
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
             orders={mockOrdersValue as GetMyOrders}
-            error={false}
           />,
         )
         .toJSON();
@@ -181,32 +180,6 @@ describe('<MyOverview />', () => {
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
             orders={mockOrdersValue as GetMyOrders}
-            error={false}
-          />,
-        )
-        .toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders correctly with error', async () => {
-    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
-    (useMyOrdersData as jest.Mock).mockReturnValue([
-      () => {},
-      { loading: false },
-    ]);
-
-    const getComponent = () => {
-      return renderer
-        .create(
-          <MyOverview
-            quote={false}
-            person={mockPersonsValue}
-            partyUuid={['partyUuid', 'partyUuid']}
-            orders={mockOrdersValue as GetMyOrders}
-            error
           />,
         )
         .toJSON();
@@ -233,7 +206,6 @@ describe('<MyOverview />', () => {
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
             orders={mockOrdersValue as GetMyOrders}
-            error={false}
           />,
         )
         .toJSON();
@@ -260,7 +232,6 @@ describe('<MyOverview />', () => {
             person={mockPersonsValue}
             partyUuid={['partyUuid', 'partyUuid']}
             orders={{ myOrders: [] } as GetMyOrders}
-            error={false}
           />,
         )
         .toJSON();

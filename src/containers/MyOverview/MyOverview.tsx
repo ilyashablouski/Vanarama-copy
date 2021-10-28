@@ -68,7 +68,6 @@ interface IMyOverviewProps {
   quote: boolean;
   person: Person;
   partyUuid: string[];
-  error: boolean;
 }
 
 const createDefaultBreadcrumbs = (isQuote?: boolean) => [
@@ -177,7 +176,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   quote,
   person,
   partyUuid,
-  error,
 }) => {
   const router = useRouter();
   const [orders, setOrders] = useState(ordersForFirstRender);
@@ -400,14 +398,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   };
 
   const metaData = useMemo(() => createDefaultMetadata(quote), [quote]);
-
-  if (error) {
-    return (
-      <Text tag="p" color="danger" size="lead">
-        Sorry, an unexpected error occurred. Please try again!
-      </Text>
-    );
-  }
 
   return (
     <>

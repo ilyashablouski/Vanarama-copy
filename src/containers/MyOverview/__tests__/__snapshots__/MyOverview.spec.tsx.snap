@@ -172,14 +172,6 @@ Array [
 ]
 `;
 
-exports[`<MyOverview /> renders correctly with error 1`] = `
-<p
-  className="text -lead -danger"
->
-  Sorry, an unexpected error occurred. Please try again!
-</p>
-`;
-
 exports[`<MyOverview /> renders correctly with loading 1`] = `
 Array [
   <div
