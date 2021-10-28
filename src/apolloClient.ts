@@ -180,7 +180,7 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
       .getContext()
       .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
     // don't make client redirect if ssr unauthorised error happened
-    if (!isOlaf && ssrAuthStatus?.isSSRAuthError) {
+    if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
       // redirect to login-register from private pages except olaf
       Router.replace(
         `/account/login-register?redirect=${currentPath}`,

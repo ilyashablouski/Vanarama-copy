@@ -187,7 +187,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
     MyOrdersTypeEnum.ALL_ORDERS,
   );
-  const [initData, setInitData] = useState<GetMyOrders>();
+  const [initData] = useState<GetMyOrders>(orders);
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
   const [sortOrder, setSortOrder] = useState({
@@ -239,12 +239,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     dataCars,
     dataCarsLCV,
   ]);
-
-  useEffect(() => {
-    if (orders && !initData) {
-      setInitData(orders);
-    }
-  });
 
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
