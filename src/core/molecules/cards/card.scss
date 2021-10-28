@@ -849,6 +849,16 @@ $small: 0.875rem;
       }
     }
   }
+
+  .text {
+    &--quotes {
+      grid-area: content !important;
+    }
+  }
+
+  &--details {
+    min-height: 112px;
+  }
 }
 
 .extras {
@@ -1036,5 +1046,10 @@ $small: 0.875rem;
     &:after {
       bottom: 0;
     }
+  }
+
+  &--deal {
+    top: -44px;
+    left: -1rem;
   }
 }
