@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import React from 'react';
-import { ApolloError } from '@apollo/client';
-import createApolloClient, { AUTHORIZATION_ERROR_CODE } from 'apolloClient';
+import { addApolloState, initializeApollo } from 'apolloClient';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
 import { PreviewNextPageContext } from '../../../types/common';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
@@ -11,6 +10,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 
 interface IProps {
   orders: GetMyOrders;
@@ -37,9 +37,18 @@ const MyOrdersPage: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = createApolloClient({}, context);
+  const client = initializeApollo(undefined, context);
 
   try {
+    if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
+      return {
+        redirect: {
+          destination: '/account/login-register?redirect=/account/my-orders',
+          permanent: false,
+        },
+      };
+    }
+
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
@@ -63,36 +72,20 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
-    return {
+    return addApolloState(client, {
       props: {
         orders,
         person: data.getPerson,
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
       },
-    };
-  } catch (error) {
-    const apolloError = error as ApolloError;
-
-    if (
-      apolloError?.graphQLErrors[0]?.extensions?.code ===
-      AUTHORIZATION_ERROR_CODE
-    ) {
-      context?.res?.setHeader('set-cookie', [
-        'ac=; path=/; Max-Age=-1',
-        'ic=; path=/; Max-Age=-1',
-        'ic_local=; path=/; Max-Age=-1',
-      ]);
-      return {
-        redirect: {
-          destination: '/account/login-register?redirect=/account/my-orders',
-          permanent: false,
-        },
-      };
-    }
-
+    });
+  } catch {
+    const props = addApolloState(client, { props: {} });
     return {
-      props: {
-        error: true,
+      props,
+      redirect: {
+        destination: '/account/login-register?redirect=/account/my-orders',
+        permanent: false,
       },
     };
   }

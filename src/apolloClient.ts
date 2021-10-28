@@ -176,11 +176,11 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   localforage.clear().finally(() => {
     const currentPath = Router.router?.asPath || '/';
     const isOlaf = currentPath.includes('/olaf/');
-    const { isSSRAuthError } = operation
+    const ssrAuthStatus = operation
       .getContext()
       .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
     // don't make client redirect if ssr unauthorised error happened
-    if (!isOlaf && !isSSRAuthError) {
+    if (!isOlaf && ssrAuthStatus?.isSSRAuthError) {
       // redirect to login-register from private pages except olaf
       Router.replace(
         `/account/login-register?redirect=${currentPath}`,
@@ -188,7 +188,7 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
       );
     }
     // clear SSR authentication variable
-    if (isSSRAuthError) {
+    if (ssrAuthStatus?.isSSRAuthError) {
       operation.getContext().cache.writeQuery({
         query: GET_SSR_AUTH_STATUS,
         data: {
