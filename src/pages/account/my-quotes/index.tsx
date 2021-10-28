@@ -12,7 +12,6 @@ const MyOrdersPage: NextPage = () => {
       orders={{} as GetMyOrders} // it will be fix in ticket 7728
       person={{} as GetPerson_getPerson} // it will be fix in ticket 7728
       partyUuid={['', '']} // it will be fix in ticket 7728
-      error={false} // it will be fix in ticket 7728
     />
   );
 };
