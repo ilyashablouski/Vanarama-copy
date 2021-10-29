@@ -1120,6 +1120,47 @@
     }
   }
 
+  &featured-bf {
+    grid-template-columns: minmax(0, 590px) 1fr;
+
+    + [class*="row\:bg-"] {
+      --page-gap: calc(var(--layout-gap) / 3);
+    }
+
+    .row\:title,
+    .bf-banner {
+      grid-column: unset;
+    }
+
+    .row\:featured-left > *,
+    .row\:featured-right > * {
+      grid-column: content / 11;
+    }
+
+    .bf-banner {
+      place-self: center stretch;
+    }
+
+    @include mobile-tablet {
+      grid-template-columns: 1fr;
+
+      .bf-banner {
+        margin-top: $rem-400;
+      }
+    }
+
+    @include mobile {
+      + [class*="row\:bg-"] {
+        margin-top: 0;
+      }
+
+      .bf-banner {
+        margin-left: -$rem-400;
+        margin-right: -$rem-400;
+      }
+    }
+  }
+
   &trustpilot {
     display: flex;
     justify-content: center;

@@ -109,7 +109,7 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       props: {
         pageData: encodeData(data),
-        metaData: data?.genericPage.metaData || null,
+        metaData: data?.genericPage?.metaData || null,
         isServer: !!context.req,
         vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
         productCardsData: productCardsData
