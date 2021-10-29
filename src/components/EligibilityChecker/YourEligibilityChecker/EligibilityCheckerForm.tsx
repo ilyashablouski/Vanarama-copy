@@ -8,7 +8,6 @@ import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 import Skeleton from '../../Skeleton';
 import AddressFormField from '../../AddressFormField/AddressFormField';
-import RouterLink from '../../RouterLink';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -149,15 +148,14 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           name="termsAndCons"
           label={[
             'I agree to the ',
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{
-                href: '/legal/terms-and-conditions',
-                label: 'Terms and Conditions',
-              }}
-            />,
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/terms-and-conditions"
+              target="_blank"
+            >
+              Terms and Conditions
+            </a>,
           ]}
           ref={register}
         />

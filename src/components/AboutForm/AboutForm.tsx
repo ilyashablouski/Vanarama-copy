@@ -15,7 +15,6 @@ import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 import { mapEmailErrorMessage } from './mapEmailErrorMessage';
 import Skeleton from '../Skeleton';
-import RouterLink from '../RouterLink';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -307,15 +306,14 @@ const AboutForm: FCWithFragments<IProps> = ({
           name="termsAndCons"
           label={[
             'I agree to the ',
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{
-                href: '/legal/terms-and-conditions',
-                label: 'Terms and Conditions',
-              }}
-            />,
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/terms-and-conditions"
+              target="_blank"
+            >
+              Terms and Conditions
+            </a>,
           ]}
           ref={register}
         />
