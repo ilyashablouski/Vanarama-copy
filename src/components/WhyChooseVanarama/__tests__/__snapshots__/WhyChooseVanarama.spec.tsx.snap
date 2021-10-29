@@ -61,7 +61,7 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
         <a
           className="link -teal -regular"
           data-testid="terms_and_conditions"
-          href="/legal/terms-and-conditions.html"
+          href="/legal/terms-and-conditions"
           onClick={[Function]}
           target="_blank"
         >
@@ -118,7 +118,7 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
         <a
           className="link -teal -regular"
           data-testid="terms_and_conditions"
-          href="/legal/terms-and-conditions.html"
+          href="/legal/terms-and-conditions"
           onClick={[Function]}
           target="_blank"
         >

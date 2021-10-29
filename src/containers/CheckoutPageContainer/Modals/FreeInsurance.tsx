@@ -25,7 +25,7 @@ const FreeInsurance = () => (
         {'*Offer available on selected models only. '}
         <RouterLink
           link={{
-            href: '/legal/terms-and-conditions.html',
+            href: '/legal/terms-and-conditions',
             label: 'Terms and conditions apply',
           }}
           classNames={{ color: 'teal' }}
