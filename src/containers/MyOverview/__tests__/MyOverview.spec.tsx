@@ -9,12 +9,15 @@ import {
 import { useStoredPersonQuery } from '../../../gql/storedPerson';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { useSaveOrderMutation } from '../../../gql/storedOrder';
+import { useSavePersonUuidMutation } from '../../../gql/storedPersonUuid';
+import { GetMyOrders } from '../../../../generated/GetMyOrders';
 
 jest.mock('../../OrdersInformation/gql');
 jest.mock('../../../gql/storedPerson');
 jest.mock('@apollo/client');
 jest.mock('../../../hooks/useImperativeQuery');
 jest.mock('../../../gql/storedOrder');
+jest.mock('../../../gql/storedPersonUuid');
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -29,85 +32,69 @@ jest.mock('next/router', () => ({
   },
 }));
 
-const mockOrdersValue = [
-  jest.fn(),
-  {
-    loading: false,
-    data: {
-      myOrders: [
+const mockOrdersValue = {
+  myOrders: [
+    {
+      uuid: '1',
+      leaseType: LeaseTypeEnum.PERSONAL,
+      createdAt: '2020-06-16T07:40:49.880Z',
+      lineItems: [
         {
-          id: 'id',
-          leaseType: LeaseTypeEnum.PERSONAL,
-          createdAt: new Date(1592293249880),
-          lineItems: [
-            {
-              vehicleProduct: {
-                derivativeCapId: 'derivativeCapId',
-                description: 'description',
-                depositPayment: 100,
-                monthlyPayment: 100,
-                term: 36,
-                annualMileage: 100,
-                depositMonths: 100,
-                funderId: 'test funder',
-                funderData: 'test funder',
-                colour: 'colour',
-                trim: 'trim',
-                maintenance: false,
-              },
-            },
-          ],
-        },
-        {
-          id: 'id1',
-          leaseType: LeaseTypeEnum.BUSINESS,
-          createdAt: new Date(1592293240000),
-          lineItems: [
-            {
-              vehicleProduct: {
-                derivativeCapId: 'derivativeCapId1',
-                description: 'description1',
-                depositPayment: 100,
-                monthlyPayment: 100,
-                term: 36,
-                annualMileage: 100,
-                depositMonths: 100,
-                funderId: 'test funder1',
-                funderData: 'test funder1',
-                colour: 'colour',
-                trim: 'trim',
-                maintenance: false,
-              },
-            },
-          ],
+          vehicleProduct: {
+            derivativeCapId: 'derivativeCapId',
+            description: 'description',
+            depositPayment: 100,
+            monthlyPayment: 100,
+            term: 36,
+            annualMileage: 100,
+            depositMonths: 100,
+            funderId: 'test funder',
+            funderData: {},
+            colour: 'colour',
+            trim: 'trim',
+            maintenance: false,
+          },
         },
       ],
     },
-    error: undefined,
-  },
-];
-
-const mockPersonsValue = [
-  jest.fn(),
-  {
-    loading: false,
-    data: {
-      storedPerson: {
-        uuid: 'uuid',
-        firstName: 'firstName',
-        lastName: 'lastName',
-        partyUuid: 'partyUuid',
-        emailAddresses: [
-          {
-            value: 'value',
-            partyId: 'partyId',
+    {
+      uuid: '2',
+      leaseType: LeaseTypeEnum.BUSINESS,
+      createdAt: '2020-06-16T07:40:40.000Z',
+      lineItems: [
+        {
+          vehicleProduct: {
+            derivativeCapId: 'derivativeCapId1',
+            description: 'description1',
+            depositPayment: 100,
+            monthlyPayment: 100,
+            term: 36,
+            annualMileage: 100,
+            depositMonths: 100,
+            funderId: 'test funder1',
+            funderData: {},
+            colour: 'colour',
+            trim: 'trim',
+            maintenance: false,
           },
-        ],
-      },
+        },
+      ],
     },
-    error: undefined,
-  },
-];
+  ],
+};
+
+const mockPersonsValue = {
+  uuid: 'uuid',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  partyUuid: 'partyUuid',
+  emailAddresses: [
+    {
+      value: 'value',
+      partyId: 'partyId',
+    },
+  ],
+};
 
 const mockCarValue = [
   jest.fn(),
@@ -152,14 +139,26 @@ describe('<MyOverview />', () => {
   });
 
   (useSaveOrderMutation as jest.Mock).mockReturnValue([]);
+  (useSavePersonUuidMutation as jest.Mock).mockReturnValue([]);
 
   it('renders quotes correctly with data', async () => {
-    (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
-    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue([
+      () => {},
+      { loading: false },
+    ]);
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
-      return renderer.create(<MyOverview quote />).toJSON();
+      return renderer
+        .create(
+          <MyOverview
+            quote
+            person={mockPersonsValue}
+            partyUuid={['partyUuid', 'partyUuid']}
+            orders={mockOrdersValue as GetMyOrders}
+          />,
+        )
+        .toJSON();
     };
 
     const tree = getComponent();
@@ -167,31 +166,23 @@ describe('<MyOverview />', () => {
   });
 
   it('renders orders correctly with data', async () => {
-    (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
-    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue([
+      () => {},
+      { loading: false },
+    ]);
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
-      return renderer.create(<MyOverview quote={false} />).toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders correctly with error', async () => {
-    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
-    (useMyOrdersData as jest.Mock).mockReturnValue([
-      jest.fn(),
-      {
-        loading: false,
-        data: undefined,
-        error: { message: 'Error' },
-      },
-    ]);
-
-    const getComponent = () => {
-      return renderer.create(<MyOverview quote />).toJSON();
+      return renderer
+        .create(
+          <MyOverview
+            quote={false}
+            person={mockPersonsValue}
+            partyUuid={['partyUuid', 'partyUuid']}
+            orders={mockOrdersValue as GetMyOrders}
+          />,
+        )
+        .toJSON();
     };
 
     const tree = getComponent();
@@ -201,16 +192,49 @@ describe('<MyOverview />', () => {
   it('renders correctly with loading', async () => {
     (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
     (useMyOrdersData as jest.Mock).mockReturnValue([
-      jest.fn(),
+      () => {},
       {
         loading: true,
-        data: undefined,
-        error: undefined,
       },
     ]);
 
     const getComponent = () => {
-      return renderer.create(<MyOverview quote />).toJSON();
+      return renderer
+        .create(
+          <MyOverview
+            quote
+            person={mockPersonsValue}
+            partyUuid={['partyUuid', 'partyUuid']}
+            orders={mockOrdersValue as GetMyOrders}
+          />,
+        )
+        .toJSON();
+    };
+
+    const tree = getComponent();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly when there are no orders', async () => {
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue([
+      () => {},
+      {
+        loading: false,
+      },
+    ]);
+
+    const getComponent = () => {
+      return renderer
+        .create(
+          <MyOverview
+            quote={false}
+            person={mockPersonsValue}
+            partyUuid={['partyUuid', 'partyUuid']}
+            orders={{ myOrders: [] } as GetMyOrders}
+          />,
+        )
+        .toJSON();
     };
 
     const tree = getComponent();
