@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
+exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
 <div
   className="row:bg-light"
 >
@@ -8,7 +8,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
     className="row:cards-3col"
   >
     <div
-      className="card"
+      className="card card--details"
       data-testid="card"
     >
       <div
@@ -21,24 +21,26 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
           My Orders
         </span>
       </div>
-      <div
-        className="loading row-loader -regular"
+      <span
+        className="text -regular -dark"
       >
-        <svg
-          className="loading--svg"
-          viewBox="-75 -75 150 150"
-        >
-          <circle
-            className="loading--stroke"
-            cx="0"
-            cy="0"
-            r="37.5"
-          />
-        </svg>
-      </div>
+        You have (1) orders.
+      </span>
+      <a
+        className="link -teal"
+        data-menu={null}
+        data-testid="orders-link"
+        href="/account/my-orders"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        View Orders
+      </a>
     </div>
     <div
-      className="card"
+      className="card card--details"
       data-testid="card"
     >
       <div
@@ -52,10 +54,22 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         </span>
       </div>
       <span
-        className="text -regular -dark"
+        className="text text--quotes -regular -dark"
       >
-        You have (0) quotes.
+        You have (2) quotes.
       </span>
+      <a
+        className="link -teal"
+        data-menu={null}
+        data-testid="quotes-link"
+        href="/account/my-quotes"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        View Quotes
+      </a>
     </div>
   </div>
 </div>

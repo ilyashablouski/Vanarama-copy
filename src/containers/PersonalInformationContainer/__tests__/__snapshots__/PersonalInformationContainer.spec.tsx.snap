@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render PersonalInformationContainer correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="my-details--form"
+      style="grid-column-end: 6;"
+    >
+      <form
+        class="form"
+      >
+        <p
+          class="heading -black -large"
+          data-testid="personHeading"
+        >
+          Personal Information
+        </p>
+        <section
+          class="structured-list  -styled-headers"
+        >
+          <div
+            class="structured-list-tbody"
+          >
+            <div
+              class="structured-list-row"
+            >
+              <div
+                class="structured-list-td structured-list-content--nowrap -pr-600"
+                style="vertical-align: middle;"
+              >
+                First Name
+              </div>
+              <div
+                class="structured-list-td"
+              >
+                Jack
+              </div>
+            </div>
+            <div
+              class="structured-list-row"
+            >
+              <div
+                class="structured-list-td structured-list-content--nowrap"
+                style="vertical-align: middle;"
+              >
+                Last Name
+              </div>
+              <div
+                class="structured-list-td"
+              >
+                Jones
+              </div>
+            </div>
+            <div
+              class="structured-list-row "
+            >
+              <div
+                class="structured-list-td structured-list-content--nowrap"
+                style="vertical-align: middle;"
+              >
+                Address
+              </div>
+              <div
+                class="structured-list-td"
+              >
+                220/1 Ferry Road,  - Edinburgh, EH5 3AD
+              </div>
+            </div>
+            <div
+              class="structured-list-row "
+            >
+              <div
+                class="structured-list-td structured-list-content--nowrap"
+                style="vertical-align: middle;"
+              >
+                Telephone
+              </div>
+              <div
+                class="structured-list-td"
+              >
+                01442838195
+              </div>
+            </div>
+            <div
+              class="structured-list-row "
+            >
+              <div
+                class="structured-list-td structured-list-content--nowrap"
+                style="vertical-align: middle;"
+              >
+                Email
+              </div>
+              <div
+                class="structured-list-td"
+              >
+                someone.testing.motorama+44@gmail.com
+              </div>
+            </div>
+          </div>
+        </section>
+        <div>
+          <p
+            class="heading -black -large"
+            data-testid="updated"
+          >
+            Keep Me Updated
+          </p>
+          <div
+            class="formgroup -mb-300 -mt-300"
+          >
+            
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  checked=""
+                  class="checkbox--native visually-hidden"
+                  data-testid="emailConsent"
+                  disabled=""
+                  id="emailConsent"
+                  name="emailConsent"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="emailConsent"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    I want to be kept updated about exclusive deals & offers from Vanarama.
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <p
+            class="text -pl-500 -regular -darker"
+          >
+            You may unsubscribe from these communications at anytime. For further information please check out our
+            <a
+              class="link -teal -ml-100"
+              href="/legal/privacy-policy.html"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </div>
+        <div
+          style="margin-top: 15px;"
+        >
+          <button
+            class="button -teal -regular -solid"
+            data-testid="personalSubmit"
+            type="button"
+          >
+            <div
+              class="button--inner"
+            >
+              Edit Personal Details
+            </div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+`;

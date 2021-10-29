@@ -293,6 +293,7 @@ export const convertErrorToProps = (
 export enum FeatureFlags {
   DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
+  BLACK_FRIDAY = 'DIG-7658',
 }
 
 function isFeatureFlagEnabled(
@@ -326,6 +327,13 @@ export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
 
+const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
 export const isBlackFridayCampaignEnabled = () => {
-  return Cookies.get('DIG-7658') === '1';
+  const currentTime = Date.now();
+
+  if (currentTime >= blackFridayTime) {
+    return true;
+  }
+
+  return Cookies.get(FeatureFlags.BLACK_FRIDAY) === '1';
 };

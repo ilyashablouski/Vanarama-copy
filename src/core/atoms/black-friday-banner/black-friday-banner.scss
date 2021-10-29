@@ -69,6 +69,10 @@
         font-size: $font-size-500;
       }
 
+      @media (max-width: 984px) {
+        line-height: 1;
+      }
+
       @media (max-width: 364px) {
         font-size: $font-size-400;
       }
@@ -317,6 +321,268 @@
           @media (max-width: 364px) {
             font-size: $font-size-300;
           }
+        }
+      }
+    }
+  }
+
+  &--hot-offers {
+    max-width: 622px;
+    align-items: flex-end;
+
+    @include mobile-tablet {
+      max-width: none;
+    }
+
+    @include tablet {
+      background: transparent;
+    }
+
+    .bf-banner {
+      &__ear.icon {
+        min-height: auto;
+        color: #4C4D4F;
+
+        &:first-child {
+          margin-right: -20px;
+        }
+
+        &:last-child {
+          margin-left: -20px;
+        }
+
+        svg {
+          min-height: auto;
+        }
+      }
+
+      &__inner {
+        position: relative;
+        margin-bottom: 20px;
+
+        @include mobile-tablet {
+          max-width: none;
+        }
+
+        @include mobile {
+          margin-bottom: 0;
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: url("/Assets/images/black-friday/smoke.png");
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: cover;
+        }
+      }
+
+      &__container {
+        position: relative;
+        display: flex;
+        flex: 1 1 auto;
+        margin: 6px 0;
+        padding: 5px 4px;
+
+        @include mobile {
+          padding-top: 3px;
+          padding-bottom: 3px;
+        }
+
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-image: linear-gradient(90deg, #FFFFFF, #FFFFFF 50%, transparent 50%, transparent 100%);
+          background-repeat: repeat-x;
+          background-size: 10px 1px;
+
+          @include mobile {
+            display: none;
+          }
+        }
+
+        &:before {
+          top: 0;
+        }
+
+        &:after {
+          bottom: 0;
+        }
+      }
+
+      &__group {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2px 4px;
+        padding: 0 4px;
+
+        @include mobile {
+          margin: 0;
+        }
+
+        &.-first {
+          .bf-banner__subtext {
+            margin-top: 4px;
+
+            @include mobile {
+              display: none;
+            }
+          }
+        }
+
+        &.-second {
+          .bf-banner__subtext {
+            margin-top: 4px;
+
+            @include tablet-desktop {
+              display: none;
+            }
+          }
+
+          @include mobile-tablet {
+            flex: 1 1 auto;
+          }
+
+          @include tablet {
+            max-width: calc(100% - 400px);
+          }
+
+          @include mobile {
+            max-width: calc(100% - 260px);
+          }
+
+          @media (max-width: 416px) {
+            max-width: calc(100% - 200px);
+          }
+
+          @media (max-width: 364px) {
+            max-width: calc(100% - 120px);
+          }
+        }
+      }
+
+      &__badge {
+        width: 210px;
+        margin: 0;
+
+        @include mobile {
+          width: 136px;
+          min-height: 46px;
+          height: 100%;
+        }
+
+        @media (max-width: 416px) {
+          width: 98px;
+        }
+
+        .text {
+          @include mobile {
+            font-size: 1.125rem;
+          }
+        }
+      }
+
+      &__subtext {
+        display: block;
+        font-size: $font-size-300;
+        font-weight: $font-weight-regular;
+        font-family: $font-family-heading;
+        text-align: center;
+        color: $white;
+
+        @include mobile {
+          font-size: $font-size-200;
+          line-height: 1;
+        }
+      }
+
+      &__text {
+        flex-direction: column;
+        align-items: center;
+        flex: 0 1 auto;
+        padding: 0;
+        margin: 0;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        line-height: 1;
+
+        span {
+          display: block;
+          font-size: 2rem;
+          color: $orange;
+          line-height: 1;
+        }
+
+        &:before,
+        &:after {
+          content: none;
+        }
+
+        @media (min-width: 924px) and (max-width: #{$vp-large - 1px}) {
+          flex-direction: row;
+          font-size: 2.375rem;
+
+          span {
+            margin-right: 4px;
+            font-size: 2.375rem;
+          }
+        }
+
+        @include mobile {
+          flex-direction: row;
+          font-size: 1.125rem;
+
+          span {
+            margin-right: 4px;
+            font-size: 1.125rem;
+          }
+        }
+      }
+
+      &__car {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 135px;
+        height: 71px;
+        transform: translateY(-50%) rotate(180deg);
+        pointer-events: none;
+
+        &.-vehicle {
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        &.-light {
+          mix-blend-mode: color-dodge;
+
+          img {
+            position: absolute;
+            top: 49%;
+            left: 87%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 200%;
+          }
+        }
+
+        @include mobile {
+          width: 105px;
+          height: 55px;
         }
       }
     }

@@ -311,7 +311,8 @@ xdescribe('<VanOffers />', () => {
     render(
       <MockedProvider addTypename={false}>
         <VanOffers
-          pageData
+          pageData={null}
+          metaData={null}
           productsPickup={productsPickup}
           productsSmallVan={productsSmallVan}
           productsMediumVan={productsMediumVan}

@@ -77,6 +77,7 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
+import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 import NewRangeContent from './NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
@@ -96,6 +97,9 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 
+const BlackFridayHotOffersBanner = dynamic(() =>
+  import('core/atoms/black-friday-banner/BlackFridayHotOffersBanner'),
+);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
@@ -944,26 +948,33 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   return (
     <>
       <PartnershipLogoHeader />
-      <div className="row:title">
-        {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
+      <section className="row:featured-bf">
+        <div className="row:title">
+          {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
 
-        {isNewPage ? null : (
-          <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-            {isDesktopOrTablet
-              ? pageTitle
-              : titleWithBreaks.map((line, index) => (
-                  <React.Fragment key={String(index)}>
-                    {line} <br />
-                  </React.Fragment>
-                ))}
-          </Heading>
+          {isNewPage ? null : (
+            <Heading tag="h1" size="xlarge" color="black">
+              {isDesktopOrTablet
+                ? pageTitle
+                : titleWithBreaks.map((line, index) => (
+                    <React.Fragment key={String(index)}>
+                      {line} <br />
+                    </React.Fragment>
+                  ))}
+            </Heading>
+          )}
+
+          <CommonDescriptionContainer
+            pageData={pageData}
+            customDescription={partnershipDescription}
+          />
+        </div>
+        {isBlackFridayCampaignEnabled() && (
+          <BlackFridayHotOffersBanner
+            variant={isPickups ? 'pickups' : 'cars'}
+          />
         )}
-
-        <CommonDescriptionContainer
-          pageData={pageData}
-          customDescription={partnershipDescription}
-        />
-      </div>
+      </section>
       {pageData && isModelPage && (
         <div className="row:text -columns">
           <div>
