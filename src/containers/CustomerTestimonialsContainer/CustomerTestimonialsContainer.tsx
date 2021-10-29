@@ -8,10 +8,9 @@ import {
   TestimonialsDataVariables,
 } from '../../../generated/TestimonialsData';
 import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '../../../generated/GenericPageTestimonialsQuery';
-import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
-import TileLink from '../../components/TileLink/TileLink';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import Skeleton from '../../components/Skeleton';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -35,9 +34,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
 });
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
 
 interface IProps {
   sections: Section | null;
@@ -57,6 +53,9 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   const [testimonials, setTestimonialsData] = useState<
     TestimonialsData['testimonials'] | undefined
   >(initialTestimonials);
+  const tiles = sections?.tiles1?.tiles;
+  const tilesTitle = sections?.tiles1?.name;
+  const tilesTitleTag = sections?.tiles1?.titleTag;
 
   const [getTestimonials, { error, loading }] = useLazyQuery<
     TestimonialsData,
@@ -161,42 +160,15 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
           );
         })}
       </div>
-
-      <div className="row:bg-lighter">
-        <div className="row:features-4col">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.tiles1?.titleTag || 'h2',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.tiles1?.name}
-          </Heading>
-          {sections?.tiles1?.tiles?.map(tile => {
-            return (
-              <div key={`Tile1_${tile.title}`}>
-                <Tile className="-plain -button -align-center" plain>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      inline
-                      round
-                      size="large"
-                      alt={tile.image?.title || ''}
-                      src={tile.image?.file?.url || ''}
-                    />
-                  </div>
-                  <TileLink tile={tile} />
-                  <Text tag="p">{tile.body}</Text>
-                </Tile>
-              </div>
-            );
-          })}
+      {tiles && (
+        <div className="row:bg-lighter">
+          <WhyLeaseWithVanaramaTiles
+            tiles={tiles}
+            title={tilesTitle || ''}
+            titleTag={tilesTitleTag}
+          />
         </div>
-      </div>
+      )}
       <FeaturedHtml featured={sections?.featured} />
     </>
   );

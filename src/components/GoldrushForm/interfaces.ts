@@ -9,6 +9,8 @@ export interface IGoldrushFormProps {
   className?: string;
   termsAndConditionsId?: string;
   noTermsAndConditions?: boolean;
+  isPlaceholdersShown?: IPlaceholders;
+  isLabelsShown?: ILabels;
 }
 
 export interface IGoldrushFromValues {
@@ -20,3 +22,12 @@ export interface IGoldrushFromValues {
   privacyPolicy: boolean;
   consent: boolean;
 }
+
+interface IPlaceholders {
+  fullName: boolean;
+  email: boolean;
+  phoneNumber: boolean;
+  postcode?: boolean;
+}
+
+interface ILabels extends IPlaceholders {}

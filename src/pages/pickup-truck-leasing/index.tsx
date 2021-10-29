@@ -2,7 +2,7 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
@@ -15,7 +15,6 @@ import {
   HubPickupPageDataVariables,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
-  HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
 } from '../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
@@ -29,7 +28,6 @@ import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
-import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
@@ -47,12 +45,16 @@ import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isBlackFridayCampaignEnabled,
+} from '../../utils/helpers';
 import { IErrorProps } from '../../types/common';
 import ErrorPage from '../_error';
 
@@ -78,9 +80,6 @@ const Image = dynamic(() => import('core/atoms/image'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
 const Media = dynamic(() => import('core/atoms/media'), {
   loading: () => <Skeleton count={3} />,
 });
@@ -92,6 +91,9 @@ const ProductCard = dynamic(
   {
     loading: () => <Skeleton count={3} />,
   },
+);
+const HeroBlackFriday = dynamic(() =>
+  import('../../components/Hero/HeroBlackFriday'),
 );
 
 interface IProps extends IPickupsPageOffersData {
@@ -112,6 +114,9 @@ export const PickupsPage: NextPage<IProps> = ({
   const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
   const headerText = data?.hubPickupPage.sections?.leadText?.heading;
   const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
+  const tiles = data?.hubPickupPage.sections?.tiles2?.tiles;
+  const tilesTitle = data?.hubPickupPage.sections?.tiles2?.tilesTitle;
+  const tilesTitleTag = data?.hubPickupPage.sections?.tiles2?.titleTag;
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
     () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
@@ -149,44 +154,52 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              data?.hubPickupPage.sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-            }
-          />
-        </div>
-        {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-              ''
-            }
-            url={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
-              ''
-            }
-            text={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
-            }
-            btnVisible={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isBlackFridayCampaignEnabled() ? (
+        <HeroBlackFriday
+          searchPodVansData={searchPodVansData}
+          variant="pickups"
+        />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+              }
+            />
+          </div>
+          {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.text || ''
+              }
+              url={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
+                ''
+              }
+              text={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
+              }
+              btnVisible={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -567,43 +580,13 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                data?.hubPickupPage.sections?.tiles2?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {data && data?.hubPickupPage.sections?.tiles2?.tilesTitle}
-          </Heading>
-          {data?.hubPickupPage.sections?.tiles2?.tiles?.map(
-            (tile: TileData, index: number) => (
-              <div key={tile.title || index}>
-                <Tile className="-plain -button -align-center" plain>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      inline
-                      round
-                      size="large"
-                      src={
-                        tile.image?.file?.url ||
-                        'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                      }
-                    />
-                  </div>
-                  <TileLink tile={tile} />
-                  <Text tag="p">{tile.body}</Text>
-                </Tile>
-              </div>
-            ),
-          )}
-        </LazyLoadComponent>
-      </section>
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
 
       <section className="row:manufacturer-grid">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
