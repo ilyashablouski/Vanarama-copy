@@ -32,7 +32,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   person: MyAccount_myAccountDetailsByPersonUuid;
-  error: boolean;
   uuid: string;
   partyUuid: string;
   orders: GetMyOrders_myOrders[];
@@ -74,22 +73,8 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = ({
-  person,
-  uuid,
-  error,
-  orders,
-  quotes,
-}) => {
+const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
-
-  if (error) {
-    return (
-      <Text tag="p" color="danger" size="lead">
-        Sorry, an unexpected error occurred. Please try again!
-      </Text>
-    );
-  }
 
   return (
     <>
@@ -146,7 +131,7 @@ const MyDetailsPage: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = initializeApollo(undefined, context);
+  const client = initializeApollo(undefined, context, true);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
       return {

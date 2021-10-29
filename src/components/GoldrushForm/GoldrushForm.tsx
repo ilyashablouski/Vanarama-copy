@@ -39,6 +39,18 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   termsAndConditionsId,
   noTermsAndConditions,
   className,
+  isPlaceholdersShown = {
+    fullName: false,
+    email: false,
+    phoneNumber: false,
+    postcode: false,
+  },
+  isLabelsShown = {
+    fullName: true,
+    email: true,
+    phoneNumber: true,
+    postcode: true,
+  },
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
@@ -80,7 +92,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
         )}
         <FormGroup
           controlId="goldrush-form_full-name"
-          label="Full Name"
+          label={isLabelsShown?.fullName ? 'Full Name' : ''}
           error={methods.errors.fullName?.message?.toString()}
         >
           <TextInput
@@ -89,11 +101,12 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             name="fullName"
             ref={methods.register(fullNameValidator)}
             type="text"
+            placeholder={isPlaceholdersShown?.fullName ? 'Full Name' : ''}
           />
         </FormGroup>
         <FormGroup
           controlId="goldrush-form_email"
-          label="Email Address"
+          label={isLabelsShown?.email ? 'Email Address' : ''}
           error={methods.errors.email?.message?.toString()}
         >
           <TextInput
@@ -102,11 +115,12 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             name="email"
             ref={methods.register(emailValidator)}
             type="text"
+            placeholder={isPlaceholdersShown?.email ? 'Email Address' : ''}
           />
         </FormGroup>
         <FormGroup
           controlId="goldrush-form_phone-number"
-          label="Phone Number"
+          label={isLabelsShown?.phoneNumber ? 'Phone Number' : ''}
           error={methods.errors.phoneNumber?.message?.toString()}
         >
           <TextInput
@@ -115,12 +129,13 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             name="phoneNumber"
             ref={methods.register(phoneNumberValidator)}
             type="text"
+            placeholder={isPlaceholdersShown?.phoneNumber ? 'Phone Number' : ''}
           />
         </FormGroup>
         {isPostcodeVisible && (
           <FormGroup
             controlId="goldrush-form_postcode"
-            label="Postcode"
+            label={isLabelsShown?.postcode ? 'Postcode' : ''}
             error={methods.errors.postcode?.message?.toString()}
           >
             <TextInput
@@ -129,6 +144,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
               name="postcode"
               ref={methods.register(postcodeValidator)}
               type="text"
+              placeholder={isPlaceholdersShown?.postcode ? 'Postcode' : ''}
             />
           </FormGroup>
         )}

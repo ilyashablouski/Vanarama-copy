@@ -80,6 +80,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
             data-testid="goldrush-form_full-name"
             id="goldrush-form_full-name"
             name="fullName"
+            placeholder=""
             type="text"
           />
         </div>
@@ -105,6 +106,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
             data-testid="goldrush-form_email"
             id="goldrush-form_email"
             name="email"
+            placeholder=""
             type="text"
           />
         </div>
@@ -130,6 +132,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
             data-testid="goldrush-form_phone-number"
             id="goldrush-form_phone-number"
             name="phoneNumber"
+            placeholder=""
             type="text"
           />
         </div>
