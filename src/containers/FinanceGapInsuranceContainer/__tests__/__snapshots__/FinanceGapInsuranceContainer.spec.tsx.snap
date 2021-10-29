@@ -563,8 +563,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                     I have read and understood the 
                     <a
                       class="link -teal"
+                      data-testid="link"
                       href="/legal/privacy-policy.html"
-                      target="_blank"
                     >
                       Privacy Policy
                     </a>
