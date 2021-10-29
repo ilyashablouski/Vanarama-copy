@@ -7,7 +7,7 @@ import { Partner_partner_tiles as IPartnerTiles } from '../../../generated/Partn
 
 interface IWhyLeaseWithVanaramaTiles {
   title: string;
-  titleTag?: string;
+  titleTag?: string | null;
   tiles: IPartnerTiles[];
 }
 

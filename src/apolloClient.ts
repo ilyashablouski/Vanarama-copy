@@ -24,6 +24,7 @@ import { Env } from './utils/env';
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
 import { GET_SSR_AUTH_STATUS } from './gql/session';
+import { isServer } from './utils/deviceType';
 
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
 let apolloClient: ApolloClient<NormalizedCacheObject>;
@@ -176,11 +177,11 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   localforage.clear().finally(() => {
     const currentPath = Router.router?.asPath || '/';
     const isOlaf = currentPath.includes('/olaf/');
-    const { isSSRAuthError } = operation
+    const ssrAuthStatus = operation
       .getContext()
       .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
     // don't make client redirect if ssr unauthorised error happened
-    if (!isOlaf && !isSSRAuthError) {
+    if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
       // redirect to login-register from private pages except olaf
       Router.replace(
         `/account/login-register?redirect=${currentPath}`,
@@ -188,7 +189,7 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
       );
     }
     // clear SSR authentication variable
-    if (isSSRAuthError) {
+    if (ssrAuthStatus?.isSSRAuthError) {
       operation.getContext().cache.writeQuery({
         query: GET_SSR_AUTH_STATUS,
         data: {
@@ -333,7 +334,7 @@ export default function createApolloClient(
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
-    ssrMode: Boolean(ctx),
+    ssrMode: isServer(),
     link: apolloClientLink(cookie),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     resolvers,
@@ -365,12 +366,19 @@ export default function createApolloClient(
   });
 }
 
+/**
+ * @param initialState - Apollo Cache State
+ * @param ctx - Next.JS context
+ * @param forceCreateClient - set to true for force create new Apollo client
+ * */
 export function initializeApollo(
   initialState?: NormalizedCacheObject,
   ctx?: NextPageContext,
+  forceCreateClient?: boolean,
 ) {
-  const initializedApolloClient =
-    apolloClient ?? createApolloClient(initialState, ctx);
+  const initializedApolloClient = !forceCreateClient
+    ? apolloClient ?? createApolloClient(initialState, ctx)
+    : createApolloClient(initialState, ctx);
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
