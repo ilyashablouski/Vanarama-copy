@@ -187,7 +187,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
     MyOrdersTypeEnum.ALL_ORDERS,
   );
-  const [initData, setInitData] = useState<GetMyOrders>();
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
   const [sortOrder, setSortOrder] = useState({
@@ -239,12 +238,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     dataCars,
     dataCarsLCV,
   ]);
-
-  useEffect(() => {
-    if (dataArr && !initData) {
-      setInitData(dataArr);
-    }
-  });
 
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
@@ -425,9 +418,9 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
             {!quote && (
               <div className="choice-boxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder(initData) &&
+                {hasCreditCompleteOrder(dataArrForFirstRender) &&
                   renderChoiceBtn(1, 'Completed')}
-                {hasCreditIncompleteOrder(initData) &&
+                {hasCreditIncompleteOrder(dataArrForFirstRender) &&
                   renderChoiceBtn(2, 'In Progress')}
               </div>
             )}
