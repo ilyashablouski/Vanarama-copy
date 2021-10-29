@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import localForage from 'localforage';
+import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { ILogInFormContainerProps } from './interfaces';
 import { useLoginUserMutation, usePersonImperativeQuery } from './gql';
@@ -69,6 +70,8 @@ const LoginFormContainer = ({
   onCompleted,
   onError,
 }: ILogInFormContainerProps) => {
+  const router = useRouter();
+  const { redirect } = router.query;
   const [login, { loading, error }] = useLoginUserMutation();
   const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
   const [savePerson] = useSavePersonMutation();
@@ -137,42 +140,50 @@ const LoginFormContainer = ({
     });
 
   const handleLoginComplete = useCallback(
-    values =>
-      requestLogin(values)
+    values => {
+      const start = new Date().getTime();
+      return requestLogin(values)
         .then(requestPerson)
-        .then(personQuery =>
-          savePerson({
-            variables: {
-              person: personQuery.data?.getPerson,
-            },
-          })
-            .then(() => setPersonLoggedIn(personQuery.data?.getPerson))
-            .then(() => requestCompanies(personQuery.data?.getPerson))
-            .then(getPartyUuidsFromCompanies)
-            .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
-            .then(requestOrders)
-            .then(([{ data: orders }, { data: quotes }]) =>
-              saveOrders(orders?.myOrders, quotes?.myOrders),
-            )
-            .then(() => personQuery),
-        )
-        .then(personQuery =>
-          getLocalWishlistState()
-            .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
-            .then(() => personQuery),
-        )
-        .then(personQuery =>
-          requestWishlist(personQuery.data.getPerson?.partyUuid)
-            .then(getWishlistVehicleIdsFromQuery)
-            .then(requestVehicleConfigList)
-            .then(getVehicleConfigListFromQuery)
-            .then(getVehicleConfigIdsFromConfigList)
-            .then(updateWishlistState)
-            .then(() => personQuery),
-        )
+        .then(personQuery => {
+          router.prefetch((redirect as string) || '/');
+          Promise.all([
+            savePerson({
+              variables: {
+                person: personQuery.data?.getPerson,
+              },
+            })
+              .then(async () => {
+                const [, companies] = await Promise.all([
+                  setPersonLoggedIn(personQuery.data?.getPerson),
+                  requestCompanies(personQuery.data?.getPerson),
+                ]);
+                return companies;
+              })
+              .then(getPartyUuidsFromCompanies)
+              .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
+              .then(requestOrders)
+              .then(([{ data: orders }, { data: quotes }]) =>
+                saveOrders(orders?.myOrders, quotes?.myOrders),
+              ),
+            getLocalWishlistState()
+              .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
+              .then(() =>
+                requestWishlist(personQuery.data.getPerson?.partyUuid)
+                  .then(getWishlistVehicleIdsFromQuery)
+                  .then(requestVehicleConfigList)
+                  .then(getVehicleConfigListFromQuery)
+                  .then(getVehicleConfigIdsFromConfigList)
+                  .then(updateWishlistState),
+              ),
+          ]);
+          return personQuery;
+        })
         .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
-        .then(() => {})
-        .catch(onError),
+        .then(() => {
+          console.log('END', start - new Date().getTime());
+        })
+        .catch(onError);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
