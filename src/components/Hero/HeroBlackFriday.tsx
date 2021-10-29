@@ -2,31 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 
 import BlackFridayHeroBanner from 'core/atoms/black-friday-hero';
+import { BANNER_VARIANTS } from 'core/atoms/black-friday-banner/BlackFridayHotOffersBanner';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 
 import { IHeroProps } from './interface';
 
-const HERO_BANNER_VARIANTS = {
-  cars: {
-    vehicleImageName: `car.png`,
-    classNameMod: '-cars-hub',
-  },
-  vans: {
-    vehicleImageName: `van.png`,
-    classNameMod: '-vans-hub',
-  },
-  pickups: {
-    vehicleImageName: `pickup.png`,
-    classNameMod: '-pickups-hub',
-  },
-  electric: {
-    vehicleImageName: `car.png`,
-    classNameMod: '-electric-hub',
-  },
-};
-
 interface IProps extends IHeroProps {
-  variant: keyof typeof HERO_BANNER_VARIANTS;
+  variant: keyof typeof BANNER_VARIANTS;
   withoutSearchPod?: boolean;
 }
 
@@ -38,7 +20,7 @@ const HeroBlackFriday: React.FC<IProps> = ({
   variant,
   withoutSearchPod,
 }) => {
-  const { classNameMod, vehicleImageName } = HERO_BANNER_VARIANTS[variant];
+  const { classNameMod, vehicleImageName } = BANNER_VARIANTS[variant];
 
   return (
     <div className={cx('row:bg-bf-hero', classNameMod)}>

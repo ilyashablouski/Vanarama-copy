@@ -5,10 +5,10 @@ import Text from 'core/atoms/text';
 import Icon from 'core/atoms/icon';
 
 import BadgeIcon from 'core/assets/icons/black-friday/BadgeIcon';
-
-import { IBaseProps } from 'core/interfaces/base';
 import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
+
+import { IBaseProps } from 'core/interfaces/base';
 
 const BlackFridayPlainBanner = ({ className }: IBaseProps) => (
   <div className={cx('bf-banner', className)}>

@@ -1,9 +1,10 @@
 import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
+
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={3} />,
@@ -19,30 +20,30 @@ interface IProps {
 
 const CommonDescriptionContainer = memo(
   ({ pageData, customDescription }: IProps) => {
-    return (
+    const description =
+      pageData?.genericPage?.intro ||
+      pageData?.genericPage?.sections?.featured1?.body;
+    const imageUrl = pageData?.genericPage?.featuredImage?.file?.url;
+
+    return description || imageUrl ? (
       <section className="row:featured-right">
-        {pageData?.genericPage?.featuredImage?.file?.url && (
+        {imageUrl && (
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={pageData.genericPage.featuredImage.file.url}
+              src={imageUrl}
               alt="Featured image"
             />
           </div>
         )}
 
-        <div>
-          {(pageData?.genericPage?.sections?.featured1?.body ||
-            pageData?.genericPage?.intro) && (
+        {description && (
+          <div>
             <Text color="darker" size="regular" tag="div">
               <ReactMarkdown
                 className="markdown"
                 allowDangerousHtml
-                source={
-                  customDescription ||
-                  (pageData?.genericPage?.intro as string) ||
-                  (pageData?.genericPage?.sections?.featured1?.body as string)
-                }
+                source={customDescription || description}
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -68,10 +69,10 @@ const CommonDescriptionContainer = memo(
                 }}
               />
             </Text>
-          )}
-        </div>
+          </div>
+        )}
       </section>
-    );
+    ) : null;
   },
 );
 
