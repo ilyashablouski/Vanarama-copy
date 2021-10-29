@@ -64,7 +64,7 @@ const OrderCard = dynamic(
 );
 
 interface IMyOverviewProps {
-  orders: GetMyOrders;
+  data: GetMyOrders;
   quote: boolean;
   person: Person;
   partyUuid: string[];
@@ -172,13 +172,13 @@ const mapTabIndexToOrderType = (value: React.SetStateAction<number>) => {
 };
 
 const MyOverview: React.FC<IMyOverviewProps> = ({
-  orders: ordersForFirstRender,
+  data: dataForFirstRender,
   quote,
   person,
   partyUuid,
 }) => {
   const router = useRouter();
-  const [orders, setOrders] = useState(ordersForFirstRender);
+  const [data, setData] = useState(dataForFirstRender);
 
   const client = useApolloClient();
   const { setCachedLastStep } = useProgressHistory();
@@ -187,7 +187,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
     MyOrdersTypeEnum.ALL_ORDERS,
   );
-  const [initData] = useState<GetMyOrders>(orders);
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
   const [sortOrder, setSortOrder] = useState({
@@ -201,7 +200,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     quote,
   ]);
 
-  const onCompletedGetOrders = (data: GetMyOrders) => setOrders(data);
+  const onCompletedGetOrders = (result: GetMyOrders) => setData(result);
 
   // call query for get Orders when user change orders type (all/completed/in progress)
   const [getOrders, { loading }] = useMyOrdersData(
@@ -211,7 +210,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   );
 
   // collect car and lcv capId from orders
-  const capIdArrayData = getCapIdsFromMyOrders(orders);
+  const capIdArrayData = getCapIdsFromMyOrders(data);
 
   // call query for get DerivativesData
   const getCarsDerivative = useImperativeQuery<
@@ -252,10 +251,10 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   // create array with number of page for pagination
   const pages = useMemo(
     () =>
-      Array(countPages(orders))
+      Array(countPages(data))
         .fill(0)
         .map((_, i) => i + 1),
-    [orders],
+    [data],
   );
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
@@ -322,7 +321,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
 
-    const sortedOffers = orders.myOrders
+    const sortedOffers = data.myOrders
       .slice()
       .sort((a, b) => sortOrders(a, b, sortOrder.type));
 
@@ -406,7 +405,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
           My {quote ? 'Quotes' : 'Orders'}
         </Heading>
       </div>
-      {!orders?.myOrders?.length && !loading ? (
+      {!data?.myOrders?.length && !loading ? (
         <div
           className="dpd-content"
           style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
@@ -419,19 +418,19 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
             {!quote && (
               <div className="choice-boxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder(initData) &&
+                {hasCreditCompleteOrder(dataForFirstRender) &&
                   renderChoiceBtn(1, 'Completed')}
-                {hasCreditIncompleteOrder(initData) &&
+                {hasCreditIncompleteOrder(dataForFirstRender) &&
                   renderChoiceBtn(2, 'In Progress')}
               </div>
             )}
             {loading ? (
               <Loading size="large" />
             ) : (
-              orders?.myOrders?.length && (
+              data?.myOrders?.length && (
                 <>
                   <Text tag="span" color="darker" size="regular">
-                    Showing {orders?.myOrders?.length} Orders
+                    Showing {data?.myOrders?.length} Orders
                   </Text>
                   <Select
                     value={`${sortOrder.type}_${sortOrder.direction}`}
