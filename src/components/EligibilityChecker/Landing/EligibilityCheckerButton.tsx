@@ -8,7 +8,7 @@ const EligibilityCheckerButton: FC<{}> = () => {
       classNames={{ color: 'teal', solid: true, size: 'regular' }}
       link={{
         label: 'Check Your Eligibility',
-        href: '/credit-checker.html',
+        href: '/lease-eligibility-checker/details',
       }}
       withoutDefaultClassName
       dataTestId="eligibility-Checker-btn"
