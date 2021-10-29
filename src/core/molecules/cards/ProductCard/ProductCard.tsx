@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
+import dynamic from 'next/dynamic';
 import { ICardProps } from '../interfaces';
 import Card from '..';
 import CardIcons, { TIcon } from '../CardIcons';
@@ -8,6 +8,10 @@ import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 import Heart from '../../../assets/icons/Heart';
 import { isBlackFridayCampaignEnabled } from '../../../../utils/helpers';
+
+const BlackFridayCardLabel = dynamic(() =>
+  import('core/molecules/cards/BlackFridayCardLabel'),
+);
 
 export interface IProductCardProps extends ICardProps {
   features?: TIcon[];
