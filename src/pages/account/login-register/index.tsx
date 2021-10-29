@@ -11,6 +11,7 @@ import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import { addApolloState, initializeApollo } from '../../../apolloClient';
+import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -150,6 +151,15 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = initializeApollo(undefined, context);
+  // If user has authenticated already make redirect to details page
+  if (isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
+    return {
+      redirect: {
+        destination: '/account/my-details',
+        permanent: false,
+      },
+    };
+  }
   return addApolloState(client, {
     props: { query: context.query },
   });
