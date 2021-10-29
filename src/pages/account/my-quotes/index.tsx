@@ -20,7 +20,7 @@ interface IProps {
 
 const MyOrdersPage: NextPage<IProps> = ({ quotes, person, partyUuid }) => {
   return (
-    <MyOverview quote dataArr={quotes} person={person} partyUuid={partyUuid} />
+    <MyOverview quote data={quotes} person={person} partyUuid={partyUuid} />
   );
 };
 
