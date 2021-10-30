@@ -4,6 +4,7 @@ import React, { CSSProperties, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import Select from 'core/atoms/select';
+import localForage from 'localforage';
 import { useSaveOrderMutation } from '../../gql/storedOrder';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
@@ -22,6 +23,12 @@ import {
   sortOrderValues,
 } from './helpers';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
+import {
+  GetCompaniesByPersonUuid,
+  GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid,
+  GetCompaniesByPersonUuidVariables,
+} from '../../../generated/GetCompaniesByPersonUuid';
 import {
   GetDerivatives,
   GetDerivativesVariables,
@@ -39,7 +46,7 @@ import useProgressHistory from '../../hooks/useProgressHistory';
 import { getUrlParam } from '../../utils/url';
 import { useGetPartyByUuidLazyQuery } from '../../components/SummaryForm/gql';
 import { GetPartyByUuid } from '../../../generated/GetPartyByUuid';
-import { useSavePersonUuidMutation } from '../../gql/storedPersonUuid';
+import { useStoredPersonQuery } from '../../gql/storedPerson';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,10 +71,7 @@ const OrderCard = dynamic(
 );
 
 interface IMyOverviewProps {
-  data: GetMyOrders;
   quote: boolean;
-  person: Person;
-  partyUuid: string[];
 }
 
 const createDefaultBreadcrumbs = (isQuote?: boolean) => [
@@ -86,6 +90,13 @@ const createDefaultBreadcrumbs = (isQuote?: boolean) => [
     },
   },
 ];
+
+const getPartyUuidFromCompanies = (
+  result: ApolloQueryResult<GetCompaniesByPersonUuid>,
+) =>
+  result.data?.companiesByPersonUuid?.map(
+    (companies: CompaniesByPersonUuid) => companies.partyUuid,
+  ) || null;
 
 const getCapIdsFromMyOrders = (result?: GetMyOrders) => {
   return (
@@ -171,14 +182,9 @@ const mapTabIndexToOrderType = (value: React.SetStateAction<number>) => {
   }
 };
 
-const MyOverview: React.FC<IMyOverviewProps> = ({
-  data: dataForFirstRender,
-  quote,
-  person,
-  partyUuid,
-}) => {
+const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
-  const [data, setData] = useState(dataForFirstRender);
+  const { quote } = props;
 
   const client = useApolloClient();
   const { setCachedLastStep } = useProgressHistory();
@@ -187,6 +193,9 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
     MyOrdersTypeEnum.ALL_ORDERS,
   );
+  const [initData, setInitData] = useState<GetMyOrders>();
+  const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
+  const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
   const [sortOrder, setSortOrder] = useState({
@@ -194,20 +203,40 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     direction: SortDirection.ASC,
   });
   const getPartyByUuid = useGetPartyByUuidLazyQuery();
-  const [savePersonUuidMutation] = useSavePersonUuidMutation();
 
-  const breadcrumbPath = useMemo(() => createDefaultBreadcrumbs(quote), [
-    quote,
-  ]);
+  const getCompaniesData = useImperativeQuery<
+    GetCompaniesByPersonUuid,
+    GetCompaniesByPersonUuidVariables
+  >(GET_COMPANIES_BY_PERSON_UUID);
 
-  const onCompletedGetOrders = (result: GetMyOrders) => setData(result);
+  const storedPersonQuery = useStoredPersonQuery();
+  const person = storedPersonQuery.data?.storedPerson;
 
-  // call query for get Orders when user change orders type (all/completed/in progress)
-  const [getOrders, { loading }] = useMyOrdersData(
-    [person?.partyUuid || '', ...(partyUuid || '')],
-    filter,
-    onCompletedGetOrders,
+  useEffect(() => {
+    if (person?.partyUuid && person?.uuid) {
+      if (!breadcrumbPath.length) {
+        setBreadcrumbPath(createDefaultBreadcrumbs(quote));
+      }
+
+      if (!partyUuidArray) {
+        getCompaniesData({
+          personUuid: person.uuid,
+        }).then(resp => setPartyUuidArray(getPartyUuidFromCompanies(resp)));
+      }
+    }
+  }, [person, quote, getCompaniesData, partyUuidArray, breadcrumbPath]);
+
+  // call query for get Orders
+  const [getOrders, { data, loading }] = useMyOrdersData(
+    [person?.partyUuid || '', ...(partyUuidArray || [])],
+    quote ? MyOrdersTypeEnum.ALL_QUOTES : filter,
   );
+
+  useEffect(() => {
+    if (person?.partyUuid && partyUuidArray !== null && !data) {
+      getOrders();
+    }
+  }, [getOrders, person, data, partyUuidArray]);
 
   // collect car and lcv capId from orders
   const capIdArrayData = getCapIdsFromMyOrders(data);
@@ -239,6 +268,12 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     dataCarsLCV,
   ]);
 
+  useEffect(() => {
+    if (data && !initData) {
+      setInitData(data);
+    }
+  }, [data, initData]);
+
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
     const [type, direction] = value.split('_');
@@ -251,16 +286,15 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   // create array with number of page for pagination
   const pages = useMemo(
     () =>
-      Array(countPages(data))
+      Array(countPages(initData))
         .fill(0)
         .map((_, i) => i + 1),
-    [data],
+    [initData],
   );
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
     setActiveTab!(value);
     changeFilter(mapTabIndexToOrderType(value));
-    getOrders();
   };
 
   const [saveOrderMutation] = useSaveOrderMutation();
@@ -282,11 +316,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 
     Promise.all([
       saveOrder(order),
-      savePersonUuidMutation({
-        variables: {
-          uuid: customer?.uuid,
-        },
-      }),
+      localForage.setItem('personUuid', customer?.uuid),
     ])
       .then(() => client.clearStore())
       .then(() => setCachedLastStep(lastFinishedStep?.step || 1))
@@ -321,17 +351,13 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
 
-    const sortedOffers = data.myOrders
+    const orders = data?.myOrders
       .slice()
       .sort((a, b) => sortOrders(a, b, sortOrder.type));
-
-    const placedInTurnOrders =
-      sortOrder.direction === SortDirection.DESC
-        ? sortedOffers?.reverse()
-        : sortedOffers;
-
+    const sortedOffers =
+      sortOrder.direction === SortDirection.DESC ? orders?.reverse() : orders;
     const showOffers =
-      placedInTurnOrders?.slice(indexOfFirstOffer, indexOfLastOffer) || [];
+      sortedOffers?.slice(indexOfFirstOffer, indexOfLastOffer) || [];
 
     return showOffers.map((order: GetMyOrders_myOrders) => {
       // we get derivative data for this offers
@@ -418,9 +444,9 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
             {!quote && (
               <div className="choice-boxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder(dataForFirstRender) &&
+                {hasCreditCompleteOrder(initData) &&
                   renderChoiceBtn(1, 'Completed')}
-                {hasCreditIncompleteOrder(dataForFirstRender) &&
+                {hasCreditIncompleteOrder(initData) &&
                   renderChoiceBtn(2, 'In Progress')}
               </div>
             )}
