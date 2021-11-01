@@ -1183,7 +1183,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             Photos and videos are for illustration purposes only.{' '}
             <RouterLink
               link={{
-                href: '/legal/terms-and-conditions.html',
+                href: '/legal/terms-and-conditions',
                 label: 'Terms and conditions apply',
               }}
               classNames={{ color: 'teal' }}
