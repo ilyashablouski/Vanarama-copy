@@ -7,6 +7,7 @@ import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/ReviewsHubCategoryQuery';
+import { Nullable } from '../../types/common';
 import { getMarkdownRenderers } from './Utils';
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -25,7 +26,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
-  pageNumber?: number;
+  pageNumber?: Nullable<number>;
   breadcrumbsItems?: any;
 }
 
