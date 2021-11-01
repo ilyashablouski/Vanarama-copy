@@ -22,7 +22,6 @@ import {
 import {
   GetMyOrders,
   GetMyOrdersVariables,
-  GetMyOrders_myOrders,
 } from '../../../generated/GetMyOrders';
 import { GetPerson } from '../../../generated/GetPerson';
 import {
@@ -56,13 +55,18 @@ export const getPartyUuidsFromCompanies = (
     companies => companies.partyUuid,
   );
 
-export const saveOrders = (
-  orders: GetMyOrders_myOrders[],
-  quotes: GetMyOrders_myOrders[],
-) =>
+export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
+  GetMyOrders
+>[]) =>
   Promise.all([
-    localForage.setItem<number | undefined>('ordersLength', orders?.length),
-    localForage.setItem<number | undefined>('quotesLength', quotes?.length),
+    localForage.setItem<number | undefined>(
+      'ordersLength',
+      ordersQuery.data?.myOrders.length,
+    ),
+    localForage.setItem<number | undefined>(
+      'quotesLength',
+      quotesQuery.data?.myOrders.length,
+    ),
   ]);
 
 const LoginFormContainer = ({
@@ -151,9 +155,7 @@ const LoginFormContainer = ({
             .then(getPartyUuidsFromCompanies)
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
             .then(requestOrders)
-            .then(([{ data: orders }, { data: quotes }]) =>
-              saveOrders(orders?.myOrders, quotes?.myOrders),
-            )
+            .then(saveOrders)
             .then(() => personQuery),
         )
         .then(personQuery =>

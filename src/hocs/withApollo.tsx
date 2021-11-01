@@ -1,14 +1,10 @@
 import { ApolloProvider } from '@apollo/client';
 import withApollo from 'next-with-apollo';
-import { ComponentType } from 'react';
-import createApolloClient, {
-  APOLLO_STATE_PROP_NAME,
-  useApollo,
-} from '../apolloClient';
+import createApolloClient from '../apolloClient';
 
 export default withApollo(
-  ({ initialState, ctx }) => {
-    return createApolloClient(initialState, ctx);
+  ({ initialState }) => {
+    return createApolloClient(initialState);
   },
   {
     render: ({ Page, props }) => {
@@ -21,15 +17,3 @@ export default withApollo(
     },
   },
 );
-
-// HOC for add ApolloProvider for App container
-export const withApolloProvider = (Component: ComponentType<any>) => ({
-  ...props
-}) => {
-  const apollo = useApollo(props?.pageProps?.[APOLLO_STATE_PROP_NAME]);
-  return (
-    <ApolloProvider client={apollo}>
-      <Component {...props} />
-    </ApolloProvider>
-  );
-};

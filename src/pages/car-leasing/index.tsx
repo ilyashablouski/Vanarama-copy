@@ -207,8 +207,9 @@ export const CarsPage: NextPage<IProps> = ({
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'Check My Eligibility',
-                href: '/eligibility-checker.html',
+                href: '/lease-eligibility-checker',
               }}
+              dataUiTestId="eligibility-Checker-btn"
               withoutDefaultClassName
             >
               <div className="button--inner">Check My Eligibility</div>
