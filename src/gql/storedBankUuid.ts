@@ -7,7 +7,9 @@ import {
 
 export const GET_STORED_BANK_UUID_QUERY = gql`
   query GetStoredBankUuidQuery {
-    storedPersonBankUuid @client
+    storedPersonBankUuid @client {
+      bankUuid
+    }
   }
 `;
 
