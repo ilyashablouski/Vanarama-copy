@@ -169,6 +169,7 @@
           &.-center {
             top: 50%;
             transform: translate(-50%, -50%);
+            font-weight: $font-weight-medium;
             color: $white !important;
           }
 
@@ -196,7 +197,7 @@
         display: block;
         margin-bottom: $rem-200;
         font-size: $font-size-700;
-        font-weight: $font-weight-black;
+        font-weight: $font-weight-regular;
         font-family: $font-family-heading;
         letter-spacing: 0;
         white-space: nowrap;
@@ -235,6 +236,7 @@
         color: $white;
 
         .icon {
+          bottom: -0.2em;
           display: inline-flex;
           height: auto;
           margin-left: 0.625rem;
