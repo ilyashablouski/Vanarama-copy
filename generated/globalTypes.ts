@@ -642,6 +642,10 @@ export interface PaginationInputObject {
   size?: number | null;
 }
 
+export interface PersonBankUuidInputObject {
+  bankUuid?: string | null;
+}
+
 /**
  * Input object to create a Person
  */
