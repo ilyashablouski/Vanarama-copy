@@ -11,8 +11,10 @@ import {
   GetMyOrders,
   GetMyOrdersVariables,
 } from '../../../generated/GetMyOrders';
+import { VEHICLE_PRODUCT_DATA_FRAGMENT } from '../../gql/order';
 
 export const GET_MY_ORDERS_DATA = gql`
+  ${VEHICLE_PRODUCT_DATA_FRAGMENT}
   query GetMyOrders($partyUuid: [ID!]!, $filter: MyOrdersTypeEnum!) {
     myOrders(partyUuids: $partyUuid, filter: $filter) {
       uuid
@@ -311,25 +313,7 @@ export const GET_MY_ORDERS_DATA = gql`
           uuid
         }
         vehicleProduct {
-          finalPayment
-          leadTime
-          maintenancePrice
-          derivativeCapId
-          description
-          vsku
-          financeType
-          depositPayment
-          monthlyPayment
-          term
-          annualMileage
-          depositMonths
-          funderId
-          funderData
-          colour
-          trim
-          maintenance
-          vehicleType
-          partnerSlug
+          ...vehicleProduct
         }
       }
     }
@@ -343,12 +327,14 @@ export const GET_MY_ORDERS_DATA = gql`
 export function useMyOrdersData(
   partyByUuid: string[],
   filter: MyOrdersTypeEnum,
+  onCompleted?: (data: GetMyOrders) => void,
 ) {
   return useLazyQuery<GetMyOrders, GetMyOrdersVariables>(GET_MY_ORDERS_DATA, {
     variables: {
       partyUuid: partyByUuid,
       filter,
     },
+    onCompleted,
     fetchPolicy: 'network-only',
   });
 }
