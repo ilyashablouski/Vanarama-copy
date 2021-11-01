@@ -46,7 +46,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const account = mapDefaultValues(data?.creditApplicationByOrderUuid);
   const [saveStoredBankUuidMutation] = useSaveStoredBankUuidMutation();
   const { data: bankUuidData } = useStoredBankUuidQuery();
-  const accountUuid = bankUuidData?.storedPersonBankUuid || undefined;
+  const accountUuid = bankUuidData?.storedPersonBankUuid?.bankUuid || undefined;
 
   if (loading) {
     return <Loading size="large" />;
