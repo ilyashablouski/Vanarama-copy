@@ -16,7 +16,7 @@ const ACCORDION_ITEMS = [
         <RouterLink
           dataTestId="terms_and_conditions"
           link={{
-            href: '/legal/terms-and-conditions.html',
+            href: '/legal/terms-and-conditions',
             label: 'Full terms and conditions can be found here.',
             target: '_blank',
           }}
@@ -39,7 +39,7 @@ const ACCORDION_ITEMS = [
         <RouterLink
           dataTestId="terms_and_conditions"
           link={{
-            href: '/legal/terms-and-conditions.html',
+            href: '/legal/terms-and-conditions',
             label: 'Full terms and conditions can be found here.',
             target: '_blank',
           }}

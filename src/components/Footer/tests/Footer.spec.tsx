@@ -222,7 +222,7 @@ describe('<Footer />', () => {
                     },
                     {
                       url:
-                        'https://beta.vanarama.com/legal/terms-and-conditions.html',
+                        'https://beta.vanarama.com/legal/terms-and-conditions',
                       text: 'Terms & Conditions',
                     },
                     {
