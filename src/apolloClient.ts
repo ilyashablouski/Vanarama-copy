@@ -12,7 +12,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 import localforage from 'localforage';
 import { getAdditionalDataVariable } from './utils/helpers';
 import { Env } from './utils/env';
@@ -282,7 +282,7 @@ function apolloClientLink() {
 
 export default function createApolloClient(
   initialState: any,
-  ctx?: NextPageContext,
+  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
 ) {
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
