@@ -13,6 +13,13 @@ const DerangedHeroSection = dynamic(
   },
 );
 
+const DerangedLeadSection = dynamic(
+  () => import('./sections/DerangedLeadSection'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
 const DerangedVehicleSection = dynamic(
   () => import('./sections/DerangedVehicleSection'),
   {
@@ -55,7 +62,7 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
     (ConversionsVehicleList | null)[] | null
   >(conversions);
   const { metaData } = genericPage;
-  const { hero, featured1, featured2, featured3, featured4, tiles } =
+  const { hero, leadText, featured1, featured2, featured3, featured4, tiles } =
     genericPage.sections || {};
 
   return (
@@ -65,6 +72,12 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
           title={hero.title || ''}
           body={hero.body || ''}
           image={hero.image}
+        />
+      )}
+      {leadText && (
+        <DerangedLeadSection
+          description={leadText.description}
+          heading={leadText.heading}
         />
       )}
       {vehicleList?.length && (
