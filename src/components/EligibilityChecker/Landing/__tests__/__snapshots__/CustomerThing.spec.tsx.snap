@@ -16,9 +16,13 @@ exports[`<CustomerThing /> renders correctly 1`] = `
   </p>
   <a
     className="button -teal -regular -solid"
+    data-menu={null}
     data-testid="eligibility-Checker-btn"
-    href="/credit-checker.html"
+    href="/lease-eligibility-checker/details"
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseOver={[Function]}
   >
     <div
       className="button--inner"

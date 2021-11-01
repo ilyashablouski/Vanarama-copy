@@ -7,11 +7,10 @@ import { useRouter } from 'next/router';
 import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import withApollo from '../../../hocs/withApollo';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import { addApolloState, initializeApollo } from '../../../apolloClient';
-import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -149,20 +148,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
-  const client = initializeApollo(undefined, context);
-  // If user has authenticated already make redirect to details page
-  if (isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
-    return {
-      redirect: {
-        destination: '/account/my-details',
-        permanent: false,
-      },
-    };
-  }
-  return addApolloState(client, {
-    props: { query: context.query },
-  });
+export async function getServerSideProps({ query }: NextPageContext) {
+  return { props: { query } };
 }
 
-export default LoginRegisterPage;
+export default withApollo(LoginRegisterPage);
