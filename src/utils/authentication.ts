@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import {ApolloClient, NormalizedCacheObject} from '@apollo/client';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { GET_SSR_AUTH_STATUS, ISSRAuthStatus } from '../gql/session';
 
 export const IDENTITY_COOKIE_NAME = 'ic';
