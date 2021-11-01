@@ -11,6 +11,12 @@ export interface PreviewNextPageContext extends NextPageContext {
   resolvedUrl?: string;
 }
 
+export enum PageTypeEnum {
+  DEFAULT = 'DEFAULT',
+  NOT_FOUND = 'NOT_FOUND',
+  ERROR = 'ERROR',
+}
+
 export interface IErrorProps {
   statusCode: number;
   message: string;
