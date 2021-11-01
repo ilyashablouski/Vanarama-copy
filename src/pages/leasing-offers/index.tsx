@@ -172,7 +172,7 @@ export const OffersPage: NextPage<IProps> = ({
               }}
             >
               <div className="free-insurance-background">
-                {!isBlackFridayCampaignEnabled && (
+                {!isBlackFridayCampaignEnabled() && (
                   <div className="free-insurance-text-container">
                     <Text color="dark" size="xsmall">
                       *
