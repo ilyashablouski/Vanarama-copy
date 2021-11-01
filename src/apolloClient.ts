@@ -330,7 +330,12 @@ export default function createApolloClient(
   initialState: any,
   ctx?: GetServerSidePropsContext | GetStaticPropsContext,
 ) {
-  const cookie = ctx?.req?.headers.cookie || '';
+  // TODO: Temporary solution. We'll remove context argument for getStaticProps function
+  let cookie = '';
+  if (ctx && 'req' in ctx) {
+    cookie = ctx?.req?.headers.cookie || '';
+  }
+
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
@@ -373,7 +378,7 @@ export default function createApolloClient(
  * */
 export function initializeApollo(
   initialState?: NormalizedCacheObject,
-  ctx?: NextPageContext,
+  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
   forceCreateClient?: boolean,
 ) {
   const initializedApolloClient = !forceCreateClient
