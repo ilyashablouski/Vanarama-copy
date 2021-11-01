@@ -400,6 +400,9 @@ export function initializeApollo(
     // Restore the cache with the merged data
     initializedApolloClient.restore(data);
   }
+  if (apolloClient && forceCreateClient) {
+    apolloClient.resetStore();
+  }
   if (!apolloClient) {
     apolloClient = initializedApolloClient;
   }
