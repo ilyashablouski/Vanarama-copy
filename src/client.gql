@@ -36,6 +36,10 @@ input QuoteInputObject {
   vehicleType: VehicleTypeEnum
 }
 
+input PersonBankUuidInputObject {
+  bankUuid: ID
+}
+
 extend type Query {
   leaseTypes: JSON
   sortOrder: JSON
@@ -45,7 +49,7 @@ extend type Query {
   storedPersonUuid: ID
   storedOrder: OrderInputObjectWithRating
   storedPersonEmail: String
-  storedPersonBankUuid: ID
+  storedPersonBankUuid: PersonBankUuidInputObject
   storedQuote: Quote
 }
 
