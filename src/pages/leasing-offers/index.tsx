@@ -23,7 +23,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isBlackFridayCampaignEnabled,
+} from '../../utils/helpers';
 import { IErrorProps } from '../../types/common';
 import ErrorPage from '../_error';
 
@@ -169,14 +172,17 @@ export const OffersPage: NextPage<IProps> = ({
               }}
             >
               <div className="free-insurance-background">
-                <div className="free-insurance-text-container">
-                  <Text color="dark" size="xsmall">
-                    *
-                  </Text>
-                  <Text color="dark" size="xsmall">
-                    FREE on all Car Hot offers only and subjects to availability
-                  </Text>
-                </div>
+                {!isBlackFridayCampaignEnabled && (
+                  <div className="free-insurance-text-container">
+                    <Text color="dark" size="xsmall">
+                      *
+                    </Text>
+                    <Text color="dark" size="xsmall">
+                      FREE on all Car Hot offers only and subjects to
+                      availability
+                    </Text>
+                  </div>
+                )}
               </div>
             </RouterLink>
           </div>
