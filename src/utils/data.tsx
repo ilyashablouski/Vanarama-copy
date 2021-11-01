@@ -6,7 +6,7 @@ const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
 export function encodeData<T>(data: NonNullable<T>) {
   // using for remove all references
-  const newData = JSON.parse(JSON.stringify(data));
+  const newData: T = JSON.parse(JSON.stringify(data));
 
   modifyObjectStringValues({
     object: newData,
