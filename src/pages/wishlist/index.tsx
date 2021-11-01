@@ -1,10 +1,11 @@
 import React from 'react';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import { ApolloError } from '@apollo/client';
 
 import Head from 'components/Head';
 import WishlistPageContainer from 'containers/WishlistPageContainer';
 
-import { PreviewNextPageContext } from 'types/common';
+import { PageTypeEnum, IErrorProps } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -17,15 +18,25 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
-import ErrorPage from '../_error';
 import { convertErrorToProps } from '../../utils/helpers';
+import ErrorPage from '../_error';
 
-function WishlistPage({ data: encodedData, error }: IGenericPage) {
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
+type IProps =
+  | (IGenericPage & {
+      pageType: PageTypeEnum.DEFAULT;
+    })
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
+
+function WishlistPage(props: IProps) {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
+    return <ErrorPage errorData={props.error} />;
   }
 
-  // De-obfuscate data for user
+  const { data: encodedData } = props;
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data.genericPage);
@@ -44,7 +55,9 @@ function WishlistPage({ data: encodedData, error }: IGenericPage) {
   );
 }
 
-export async function getStaticProps(context: PreviewNextPageContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps>> {
   try {
     const client = createApolloClient({}, context);
     const { data: genericPage } = await client.query<
@@ -61,6 +74,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(genericPage),
       },
     };
@@ -80,6 +94,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

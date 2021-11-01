@@ -13,7 +13,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 import localforage from 'localforage';
 import merge from 'deepmerge';
 
@@ -328,7 +328,7 @@ function apolloClientLink(cookie: string) {
 
 export default function createApolloClient(
   initialState: any,
-  ctx?: NextPageContext,
+  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
 ) {
   const cookie = ctx?.req?.headers.cookie || '';
   return new ApolloClient({
