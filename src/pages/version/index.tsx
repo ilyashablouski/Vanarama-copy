@@ -1,13 +1,14 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { GetStaticPropsResult, NextPage } from 'next';
 import NextHead from 'next/head';
+
 import Version from '../../components/Version';
 
-interface IVersionPageProps {
+interface IProps {
   buildVersion?: string;
 }
 
-const VersionPage: NextPage<IVersionPageProps> = ({ buildVersion }) => {
+const VersionPage: NextPage<IProps> = ({ buildVersion }) => {
   return (
     <>
       <NextHead key="buildVersion">
@@ -19,7 +20,7 @@ const VersionPage: NextPage<IVersionPageProps> = ({ buildVersion }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<GetStaticPropsResult<IProps>> {
   const buildVersion = process.env.NSF_BUILD_VERSION || 'No build version';
 
   return {
