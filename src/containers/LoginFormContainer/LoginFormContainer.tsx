@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
@@ -72,7 +72,8 @@ const LoginFormContainer = ({
 }: ILogInFormContainerProps) => {
   const router = useRouter();
   const { redirect } = router.query;
-  const [login, { loading, error }] = useLoginUserMutation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [login, { error }] = useLoginUserMutation();
   const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
   const [savePerson] = useSavePersonMutation();
   const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
@@ -141,11 +142,10 @@ const LoginFormContainer = ({
 
   const handleLoginComplete = useCallback(
     values => {
-      const start = new Date().getTime();
+      setIsLoading(true);
       return requestLogin(values)
         .then(requestPerson)
         .then(personQuery => {
-          router.prefetch((redirect as string) || '/');
           Promise.all([
             savePerson({
               variables: {
@@ -153,9 +153,9 @@ const LoginFormContainer = ({
               },
             })
               .then(async () => {
-                const [, companies] = await Promise.all([
-                  setPersonLoggedIn(personQuery.data?.getPerson),
+                const [companies] = await Promise.all([
                   requestCompanies(personQuery.data?.getPerson),
+                  setPersonLoggedIn(personQuery.data?.getPerson),
                 ]);
                 return companies;
               })
@@ -165,6 +165,7 @@ const LoginFormContainer = ({
               .then(([{ data: orders }, { data: quotes }]) =>
                 saveOrders(orders?.myOrders, quotes?.myOrders),
               ),
+            router.prefetch((redirect as string) || '/'),
             getLocalWishlistState()
               .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
               .then(() =>
@@ -179,10 +180,8 @@ const LoginFormContainer = ({
           return personQuery;
         })
         .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
-        .then(() => {
-          console.log('END', start - new Date().getTime());
-        })
-        .catch(onError);
+        .catch(onError)
+        .finally(() => setIsLoading(false));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -191,7 +190,7 @@ const LoginFormContainer = ({
   return (
     <LoginForm
       hasError={Boolean(error)}
-      isSubmitting={loading}
+      isSubmitting={isLoading}
       onSubmit={handleLoginComplete}
     />
   );
