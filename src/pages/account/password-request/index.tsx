@@ -58,7 +58,10 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   >(HELP_ME_LOGIN_MUTATION, {
     onCompleted: data => {
       if (data.helpMeLogin?.isSuccessful) {
-        router.push(`/account/login-register?hasResetPassword=true`, '/account/login-register' );
+        router.push(
+          `/account/login-register?hasResetPassword=true`,
+          '/account/login-register',
+        );
       }
     },
   });
