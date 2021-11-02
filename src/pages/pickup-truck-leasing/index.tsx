@@ -267,6 +267,7 @@ export const PickupsPage: NextPage<IProps> = ({
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
+                  isBlackFridayLabel
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || index}
                   header={{

@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
 import { ICardProps } from '../interfaces';
 import Card from '..';
 import CardIcons, { TIcon } from '../CardIcons';
@@ -21,15 +20,25 @@ export interface IProductCardProps extends ICardProps {
   onWishlist?: (e: React.MouseEvent<Element, MouseEvent>) => void;
   compared?: boolean;
   wished?: boolean;
+  isBlackFridayLabel?: boolean;
 }
 
 const ProductCard: FC<IProductCardProps> = props => {
-  const { onCompare, onWishlist, children, compared, wished, features } = props;
+  const {
+    onCompare,
+    onWishlist,
+    children,
+    compared,
+    wished,
+    features,
+    isBlackFridayLabel,
+  } = props;
+  const isBlackFridayFlag =
+    isBlackFridayCampaignEnabled() && isBlackFridayLabel;
 
   return (
-    <Card {...props}>
+    <Card {...props} isBlackFridayFlag={isBlackFridayFlag}>
       {!!features?.length && <CardIcons icons={features} />}
-      {isBlackFridayCampaignEnabled() && <BlackFridayCardLabel />}
       {children}
       <div className="card-footer">
         {onCompare && (
