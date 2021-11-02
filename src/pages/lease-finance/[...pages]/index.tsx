@@ -6,7 +6,11 @@ import FinanceInformationExplainedContainer from '../../../containers/FinanceInf
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import FinanceExplainedContainer from '../../../containers/FinanceExplainedContainer/FinanceExplainedContainer';
-import { GENERIC_PAGE, IGenericPageProps } from '../../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -26,15 +30,8 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
-import ErrorPage from '../../_error';
 
-const EligibilityChecker: NextPage<IGenericPageProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);

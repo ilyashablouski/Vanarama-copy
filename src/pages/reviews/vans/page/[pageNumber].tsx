@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PageTypeEnum } from 'types/common';
+import { IPageWithError } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import {
@@ -11,15 +11,11 @@ import {
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import Head from '../../../../components/Head/Head';
 import { decodeData } from '../../../../utils/data';
-import ErrorPage from '../../../_error';
 
-const ReviewHub: NextPage<IReviewHubPage> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData, pageNumber } = props;
+const ReviewHub: NextPage<IReviewHubPage> = ({
+  data: encodedData,
+  pageNumber,
+}) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -52,7 +48,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IReviewHubPage>> {
+): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> {
   const client = createApolloClient({});
   return getReviewsHubCategoryStaticProps(client, 'reviews/vans', context);
 }

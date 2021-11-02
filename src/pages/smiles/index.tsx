@@ -1,6 +1,10 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { GENERIC_PAGE, IGenericPageProps } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';
 import {
@@ -13,18 +17,10 @@ import {
 } from '../../utils/env';
 import { PageTypeEnum } from '../../types/common';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-const SmilesPage: NextPage<IGenericPageProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
-  return <FeaturedAndTilesContainer data={data} />;
-};
+const SmilesPage: NextPage<IGenericPage> = ({ data }) => (
+  <FeaturedAndTilesContainer data={data} />
+);
 
 export async function getStaticProps(
   context: GetStaticPropsContext,

@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { PageTypeEnum } from 'types/common';
+import { IPageWithError, PageTypeEnum } from 'types/common';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -23,7 +23,6 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
-import ErrorPage from '../../_error';
 
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
@@ -41,14 +40,7 @@ const LeasingQuestionContainer = dynamic(
   },
 );
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const body = getSectionsData(['intro', 'body'], data?.genericPage);
@@ -98,7 +90,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IInsurancePage>> {
+): Promise<GetStaticPropsResult<IInsurancePage | IPageWithError>> {
   try {
     const client = createApolloClient({});
     const paths = context?.params?.question as string[];

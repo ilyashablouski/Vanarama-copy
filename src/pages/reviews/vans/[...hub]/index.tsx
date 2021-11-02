@@ -28,24 +28,18 @@ import {
   ReviewsPageQuery,
   ReviewsPageQueryVariables,
 } from '../../../../../generated/ReviewsPageQuery';
-import { IPageWithError, PageTypeEnum } from '../../../../types/common';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../../../types/common';
 import { convertErrorToProps } from '../../../../utils/helpers';
-import ErrorPage from '../../../_error';
 
-type IProps =
-  | {
-      pageType: PageTypeEnum.DEFAULT;
-      data: ReviewsHubCategoryQuery | ReviewsPageQuery;
-    }
-  | IPageWithError;
+type IProps = IPageWithData<{
+  data: ReviewsHubCategoryQuery | ReviewsPageQuery;
+}>;
 
-const ReviewHub: NextPage<IProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const ReviewHub: NextPage<IProps> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   if ('reviewsPage' in data) {
@@ -124,7 +118,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
     const hub = context?.params?.hub as string[];

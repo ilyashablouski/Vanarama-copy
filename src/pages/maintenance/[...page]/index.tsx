@@ -1,7 +1,11 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { PageTypeEnum } from 'types/common';
-import { GENERIC_PAGE, IGenericPageProps } from '../../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -19,18 +23,10 @@ import {
   GenericPageQueryVariables,
 } from '../../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../../utils/helpers';
-import ErrorPage from '../../_error';
 
-const MaintenancePage: NextPage<IGenericPageProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
-  return <FeaturedAndTilesContainer data={data} />;
-};
+const MaintenancePage: NextPage<IGenericPage> = ({ data }) => (
+  <FeaturedAndTilesContainer data={data} />
+);
 
 export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});

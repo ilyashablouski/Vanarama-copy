@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 
 import Head from 'components/Head';
@@ -9,7 +9,11 @@ import { PageTypeEnum } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { GENERIC_PAGE, IGenericPageProps } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -19,15 +23,8 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-function WishlistPage(props: IGenericPageProps) {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const WishlistPage: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data.genericPage);
@@ -44,7 +41,7 @@ function WishlistPage(props: IGenericPageProps) {
       />
     </>
   );
-}
+};
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
@@ -61,6 +58,8 @@ export async function getStaticProps(
         isPreview: !!context?.preview,
       },
     });
+
+    throw new Error('asdklasdkasd');
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

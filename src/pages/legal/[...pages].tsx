@@ -5,7 +5,7 @@ import {
   NextPageContext,
 } from 'next';
 import { ApolloError } from '@apollo/client';
-import { IPageWithError, PageTypeEnum } from 'types/common';
+import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import { LEGAL_PAGE_QUERY } from '../../containers/LegalArticleContainer/gql';
 import createApolloClient from '../../apolloClient';
@@ -28,23 +28,12 @@ import {
   LegalPageQueryVariables,
 } from '../../../generated/LegalPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-type IProps =
-  | {
-      pageType: PageTypeEnum.DEFAULT;
-      data: LegalPageQuery;
-    }
-  | IPageWithError;
+type IProps = IPageWithData<{
+  data: LegalPageQuery;
+}>;
 
-const BlogPost: NextPage<IProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
+const BlogPost: NextPage<IProps> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -99,7 +88,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];

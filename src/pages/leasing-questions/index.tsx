@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { GENERIC_PAGE, IGenericPageProps } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
 import { decodeData, encodeData } from '../../utils/data';
@@ -15,7 +19,6 @@ import {
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
-import ErrorPage from '../_error';
 
 const LeasingQuestionsContainer = dynamic(
   () =>
@@ -27,13 +30,7 @@ const LeasingQuestionsContainer = dynamic(
   },
 );
 
-const FinanceInfo: NextPage<IGenericPageProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   return <LeasingQuestionsContainer data={data} />;

@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PageTypeEnum } from 'types/common';
+import { IPageWithError, PageTypeEnum } from 'types/common';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
@@ -23,16 +23,8 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
-import ErrorPage from '../../_error';
 
-const CompetitionPage: NextPage<IInsurancePage> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
+const CompetitionPage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -76,7 +68,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IInsurancePage>> {
+): Promise<GetStaticPropsResult<IInsurancePage | IPageWithError>> {
   try {
     const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
