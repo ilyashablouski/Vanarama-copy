@@ -5,7 +5,7 @@ import {
   NextPageContext,
 } from 'next';
 import { ApolloError } from '@apollo/client';
-import { IErrorProps, PageTypeEnum } from 'types/common';
+import { IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import { LEGAL_PAGE_QUERY } from '../../containers/LegalArticleContainer/gql';
 import createApolloClient from '../../apolloClient';
@@ -35,10 +35,7 @@ type IProps =
       pageType: PageTypeEnum.DEFAULT;
       data: LegalPageQuery;
     }
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
+  | IPageWithError;
 
 const BlogPost: NextPage<IProps> = props => {
   // eslint-disable-next-line react/destructuring-assignment

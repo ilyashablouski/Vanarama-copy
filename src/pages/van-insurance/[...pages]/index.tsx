@@ -24,8 +24,8 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
-import ErrorPage from '../../_error';
 import { convertErrorToProps } from '../../../utils/helpers';
+import ErrorPage from '../../_error';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = props => {
   // eslint-disable-next-line react/destructuring-assignment

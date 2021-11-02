@@ -28,7 +28,7 @@ import {
   ReviewsPageQuery,
   ReviewsPageQueryVariables,
 } from '../../../../../generated/ReviewsPageQuery';
-import { IErrorProps, PageTypeEnum } from '../../../../types/common';
+import { IPageWithError, PageTypeEnum } from '../../../../types/common';
 import { convertErrorToProps } from '../../../../utils/helpers';
 import ErrorPage from '../../../_error';
 
@@ -37,10 +37,7 @@ type IProps =
       pageType: PageTypeEnum.DEFAULT;
       data: ReviewsHubCategoryQuery | ReviewsPageQuery;
     }
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
+  | IPageWithError;
 
 const ReviewHub: NextPage<IProps> = props => {
   // eslint-disable-next-line react/destructuring-assignment

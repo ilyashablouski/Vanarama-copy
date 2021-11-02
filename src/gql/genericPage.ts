@@ -18,7 +18,7 @@ import {
   SearchPageSlug,
   SearchPageSlugVariables,
 } from '../../generated/SearchPageSlug';
-import { IErrorProps } from '../types/common';
+import { IErrorProps, IPageWithError, PageTypeEnum } from '../types/common';
 
 export interface IGenericPage {
   data?: GenericPageQuery | undefined;
@@ -26,6 +26,12 @@ export interface IGenericPage {
   error?: IErrorProps;
   pageHead?: GenericPageHeadQuery;
 }
+
+export type IGenericPageProps =
+  | (IGenericPage & {
+      pageType: PageTypeEnum.DEFAULT;
+    })
+  | IPageWithError;
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery(

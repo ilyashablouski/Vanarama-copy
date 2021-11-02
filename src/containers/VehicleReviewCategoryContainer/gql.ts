@@ -11,7 +11,7 @@ import {
 import { encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { convertErrorToProps } from '../../utils/helpers';
-import { IErrorProps, Nullable, PageTypeEnum } from '../../types/common';
+import { IPageWithError, Nullable, PageTypeEnum } from '../../types/common';
 
 export const GENERIC_PAGE_QUESTION_HUB = gql`
   query ReviewsHubCategoryQuery($slug: String!, $isPreview: Boolean) {
@@ -87,10 +87,7 @@ export type IReviewHubPage =
       data: ReviewsHubCategoryQuery;
       pageNumber: Nullable<number>;
     }
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
+  | IPageWithError;
 
 export const getReviewsHubCategoryStaticProps = async (
   client: ApolloClient<any>,

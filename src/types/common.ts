@@ -22,6 +22,11 @@ export interface IErrorProps {
   message: string;
 }
 
+export interface IPageWithError {
+  pageType: PageTypeEnum.ERROR;
+  error: IErrorProps;
+}
+
 export interface IMetaDataSection {
   breadcrumbs: Nullable<IBreadcrumb[]>;
   canonicalUrl: Nullable<string>;

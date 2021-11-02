@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { IErrorProps, PageTypeEnum } from 'types/common';
-import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
+import { PageTypeEnum } from 'types/common';
+import { GENERIC_PAGE, IGenericPageProps } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -21,16 +21,7 @@ import {
 import { convertErrorToProps } from '../../../utils/helpers';
 import ErrorPage from '../../_error';
 
-type IProps =
-  | (IGenericPage & {
-      pageType: PageTypeEnum.DEFAULT;
-    })
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
-
-const MaintenancePage: NextPage<IProps> = props => {
+const MaintenancePage: NextPage<IGenericPageProps> = props => {
   // eslint-disable-next-line react/destructuring-assignment
   if (props.pageType === PageTypeEnum.ERROR || !props.data) {
     return <ErrorPage errorData={props.error} />;
@@ -60,7 +51,7 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
     const client = createApolloClient({});
     const paths = context?.params?.page as string[];

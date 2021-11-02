@@ -12,7 +12,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { IErrorProps, PageTypeEnum } from '../../types/common';
+import { IPageWithError, PageTypeEnum } from '../../types/common';
 import { convertErrorToProps } from '../../utils/helpers';
 import ErrorPage from '../_error';
 
@@ -21,10 +21,7 @@ type IProps =
       pageType: PageTypeEnum.DEFAULT;
       data: GetInsuranceLandingPage;
     }
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
+  | IPageWithError;
 
 const InsurancePage: NextPage<IProps> = props => {
   // eslint-disable-next-line react/destructuring-assignment
