@@ -66,6 +66,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   const [checkEmail, { loading: emailLoading }] = useEmailCheck();
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
+    setIsEmailExist(true);
     const results = await checkEmail({
       variables: {
         email: values.email,
