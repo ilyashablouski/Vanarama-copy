@@ -24,6 +24,39 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
     className="title"
   >
     <a
@@ -122,39 +155,6 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
         Manual
       </span>
     </div>
-  </div>
-  <div
-    className="bf-card-label"
-  >
-    <div
-      className="bf-card-label__inner"
-    >
-      <span
-        className="text bf-card-label__text -large -darker"
-      >
-        <span>
-          £250
-        </span>
-        Cashback
-      </span>
-    </div>
-    <i
-      className="icon bf-card-label__ear -initial-size"
-    >
-      <svg
-        height="32"
-        preserveAspectRatio="none"
-        viewBox="0 0 24 48"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
-          fill="currentColor"
-          transform="translate(29.649 48) rotate(180)"
-        />
-      </svg>
-    </i>
   </div>
   <div
     className="-flex-h"
@@ -315,6 +315,39 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
     className="title"
   >
     <a
@@ -413,39 +446,6 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         Manual
       </span>
     </div>
-  </div>
-  <div
-    className="bf-card-label"
-  >
-    <div
-      className="bf-card-label__inner"
-    >
-      <span
-        className="text bf-card-label__text -large -darker"
-      >
-        <span>
-          £250
-        </span>
-        Cashback
-      </span>
-    </div>
-    <i
-      className="icon bf-card-label__ear -initial-size"
-    >
-      <svg
-        height="32"
-        preserveAspectRatio="none"
-        viewBox="0 0 24 48"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
-          fill="currentColor"
-          transform="translate(29.649 48) rotate(180)"
-        />
-      </svg>
-    </i>
   </div>
   <div
     className="-flex-h"
@@ -606,6 +606,39 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
     className="title"
   >
     <a
@@ -704,39 +737,6 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         Manual
       </span>
     </div>
-  </div>
-  <div
-    className="bf-card-label"
-  >
-    <div
-      className="bf-card-label__inner"
-    >
-      <span
-        className="text bf-card-label__text -large -darker"
-      >
-        <span>
-          £250
-        </span>
-        Cashback
-      </span>
-    </div>
-    <i
-      className="icon bf-card-label__ear -initial-size"
-    >
-      <svg
-        height="32"
-        preserveAspectRatio="none"
-        viewBox="0 0 24 48"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
-          fill="currentColor"
-          transform="translate(29.649 48) rotate(180)"
-        />
-      </svg>
-    </i>
   </div>
   <div
     className="-flex-h"

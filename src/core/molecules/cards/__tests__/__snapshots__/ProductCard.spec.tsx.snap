@@ -25,7 +25,6 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
     }
   }
 >
-  <BlackFridayCardLabel />
   <div
     className="card-footer"
   />
