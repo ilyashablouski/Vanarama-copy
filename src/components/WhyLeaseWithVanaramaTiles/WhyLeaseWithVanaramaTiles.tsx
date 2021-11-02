@@ -1,6 +1,8 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown';
 import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink/RouterLink';
 import TileLink from '../TileLink/TileLink';
 import getTitleTag from '../../utils/getTitleTag';
 import { Partner_partner_tiles as IPartnerTiles } from '../../../generated/Partner';
@@ -53,7 +55,25 @@ const WhyLeaseWithVanaramaTiles = ({
               />
             </div>
             <TileLink tile={tile} />
-            <Text tag="p">{tile.body}</Text>
+            <ReactMarkdown
+              allowDangerousHtml
+              source={tile.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
           </Tile>
         </div>
       ))}
