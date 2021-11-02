@@ -131,7 +131,7 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = initializeApollo(undefined, context, true);
+  const client = initializeApollo(undefined, context);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
       return {
@@ -192,7 +192,8 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     return {
       props,
       redirect: {
-        destination: '/account/login-register?redirect=/account/my-details',
+        destination:
+          '/account/login-register?redirect=/account/my-details&isUnauthorised=true',
         permanent: false,
       },
     };

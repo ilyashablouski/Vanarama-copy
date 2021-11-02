@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
@@ -11,7 +11,11 @@ import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import { addApolloState, initializeApollo } from '../../../apolloClient';
-import { isUserAuthenticatedSSR } from '../../../utils/authentication';
+import {
+  getAuthStatusFromCache,
+  isUserAuthenticatedSSR,
+} from '../../../utils/authentication';
+import { GET_SSR_AUTH_STATUS } from '../../../gql/session';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -78,7 +82,18 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
+  useEffect(() => {
+    if (router.asPath !== '/account/login-register') {
+      router.replace(
+        `/account/login-register?redirect=${redirect || ''}`,
+        '/account/login-register',
+        {
+          scroll: false,
+          shallow: true,
+        },
+      );
+    }
+  }, []);
   const handleLoginComplete = useCallback(() => {
     // Redirect to the user's previous route or homepage.
     const nextUrl =
@@ -151,8 +166,19 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = initializeApollo(undefined, context);
+  if (context.query?.isUnauthorised === 'true') {
+    await client.writeQuery({
+      query: GET_SSR_AUTH_STATUS,
+      data: {
+        isSSRAuthError: true,
+      },
+    });
+  }
   // If user has authenticated already make redirect to details page
-  if (isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
+  if (
+    isUserAuthenticatedSSR(context?.req?.headers.cookie || '') &&
+    !getAuthStatusFromCache(client)
+  ) {
     return {
       redirect: {
         destination: '/account/my-details',
@@ -161,7 +187,9 @@ export async function getServerSideProps(context: NextPageContext) {
     };
   }
   return addApolloState(client, {
-    props: { query: context.query },
+    props: {
+      query: context.query,
+    },
   });
 }
 
