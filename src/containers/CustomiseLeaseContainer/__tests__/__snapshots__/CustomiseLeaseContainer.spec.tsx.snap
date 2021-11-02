@@ -190,7 +190,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
               I agree to the 
               <a
                 className="link -teal"
-                href="/legal/terms-and-conditions.html"
+                href="/legal/terms-and-conditions"
                 target="_blank"
               >
                 Terms and Conditions

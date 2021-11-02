@@ -30,7 +30,7 @@ const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = initializeApollo(undefined, context, true);
+  const client = initializeApollo(undefined, context);
 
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
@@ -77,7 +77,8 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     return {
       props,
       redirect: {
-        destination: '/account/login-register?redirect=/account/my-orders',
+        destination:
+          '/account/login-register?redirect=/account/my-orders&isUnauthorised=true',
         permanent: false,
       },
     };

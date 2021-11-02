@@ -577,7 +577,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
-          href="https://beta.vanarama.com/legal/terms-and-conditions.html"
+          href="https://beta.vanarama.com/legal/terms-and-conditions"
           onClick={[Function]}
         >
           Terms & Conditions

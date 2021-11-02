@@ -13,7 +13,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 import localforage from 'localforage';
 import merge from 'deepmerge';
 
@@ -156,18 +156,10 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
         { sensitivity: 'base' },
       ) === 0,
   );
-  // handle unauthorised on SSR side
-  if (authorizationError && typeof window === 'undefined') {
-    operation.getContext().cache.writeQuery({
-      query: GET_SSR_AUTH_STATUS,
-      data: {
-        isSSRAuthError: true,
-      },
-    });
-    return forward(operation);
-  }
 
-  // skip others errors
+  // handle only auth errors and
+  // avoid error handling on server
+  // because of functionality that only can be called on client
   if (!authorizationError || typeof window === 'undefined') {
     return forward(operation);
   }
@@ -328,9 +320,14 @@ function apolloClientLink(cookie: string) {
 
 export default function createApolloClient(
   initialState: any,
-  ctx?: NextPageContext,
+  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
 ) {
-  const cookie = ctx?.req?.headers.cookie || '';
+  // TODO: Temporary solution. We'll remove context argument for getStaticProps function
+  let cookie = '';
+  if (ctx && 'req' in ctx) {
+    cookie = ctx?.req?.headers.cookie || '';
+  }
+
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
@@ -369,16 +366,13 @@ export default function createApolloClient(
 /**
  * @param initialState - Apollo Cache State
  * @param ctx - Next.JS context
- * @param forceCreateClient - set to true for force create new Apollo client
  * */
 export function initializeApollo(
   initialState?: NormalizedCacheObject,
-  ctx?: NextPageContext,
-  forceCreateClient?: boolean,
+  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
 ) {
-  const initializedApolloClient = !forceCreateClient
-    ? apolloClient ?? createApolloClient(initialState, ctx)
-    : createApolloClient(initialState, ctx);
+  const initializedApolloClient =
+    apolloClient ?? createApolloClient(initialState, ctx);
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
@@ -400,6 +394,11 @@ export function initializeApollo(
     // Restore the cache with the merged data
     initializedApolloClient.restore(data);
   }
+  // For SSG and SSR always create a new Apollo Client
+  if (typeof window === 'undefined') {
+    return initializedApolloClient;
+  }
+
   if (!apolloClient) {
     apolloClient = initializedApolloClient;
   }

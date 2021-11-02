@@ -1,5 +1,5 @@
-import { ApolloClient, gql, useQuery } from '@apollo/client';
-import { GetStaticPropsContext } from 'next';
+import { ApolloClient, ApolloError, gql, useQuery } from '@apollo/client';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQueryVariables,
@@ -10,6 +10,8 @@ import {
 } from '../../utils/env';
 import { encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
+import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps, Nullable, PageTypeEnum } from '../../types/common';
 
 export const GENERIC_PAGE_QUESTION_HUB = gql`
   query ReviewsHubCategoryQuery($slug: String!, $isPreview: Boolean) {
@@ -79,43 +81,62 @@ export function useReviewsHubCategoryQuery(slug: string) {
   );
 }
 
+export type IReviewHubPage =
+  | {
+      pageType: PageTypeEnum.DEFAULT;
+      data: ReviewsHubCategoryQuery;
+      pageNumber: Nullable<number>;
+    }
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
+
 export const getReviewsHubCategoryStaticProps = async (
   client: ApolloClient<any>,
   slug: string,
   context: GetStaticPropsContext,
-) => {
+): Promise<GetStaticPropsResult<IReviewHubPage>> => {
   try {
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       ReviewsHubCategoryQuery,
       ReviewsHubCategoryQueryVariables
     >({
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
+
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        error: errors ? errors[0] : null,
         pageNumber:
           parseInt((context?.params?.pageNumber as string) || '', 10) || null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        pageType: PageTypeEnum.ERROR,
+        error: convertErrorToProps(error),
       },
-      notFound: true,
     };
   }
 };
@@ -132,7 +153,7 @@ export const getReviewsHubCategoryStaticPath = async (
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug,
-      ...(context?.preview && { isPreview: context?.preview }),
+      isPreview: !!context?.preview,
     },
   });
   const cards = getSectionsData(

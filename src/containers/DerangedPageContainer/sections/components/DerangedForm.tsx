@@ -63,7 +63,7 @@ const DerangedForm: React.FC<IDerangedForm> = ({
   return (
     <div className="drawer__container">
       <Text className="drawer__subtitle">
-        We&apos;ll be in touch within 1-2 business hour
+        We&apos;ll be in touch within 1-2 business hours
       </Text>
       <Image
         src={selectedVehicle.imageSrc}
