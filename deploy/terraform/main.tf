@@ -150,7 +150,7 @@ resource "aws_synthetics_canary" "canary" {
   execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
   handler              = "pageLoadBlueprint.handler"
   zip_file             = "canary.zip"
-  runtime_version      = "syn-nodejs-puppeteer-3.1"
+  runtime_version      = "syn-nodejs-puppeteer-3.3"
   depends_on  = [data.archive_file.canary_script]
   schedule {
     expression = "rate(5 minutes)"
