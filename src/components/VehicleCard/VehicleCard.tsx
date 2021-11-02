@@ -24,7 +24,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
 });
-const Card = dynamic(
+const ProductCard = dynamic(
   () => import('core/molecules/cards/ProductCard/ProductCard'),
   {
     loading: () => <Skeleton count={1} />,
@@ -99,7 +99,8 @@ const VehicleCard = React.memo(
     };
 
     return (
-      <Card
+      <ProductCard
+        isBlackFridayLabel
         loadImage={loadImage}
         className="product"
         lazyLoad={lazyLoad}
@@ -193,7 +194,7 @@ const VehicleCard = React.memo(
             </div>
           </RouterLink>
         </div>
-      </Card>
+      </ProductCard>
     );
   },
 );
