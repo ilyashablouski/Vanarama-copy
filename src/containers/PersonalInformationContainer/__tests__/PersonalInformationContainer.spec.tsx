@@ -1,17 +1,14 @@
 import { render, waitFor, screen } from '@testing-library/react';
-import { useLazyQuery } from '@apollo/client';
 import PersonalInformation from '../PersonalInformation';
 import { useCreatePerson } from '../gql';
 
 jest.mock('@apollo/client');
 jest.mock('../gql');
 
-(useLazyQuery as jest.Mock).mockReturnValue([
+(useCreatePerson as jest.Mock).mockReturnValue([
   () => {},
   { loading: false, error: false },
 ]);
-
-(useCreatePerson as jest.Mock).mockReturnValue([() => {}]);
 
 it('should render PersonalInformationContainer correctly', async () => {
   const getComponent = render(
