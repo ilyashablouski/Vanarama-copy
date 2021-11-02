@@ -168,7 +168,9 @@ export const OffersPage: NextPage<IProps> = ({
               classNames={{ color: 'teal', size: 'regular' }}
               link={{
                 label: '',
-                href: '/car-leasing/free-car-insurance.html',
+                href: isBlackFridayCampaignEnabled()
+                  ? '/legal/terms-and-conditions/black-friday-2021-terms-and-conditions'
+                  : '/car-leasing/free-car-insurance.html',
               }}
             >
               <div className="free-insurance-background">
