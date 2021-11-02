@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import {
   HelpMeLoginMutation,
   HelpMeLoginMutationVariables,
@@ -49,16 +50,22 @@ const metaData = {
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
+  const router = useRouter();
 
   const [requestPassword, { loading }] = useMutation<
     HelpMeLoginMutation,
     HelpMeLoginMutationVariables
-  >(HELP_ME_LOGIN_MUTATION);
+  >(HELP_ME_LOGIN_MUTATION, {
+    onCompleted: data => {
+      if (data.helpMeLogin?.isSuccessful) {
+        router.push(`/account/login-register?hasResetPassword=true`);
+      }
+    },
+  });
 
   const [checkEmail, { loading: emailLoading }] = useEmailCheck();
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
-    setIsEmailExist(true);
     const results = await checkEmail({
       variables: {
         email: values.email,
@@ -69,7 +76,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
         !results?.data?.emailAlreadyExists?.isTemporary) ||
         false,
     );
-    if (results?.data?.emailAlreadyExists) {
+    if (results?.data?.emailAlreadyExists?.isExists) {
       await requestPassword({
         variables: {
           username: values.email,
