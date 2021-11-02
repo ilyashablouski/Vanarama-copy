@@ -41,7 +41,7 @@ export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({});
 
     const { data } = await client.query<
       GenericPageQuery,

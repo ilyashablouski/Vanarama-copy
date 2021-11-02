@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { PreviewNextPageContext } from 'types/common';
+import { PageTypeEnum } from 'types/common';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -41,10 +41,13 @@ const LeasingQuestionContainer = dynamic(
   },
 );
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
+const MultiYearInsurancePage: NextPage<IInsurancePage> = props => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR) {
+    return <ErrorPage errorData={props.error} />;
   }
+
+  const { data } = props;
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -76,7 +79,7 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
@@ -93,9 +96,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IInsurancePage>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const paths = context?.params?.question as string[];
 
     const { data } = await client.query<
@@ -112,6 +117,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -131,6 +137,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

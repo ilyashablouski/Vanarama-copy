@@ -1,9 +1,14 @@
 import { GenericPageBreadcrumbsQuery } from '../../generated/GenericPageBreadcrumbsQuery';
 import { GenericPageQuery } from '../../generated/GenericPageQuery';
-import { IErrorProps } from '../types/common';
+import { IErrorProps, PageTypeEnum } from '../types/common';
 
-export interface IInsurancePage {
-  data: GenericPageQuery | undefined;
-  breadcrumbsData: GenericPageBreadcrumbsQuery | undefined;
-  error?: IErrorProps;
-}
+export type IInsurancePage =
+  | {
+      pageType: PageTypeEnum.DEFAULT;
+      data: GenericPageQuery;
+      breadcrumbsData?: GenericPageBreadcrumbsQuery;
+    }
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };

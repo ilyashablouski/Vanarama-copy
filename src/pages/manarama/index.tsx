@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../apolloClient';
@@ -12,19 +12,34 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
+import { IErrorProps, PageTypeEnum } from '../../types/common';
 import ErrorPage from '../_error';
 
-const ManaramaPage: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
+type IProps =
+  | (IGenericPage & {
+      pageType: PageTypeEnum.DEFAULT;
+    })
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
+
+const ManaramaPage: NextPage<IProps> = props => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
+    return <ErrorPage errorData={props.error} />;
   }
+
+  const { data } = props;
 
   return <SimplePageContainer data={data} />;
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
 
     const { data } = await client.query<
       GenericPageQuery,
@@ -40,6 +55,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -59,6 +75,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

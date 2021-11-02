@@ -35,7 +35,7 @@ const ReviewHub: NextPage<IReviewHubPage> = props => {
 export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IReviewHubPage>> {
-  const client = createApolloClient({}, context);
+  const client = createApolloClient({});
   return getReviewsHubCategoryStaticProps(client, 'reviews/vans', context);
 }
 

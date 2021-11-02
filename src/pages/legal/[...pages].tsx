@@ -1,12 +1,13 @@
-import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import SchemaJSON from 'core/atoms/schema-json';
-import React from 'react';
-import { PreviewNextPageContext } from 'types/common';
 import {
-  ILegalPage,
-  LEGAL_PAGE_QUERY,
-} from '../../containers/LegalArticleContainer/gql';
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  NextPage,
+  NextPageContext,
+} from 'next';
+import { ApolloError } from '@apollo/client';
+import { IErrorProps, PageTypeEnum } from 'types/common';
+import SchemaJSON from 'core/atoms/schema-json';
+import { LEGAL_PAGE_QUERY } from '../../containers/LegalArticleContainer/gql';
 import createApolloClient from '../../apolloClient';
 import { PAGE_COLLECTION } from '../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../utils/pageSlugs';
@@ -29,10 +30,23 @@ import {
 import { convertErrorToProps } from '../../utils/helpers';
 import ErrorPage from '../_error';
 
-const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
+type IProps =
+  | {
+      pageType: PageTypeEnum.DEFAULT;
+      data: LegalPageQuery;
+    }
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
+
+const BlogPost: NextPage<IProps> = props => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR) {
+    return <ErrorPage errorData={props.error} />;
   }
+
+  const { data } = props;
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
@@ -69,7 +83,7 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
@@ -86,7 +100,9 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps>> {
   try {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
@@ -105,6 +121,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -124,6 +141,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

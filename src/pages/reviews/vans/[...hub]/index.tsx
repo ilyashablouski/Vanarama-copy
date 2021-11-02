@@ -129,7 +129,7 @@ export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({});
     const hub = context?.params?.hub as string[];
 
     const { data } = await client.query<

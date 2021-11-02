@@ -1,7 +1,11 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PreviewNextPageContext } from 'types/common';
+import {
+  IErrorProps,
+  PageTypeEnum,
+  PreviewNextPageContext,
+} from 'types/common';
 import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -28,15 +32,22 @@ import {
 import { convertErrorToProps } from '../../../utils/helpers';
 import ErrorPage from '../../_error';
 
-const EligibilityChecker: NextPage<IGenericPage> = ({
-  data: encodedData,
-  error,
-}) => {
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
+type IProps =
+  | (IGenericPage & {
+      pageType: PageTypeEnum.DEFAULT;
+    })
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
+
+const EligibilityChecker: NextPage<IProps> = props => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
+    return <ErrorPage errorData={props.error} />;
   }
 
-  // De-obfuscate data for user
+  const { data: encodedData } = props;
   const data = decodeData(encodedData);
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -130,9 +141,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
 
     const { data } = await client.query<
@@ -149,6 +162,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
       },
     };
@@ -168,6 +182,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };
