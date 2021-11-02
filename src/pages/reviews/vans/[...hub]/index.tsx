@@ -1,11 +1,6 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import SchemaJSON from 'core/atoms/schema-json';
-import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import DefaultErrorPage from 'next/error';
-import React from 'react';
-import { PreviewNextPageContext } from 'types/common';
-import Skeleton from '../../../../components/Skeleton';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import SchemaJSON from 'core/atoms/schema-json';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewContainer/gql';
 import createApolloClient from '../../../../apolloClient';
@@ -13,8 +8,8 @@ import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
 import {
   PageCollection,
-  PageCollectionVariables,
   PageCollection_pageCollection_items,
+  PageCollectionVariables,
 } from '../../../../../generated/PageCollection';
 import VehicleReviewContainer from '../../../../containers/VehicleReviewContainer/VehicleReviewContainer';
 import { getSectionsData } from '../../../../utils/getSectionsData';
@@ -33,33 +28,30 @@ import {
   ReviewsPageQuery,
   ReviewsPageQueryVariables,
 } from '../../../../../generated/ReviewsPageQuery';
+import { IErrorProps, PageTypeEnum } from '../../../../types/common';
+import { convertErrorToProps } from '../../../../utils/helpers';
+import ErrorPage from '../../../_error';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+type IProps =
+  | {
+      pageType: PageTypeEnum.DEFAULT;
+      data: ReviewsHubCategoryQuery | ReviewsPageQuery;
+    }
+  | {
+      pageType: PageTypeEnum.ERROR;
+      error: IErrorProps;
+    };
 
-interface IReviewPage {
-  data: any;
-  loading: boolean;
-  error: ApolloError | undefined;
-}
-
-const ReviewHub: NextPage<IReviewPage> = ({
-  data: encodedData,
-  loading,
-  error,
-}) => {
-  if (loading) {
-    return <Loading size="large" />;
+const ReviewHub: NextPage<IProps> = props => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.pageType === PageTypeEnum.ERROR) {
+    return <ErrorPage errorData={props.error} />;
   }
 
+  const { data: encodedData } = props;
   const data = decodeData(encodedData);
 
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
-  if (data?.reviewsPage) {
+  if ('reviewsPage' in data) {
     const title = getSectionsData(['metaData', 'name'], data?.reviewsPage);
     const body = getSectionsData(['body'], data?.reviewsPage);
     const sections = getSectionsData(['sections'], data?.reviewsPage);
@@ -100,13 +92,13 @@ const ReviewHub: NextPage<IReviewPage> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Van Reviews',
-      ...(context?.preview && { isPreview: context?.preview }),
+      isPreview: !!context?.preview,
     },
   });
   const items: (PageCollection_pageCollection_items | null)[] =
@@ -133,12 +125,14 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const hub = context?.params?.hub as string[];
 
-    const { data, errors } = await client.query<
+    const { data } = await client.query<
       ReviewsHubCategoryQuery | ReviewsPageQuery,
       ReviewsHubCategoryQueryVariables | ReviewsPageQueryVariables
     >({
@@ -146,29 +140,36 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         hub.length === 1 ? GENERIC_PAGE_QUESTION_HUB : GENERIC_PAGE_QUESTION,
       variables: {
         slug: `reviews/vans/${hub?.join('/')}`,
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 
     return {
-      revalidate: context?.preview
-        ? 1
-        : Number(process.env.REVALIDATE_INTERVAL) ||
-          Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      revalidate,
       props: {
-        error: true,
+        pageType: PageTypeEnum.ERROR,
+        error: convertErrorToProps(error),
       },
-      notFound: true,
     };
   }
 }

@@ -21,7 +21,7 @@ import {
   isCorrectCompareType,
   changeCompares,
 } from '../utils/comparatorHelpers';
-import withApollo from '../hocs/withApollo';
+import { withApolloProvider } from '../hocs/withApollo';
 import {
   checkForGtmDomEvent,
   pushPageData,
@@ -42,6 +42,9 @@ import {
   resetPersonState,
   initializePersonState,
 } from '../utils/personHelpers';
+import { useSSRAuthStatus } from '../gql/session';
+import { useAuthReset } from '../containers/LoginFormContainer/gql';
+import { isBrowser } from '../utils/deviceType';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -75,6 +78,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   >(false);
 
   const client = useApolloClient();
+
+  const { data: authStatus } = useSSRAuthStatus();
+  const [resetAuth] = useAuthReset();
+
+  useEffect(() => {
+    if (authStatus?.isSSRAuthError && isBrowser()) {
+      resetAuth();
+    }
+  }, [authStatus, resetAuth]);
 
   useEffect(() => {
     const initializeGlobalVars = async () => {
@@ -232,4 +244,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 //   return { ...appProps }
 // }
 
-export default withApollo(MyApp);
+export default withApolloProvider(MyApp);
