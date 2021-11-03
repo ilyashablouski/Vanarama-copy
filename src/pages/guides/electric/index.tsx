@@ -1,28 +1,16 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
-import DefaultErrorPage from 'next/error';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import { getReviewsHubCategoryStaticProps } from '../../../containers/VehicleReviewCategoryContainer/gql';
+import {
+  getReviewsHubCategoryStaticProps,
+  IReviewHubPage,
+} from '../../../containers/VehicleReviewCategoryContainer/gql';
 import { decodeData } from '../../../utils/data';
-import { ReviewsHubCategoryQuery } from '../../../../generated/ReviewsHubCategoryQuery';
+import { IPageWithError } from '../../../types/common';
 
-interface IElectricGuides {
-  data: ReviewsHubCategoryQuery;
-  loading: boolean;
-  error: ApolloError | undefined;
-}
-
-const ElectricGuides: NextPage<IElectricGuides> = ({
-  data: encodedData,
-  error,
-}) => {
+const ElectricGuides: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
   const metaData = getSectionsData(['metaData'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
@@ -37,8 +25,10 @@ const ElectricGuides: NextPage<IElectricGuides> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> {
+  const client = createApolloClient({});
   return getReviewsHubCategoryStaticProps(client, 'guides/electric', context);
 }
 

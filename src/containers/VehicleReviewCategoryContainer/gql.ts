@@ -88,7 +88,7 @@ export function useReviewsHubCategoryQuery(slug: string) {
 
 export type IReviewHubPage = IPageWithData<{
   data: ReviewsHubCategoryQuery;
-  pageNumber: Nullable<number>;
+  pageNumber?: Nullable<number>;
 }>;
 
 export const getReviewsHubCategoryStaticProps = async (
