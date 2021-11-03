@@ -26,7 +26,7 @@ export interface IProps {
   dropdownData: AboutFormDropdownData;
   person?: AboutFormPerson | null;
   submit: (values: IAboutFormValues) => Promise<any>;
-  emailValidator: (email: string) => Promise<string | undefined>;
+  emailValidator?: (email: string) => Promise<string | undefined>;
   isEmailDisabled?: boolean;
   onLogInClick?: () => void;
   onRegistrationClick?: () => void;
