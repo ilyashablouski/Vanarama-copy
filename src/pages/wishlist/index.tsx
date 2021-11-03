@@ -59,8 +59,6 @@ export async function getStaticProps(
       },
     });
 
-    throw new Error('asdklasdkasd');
-
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
