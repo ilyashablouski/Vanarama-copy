@@ -52,7 +52,7 @@ const metaData = {
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
-  const [isLetterWasSent, setIsLetterWasSent] = useState(false);
+  const [isEmailSent, setIsEmailSent] = useState(false);
 
   const [requestPassword, { loading }] = useMutation<
     HelpMeLoginMutation,
@@ -60,7 +60,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   >(HELP_ME_LOGIN_MUTATION, {
     onCompleted: data => {
       if (data.helpMeLogin?.isSuccessful) {
-        setIsLetterWasSent(true);
+        setIsEmailSent(true);
       }
     },
   });
@@ -69,7 +69,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
     setIsEmailExist(true);
-    setIsLetterWasSent(false);
+    setIsEmailSent(false);
     const results = await checkEmail({
       variables: {
         email: values.email,
@@ -104,7 +104,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
           Enter your email address below and we&apos;ll send you an email with
           the next steps
         </Text>
-        {isLetterWasSent && (
+        {isEmailSent && (
           <Message message="">
             We&apos;ve emailed you a link to reset your password. <br /> If you
             didn&apos;t receive the email please check your junk or try entering
