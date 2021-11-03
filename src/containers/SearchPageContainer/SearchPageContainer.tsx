@@ -59,11 +59,9 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
-import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
-import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import { FilterFields } from '../FiltersContainer/config';
 import SortOrder from '../../components/SortOrder';
@@ -81,6 +79,7 @@ import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 import NewRangeContent from './NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
+import SearchPageTitle from './SearchPageTitle';
 import SearchPageMarkdown from './SearchPageMarkdown';
 import RelatedCarousel from './RelatedCarousel';
 
@@ -160,7 +159,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    newRangePageSlug && NEW_RANGE_SLUGS.includes(newRangePageSlug);
+    !!newRangePageSlug && NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -941,6 +940,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     ],
   );
 
+  const shouldBlackFridayBannerRender =
+    (isSpecialOfferPage || isEvPage) && isBlackFridayCampaignEnabled();
+  const blackFridayBannerLcvType = isPickups ? 'pickups' : 'vans';
+
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
@@ -948,33 +951,34 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   return (
     <>
       <PartnershipLogoHeader />
-      <section className="row:featured-bf">
-        <div className="row:title">
-          {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
-
-          {isNewPage ? null : (
-            <Heading tag="h1" size="xlarge" color="black">
-              {isDesktopOrTablet
-                ? pageTitle
-                : titleWithBreaks.map((line, index) => (
-                    <React.Fragment key={String(index)}>
-                      {line} <br />
-                    </React.Fragment>
-                  ))}
-            </Heading>
-          )}
-
-          <CommonDescriptionContainer
+      {shouldBlackFridayBannerRender ? (
+        <section className="row:featured-bf">
+          <SearchPageTitle
+            breadcrumbsItems={breadcrumbsItems}
+            pageTitle={pageTitle}
+            titleWithBreaks={titleWithBreaks}
             pageData={pageData}
-            customDescription={partnershipDescription}
+            partnershipDescription={partnershipDescription}
+            isDesktopOrTablet={isDesktopOrTablet}
+            isPartnershipActive={isPartnershipActive}
+            isNewPage={isNewPage}
           />
-        </div>
-        {isBlackFridayCampaignEnabled() && (
           <BlackFridayHotOffersBanner
-            variant={isPickups ? 'pickups' : 'cars'}
+            variant={isCarSearch ? 'cars' : blackFridayBannerLcvType}
           />
-        )}
-      </section>
+        </section>
+      ) : (
+        <SearchPageTitle
+          breadcrumbsItems={breadcrumbsItems}
+          pageTitle={pageTitle}
+          titleWithBreaks={titleWithBreaks}
+          pageData={pageData}
+          partnershipDescription={partnershipDescription}
+          isDesktopOrTablet={isDesktopOrTablet}
+          isPartnershipActive={isPartnershipActive}
+          isNewPage={isNewPage}
+        />
+      )}
       {pageData && isModelPage && (
         <div className="row:text -columns">
           <div>
