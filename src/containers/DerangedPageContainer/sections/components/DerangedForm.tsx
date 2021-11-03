@@ -78,21 +78,26 @@ const DerangedForm: React.FC<IDerangedForm> = ({
         {selectedVehicle.description}
       </Text>
       {!isFormSend ? (
-        <GoldrushForm
-          onSubmit={values => onSubmit(values)}
-          isSubmitting={loading}
-          callBack
-          isLabelsShown={{
-            fullName: false,
-            email: false,
-            phoneNumber: false,
-          }}
-          isPlaceholdersShown={{
-            fullName: true,
-            email: true,
-            phoneNumber: true,
-          }}
-        />
+        <>
+          <GoldrushForm
+            onSubmit={values => onSubmit(values)}
+            isSubmitting={loading}
+            callBack
+            isLabelsShown={{
+              fullName: false,
+              email: false,
+              phoneNumber: false,
+            }}
+            isPlaceholdersShown={{
+              fullName: true,
+              email: true,
+              phoneNumber: true,
+            }}
+          />
+          <Text className="drawer__text-footer" size="xsmall" color="dark">
+            Price is subject to change based on your lease term
+          </Text>
+        </>
       ) : (
         <ModalFormSuccessMessage />
       )}
