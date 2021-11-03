@@ -28,7 +28,6 @@ const AboutFormContainer: React.FC<IProps> = ({
   personUuid,
   onLogInClick,
   onRegistrationClick,
-  personLoggedIn,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const [createPerson] = useCreatePerson(onCompleted);
@@ -36,8 +35,6 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
-  const isEdit = !!creditApplicationQuery.data?.creditApplicationByOrderUuid
-    ?.aboutDetailsV2;
 
   const handleTemporaryRegistrationIfGuest = (
     username: string,

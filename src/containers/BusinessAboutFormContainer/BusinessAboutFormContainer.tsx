@@ -8,7 +8,6 @@ import {
 } from '../../gql/storedOrder';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
-import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
   useCreateUpdateCreditApplication,
@@ -49,7 +48,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onError,
   onLogInCLick,
   onRegistrationClick,
-  personLoggedIn,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
@@ -67,7 +65,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   };
 
   const [saveDetails] = useSaveAboutYouMutation(savePersonDataInLocalStorage);
-  const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const [saveOrderMutation] = useSaveOrderMutation();
