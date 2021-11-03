@@ -175,9 +175,6 @@ describe('<MyOverview />', () => {
       { loading: false },
     ]);
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
-    (useApolloClient as jest.Mock).mockReturnValue({
-      onResetStore: jest.fn(),
-    });
 
     const getComponent = () => {
       return renderer
@@ -204,9 +201,6 @@ describe('<MyOverview />', () => {
         loading: true,
       },
     ]);
-    (useApolloClient as jest.Mock).mockReturnValue({
-      onResetStore: jest.fn(),
-    });
 
     const getComponent = () => {
       return renderer
@@ -233,9 +227,6 @@ describe('<MyOverview />', () => {
         loading: false,
       },
     ]);
-    (useApolloClient as jest.Mock).mockReturnValue({
-      onResetStore: jest.fn(),
-    });
 
     const getComponent = () => {
       return renderer
