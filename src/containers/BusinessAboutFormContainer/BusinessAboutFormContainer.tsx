@@ -8,7 +8,6 @@ import {
 } from '../../gql/storedOrder';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
-import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
   useCreateUpdateCreditApplication,
@@ -34,7 +33,6 @@ import {
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
-import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -50,7 +48,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onError,
   onLogInCLick,
   onRegistrationClick,
-  personLoggedIn,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
@@ -68,7 +65,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   };
 
   const [saveDetails] = useSaveAboutYouMutation(savePersonDataInLocalStorage);
-  const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
   const [saveOrderMutation] = useSaveOrderMutation();
@@ -100,20 +96,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     // anonymous user that came first time to the about form
     return null;
   }, [creditApplication, personByUuid, isEdit]);
-
-  const emailValidator = async (email: string) => {
-    const result = await emailAlreadyExists({
-      variables: { email },
-    });
-
-    const checkResult = result.data?.emailAlreadyExists;
-
-    if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
-      return undefined;
-    }
-
-    return createEmailErrorMessage(checkResult);
-  };
 
   const email =
     personByUuid?.emailAddresses?.[0] ||
@@ -238,7 +220,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       person={person}
       onLogInCLick={onLogInCLick}
       onRegistrationClick={onRegistrationClick}
-      emailValidator={emailValidator}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
           values.email,
