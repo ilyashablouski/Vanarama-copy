@@ -5,12 +5,12 @@ import { IBaseProps } from 'core/interfaces/base';
 import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 
-interface IlistEmptyMessage extends IBaseProps {
+interface IListEmptyMessage extends IBaseProps {
   text: string;
   heading?: string;
 }
 
-function listEmptyMessage({ text, heading, className }: IlistEmptyMessage) {
+function listEmptyMessage({ text, heading, className }: IListEmptyMessage) {
   return (
     <section className={cx('row:cards-1col', className)}>
       <div className="card -message -flex-h">
