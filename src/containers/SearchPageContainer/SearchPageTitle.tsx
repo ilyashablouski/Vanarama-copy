@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Heading from 'core/atoms/heading';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
@@ -27,25 +27,33 @@ const SearchPageTitle = ({
   isPartnershipActive,
   isDesktopOrTablet,
   isNewPage,
-}: IProps) => (
-  <div className="row:title">
-    {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
-    {isNewPage ? null : (
-      <Heading tag="h1" size="xlarge" color="black">
-        {isDesktopOrTablet
-          ? pageTitle
-          : titleWithBreaks.map((line, index) => (
-              <React.Fragment key={String(index)}>
-                {line} <br />
-              </React.Fragment>
-            ))}
-      </Heading>
-    )}
-    <CommonDescriptionContainer
-      pageData={pageData}
-      customDescription={partnershipDescription}
-    />
-  </div>
-);
+}: IProps) => {
+  const headingText = useMemo(
+    () =>
+      isDesktopOrTablet
+        ? pageTitle
+        : titleWithBreaks.map(line => (
+            <React.Fragment key={line}>
+              {line} <br />
+            </React.Fragment>
+          )),
+    [isDesktopOrTablet, pageTitle, titleWithBreaks],
+  );
+
+  return (
+    <div className="row:title">
+      {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
+      {isNewPage ? null : (
+        <Heading tag="h1" size="xlarge" color="black">
+          {headingText}
+        </Heading>
+      )}
+      <CommonDescriptionContainer
+        pageData={pageData}
+        customDescription={partnershipDescription}
+      />
+    </div>
+  );
+};
 
 export default SearchPageTitle;
