@@ -1,9 +1,8 @@
 import { GenericPageBreadcrumbsQuery } from '../../generated/GenericPageBreadcrumbsQuery';
 import { GenericPageQuery } from '../../generated/GenericPageQuery';
-import { IErrorProps } from '../types/common';
+import { IPageWithData } from '../types/common';
 
-export interface IInsurancePage {
-  data: GenericPageQuery | undefined;
-  breadcrumbsData: GenericPageBreadcrumbsQuery | undefined;
-  error?: IErrorProps;
-}
+export type IInsurancePage = IPageWithData<{
+  breadcrumbsData?: GenericPageBreadcrumbsQuery;
+  data: GenericPageQuery;
+}>;

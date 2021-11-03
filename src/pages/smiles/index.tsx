@@ -1,6 +1,10 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';
 import {
@@ -11,35 +15,18 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { IErrorProps, PageTypeEnum } from '../../types/common';
+import { PageTypeEnum } from '../../types/common';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-type IProps =
-  | (IGenericPage & {
-      pageType: PageTypeEnum.DEFAULT;
-    })
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
-
-const SmilesPage: NextPage<IProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
-  return <FeaturedAndTilesContainer data={data} />;
-};
+const SmilesPage: NextPage<IGenericPage> = ({ data }) => (
+  <FeaturedAndTilesContainer data={data} />
+);
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({});
 
     const { data } = await client.query<
       GenericPageQuery,
