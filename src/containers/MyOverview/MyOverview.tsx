@@ -62,7 +62,7 @@ const OrderCard = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
-const OrderlistEmptyMessage = dynamic(() =>
+const OrderListEmptyMessage = dynamic(() =>
   import('../../components/ListEmptyMessage/ListEmptyMessage'),
 );
 
@@ -410,7 +410,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
       </div>
       <div className="row:bg-lighter -thin">
         {!data?.myOrders?.length && !loading ? (
-          <OrderlistEmptyMessage
+          <OrderListEmptyMessage
             text={`Your ${
               quote ? 'quotes' : 'orders'
             } list is empty right now.`}

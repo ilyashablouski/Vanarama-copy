@@ -10,7 +10,7 @@ interface IListEmptyMessage extends IBaseProps {
   heading?: string;
 }
 
-function listEmptyMessage({ text, heading, className }: IListEmptyMessage) {
+function ListEmptyMessage({ text, heading, className }: IListEmptyMessage) {
   return (
     <section className={cx('row:cards-1col', className)}>
       <div className="card -message -flex-h">
@@ -27,4 +27,4 @@ function listEmptyMessage({ text, heading, className }: IListEmptyMessage) {
   );
 }
 
-export default listEmptyMessage;
+export default ListEmptyMessage;
