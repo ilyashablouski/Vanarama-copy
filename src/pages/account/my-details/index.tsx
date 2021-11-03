@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
 import { addApolloState, initializeApollo } from 'apolloClient';
+import { useApolloClient } from '@apollo/client';
+import { useRouter } from 'next/router';
 import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationContainer/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
@@ -75,6 +77,9 @@ const metaData = {
 
 const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
+  const router = useRouter();
+  const client = useApolloClient();
+  client.onResetStore(() => router.push('/account/login-register'));
 
   return (
     <>

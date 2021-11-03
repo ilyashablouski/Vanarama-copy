@@ -207,9 +207,10 @@ export const Header: FC<IHeaderProps> = memo(props => {
                   <li>
                     <RouterLink
                       className="header-account--link"
-                      link={{ href: '', label: 'Log Out' }}
+                      link={{ href: router.pathname, label: 'Log Out' }}
+                      as={router.asPath}
                       onClick={() => onLogOut()}
-                      withoutLink
+                      replace
                     >
                       <Icon icon={<LogOutOutline />} size="xsmall" />{' '}
                       <span>Log Out</span>

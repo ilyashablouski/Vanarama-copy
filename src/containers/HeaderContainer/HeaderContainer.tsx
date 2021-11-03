@@ -250,10 +250,6 @@ const HeaderContainer: FC = () => {
     await localForage.clear();
     await client.resetStore();
     await logOut().catch(() => {});
-    if (router.pathname.includes('account')) {
-      await router.push(router.asPath);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, logOut]);
 
   if (partnership) {
