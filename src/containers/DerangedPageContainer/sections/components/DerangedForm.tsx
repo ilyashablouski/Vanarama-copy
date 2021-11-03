@@ -11,6 +11,10 @@ import {
 import ModalFormSuccessMessage from './ModalFormSuccessMessage';
 import { IGoldrushFromValues } from '../../../../components/GoldrushForm/interfaces';
 import ErrorMessages from '../../../../models/enum/ErrorMessages';
+import {
+  DERANGED_FORM_LABELS_VALUES,
+  DERANGED_FORM_PLACEHOLDERS_VALUES,
+} from '../constants';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={2} />,
@@ -83,16 +87,8 @@ const DerangedForm: React.FC<IDerangedForm> = ({
             onSubmit={values => onSubmit(values)}
             isSubmitting={loading}
             callBack
-            isLabelsShown={{
-              fullName: false,
-              email: false,
-              phoneNumber: false,
-            }}
-            isPlaceholdersShown={{
-              fullName: true,
-              email: true,
-              phoneNumber: true,
-            }}
+            isLabelsShown={DERANGED_FORM_LABELS_VALUES}
+            isPlaceholdersShown={DERANGED_FORM_PLACEHOLDERS_VALUES}
           />
           <Text className="drawer__text-footer" size="xsmall" color="dark">
             Price is subject to change based on your lease term
