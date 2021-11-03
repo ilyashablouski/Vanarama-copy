@@ -13,7 +13,7 @@ interface IlistEmptyMessage extends IBaseProps {
 function listEmptyMessage({ text, heading, className }: IlistEmptyMessage) {
   return (
     <section className={cx('row:cards-1col', className)}>
-      <div className="card -message -flex-h" style={{ height: '19rem' }}>
+      <div className="card -message -flex-h">
         <div className="row:lead-text -m-300">
           <Text className="-m" size="lead" color="darker">
             {text}

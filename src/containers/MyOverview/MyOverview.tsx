@@ -414,6 +414,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
             text={`Your ${
               quote ? 'quotes' : 'orders'
             } list is empty right now.`}
+            className="wishlist"
           />
         ) : (
           <div className="row:results">

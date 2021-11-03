@@ -159,15 +159,10 @@ Array [
     className="row:bg-lighter -thin"
   >
     <section
-      className="row:cards-1col"
+      className="row:cards-1col wishlist"
     >
       <div
         className="card -message -flex-h"
-        style={
-          Object {
-            "height": "19rem",
-          }
-        }
       >
         <div
           className="row:lead-text -m-300"
