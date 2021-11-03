@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useApolloClient } from '@apollo/client';
 import {
   PAGES_WITHOUT_LEASE_RESET,
@@ -228,9 +227,7 @@ const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps, router }) => {
         <FooterContainer />
       </main>
       <CookieBarContainer />
-      <LazyLoadComponent>
-        <ToastContainer />
-      </LazyLoadComponent>
+      <ToastContainer />
 
       {!PAGES_WITHOUT_DEFERRED_STYLES.includes(router.pathname) && <Deferred />}
     </>
