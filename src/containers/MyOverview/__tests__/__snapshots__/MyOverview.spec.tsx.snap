@@ -156,18 +156,33 @@ Array [
     </h1>
   </div>,
   <div
-    className="dpd-content"
-    style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "minHeight": "40rem",
-      }
-    }
+    className="row:bg-lighter -thin"
   >
-    You have no 
-    Orders
-    .
+    <section
+      className="row:cards-1col"
+    >
+      <div
+        className="card -message -flex-h"
+        style={
+          Object {
+            "height": "19rem",
+          }
+        }
+      >
+        <div
+          className="row:lead-text -m-300"
+        >
+          <span
+            className="text -m -lead -darker"
+          >
+            Your orders list is empty right now.
+          </span>
+          <p
+            className="heading -darker -lead"
+          />
+        </div>
+      </div>
+    </section>
   </div>,
 ]
 `;
