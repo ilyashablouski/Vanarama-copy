@@ -937,8 +937,10 @@ $small: 0.875rem;
   position: absolute;
   top: 210px;
   left: 0;
+  margin-top: 0.75rem;
   display: flex;
   justify-content: center;
+  pointer-events: none;
 
   &__ear.icon {
     display: inline-flex;
@@ -1049,7 +1051,17 @@ $small: 0.875rem;
   }
 
   &--deal {
-    top: -44px;
+    top: -56px;
     left: -1rem;
+  }
+
+  &.-relative {
+    position: relative;
+    top: 0;
+    justify-content: flex-start;
+
+    .bf-card-label__inner {
+      flex: 0 1 auto;
+    }
   }
 }
