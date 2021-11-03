@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import {
   HelpMeLoginMutation,
   HelpMeLoginMutationVariables,
@@ -19,6 +18,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Message = dynamic(() => import('../../../core/components/Message'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -50,7 +52,7 @@ const metaData = {
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
-  const router = useRouter();
+  const [isLetterWasSent, setIsLetterWasSent] = useState(false);
 
   const [requestPassword, { loading }] = useMutation<
     HelpMeLoginMutation,
@@ -58,10 +60,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   >(HELP_ME_LOGIN_MUTATION, {
     onCompleted: data => {
       if (data.helpMeLogin?.isSuccessful) {
-        router.push(
-          `/account/login-register?hasResetPassword=true`,
-          '/account/login-register',
-        );
+        setIsLetterWasSent(true);
       }
     },
   });
@@ -70,6 +69,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
     setIsEmailExist(true);
+    setIsLetterWasSent(false);
     const results = await checkEmail({
       variables: {
         email: values.email,
@@ -104,6 +104,13 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
           Enter your email address below and we&apos;ll send you an email with
           the next steps
         </Text>
+        {isLetterWasSent && (
+          <Message message="">
+            We&apos;ve emailed you a link to reset your password. <br /> If you
+            didn&apos;t receive the email please check your junk or try entering
+            your email again.
+          </Message>
+        )}
       </div>
       <div className="row:form">
         <RequestPasswordForm
