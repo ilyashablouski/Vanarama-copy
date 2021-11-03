@@ -59,6 +59,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
   return (
     <ProductCard
       // loadImage
+      isBlackFridayLabel
       style={{ maxHeight: 600 }}
       alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
       lazyLoad={cardIndex !== 0}
