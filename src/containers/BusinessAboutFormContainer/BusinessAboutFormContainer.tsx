@@ -34,7 +34,6 @@ import {
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
-import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -112,7 +111,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       return undefined;
     }
 
-    return createEmailErrorMessage(checkResult);
+    return undefined;
   };
 
   const email =

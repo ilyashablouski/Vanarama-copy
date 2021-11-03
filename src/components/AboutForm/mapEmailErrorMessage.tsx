@@ -25,11 +25,6 @@ const RegisterLink = {
   label: 'register',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const createEmailErrorMessage = (_?: IExistenceCheckResult | null) => {
-  return undefined;
-};
-
 export const mapEmailErrorMessage = (
   message?: string,
   onLoginClick?: () => void,

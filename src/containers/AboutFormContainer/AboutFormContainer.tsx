@@ -18,7 +18,6 @@ import {
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
-import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -57,7 +56,7 @@ const AboutFormContainer: React.FC<IProps> = ({
       return undefined;
     }
 
-    return createEmailErrorMessage(checkResult);
+    return undefined;
   };
 
   const handleTemporaryRegistrationIfGuest = (
