@@ -100,20 +100,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return null;
   }, [creditApplication, personByUuid, isEdit]);
 
-  const emailValidator = async (email: string) => {
-    const result = await emailAlreadyExists({
-      variables: { email },
-    });
-
-    const checkResult = result.data?.emailAlreadyExists;
-
-    if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
-      return;
-    }
-
-    return;
-  };
-
   const email =
     personByUuid?.emailAddresses?.[0] ||
     creditApplication?.aboutDetailsV2?.emailAddresses?.[0] ||
@@ -237,7 +223,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       person={person}
       onLogInCLick={onLogInCLick}
       onRegistrationClick={onRegistrationClick}
-      emailValidator={emailValidator}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
           values.email,
