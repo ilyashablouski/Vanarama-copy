@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React, { FC, memo } from 'react';
 
+import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
 import { ICardProps } from './interfaces';
 import CardHeader from './CardHeader';
 import CardTitle from './CardTitle';
@@ -27,6 +28,7 @@ const Card: FC<ICardProps> = memo(props => {
     optimisedHost,
     optimisationOptions,
     extrasRender,
+    isBlackFridayFlag,
   } = props;
 
   const { imageSrc } = props;
@@ -82,18 +84,23 @@ const Card: FC<ICardProps> = memo(props => {
       style={style}
     >
       {header?.text && <CardHeader {...header} />}
-      {imageSrc !== undefined && (
-        <img
-          loading={lazyLoad ? 'lazy' : 'eager'}
-          srcSet={srcset}
-          sizes="(min-width:320px) 800px, 1200px"
-          alt={alt}
-          className="card-image"
-          src={srcDefault || imageSrc || placeholderImage || undefined}
-          data-cfasync="false"
-          data-testid="card-image"
-          onError={onImageError}
-        />
+      {imageSrc !== undefined ? (
+        <>
+          <img
+            loading={lazyLoad ? 'lazy' : 'eager'}
+            srcSet={srcset}
+            sizes="(min-width:320px) 800px, 1200px"
+            alt={alt}
+            className="card-image"
+            src={srcDefault || imageSrc || placeholderImage || undefined}
+            data-cfasync="false"
+            data-testid="card-image"
+            onError={onImageError}
+          />
+          {isBlackFridayFlag && <BlackFridayCardLabel />}
+        </>
+      ) : (
+        isBlackFridayFlag && <BlackFridayCardLabel className="-relative" />
       )}
       {extrasRender && <div className="extras">{extrasRender}</div>}
       {(title?.title || title?.link) && <CardTitle {...title} />}

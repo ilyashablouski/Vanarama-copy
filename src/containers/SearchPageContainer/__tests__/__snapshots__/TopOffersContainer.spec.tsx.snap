@@ -42,26 +42,6 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 1200w"
                   />
                   <div
-                    class="title"
-                  >
-                    <a
-                      class="heading link -black -large"
-                      data-testid="heading-link"
-                      href="/van-leasing/citroen/berlingo/m-15-bluehdi-650kg-enterprise-75ps-2018"
-                    >
-                      <span
-                        class="heading -pb-100 -primary -large"
-                      >
-                        Citroen Berlingo M
-                      </span>
-                      <span
-                        class="heading -dark -small"
-                      >
-                        1.5 BlueHDi 650Kg Enterprise 75ps
-                      </span>
-                    </a>
-                  </div>
-                  <div
                     class="bf-card-label"
                   >
                     <div
@@ -93,6 +73,26 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         />
                       </svg>
                     </i>
+                  </div>
+                  <div
+                    class="title"
+                  >
+                    <a
+                      class="heading link -black -large"
+                      data-testid="heading-link"
+                      href="/van-leasing/citroen/berlingo/m-15-bluehdi-650kg-enterprise-75ps-2018"
+                    >
+                      <span
+                        class="heading -pb-100 -primary -large"
+                      >
+                        Citroen Berlingo M
+                      </span>
+                      <span
+                        class="heading -dark -small"
+                      >
+                        1.5 BlueHDi 650Kg Enterprise 75ps
+                      </span>
+                    </a>
                   </div>
                   <div
                     class="-flex-h"
