@@ -108,10 +108,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     const checkResult = result.data?.emailAlreadyExists;
 
     if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
-      return undefined;
+      return;
     }
 
-    return undefined;
+    return;
   };
 
   const email =

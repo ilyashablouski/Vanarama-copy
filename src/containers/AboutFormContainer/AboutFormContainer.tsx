@@ -43,7 +43,7 @@ const AboutFormContainer: React.FC<IProps> = ({
 
   const emailValidator = async (email: string) => {
     if (!email) {
-      return undefined;
+      return;
     }
 
     const result = await emailAlreadyExists({
@@ -53,10 +53,10 @@ const AboutFormContainer: React.FC<IProps> = ({
     const checkResult = result.data?.emailAlreadyExists;
 
     if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
-      return undefined;
+      return;
     }
 
-    return undefined;
+    return;
   };
 
   const handleTemporaryRegistrationIfGuest = (
