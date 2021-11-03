@@ -99,4 +99,4 @@ const ThankYouPage: NextPage = () => {
   );
 };
 
-export default withApollo(ThankYouPage, { getDataFromTree });
+export default ThankYouPage;

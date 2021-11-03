@@ -14,7 +14,6 @@ import {
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
@@ -225,4 +224,4 @@ const AboutYouPage: NextPage = () => {
   );
 };
 
-export default withApollo(AboutYouPage, { getDataFromTree });
+export default AboutYouPage;

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
-import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 import generateLimitedSteps from './generateLimitedSteps';
 import generateSoleTraderSteps from './generateSoleTraderSteps';
@@ -12,6 +11,7 @@ import useGetPersonUuid from '../../hooks/useGetPersonUuid';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 import { useStoredOrderQuery } from '../../gql/storedOrder';
+import Link from "next/link";
 
 const ProgressIndicator = dynamic(() =>
   import('core/molecules/progress-indicator'),
@@ -89,9 +89,9 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
             hidden={step === cachedLastStep && href !== pathname}
             editing={href === pathname && step < cachedLastStep}
           >
-            <NextJsLink href={url} as={urlMask} passHref>
+            <Link href={url} as={urlMask} passHref prefetch={false}>
               <StepLink label={label} />
-            </NextJsLink>
+            </Link>
           </Step>
         );
       })}

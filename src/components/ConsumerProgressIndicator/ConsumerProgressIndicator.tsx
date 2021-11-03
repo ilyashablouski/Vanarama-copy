@@ -1,9 +1,9 @@
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
-import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -21,6 +21,8 @@ const ConsumerProgressIndicator: React.FC = () => {
   const { uuid } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
+
+  console.log('cachedLastStep', cachedLastStep);
 
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(() => generateConsumerSteps(), []);
@@ -67,9 +69,9 @@ const ConsumerProgressIndicator: React.FC = () => {
             hidden={step === cachedLastStep && href !== pathname}
             editing={href === pathname && step < cachedLastStep}
           >
-            <NextJsLink href={url} as={urlMask} passHref>
+            <Link href={url} as={urlMask} passHref prefetch={false}>
               <StepLink label={label} />
-            </NextJsLink>
+            </Link>
           </Step>
         );
       })}

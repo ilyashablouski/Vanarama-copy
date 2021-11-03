@@ -1,13 +1,10 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import BankDetailsFormContainer from '../../../containers/BankDetailsFormContainer/BankDetailsFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { CreateUpdateBankAccountMutation_createUpdateBankAccount as IBankAccount } from '../../../../generated/CreateUpdateBankAccountMutation';
-import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
 import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
@@ -38,8 +35,7 @@ const BankDetailsPage: NextPage = () => {
   const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
 
-  const { data } = useStoredPersonUuidQuery();
-  const personUuid = uuid || data?.storedPersonUuid || '';
+  const personUuid = uuid || orderData?.storedOrder?.order?.personUuid || '';
 
   const onCompleteClick = (createUpdateBankAccount: IBankAccount | null) => {
     createUpdateCA({
@@ -69,4 +65,4 @@ const BankDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(BankDetailsPage, { getDataFromTree });
+export default BankDetailsPage;
