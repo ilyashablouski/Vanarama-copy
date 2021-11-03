@@ -62,6 +62,9 @@ const OrderCard = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
+const OrderlistEmptyMessage = dynamic(() =>
+  import('../../components/ListEmptyMessage/ListEmptyMessage'),
+);
 
 interface IMyOverviewProps {
   data: GetMyOrders;
@@ -405,15 +408,14 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
           My {quote ? 'Quotes' : 'Orders'}
         </Heading>
       </div>
-      {!data?.myOrders?.length && !loading ? (
-        <div
-          className="dpd-content"
-          style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-        >
-          You have no {quote ? 'Quotes' : 'Orders'}.
-        </div>
-      ) : (
-        <div className="row:bg-lighter -thin">
+      <div className="row:bg-lighter -thin">
+        {!data?.myOrders?.length && !loading ? (
+          <OrderlistEmptyMessage
+            text={`Your ${
+              quote ? 'quotes' : 'orders'
+            } list is empty right now.`}
+          />
+        ) : (
           <div className="row:results">
             {!quote && (
               <div className="choice-boxes -cols-3 -teal">
@@ -458,8 +460,8 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
               )
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <Head metaData={metaData} featuredImage={null} />
     </>
   );

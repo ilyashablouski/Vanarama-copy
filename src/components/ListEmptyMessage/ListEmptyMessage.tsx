@@ -1,22 +1,25 @@
 import React from 'react';
 import cx from 'classnames';
+import { IBaseProps } from 'core/interfaces/base';
 
 import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 
-import { IWishlistEmptyMessage } from './interface';
+interface IlistEmptyMessage extends IBaseProps {
+  text: string;
+  heading?: string;
+}
 
-function WishlistEmptyMessage({ className }: IWishlistEmptyMessage) {
+function listEmptyMessage({ text, heading, className }: IlistEmptyMessage) {
   return (
     <section className={cx('row:cards-1col', className)}>
-      <div className="card -message -flex-h">
+      <div className="card -message -flex-h" style={{ height: '19rem' }}>
         <div className="row:lead-text -m-300">
           <Text className="-m" size="lead" color="darker">
-            Your wishlist is empty right now.
+            {text}
           </Text>
           <Heading size="lead" color="darker">
-            Want to add vehicles to your wishlist? View the latest hot offers
-            below.
+            {heading}
           </Heading>
         </div>
       </div>
@@ -24,4 +27,4 @@ function WishlistEmptyMessage({ className }: IWishlistEmptyMessage) {
   );
 }
 
-export default WishlistEmptyMessage;
+export default listEmptyMessage;
