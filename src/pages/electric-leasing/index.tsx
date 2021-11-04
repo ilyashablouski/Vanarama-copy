@@ -1,6 +1,6 @@
-import React, { useState, FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -21,12 +21,7 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../gql/genericPage';
-import {
-  // HeroTitle,
-  // HeroHeading,
-  HeroEv as Hero,
-  HeroPrompt,
-} from '../../components/Hero';
+import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
 import getTitleTag from '../../utils/getTitleTag';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -40,8 +35,11 @@ import {
   convertErrorToProps,
   isBlackFridayCampaignEnabled,
 } from '../../utils/helpers';
-import { IErrorProps } from '../../types/common';
-import ErrorPage from '../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -75,10 +73,11 @@ const HeroBlackFriday = dynamic(() =>
   import('../../components/Hero/HeroBlackFriday'),
 );
 
-interface IProps extends IEvOffersData {
-  data: GenericPageQuery;
-  error?: IErrorProps;
-}
+type IProps = IPageWithData<
+  IEvOffersData & {
+    data: GenericPageQuery;
+  }
+>;
 
 const FeaturedSection: FC<any> = ({
   video,
@@ -136,14 +135,9 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvVanDerivatives,
   productsEvCarDerivatives,
   vehicleListUrlData,
-  error,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
-
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
 
   const optimisationOptions = {
     height: 620,
@@ -354,9 +348,11 @@ export const EVHubPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     // const paths = context?.params?.pages as string[];
 
     const { data } = await client.query<
@@ -381,7 +377,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        data: data || null,
+        pageType: PageTypeEnum.DEFAULT,
+        data,
         productsEvCar: productsEvCar || null,
         productsEvVan: productsEvVan || null,
         productsEvVanDerivatives: productsEvVanDerivatives || null,
@@ -405,6 +402,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

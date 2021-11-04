@@ -27,8 +27,8 @@ import {
 } from '../../types/common';
 
 type IProps = IPageWithData<{
-  data: GenericPageTestimonialsQuery | undefined;
-  testimonialsData: TestimonialsData | undefined;
+  data: GenericPageTestimonialsQuery;
+  testimonialsData: TestimonialsData;
 }>;
 
 const CustomerTestimonialPage: NextPage<IProps> = ({

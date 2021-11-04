@@ -1,6 +1,6 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
-import { PreviewNextPageContext } from 'types/common';
+import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
 import { useEffect, useState } from 'react';
 import getPartnerProperties, {
   isPartnerSessionActive,
@@ -15,7 +15,7 @@ import createApolloClient from '../../apolloClient';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import Head from '../../components/Head/Head';
-import { encodeData, decodeData } from '../../utils/data';
+import { decodeData, encodeData } from '../../utils/data';
 import {
   GetAboutUsPageData,
   GetAboutUsPageDataVariables,
@@ -25,13 +25,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
-  data: encodedData,
-  error,
-}) => {
-  // De-obfuscate data for user
+type IProps = IPageWithData<IAboutPageProps>;
+
+const AboutUsLandingPage: NextPage<IProps> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
   const featuredImage = getSectionsData(
@@ -59,10 +56,6 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
-
   return (
     <>
       {breadcrumbs && (
@@ -81,7 +74,9 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   );
 };
 
-export async function getStaticProps(context: PreviewNextPageContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({}, context);
   try {
     const { data: rawData } = await client.query<
@@ -100,6 +95,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -119,6 +115,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PageTypeEnum, PreviewNextPageContext } from 'types/common';
+import { PageTypeEnum } from 'types/common';
 import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -108,7 +108,7 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,

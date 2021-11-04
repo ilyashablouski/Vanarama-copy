@@ -1,9 +1,12 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React from 'react';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
-import { GENERIC_PAGE } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -12,31 +15,23 @@ import { decodeData, encodeData } from '../../utils/data';
 import { convertErrorToProps } from '../../utils/helpers';
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage as IGenericPage,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
-import ErrorPage from '../_error';
-import { IErrorProps } from '../../types/common';
+import { PageTypeEnum } from '../../types/common';
 
-interface IFleetPage {
-  data: IGenericPage;
-  error?: IErrorProps;
-}
+const FleetPage: NextPage<IGenericPage> = ({ data }) => (
+  <FleetLandingPage data={decodeData(data)} />
+);
 
-const FleetPage: NextPage<IFleetPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  return <FleetLandingPage genericPage={decodeData(data)} />;
-};
-
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
-    const {
-      data: { genericPage },
-    } = await client.query<GenericPageQuery, GenericPageQueryVariables>({
+    const client = createApolloClient({});
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'fleet',
@@ -47,7 +42,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        data: encodeData(genericPage),
+        pageType: PageTypeEnum.DEFAULT,
+        data: encodeData(data),
       },
     };
   } catch (error) {
@@ -66,6 +62,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

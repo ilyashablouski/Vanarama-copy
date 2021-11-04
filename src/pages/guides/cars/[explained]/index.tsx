@@ -1,10 +1,14 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import React from 'react';
-import { PreviewNextPageContext } from 'types/common';
+import { PageTypeEnum } from 'types/common';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
-import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
 import {
@@ -20,17 +24,8 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
 import { convertErrorToProps } from '../../../../utils/helpers';
-import ErrorPage from '../../../_error';
 
-const GuidesCarsExplained: NextPage<IGenericPage> = ({
-  data: encodedData,
-  error,
-}) => {
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  // De-obfuscate data for user
+const GuidesCarsExplained: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -71,7 +66,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<
     GenericPageQuery,
@@ -90,9 +85,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
@@ -107,6 +104,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
       },
     };
@@ -126,6 +124,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };
