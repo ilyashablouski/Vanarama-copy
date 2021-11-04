@@ -157,6 +157,39 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     </div>
   </div>
   <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
     className="-flex-h"
   >
     <div
@@ -448,6 +481,39 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </div>
   </div>
   <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
     className="-flex-h"
   >
     <div
@@ -737,6 +803,39 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         Manual
       </span>
     </div>
+  </div>
+  <div
+    className="bf-card-label"
+  >
+    <div
+      className="bf-card-label__inner"
+    >
+      <span
+        className="text bf-card-label__text -large -darker"
+      >
+        <span>
+          £250
+        </span>
+        Cashback
+      </span>
+    </div>
+    <i
+      className="icon bf-card-label__ear -initial-size"
+    >
+      <svg
+        height="32"
+        preserveAspectRatio="none"
+        viewBox="0 0 24 48"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
+          fill="currentColor"
+          transform="translate(29.649 48) rotate(180)"
+        />
+      </svg>
+    </i>
   </div>
   <div
     className="-flex-h"
