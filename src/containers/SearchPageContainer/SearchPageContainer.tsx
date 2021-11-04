@@ -12,9 +12,8 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import {
-  filterOrderByNumMap,
   findPreselectFilterValue,
-  getLabelForSlug,
+  tagArrayBuilderHelper,
 } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -65,7 +64,6 @@ import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
-import { FilterFields } from '../FiltersContainer/config';
 import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
@@ -865,56 +863,22 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     }
   };
 
-  const tagArrayBuilderHelper = (
+  const tagArrayBuilder = (
     entry: [string, string[]],
     filtersContainerData: IFilterList,
-  ) => {
-    // makes in make page should not to be added
-    // makes, model, bodystyles in model page should not to be added
-    // makes, model in range page should not to be added
-    // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
-    // fuels for active partnership should not to be added
-    if (
-      (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
-      entry[1]?.[0]
-    ) {
-      return {
-        order: filterOrderByNumMap[entry[0]],
-        value: isBudgetPage ? '' : `£${entry[1]}`,
-      };
-    }
-
-    const value =
-      ((isManufacturerPage || isRangePage || isModelPage) &&
-        entry[0] === FilterFields.manufacturer) ||
-      ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
-      ((isFuelPage || isPartnershipActive) &&
-        entry[0] === FilterFields.fuelTypes) ||
-      (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
-      ((isModelPage || isBodyStylePage) && entry[0] === FilterFields.bodyStyles)
-        ? ''
-        : entry[1];
-
-    // for make and model we should get label value
-    return typeof value === 'string'
-      ? {
-          order: filterOrderByNumMap[entry[0]],
-          value:
-            (entry[0] === FilterFields.manufacturer ||
-              entry[0] === FilterFields.model) &&
-            value.length
-              ? getLabelForSlug(
-                  entry[1][0],
-                  filtersContainerData,
-                  entry[0] === FilterFields.manufacturer,
-                )
-              : value,
-        }
-      : value.map(v => ({
-          order: filterOrderByNumMap[entry[0]],
-          value: v,
-        }));
-  };
+  ) =>
+    tagArrayBuilderHelper(
+      entry,
+      filtersContainerData,
+      isPartnershipActive,
+      isBudgetPage,
+      isManufacturerPage,
+      isRangePage,
+      isModelPage,
+      isFuelPage,
+      isTransmissionPage,
+      isBodyStylePage,
+    );
 
   const shouldRenderTopOffersContainer = useMemo(
     () =>
@@ -1037,7 +1001,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           <FiltersContainer
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
-            tagArrayBuilderHelper={tagArrayBuilderHelper}
+            tagArrayBuilderHelper={tagArrayBuilder}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
             renderFilters={innerProps => (
