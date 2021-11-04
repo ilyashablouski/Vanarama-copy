@@ -4,16 +4,22 @@
     @include mobile {
       padding: 0 18px 24px;
     }
+
+    > span {
+      display: block;
+    }
   }
   &__subtitle {
-    display: block;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   &__brand {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   &__description {
-    margin: 0.5rem 0 1.5rem;
+    margin: 0.5rem 0 1rem !important;
+  }
+  &__text-footer {
+    margin-top: 0.5rem;
   }
   &__form {
     &-content {
