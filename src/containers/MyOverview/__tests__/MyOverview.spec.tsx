@@ -1,6 +1,7 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
+import { useApolloClient } from '@apollo/client';
 import MyOverview from '../MyOverview';
 import {
   useMyOrdersData,
@@ -140,6 +141,9 @@ describe('<MyOverview />', () => {
 
   (useSaveOrderMutation as jest.Mock).mockReturnValue([]);
   (useSavePersonUuidMutation as jest.Mock).mockReturnValue([]);
+  (useApolloClient as jest.Mock).mockReturnValue({
+    onResetStore: jest.fn(),
+  });
 
   it('renders quotes correctly with data', async () => {
     (useMyOrdersData as jest.Mock).mockReturnValue([
