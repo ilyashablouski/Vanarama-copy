@@ -166,33 +166,32 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
 
   // cookies are already deleted by gateway after auth error
   // clear local data
-  // localforage.clear().finally(() => {
-  //   const currentPath = Router.router?.asPath || '/';
-  //   const isOlaf = currentPath.includes('/olaf/');
-  //   const ssrAuthStatus = operation
-  //     .getContext()
-  //     .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
-  //   // don't make client redirect if ssr unauthorised error happened
-  //   if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
-  //     // redirect to login-register from private pages except olaf
-  //     Router.replace(
-  //       `/account/login-register?redirect=${currentPath}`,
-  //       '/account/login-register',
-  //     );
-  //   }
-  //   // clear SSR authentication variable
-  //   if (ssrAuthStatus?.isSSRAuthError) {
-  //     operation.getContext().cache.writeQuery({
-  //       query: GET_SSR_AUTH_STATUS,
-  //       data: {
-  //         isSSRAuthError: false,
-  //       },
-  //     });
-  //   }
-  //
-  //   isSessionFinishedCache(true);
-  // });
-  isSessionFinishedCache(true);
+  localforage.clear().finally(() => {
+    const currentPath = Router.router?.asPath || '/';
+    const isOlaf = currentPath.includes('/olaf/');
+    const ssrAuthStatus = operation
+      .getContext()
+      .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
+    // don't make client redirect if ssr unauthorised error happened
+    if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
+      // redirect to login-register from private pages except olaf
+      Router.replace(
+        `/account/login-register?redirect=${currentPath}`,
+        '/account/login-register',
+      );
+    }
+    // clear SSR authentication variable
+    if (ssrAuthStatus?.isSSRAuthError) {
+      operation.getContext().cache.writeQuery({
+        query: GET_SSR_AUTH_STATUS,
+        data: {
+          isSSRAuthError: false,
+        },
+      });
+    }
+
+    isSessionFinishedCache(true);
+  });
 });
 
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
