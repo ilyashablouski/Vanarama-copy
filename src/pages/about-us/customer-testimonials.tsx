@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
@@ -20,24 +20,21 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import { IErrorProps } from '../../types/common';
-import ErrorPage from '../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 
-interface ICustomerTestimonialPage {
+type IProps = IPageWithData<{
   data: GenericPageTestimonialsQuery | undefined;
   testimonialsData: TestimonialsData | undefined;
-  error?: IErrorProps;
-}
+}>;
 
-const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
+const CustomerTestimonialPage: NextPage<IProps> = ({
   data,
   testimonialsData,
-  error,
 }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
-
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -66,9 +63,11 @@ const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
 
     const [
       genericTestimonialsPageQuery,
@@ -96,6 +95,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,
       },
@@ -116,6 +116,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

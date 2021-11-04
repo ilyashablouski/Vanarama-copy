@@ -51,6 +51,7 @@ extend type Query {
   storedPersonEmail: String
   storedPersonBankUuid: PersonBankUuidInputObject
   storedQuote: Quote
+  isSSRAuthError: Boolean
 }
 
 extend type Mutation {

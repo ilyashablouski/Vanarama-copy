@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
 import { decodeData, encodeData } from '../../utils/data';
@@ -14,7 +18,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
+import { PageTypeEnum } from '../../types/common';
 
 const LeasingQuestionsContainer = dynamic(
   () =>
@@ -26,20 +30,17 @@ const LeasingQuestionsContainer = dynamic(
   },
 );
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  // De-obfuscate data for user
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   return <LeasingQuestionsContainer data={data} />;
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
 
     const { data } = await client.query<
       GenericPageQuery,
@@ -55,6 +56,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
       },
     };
@@ -74,6 +76,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };
