@@ -72,8 +72,6 @@ export interface IHeaderProps extends IBaseProps {
   customHomePath?: string;
   onLogOut: () => void;
   person?: Person | null;
-  ordersLength?: number | null;
-  quotesLength?: number | null;
 }
 
 export const Header: FC<IHeaderProps> = memo(props => {
@@ -85,8 +83,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
     customHomePath,
     onLogOut,
     person,
-    ordersLength,
-    quotesLength,
   } = props;
 
   const router = useRouter();
@@ -166,19 +162,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
                   </li>
                   <li>
                     <RouterLink
+                      prefetch
                       onClick={handleMenuClose}
                       className="header-account--link"
                       link={{
-                        href: quotesLength
-                          ? '/account/my-quotes'
-                          : `/account/my-details`,
+                        href: '/account/my-quotes',
                         label: 'My Quotes',
                       }}
-                      as={
-                        quotesLength
-                          ? '/account/my-quotes'
-                          : '/account/my-details'
-                      }
+                      as="/account/my-quotes"
                     >
                       <Icon icon={<ReceiptOutline />} size="xsmall" />{' '}
                       <span>My Quotes</span>
@@ -186,19 +177,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
                   </li>
                   <li>
                     <RouterLink
+                      prefetch
                       onClick={handleMenuClose}
                       className="header-account--link"
                       link={{
-                        href: ordersLength
-                          ? '/account/my-orders'
-                          : `/account/my-details`,
+                        href: '/account/my-orders',
                         label: 'My Orders',
                       }}
-                      as={
-                        ordersLength
-                          ? `/account/my-orders`
-                          : '/account/my-details'
-                      }
+                      as="/account/my-orders"
                     >
                       <Icon icon={<CarOutline />} size="xsmall" />{' '}
                       <span>My Orders</span>
