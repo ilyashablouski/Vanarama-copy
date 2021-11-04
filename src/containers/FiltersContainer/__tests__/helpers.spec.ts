@@ -1,5 +1,11 @@
 import preloadAll from 'jest-next-dynamic';
-import { findPreselectFilterValue, getValueKey } from '../helpers';
+import {
+  findPreselectFilterValue,
+  getValueKey,
+  tagArrayBuilderHelper,
+} from '../helpers';
+import { FilterFields } from '../config';
+import { filterList_filterList } from '../../../../generated/filterList';
 
 const selectedFiltersState = {
   bodyStyles: [],
@@ -25,5 +31,63 @@ describe('<helpers />', () => {
     expect(
       getValueKey('test', { ...selectedFiltersState, manufacturer: ['Test'] }),
     ).toEqual('manufacturer');
+  });
+  it('should tagArrayBuilderHelper works correct', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.from, ['150']],
+        {} as filterList_filterList,
+        {
+          isPartnershipActive: false,
+        },
+      ),
+    ).toMatchObject({ order: 3, value: '£150' });
+  });
+  it('should not to be added model in model page', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.model, ['Octavia']],
+        {} as filterList_filterList,
+        { isPartnershipActive: false, isModelPage: true },
+      ),
+    ).toMatchObject({ order: 2, value: '' });
+  });
+  it('should not to be added model in range page', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.model, ['Octavia']],
+        {} as filterList_filterList,
+        { isPartnershipActive: false, isRangePage: true },
+      ),
+    ).toMatchObject({ order: 2, value: '' });
+  });
+  it('should not to be added bodyStyles in body page', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.bodyStyles, ['Hatchback']],
+        {} as filterList_filterList,
+        { isPartnershipActive: false, isBodyStylePage: true },
+      ),
+    ).toMatchObject({ order: 5, value: '' });
+  });
+  it('should not to be added fuels for active partnership', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.fuelTypes, ['Petrol']],
+        {} as filterList_filterList,
+        { isPartnershipActive: true },
+      ),
+    ).toMatchObject({ order: 7, value: '' });
+  });
+  it('should get label value for make and model', () => {
+    expect(
+      tagArrayBuilderHelper(
+        [FilterFields.model, ['Fabia']],
+        {} as filterList_filterList,
+        {
+          isPartnershipActive: false,
+        },
+      ),
+    ).toMatchObject([{ order: 2, value: 'Fabia' }]);
   });
 });

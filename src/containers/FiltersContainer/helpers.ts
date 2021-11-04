@@ -12,6 +12,17 @@ import {
 } from '../SearchPageContainer/helpers';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 
+interface ITagArrayBuilder {
+  isPartnershipActive: boolean;
+  isBudgetPage?: boolean;
+  isManufacturerPage?: boolean;
+  isRangePage?: boolean;
+  isModelPage?: boolean;
+  isFuelPage?: boolean;
+  isTransmissionPage?: boolean;
+  isBodyStylePage?: boolean;
+}
+
 /**
  * formating and check for including strings
  * @param value initial value
@@ -207,4 +218,65 @@ export const getValueKey = (
       ),
     )?.[0] || ''
   );
+};
+
+export const tagArrayBuilderHelper = (
+  entry: [string, string[]],
+  filtersContainerData: IFilterList,
+  {
+    isPartnershipActive,
+    isBudgetPage,
+    isManufacturerPage,
+    isRangePage,
+    isModelPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBodyStylePage,
+  }: ITagArrayBuilder,
+) => {
+  // makes in make page should not to be added
+  // makes, model, bodystyles in model page should not to be added
+  // makes, model in range page should not to be added
+  // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
+  // fuels for active partnership should not to be added
+  if (
+    (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
+    entry[1]?.[0]
+  ) {
+    return {
+      order: filterOrderByNumMap[entry[0]],
+      value: isBudgetPage ? '' : `£${entry[1]}`,
+    };
+  }
+
+  const value =
+    ((isManufacturerPage || isRangePage || isModelPage) &&
+      entry[0] === FilterFields.manufacturer) ||
+    ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
+    ((isFuelPage || isPartnershipActive) &&
+      entry[0] === FilterFields.fuelTypes) ||
+    (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
+    ((isModelPage || isBodyStylePage) && entry[0] === FilterFields.bodyStyles)
+      ? ''
+      : entry[1];
+
+  // for make and model we should get label value
+  return typeof value === 'string'
+    ? {
+        order: filterOrderByNumMap[entry[0]],
+        value:
+          (entry[0] === FilterFields.manufacturer ||
+            entry[0] === FilterFields.model) &&
+          value.length
+            ? getLabelForSlug(
+                entry[1][0],
+                filtersContainerData,
+                entry[0] === FilterFields.manufacturer,
+              )
+            : value,
+      }
+    : value.map(v => ({
+        order: filterOrderByNumMap[entry[0]],
+        value: v,
+      }));
 };
