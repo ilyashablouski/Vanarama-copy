@@ -1,12 +1,8 @@
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
-import React from 'react';
-import { PreviewNextPageContext } from 'types/common';
-import {
-  ILegalPage,
-  LEGAL_PAGE_QUERY,
-} from '../../containers/LegalArticleContainer/gql';
+import { LEGAL_PAGE_QUERY } from '../../containers/LegalArticleContainer/gql';
 import createApolloClient from '../../apolloClient';
 import { PAGE_COLLECTION } from '../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../utils/pageSlugs';
@@ -27,13 +23,12 @@ import {
   LegalPageQueryVariables,
 } from '../../../generated/LegalPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
+type IProps = IPageWithData<{
+  data: LegalPageQuery;
+}>;
 
+const BlogPost: NextPage<IProps> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -69,7 +64,7 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
@@ -86,9 +81,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
 
     const { data } = await client.query<
@@ -105,6 +102,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -124,6 +122,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

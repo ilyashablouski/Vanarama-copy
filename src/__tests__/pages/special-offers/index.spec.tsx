@@ -7,6 +7,7 @@ import { OffersPage } from '../../../pages/leasing-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { PageTypeEnum } from '../../../types/common';
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -203,6 +204,7 @@ describe('<OffersPage />', () => {
     render(
       <MockedProvider addTypename={false}>
         <OffersPage
+          pageType={PageTypeEnum.DEFAULT}
           vehicleListUrlData={vehicleListUrl}
           productsVanDerivatives={derivatives}
           productsCarDerivatives={derivatives}

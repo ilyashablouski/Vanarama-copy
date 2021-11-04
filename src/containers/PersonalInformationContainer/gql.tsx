@@ -46,7 +46,9 @@ export const GET_PERSON_INFORMATION_DATA = gql`
   }
 `;
 
-export function useCreatePerson(onCompleted: () => void) {
+export function useCreatePerson(
+  onCompleted: (data: UpdateMyAccountDetails) => void,
+) {
   return useMutation<UpdateMyAccountDetails, UpdateMyAccountDetailsVariables>(
     CREATE_UPDATE_PERSON,
     {

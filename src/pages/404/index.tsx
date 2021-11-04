@@ -1,10 +1,13 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-// import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -17,7 +20,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
+import { PageTypeEnum } from '../../types/common';
 
 const PageNotFoundContainer = dynamic(
   () => import('../../containers/PageNotFoundContainer/PageNotFoundContainer'),
@@ -26,11 +29,7 @@ const PageNotFoundContainer = dynamic(
   },
 );
 
-const PageNotFound: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
-
+const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -63,9 +62,11 @@ const PageNotFound: NextPage<IGenericPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
@@ -80,6 +81,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -89,6 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

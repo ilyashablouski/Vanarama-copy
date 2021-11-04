@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import React, { useContext, useMemo } from 'react';
@@ -12,9 +12,9 @@ import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
-  HubPickupPageDataVariables,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
+  HubPickupPageDataVariables,
 } from '../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
@@ -55,8 +55,11 @@ import {
   convertErrorToProps,
   isBlackFridayCampaignEnabled,
 } from '../../utils/helpers';
-import { IErrorProps } from '../../types/common';
-import ErrorPage from '../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -96,18 +99,18 @@ const HeroBlackFriday = dynamic(() =>
   import('../../components/Hero/HeroBlackFriday'),
 );
 
-interface IProps extends IPickupsPageOffersData {
-  data: HubPickupPageData;
-  searchPodVansData: IFilterList;
-  error?: IErrorProps;
-}
+type IProps = IPageWithData<
+  IPickupsPageOffersData & {
+    data: HubPickupPageData;
+    searchPodVansData: IFilterList;
+  }
+>;
 
 export const PickupsPage: NextPage<IProps> = ({
   data: encodedData,
   searchPodVansData,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
-  error,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
@@ -147,10 +150,6 @@ export const PickupsPage: NextPage<IProps> = ({
     width: 620,
     quality: 59,
   };
-
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
 
   return (
     <>
@@ -267,6 +266,7 @@ export const PickupsPage: NextPage<IProps> = ({
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
+                  isBlackFridayLabel
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || index}
                   header={{
@@ -695,7 +695,9 @@ export const PickupsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
 
   try {
@@ -726,6 +728,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
         searchPodVansData,
         productsPickup: productsPickup || null,
@@ -748,6 +751,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

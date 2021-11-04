@@ -20,6 +20,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+const Message = dynamic(() => import('../../../core/components/Message'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -49,16 +52,24 @@ const metaData = {
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
+  const [isEmailSent, setIsEmailSent] = useState(false);
 
   const [requestPassword, { loading }] = useMutation<
     HelpMeLoginMutation,
     HelpMeLoginMutationVariables
-  >(HELP_ME_LOGIN_MUTATION);
+  >(HELP_ME_LOGIN_MUTATION, {
+    onCompleted: data => {
+      if (data.helpMeLogin?.isSuccessful) {
+        setIsEmailSent(true);
+      }
+    },
+  });
 
   const [checkEmail, { loading: emailLoading }] = useEmailCheck();
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
     setIsEmailExist(true);
+    setIsEmailSent(false);
     const results = await checkEmail({
       variables: {
         email: values.email,
@@ -69,7 +80,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
         !results?.data?.emailAlreadyExists?.isTemporary) ||
         false,
     );
-    if (results?.data?.emailAlreadyExists) {
+    if (results?.data?.emailAlreadyExists?.isExists) {
       await requestPassword({
         variables: {
           username: values.email,
@@ -93,6 +104,13 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
           Enter your email address below and we&apos;ll send you an email with
           the next steps
         </Text>
+        {isEmailSent && (
+          <Message message="">
+            We&apos;ve emailed you a link to reset your password. <br /> If you
+            didn&apos;t receive the email please check your junk or try entering
+            your email again.
+          </Message>
+        )}
       </div>
       <div className="row:form">
         <RequestPasswordForm

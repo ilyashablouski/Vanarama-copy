@@ -77,4 +77,6 @@ export interface ICardProps extends IBaseProps {
   loadImageProps?: (options?: any) => void;
 
   extrasRender?: Component | null;
+
+  isBlackFridayFlag?: boolean;
 }

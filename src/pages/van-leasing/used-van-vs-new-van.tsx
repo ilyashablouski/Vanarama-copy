@@ -1,6 +1,10 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../apolloClient';
 import {
@@ -11,33 +15,16 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { IErrorProps, PageTypeEnum } from '../../types/common';
+import { PageTypeEnum } from '../../types/common';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-type IProps =
-  | (IGenericPage & {
-      pageType: PageTypeEnum.DEFAULT;
-    })
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
-
-const ReferAFriendReferredPage: NextPage<IProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR || !props.data) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data } = props;
-
-  return <SimplePageContainer data={data} />;
-};
+const ReferAFriendReferredPage: NextPage<IGenericPage> = ({ data }) => (
+  <SimplePageContainer data={data} />
+);
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
     const client = createApolloClient({}, context);
 

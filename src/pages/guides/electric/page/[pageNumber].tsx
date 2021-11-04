@@ -1,35 +1,22 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import DefaultErrorPage from 'next/error';
-import { PreviewNextPageContext } from 'types/common';
+import { IPageWithError } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import {
   getReviewsHubCategoryStaticPath,
   getReviewsHubCategoryStaticProps,
+  IReviewHubPage,
 } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
 import { decodeData } from '../../../../utils/data';
 
-export interface IElectricGuidesPage {
-  data: ReviewsHubCategoryQuery | undefined;
-  error: ApolloError | undefined;
-  pageNumber?: number;
-}
-
-const ElectricGuidesPage: NextPage<IElectricGuidesPage> = ({
+const ElectricGuidesPage: NextPage<IReviewHubPage> = ({
   data: encodedData,
   pageNumber,
-  error,
 }) => {
   const data = decodeData(encodedData);
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -54,13 +41,15 @@ const ElectricGuidesPage: NextPage<IElectricGuidesPage> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   return getReviewsHubCategoryStaticPath(client, 'guides/electric', context);
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> {
+  const client = createApolloClient({});
   return getReviewsHubCategoryStaticProps(client, 'guides/electric', context);
 }
 

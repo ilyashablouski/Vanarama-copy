@@ -1,11 +1,9 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import { useSavePersonUuidMutation } from '../../../../gql/storedPersonUuid';
-import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
@@ -183,4 +181,4 @@ export const BusinessAboutPage: NextPage = () => {
   );
 };
 
-export default withApollo(BusinessAboutPage, { getDataFromTree });
+export default BusinessAboutPage;

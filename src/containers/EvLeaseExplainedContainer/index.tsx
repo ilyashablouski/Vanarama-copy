@@ -23,6 +23,7 @@ import JumpMenu from '../../components/JumpMenu/JumpMenu';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { Nullable } from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -37,10 +38,10 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
-  evProducts?: ProductCardData | undefined;
-  evDerivatives?: GetDerivatives | undefined;
-  hevProducts?: ProductCardData | undefined;
-  hevDerivatives?: GetDerivatives | undefined;
+  evProducts?: Nullable<ProductCardData>;
+  evDerivatives?: Nullable<GetDerivatives>;
+  hevProducts?: Nullable<ProductCardData>;
+  hevDerivatives?: Nullable<GetDerivatives>;
   searchParam: String;
 }
 

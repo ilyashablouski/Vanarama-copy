@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
 import { toast, ToastContainer as Container } from 'react-toastify';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import AlertCircleSharp from '../../assets/icons/AlertCircleSharp';
 import { TColor } from '../../../types/color';
 import Heading from '../heading';
@@ -16,15 +17,17 @@ const Toast: React.FC<IToastProps> = ({
   variant,
 }) => (
   <div className={cx('toast--inner', className)} data-testid={dataTestId}>
-    <Icon color={getIconColor(variant)} icon={<AlertCircleSharp />} />
-    <div>
-      <Heading tag="span" color="black" size="regular">
-        {title}
-      </Heading>
-      <Text tag="p" size="small" color="dark">
-        {message}
-      </Text>
-    </div>
+    <LazyLoadComponent>
+      <Icon color={getIconColor(variant)} icon={<AlertCircleSharp />} />
+      <div>
+        <Heading tag="span" color="black" size="regular">
+          {title}
+        </Heading>
+        <Text tag="p" size="small" color="dark">
+          {message}
+        </Text>
+      </div>
+    </LazyLoadComponent>
   </div>
 );
 

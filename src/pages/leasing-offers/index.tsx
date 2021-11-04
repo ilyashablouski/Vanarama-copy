@@ -1,8 +1,7 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
-import { GetStaticPropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import createApolloClient from '../../apolloClient';
@@ -18,7 +17,6 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -27,8 +25,11 @@ import {
   convertErrorToProps,
   isBlackFridayCampaignEnabled,
 } from '../../utils/helpers';
-import { IErrorProps } from '../../types/common';
-import ErrorPage from '../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -57,10 +58,11 @@ const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 
-interface IProps extends ISpecialOffersData {
-  genericPageCMS?: any;
-  error?: IErrorProps;
-}
+type IProps = IPageWithData<
+  ISpecialOffersData & {
+    genericPageCMS?: GenericPageHeadQuery;
+  }
+>;
 
 export const OffersPage: NextPage<IProps> = ({
   genericPageCMS,
@@ -71,17 +73,11 @@ export const OffersPage: NextPage<IProps> = ({
   productsVan,
   vehicleListUrlData: encodedData,
   productsVanDerivatives,
-  error,
 }) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
   const carRef = useRef<HTMLDivElement>();
 
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  // De-obfuscate data for user
   const vehicleListUrlData = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], genericPageCMS?.genericPage);
@@ -168,7 +164,9 @@ export const OffersPage: NextPage<IProps> = ({
               classNames={{ color: 'teal', size: 'regular' }}
               link={{
                 label: '',
-                href: '/car-leasing/free-car-insurance.html',
+                href: isBlackFridayCampaignEnabled()
+                  ? '/legal/terms-and-conditions/black-friday-2021-terms-and-conditions'
+                  : '/car-leasing/free-car-insurance.html',
               }}
             >
               <div className="free-insurance-background">
@@ -241,18 +239,16 @@ export const OffersPage: NextPage<IProps> = ({
               Van Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <ProductCarousel
-              leaseType={LeaseTypeEnum.BUSINESS}
-              data={{
-                derivatives: productsVanDerivatives?.derivatives || null,
-                productCard: productsVan?.productCarousel || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsVan?.productCarousel?.length || 6}
-              dataTestIdBtn="van-view-offer"
-            />
-          </LazyLoadComponent>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.BUSINESS}
+            data={{
+              derivatives: productsVanDerivatives?.derivatives || null,
+              productCard: productsVan?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
+          />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -282,18 +278,16 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <ProductCarousel
-              leaseType={LeaseTypeEnum.BUSINESS}
-              data={{
-                derivatives: productsPickupDerivatives?.derivatives || null,
-                productCard: productsPickup?.productCarousel || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsPickup?.productCarousel?.length || 6}
-              dataTestIdBtn="pickup-view-offer"
-            />
-          </LazyLoadComponent>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.BUSINESS}
+            data={{
+              derivatives: productsPickupDerivatives?.derivatives || null,
+              productCard: productsPickup?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsPickup?.productCarousel?.length || 6}
+            dataTestIdBtn="pickup-view-offer"
+          />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -319,7 +313,9 @@ export const OffersPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
 
   try {
@@ -347,6 +343,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         genericPageCMS: data,
         productsVanDerivatives: productsVanDerivatives || null,
         productsCarDerivatives: productsCarDerivatives || null,
@@ -373,6 +370,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

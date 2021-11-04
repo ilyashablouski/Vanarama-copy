@@ -12,27 +12,18 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { IErrorProps, PageTypeEnum } from '../../types/common';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 
-type IProps =
-  | {
-      pageType: PageTypeEnum.DEFAULT;
-      data: GetInsuranceLandingPage;
-    }
-  | {
-      pageType: PageTypeEnum.ERROR;
-      error: IErrorProps;
-    };
+type IProps = IPageWithData<{
+  data: GetInsuranceLandingPage;
+}>;
 
-const InsurancePage: NextPage<IProps> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const InsurancePage: NextPage<IProps> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   return <InsurancePageContainer data={data} />;
@@ -40,9 +31,9 @@ const InsurancePage: NextPage<IProps> = props => {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps>> {
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({});
     const { data } = await client.query<
       GetInsuranceLandingPage,
       GetInsuranceLandingPageVariables

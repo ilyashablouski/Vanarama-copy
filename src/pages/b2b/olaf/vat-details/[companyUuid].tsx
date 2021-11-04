@@ -1,10 +1,8 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import VatDetailsFormContainer from '../../../../containers/VatDetailsFormContainer';
-import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
@@ -52,4 +50,4 @@ export const VatDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(VatDetailsPage, { getDataFromTree });
+export default VatDetailsPage;

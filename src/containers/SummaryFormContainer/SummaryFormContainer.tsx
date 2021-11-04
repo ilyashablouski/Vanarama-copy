@@ -38,6 +38,7 @@ const SummaryFormContainer: React.FC<IProps> = ({
       variables: {
         uuid: personUuid,
       },
+      skip: !personUuid,
     },
   );
 

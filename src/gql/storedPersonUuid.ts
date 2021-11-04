@@ -1,6 +1,5 @@
 import {
   gql,
-  useQuery,
   useMutation,
   ApolloError,
   ApolloClient,
@@ -23,17 +22,6 @@ export const SAVE_PERSON_UUID_MUTATION = gql`
     savePersonUuid(uuid: $uuid) @client
   }
 `;
-
-export function useStoredPersonUuidQuery(
-  onCompleted?: (data: GetStoredPersonUuid) => void,
-  onError?: (error: ApolloError) => void,
-) {
-  return useQuery<GetStoredPersonUuid>(GET_STORED_PERSON_UUID_QUERY, {
-    ssr: false,
-    onCompleted,
-    onError,
-  });
-}
 
 export function useSavePersonUuidMutation(
   onCompleted?: (data: SavePersonUuid) => void,
