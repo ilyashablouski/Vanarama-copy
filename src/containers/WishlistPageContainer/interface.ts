@@ -10,8 +10,6 @@ export interface IWishlistContainer extends IBaseProps {
 
 export interface IWishlistRegistration extends IBaseProps {}
 
-export interface IWishlistEmptyMessage extends IBaseProps {}
-
 export interface IWishlistProductPlaceholder extends IBaseProps {
   onClick: () => void;
 }
