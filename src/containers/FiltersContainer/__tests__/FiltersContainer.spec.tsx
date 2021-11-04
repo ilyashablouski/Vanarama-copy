@@ -8,6 +8,7 @@ import { tagArrayBuilderHelper } from '../helpers';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import SearchPageFilters from '../../../components/SearchPageFilters';
 import { filterList_filterList } from '../../../../generated/filterList';
+import { FilterFields } from '../config';
 // TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
@@ -277,9 +278,11 @@ describe('<FiltersContainer />', () => {
   it('tagArrayBuilderHelper works correct', () => {
     expect(
       tagArrayBuilderHelper(
-        ['from', ['150']],
+        [FilterFields.from, ['150']],
         {} as filterList_filterList,
-        false,
+        {
+          isPartnershipActive: false,
+        },
       ),
     ).toMatchObject({ order: 3, value: '£150' });
   });
@@ -287,13 +290,9 @@ describe('<FiltersContainer />', () => {
   it('model in model page should not to be added', () => {
     expect(
       tagArrayBuilderHelper(
-        ['model', ['Octavia']],
+        [FilterFields.model, ['Octavia']],
         {} as filterList_filterList,
-        false,
-        false,
-        false,
-        false,
-        true,
+        { isPartnershipActive: false, isModelPage: true },
       ),
     ).toMatchObject({ order: 2, value: '' });
   });
@@ -301,12 +300,9 @@ describe('<FiltersContainer />', () => {
   it('model in range page should not to be added', () => {
     expect(
       tagArrayBuilderHelper(
-        ['model', ['Octavia']],
+        [FilterFields.model, ['Octavia']],
         {} as filterList_filterList,
-        false,
-        false,
-        false,
-        true,
+        { isPartnershipActive: false, isRangePage: true },
       ),
     ).toMatchObject({ order: 2, value: '' });
   });
@@ -314,16 +310,9 @@ describe('<FiltersContainer />', () => {
   it('bodyStyles in body page should not to be added', () => {
     expect(
       tagArrayBuilderHelper(
-        ['bodyStyles', ['Hatchback']],
+        [FilterFields.bodyStyles, ['Hatchback']],
         {} as filterList_filterList,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        true,
+        { isPartnershipActive: false, isBodyStylePage: true },
       ),
     ).toMatchObject({ order: 5, value: '' });
   });
@@ -331,9 +320,9 @@ describe('<FiltersContainer />', () => {
   it('fuels for active partnership should not to be added', () => {
     expect(
       tagArrayBuilderHelper(
-        ['fuelTypes', ['Petrol']],
+        [FilterFields.fuelTypes, ['Petrol']],
         {} as filterList_filterList,
-        true,
+        { isPartnershipActive: true },
       ),
     ).toMatchObject({ order: 7, value: '' });
   });
@@ -341,9 +330,11 @@ describe('<FiltersContainer />', () => {
   it('for make and model we should get label value', () => {
     expect(
       tagArrayBuilderHelper(
-        ['model', ['Fabia']],
+        [FilterFields.model, ['Fabia']],
         {} as filterList_filterList,
-        true,
+        {
+          isPartnershipActive: false,
+        },
       ),
     ).toMatchObject([{ order: 2, value: 'Fabia' }]);
   });

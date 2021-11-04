@@ -867,9 +867,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     entry: [string, string[]],
     filtersContainerData: IFilterList,
   ) =>
-    tagArrayBuilderHelper(
-      entry,
-      filtersContainerData,
+    tagArrayBuilderHelper(entry, filtersContainerData, {
       isPartnershipActive,
       isBudgetPage,
       isManufacturerPage,
@@ -878,7 +876,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       isFuelPage,
       isTransmissionPage,
       isBodyStylePage,
-    );
+    });
 
   const shouldRenderTopOffersContainer = useMemo(
     () =>

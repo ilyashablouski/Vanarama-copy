@@ -12,6 +12,17 @@ import {
 } from '../SearchPageContainer/helpers';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 
+interface ITagArrayBuilder {
+  isPartnershipActive: boolean;
+  isBudgetPage?: boolean;
+  isManufacturerPage?: boolean;
+  isRangePage?: boolean;
+  isModelPage?: boolean;
+  isFuelPage?: boolean;
+  isTransmissionPage?: boolean;
+  isBodyStylePage?: boolean;
+}
+
 /**
  * formating and check for including strings
  * @param value initial value
@@ -212,14 +223,16 @@ export const getValueKey = (
 export const tagArrayBuilderHelper = (
   entry: [string, string[]],
   filtersContainerData: IFilterList,
-  isPartnershipActive: boolean,
-  isBudgetPage?: boolean,
-  isManufacturerPage?: boolean,
-  isRangePage?: boolean,
-  isModelPage?: boolean,
-  isFuelPage?: boolean,
-  isTransmissionPage?: boolean,
-  isBodyStylePage?: boolean,
+  {
+    isPartnershipActive,
+    isBudgetPage,
+    isManufacturerPage,
+    isRangePage,
+    isModelPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBodyStylePage,
+  }: ITagArrayBuilder,
 ) => {
   // makes in make page should not to be added
   // makes, model, bodystyles in model page should not to be added
