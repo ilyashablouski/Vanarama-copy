@@ -22,8 +22,6 @@ const ConsumerProgressIndicator: React.FC = () => {
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
 
-  console.log('cachedLastStep', cachedLastStep);
-
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(() => generateConsumerSteps(), []);
   // Work out the current step based on the URL
