@@ -25,7 +25,6 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
     }
   }
 >
-  <ForwardRef(LoadableComponent) />
   <div
     className="card-footer"
   />
