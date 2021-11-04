@@ -1,6 +1,5 @@
 import {
   gql,
-  useQuery,
   useMutation,
   ApolloError,
   ApolloClient,
