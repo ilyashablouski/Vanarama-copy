@@ -3,12 +3,9 @@ import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import FiltersContainer from '../FiltersContainer';
-import { tagArrayBuilderHelper } from '../helpers';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import SearchPageFilters from '../../../components/SearchPageFilters';
-import { filterList_filterList } from '../../../../generated/filterList';
-import { FilterFields } from '../config';
 // TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
@@ -273,69 +270,5 @@ describe('<FiltersContainer />', () => {
       const tree = getComponent.baseElement;
       expect(tree).toMatchSnapshot();
     });
-  });
-
-  it('tagArrayBuilderHelper works correct', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.from, ['150']],
-        {} as filterList_filterList,
-        {
-          isPartnershipActive: false,
-        },
-      ),
-    ).toMatchObject({ order: 3, value: '£150' });
-  });
-
-  it('model in model page should not to be added', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.model, ['Octavia']],
-        {} as filterList_filterList,
-        { isPartnershipActive: false, isModelPage: true },
-      ),
-    ).toMatchObject({ order: 2, value: '' });
-  });
-
-  it('model in range page should not to be added', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.model, ['Octavia']],
-        {} as filterList_filterList,
-        { isPartnershipActive: false, isRangePage: true },
-      ),
-    ).toMatchObject({ order: 2, value: '' });
-  });
-
-  it('bodyStyles in body page should not to be added', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.bodyStyles, ['Hatchback']],
-        {} as filterList_filterList,
-        { isPartnershipActive: false, isBodyStylePage: true },
-      ),
-    ).toMatchObject({ order: 5, value: '' });
-  });
-
-  it('fuels for active partnership should not to be added', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.fuelTypes, ['Petrol']],
-        {} as filterList_filterList,
-        { isPartnershipActive: true },
-      ),
-    ).toMatchObject({ order: 7, value: '' });
-  });
-
-  it('for make and model we should get label value', () => {
-    expect(
-      tagArrayBuilderHelper(
-        [FilterFields.model, ['Fabia']],
-        {} as filterList_filterList,
-        {
-          isPartnershipActive: false,
-        },
-      ),
-    ).toMatchObject([{ order: 2, value: 'Fabia' }]);
   });
 });
