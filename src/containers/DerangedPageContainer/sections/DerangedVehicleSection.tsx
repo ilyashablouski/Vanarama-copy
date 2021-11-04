@@ -5,7 +5,7 @@ import DerangedVehicleCard from '../../../components/DerangedVehicleCard/Derange
 import Skeleton from '../../../components/Skeleton';
 import DerangedModal from './components/DerangedModal';
 import { ISelectedVehicle } from './interfaces';
-import DEFAULT_DERANGED_FORM_VALUE from './constants';
+import { DERANGED_FORM_DEFAULT_VALUES } from './constants';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -22,7 +22,7 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [isFormSend, setIsFormSend] = useState<boolean>(false);
   const [selectedVehicle, setSelectedVehicle] = useState<ISelectedVehicle>(
-    DEFAULT_DERANGED_FORM_VALUE,
+    DERANGED_FORM_DEFAULT_VALUES,
   );
 
   const handleClick = (
