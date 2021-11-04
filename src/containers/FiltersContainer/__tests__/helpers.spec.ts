@@ -32,7 +32,7 @@ describe('<helpers />', () => {
       getValueKey('test', { ...selectedFiltersState, manufacturer: ['Test'] }),
     ).toEqual('manufacturer');
   });
-  it('tagArrayBuilderHelper works correct', () => {
+  it('should tagArrayBuilderHelper works correct', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.from, ['150']],
@@ -43,7 +43,7 @@ describe('<helpers />', () => {
       ),
     ).toMatchObject({ order: 3, value: '£150' });
   });
-  it('model in model page should not to be added', () => {
+  it('should not to be added model in model page', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.model, ['Octavia']],
@@ -52,7 +52,7 @@ describe('<helpers />', () => {
       ),
     ).toMatchObject({ order: 2, value: '' });
   });
-  it('model in range page should not to be added', () => {
+  it('should not to be added model in range page', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.model, ['Octavia']],
@@ -61,7 +61,7 @@ describe('<helpers />', () => {
       ),
     ).toMatchObject({ order: 2, value: '' });
   });
-  it('bodyStyles in body page should not to be added', () => {
+  it('should not to be added bodyStyles in body page', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.bodyStyles, ['Hatchback']],
@@ -70,7 +70,7 @@ describe('<helpers />', () => {
       ),
     ).toMatchObject({ order: 5, value: '' });
   });
-  it('fuels for active partnership should not to be added', () => {
+  it('should not to be added fuels for active partnership', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.fuelTypes, ['Petrol']],
@@ -79,7 +79,7 @@ describe('<helpers />', () => {
       ),
     ).toMatchObject({ order: 7, value: '' });
   });
-  it('for make and model we should get label value', () => {
+  it('should get label value for make and model', () => {
     expect(
       tagArrayBuilderHelper(
         [FilterFields.model, ['Fabia']],
