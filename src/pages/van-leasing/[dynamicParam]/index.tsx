@@ -1,4 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
@@ -54,9 +58,10 @@ import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
   genericPagesQueryVariables,
-  genericPagesQuery_genericPages_items as IRangeUrls,
+  genericPagesQuery_genericPages as IGenericPage,
 } from '../../../../generated/genericPagesQuery';
 import { decodeData, encodeData } from '../../../utils/data';
+import { Nullable } from '../../../types/common';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -69,15 +74,15 @@ interface IPageType {
 interface IProps extends ISearchPageProps {
   pageType?: IPageType;
   pageData: GenericPageQuery;
-  filtersData?: IFilterList | undefined;
-  ranges: rangeList;
-  vehiclesList?: vehicleList;
-  productCardsData?: GetProductCard;
-  responseCapIds?: string[];
-  rangesUrls: IRangeUrls[];
-  topOffersList?: vehicleList;
-  topOffersCardsData?: GetProductCard;
-  defaultSort?: SortObject[];
+  filtersData?: Nullable<IFilterList>;
+  ranges: Nullable<rangeList>;
+  vehiclesList?: Nullable<vehicleList>;
+  productCardsData?: Nullable<GetProductCard>;
+  responseCapIds?: Nullable<string[]>;
+  rangesUrls: IGenericPage['items'];
+  topOffersList?: Nullable<vehicleList>;
+  topOffersCardsData?: Nullable<GetProductCard>;
+  defaultSort?: Nullable<SortObject[]>;
 }
 
 const Page: NextPage<IProps> = ({
@@ -151,7 +156,9 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const { query, req } = context;
   const client = createApolloClient({}, context);
   let ranges;
@@ -316,7 +323,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
       query: { ...context.query },
     };
-    const { data, errors } = (await ssrCMSQueryExecutor(
+    const { data } = (await ssrCMSQueryExecutor(
       client,
       contextData,
       false,
@@ -341,7 +348,6 @@ export async function getServerSideProps(context: NextPageContext) {
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
-        error: errors ? errors[0] : null,
       },
     };
   } catch (error) {

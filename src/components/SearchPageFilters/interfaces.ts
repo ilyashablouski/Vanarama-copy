@@ -3,6 +3,7 @@ import {
   IFilters,
   IFiltersContainerInjectedProps,
 } from '../../containers/FiltersContainer/interfaces';
+import { Nullable } from '../../types/common';
 
 export interface ISearchPageFiltersProps
   extends IFiltersContainerInjectedProps {
@@ -22,7 +23,7 @@ export interface ISearchPageFiltersProps
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;
   isPartnershipActive?: boolean;
-  preLoadFilters?: IFilterList;
+  preLoadFilters?: Nullable<IFilterList>;
   isPreloadList: boolean;
   setSearchFilters: (filters: IFilters) => void;
 }

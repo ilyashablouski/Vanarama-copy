@@ -1,6 +1,10 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
-import { PreviewNextPageContext } from 'types/common';
+import { Nullable } from 'types/common';
 import {
   GET_MANUFACTURER_LIST,
   GET_LEGACY_URLS,
@@ -19,15 +23,15 @@ import { ISearchPageProps } from '../../models/ISearchPageProps';
 import {
   genericPagesQuery,
   genericPagesQueryVariables,
-  genericPagesQuery_genericPages_items as IManufacturerUrl,
+  genericPagesQuery_genericPages as IGenericPage,
 } from '../../../generated/genericPagesQuery';
 import { formatToSlugFormat } from '../../utils/url';
 import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
-  topInfoSection?: sections | null;
-  manufacturers: manufacturerList | null;
-  manufacturersUrls: IManufacturerUrl[];
+  topInfoSection?: Nullable<sections>;
+  manufacturers: Nullable<manufacturerList>;
+  manufacturersUrls: IGenericPage['items'];
 }
 
 const Page: NextPage<IProps> = ({
@@ -36,20 +40,21 @@ const Page: NextPage<IProps> = ({
   metaData,
   manufacturers,
   manufacturersUrls: encodedData,
-}) => {
-  return (
-    <SearchPageContainer
-      isServer={isServer}
-      isCarSearch
-      isAllManufacturersPage
-      metaData={metaData}
-      topInfoSection={decodeData(topInfoSectionEncodedData)}
-      preLoadManufacturers={manufacturers}
-      manufacturersUrls={decodeData(encodedData)}
-    />
-  );
-};
-export async function getServerSideProps(context: PreviewNextPageContext) {
+}) => (
+  <SearchPageContainer
+    isServer={isServer}
+    isCarSearch
+    isAllManufacturersPage
+    metaData={metaData}
+    topInfoSection={decodeData(topInfoSectionEncodedData)}
+    preLoadManufacturers={manufacturers}
+    manufacturersUrls={decodeData(encodedData)}
+  />
+);
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
   let manufacturers;
 
@@ -89,7 +94,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
           query: GET_LEGACY_URLS,
           variables: {
             slugs,
-            ...(context?.preview && { isPreview: context?.preview }),
+            isPreview: !!context?.preview,
           },
         })
         .then(resp => resp?.data?.genericPages?.items));

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { NextPage, NextPageContext } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -164,7 +164,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const client = initializeApollo(undefined, context);
   if (context.query?.isUnauthorised === 'true') {
     await client.writeQuery({

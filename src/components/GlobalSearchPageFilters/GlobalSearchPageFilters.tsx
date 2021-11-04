@@ -28,9 +28,10 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import DropdownsBlockComponent from './DropdownsBlockComponent';
+import { Nullable } from '../../types/common';
 
 interface IProps {
-  preloadFilters?: IProductFilter;
+  preloadFilters?: Nullable<IProductFilter>;
   activeFilters: IFiltersData;
   setActiveFilters: (filter: IFiltersData) => void;
   selectedTags: ISelectedTags[];
