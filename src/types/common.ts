@@ -1,3 +1,4 @@
+import { AppProps } from 'next/app';
 import { NextPageContext } from 'next';
 import { ReactChild, ReactPortal } from 'react';
 import { IBreadcrumb } from './breadcrumbs';
@@ -16,6 +17,19 @@ export enum PageTypeEnum {
   NOT_FOUND = 'NOT_FOUND',
   ERROR = 'ERROR',
 }
+
+export type IPageWithData<T> = {
+  pageType: PageTypeEnum.DEFAULT;
+} & T;
+
+export type IPageWithError = {
+  pageType: PageTypeEnum.ERROR;
+  error: IErrorProps;
+};
+
+export type CustomAppProps = {
+  pageProps: IPageWithData<unknown> | IPageWithError;
+} & Omit<AppProps<IPageWithData<unknown>>, 'pageProps'>;
 
 export interface IErrorProps {
   statusCode: number;

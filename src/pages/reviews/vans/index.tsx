@@ -7,16 +7,9 @@ import {
   IReviewHubPage,
 } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import { decodeData } from '../../../utils/data';
-import { PageTypeEnum } from '../../../types/common';
-import ErrorPage from '../../_error';
+import { IPageWithError } from '../../../types/common';
 
-const ReviewHub: NextPage<IReviewHubPage> = props => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.pageType === PageTypeEnum.ERROR) {
-    return <ErrorPage errorData={props.error} />;
-  }
-
-  const { data: encodedData } = props;
+const ReviewHub: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data.genericPage);
@@ -34,8 +27,8 @@ const ReviewHub: NextPage<IReviewHubPage> = props => {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IReviewHubPage>> {
-  const client = createApolloClient({}, context);
+): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> {
+  const client = createApolloClient({});
   return getReviewsHubCategoryStaticProps(client, 'reviews/vans', context);
 }
 

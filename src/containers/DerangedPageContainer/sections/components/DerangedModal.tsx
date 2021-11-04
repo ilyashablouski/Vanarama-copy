@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import Drawer from 'core/molecules/drawer/Drawer';
 import { ISelectedVehicle } from '../interfaces';
-import DEFAULT_DERANGED_FORM_VALUE from '../constants';
+import { DERANGED_FORM_DEFAULT_VALUES } from '../constants';
 import DerangedForm from './DerangedForm';
 
 interface IDerangedModalForm {
@@ -23,7 +23,7 @@ const DerangedModal: React.FC<IDerangedModalForm> = ({
 }) => {
   const onCloseDrawer = () => {
     if (isFormSend) {
-      setSelectedVehicle(DEFAULT_DERANGED_FORM_VALUE);
+      setSelectedVehicle(DERANGED_FORM_DEFAULT_VALUES);
     }
     setIsFormSend(false);
     setIsShowDrawer(false);
