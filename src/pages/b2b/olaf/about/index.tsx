@@ -57,7 +57,10 @@ export const BusinessAboutPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [savePersonUuid] = useSavePersonUuidMutation();
-  const { data: storedData } = useStoredOLAFDataQuery();
+  const {
+    data: storedData,
+    refetch: refetchStoredOLAFData,
+  } = useStoredOLAFDataQuery();
 
   const personUuid = useMemo(
     () =>
@@ -91,6 +94,7 @@ export const BusinessAboutPage: NextPage = () => {
           uuid: person?.uuid,
         },
       })
+        .then(() => refetchStoredOLAFData())
         .then(() => router.replace(router.pathname, router.asPath))
         .finally(() => pushAuthorizationEventDataLayer()),
     // eslint-disable-next-line react-hooks/exhaustive-deps
