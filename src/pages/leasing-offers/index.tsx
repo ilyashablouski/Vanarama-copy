@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -18,7 +17,6 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -168,7 +166,9 @@ export const OffersPage: NextPage<IProps> = ({
               classNames={{ color: 'teal', size: 'regular' }}
               link={{
                 label: '',
-                href: '/car-leasing/free-car-insurance.html',
+                href: isBlackFridayCampaignEnabled()
+                  ? '/legal/terms-and-conditions/black-friday-2021-terms-and-conditions'
+                  : '/car-leasing/free-car-insurance.html',
               }}
             >
               <div className="free-insurance-background">
@@ -241,18 +241,16 @@ export const OffersPage: NextPage<IProps> = ({
               Van Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <ProductCarousel
-              leaseType={LeaseTypeEnum.BUSINESS}
-              data={{
-                derivatives: productsVanDerivatives?.derivatives || null,
-                productCard: productsVan?.productCarousel || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsVan?.productCarousel?.length || 6}
-              dataTestIdBtn="van-view-offer"
-            />
-          </LazyLoadComponent>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.BUSINESS}
+            data={{
+              derivatives: productsVanDerivatives?.derivatives || null,
+              productCard: productsVan?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
+          />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -282,18 +280,16 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <ProductCarousel
-              leaseType={LeaseTypeEnum.BUSINESS}
-              data={{
-                derivatives: productsPickupDerivatives?.derivatives || null,
-                productCard: productsPickup?.productCarousel || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsPickup?.productCarousel?.length || 6}
-              dataTestIdBtn="pickup-view-offer"
-            />
-          </LazyLoadComponent>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.BUSINESS}
+            data={{
+              derivatives: productsPickupDerivatives?.derivatives || null,
+              productCard: productsPickup?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsPickup?.productCarousel?.length || 6}
+            dataTestIdBtn="pickup-view-offer"
+          />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink

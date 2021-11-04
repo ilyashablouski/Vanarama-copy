@@ -216,8 +216,8 @@
         display: block;
         margin-bottom: $rem-200;
         font-size: 1.125rem;
-        font-weight: $font-weight-light;
-        font-family: $font-family-heading;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-body;
         letter-spacing: 0;
         white-space: nowrap;
         color: $white !important;
@@ -230,8 +230,8 @@
 
       &__link {
         font-size: 1.125rem;
-        font-weight: $font-weight-light;
-        font-family: $font-family-heading;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-body;
         white-space: nowrap;
         color: $white;
 
@@ -250,8 +250,8 @@
       &__terms {
         margin-top: $rem-400;
         font-size: $font-size-300;
-        font-weight: $font-weight-light;
-        font-family: $font-family-heading;
+        font-weight: $font-weight-regular;
+        font-family: $font-family-body;
         color: $medium;
 
         @include desktop {

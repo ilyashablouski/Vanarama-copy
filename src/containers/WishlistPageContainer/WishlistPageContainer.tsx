@@ -41,7 +41,9 @@ import SortOrder from '../../components/SortOrder';
 import WishlistProductCard from '../../components/VehicleCard';
 
 const WishlistOfferCard = dynamic(() => import('./WishlistOfferCard'));
-const WishlistEmptyMessage = dynamic(() => import('./WishlistEmptyMessage'));
+const WishlistEmptyMessage = dynamic(() =>
+  import('../../components/ListEmptyMessage/ListEmptyMessage'),
+);
 const WishlistRegistrationMessage = dynamic(() =>
   import('./WishlistRegistrationMessage'),
 );
@@ -226,7 +228,10 @@ function WishlistPageContainer({
               </>
             ) : (
               <>
-                <WishlistEmptyMessage />
+                <WishlistEmptyMessage
+                  text="Your wishlist is empty right now."
+                  heading="Want to add vehicles to your wishlist? View the latest hot offers below."
+                />
                 <section className="row:cards-3col -mt-400">
                   {cardList.map(card => (
                     <WishlistOfferCard

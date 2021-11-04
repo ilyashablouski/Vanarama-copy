@@ -9,6 +9,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 export interface IExistenceCheckResult {
   isExists?: Boolean | null;
   isTemporary?: Boolean | null;
+  isRegistered?: Boolean | null;
 }
 
 export const EMAIL_ALREADY_REGISTERED = 'EMAIL_ALREADY_REGISTERED';
@@ -22,20 +23,6 @@ const loginLink = {
 const RegisterLink = {
   href: '',
   label: 'register',
-};
-
-export const createEmailErrorMessage = (
-  data?: IExistenceCheckResult | null,
-) => {
-  if (data?.isExists && data?.isTemporary) {
-    return EMAIL_ALREADY_IN_USE;
-  }
-
-  if (data?.isExists) {
-    return EMAIL_ALREADY_REGISTERED;
-  }
-
-  return undefined;
 };
 
 export const mapEmailErrorMessage = (

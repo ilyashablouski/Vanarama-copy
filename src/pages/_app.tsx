@@ -2,11 +2,9 @@
 // import 'core/styles/base.scss';
 import 'utils/wdyr';
 import dynamic from 'next/dynamic';
-import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useApolloClient } from '@apollo/client';
 import {
   PAGES_WITHOUT_LEASE_RESET,
@@ -15,11 +13,11 @@ import {
 } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
+  changeCompares,
   deleteCompare,
+  isCorrectCompareType,
   IVehicle,
   IVehicleCarousel,
-  isCorrectCompareType,
-  changeCompares,
 } from '../utils/comparatorHelpers';
 import { withApolloProvider } from '../hocs/withApollo';
 import {
@@ -35,16 +33,18 @@ import CookieBarContainer from '../containers/CookieBarContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 import {
-  resetWishlistState,
   initializeWishlistState,
+  resetWishlistState,
 } from '../utils/wishlistHelpers';
 import {
-  resetPersonState,
   initializePersonState,
+  resetPersonState,
 } from '../utils/personHelpers';
 import { useSSRAuthStatus } from '../gql/session';
 import { useAuthReset } from '../containers/LoginFormContainer/gql';
+import { CustomAppProps, PageTypeEnum } from '../types/common';
 import { isBrowser } from '../utils/deviceType';
+import ErrorPage from './_error';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -69,7 +69,7 @@ const Deferred = dynamic(() => import('../components/Style/Deferred'), {
   ssr: false,
 });
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
+const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
     IVehicle[] | IVehicleCarousel[]
   >([]);
@@ -192,7 +192,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             compareChange,
           }}
         >
-          <Component {...pageProps} />
+          {pageProps.pageType === PageTypeEnum.ERROR ? (
+            <ErrorPage errorData={pageProps.error} />
+          ) : (
+            <Component {...pageProps} />
+          )}
         </CompareContext.Provider>
         <ComparatorBar
           deleteVehicle={async vehicle => {
@@ -223,9 +227,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         <FooterContainer />
       </main>
       <CookieBarContainer />
-      <LazyLoadComponent>
-        <ToastContainer />
-      </LazyLoadComponent>
+      <ToastContainer />
 
       {!PAGES_WITHOUT_DEFERRED_STYLES.includes(router.pathname) && <Deferred />}
     </>

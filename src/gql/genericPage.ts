@@ -18,14 +18,15 @@ import {
   SearchPageSlug,
   SearchPageSlugVariables,
 } from '../../generated/SearchPageSlug';
-import { IErrorProps } from '../types/common';
+import { IErrorProps, IPageWithData, IPageWithError } from '../types/common';
 
 export interface IGenericPage {
-  data?: GenericPageQuery | undefined;
-  loading?: boolean | undefined;
-  error?: IErrorProps;
+  data: GenericPageQuery;
   pageHead?: GenericPageHeadQuery;
+  error?: IErrorProps;
 }
+
+export type IGenericPageProps = IPageWithData<IGenericPage> | IPageWithError;
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery(

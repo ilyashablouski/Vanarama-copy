@@ -7,7 +7,6 @@ import {
 } from '../../utils/addHeapProperties';
 import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
-import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useCreatePerson, useAboutYouData, useAboutPageDataQuery } from './gql';
 import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IProps } from './interfaces';
@@ -18,7 +17,6 @@ import {
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
-import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -30,35 +28,13 @@ const AboutFormContainer: React.FC<IProps> = ({
   personUuid,
   onLogInClick,
   onRegistrationClick,
-  personLoggedIn,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const [createPerson] = useCreatePerson(onCompleted);
   const aboutYouData = useAboutYouData(personUuid);
-  const [emailAlreadyExists] = useEmailCheck();
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
-  const isEdit = !!creditApplicationQuery.data?.creditApplicationByOrderUuid
-    ?.aboutDetailsV2;
-
-  const emailValidator = async (email: string) => {
-    if (!email) {
-      return undefined;
-    }
-
-    const result = await emailAlreadyExists({
-      variables: { email },
-    });
-
-    const checkResult = result.data?.emailAlreadyExists;
-
-    if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
-      return undefined;
-    }
-
-    return createEmailErrorMessage(checkResult);
-  };
 
   const handleTemporaryRegistrationIfGuest = (
     username: string,
@@ -104,7 +80,6 @@ const AboutFormContainer: React.FC<IProps> = ({
     <AboutForm
       dropdownData={aboutPageDataQuery.data!.allDropDowns}
       person={aboutYouData.data?.personByUuid}
-      emailValidator={emailValidator}
       isEmailDisabled={!!aboutYouData.data?.personByUuid}
       onLogInClick={onLogInClick}
       onRegistrationClick={onRegistrationClick}
