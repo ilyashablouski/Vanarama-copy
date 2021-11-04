@@ -1,11 +1,15 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 
 import CareersPageContainer from '../../containers/CareersPageContainer';
@@ -14,19 +18,17 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
+import { PageTypeEnum } from '../../types/common';
 
-const CareersLandingPage: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
+const CareersLandingPage: NextPage<IGenericPage> = ({ data }) => (
+  <CareersPageContainer data={data} />
+);
 
-  return <CareersPageContainer data={data} />;
-};
-
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
 
     const { data } = await client.query<
       GenericPageQuery,
@@ -43,6 +45,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -62,6 +65,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

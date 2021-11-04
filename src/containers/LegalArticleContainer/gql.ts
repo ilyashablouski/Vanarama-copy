@@ -3,13 +3,6 @@ import {
   LegalPageQuery,
   LegalPageQueryVariables,
 } from '../../../generated/LegalPageQuery';
-import { IErrorProps } from '../../types/common';
-
-export interface ILegalPage {
-  data?: LegalPageQuery | undefined;
-  loading?: boolean | undefined;
-  error?: IErrorProps;
-}
 
 export const LEGAL_PAGE_QUERY = gql`
   query LegalPageQuery($slug: String!, $isPreview: Boolean) {
