@@ -1,14 +1,10 @@
 import { useCallback, useState } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
-import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { ILogInFormContainerProps } from './interfaces';
 import { useLoginUserMutation, usePersonImperativeQuery } from './gql';
-import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
-import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { useSavePersonMutation } from '../../gql/storedPerson';
 import {
   GET_VEHICLE_CONFIG_LIST,
@@ -20,16 +16,7 @@ import {
   getWishlistVehicleIdsFromQuery,
   useAddVehicleToWishlistMutation,
 } from '../../gql/wishlist';
-import {
-  GetMyOrders,
-  GetMyOrdersVariables,
-  GetMyOrders_myOrders,
-} from '../../../generated/GetMyOrders';
-import { GetPerson } from '../../../generated/GetPerson';
-import {
-  GetCompaniesByPersonUuid,
-  GetCompaniesByPersonUuidVariables,
-} from '../../../generated/GetCompaniesByPersonUuid';
+import { GetCompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import {
   GetWishlistVehicleIds,
   GetWishlistVehicleIdsVariables,
@@ -57,15 +44,6 @@ export const getPartyUuidsFromCompanies = (
     companies => companies.partyUuid,
   );
 
-export const saveOrders = (
-  orders: GetMyOrders_myOrders[],
-  quotes: GetMyOrders_myOrders[],
-) =>
-  Promise.all([
-    localForage.setItem<number | undefined>('ordersLength', orders?.length),
-    localForage.setItem<number | undefined>('quotesLength', quotes?.length),
-  ]);
-
 const LoginFormContainer = ({
   onCompleted,
   onError,
@@ -76,13 +54,6 @@ const LoginFormContainer = ({
   const [login, { error }] = useLoginUserMutation();
   const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
   const [savePerson] = useSavePersonMutation();
-  const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
-    GET_MY_ORDERS_DATA,
-  );
-  const getCompaniesData = useImperativeQuery<
-    GetCompaniesByPersonUuid,
-    GetCompaniesByPersonUuidVariables
-  >(GET_COMPANIES_BY_PERSON_UUID);
   const getPerson = usePersonImperativeQuery();
   const getWishlistVehicleIds = useImperativeQuery<
     GetWishlistVehicleIds,
@@ -102,23 +73,6 @@ const LoginFormContainer = ({
     });
 
   const requestPerson = () => getPerson({});
-
-  const requestCompanies = (person?: GetPerson['getPerson']) =>
-    getCompaniesData({
-      personUuid: person?.uuid || '',
-    });
-
-  const requestOrders = (partyUuid: string[]) =>
-    Promise.all([
-      getOrdersData({
-        partyUuid,
-        filter: MyOrdersTypeEnum.ALL_ORDERS,
-      }),
-      getOrdersData({
-        partyUuid,
-        filter: MyOrdersTypeEnum.ALL_QUOTES,
-      }),
-    ]);
 
   const saveWishlist = (partyUuid: Nullish<string>) => (
     vehicleConfigurationIds: Array<string>,
@@ -151,20 +105,8 @@ const LoginFormContainer = ({
               variables: {
                 person: personQuery.data?.getPerson,
               },
-            })
-              .then(async () => {
-                const [companies] = await Promise.all([
-                  requestCompanies(personQuery.data?.getPerson),
-                  setPersonLoggedIn(personQuery.data?.getPerson),
-                ]);
-                return companies;
-              })
-              .then(getPartyUuidsFromCompanies)
-              .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
-              .then(requestOrders)
-              .then(([{ data: orders }, { data: quotes }]) =>
-                saveOrders(orders?.myOrders, quotes?.myOrders),
-              ),
+            }),
+            setPersonLoggedIn(personQuery.data?.getPerson),
             router.prefetch((redirect as string) || '/'),
             getLocalWishlistState()
               .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
