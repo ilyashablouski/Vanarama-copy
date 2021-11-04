@@ -1,13 +1,10 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { CreateExpenseMutation_createUpdateIncomeAndExpense as IIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
-import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
 import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
@@ -22,9 +19,7 @@ const ExpensesPage: NextPage = () => {
 
   const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
-
-  const { data } = useStoredPersonUuidQuery();
-  const personUuid = uuid || data?.storedPersonUuid || '';
+  const personUuid = uuid || orderData?.storedOrder?.order?.personUuid || '';
 
   const onCompleteClick = (
     createUpdateIncomeAndExpense: IIncomeAndExpense | null,
@@ -55,4 +50,4 @@ const ExpensesPage: NextPage = () => {
   );
 };
 
-export default withApollo(ExpensesPage, { getDataFromTree });
+export default ExpensesPage;

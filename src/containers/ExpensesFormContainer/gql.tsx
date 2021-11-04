@@ -36,6 +36,7 @@ export function useExpensesData(personUuid: string) {
     variables: {
       uuid: personUuid,
     },
+    skip: !personUuid,
   });
 }
 

@@ -54,7 +54,8 @@ const InsuranceModal = ({
         ))}
       </IconList>
       <Text tag="p" color="dark" className="-mv-400" size={textSize}>
-        The free insurance policy is based on you being the main driver. You can
+        The Free Insurance policy is based on you being the main driver or an
+        employee of the Business where the Lease is in the Company Name. You can
         add 1 named driver to the policy as long as they also meet all of the
         criteria above. If your Insurance needs differ please contact our
         Insurance team.

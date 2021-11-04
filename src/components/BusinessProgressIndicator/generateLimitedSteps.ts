@@ -3,25 +3,25 @@ export default function generateLimitedSteps() {
     {
       href: '/b2b/olaf/about',
       label: 'About You',
-      dataPath: 'aboutDetails',
+      dataPath: 'aboutDetailsV2',
       step: 1,
     },
     {
       href: '/b2b/olaf/company-details',
       label: 'Company Details',
-      dataPath: 'companyDetails',
+      dataPath: 'companyDetailsV2',
       step: 2,
     },
     {
       href: '/b2b/olaf/vat-details/[companyUuid]',
       label: 'VAT Details',
-      dataPath: 'vatDetails',
+      dataPath: 'vatDetailsV2',
       step: 3,
     },
     {
       href: '/b2b/olaf/director-details/[companyUuid]',
       label: 'Director Details',
-      dataPath: 'directorsDetails',
+      dataPath: 'directorsDetailsV2',
       step: 4,
     },
     {
