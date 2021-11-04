@@ -1,4 +1,3 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,7 +6,6 @@ import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankD
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 
-import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import { useStoredOrderQuery } from '../../../../gql/storedOrder';
@@ -51,4 +49,4 @@ const CompanyBankDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(CompanyBankDetailsPage, { getDataFromTree });
+export default CompanyBankDetailsPage;

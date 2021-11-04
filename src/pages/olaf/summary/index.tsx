@@ -1,15 +1,12 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import SummaryFormContainer from '../../../containers/SummaryFormContainer/SummaryFormContainer';
-import withApollo from '../../../hocs/withApollo';
 import { OLAFQueryParams } from '../../../utils/url';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../generated/globalTypes';
-import { useStoredPersonUuidQuery } from '../../../gql/storedPersonUuid';
 import { useStoredOrderQuery } from '../../../gql/storedOrder';
 
 type QueryParams = OLAFQueryParams & {
@@ -24,8 +21,8 @@ const SummaryPage: NextPage = () => {
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
   );
-  const { data } = useStoredPersonUuidQuery();
-  const personUuid = uuid || data?.storedPersonUuid || '';
+  const personUuid =
+    uuid || storedOrderData?.storedOrder?.order?.personUuid || '';
 
   const handleComplete = (emailAddress: string | undefined) => {
     router.push('/olaf/thank-you', '/olaf/thank-you').then(() =>
@@ -54,4 +51,4 @@ const SummaryPage: NextPage = () => {
   );
 };
 
-export default withApollo(SummaryPage, { getDataFromTree });
+export default SummaryPage;
