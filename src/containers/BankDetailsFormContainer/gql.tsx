@@ -42,6 +42,7 @@ export const CREATE_UPDATE_BANK_ACCOUNT = gql`
 export function useBankDetails(personUuid: string) {
   return useQuery<Query, QueryVariables>(GET_BANK_DETAILS_PAGE_DATA, {
     variables: { uuid: personUuid },
+    skip: !personUuid,
   });
 }
 

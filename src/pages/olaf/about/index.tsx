@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
@@ -14,7 +13,6 @@ import {
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
@@ -225,4 +223,4 @@ const AboutYouPage: NextPage = () => {
   );
 };
 
-export default withApollo(AboutYouPage, { getDataFromTree });
+export default AboutYouPage;

@@ -358,6 +358,7 @@ const OLAFLayout: React.FC<IProps> = ({
           </div>
         )}
       </div>
+
       <Modal show={isModalVisible} containerClassName="modal-container-large">
         <div className="-mb-400">
           <div className="-mb-600">
