@@ -30,9 +30,9 @@ const BankDetailsPage: NextPage = () => {
   const router = useRouter();
   const { uuid } = router.query as QueryParams;
 
+  const { data: orderData } = useStoredOrderQuery();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
 
-  const { data: orderData } = useStoredOrderQuery();
   const order = orderData?.storedOrder?.order;
 
   const personUuid = uuid || orderData?.storedOrder?.order?.personUuid || '';
@@ -56,7 +56,7 @@ const BankDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <BankDetailsFormContainer
-        personUuid={uuid}
+        personUuid={personUuid}
         onCompleted={({ createUpdateBankAccount }) =>
           onCompleteClick(createUpdateBankAccount)
         }

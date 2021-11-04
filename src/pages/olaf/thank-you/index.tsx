@@ -2,9 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { getDataFromTree } from '@apollo/react-ssr';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../../hocs/withApollo';
 import Skeleton from '../../../components/Skeleton';
 import ThankYouOrderContainer from '../../../containers/ThankYouOrderContainer';
 

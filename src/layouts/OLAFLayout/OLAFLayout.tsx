@@ -41,7 +41,6 @@ import Checkmark from '../../core/assets/icons/Checkmark';
 
 import { isSessionFinishedCache } from '../../cache';
 import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
-import { isBrowser } from '../../utils/deviceType';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -229,138 +228,137 @@ const OLAFLayout: React.FC<IProps> = ({
           onClick={() => setAsideOpen(prev => !prev)}
         />
       )}
-      {isBrowser() && (
-        <div className="row:olaf">
-          <OlafContext.Provider
-            value={{
-              funderName: funder,
-              requiredMonths: term,
-              leaseDataLoading,
-            }}
-          >
-            {children}
-          </OlafContext.Provider>
-          {showAside && order && derivative && (
-            <div className="olaf-aside">
-              <OlafCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                header={{
-                  text: `${vehicleProduct?.leadTime} †` || '',
-                }}
-                olafDetails={createOlafDetails(
-                  order.leaseType,
-                  vehicleProduct!,
-                  derivative,
-                )}
-                initialRentalDataTestId="about_intial-rental-testID"
-                controlLengthDataTestId="about_control-length-testID"
-                annualMileageDataTestId="about_annual-mileage-testID"
-                annualMileageBoosterDataTestId="about_annual-milage-booster-testID"
-                damageCoverDataTestId="about_damage-cover-testID"
-                maintenanceDataTestId="about_maintenance-testID"
-                fuelDataTestId="about_fuel-testID"
-                transmissionDataTestId="about_transmission-testID"
-                colorDataTestId="about_color-testID"
-                trimDataTestId="about_trim-testID"
-                descriptionDataTestId="about_description-testID"
-                imageSrc={mainImage || ''}
-                title={{
-                  title: `${derivative?.manufacturer.name || ''} ${derivative
-                    ?.model.name || ''}`,
-                  description: derivative?.name || '',
-                  score: rating,
-                  dataTestId: 'olaf_about_title_derivative',
-                  size: 'large',
-                  ratingSize: 'lead',
-                }}
-                roadsideAssistance={
-                  derivativeData?.data?.vehicleDetails?.roadsideAssistance
-                }
-                warrantyDetails={
-                  derivativeData?.data?.vehicleDetails?.warrantyDetails
-                }
-              />
-              {isBlackFridayCampaignEnabled() && (
-                <BlackFridayPlainBanner className="bf-banner--summary -mt-400" />
+      <div className="row:olaf">
+        <OlafContext.Provider
+          value={{
+            funderName: funder,
+            requiredMonths: term,
+            leaseDataLoading,
+          }}
+        >
+          {children}
+        </OlafContext.Provider>
+        {showAside && order && derivative && (
+          <div className="olaf-aside">
+            <OlafCard
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              header={{
+                text: `${vehicleProduct?.leadTime} †` || '',
+              }}
+              olafDetails={createOlafDetails(
+                order.leaseType,
+                vehicleProduct!,
+                derivative,
               )}
+              initialRentalDataTestId="about_intial-rental-testID"
+              controlLengthDataTestId="about_control-length-testID"
+              annualMileageDataTestId="about_annual-mileage-testID"
+              annualMileageBoosterDataTestId="about_annual-milage-booster-testID"
+              damageCoverDataTestId="about_damage-cover-testID"
+              maintenanceDataTestId="about_maintenance-testID"
+              fuelDataTestId="about_fuel-testID"
+              transmissionDataTestId="about_transmission-testID"
+              colorDataTestId="about_color-testID"
+              trimDataTestId="about_trim-testID"
+              descriptionDataTestId="about_description-testID"
+              imageSrc={mainImage || ''}
+              title={{
+                title: `${derivative?.manufacturer.name || ''} ${derivative
+                  ?.model.name || ''}`,
+                description: derivative?.name || '',
+                score: rating,
+                dataTestId: 'olaf_about_title_derivative',
+                size: 'large',
+                ratingSize: 'lead',
+              }}
+              roadsideAssistance={
+                derivativeData?.data?.vehicleDetails?.roadsideAssistance
+              }
+              warrantyDetails={
+                derivativeData?.data?.vehicleDetails?.warrantyDetails
+              }
+            />
+            {isBlackFridayCampaignEnabled() && (
+              <BlackFridayPlainBanner className="bf-banner--summary -mt-400" />
+            )}
+            {isBenefitsVisible && (
+              <>
+                <Card className="-mt-400">
+                  <Heading size="lead" color="black">
+                    You Will Need:
+                  </Heading>
+                  <List>
+                    {YOUR_NEEDS.map(item => (
+                      <li className="-custom" key={item.key}>
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+                <div className="pdp">
+                  {(isCar || isVan) && (
+                    <Banner vans={isVan} className="-mt-500" />
+                  )}
+                </div>
+                <Card className="-mt-500">
+                  <Heading size="lead" color="black">
+                    Why Choose Vanarama?
+                  </Heading>
+                  <List>
+                    {VANARAMA_ADVANTAGES.map(item => (
+                      <li
+                        className="-custom"
+                        key={item.key}
+                        data-abtestid={item.dataAbTestId}
+                      >
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+                <Card className="-mt-500">
+                  <Heading size="lead" color="black">
+                    Why Choose Leasing?
+                  </Heading>
+                  <List>
+                    {LEASING_ADVANTAGES.map(item => (
+                      <li className="-custom" key={item.key}>
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+              </>
+            )}
+            <div className="text -small description-block">
               {isBenefitsVisible && (
-                <>
-                  <Card className="-mt-400">
-                    <Heading size="lead" color="black">
-                      You Will Need:
-                    </Heading>
-                    <List>
-                      {YOUR_NEEDS.map(item => (
-                        <li className="-custom" key={item.key}>
-                          <Icon
-                            size="regular"
-                            color="teal"
-                            icon={<Checkmark />}
-                          />
-                          {item.label}
-                        </li>
-                      ))}
-                    </List>
-                  </Card>
-                  <div className="pdp">
-                    {(isCar || isVan) && (
-                      <Banner vans={isVan} className="-mt-500" />
-                    )}
-                  </div>
-                  <Card className="-mt-500">
-                    <Heading size="lead" color="black">
-                      Why Choose Vanarama?
-                    </Heading>
-                    <List>
-                      {VANARAMA_ADVANTAGES.map(item => (
-                        <li
-                          className="-custom"
-                          key={item.key}
-                          data-abtestid={item.dataAbTestId}
-                        >
-                          <Icon
-                            size="regular"
-                            color="teal"
-                            icon={<Checkmark />}
-                          />
-                          {item.label}
-                        </li>
-                      ))}
-                    </List>
-                  </Card>
-                  <Card className="-mt-500">
-                    <Heading size="lead" color="black">
-                      Why Choose Leasing?
-                    </Heading>
-                    <List>
-                      {LEASING_ADVANTAGES.map(item => (
-                        <li className="-custom" key={item.key}>
-                          <Icon
-                            size="regular"
-                            color="teal"
-                            icon={<Checkmark />}
-                          />
-                          {item.label}
-                        </li>
-                      ))}
-                    </List>
-                  </Card>
-                </>
+                <span>* Subject to terms and conditions.</span>
               )}
-              <div className="text -small description-block">
-                {isBenefitsVisible && (
-                  <span>* Subject to terms and conditions.</span>
-                )}
-                <span>
-                  ** Charges will apply at the end of your lease if you exceed
-                  your agreed mileage.
-                </span>
-                <span>† After we’ve received your eSigned documents.</span>
-              </div>
+              <span>
+                ** Charges will apply at the end of your lease if you exceed
+                your agreed mileage.
+              </span>
+              <span>† After we’ve received your eSigned documents.</span>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
+
       <Modal show={isModalVisible} containerClassName="modal-container-large">
         <div className="-mb-400">
           <div className="-mb-600">

@@ -41,7 +41,7 @@ export function useAddressData(personUuid: string) {
     variables: {
       uuid: personUuid,
     },
-
+    skip: !personUuid,
   });
 }
 

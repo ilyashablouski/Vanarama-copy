@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import generateLimitedSteps from './generateLimitedSteps';
 import generateSoleTraderSteps from './generateSoleTraderSteps';
 import { IBusinessProgressIndicatorProps } from './interfaces';
@@ -11,7 +12,6 @@ import useGetPersonUuid from '../../hooks/useGetPersonUuid';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 import { useStoredOrderQuery } from '../../gql/storedOrder';
-import Link from "next/link";
 
 const ProgressIndicator = dynamic(() =>
   import('core/molecules/progress-indicator'),

@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
