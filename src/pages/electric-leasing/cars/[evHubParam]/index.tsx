@@ -1,5 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
@@ -14,17 +18,18 @@ import {
 import { GENERIC_PAGE } from '../../../../gql/genericPage';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
+import { IPageWithData, PageTypeEnum } from '../../../../types/common';
 
-interface IProps {
+type IProps = IPageWithData<{
   data: GenericPageQuery;
   isContentHubPage: boolean;
-}
+}>;
 
 export const EVHubPage: NextPage<IProps> = ({
   data: encodedData,
   isContentHubPage,
 }) => {
-  const data = decodeData(encodedData) as GenericPageQuery;
+  const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const title = metaData.name;
@@ -37,9 +42,11 @@ export const EVHubPage: NextPage<IProps> = ({
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
+
   if (isContentHubPage) {
     return <ContentHubContainer data={data} />;
   }
+
   return (
     <>
       {breadcrumbsItems && (
@@ -63,9 +70,11 @@ export const EVHubPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const param = context?.params?.evHubParam as string;
     const path = `electric-leasing/cars/${param}`;
     const isContentHubPage = [
@@ -89,6 +98,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
 
     return {
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
         isContentHubPage,
       },

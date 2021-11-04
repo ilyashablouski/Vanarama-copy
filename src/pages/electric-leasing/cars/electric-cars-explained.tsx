@@ -1,6 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-// import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
@@ -9,11 +12,14 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../../generated/GenericPageQuery';
+import { IPageWithData, PageTypeEnum } from '../../../types/common';
 
-interface IProps extends IEvOffersData {
-  data: GenericPageQuery;
-  searchParam: String;
-}
+type IProps = IPageWithData<
+  IEvOffersData & {
+    data: GenericPageQuery;
+    searchParam: String;
+  }
+>;
 
 export const EVHubPage: NextPage<IProps> = ({
   data,
@@ -35,9 +41,11 @@ export const EVHubPage: NextPage<IProps> = ({
   />
 );
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const path = `electric-leasing/cars/electric-cars-explained`;
 
     const { data } = await client.query<
@@ -62,11 +70,14 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
 
     return {
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
-        productsElectricOnlyCar,
-        productsElectricOnlyCarDerivatives,
-        productsHybridOnlyCar,
-        productsHybridOnlyCarDerivatives,
+        productsElectricOnlyCar: productsElectricOnlyCar || null,
+        productsElectricOnlyCarDerivatives:
+          productsElectricOnlyCarDerivatives || null,
+        productsHybridOnlyCar: productsHybridOnlyCar || null,
+        productsHybridOnlyCarDerivatives:
+          productsHybridOnlyCarDerivatives || null,
         vehicleListUrlData,
         searchParam: 'car-leasing',
       },

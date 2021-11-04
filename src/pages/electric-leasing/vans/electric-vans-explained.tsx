@@ -1,5 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -13,8 +17,8 @@ import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import {
   GenericPageQuery,
-  GenericPageQueryVariables,
   GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
+  GenericPageQueryVariables,
 } from '../../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../../components/Hero';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
@@ -23,15 +27,18 @@ import JumpMenu from '../../../components/JumpMenu/JumpMenu';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import { IPageWithData, PageTypeEnum } from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface IProps extends IEvOffersData {
-  data: GenericPageQuery;
-  searchParam: String;
-}
+type IProps = IPageWithData<
+  IEvOffersData & {
+    data: GenericPageQuery;
+    searchParam: String;
+  }
+>;
 
 export const EVHubPage: NextPage<IProps> = ({
   data,
@@ -190,9 +197,11 @@ export const EVHubPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const path = `electric-leasing/vans/electric-vans-explained`;
 
     const { data } = await client.query<
@@ -215,9 +224,11 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
 
     return {
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
-        productsElectricOnlyVan,
-        productsElectricOnlyVanDerivatives,
+        productsElectricOnlyVan: productsElectricOnlyVan || null,
+        productsElectricOnlyVanDerivatives:
+          productsElectricOnlyVanDerivatives || null,
         vehicleListUrlData,
         searchParam: 'van-leasing',
       },

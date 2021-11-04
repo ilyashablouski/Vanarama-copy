@@ -1,26 +1,30 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import ReactMarkdown from 'react-markdown/with-html';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { PreviewNextPageContext } from 'types/common';
+import { PageTypeEnum } from 'types/common';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import LogoMarkIcon from 'core/assets/icons/custom/LogoMark';
 import {
-  handleNetworkError,
   DEFAULT_POSTCODE,
+  handleNetworkError,
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import {
+  GENERIC_PAGE,
+  IGenericPage,
+  IGenericPageProps,
+} from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
   GenericPageQuery,
-  GenericPageQueryVariables,
   GenericPageQuery_genericPage_sections_hero as IHero,
+  GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import {
   PageCollection,
@@ -39,7 +43,6 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
 import ErrorMessages from '../../models/enum/ErrorMessages';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -73,7 +76,7 @@ const GoldrushForm = dynamic(
 const HERO_BACKGROUND_URL =
   'https://res.cloudinary.com/diun8mklf/image/upload/v1587843424/vanarama/Screenshot_2020-04-25_at_8.36.35_pm_wtp06s.png';
 
-export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
+export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -87,10 +90,6 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
       }
     },
   );
-
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
 
   const hero: IHero = getSectionsData(['sections', 'hero'], data.genericPage);
   const leadText = getSectionsData(['sections', 'leadText'], data.genericPage);
@@ -332,7 +331,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
@@ -349,9 +348,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   };
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const paths = context?.params?.location as string[];
 
     const { data } = await client.query<
@@ -368,6 +369,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -387,6 +389,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };
