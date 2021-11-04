@@ -1,6 +1,5 @@
 import {
   gql,
-  useQuery,
   useMutation,
   ApolloError,
   ApolloClient,
@@ -30,17 +29,6 @@ export const DELETE_PERSON_EMAIL_MUTATION = gql`
     deletePersonEmail @client
   }
 `;
-
-export function useStoredPersonEmailQuery(
-  onCompleted?: (data: GetStoredPersonEmail) => void,
-  onError?: (error: ApolloError) => void,
-) {
-  return useQuery<GetStoredPersonEmail>(GET_STORED_PERSON_EMAIL_QUERY, {
-    ssr: false,
-    onCompleted,
-    onError,
-  });
-}
 
 export function useSavePersonEmailMutation(
   onCompleted?: (data: SavePersonEmail) => void,

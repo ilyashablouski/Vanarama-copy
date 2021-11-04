@@ -43,6 +43,7 @@ export function useEmploymentData(personUuid: string) {
     variables: {
       uuid: personUuid,
     },
+    skip: !personUuid,
   });
 }
 

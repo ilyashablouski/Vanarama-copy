@@ -1,10 +1,8 @@
 import React from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
-import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
@@ -46,6 +44,4 @@ export const SoleTraderDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(SoleTraderDetailsPage, {
-  getDataFromTree,
-});
+export default SoleTraderDetailsPage;
