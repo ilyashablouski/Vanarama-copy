@@ -181,7 +181,11 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const [data, setData] = useState(dataForFirstRender);
 
   const client = useApolloClient();
-  client.onResetStore(() => router.push('/account/login-register'));
+  useEffect(
+    () => client.onResetStore(() => router.push('/account/login-register')),
+    [client, router],
+  );
+
   const { setCachedLastStep } = useProgressHistory();
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);

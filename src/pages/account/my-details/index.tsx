@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PreviewNextPageContext } from 'types/common';
 import { addApolloState, initializeApollo } from 'apolloClient';
@@ -79,7 +79,10 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
   const client = useApolloClient();
-  client.onResetStore(() => router.push('/account/login-register'));
+  useEffect(
+    () => client.onResetStore(() => router.push('/account/login-register')),
+    [client, router],
+  );
 
   return (
     <>
