@@ -248,8 +248,8 @@ const HeaderContainer: FC = () => {
   const handleLogOut = useCallback(async () => {
     removeAuthenticationCookies();
     await localForage.clear();
-    await client.resetStore();
     await logOut().catch(() => {});
+    await client.resetStore();
   }, [client, logOut]);
 
   if (partnership) {
