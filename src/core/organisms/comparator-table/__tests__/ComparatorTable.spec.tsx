@@ -1,6 +1,8 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { LeaseTypeEnum } from '../../../../../generated/globalTypes';
+
 import ComparatorTable from '../ComparatorTable';
 
 const criterias = [
@@ -90,6 +92,7 @@ describe('<ComparatorTable />', () => {
         deleteVehicle={mockDeleteVehicle}
         criterias={criterias}
         viewOffer={mockViewOffer}
+        leaseType={LeaseTypeEnum.PERSONAL}
         isNotEmptyPage
       />,
     );
@@ -104,6 +107,7 @@ describe('<ComparatorTable />', () => {
         deleteVehicle={mockDeleteVehicle}
         criterias={criterias}
         viewOffer={mockViewOffer}
+        leaseType={LeaseTypeEnum.PERSONAL}
         isNotEmptyPage
       />,
     );
