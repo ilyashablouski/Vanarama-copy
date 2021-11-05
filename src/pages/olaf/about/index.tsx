@@ -64,7 +64,10 @@ const AboutYouPage: NextPage = () => {
   const [setPersonUuid] = useSavePersonUuidMutation();
   const [saveOrderMutation] = useSaveOrderMutation();
   const [savePersonEmailMutation] = useSavePersonEmailMutation();
-  const { data: storedData } = useStoredOLAFDataQuery();
+  const {
+    data: storedData,
+    refetch: refetchStoredOLAFData,
+  } = useStoredOLAFDataQuery();
   const order = storedData?.storedOrder?.order;
 
   const personUuid = useMemo(
@@ -105,6 +108,7 @@ const AboutYouPage: NextPage = () => {
           uuid: person?.uuid,
         },
       })
+        .then(() => refetchStoredOLAFData())
         .then(() => router.replace(router.pathname, router.asPath))
         .finally(() => pushAuthorizationEventDataLayer()),
     // eslint-disable-next-line react-hooks/exhaustive-deps
