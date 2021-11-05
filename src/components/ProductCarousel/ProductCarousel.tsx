@@ -11,6 +11,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
   productType,
   customCTABackground,
+  dataUiTestIdMask,
 }) => {
   if (data.productCard?.length && data.productCard?.length > 1) {
     return (
@@ -28,7 +29,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   leaseType={leaseType}
                   data={data}
                   dataTestIdBtn={dataTestIdBtn}
-                  dataUiTestId={`ui-view-car-offers_${index}`}
+                  dataUiTestIdMask={dataUiTestIdMask}
                   productType={productType}
                   customCTABackground={customCTABackground}
                 />
@@ -50,7 +51,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               leaseType={leaseType}
               data={data}
               dataTestIdBtn={dataTestIdBtn}
-              dataUiTestId={`ui-view-car-offers_${index}`}
+              dataUiTestIdMask={dataUiTestIdMask}
               productType={productType}
               customCTABackground={customCTABackground}
             />
