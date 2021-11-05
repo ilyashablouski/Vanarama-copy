@@ -3,7 +3,7 @@ export default function generateConsumerSteps() {
     {
       href: '/olaf/about',
       label: 'About You',
-      dataPath: 'aboutDetails',
+      dataPath: 'aboutDetailsV2',
       step: 1,
     },
     {

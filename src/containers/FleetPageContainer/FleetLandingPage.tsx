@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery_genericPage as IGenericPage } from '../../../generated/GenericPageQuery';
+import { IGenericPage } from '../../gql/genericPage';
 
 const HeroSection = dynamic(() => import('./sections/HeroSection'), {
   loading: () => <Skeleton count={1} />,
@@ -37,14 +37,11 @@ const WhyLeaseWithVanaramaTiles = dynamic(
   },
 );
 
-interface IFleetLandingPage {
-  genericPage: IGenericPage;
-}
-
-const FleetLandingPage = ({ genericPage }: IFleetLandingPage) => {
+const FleetLandingPage: React.FC<IGenericPage> = ({ data }) => {
   const { hero, leadText, featured1, featured2, featured3, featured4, tiles } =
-    genericPage.sections || {};
-  const { metaData, featuredImage } = genericPage;
+    data.genericPage.sections || {};
+  const { metaData, featuredImage } = data.genericPage;
+
   return (
     <>
       {hero && (

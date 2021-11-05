@@ -1,10 +1,8 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import DirectorDetailsFormContainer from '../../../../containers/DirectorDetailsFormContainer';
-import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
@@ -46,4 +44,4 @@ export const DirectorDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(DirectorDetailsPage, { getDataFromTree });
+export default DirectorDetailsPage;

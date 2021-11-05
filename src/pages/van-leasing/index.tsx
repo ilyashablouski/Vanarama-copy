@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -12,9 +12,9 @@ import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
-  HubVanPageDataVariables,
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
+  HubVanPageDataVariables,
 } from '../../../generated/HubVanPageData';
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
@@ -51,12 +51,16 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import ErrorPage from '../_error';
 import {
   convertErrorToProps,
   isBlackFridayCampaignEnabled,
 } from '../../utils/helpers';
-import { IErrorProps } from '../../types/common';
+import {
+  IPageWithData,
+  IPageWithError,
+  Nullable,
+  PageTypeEnum,
+} from '../../types/common';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -87,12 +91,13 @@ interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
 }
 
-interface IProps extends IVansPageOffersData {
-  data: HubVanPageData;
-  searchPodVansData: IFilterList;
-  offer?: IExtProdCardData;
-  error?: IErrorProps;
-}
+type IProps = IPageWithData<
+  IVansPageOffersData & {
+    data: HubVanPageData;
+    searchPodVansData: IFilterList;
+    offer: Nullable<IExtProdCardData>;
+  }
+>;
 
 export const VansPage: NextPage<IProps> = ({
   data: encodedData,
@@ -105,15 +110,10 @@ export const VansPage: NextPage<IProps> = ({
   productsLargeVanDerivatives,
   vehicleListUrlData: encodeVehicleListUrlData,
   offer,
-  error,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
 
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
@@ -704,7 +704,9 @@ export const VansPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
 
   try {
@@ -763,6 +765,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
         searchPodVansData,
         productsSmallVan: productsSmallVan || null,
@@ -791,6 +794,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

@@ -16,6 +16,7 @@ import {
   VehicleListUrlVariables,
 } from '../../generated/VehicleListUrl';
 import { VEHICLE_LIST_URL } from '../gql/vehicleList';
+import { Nullable } from '../types/common';
 
 const getCapIds = (data: ProductCardData | undefined) =>
   data?.productCarousel?.map(el => el?.capId || '').filter(Boolean) || [];
@@ -506,18 +507,18 @@ export const pickupsPageOffersRequest = async (
 };
 
 export interface IEvOffersData {
-  productsEvVan?: ProductCardData;
-  productsEvCar?: ProductCardData;
-  productsElectricOnlyCar?: ProductCardData;
-  productsElectricOnlyVan?: ProductCardData;
-  productsHybridOnlyCar?: ProductCardData;
-  productsHybridOnlyVan?: ProductCardData;
-  productsEvVanDerivatives?: GetDerivatives;
-  productsEvCarDerivatives?: GetDerivatives;
-  productsElectricOnlyCarDerivatives?: GetDerivatives;
-  productsHybridOnlyCarDerivatives?: GetDerivatives;
-  productsElectricOnlyVanDerivatives?: GetDerivatives;
-  productsHybridOnlyVanDerivatives?: GetDerivatives;
+  productsEvVan?: Nullable<ProductCardData>;
+  productsEvCar?: Nullable<ProductCardData>;
+  productsElectricOnlyCar?: Nullable<ProductCardData>;
+  productsElectricOnlyVan?: Nullable<ProductCardData>;
+  productsHybridOnlyCar?: Nullable<ProductCardData>;
+  productsHybridOnlyVan?: Nullable<ProductCardData>;
+  productsEvVanDerivatives?: Nullable<GetDerivatives>;
+  productsEvCarDerivatives?: Nullable<GetDerivatives>;
+  productsElectricOnlyCarDerivatives?: Nullable<GetDerivatives>;
+  productsHybridOnlyCarDerivatives?: Nullable<GetDerivatives>;
+  productsElectricOnlyVanDerivatives?: Nullable<GetDerivatives>;
+  productsHybridOnlyVanDerivatives?: Nullable<GetDerivatives>;
   vehicleListUrlData: IVehicleList;
 }
 
@@ -532,12 +533,12 @@ export interface IPartnerOffersData {
 }
 
 export interface ISpecialOffersData {
-  productsVan?: ProductCardData;
-  productsCar?: ProductCardData;
-  productsPickup?: ProductCardData;
-  productsVanDerivatives?: GetDerivatives;
-  productsCarDerivatives?: GetDerivatives;
-  productsPickupDerivatives?: GetDerivatives;
+  productsVan?: Nullable<ProductCardData>;
+  productsCar?: Nullable<ProductCardData>;
+  productsPickup?: Nullable<ProductCardData>;
+  productsVanDerivatives?: Nullable<GetDerivatives>;
+  productsCarDerivatives?: Nullable<GetDerivatives>;
+  productsPickupDerivatives?: Nullable<GetDerivatives>;
   vehicleListUrlData: IVehicleList;
 }
 
@@ -558,12 +559,12 @@ export interface IVansSpecialOffersData {
 }
 
 export interface IVansPageOffersData {
-  productsSmallVan?: ProductCardData;
-  productsMediumVan?: ProductCardData;
-  productsLargeVan?: ProductCardData;
-  productsSmallVanDerivatives?: GetDerivatives;
-  productsMediumVanDerivatives?: GetDerivatives;
-  productsLargeVanDerivatives?: GetDerivatives;
+  productsSmallVan?: Nullable<ProductCardData>;
+  productsMediumVan?: Nullable<ProductCardData>;
+  productsLargeVan?: Nullable<ProductCardData>;
+  productsSmallVanDerivatives?: Nullable<GetDerivatives>;
+  productsMediumVanDerivatives?: Nullable<GetDerivatives>;
+  productsLargeVanDerivatives?: Nullable<GetDerivatives>;
   vehicleListUrlData: IVehicleList;
 }
 
@@ -573,6 +574,6 @@ export interface ICarsPageOffersData {
 }
 
 export interface IPickupsPageOffersData {
-  productsPickup?: ProductCardData;
+  productsPickup?: Nullable<ProductCardData>;
   vehicleListUrlData: IVehicleList;
 }

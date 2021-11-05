@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -32,8 +32,11 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
-import { IErrorProps } from '../../../types/common';
-import ErrorPage from '../../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -47,16 +50,17 @@ const RouterLink = dynamic(() =>
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-interface IProps extends IEvOffersData {
-  data: GenericPageQuery;
-  error?: IErrorProps;
-}
+
+type IProps = IPageWithData<
+  IEvOffersData & {
+    data: GenericPageQuery;
+  }
+>;
 
 const EVansPage: NextPage<IProps> = ({
   data,
   productsElectricOnlyVan,
   vehicleListUrlData,
-  error,
 }) => {
   const [featuresArray, setFeaturesArray] = useState([]);
   const optimisationOptions = {
@@ -75,10 +79,6 @@ const EVansPage: NextPage<IProps> = ({
   useEffect(() => {
     setFeaturesArray(getFeaturedSectionsAsArray(sections));
   }, [sections]);
-
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
 
   const HeroSection = () => (
     <Hero>
@@ -282,9 +282,11 @@ const EVansPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
@@ -304,7 +306,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        data: data || null,
+        pageType: PageTypeEnum.DEFAULT,
+        data,
         productsElectricOnlyVan: productsElectricOnlyVan || null,
         vehicleListUrlData: vehicleListUrlData || null,
       },
@@ -325,6 +328,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

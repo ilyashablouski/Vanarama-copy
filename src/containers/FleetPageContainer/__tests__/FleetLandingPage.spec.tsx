@@ -113,7 +113,7 @@ describe('<FleetLandingPage />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false}>
-        <FleetLandingPage genericPage={DATA.genericPage} />
+        <FleetLandingPage data={DATA} />
       </MockedProvider>,
     );
 
@@ -143,7 +143,7 @@ describe('<FleetLandingPage />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false}>
-        <FleetLandingPage genericPage={DATA.genericPage} />
+        <FleetLandingPage data={DATA} />
       </MockedProvider>,
     );
 
@@ -169,7 +169,7 @@ describe('<FleetLandingPage />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false}>
-        <FleetLandingPage genericPage={DATA.genericPage} />
+        <FleetLandingPage data={DATA} />
       </MockedProvider>,
     );
 
@@ -196,7 +196,7 @@ describe('<FleetLandingPage />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <FleetLandingPage genericPage={DATA.genericPage} />
+        <FleetLandingPage data={DATA} />
       </MockedProvider>,
     );
     // ASSERT

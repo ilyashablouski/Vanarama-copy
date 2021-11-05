@@ -1,9 +1,4 @@
-import {
-  GetStaticPropsContext,
-  GetStaticPropsResult,
-  NextPage,
-  NextPageContext,
-} from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -90,7 +85,7 @@ export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
 
     const { data } = await client.query<

@@ -1,11 +1,9 @@
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import { useState } from 'react';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
-import withApollo from '../../../../hocs/withApollo';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
@@ -64,4 +62,4 @@ const BusinessSummaryPage: NextPage = () => {
   );
 };
 
-export default withApollo(BusinessSummaryPage, { getDataFromTree });
+export default BusinessSummaryPage;

@@ -89,6 +89,15 @@ const mocks: MockedResponse[] = [
   },
 ];
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    prefetch: jest.fn(),
+    query: {
+      redirect: '/',
+    },
+  }),
+}));
+
 describe('<LoginFormContainer />', () => {
   const onCompleted = jest.fn();
 

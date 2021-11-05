@@ -1,20 +1,17 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import createApolloClient from 'apolloClient';
 import {
-  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
-  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
-  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel as CarouselData,
   EligibilityCheckerPageData,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel as CarouselData,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
 } from '../../../generated/EligibilityCheckerPageData';
-import {
-  ELIGIBILITY_CHECKER_CONTENT,
-  IEligbilityCheckerPage,
-} from '../../gql/eligibility-checker/eligibilityChecker';
+import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -25,7 +22,11 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
-import ErrorPage from '../_error';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -47,14 +48,11 @@ const CustomerReviews = dynamic(
   },
 );
 
-const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
-  data,
-  error,
-}) => {
-  if (error || !data) {
-    return <ErrorPage errorData={error} />;
-  }
+type IProps = IPageWithData<{
+  data: EligibilityCheckerPageData;
+}>;
 
+const EligibilityChecker: NextPage<IProps> = ({ data }) => {
   const accordionItems = (questions: (QuestionAnswers | null)[]) => {
     return questions.map((el, index) => ({
       id: index,
@@ -172,9 +170,11 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const { data } = await client.query<EligibilityCheckerPageData>({
       query: ELIGIBILITY_CHECKER_CONTENT,
     });
@@ -182,6 +182,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
       },
     };
@@ -201,6 +202,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

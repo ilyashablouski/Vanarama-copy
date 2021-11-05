@@ -9,6 +9,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { VansPage } from '../../../pages/van-leasing';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { PageTypeEnum } from '../../../types/common';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -541,6 +542,7 @@ describe('<VansPage />', () => {
     render(
       <MockedProvider addTypename={false}>
         <VansPage
+          pageType={PageTypeEnum.DEFAULT}
           data={DATA}
           searchPodVansData={filterList}
           vehicleListUrlData={vehicleListUrl}

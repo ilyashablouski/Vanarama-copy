@@ -13,7 +13,6 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import getTitleTag from '../../utils/getTitleTag';
-import { IErrorProps } from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -43,7 +42,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 export interface IAboutPageProps {
   data: Query;
   children?: ReactNode;
-  error?: IErrorProps;
 }
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
