@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect, useMemo } from 'react';
-import { saveOrders } from '../LoginFormContainer/LoginFormContainer';
+import { useMemo, FC } from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { GetMyOrders_myOrders } from '../../../generated/GetMyOrders';
@@ -21,17 +20,10 @@ interface IProps {
   uuid: string;
 }
 
-const OrderInformationContainer: React.FC<IProps> = ({
-  orders,
-  quotes,
-  uuid,
-}) => {
+const OrderInformationContainer: FC<IProps> = ({ orders, quotes, uuid }) => {
   const ordersLength = useMemo(() => orders?.length, [orders]);
   const quotesLength = useMemo(() => quotes?.length, [quotes]);
 
-  useEffect(() => {
-    saveOrders(orders, quotes);
-  }, [orders, quotes]);
   return (
     <div className="row:bg-light">
       <div className="row:cards-3col">
@@ -53,6 +45,7 @@ const OrderInformationContainer: React.FC<IProps> = ({
           )}
           {ordersLength && (
             <RouterLink
+              prefetch
               classNames={{
                 color: 'teal',
               }}
@@ -84,6 +77,7 @@ const OrderInformationContainer: React.FC<IProps> = ({
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
           {!!quotesLength && (
             <RouterLink
+              prefetch
               classNames={{
                 color: 'teal',
               }}

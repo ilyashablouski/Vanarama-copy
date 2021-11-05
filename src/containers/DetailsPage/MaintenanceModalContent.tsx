@@ -20,7 +20,7 @@ const MaintenanceModalContent = () => {
   const updatedIncludedItems = isUpdatedServicePlanFeatureFlagEnabled(Cookies)
     ? [
         {
-          value: 'RAC Accident Assist',
+          value: 'RAC Accident Assist*',
         },
         ...includedItems,
       ]
@@ -83,6 +83,11 @@ const MaintenanceModalContent = () => {
           </IconListItem>
         ))}
       </IconList>
+      {isUpdatedServicePlanFeatureFlagEnabled(Cookies) && (
+        <Text tag="p" color="dark" className="-mv-400" size="regular">
+          *Subject to eligibility
+        </Text>
+      )}
     </>
   );
 };

@@ -25,9 +25,6 @@ import ErrorMessages from '../../../../models/enum/ErrorMessages';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -55,7 +52,10 @@ export const BusinessAboutPage: NextPage = () => {
   const isPersonLoggedIn = isUserAuthenticated();
 
   const [savePersonUuid] = useSavePersonUuidMutation();
-  const { data: storedData } = useStoredOLAFDataQuery();
+  const {
+    data: storedData,
+    refetch: refetchStoredOLAFData,
+  } = useStoredOLAFDataQuery();
 
   const personUuid = useMemo(
     () =>
@@ -89,6 +89,7 @@ export const BusinessAboutPage: NextPage = () => {
           uuid: person?.uuid,
         },
       })
+        .then(() => refetchStoredOLAFData())
         .then(() => router.replace(router.pathname, router.asPath))
         .finally(() => pushAuthorizationEventDataLayer()),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,28 +146,12 @@ export const BusinessAboutPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company.
       </Text>
-      {!isPersonLoggedIn && (
+      {!isPersonLoggedIn && isLogInVisible && (
         <div ref={loginFormRef}>
-          <div className="-pt-300 -pb-300">
-            <Button
-              label="Login For A Speedy Checkout"
-              color="teal"
-              onClick={() => toggleLogInVisibility(!isLogInVisible)}
-            />
-          </div>
-          {isLogInVisible && (
-            <LoginFormContainer
-              onCompleted={handleLogInCompletion}
-              onError={handleAccountFetchError}
-            />
-          )}
-          <Text
-            className="olaf-guest-text -label -mt-500"
-            tag="p"
-            size="regular"
-          >
-            Or continue as guest by filling out the form below:
-          </Text>
+          <LoginFormContainer
+            onCompleted={handleLogInCompletion}
+            onError={handleAccountFetchError}
+          />
         </div>
       )}
       <BusinessAboutFormContainer
