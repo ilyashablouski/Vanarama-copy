@@ -100,6 +100,36 @@ describe('<ComparatorTable />', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('should render correct price with PERSONAL lease type', () => {
+    render(
+      <ComparatorTable
+        addVehicle={mockAddVehicles}
+        deleteVehicle={mockDeleteVehicle}
+        criterias={criterias}
+        viewOffer={mockViewOffer}
+        leaseType={LeaseTypeEnum.PERSONAL}
+        isNotEmptyPage
+      />,
+    );
+
+    expect(screen.getAllByText(/inc./)).toHaveLength(2);
+  });
+
+  it('should render correct price with BUSINESS lease type', () => {
+    render(
+      <ComparatorTable
+        addVehicle={mockAddVehicles}
+        deleteVehicle={mockDeleteVehicle}
+        criterias={criterias}
+        viewOffer={mockViewOffer}
+        leaseType={LeaseTypeEnum.BUSINESS}
+        isNotEmptyPage
+      />,
+    );
+
+    expect(screen.getAllByText(/ex./)).toHaveLength(2);
+  });
+
   it('button add, delete, view vehicle correctly with default <ComparatorRow />', () => {
     render(
       <ComparatorTable
