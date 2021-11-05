@@ -9,6 +9,7 @@ import {
 } from '../../../generated/GetAboutYouDataQuery';
 import { GetAboutYouPageQuery } from '../../../generated/GetAboutYouPageQuery';
 import AboutForm from '../../components/AboutForm';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 export const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
@@ -55,7 +56,7 @@ export function useAboutYouData(personByUuid?: string) {
         uuid: personByUuid || '🐔',
       },
       fetchPolicy: 'no-cache',
-      skip: !personByUuid,
+      skip: !personByUuid || !isUserAuthenticated(),
     },
   );
 }

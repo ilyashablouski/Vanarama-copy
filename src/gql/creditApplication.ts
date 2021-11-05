@@ -15,6 +15,7 @@ import {
   GetLeaseCompanyDataVariables as ILeaseDataVariables,
 } from '../../generated/GetLeaseCompanyData';
 import { VEHICLE_PRODUCT_DATA_FRAGMENT } from './order';
+import { isUserAuthenticated } from '../utils/authentication';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   ${VEHICLE_PRODUCT_DATA_FRAGMENT}
@@ -436,7 +437,7 @@ export function useGetCreditApplicationByOrderUuid(id: string) {
       variables: {
         id,
       },
-      skip: !id,
+      skip: !id || !isUserAuthenticated(),
       fetchPolicy: 'no-cache',
     },
   );
