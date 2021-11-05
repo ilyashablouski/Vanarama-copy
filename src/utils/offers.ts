@@ -362,6 +362,30 @@ export const specialOffersRequest = async (
   };
 };
 
+export const specialOffersForBlogPageRequest = async (
+  client: ApolloClient<any>,
+): Promise<ISpecialOffersBlogPostPageData> => {
+  const {
+    products: productsCar,
+    productsCapIds: productsCarIds,
+  } = await getProductCardContent(client, VehicleTypeEnum.CAR);
+  const { data: productsCarDerivatives } = await getCarDerivatives(
+    client,
+    VehicleTypeEnum.CAR,
+    productsCarIds,
+  );
+  const derivativeIds = [...productsCarIds];
+  const vehicleListUrlData = await getVehicleListUrlQuery(
+    client,
+    derivativeIds,
+  );
+  return {
+    productsCarDerivatives,
+    productsCar,
+    vehicleListUrlData,
+  };
+};
+
 export const vansSpecialOffersRequest = async (
   client: ApolloClient<any>,
 ): Promise<IVansSpecialOffersData> => {
@@ -539,6 +563,12 @@ export interface ISpecialOffersData {
   productsVanDerivatives?: Nullable<GetDerivatives>;
   productsCarDerivatives?: Nullable<GetDerivatives>;
   productsPickupDerivatives?: Nullable<GetDerivatives>;
+  vehicleListUrlData: IVehicleList;
+}
+
+export interface ISpecialOffersBlogPostPageData {
+  productsCar?: Nullable<ProductCardData>;
+  productsCarDerivatives?: Nullable<GetDerivatives>;
   vehicleListUrlData: IVehicleList;
 }
 
