@@ -16,7 +16,7 @@ import {
 } from '../../utils/comparatorTableHelpers';
 import { useVehicleData } from './gql';
 import { vehicleComparator } from '../../../generated/vehicleComparator';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useLeaseType from '../../hooks/useLeaseType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
@@ -176,6 +176,11 @@ const ComparatorContainer: React.FC = () => {
   const isLoadingOffers =
     vansOptions.loading || pickupsOptions.loading || carsOptions.loading;
 
+  const leaseType =
+    compareVehicles?.[0]?.vehicleType === VehicleTypeEnum.CAR
+      ? LeaseTypeEnum.PERSONAL
+      : LeaseTypeEnum.BUSINESS;
+
   return (
     <>
       <ComparatorTable
@@ -191,6 +196,7 @@ const ComparatorContainer: React.FC = () => {
         viewOffer={capId => {
           viewOffer(`${capId}`);
         }}
+        leaseType={leaseType}
         isNotEmptyPage={!!data}
       />
       {isModalVisible && (
