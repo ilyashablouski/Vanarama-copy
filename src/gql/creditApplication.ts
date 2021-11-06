@@ -15,7 +15,6 @@ import {
   GetLeaseCompanyDataVariables as ILeaseDataVariables,
 } from '../../generated/GetLeaseCompanyData';
 import { VEHICLE_PRODUCT_DATA_FRAGMENT } from './order';
-import { isUserAuthenticated } from '../utils/authentication';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   ${VEHICLE_PRODUCT_DATA_FRAGMENT}

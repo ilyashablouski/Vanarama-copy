@@ -9,7 +9,6 @@ import {
 } from '../../../generated/GetAboutYouDataQuery';
 import { GetAboutYouPageQuery } from '../../../generated/GetAboutYouPageQuery';
 import AboutForm from '../../components/AboutForm';
-import { isUserAuthenticated } from '../../utils/authentication';
 
 export const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
