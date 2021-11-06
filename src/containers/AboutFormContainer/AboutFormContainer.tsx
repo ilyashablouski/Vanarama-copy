@@ -39,12 +39,12 @@ const AboutFormContainer: React.FC<IProps> = ({
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
 
   const person = useMemo(() => {
-    if (!isEdit && isUserAuthenticated()) {
+    if (!isEdit && !isUserAuthenticated()) {
       return null;
     }
 
     return aboutYouData.data?.personByUuid;
-  }, [aboutYouData.data]);
+  }, [aboutYouData.data?.personByUuid, isEdit]);
 
   const handleTemporaryRegistrationIfGuest = (
     username: string,
