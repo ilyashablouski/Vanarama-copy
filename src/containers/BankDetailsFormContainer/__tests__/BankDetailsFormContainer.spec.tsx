@@ -8,6 +8,10 @@ import {
 } from '../../../../generated/GetBankDetailsPageDataQuery';
 import BankDetailsFormContainer from '../BankDetailsFormContainer';
 import { GET_BANK_DETAILS_PAGE_DATA } from '../gql';
+import { isUserAuthenticated } from '../../../utils/authentication';
+
+jest.mock('../../../utils/authentication');
+(isUserAuthenticated as jest.Mock).mockReturnValue(true);
 
 describe('<BankDetailsFormContainer />', () => {
   beforeEach(async () => {
