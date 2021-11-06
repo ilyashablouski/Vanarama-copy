@@ -56,7 +56,7 @@ export function useAboutYouData(personByUuid?: string) {
         uuid: personByUuid || '🐔',
       },
       fetchPolicy: 'no-cache',
-      skip: !personByUuid || !isUserAuthenticated(),
+      skip: !personByUuid,
     },
   );
 }

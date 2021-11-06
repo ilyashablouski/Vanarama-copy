@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useBankDetails, useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
@@ -6,6 +6,7 @@ import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
 import { useCreatePerson } from '../AboutFormContainer/gql';
 import { GetBankDetailsPageDataQuery as IBankDetails } from '../../../generated/GetBankDetailsPageDataQuery';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const BankDetails = dynamic(() => import('../../components/BankDetails'));
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -21,12 +22,21 @@ const deleteTypenameFromEmailAddress = (bankDetails: IBankDetails) =>
     : undefined;
 
 const BankDetailsFormContainer: React.FC<IProps> = ({
+  isEdit,
   personUuid,
   onCompleted,
 }) => {
   const { loading, error, data } = useBankDetails(personUuid);
   const [createUpdatePerson] = useCreatePerson();
   const [updateBankDetails] = useUpdateBankDetails(personUuid, onCompleted);
+
+  const firstAccount = useMemo(() => {
+    if (!isEdit && !isUserAuthenticated()) {
+      return undefined;
+    }
+
+    return data?.personByUuid?.bankAccounts?.[0];
+  }, [data?.personByUuid?.bankAccounts, isEdit]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -40,8 +50,6 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
     return null;
   }
 
-  const { bankAccounts, partyId } = data.personByUuid;
-  const firstAccount = bankAccounts?.[0];
   return (
     <BankDetails
       // `PersonType.bankAccount`s is an array, so just take the first one???
@@ -59,7 +67,7 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
         }).then(() =>
           updateBankDetails({
             variables: {
-              input: formValuesToInput(partyId, values),
+              input: formValuesToInput(data.personByUuid!.partyId, values),
             },
           }),
         )

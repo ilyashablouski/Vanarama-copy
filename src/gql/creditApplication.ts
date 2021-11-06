@@ -437,7 +437,7 @@ export function useGetCreditApplicationByOrderUuid(id: string) {
       variables: {
         id,
       },
-      skip: !id || !isUserAuthenticated(),
+      skip: !id,
       fetchPolicy: 'no-cache',
     },
   );
