@@ -8,7 +8,7 @@ import { GetConversionsVehicleList_conversions as IDerangedCard } from '../../..
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
 });
-const Card = dynamic(
+const ProductCard = dynamic(
   () => import('core/molecules/cards/ProductCard/ProductCard'),
   {
     loading: () => <Skeleton count={1} />,
@@ -55,7 +55,7 @@ const DerangedVehicleCard = React.memo(
     );
 
     return (
-      <Card
+      <ProductCard
         loadImage={loadImage}
         lazyLoad={lazyLoad}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -96,7 +96,7 @@ const DerangedVehicleCard = React.memo(
             }
           />
         </div>
-      </Card>
+      </ProductCard>
     );
   },
 );
