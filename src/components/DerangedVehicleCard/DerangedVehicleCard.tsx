@@ -38,9 +38,16 @@ const DerangedVehicleCard = React.memo(
     data,
     handleClick,
   }: IDerangedVehicleCardProps) => {
+    const getImageSrc = () => {
+      if (data.conversionImages && data.conversionImages.length !== 0) {
+        return data.conversionImages[0] ?? data.imageUrl;
+      }
+      return data.imageUrl;
+    };
+
     const imageProps = {
       imageSrc:
-        data.imageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+        getImageSrc() ?? `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
     };
 
     const price = data.lowestPrices?.find(
