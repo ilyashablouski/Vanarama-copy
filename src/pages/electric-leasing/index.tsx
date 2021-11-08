@@ -230,6 +230,7 @@ export const EVHubPage: NextPage<IProps> = ({
                     }}
                     countItems={productsEvVan?.productCarousel?.length || 6}
                     dataTestIdBtn="van-view-offer"
+                    dataUiTestIdMask="ui-electric_leasing-van"
                   />
                 </LazyLoadComponent>
                 <div className="-justify-content-row -pt-500">
@@ -277,6 +278,7 @@ export const EVHubPage: NextPage<IProps> = ({
                     }}
                     countItems={productsEvCar?.productCarousel?.length || 6}
                     dataTestIdBtn="car-view-offer"
+                    dataUiTestIdMask="ui-electric_leasing-car"
                   />
                 </LazyLoadComponent>
 
