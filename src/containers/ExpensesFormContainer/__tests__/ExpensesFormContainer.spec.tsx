@@ -9,6 +9,10 @@ import {
 import ExpensesFormContainer from '../ExpensesFormContainer';
 import { GET_EXPENSES_PAGE_DATA } from '../gql';
 import { IOrderStorageData } from '../../../hooks/useGetOrder';
+import { isUserAuthenticated } from '../../../utils/authentication';
+
+jest.mock('../../../utils/authentication');
+(isUserAuthenticated as jest.Mock).mockReturnValue(true);
 
 describe('<ExpensesFormContainer />', () => {
   beforeEach(async () => {

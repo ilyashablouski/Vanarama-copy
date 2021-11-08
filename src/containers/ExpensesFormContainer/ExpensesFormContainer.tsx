@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useExpensesData, useUpdateExpenses } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -16,12 +17,21 @@ const IncomeCalculator = dynamic(
 );
 
 const ExpensesFormContainer: React.FC<IProps> = ({
+  isEdit,
   personUuid,
   onCompleted,
   order,
 }) => {
   const { loading, error, data } = useExpensesData(personUuid);
   const [expenses] = useUpdateExpenses(personUuid, onCompleted);
+
+  const incomeAndExpense = useMemo(() => {
+    if (!isEdit && !isUserAuthenticated()) {
+      return null;
+    }
+
+    return data?.personByUuid?.incomeAndExpense || null;
+  }, [data?.personByUuid?.incomeAndExpense, isEdit]);
 
   if (loading || !order) {
     return <Loading size="large" />;
@@ -35,7 +45,6 @@ const ExpensesFormContainer: React.FC<IProps> = ({
     return null;
   }
 
-  const { incomeAndExpense, partyId } = data.personByUuid;
   return (
     <IncomeCalculator
       order={order}
@@ -43,7 +52,7 @@ const ExpensesFormContainer: React.FC<IProps> = ({
       onSubmit={values =>
         expenses({
           variables: {
-            input: formValuesToInput(partyId, values),
+            input: formValuesToInput(data.personByUuid!.partyId, values),
           },
         })
       }
