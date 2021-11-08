@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useMemo } from 'react';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ISoleTraderDetailsFormContainerProps } from './interface';
@@ -11,6 +11,7 @@ import {
 } from './gql';
 import { UpdateSoleTraderMutation } from '../../../generated/UpdateSoleTraderMutation';
 import Skeleton from '../../components/Skeleton';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -30,6 +31,14 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   );
   const [updateSoleTraderDetails] = useUpdateSoleTraderMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
+
+  const person = useMemo(() => {
+    if (!isEdited && !isUserAuthenticated()) {
+      return null;
+    }
+
+    return soleTraderDetailsFormData.data!.personByUuid;
+  }, [isEdited, soleTraderDetailsFormData.data?.personByUuid]);
 
   if (soleTraderDetailsFormData.loading) {
     return <Loading size="large" />;
@@ -82,7 +91,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       soleTrader={
         soleTraderDetailsFormData.data!.companyByUuid?.associates?.[0]
       }
-      person={soleTraderDetailsFormData.data!.personByUuid}
+      person={person}
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
       onSubmit={async values => {
