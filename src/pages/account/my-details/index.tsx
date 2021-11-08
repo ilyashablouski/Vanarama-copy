@@ -1,9 +1,8 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { PreviewNextPageContext } from 'types/common';
 import { addApolloState, initializeApollo } from 'apolloClient';
 import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -170,7 +169,7 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const client = initializeApollo(undefined, context);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {

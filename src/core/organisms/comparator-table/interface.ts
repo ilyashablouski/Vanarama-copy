@@ -1,4 +1,5 @@
 import { IBaseProps } from '../../interfaces/base';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 export interface IHeading {
   capId: string | number;
@@ -23,6 +24,7 @@ export interface IComparatorTable extends IBaseProps {
   criterias: ICriterias[];
   addVehicle: () => void;
   viewOffer?: (capId: string | number) => void;
+  leaseType: LeaseTypeEnum;
   isNotEmptyPage?: boolean;
 }
 
@@ -47,6 +49,7 @@ export interface IComparatorRow extends IBaseProps {
   compares?: ICriterias | undefined;
   viewOffer?: (capId: string | number) => void;
   setIndex: React.Dispatch<React.SetStateAction<number>>;
+  leaseType: LeaseTypeEnum;
 }
 
 export interface IVehicleDetails {
