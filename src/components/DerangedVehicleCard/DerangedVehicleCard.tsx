@@ -17,12 +17,8 @@ const ProductCard = dynamic(
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
-const getImageSrc = (data: IDerangedCard) => {
-  if (data.conversionImages && data.conversionImages.length !== 0) {
-    return data.conversionImages[0] ?? data.imageUrl;
-  }
-  return data.imageUrl;
-};
+const getImageSrc = (data: IDerangedCard) =>
+  data.conversionImages?.[0] ?? data.imageUrl;
 
 interface IDerangedVehicleCardProps {
   loadImage?: boolean;
