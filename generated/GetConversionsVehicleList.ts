@@ -32,6 +32,7 @@ export interface GetConversionsVehicleList_conversions {
   isOnOffer: boolean | null;
   offerPosition: number | null;
   imageUrl: string | null;
+  conversionImages: (string | null)[] | null;
   availability: number | null;
   leadTime: string | null;
   keyInformation: (GetConversionsVehicleList_conversions_keyInformation | null)[] | null;
