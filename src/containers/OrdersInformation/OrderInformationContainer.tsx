@@ -72,7 +72,6 @@ const OrderInformationContainer: FC<IProps> = ({ orders, quotes, uuid }) => {
             tag="span"
             size="regular"
             color="dark"
-            className="text--quotes"
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
           {!!quotesLength && (
             <RouterLink
