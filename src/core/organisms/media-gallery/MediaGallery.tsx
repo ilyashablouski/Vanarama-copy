@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
@@ -15,6 +16,7 @@ import MediaPicture from 'core/assets/icons/MediaPicture';
 
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 import Text from 'core/atoms/text';
+import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { IMediaGalleryProps } from './interfaces';
 
 import ImacaViewer from './ImacaViewer';
@@ -68,13 +70,18 @@ function MediaGallery({
           <TabPanels className="media-gallery__content">
             {shouldRenderImaca && (
               <TabPanel index={0}>
-                <ImacaViewer
-                  isOpenColourSelect={isOpenColourSelect}
-                  colour={colour}
-                  setColour={setColour}
-                  assets={imacaAssets!}
-                  upscaleCanvas={isCar}
-                />
+                <LazyLoadComponent
+                  placeholder={<div className="imaca-viewer-placeholder" />}
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <ImacaViewer
+                    isOpenColourSelect={isOpenColourSelect}
+                    colour={colour}
+                    setColour={setColour}
+                    assets={imacaAssets!}
+                    upscaleCanvas={isCar}
+                  />
+                </LazyLoadComponent>
               </TabPanel>
             )}
             <TabPanel index={1}>
