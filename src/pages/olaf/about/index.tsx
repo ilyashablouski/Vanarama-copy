@@ -195,14 +195,12 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
+        isEdit={!!redirect}
         orderId={order?.uuid || ''}
-        personLoggedIn={isPersonLoggedIn}
-        onCompleted={({ createUpdatePerson }) =>
-          clickOnComplete(createUpdatePerson!)
-        }
+        personUuid={personUuid}
+        onCompleted={data => clickOnComplete(data?.createUpdatePerson!)}
         onLogInClick={handleLogInCLick}
         onRegistrationClick={handleRegistrationClick}
-        personUuid={personUuid}
       />
     </OLAFLayout>
   );
