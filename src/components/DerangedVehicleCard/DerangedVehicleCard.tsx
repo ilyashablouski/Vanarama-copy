@@ -17,6 +17,13 @@ const ProductCard = dynamic(
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
+const getImageSrc = (data: IDerangedCard) => {
+  if (data.conversionImages && data.conversionImages.length !== 0) {
+    return data.conversionImages[0] ?? data.imageUrl;
+  }
+  return data.imageUrl;
+};
+
 interface IDerangedVehicleCardProps {
   loadImage?: boolean;
   lazyLoad?: boolean;
@@ -38,16 +45,10 @@ const DerangedVehicleCard = React.memo(
     data,
     handleClick,
   }: IDerangedVehicleCardProps) => {
-    const getImageSrc = () => {
-      if (data.conversionImages && data.conversionImages.length !== 0) {
-        return data.conversionImages[0] ?? data.imageUrl;
-      }
-      return data.imageUrl;
-    };
-
     const imageProps = {
       imageSrc:
-        getImageSrc() ?? `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+        getImageSrc(data) ??
+        `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
     };
 
     const price = data.lowestPrices?.find(
