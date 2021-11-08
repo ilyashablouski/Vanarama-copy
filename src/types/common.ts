@@ -27,9 +27,11 @@ export type IPageWithError = {
   error: IErrorProps;
 };
 
-export type CustomAppProps = {
+export type ICustomAppProps = {
   pageProps: IPageWithData<unknown> | IPageWithError;
 } & Omit<AppProps<IPageWithData<unknown>>, 'pageProps'>;
+
+export type IStatusCode = 301 | 302 | 303 | 307 | 308;
 
 export interface IErrorProps {
   statusCode: number;
