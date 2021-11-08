@@ -1,4 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import {
   INotFoundPageData,
@@ -46,15 +50,16 @@ import {
   DEFAULT_SORT,
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
+import { Nullable } from '../../types/common';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  filtersData: IProductFilter;
-  productDerivatives?: IProductDerivatives;
-  carsData?: ICardsData[];
-  vansData?: ICardsData[];
-  responseVansCapIds?: string[];
-  responseCarsCapIds?: string[];
+  filtersData: Nullable<IProductFilter>;
+  productDerivatives?: Nullable<IProductDerivatives>;
+  carsData?: Nullable<ICardsData[]>;
+  vansData?: Nullable<ICardsData[]>;
+  responseVansCapIds?: Nullable<string[]>;
+  responseCarsCapIds?: Nullable<string[]>;
   initialFilters: IFiltersData;
   error?: ApolloError;
   notFoundPageData?: INotFoundPageData;
@@ -85,7 +90,9 @@ const Page: NextPage<IProps> = ({
     preLoadProductDerivatives={decodeData(productDerivatives)}
   />
 );
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
   let responseCarsCapIds;
   let responseVansCapIds;
@@ -199,6 +206,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
+        isServer: !!context.req,
         pageData: encodeData(data),
         metaData: data?.genericPage.metaData || null,
         productDerivatives: productDerivatives

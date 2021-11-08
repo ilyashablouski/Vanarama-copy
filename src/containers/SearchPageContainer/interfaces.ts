@@ -7,10 +7,11 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { vehicleList as IVehiclesData } from '../../../generated/vehicleList';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { rangeList } from '../../../generated/rangeList';
-import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages as IGenericPage } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { SortObject } from '../../../generated/globalTypes';
+import { Nullable } from '../../types/common';
 
 export interface ISearchPageContainerProps {
   isServer: boolean;
@@ -30,19 +31,19 @@ export interface ISearchPageContainerProps {
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   topInfoSection?: sections | null;
-  preLoadFiltersData?: IFilterList | undefined;
-  preLoadVehiclesList?: IVehiclesData;
-  preLoadProductCardsData?: GetProductCard;
-  preLoadResponseCapIds?: string[];
-  preLoadTopOffersList?: IVehiclesData;
-  preLoadTopOffersCardsData?: GetProductCard;
-  preLoadRanges?: rangeList;
-  rangesUrls?: ILegacyUrls[];
-  manufacturersUrls?: ILegacyUrls[];
+  preLoadFiltersData?: Nullable<IFilterList>;
+  preLoadVehiclesList?: Nullable<IVehiclesData>;
+  preLoadProductCardsData?: Nullable<GetProductCard>;
+  preLoadResponseCapIds?: Nullable<string[]>;
+  preLoadTopOffersList?: Nullable<IVehiclesData>;
+  preLoadTopOffersCardsData?: Nullable<GetProductCard>;
+  preLoadRanges?: Nullable<rangeList>;
+  rangesUrls?: IGenericPage['items'];
+  manufacturersUrls?: IGenericPage['items'];
   preLoadManufacturers?: manufacturerList | null;
-  preloadBodyStyleList?: IModelsData[];
+  preloadBodyStyleList?: Nullable<IModelsData[]>;
   preloadRange?: string;
   preloadManufacturer?: string;
-  defaultSort?: SortObject[];
+  defaultSort?: Nullable<SortObject[]>;
   newRangePageSlug?: string;
 }

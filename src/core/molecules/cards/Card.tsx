@@ -29,6 +29,7 @@ const Card: FC<ICardProps> = memo(props => {
     optimisationOptions,
     extrasRender,
     isBlackFridayFlag,
+    dataUiTestId,
   } = props;
 
   const { imageSrc } = props;
@@ -82,6 +83,7 @@ const Card: FC<ICardProps> = memo(props => {
       })}
       data-testid="card"
       style={style}
+      data-uitestid={dataUiTestId}
     >
       {header?.text && <CardHeader {...header} />}
       {imageSrc !== undefined ? (

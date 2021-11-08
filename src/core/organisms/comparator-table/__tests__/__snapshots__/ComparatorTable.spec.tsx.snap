@@ -855,7 +855,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <div
               class="price--label"
             >
-              Per Month ex. VAT
+              Per Month inc. VAT
             </div>
           </div>
           <button
@@ -897,7 +897,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <div
               class="price--label"
             >
-              Per Month ex. VAT
+              Per Month inc. VAT
             </div>
           </div>
           <button

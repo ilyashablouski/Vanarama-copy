@@ -1,7 +1,9 @@
 import { ICriterias } from 'core/organisms/comparator-table/interface';
-import { IVehicle } from './comparatorHelpers';
+
 import { vehicleComparator } from '../../generated/vehicleComparator';
-import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../generated/globalTypes';
+
+import { IVehicle } from './comparatorHelpers';
 
 export const getUniqueCriterias = (data: vehicleComparator | undefined) => {
   const criterias: (string | undefined | null)[] = [];
@@ -51,10 +53,12 @@ export const getPrice = (
   if (!compareVehicles?.length) {
     return null;
   }
+
   const currentCompareVehicles = compareVehicles as IVehicle[];
 
-  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
-  const isPersonalCar = cachedLeaseType.car === 'Personal';
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
+
   return {
     title: 'Price',
     values: currentCompareVehicles?.map(item => ({

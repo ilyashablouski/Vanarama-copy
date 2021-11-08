@@ -1,8 +1,12 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
-import { PreviewNextPageContext } from 'types/common';
+import { Nullable } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -54,15 +58,15 @@ import { decodeData, encodeData } from '../../../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  vehiclesList?: vehicleList;
-  productCardsData?: GetProductCard;
-  responseCapIds?: string[];
-  filtersData?: IFilterList | undefined;
-  bodyStyleList?: IModelsData[];
+  vehiclesList?: Nullable<vehicleList>;
+  productCardsData?: Nullable<GetProductCard>;
+  responseCapIds?: Nullable<string[]>;
+  filtersData?: Nullable<IFilterList>;
+  bodyStyleList?: Nullable<IModelsData[]>;
   manufacturerParam: string;
   rangeParam?: string;
-  topOffersList?: vehicleList;
-  topOffersCardsData?: GetProductCard;
+  topOffersList?: Nullable<vehicleList>;
+  topOffersCardsData?: Nullable<GetProductCard>;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
 }
@@ -137,7 +141,9 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
   const manufacturerName = (context?.query
     ?.dynamicParam as string).toLowerCase();
@@ -158,7 +164,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       query: { ...context.query },
     };
 
-    const { data, errors } = (await ssrCMSQueryExecutor(
+    const { data } = (await ssrCMSQueryExecutor(
       client,
       contextData,
       true,
@@ -226,21 +232,18 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         bodyStyleList = null;
       }
 
-      try {
-        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
-        if (responseCapIds.length) {
-          productCardsData = await client
-            .query<GetProductCard, GetProductCardVariables>({
-              query: GET_PRODUCT_CARDS_DATA,
-              variables: {
-                capIds: responseCapIds,
-                vehicleType: VehicleTypeEnum.CAR,
-              },
-            })
-            .then(resp => resp.data);
-        }
-      } catch {
-        return false;
+      responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+
+      if (responseCapIds.length) {
+        productCardsData = await client
+          .query<GetProductCard, GetProductCardVariables>({
+            query: GET_PRODUCT_CARDS_DATA,
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: VehicleTypeEnum.CAR,
+            },
+          })
+          .then(resp => resp.data);
       }
     }
     const { data: filtersData } = await client.query<
@@ -302,7 +305,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
           ? encodeData(topOffersCardsData)
           : null,
         responseCapIds: responseCapIds || null,
-        error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
         manufacturerParam: (context?.query
           ?.dynamicParam as string).toLowerCase(),

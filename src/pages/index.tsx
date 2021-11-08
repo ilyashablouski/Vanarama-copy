@@ -1,6 +1,9 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
-import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../apolloClient';
 import {
   HomePageData,
@@ -44,7 +47,9 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   />
 );
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IHomePageContainer>> {
   const client = createApolloClient({}, context);
 
   try {

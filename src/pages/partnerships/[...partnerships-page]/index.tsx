@@ -1,12 +1,15 @@
 import createApolloClient from 'apolloClient';
 import { ApolloError } from '@apollo/client';
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { PreviewNextPageContext } from 'types/common';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import HeadingSection from '../../../components/HeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -321,8 +324,10 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
-  const client = createApolloClient({}, context as NextPageContext);
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
+  const client = createApolloClient({});
   const path = context.req?.url?.split('?')[0] || '';
   try {
     const { data } = await client.query<Partner, PartnerVariables>({
