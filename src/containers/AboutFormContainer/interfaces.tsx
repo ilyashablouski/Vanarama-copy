@@ -5,6 +5,6 @@ export interface IProps {
   onLogInClick?: () => void;
   onRegistrationClick?: () => void;
   personUuid?: string;
-  personLoggedIn?: boolean;
   orderId: string;
+  isEdit?: boolean;
 }

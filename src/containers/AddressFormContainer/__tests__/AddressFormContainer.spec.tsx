@@ -14,9 +14,12 @@ import {
 import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from '../gql';
 import { makeAddressResponseMock } from '../../../hooks/useLoqate/utils';
 import useLoqate from '../../../hooks/useLoqate';
+import { isUserAuthenticated } from '../../../utils/authentication';
 
+jest.mock('../../../utils/authentication');
 jest.mock('../../../hooks/useLoqate');
 (useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
+(isUserAuthenticated as jest.Mock).mockReturnValue(true);
 
 function typeIntoAddressField(value: string) {
   const input = screen.getByTestId('history[0].address');

@@ -28,7 +28,7 @@ const mapBankAccountToCreditApplication = (
 
 const BankDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { uuid } = router.query as QueryParams;
+  const { uuid, redirect } = router.query as QueryParams;
 
   const { data: orderData } = useStoredOrderQuery();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
@@ -56,10 +56,9 @@ const BankDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <BankDetailsFormContainer
+        isEdit={!!redirect}
         personUuid={personUuid}
-        onCompleted={({ createUpdateBankAccount }) =>
-          onCompleteClick(createUpdateBankAccount)
-        }
+        onCompleted={data => onCompleteClick(data?.createUpdateBankAccount)}
       />
     </OLAFLayout>
   );
