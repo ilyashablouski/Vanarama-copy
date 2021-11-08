@@ -12,6 +12,7 @@ import {
 } from '../../../generated/HelpMeChoose';
 import {
   buildAnObjectFromAQuery,
+  HELP_ME_CHOSE_STEPS,
   IInitStep,
   initialSteps,
 } from '../../containers/HelpMeChooseContainer/helpers';
@@ -32,6 +33,26 @@ import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
+
+const getNextProgressStep = (searchPamams, copyInitialSteps) => {
+  const arrOfSearchParams = searchPamams
+    .replace('?', '')
+    .split('&')
+    .map(param => {
+      const splitedParam = param.split('=');
+      const key = splitedParam[0];
+      const value = splitedParam[1].split(',');
+      copyInitialSteps[key].value = value;
+      return [key, value];
+    });
+
+  const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];
+  const lastStepIndex = HELP_ME_CHOSE_STEPS[lastSearchParam];
+  const nextStep = Object.keys(HELP_ME_CHOSE_STEPS).find(
+    key => HELP_ME_CHOSE_STEPS[key] === lastStepIndex + 1,
+  );
+  copyInitialSteps[nextStep].active = true;
+}
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
@@ -82,104 +103,20 @@ const HelpMeChoose: NextPage = () => {
 
   const getData = useCallback(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    let stepsFromSearch;
+    const copyInitialSteps = { ...initialSteps };
+    Object.values(copyInitialSteps).forEach(step => {
+      step.active = false;
+    });
+
     if (window.location.search.length === 0) {
-      stepsFromSearch = initialSteps;
+      copyInitialSteps.financeTypes.active = true;
     } else {
-      const financeTypesQueryValue = searchParams.getAll('financeTypes');
-      const bodyStylesQuery = searchParams.getAll('bodyStyles');
-      const fuelTypesQuery = searchParams.getAll('fuelTypes');
-      const transmissionsQuery = searchParams.getAll('transmissions');
-      const termsQuery = searchParams.getAll('terms');
-      const mileagesQuery = searchParams.getAll('mileages');
-      const availabilityQuery = searchParams.getAll('availability');
-      const rentalQuery = searchParams.get('rental');
-      const initialPeriodsQuery = searchParams.get('initialPeriods');
-      const bodyStylesQueryValue = bodyStylesQuery.length
-        ? bodyStylesQuery[0].split(',')
-        : [];
-      const fuelTypesQueryValue = fuelTypesQuery.length
-        ? fuelTypesQuery[0].split(',')
-        : [];
-      const transmissionsQueryValue = transmissionsQuery.length
-        ? transmissionsQuery[0].split(',')
-        : [];
-      const termsQueryValue = termsQuery.length ? termsQuery[0].split(',') : [];
-      const mileagesQueryValue = mileagesQuery.length
-        ? mileagesQuery[0].split(',')
-        : [];
-      const availabilityQueryValue = availabilityQuery.length
-        ? availabilityQuery[0].split(',')
-        : [];
-      const isFinanceTypesActive =
-        searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
-      const isBodyStylesActive =
-        searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
-      const isFuelTypesActive =
-        searchParams.has('fuelTypes') && !searchParams.has('transmissions');
-      const isTransmissionsActive =
-        searchParams.has('transmissions') && !searchParams.has('terms');
-      const isTermsActive =
-        searchParams.has('terms') && !searchParams.has('mileages');
-      const isMileagesActive =
-        searchParams.has('mileages') && !searchParams.has('availability');
-      const isAvailabilityActive =
-        searchParams.has('availability') &&
-        !(searchParams.has('initialPeriods') || searchParams.has('rental'));
-      const isResultsActive =
-        searchParams.has('rental') || searchParams.has('initialPeriods');
-      stepsFromSearch = {
-        financeTypes: {
-          active: isFinanceTypesActive,
-          value: financeTypesQueryValue,
-          title: 'About You',
-        },
-        bodyStyles: {
-          active: isBodyStylesActive,
-          value: bodyStylesQueryValue,
-          title: 'Style',
-        },
-        fuelTypes: {
-          active: isFuelTypesActive,
-          value: fuelTypesQueryValue,
-          title: 'Fuel Types',
-        },
-        transmissions: {
-          active: isTransmissionsActive,
-          value: transmissionsQueryValue,
-          title: 'Gearbox',
-        },
-        terms: {
-          active: isTermsActive,
-          value: termsQueryValue,
-          title: 'Lease Length',
-        },
-        mileages: {
-          active: isMileagesActive,
-          value: mileagesQueryValue,
-          title: 'Mileage',
-        },
-        availability: {
-          active: isAvailabilityActive,
-          value: availabilityQueryValue,
-          title: 'Availability',
-        },
-        rental: {
-          active: isResultsActive,
-          value: rentalQuery as any,
-          title: 'Results',
-        },
-        initialPeriods: {
-          active: isResultsActive,
-          value: initialPeriodsQuery as any,
-          title: 'Results',
-        },
-      };
+      getNextProgressStep(window.location.search, copyInitialSteps);
     }
 
-    setSteps(stepsFromSearch);
+    setSteps(copyInitialSteps);
     const variables = {
-      ...buildAnObjectFromAQuery(searchParams, stepsFromSearch),
+      ...buildAnObjectFromAQuery(searchParams, copyInitialSteps),
     };
     getHelpMeChoose({
       variables,

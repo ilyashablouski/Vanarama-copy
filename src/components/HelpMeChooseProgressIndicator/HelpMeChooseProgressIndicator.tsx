@@ -11,10 +11,10 @@ import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
-  buildAnObjectFromAQuery,
+  buildAnObjectFromAQuery, HELP_ME_CHOSE_STEPS,
   IInitStep,
-  onReplace,
-} from '../../containers/HelpMeChooseContainer/helpers';
+  onReplace
+} from "../../containers/HelpMeChooseContainer/helpers";
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
@@ -43,49 +43,49 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
       active: steps.financeTypes.active,
       key: 'financeTypes',
       label: 'About You',
-      step: 1,
+      step: HELP_ME_CHOSE_STEPS.financeTypes,
     },
     {
       active: steps.bodyStyles.active,
       key: 'bodyStyles',
       label: 'Style',
-      step: 2,
+      step: HELP_ME_CHOSE_STEPS.bodyStyles,
     },
     {
       active: steps.fuelTypes.active,
       key: 'fuelTypes',
       label: 'Fuel Types',
-      step: 3,
+      step: HELP_ME_CHOSE_STEPS.fuelTypes,
     },
     {
       active: steps.transmissions.active,
       key: 'transmissions',
       label: 'Gearbox',
-      step: 4,
+      step: HELP_ME_CHOSE_STEPS.transmissions,
     },
     {
       active: steps.terms.active,
       key: 'terms',
       label: 'Lease Length',
-      step: 5,
+      step: HELP_ME_CHOSE_STEPS.terms,
     },
     {
       active: steps.mileages.active,
       key: 'mileages',
       label: 'Mileage',
-      step: 6,
+      step: HELP_ME_CHOSE_STEPS.mileages,
     },
     {
       active: steps.availability.active,
       key: 'availability',
       label: 'Availability',
-      step: 7,
+      step: HELP_ME_CHOSE_STEPS.availability,
     },
     {
       active: steps.rental.active,
       key: 'results',
       label: 'Results',
-      step: 8,
+      step: HELP_ME_CHOSE_STEPS.rental,
     },
   ];
 

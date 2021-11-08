@@ -16,7 +16,7 @@ import { Nullish } from '../../types/common';
 
 const MOR_MILES_VALUE = 30;
 
-const HELP_ME_CHOSE_QUERY_PARAMS = [
+export const HELP_ME_CHOSE_QUERY_PARAMS = [
   'financeTypes',
   'bodyStyles',
   'fuelTypes',
@@ -27,6 +27,18 @@ const HELP_ME_CHOSE_QUERY_PARAMS = [
   'rental',
   'initialPeriods',
 ];
+
+export const HELP_ME_CHOSE_STEPS = {
+  financeTypes: 1,
+  bodyStyles: 2,
+  fuelTypes: 3,
+  transmissions: 4,
+  terms: 5,
+  mileages: 6,
+  availability: 7,
+  rental: 8,
+  initialPeriods: 9,
+};
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -446,7 +458,7 @@ export interface IInitStep {
 export const initialSteps: IInitStep = {
   financeTypes: {
     active: true,
-    value: ['PCH'],
+    value: [],
     title: 'About You',
   },
   bodyStyles: {
