@@ -1,4 +1,8 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -10,7 +14,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
 import decode from 'decode-html';
-import { PreviewNextPageContext } from 'types/common';
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
@@ -549,7 +552,9 @@ export const CarsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
 
   try {

@@ -1,7 +1,10 @@
 import React from 'react';
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
-import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { GENERIC_PAGE } from '../../gql/genericPage';
@@ -39,7 +42,9 @@ const DerangedPage: NextPage<IDerangedPage> = ({
   />
 );
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IDerangedPage>> {
   const isDerangedFeatureEnabled = isDerangedFeatureFlagEnabled(
     context.req?.headers?.cookie,
   );
