@@ -133,6 +133,7 @@ export const EVHubPage: NextPage<IProps> = ({
               }}
               countItems={evProducts?.productCarousel?.length || 6}
               dataTestIdBtn="car-view-offer"
+              dataUiTestIdMask="ui-electric_van_leasing-car"
             />
 
             <div className="-justify-content-row -pt-500">
