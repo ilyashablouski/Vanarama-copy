@@ -23,16 +23,20 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
           (product, index) =>
             product && (
               <SwiperSlide key={`${product.capId}_${index}` || ''}>
-                <ProductCarouselCard
-                  product={product}
-                  cardIndex={index}
-                  leaseType={leaseType}
-                  data={data}
-                  dataTestIdBtn={dataTestIdBtn}
-                  dataUiTestIdMask={dataUiTestIdMask}
-                  productType={productType}
-                  customCTABackground={customCTABackground}
-                />
+                {({ isDuplicate }) => (
+                  <ProductCarouselCard
+                    product={product}
+                    cardIndex={index}
+                    leaseType={leaseType}
+                    data={data}
+                    dataTestIdBtn={dataTestIdBtn}
+                    dataUiTestIdMask={
+                      isDuplicate ? undefined : dataUiTestIdMask
+                    }
+                    productType={productType}
+                    customCTABackground={customCTABackground}
+                  />
+                )}
               </SwiperSlide>
             ),
         )}
