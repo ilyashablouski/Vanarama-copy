@@ -37,7 +37,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       return null;
     }
 
-    return soleTraderDetailsFormData.data!.personByUuid;
+    return soleTraderDetailsFormData.data?.personByUuid;
   }, [isEdited, soleTraderDetailsFormData.data?.personByUuid]);
 
   if (soleTraderDetailsFormData.loading) {
