@@ -34,6 +34,7 @@ import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationR
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -82,6 +83,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const personByUuid = aboutYouData.data?.personByUuid;
 
   const person = useMemo(() => {
+    if (!isEdit && !isUserAuthenticated()) {
+      return null;
+    }
+
     // after the first filling (during the edit) data should be taken from CA
     if (isEdit) {
       return responseToInitialFormValues(creditApplication?.aboutDetailsV2);

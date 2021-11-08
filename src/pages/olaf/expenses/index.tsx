@@ -40,10 +40,11 @@ const ExpensesPage: NextPage = () => {
   return (
     <OLAFLayout>
       <ExpensesFormContainer
+        isEdit={!!redirect}
         order={order}
         personUuid={personUuid}
-        onCompleted={({ createUpdateIncomeAndExpense }) =>
-          onCompleteClick(createUpdateIncomeAndExpense)
+        onCompleted={data =>
+          onCompleteClick(data?.createUpdateIncomeAndExpense)
         }
       />
     </OLAFLayout>
