@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
+
+import Price from 'core/atoms/price';
+import Button from 'core/atoms/button';
+import Heading from 'core/atoms/heading';
+
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { IComparatorRow, IPrice } from './interface';
-import Button from '../../atoms/button';
-import Heading from '../../atoms/heading';
-import Price from '../../atoms/price';
 
 const ComparatorRow: React.FC<IComparatorRow> = ({
   compares,
@@ -12,6 +15,7 @@ const ComparatorRow: React.FC<IComparatorRow> = ({
   index,
   setIndex,
   viewOffer,
+  leaseType,
 }) => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
@@ -43,7 +47,9 @@ const ComparatorRow: React.FC<IComparatorRow> = ({
           size="xlarge"
           color="black"
           price={getPrice(number)}
-          priceDescription="Per Month ex. VAT"
+          priceDescription={`Per Month ${
+            leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+          } VAT`}
         />
         <Button
           color="teal"

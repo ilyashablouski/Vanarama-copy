@@ -1,21 +1,31 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useMemo } from 'react';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
 import { useEmploymentData, useUpdateEmployment } from './gql';
 import { IEmploymentFormContainerProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
 const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
+  isEdit,
   personUuid,
   onCompleted,
 }) => {
   const { loading, error, data } = useEmploymentData(personUuid);
   const [saveEmploymentHistory] = useUpdateEmployment(personUuid, onCompleted);
+
+  const employmentHistories = useMemo(() => {
+    if (!isEdit && !isUserAuthenticated()) {
+      return [];
+    }
+
+    return data?.personByUuid?.employmentHistories || [];
+  }, [data?.personByUuid?.employmentHistories, isEdit]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -29,15 +39,14 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
     return null;
   }
 
-  const { partyId, employmentHistories } = data.personByUuid;
   return (
     <EmploymentForm
       dropDownData={data.allDropDowns}
-      employments={employmentHistories || []}
+      employments={employmentHistories}
       onSubmit={values =>
         saveEmploymentHistory({
           variables: {
-            input: formValuesToInput(partyId, values),
+            input: formValuesToInput(data.personByUuid!.partyId, values),
           },
         })
       }

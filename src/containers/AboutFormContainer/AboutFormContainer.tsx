@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import Cookies from 'js-cookie';
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   addHeapUserIdentity,
   addHeapUserProperties,
@@ -17,12 +17,14 @@ import {
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
 const AboutFormContainer: React.FC<IProps> = ({
+  isEdit,
   orderId,
   onCompleted,
   personUuid,
@@ -35,6 +37,14 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
+
+  const person = useMemo(() => {
+    if (!isEdit && !isUserAuthenticated()) {
+      return null;
+    }
+
+    return aboutYouData.data?.personByUuid;
+  }, [aboutYouData.data?.personByUuid, isEdit]);
 
   const handleTemporaryRegistrationIfGuest = (
     username: string,
@@ -79,7 +89,7 @@ const AboutFormContainer: React.FC<IProps> = ({
   return (
     <AboutForm
       dropdownData={aboutPageDataQuery.data!.allDropDowns}
-      person={aboutYouData.data?.personByUuid}
+      person={person}
       isEmailDisabled={!!aboutYouData.data?.personByUuid}
       onLogInClick={onLogInClick}
       onRegistrationClick={onRegistrationClick}

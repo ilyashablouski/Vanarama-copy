@@ -7,6 +7,10 @@ import {
   withoutPrefilledEmployments,
   withPrefilledEmployments,
 } from '../fixtures';
+import { isUserAuthenticated } from '../../../utils/authentication';
+
+jest.mock('../../../utils/authentication');
+(isUserAuthenticated as jest.Mock).mockReturnValue(true);
 
 describe('<EmploymentFormContainer />', () => {
   beforeEach(async () => {
