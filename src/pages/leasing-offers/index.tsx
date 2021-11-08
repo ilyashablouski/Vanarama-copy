@@ -209,6 +209,7 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-car"
           />
         </div>
         <div className="-justify-content-row -pt-500">
@@ -248,6 +249,7 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-van"
           />
         </div>
         <div className="-justify-content-row -pt-500">
@@ -287,6 +289,7 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-pickup"
           />
         </div>
         <div className="-justify-content-row -pt-500">

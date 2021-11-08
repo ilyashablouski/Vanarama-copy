@@ -136,6 +136,7 @@ export const VanOffers: NextPage<IProps> = ({
                 }}
                 countItems={productsSmallVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
+                dataUiTestIdMask="ui-van_leasing-special-smallVan"
               />
             </div>
             <div className="-justify-content-row -pt-500">
@@ -180,6 +181,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsMediumVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-mediumVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -225,6 +227,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsLargeVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-largeVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -269,6 +272,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsPickup?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-pickup"
                 />
               </LazyLoadComponent>
             </div>
@@ -317,6 +321,7 @@ export const VanOffers: NextPage<IProps> = ({
                     productsDropsideTipper?.productCarousel?.length || 6
                   }
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-dropsideTipper"
                 />
               </LazyLoadComponent>
             </div>
@@ -362,6 +367,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsSpecialist?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-specialist"
                 />
               </LazyLoadComponent>
             </div>

@@ -21,6 +21,11 @@ import {
   IMarkdownLink,
   IMarkdownParagraph,
 } from '../../types/markdown';
+import { Nullable } from '../../types/common';
+import { ProductCardData } from '../../../generated/ProductCardData';
+import { GetDerivatives } from '../../../generated/GetDerivatives';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
+import BlogCarsCarousel from './BlogCarCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -88,6 +93,10 @@ interface IProps {
   breadcrumbsItems?: any;
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
+  isShowCarousel?: boolean;
+  productsCar?: Nullable<ProductCardData>;
+  productsCarDerivatives?: Nullable<GetDerivatives>;
+  vehicleListUrlData?: IVehicleList;
 }
 
 const BlogPostContainer: NextPage<IProps> = ({
@@ -97,6 +106,10 @@ const BlogPostContainer: NextPage<IProps> = ({
   breadcrumbsItems,
   metaData,
   articles,
+  productsCar,
+  productsCarDerivatives,
+  vehicleListUrlData,
+  isShowCarousel,
 }) => {
   return (
     <>
@@ -177,6 +190,13 @@ const BlogPostContainer: NextPage<IProps> = ({
           </LazyLoadComponent>
         </div>
       </div>
+      {isShowCarousel && (
+        <BlogCarsCarousel
+          productsCar={productsCar}
+          productsCarDerivatives={productsCarDerivatives}
+          vehicleListUrlData={vehicleListUrlData}
+        />
+      )}
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
