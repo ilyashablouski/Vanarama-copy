@@ -2,7 +2,10 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
-import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
+import {
+  genericPagesQuery_genericPages as IGenericPages,
+  genericPagesQuery_genericPages_items as IGenericPagesItems,
+} from '../../generated/genericPagesQuery';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 
@@ -68,7 +71,7 @@ export const removeUrlQueryPart = (url: string) => url.split('?')[0];
 
 export const generateUrlForBreadcrumb = (
   manufacturer: string,
-  pageData: IGenericPages | undefined,
+  pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
 ) => {
   if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
@@ -92,7 +95,7 @@ export const generateUrlForBreadcrumb = (
 
 export const getProductPageBreadCrumb = (
   data: any,
-  genericPagesData: IGenericPages[] | null | undefined,
+  genericPagesData: IGenericPages['items'],
   slug: string,
   cars: boolean | undefined,
 ) => {

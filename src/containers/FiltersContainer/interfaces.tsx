@@ -5,7 +5,7 @@ import {
   filterList_filterList as IFilterList,
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
 } from '../../../generated/filterList';
-import { Component } from '../../types/common';
+import { Component, Nullable } from '../../types/common';
 
 export interface ISelectedFiltersState {
   [index: string]: string[];
@@ -44,7 +44,7 @@ export interface ISelectedWithOrder {
 export interface IFilterContainerProps {
   isPersonal: boolean;
   setType: (value: boolean) => void;
-  preLoadFilters?: IFilterList;
+  preLoadFilters?: Nullable<IFilterList>;
   tagArrayBuilderHelper: (
     entry: [string, string[]],
     filtersContainerData: IFilterList,

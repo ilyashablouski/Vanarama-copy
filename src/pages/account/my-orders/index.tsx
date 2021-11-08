@@ -1,8 +1,7 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import { addApolloState, initializeApollo } from 'apolloClient';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
-import { PreviewNextPageContext } from '../../../types/common';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GET_PERSON_QUERY } from '../../../containers/LoginFormContainer/gql';
@@ -29,7 +28,7 @@ const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const client = initializeApollo(undefined, context);
 
   try {

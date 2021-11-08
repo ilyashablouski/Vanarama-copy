@@ -1,12 +1,16 @@
 import React, { useMemo } from 'react';
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { Nullable, PreviewNextPageContext } from 'types/common';
+import { Nullable } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import {
   VanOffersPageData,
@@ -482,7 +486,9 @@ export const VanOffers: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
 
   try {

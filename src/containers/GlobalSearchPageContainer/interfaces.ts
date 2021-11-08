@@ -9,6 +9,7 @@ import {
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { ProductDerivativeSort } from '../../../generated/globalTypes';
 import { productDerivatives_productDerivatives as IProductDerivatives } from '../../../generated/productDerivatives';
+import { Nullable } from '../../types/common';
 
 export enum ITabs {
   Filter,
@@ -31,12 +32,12 @@ export interface IFiltersData
 
 export interface IProps {
   pageData?: GenericPageQuery;
-  filtersData?: IProductFilter;
+  filtersData?: Nullable<IProductFilter>;
   initialFilters: IFiltersData;
   metaData: PageMetaData;
-  preLoadProductDerivatives?: IProductDerivatives;
-  carsData?: ICardsData[];
-  vansData?: ICardsData[];
+  preLoadProductDerivatives?: Nullable<IProductDerivatives>;
+  carsData?: Nullable<ICardsData[]>;
+  vansData?: Nullable<ICardsData[]>;
   defaultSort?: ProductDerivativeSort[];
   isAllProductsRequest: boolean;
 }
