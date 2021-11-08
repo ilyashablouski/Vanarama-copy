@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
+import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import { HELP_ME_CHOOSE } from '../../gql/help-me-choose';
 import { FilterListObject } from '../../../generated/globalTypes';
@@ -34,7 +35,10 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const getNextProgressStep = (searchPamams, copyInitialSteps) => {
+const getNextProgressStep = (
+  searchPamams: string,
+  copyInitialSteps: IInitStep,
+) => {
   const arrOfSearchParams = searchPamams
     .replace('?', '')
     .split('&')
@@ -42,6 +46,7 @@ const getNextProgressStep = (searchPamams, copyInitialSteps) => {
       const splitedParam = param.split('=');
       const key = splitedParam[0];
       const value = splitedParam[1].split(',');
+      // reduce?
       copyInitialSteps[key].value = value;
       return [key, value];
     });
@@ -51,8 +56,9 @@ const getNextProgressStep = (searchPamams, copyInitialSteps) => {
   const nextStep = Object.keys(HELP_ME_CHOSE_STEPS).find(
     key => HELP_ME_CHOSE_STEPS[key] === lastStepIndex + 1,
   );
+  // reduce?
   copyInitialSteps[nextStep].active = true;
-}
+};
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
@@ -60,6 +66,7 @@ const HelpMeChoose: NextPage = () => {
   const [counterState, setCounterState] = useState(1);
   const [resultsData, setResultsData] = useState<Vehicles[]>([]);
   const [pageOffset, setPageOffset] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoading) {
@@ -101,40 +108,45 @@ const HelpMeChoose: NextPage = () => {
     helpMeChooseData?.data,
   );
 
-  const getData = useCallback(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const copyInitialSteps = { ...initialSteps };
-    Object.values(copyInitialSteps).forEach(step => {
-      step.active = false;
-    });
+  const getData = useCallback(
+    url => {
+      if (url) {
+        const searchParams = url?.replace('/help-me-choose', '');
+        const copyInitialSteps = Object.entries(initialSteps).reduce(
+          (acc, item) => {
+            const key = item[0];
+            const value = item[1];
+            value.active = false;
+            return Object.assign(acc, { [key]: value });
+          },
+          {} as IInitStep,
+        );
 
-    if (window.location.search.length === 0) {
-      copyInitialSteps.financeTypes.active = true;
-    } else {
-      getNextProgressStep(window.location.search, copyInitialSteps);
-    }
+        if (window.location.search.length === 0) {
+          copyInitialSteps.financeTypes.active = true;
+        } else {
+          getNextProgressStep(window.location.search, copyInitialSteps);
+        }
 
-    setSteps(copyInitialSteps);
-    const variables = {
-      ...buildAnObjectFromAQuery(searchParams, copyInitialSteps),
-    };
-    getHelpMeChoose({
-      variables,
-    });
-  }, [getHelpMeChoose]);
+        setSteps(copyInitialSteps);
+        const variables = {
+          ...buildAnObjectFromAQuery(
+            new URLSearchParams(searchParams),
+            copyInitialSteps,
+          ),
+        };
+        getHelpMeChoose({
+          variables,
+        });
+      }
+    },
+    [getHelpMeChoose, router.query],
+  );
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window?.location.search);
-    if (searchParams.has('financeTypes')) {
-      getData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('popstate', getData);
+    router.events.on('routeChangeComplete', getData);
     return () => {
-      window.removeEventListener('popstate', getData);
+      router.events.off('routeChangeComplete', getData);
     };
   }, [getData]);
 
