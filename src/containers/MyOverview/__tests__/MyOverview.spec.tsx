@@ -25,6 +25,10 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       asPath: '/my-overview',
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
       query: {
         partyByUuid: 'partyByUuid',
         push: mockPush,
