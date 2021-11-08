@@ -42,7 +42,7 @@ import {
 } from '../utils/personHelpers';
 import { useSSRAuthStatus } from '../gql/session';
 import { useAuthReset } from '../containers/LoginFormContainer/gql';
-import { CustomAppProps, PageTypeEnum } from '../types/common';
+import { ICustomAppProps, PageTypeEnum } from '../types/common';
 import { isBrowser } from '../utils/deviceType';
 import ErrorPage from './_error';
 
@@ -69,7 +69,7 @@ const Deferred = dynamic(() => import('../components/Style/Deferred'), {
   ssr: false,
 });
 
-const MyApp: React.FC<CustomAppProps> = ({ Component, pageProps, router }) => {
+const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
     IVehicle[] | IVehicleCarousel[]
   >([]);

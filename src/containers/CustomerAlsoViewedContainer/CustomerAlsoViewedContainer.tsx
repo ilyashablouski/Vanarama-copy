@@ -9,6 +9,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../generated/GetProductCard';
+import { Nullable } from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -18,7 +19,7 @@ interface ICustomerAlsoViewedContainerProps {
   capsId: string[];
   leaseType: string;
   vehicleType?: VehicleTypeEnum;
-  initProductCard?: any;
+  initProductCard?: Nullable<GetProductCard>;
 }
 
 const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> = ({
@@ -37,14 +38,17 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
       capIds: capsId,
       vehicleType,
     },
-    onCompleted: result => setProductCardData({ data: { ...result } }),
+    onCompleted: result =>
+      setProductCardData({
+        ...result,
+      }),
   });
 
   useEffect(() => {
     getProductCard();
   }, [getProductCard, vehicleType]);
 
-  if (!productCardData?.data) {
+  if (!productCardData) {
     return null;
   }
 
@@ -57,7 +61,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
         <div className="full-width">
           <ProductCarousel
             leaseType={leaseType}
-            data={productCardData.data}
+            data={productCardData}
             dataTestIdBtn="customer-also-view"
           />
         </div>

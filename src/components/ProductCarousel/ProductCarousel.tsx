@@ -11,6 +11,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
   productType,
   customCTABackground,
+  dataUiTestIdMask,
 }) => {
   if (data.productCard?.length && data.productCard?.length > 1) {
     return (
@@ -22,16 +23,20 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
           (product, index) =>
             product && (
               <SwiperSlide key={`${product.capId}_${index}` || ''}>
-                <ProductCarouselCard
-                  product={product}
-                  cardIndex={index}
-                  leaseType={leaseType}
-                  data={data}
-                  dataTestIdBtn={dataTestIdBtn}
-                  dataUiTestId={`ui-view-car-offers_${index}`}
-                  productType={productType}
-                  customCTABackground={customCTABackground}
-                />
+                {({ isDuplicate }) => (
+                  <ProductCarouselCard
+                    product={product}
+                    cardIndex={index}
+                    leaseType={leaseType}
+                    data={data}
+                    dataTestIdBtn={dataTestIdBtn}
+                    dataUiTestIdMask={
+                      isDuplicate ? undefined : dataUiTestIdMask
+                    }
+                    productType={productType}
+                    customCTABackground={customCTABackground}
+                  />
+                )}
               </SwiperSlide>
             ),
         )}
@@ -50,7 +55,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               leaseType={leaseType}
               data={data}
               dataTestIdBtn={dataTestIdBtn}
-              dataUiTestId={`ui-view-car-offers_${index}`}
+              dataUiTestIdMask={dataUiTestIdMask}
               productType={productType}
               customCTABackground={customCTABackground}
             />
