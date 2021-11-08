@@ -8,7 +8,7 @@ import { GetConversionsVehicleList_conversions as IDerangedCard } from '../../..
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
 });
-const Card = dynamic(
+const ProductCard = dynamic(
   () => import('core/molecules/cards/ProductCard/ProductCard'),
   {
     loading: () => <Skeleton count={1} />,
@@ -16,6 +16,9 @@ const Card = dynamic(
 );
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
+
+const getImageSrc = (data: IDerangedCard) =>
+  data.conversionImages?.[0] ?? data.imageUrl;
 
 interface IDerangedVehicleCardProps {
   loadImage?: boolean;
@@ -40,7 +43,8 @@ const DerangedVehicleCard = React.memo(
   }: IDerangedVehicleCardProps) => {
     const imageProps = {
       imageSrc:
-        data.imageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+        getImageSrc(data) ??
+        `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
     };
 
     const price = data.lowestPrices?.find(
@@ -48,7 +52,7 @@ const DerangedVehicleCard = React.memo(
     );
 
     return (
-      <Card
+      <ProductCard
         loadImage={loadImage}
         lazyLoad={lazyLoad}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -89,7 +93,7 @@ const DerangedVehicleCard = React.memo(
             }
           />
         </div>
-      </Card>
+      </ProductCard>
     );
   },
 );
