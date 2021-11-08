@@ -11,6 +11,7 @@ export interface IProductCarouselProps extends IBaseProps {
   dataTestIdBtn: string;
   productType?: string;
   customCTABackground?: string;
+  dataUiTestIdMask?: string;
 }
 
 export interface IProductCarouselCard extends IProductCarouselProps {

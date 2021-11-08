@@ -48,7 +48,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
     leaseType,
     data,
     dataTestIdBtn,
-    dataUiTestId,
+    dataUiTestIdMask,
     productType,
     customCTABackground,
   } = props;
@@ -60,6 +60,9 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
     <ProductCard
       // loadImage
       isBlackFridayLabel
+      dataUiTestId={
+        dataUiTestIdMask ? `${dataUiTestIdMask}-card_${cardIndex}` : undefined
+      }
       style={{ maxHeight: 600 }}
       alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
       lazyLoad={cardIndex !== 0}
@@ -175,7 +178,11 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
           classNames={{ color: 'teal', solid: true, size: 'regular' }}
           className="button"
           dataTestId={dataTestIdBtn}
-          dataUiTestId={dataUiTestId}
+          dataUiTestId={
+            dataUiTestIdMask
+              ? `${dataUiTestIdMask}-view-offer_${cardIndex}`
+              : undefined
+          }
         >
           <div
             className="button--inner"
