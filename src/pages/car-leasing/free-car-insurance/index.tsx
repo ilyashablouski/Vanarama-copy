@@ -1,6 +1,10 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import React, { useEffect, useState } from 'react';
 import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -24,6 +28,7 @@ import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { GetDerivatives } from '../../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { getPartnerProperties } from '../../../utils/partnerProperties';
+import { Nullable } from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -31,8 +36,8 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
-  productsCar?: ProductCardData | undefined;
-  productsCarDerivatives?: GetDerivatives | undefined;
+  productsCar?: Nullable<ProductCardData>;
+  productsCarDerivatives?: Nullable<GetDerivatives>;
   searchParam: String;
 }
 
@@ -188,9 +193,11 @@ const FreeCarInsurance: NextPage<IProps> = ({
 
 export default FreeCarInsurance;
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const path = `car-leasing/free-car-insurance`;
 
     const { data } = await client.query<

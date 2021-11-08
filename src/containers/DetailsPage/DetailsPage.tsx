@@ -47,15 +47,12 @@ import {
 import { GetImacaAssets_getImacaAssets as IImacaAssets } from '../../../generated/GetImacaAssets';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import useLeaseType from '../../hooks/useLeaseType';
-import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
+import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
@@ -145,9 +142,9 @@ interface IDetailsPageProps {
   quote?: GetQuoteDetails;
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
-  genericPages: GenericPages[] | null | undefined;
-  trimList: ITrimList[];
-  colourList: IColourList[];
+  genericPages: IGenericPages['items'];
+  trimList: GetTrimAndColor['trimList'];
+  colourList: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;

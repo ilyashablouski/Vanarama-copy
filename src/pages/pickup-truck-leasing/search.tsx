@@ -1,4 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import getPartnerProperties from 'utils/partnerProperties';
@@ -54,7 +58,9 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
 
   try {
