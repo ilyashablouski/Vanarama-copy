@@ -97,6 +97,21 @@ module.exports = {
       ];
     },
 
+    async redirects() {
+      return [
+        {
+          source: '/account',
+          destination: '/maintenance',
+          permanent: false,
+        },
+        {
+          source: '/account/:path*',
+          destination: '/maintenance',
+          permanent: false,
+        },
+      ];
+    },
+
     // Rewrites.
     async rewrites() {
       let remoteRewriteList = [];
