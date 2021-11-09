@@ -79,4 +79,6 @@ export interface ICardProps extends IBaseProps {
   extrasRender?: Component | null;
 
   isBlackFridayFlag?: boolean;
+
+  dataUiTestId?: string;
 }

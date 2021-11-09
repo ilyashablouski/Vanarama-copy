@@ -5,7 +5,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
 import { formatToSlugFormat, formatUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 
 const Price = dynamic(() => import('core/atoms/price'), {
@@ -16,24 +16,24 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
 });
 
 const getManufacturerUrl = (
-  manufacturersUrls: ILegacyUrls[],
+  manufacturersUrls: IGenericPages['items'],
   searchType: string,
   title: string,
 ) =>
   manufacturersUrls?.find(
     manufacturer =>
-      manufacturer.slug === `${searchType}/${formatToSlugFormat(title)}`,
+      manufacturer?.slug === `${searchType}/${formatToSlugFormat(title)}`,
   );
 
 const getRangeUrl = (
-  rangesUrls: ILegacyUrls[],
+  rangesUrls: IGenericPages['items'],
   searchType: string,
   title: string,
   dynamicParam: string,
 ) =>
   rangesUrls?.find(
     range =>
-      range.slug ===
+      range?.slug ===
       `${searchType}/${formatToSlugFormat(dynamicParam)}/${formatToSlugFormat(
         title,
       )}`,
@@ -46,8 +46,8 @@ interface IVehicleCardProps {
   id: string;
   vehicleType: VehicleTypeEnum;
   isAllManufacturersCard?: boolean;
-  rangesUrls?: ILegacyUrls[];
-  manufacturersUrls?: ILegacyUrls[];
+  rangesUrls?: IGenericPages['items'];
+  manufacturersUrls?: IGenericPages['items'];
 }
 
 const RangeCard = memo(

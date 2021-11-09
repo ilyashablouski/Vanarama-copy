@@ -6,7 +6,7 @@ import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/v
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import VehicleCard from '../../components/VehicleCard';
 import { rangeList } from '../../../generated/rangeList';
-import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';
 
 const getUrlForVehicleCard = (vehicle: IVehicles) =>
@@ -19,10 +19,10 @@ interface IProps {
   isAllManufacturersPage?: boolean;
   ranges: rangeList;
   isPersonal?: boolean;
-  rangesUrls?: ILegacyUrls[];
+  rangesUrls?: IGenericPages['items'];
   isCarSearch?: boolean;
   manufacturers: manufacturerList;
-  manufacturersUrls?: ILegacyUrls[];
+  manufacturersUrls?: IGenericPages['items'];
   cardsData: (IProductCard | null)[];
   vehiclesList: any;
   isModelPage?: boolean;

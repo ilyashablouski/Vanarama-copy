@@ -362,6 +362,30 @@ export const specialOffersRequest = async (
   };
 };
 
+export const specialOffersForBlogPageRequest = async (
+  client: ApolloClient<any>,
+): Promise<ISpecialOffersBlogPostPageData> => {
+  const {
+    products: productsCar,
+    productsCapIds: productsCarIds,
+  } = await getProductCardContent(client, VehicleTypeEnum.CAR);
+  const { data: productsCarDerivatives } = await getCarDerivatives(
+    client,
+    VehicleTypeEnum.CAR,
+    productsCarIds,
+  );
+  const derivativeIds = [...productsCarIds];
+  const vehicleListUrlData = await getVehicleListUrlQuery(
+    client,
+    derivativeIds,
+  );
+  return {
+    productsCarDerivatives,
+    productsCar,
+    vehicleListUrlData,
+  };
+};
+
 export const vansSpecialOffersRequest = async (
   client: ApolloClient<any>,
 ): Promise<IVansSpecialOffersData> => {
@@ -542,19 +566,25 @@ export interface ISpecialOffersData {
   vehicleListUrlData: IVehicleList;
 }
 
+export interface ISpecialOffersBlogPostPageData {
+  productsCar?: Nullable<ProductCardData>;
+  productsCarDerivatives?: Nullable<GetDerivatives>;
+  vehicleListUrlData: IVehicleList;
+}
+
 export interface IVansSpecialOffersData {
-  productsPickup?: ProductCardData;
-  productsSmallVan?: ProductCardData;
-  productsMediumVan?: ProductCardData;
-  productsLargeVan?: ProductCardData;
-  productsDropsideTipper?: ProductCardData;
-  productsSpecialist?: ProductCardData;
-  productsSmallVanDerivatives?: GetDerivatives;
-  productsMediumVanDerivatives?: GetDerivatives;
-  productsLargeVanDerivatives?: GetDerivatives;
-  productsDropsideTipperDerivatives?: GetDerivatives;
-  productsSpecialistDerivatives?: GetDerivatives;
-  productsPickupDerivatives?: GetDerivatives;
+  productsPickup?: Nullable<ProductCardData>;
+  productsSmallVan?: Nullable<ProductCardData>;
+  productsMediumVan?: Nullable<ProductCardData>;
+  productsLargeVan?: Nullable<ProductCardData>;
+  productsDropsideTipper?: Nullable<ProductCardData>;
+  productsSpecialist?: Nullable<ProductCardData>;
+  productsSmallVanDerivatives?: Nullable<GetDerivatives>;
+  productsMediumVanDerivatives?: Nullable<GetDerivatives>;
+  productsLargeVanDerivatives?: Nullable<GetDerivatives>;
+  productsDropsideTipperDerivatives?: Nullable<GetDerivatives>;
+  productsSpecialistDerivatives?: Nullable<GetDerivatives>;
+  productsPickupDerivatives?: Nullable<GetDerivatives>;
   vehicleListUrlData: IVehicleList;
 }
 
@@ -569,7 +599,7 @@ export interface IVansPageOffersData {
 }
 
 export interface ICarsPageOffersData {
-  productsCar?: ProductCardData;
+  productsCar?: Nullable<ProductCardData>;
   vehicleListUrlData: IVehicleList;
 }
 

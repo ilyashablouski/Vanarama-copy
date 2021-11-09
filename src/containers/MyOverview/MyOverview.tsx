@@ -182,8 +182,24 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 }) => {
   const router = useRouter();
   const [data, setData] = useState(dataForFirstRender);
+  const [isLoading, setIsLoading] = useState(false);
 
   const client = useApolloClient();
+
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      if (url.includes('/account')) {
+        setIsLoading(true);
+      } else if (isLoading) {
+        setIsLoading(false);
+      }
+    };
+    router.events.on('routeChangeStart', handleStart);
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+    };
+  }, []);
+
   useEffect(
     () => client.onResetStore(() => router.push('/account/login-register')),
     [client, router],
@@ -413,61 +429,65 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
           My {quote ? 'Quotes' : 'Orders'}
         </Heading>
       </div>
-      <div className="row:bg-lighter -thin">
-        {!data?.myOrders?.length && !loading ? (
-          <OrderListEmptyMessage
-            text={`Your ${
-              quote ? 'quotes' : 'orders'
-            } list is empty right now.`}
-            className="wishlist"
-          />
-        ) : (
-          <div className="row:results">
-            {!quote && (
-              <div className="choice-boxes -cols-3 -teal">
-                {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder(dataForFirstRender) &&
-                  renderChoiceBtn(1, 'Completed')}
-                {hasCreditIncompleteOrder(dataForFirstRender) &&
-                  renderChoiceBtn(2, 'In Progress')}
-              </div>
-            )}
-            {loading ? (
-              <Loading size="large" />
-            ) : (
-              data?.myOrders?.length && (
-                <>
-                  <Text tag="span" color="darker" size="regular">
-                    Showing {data?.myOrders?.length} Orders
-                  </Text>
-                  <Select
-                    value={`${sortOrder.type}_${sortOrder.direction}`}
-                    onChange={e => onChangeSortOrder(e.target.value)}
-                  >
-                    {sortOrderValues.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.text}
-                      </option>
-                    ))}
-                  </Select>
-                  <div className="row:cards-1col">{renderOffers()}</div>
-                  {pages.length > 1 && (
-                    <Pagination
-                      path=""
-                      pages={pages}
-                      onClick={el => {
-                        el.preventDefault();
-                        setActivePage(+(el.target as Element).innerHTML);
-                      }}
-                      selected={activePage}
-                    />
-                  )}
-                </>
-              )
-            )}
-          </div>
-        )}
-      </div>
+      {isLoading ? (
+        <Loading size="large" />
+      ) : (
+        <div className="row:bg-lighter -thin">
+          {!data?.myOrders?.length && !loading ? (
+            <OrderListEmptyMessage
+              text={`Your ${
+                quote ? 'quotes' : 'orders'
+              } list is empty right now.`}
+              className="wishlist"
+            />
+          ) : (
+            <div className="row:results">
+              {!quote && (
+                <div className="choice-boxes -cols-3 -teal">
+                  {renderChoiceBtn(0, 'All Orders')}
+                  {hasCreditCompleteOrder(dataForFirstRender) &&
+                    renderChoiceBtn(1, 'Completed')}
+                  {hasCreditIncompleteOrder(dataForFirstRender) &&
+                    renderChoiceBtn(2, 'In Progress')}
+                </div>
+              )}
+              {loading ? (
+                <Loading size="large" />
+              ) : (
+                data?.myOrders?.length && (
+                  <>
+                    <Text tag="span" color="darker" size="regular">
+                      Showing {data?.myOrders?.length} Orders
+                    </Text>
+                    <Select
+                      value={`${sortOrder.type}_${sortOrder.direction}`}
+                      onChange={e => onChangeSortOrder(e.target.value)}
+                    >
+                      {sortOrderValues.map(option => (
+                        <option key={option.value} value={option.value}>
+                          {option.text}
+                        </option>
+                      ))}
+                    </Select>
+                    <div className="row:cards-1col">{renderOffers()}</div>
+                    {pages.length > 1 && (
+                      <Pagination
+                        path=""
+                        pages={pages}
+                        onClick={el => {
+                          el.preventDefault();
+                          setActivePage(+(el.target as Element).innerHTML);
+                        }}
+                        selected={activePage}
+                      />
+                    )}
+                  </>
+                )
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <Head metaData={metaData} featuredImage={null} />
     </>
   );

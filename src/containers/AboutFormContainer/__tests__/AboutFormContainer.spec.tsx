@@ -8,6 +8,10 @@ import {
 } from '../../../../generated/GetAboutYouDataQuery';
 import AboutFormContainer from '../AboutFormContainer';
 import { GET_ABOUT_YOU_DATA, GET_ABOUT_YOU_PAGE_DATA } from '../gql';
+import { isUserAuthenticated } from '../../../utils/authentication';
+
+jest.mock('../../../utils/authentication');
+(isUserAuthenticated as jest.Mock).mockReturnValue(true);
 
 describe('<AboutFormContainer />', () => {
   beforeEach(async () => {

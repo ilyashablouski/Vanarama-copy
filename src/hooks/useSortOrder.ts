@@ -5,6 +5,7 @@ import {
   SortField,
   SortObject,
 } from '../../generated/globalTypes';
+import { Nullable } from '../types/common';
 
 const query = gql`
   query SortOrderQuery {
@@ -18,7 +19,7 @@ const query = gql`
  * @return {Array} return sort order data array
  */
 export default function useSortOrder(
-  sortPresetValue?: (SortObject | ProductDerivativeSort)[],
+  sortPresetValue?: Nullable<(SortObject | ProductDerivativeSort)[]>,
 ) {
   const client = useApolloClient();
   const initState = [

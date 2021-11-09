@@ -45,7 +45,6 @@ const OrderInformationContainer: FC<IProps> = ({ orders, quotes, uuid }) => {
           )}
           {ordersLength && (
             <RouterLink
-              prefetch
               classNames={{
                 color: 'teal',
               }}
@@ -73,11 +72,9 @@ const OrderInformationContainer: FC<IProps> = ({ orders, quotes, uuid }) => {
             tag="span"
             size="regular"
             color="dark"
-            className="text--quotes"
           >{`You have (${quotesLength ?? 0}) quotes.`}</Text>
           {!!quotesLength && (
             <RouterLink
-              prefetch
               classNames={{
                 color: 'teal',
               }}

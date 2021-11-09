@@ -26,6 +26,7 @@ import { useDesktopViewport } from '../../hooks/useMediaQuery';
 import Skeleton from '../../components/Skeleton';
 import VehicleCard from '../../components/VehicleCard';
 import ModelCard from './ModelCard';
+import { Nullable } from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -49,9 +50,9 @@ interface IProps {
   isFuelPage: boolean;
   isBudgetPage: boolean;
   isDynamicFilterPage: boolean;
-  preLoadVehiclesList?: IVehiclesData;
-  preLoadProductCardsData?: GetProductCard;
-  preloadBodyStyleList?: IModelsData[];
+  preLoadVehiclesList?: Nullable<IVehiclesData>;
+  preLoadProductCardsData?: Nullable<GetProductCard>;
+  preloadBodyStyleList?: Nullable<IModelsData[]>;
   preloadManufacturer?: string;
   preloadRange?: string;
   shouldForceUpdate: boolean;
