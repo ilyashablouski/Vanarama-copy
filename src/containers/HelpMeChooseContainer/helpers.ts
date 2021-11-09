@@ -543,12 +543,28 @@ export const RENTAL_DATA = [
   },
 ];
 
-export const setQuery = (router: NextRouter, query: IValue) => {
-  router.push({
-    pathname: router.route,
-    query: {
-      ...router.query,
-      ...query,
-    },
+export const getPathName = (router: NextRouter, queries: IValue) => {
+  let pathname = router.route.replace('[[...param]]', '');
+  const queryString = new URLSearchParams();
+  Object.entries(queries).forEach(([key, value]) => {
+    return queryString.set(key, value as string);
   });
+  if (Object.keys(queries).length) {
+    pathname += `?${decodeURIComponent(queryString.toString())}`;
+  }
+  return pathname;
+};
+
+export const setQuery = (router: NextRouter, query: IValue) => {
+  const queries = { ...router.query, ...query };
+  const pathname = getPathName(router, queries);
+
+  router.push(
+    {
+      pathname: router.route,
+      query: queries,
+    },
+    pathname,
+    { shallow: true },
+  );
 };

@@ -11,10 +11,10 @@ import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
-  buildAnObjectFromAQuery,
+  buildAnObjectFromAQuery, getPathName,
   HELP_ME_CHOSE_STEPS,
-  IInitStep,
-} from '../../containers/HelpMeChooseContainer/helpers';
+  IInitStep
+} from "../../containers/HelpMeChooseContainer/helpers";
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
@@ -190,10 +190,15 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                       return Object.assign(acc, { [key]: value });
                     }, {});
                   }
-                  router.push({
-                    pathname: router.route,
-                    query,
-                  });
+                  const pathname = getPathName(router, query);
+                  router.push(
+                    {
+                      pathname: router.route,
+                      query,
+                    },
+                    pathname,
+                    { shallow: true },
+                  );
                 }
               }}
               label={el.label}
