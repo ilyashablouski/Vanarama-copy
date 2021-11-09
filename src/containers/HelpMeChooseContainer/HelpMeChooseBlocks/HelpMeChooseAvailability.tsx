@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE, setQuery } from "../helpers";
+import { buildAnObjectFromAQuery, RENTAL_VALUE, setQuery } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { HELP_ME_CHOOSE } from '../../../gql/help-me-choose';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';

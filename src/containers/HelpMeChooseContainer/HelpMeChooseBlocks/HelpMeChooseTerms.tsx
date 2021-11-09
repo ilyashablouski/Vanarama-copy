@@ -5,8 +5,8 @@ import {
   buildAnObjectFromAQuery,
   getBuckets,
   initialSteps,
-  onReplace, setQuery
-} from "../helpers";
+  setQuery,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 

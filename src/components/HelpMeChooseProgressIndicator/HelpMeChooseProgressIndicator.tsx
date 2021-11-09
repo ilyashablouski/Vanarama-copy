@@ -11,10 +11,11 @@ import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
-  buildAnObjectFromAQuery, getPathName,
+  buildAnObjectFromAQuery,
+  getPathName,
   HELP_ME_CHOSE_STEPS,
-  IInitStep
-} from "../../containers/HelpMeChooseContainer/helpers";
+  IInitStep,
+} from '../../containers/HelpMeChooseContainer/helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 

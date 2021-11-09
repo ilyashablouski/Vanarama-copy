@@ -155,7 +155,7 @@ const HelpMeChoose: NextPage = () => {
         });
       }
     },
-    [getHelpMeChoose, router.query],
+    [getHelpMeChoose],
   );
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const HelpMeChoose: NextPage = () => {
     return () => {
       router.events.off('routeChangeComplete', getData);
     };
-  }, [getData]);
+  }, [getData, router.events]);
 
   useEffect(() => {
     let animation: NodeJS.Timeout;

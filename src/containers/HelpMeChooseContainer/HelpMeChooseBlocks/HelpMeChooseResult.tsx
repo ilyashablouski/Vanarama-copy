@@ -24,9 +24,9 @@ import {
   formatForCompare,
   formatForWishlist,
   getMainImageUrl,
-  initialSteps,
-  onReplace, setQuery
-} from "../helpers";
+  onReplace,
+  setQuery,
+} from '../helpers';
 import truncateString from '../../../utils/truncateString';
 import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
