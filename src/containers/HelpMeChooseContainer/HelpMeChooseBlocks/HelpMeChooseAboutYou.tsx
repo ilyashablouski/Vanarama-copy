@@ -2,11 +2,11 @@ import { useRouter } from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import {
-  onReplace,
   IInitStep,
   buildAnObjectFromAQuery,
-  initialSteps, setQuery
-} from "../helpers";
+  initialSteps,
+  setQuery,
+} from '../helpers';
 
 export interface HelpMeChooseStep {
   steps: IInitStep;

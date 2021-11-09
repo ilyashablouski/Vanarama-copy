@@ -36,43 +36,51 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 });
 
 const getNextProgressStep = (
-  searchPamams: string,
+  searchParams: string,
   copyInitialSteps: IInitStep,
 ) => {
-  const arrOfSearchParams = searchPamams
+  const arrOfSearchParams = searchParams
     .replace('?', '')
     .split('&')
     .map(param => {
       const splitedParam = param.split('=');
       const key = splitedParam[0];
       const value = splitedParam[1].split(',');
-      // @ts-ignore
-      // eslint-disable-next-line no-param-reassign
       if (key === 'rental' || key === 'initialPeriods') {
-        copyInitialSteps[key].value = value[0];
+        Object.defineProperty(
+          copyInitialSteps[key as keyof IInitStep],
+          'value',
+          {
+            value: value[0],
+          },
+        );
       } else {
-        copyInitialSteps[key].value = value;
+        Object.defineProperty(
+          copyInitialSteps[key as keyof IInitStep],
+          'value',
+          { value },
+        );
       }
       return [key, value];
     });
 
   const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];
-  // @ts-ignore
-  const lastStepIndex = HELP_ME_CHOSE_STEPS[lastSearchParam];
+  const lastStepIndex = HELP_ME_CHOSE_STEPS[lastSearchParam as keyof IInitStep];
   const nextStep = Object.keys(HELP_ME_CHOSE_STEPS).find(
-    // @ts-ignore
-    key => HELP_ME_CHOSE_STEPS[key] === lastStepIndex + 1,
+    key => HELP_ME_CHOSE_STEPS[key as keyof IInitStep] === lastStepIndex + 1,
   );
 
   if (!nextStep) {
-    // eslint-disable-next-line no-param-reassign
-    copyInitialSteps.rental.active = true;
-    // eslint-disable-next-line no-param-reassign
-    copyInitialSteps.initialPeriods.active = true;
+    Object.defineProperty(copyInitialSteps.rental, 'active', { value: true });
+    Object.defineProperty(copyInitialSteps.initialPeriods, 'active', {
+      value: true,
+    });
   } else {
-    // @ts-ignore
-    // eslint-disable-next-line no-param-reassign
-    copyInitialSteps[nextStep].active = true;
+    Object.defineProperty(
+      copyInitialSteps[nextStep as keyof IInitStep],
+      'active',
+      { value: true },
+    );
   }
 };
 
@@ -128,12 +136,11 @@ const HelpMeChoose: NextPage = () => {
     url => {
       if (url) {
         const searchParams = url?.replace('/help-me-choose', '');
-        const copyInitialSteps = { ...initialSteps };
-        console.log(initialSteps);
+        const copyInitialSteps = JSON.parse(JSON.stringify(initialSteps));
         if (window.location.search.length === 0) {
           copyInitialSteps.financeTypes.active = true;
         } else {
-          getNextProgressStep(window.location.search, copyInitialSteps);
+          getNextProgressStep(searchParams, copyInitialSteps);
         }
         setSteps(copyInitialSteps);
 
