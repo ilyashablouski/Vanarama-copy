@@ -13,6 +13,7 @@ import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -123,5 +124,9 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  return redirectToMaintenancePage();
+}
 
 export default withApollo(PasswordRequestPage);

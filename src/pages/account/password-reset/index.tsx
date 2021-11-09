@@ -6,6 +6,7 @@ import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -54,5 +55,9 @@ export const PasswordResetPage: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  return redirectToMaintenancePage();
+}
 
 export default withApollo(PasswordResetPage);

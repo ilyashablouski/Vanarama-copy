@@ -16,6 +16,7 @@ import {
   isUserAuthenticatedSSR,
 } from '../../../utils/authentication';
 import { GET_SSR_AUTH_STATUS } from '../../../gql/session';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -165,6 +166,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 };
 
 export async function getServerSideProps(context: NextPageContext) {
+  return redirectToMaintenancePage();
+
   const client = initializeApollo(undefined, context);
   if (context.query?.isUnauthorised === 'true') {
     await client.writeQuery({

@@ -11,6 +11,7 @@ import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 interface IProps {
   orders: GetMyOrders;
@@ -30,6 +31,8 @@ const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
+  return redirectToMaintenancePage();
+
   const client = initializeApollo(undefined, context);
 
   try {

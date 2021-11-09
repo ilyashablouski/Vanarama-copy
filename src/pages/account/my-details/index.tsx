@@ -21,6 +21,7 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -139,6 +140,8 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
 };
 
 export async function getServerSideProps(context: PreviewNextPageContext) {
+  return redirectToMaintenancePage();
+
   const client = initializeApollo(undefined, context);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {
