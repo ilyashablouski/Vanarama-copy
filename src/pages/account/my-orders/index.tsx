@@ -1,8 +1,7 @@
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import { addApolloState, initializeApollo } from 'apolloClient';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
-import { PreviewNextPageContext } from '../../../types/common';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GET_PERSON_QUERY } from '../../../containers/LoginFormContainer/gql';
@@ -11,6 +10,7 @@ import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
+import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 interface IProps {
@@ -30,8 +30,14 @@ const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
-  return redirectToMaintenancePage();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+
+  if (!isAccountSectionEnabled) {
+    return redirectToMaintenancePage();
+  }
 
   const client = initializeApollo(undefined, context);
 

@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import {
@@ -13,6 +13,7 @@ import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -125,8 +126,18 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   );
 };
 
-export async function getServerSideProps() {
-  return redirectToMaintenancePage();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+
+  if (!isAccountSectionEnabled) {
+    return redirectToMaintenancePage();
+  }
+
+  return {
+    props: {},
+  };
 }
 
 export default withApollo(PasswordRequestPage);

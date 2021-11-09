@@ -1,9 +1,8 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { PreviewNextPageContext } from 'types/common';
 import { addApolloState, initializeApollo } from 'apolloClient';
 import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -21,6 +20,7 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
@@ -139,8 +139,14 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
-  return redirectToMaintenancePage();
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+
+  if (!isAccountSectionEnabled) {
+    return redirectToMaintenancePage();
+  }
 
   const client = initializeApollo(undefined, context);
   try {
