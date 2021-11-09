@@ -117,14 +117,6 @@ module.exports = {
       let remoteRewriteList = [];
       const MP_HMC_URL = 'https://hmc.vanarama.dev';
       const localRewriteList = [
-        // {
-        //   source: '/account',
-        //   destination: `/maintenance`,
-        // },
-        // {
-        //   source: '/account/:path*',
-        //   destination: `/maintenance`,
-        // },
         {
           source: '/hmc',
           destination: `${MP_HMC_URL}/hmc`,
