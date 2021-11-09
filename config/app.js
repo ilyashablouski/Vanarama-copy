@@ -97,11 +97,34 @@ module.exports = {
       ];
     },
 
+    async redirects() {
+      return [
+        {
+          source: '/account',
+          destination: '/maintenance',
+          permanent: false,
+        },
+        {
+          source: '/account/:path*',
+          destination: '/maintenance',
+          permanent: false,
+        },
+      ];
+    },
+
     // Rewrites.
     async rewrites() {
       let remoteRewriteList = [];
       const MP_HMC_URL = 'https://hmc.vanarama.dev';
       const localRewriteList = [
+        // {
+        //   source: '/account',
+        //   destination: `/maintenance`,
+        // },
+        // {
+        //   source: '/account/:path*',
+        //   destination: `/maintenance`,
+        // },
         {
           source: '/hmc',
           destination: `${MP_HMC_URL}/hmc`,
