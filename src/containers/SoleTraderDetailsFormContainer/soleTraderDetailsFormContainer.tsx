@@ -32,13 +32,20 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   const [updateSoleTraderDetails] = useUpdateSoleTraderMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication();
 
-  const person = useMemo(() => {
+  const [person, soleTrader] = useMemo(() => {
     if (!isEdited && !isUserAuthenticated()) {
-      return null;
+      return [];
     }
 
-    return soleTraderDetailsFormData.data?.personByUuid;
-  }, [isEdited, soleTraderDetailsFormData.data?.personByUuid]);
+    return [
+      soleTraderDetailsFormData.data?.personByUuid,
+      soleTraderDetailsFormData.data?.companyByUuid?.associates?.[0],
+    ];
+  }, [
+    isEdited,
+    soleTraderDetailsFormData.data?.personByUuid,
+    soleTraderDetailsFormData.data?.companyByUuid,
+  ]);
 
   if (soleTraderDetailsFormData.loading) {
     return <Loading size="large" />;
@@ -88,9 +95,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
 
   return (
     <SoleTraderDetailsForm
-      soleTrader={
-        soleTraderDetailsFormData.data!.companyByUuid?.associates?.[0]
-      }
+      soleTrader={soleTrader}
       person={person}
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
