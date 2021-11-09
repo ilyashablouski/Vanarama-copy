@@ -25,8 +25,8 @@ import {
   formatForWishlist,
   getMainImageUrl,
   initialSteps,
-  onReplace,
-} from '../helpers';
+  onReplace, setQuery
+} from "../helpers";
 import truncateString from '../../../utils/truncateString';
 import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
@@ -101,7 +101,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
-    setSteps,
     steps,
     getHelpMeChoose,
     helpMeChooseData,
@@ -205,25 +204,31 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         title: steps.initialPeriods.title,
       },
     };
-    setSteps(newStep);
     getHelpMeChoose({
       variables: {
         ...buildAnObjectFromAQuery(searchParams, newStep),
       },
     });
-    onReplace(router, newStep);
+    const query = {
+      rental: rentalValue,
+      initialPeriods: initialPeriodValue,
+    };
+    setQuery(router, query);
   };
 
   const clickSearchAgain = () => {
     setLoadingStatus(true);
     const searchParams = new URLSearchParams();
-    setSteps(initialSteps);
     getHelpMeChoose({
       variables: {
         ...buildAnObjectFromAQuery(searchParams, steps),
       },
     });
-    onReplace(router, { ...initialSteps });
+
+    router.push({
+      pathname: router.route,
+      query: {},
+    });
   };
 
   const loadMoreResults = () => {

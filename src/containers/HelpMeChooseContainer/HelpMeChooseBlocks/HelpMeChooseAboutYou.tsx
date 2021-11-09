@@ -5,19 +5,18 @@ import {
   onReplace,
   IInitStep,
   buildAnObjectFromAQuery,
-  initialSteps,
-} from '../helpers';
+  initialSteps, setQuery
+} from "../helpers";
 
 export interface HelpMeChooseStep {
   steps: IInitStep;
-  setSteps: (step: IInitStep) => void;
   getHelpMeChoose: any;
   helpMeChooseData: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { setSteps, steps, getHelpMeChoose, setLoadingStatus } = props;
+  const { steps, getHelpMeChoose, setLoadingStatus } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string[]>(
     steps.financeTypes.value as string[],
@@ -88,8 +87,10 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
             ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
-        setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
+        const query = {
+          financeTypes: financeTypesValue,
+        };
+        setQuery(router, query);
       }}
       currentValue={financeTypesValue}
     />

@@ -46,18 +46,34 @@ const getNextProgressStep = (
       const splitedParam = param.split('=');
       const key = splitedParam[0];
       const value = splitedParam[1].split(',');
-      // reduce?
-      copyInitialSteps[key].value = value;
+      // @ts-ignore
+      // eslint-disable-next-line no-param-reassign
+      if (key === 'rental' || key === 'initialPeriods') {
+        copyInitialSteps[key].value = value[0];
+      } else {
+        copyInitialSteps[key].value = value;
+      }
       return [key, value];
     });
 
   const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];
+  // @ts-ignore
   const lastStepIndex = HELP_ME_CHOSE_STEPS[lastSearchParam];
   const nextStep = Object.keys(HELP_ME_CHOSE_STEPS).find(
+    // @ts-ignore
     key => HELP_ME_CHOSE_STEPS[key] === lastStepIndex + 1,
   );
-  // reduce?
-  copyInitialSteps[nextStep].active = true;
+
+  if (!nextStep) {
+    // eslint-disable-next-line no-param-reassign
+    copyInitialSteps.rental.active = true;
+    // eslint-disable-next-line no-param-reassign
+    copyInitialSteps.initialPeriods.active = true;
+  } else {
+    // @ts-ignore
+    // eslint-disable-next-line no-param-reassign
+    copyInitialSteps[nextStep].active = true;
+  }
 };
 
 const HelpMeChoose: NextPage = () => {
@@ -112,23 +128,15 @@ const HelpMeChoose: NextPage = () => {
     url => {
       if (url) {
         const searchParams = url?.replace('/help-me-choose', '');
-        const copyInitialSteps = Object.entries(initialSteps).reduce(
-          (acc, item) => {
-            const key = item[0];
-            const value = item[1];
-            value.active = false;
-            return Object.assign(acc, { [key]: value });
-          },
-          {} as IInitStep,
-        );
-
+        const copyInitialSteps = { ...initialSteps };
+        console.log(initialSteps);
         if (window.location.search.length === 0) {
           copyInitialSteps.financeTypes.active = true;
         } else {
           getNextProgressStep(window.location.search, copyInitialSteps);
         }
-
         setSteps(copyInitialSteps);
+
         const variables = {
           ...buildAnObjectFromAQuery(
             new URLSearchParams(searchParams),
@@ -163,7 +171,7 @@ const HelpMeChoose: NextPage = () => {
     };
   }, [isLoading]);
 
-  const pageTitle = Object.values(steps).find(el => el.active).title;
+  const pageTitle = Object.values(steps).find(el => el.active)?.title || '';
 
   const metaData = {
     title: `${pageTitle} Help Me Choose | Vanarama` || null,
@@ -183,7 +191,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (
         <>
@@ -195,7 +203,6 @@ const HelpMeChoose: NextPage = () => {
           )}
           <HelpMeChooseProgressIndicator
             steps={steps}
-            setSteps={setSteps}
             getHelpMeChoose={getHelpMeChoose}
             setLoadingStatus={setLoadingStatus}
             setPageOffset={setPageOffset}
@@ -203,7 +210,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.financeTypes.active && (
             <HelpMeChooseAboutYou
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -212,7 +218,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.bodyStyles.active && !!bodyStyleData?.length && (
             <HelpMeChooseBodyStyle
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -221,7 +226,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.fuelTypes.active && !!fuelTypesData?.length && (
             <HelpMeChooseFuelTypes
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -230,7 +234,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.transmissions.active && !!transmissionsData?.length && (
             <HelpMeChooseTransmissions
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -239,7 +242,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.terms.active && !!termsData?.length && (
             <HelpMeChooseTerms
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -248,7 +250,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.mileages.active && !!mileagesData?.length && (
             <HelpMeChooseMiles
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -257,7 +258,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.availability.active && !!availabilityData?.length && (
             <HelpMeChooseAvailability
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
@@ -266,7 +266,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.rental.active && steps.initialPeriods.active && (
             <HelpMeChooseResult
               steps={steps}
-              setSteps={setSteps}
               getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}

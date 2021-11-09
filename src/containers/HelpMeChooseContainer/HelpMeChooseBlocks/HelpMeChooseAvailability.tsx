@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE } from '../helpers';
+import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE, setQuery } from "../helpers";
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { HELP_ME_CHOOSE } from '../../../gql/help-me-choose';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
-  const { setSteps, steps, getHelpMeChoose, setLoadingStatus } = props;
+  const { steps, getHelpMeChoose, setLoadingStatus } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
     (steps.availability.value as string[]) || [''],
@@ -153,8 +153,12 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
             ...buildAnObjectFromAQuery(searchParams, nextSteps),
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        const query = {
+          availability: availabilityValue,
+          rental: nextSteps.rental.value,
+          initialPeriods: nextSteps.initialPeriods.value,
+        };
+        setQuery(router, query);
       }}
       currentValue={availabilityValue}
       submitBtnText="View Results"

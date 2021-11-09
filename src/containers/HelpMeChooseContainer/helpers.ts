@@ -443,6 +443,10 @@ export interface IStep {
   title: string;
 }
 
+interface IValue {
+  [key: string]: string | string[] | number;
+}
+
 export interface IInitStep {
   financeTypes: IStep;
   bodyStyles: IStep;
@@ -457,7 +461,7 @@ export interface IInitStep {
 
 export const initialSteps: IInitStep = {
   financeTypes: {
-    active: true,
+    active: false,
     value: [],
     title: 'About You',
   },
@@ -538,3 +542,13 @@ export const RENTAL_DATA = [
     label: 'above £550',
   },
 ];
+
+export const setQuery = (router: NextRouter, query: IValue) => {
+  router.push({
+    pathname: router.route,
+    query: {
+      ...router.query,
+      ...query,
+    },
+  });
+};

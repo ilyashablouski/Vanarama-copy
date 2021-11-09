@@ -5,19 +5,13 @@ import {
   buildAnObjectFromAQuery,
   getBuckets,
   initialSteps,
-  onReplace,
-} from '../helpers';
+  onReplace, setQuery
+} from "../helpers";
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
 const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
-  const {
-    setSteps,
-    steps,
-    getHelpMeChoose,
-    helpMeChooseData,
-    setLoadingStatus,
-  } = props;
+  const { steps, getHelpMeChoose, helpMeChooseData, setLoadingStatus } = props;
   const router = useRouter();
   const [transmissionsValue, setTransmissionsValue] = useState<string[]>(
     steps.transmissions.value as string[],
@@ -108,8 +102,10 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
             ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
-        setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
+        const query = {
+          transmissions: transmissionsValue,
+        };
+        setQuery(router, query);
       }}
       multiSelect
       currentValue={transmissionsValue}

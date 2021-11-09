@@ -5,19 +5,13 @@ import {
   buildAnObjectFromAQuery,
   getBuckets,
   initialSteps,
-  onReplace,
-} from '../helpers';
+  onReplace, setQuery
+} from "../helpers";
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
 const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
-  const {
-    setSteps,
-    steps,
-    getHelpMeChoose,
-    helpMeChooseData,
-    setLoadingStatus,
-  } = props;
+  const { steps, getHelpMeChoose, helpMeChooseData, setLoadingStatus } = props;
   const router = useRouter();
   const [mileagesValue, setMileagesValue] = useState<string[]>(
     steps.mileages.value as string[],
@@ -96,8 +90,10 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
             ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
-        setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
+        const query = {
+          mileages: mileagesValue,
+        };
+        setQuery(router, query);
       }}
       currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"

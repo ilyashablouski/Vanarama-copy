@@ -20,14 +20,12 @@ import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
 interface IProps {
   steps: IInitStep;
-  setSteps: (step: IInitStep) => void;
   getHelpMeChoose: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
   setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
 const ContextualProgressIndicator: React.FC<IProps> = ({
-  setSteps,
   steps,
   getHelpMeChoose,
   setLoadingStatus,
@@ -177,24 +175,25 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                       ),
                     },
                   });
-                  setSteps({
-                    ...steps,
-                    [el.key]: {
-                      active: true,
-                      value:
-                        typeof router.query[el.key] !== 'object'
-                          ? [router.query[el.key]]
-                          : router.query[el.key],
-                      title: el.label,
-                    },
-                    ...currentStepObject,
+
+                  let query = {};
+                  if (el.key !== 'financeTypes') {
+                    const indexClickedTab = router.asPath.indexOf(el.key);
+                    const nextSearchParams = router.asPath
+                      .slice(0, indexClickedTab - 1)
+                      .replace('/help-me-choose?', '');
+                    const arrNextSearchParams = nextSearchParams.split('&');
+                    query = arrNextSearchParams.reduce((acc, item) => {
+                      const foo = item.split('=');
+                      const key = foo[0];
+                      const value = foo[1];
+                      return Object.assign(acc, { [key]: value });
+                    }, {});
+                  }
+                  router.push({
+                    pathname: router.route,
+                    query,
                   });
-                  onReplace(
-                    router,
-                    { ...steps },
-                    '',
-                    activeStep === 8 ? el.key : undefined,
-                  );
                 }
               }}
               label={el.label}
