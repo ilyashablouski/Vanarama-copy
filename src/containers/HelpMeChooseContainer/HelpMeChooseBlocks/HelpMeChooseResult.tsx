@@ -102,7 +102,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
     steps,
-    getHelpMeChoose,
     helpMeChooseData,
     setLoadingStatus,
     counterState,
@@ -189,26 +188,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const onChangeParams = (rentalId: number, initialPeriodValue: string) => {
     setLoadingStatus(true);
-    const searchParams = new URLSearchParams(window.location.search);
     const rentalValue = RENTAL_DATA[rentalId - 1].value;
-    const newStep = {
-      ...steps,
-      rental: {
-        active: true,
-        value: rentalValue as any,
-        title: steps.rental.title,
-      },
-      initialPeriods: {
-        active: true,
-        value: initialPeriodValue as any,
-        title: steps.initialPeriods.title,
-      },
-    };
-    getHelpMeChoose({
-      variables: {
-        ...buildAnObjectFromAQuery(searchParams, newStep),
-      },
-    });
     const query = {
       rental: rentalValue,
       initialPeriods: initialPeriodValue,
@@ -218,13 +198,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const clickSearchAgain = () => {
     setLoadingStatus(true);
-    const searchParams = new URLSearchParams();
-    getHelpMeChoose({
-      variables: {
-        ...buildAnObjectFromAQuery(searchParams, steps),
-      },
-    });
-
     router.push({
       pathname: router.route,
       query: {},

@@ -1,22 +1,16 @@
 import { useRouter } from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import {
-  IInitStep,
-  buildAnObjectFromAQuery,
-  initialSteps,
-  setQuery,
-} from '../helpers';
+import { IInitStep, setQuery } from '../helpers';
 
 export interface HelpMeChooseStep {
   steps: IInitStep;
-  getHelpMeChoose: any;
   helpMeChooseData: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { steps, getHelpMeChoose, setLoadingStatus } = props;
+  const { steps, setLoadingStatus } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string[]>(
     steps.financeTypes.value as string[],
@@ -35,44 +29,6 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
     },
   ];
 
-  const getNextSteps = (searchParams: URLSearchParams) => {
-    const nextSteps = {
-      step: {
-        ...steps,
-        financeTypes: {
-          active: false,
-          value: financeTypesValue,
-          title: steps.financeTypes.title,
-        },
-        bodyStyles: {
-          active: true,
-          value: steps.bodyStyles.value,
-          title: steps.bodyStyles.title,
-        },
-      },
-      query: {
-        ...initialSteps,
-        financeTypes: {
-          active: false,
-          value: financeTypesValue,
-          title: steps.financeTypes.title,
-        },
-        bodyStyles: {
-          active: true,
-          value: initialSteps.bodyStyles.value,
-          title: steps.bodyStyles.title,
-        },
-      },
-      isEdit: null as string | null,
-    };
-    if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
-      nextSteps.step = nextSteps.query;
-    } else {
-      nextSteps.isEdit = searchParams.get('isEdit');
-    }
-    return nextSteps;
-  };
-
   return (
     <HelpMeChooseContainer
       title="Are you looking for a lease for you personally or for your business?"
@@ -80,13 +36,6 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
       setChoice={setFinanceTypesValue}
       onClickContinue={() => {
         setLoadingStatus(true);
-        const searchParams = new URLSearchParams(window.location.search);
-        const nextSteps = getNextSteps(searchParams);
-        getHelpMeChoose({
-          variables: {
-            ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
-          },
-        });
         const query = {
           financeTypes: financeTypesValue,
         };

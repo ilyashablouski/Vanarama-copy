@@ -210,14 +210,12 @@ const HelpMeChoose: NextPage = () => {
           )}
           <HelpMeChooseProgressIndicator
             steps={steps}
-            getHelpMeChoose={getHelpMeChoose}
             setLoadingStatus={setLoadingStatus}
             setPageOffset={setPageOffset}
           />
           {steps.financeTypes.active && (
             <HelpMeChooseAboutYou
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -225,7 +223,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.bodyStyles.active && !!bodyStyleData?.length && (
             <HelpMeChooseBodyStyle
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -233,7 +230,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.fuelTypes.active && !!fuelTypesData?.length && (
             <HelpMeChooseFuelTypes
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -241,7 +237,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.transmissions.active && !!transmissionsData?.length && (
             <HelpMeChooseTransmissions
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -249,7 +244,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.terms.active && !!termsData?.length && (
             <HelpMeChooseTerms
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -257,7 +251,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.mileages.active && !!mileagesData?.length && (
             <HelpMeChooseMiles
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -265,7 +258,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.availability.active && !!availabilityData?.length && (
             <HelpMeChooseAvailability
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -273,7 +265,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.rental.active && steps.initialPeriods.active && (
             <HelpMeChooseResult
               steps={steps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
               counterState={counterState}

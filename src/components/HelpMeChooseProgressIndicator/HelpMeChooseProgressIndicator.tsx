@@ -11,7 +11,6 @@ import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
-  buildAnObjectFromAQuery,
   getPathName,
   HELP_ME_CHOSE_STEPS,
   IInitStep,
@@ -21,14 +20,12 @@ import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
 interface IProps {
   steps: IInitStep;
-  getHelpMeChoose: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
   setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
 const ContextualProgressIndicator: React.FC<IProps> = ({
   steps,
-  getHelpMeChoose,
   setLoadingStatus,
   setPageOffset,
 }) => {
@@ -141,41 +138,6 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                 if (activeStep > el.step) {
                   setLoadingStatus(true);
                   setPageOffset(0);
-                  const searchParams = new URLSearchParams(
-                    window.location.search,
-                  );
-                  const currentStepObject =
-                    currentStep?.key === 'results'
-                      ? {
-                          rental: {
-                            active: false,
-                            value: steps.rental.value,
-                            title: el.label,
-                          },
-                          initialPeriods: {
-                            active: false,
-                            value: steps.initialPeriods.value,
-                            title: el.label,
-                          },
-                        }
-                      : { [currentStep?.key || '']: { active: false } };
-                  getHelpMeChoose({
-                    variables: {
-                      ...buildAnObjectFromAQuery(
-                        searchParams,
-                        {
-                          ...steps,
-                          [el.key]: {
-                            active: true,
-                            value: router.query[el.key],
-                            title: el.label,
-                          },
-                          ...currentStepObject,
-                        },
-                        el.step,
-                      ),
-                    },
-                  });
 
                   let query = {};
                   if (el.key !== 'financeTypes') {
