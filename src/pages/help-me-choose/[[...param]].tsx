@@ -13,10 +13,9 @@ import {
 } from '../../../generated/HelpMeChoose';
 import {
   buildAnObjectFromAQuery,
-  HELP_ME_CHOOSE_STEPS,
-  HELP_ME_CHOSE_QUERY_PARAMS,
   IInitStep,
   initialSteps,
+  getNextProgressStep,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
@@ -35,58 +34,6 @@ import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
-
-const getNextProgressStep = (
-  searchParams: string,
-  copyInitialSteps: IInitStep,
-) => {
-  const arrOfSearchParams = searchParams
-    .replace('?', '')
-    .split('&')
-    .map(param => {
-      const splitedParam = param.split('=');
-      const key = splitedParam[0];
-      const value = splitedParam[1].split(',');
-      if (
-        key === HELP_ME_CHOOSE_STEPS.RENTAL ||
-        key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS
-      ) {
-        Object.defineProperty(
-          copyInitialSteps[key as keyof IInitStep],
-          'value',
-          {
-            value: value[0],
-          },
-        );
-      } else {
-        Object.defineProperty(
-          copyInitialSteps[key as keyof IInitStep],
-          'value',
-          { value },
-        );
-      }
-      return [key, value];
-    });
-
-  const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];
-  const lastStepIndex = HELP_ME_CHOSE_QUERY_PARAMS.indexOf(
-    lastSearchParam as string,
-  );
-  const nextStep = HELP_ME_CHOSE_QUERY_PARAMS[lastStepIndex + 1];
-
-  if (!nextStep) {
-    Object.defineProperty(copyInitialSteps.rental, 'active', { value: true });
-    Object.defineProperty(copyInitialSteps.initialPeriods, 'active', {
-      value: true,
-    });
-  } else {
-    Object.defineProperty(
-      copyInitialSteps[nextStep as keyof IInitStep],
-      'active',
-      { value: true },
-    );
-  }
-};
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
