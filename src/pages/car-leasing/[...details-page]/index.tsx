@@ -241,6 +241,11 @@ export async function getServerSideProps(
     const capId =
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
         ?.capDerivativeId || 0;
+    const leaseType =
+      context.query.leaseType === FinanceTypeEnum.BCH
+        ? LeaseTypeEnum.BUSINESS
+        : LeaseTypeEnum.PERSONAL;
+
     const getCarDataQuery = await client.query<
       GetVehicleDetails,
       GetVehicleDetailsVariables
@@ -250,6 +255,7 @@ export async function getServerSideProps(
         capId,
         capIdDetails: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
+        leaseType,
       },
     });
 
@@ -264,11 +270,6 @@ export async function getServerSideProps(
       ? +context.query?.upfront
       : getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
           ?.upfront;
-
-    const leaseType =
-      context.query.leaseType === FinanceTypeEnum.BCH
-        ? LeaseTypeEnum.BUSINESS
-        : LeaseTypeEnum.PERSONAL;
 
     const imacaAssets = await client.query<
       GetImacaAssets,

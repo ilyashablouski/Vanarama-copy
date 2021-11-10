@@ -106,7 +106,7 @@ describe('<VehicleCard />', () => {
       return renderer
         .create(
           <ApolloProvider client={client}>
-            <VehicleCard {...mocks} isPersonalPrice={false} />
+            <VehicleCard {...mocks} />
           </ApolloProvider>,
         )
         .toJSON();

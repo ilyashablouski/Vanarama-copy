@@ -16,7 +16,10 @@ import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
 import { FuelTypeEnum } from '../../../entities/global';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  FinanceTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -67,6 +70,17 @@ const VehicleCard = React.memo(
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
+    const urlWithPriceQuery = useMemo(() => {
+      if (
+        (isPersonalPrice && data.vehicleType === VehicleTypeEnum.CAR) ||
+        (!isPersonalPrice && data.vehicleType === VehicleTypeEnum.LCV)
+      ) {
+        return productPageUrl.url;
+      }
+      return `${productPageUrl.url}?leaseType=${
+        isPersonalPrice ? FinanceTypeEnum.PCH : FinanceTypeEnum.BCH
+      }`;
+    }, [data.vehicleType, isPersonalPrice, productPageUrl.url]);
     const fuelType = useMemo(
       () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
       [data],
@@ -124,7 +138,7 @@ const VehicleCard = React.memo(
           link: (
             <RouterLink
               link={{
-                href: productPageUrl.url,
+                href: urlWithPriceQuery,
                 label: '',
               }}
               onClick={() => {
@@ -176,7 +190,7 @@ const VehicleCard = React.memo(
           />
           <RouterLink
             link={{
-              href: productPageUrl.url,
+              href: urlWithPriceQuery,
               label: 'View Offer',
             }}
             onClick={() => {

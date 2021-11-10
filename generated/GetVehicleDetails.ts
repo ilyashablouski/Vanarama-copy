@@ -192,4 +192,5 @@ export interface GetVehicleDetailsVariables {
   capId: number;
   capIdDetails: string;
   vehicleType?: VehicleTypeEnum | null;
+  leaseType?: LeaseTypeEnum | null;
 }

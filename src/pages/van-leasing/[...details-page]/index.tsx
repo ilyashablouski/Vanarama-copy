@@ -14,6 +14,7 @@ import {
   GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
 import {
+  FinanceTypeEnum,
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
@@ -263,6 +264,11 @@ export async function getServerSideProps(
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
         ?.capDerivativeId || 0;
 
+    const leaseType =
+      context.query.leaseType === FinanceTypeEnum.PCH
+        ? LeaseTypeEnum.PERSONAL
+        : LeaseTypeEnum.BUSINESS;
+
     const getCarDataQuery = await client.query<
       GetVehicleDetails,
       GetVehicleDetailsVariables
@@ -272,6 +278,7 @@ export async function getServerSideProps(
         capId,
         capIdDetails: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
+        leaseType,
       },
     });
 
@@ -304,7 +311,7 @@ export async function getServerSideProps(
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType,
         // we have to use null for colour and trim to get the cheapest price
         colour: null,
         trim: null,
