@@ -147,10 +147,8 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                       .replace('/help-me-choose?', '');
                     const arrNextSearchParams = nextSearchParams.split('&');
                     query = arrNextSearchParams.reduce((acc, item) => {
-                      const foo = item.split('=');
-                      const key = foo[0];
-                      const value = foo[1];
-                      return Object.assign(acc, { [key]: value });
+                      const [key, value] = item.split('=');
+                      return { ...acc, [key]: value };
                     }, {});
                   }
                   const pathname = getPathName(router, query);

@@ -582,9 +582,8 @@ export const getNextProgressStep = (
     .replace('?', '')
     .split('&')
     .map(param => {
-      const splitedParam = param.split('=');
-      const key = splitedParam[0];
-      const value = splitedParam[1].split(',');
+      const [key, value] = param.split('=');
+      const splitedValue = value.split(',');
       if (
         key === HELP_ME_CHOOSE_STEPS.RENTAL ||
         key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS
@@ -593,17 +592,17 @@ export const getNextProgressStep = (
           copyInitialSteps[key as keyof IInitStep],
           'value',
           {
-            value: value[0],
+            value: splitedValue[0],
           },
         );
       } else {
         Object.defineProperty(
           copyInitialSteps[key as keyof IInitStep],
           'value',
-          { value },
+          { value: splitedValue },
         );
       }
-      return [key, value];
+      return [key, splitedValue];
     });
 
   const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];

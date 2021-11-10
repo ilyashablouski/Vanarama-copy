@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
 import { useRouter } from 'next/router';
@@ -129,7 +129,10 @@ const HelpMeChoose: NextPage = () => {
     };
   }, [isLoading]);
 
-  const pageTitle = Object.values(steps).find(el => el.active)?.title || '';
+  const pageTitle = useMemo(
+    () => Object.values(steps).find(el => el.active)?.title || '',
+    [steps],
+  );
 
   const metaData = {
     title: `${pageTitle} Help Me Choose | Vanarama` || null,
