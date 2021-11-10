@@ -16,35 +16,36 @@ import { Nullish } from '../../types/common';
 
 const MOR_MILES_VALUE = 30;
 
-export const HELP_ME_CHOSE_QUERY_PARAMS = [
-  'financeTypes',
-  'bodyStyles',
-  'fuelTypes',
-  'transmissions',
-  'terms',
-  'mileages',
-  'availability',
-  'rental',
-  'initialPeriods',
-];
-
-export const HELP_ME_CHOSE_STEPS = {
-  financeTypes: 1,
-  bodyStyles: 2,
-  fuelTypes: 3,
-  transmissions: 4,
-  terms: 5,
-  mileages: 6,
-  availability: 7,
-  rental: 8,
-  initialPeriods: 9,
+export const HELP_ME_CHOOSE_STEPS = {
+  FINANCE_TYPES: 'financeTypes',
+  BODY_STYLES: 'bodyStyles',
+  FUEL_TYPES: 'fuelTypes',
+  TRANSMISSIONS: 'transmissions',
+  TERMS: 'terms',
+  MILEAGES: 'mileages',
+  AVAILABILITY: 'availability',
+  RENTAL: 'rental',
+  INITIAL_PERIODS: 'initialPeriods',
+  RESULTS: 'results',
 };
+
+export const HELP_ME_CHOSE_QUERY_PARAMS = [
+  HELP_ME_CHOOSE_STEPS.FINANCE_TYPES,
+  HELP_ME_CHOOSE_STEPS.BODY_STYLES,
+  HELP_ME_CHOOSE_STEPS.FUEL_TYPES,
+  HELP_ME_CHOOSE_STEPS.TRANSMISSIONS,
+  HELP_ME_CHOOSE_STEPS.TERMS,
+  HELP_ME_CHOOSE_STEPS.MILEAGES,
+  HELP_ME_CHOOSE_STEPS.AVAILABILITY,
+  HELP_ME_CHOOSE_STEPS.RENTAL,
+  HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS,
+];
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
-    case 'terms':
+    case HELP_ME_CHOOSE_STEPS.TERMS:
       return `${parseInt(label, 10) / 12} Years`;
-    case 'mileages':
+    case HELP_ME_CHOOSE_STEPS.MILEAGES:
       // eslint-disable-next-line no-case-declarations
       const mileage = parseInt(label, 10) / 1000;
       return `${mileage === 6 ? '<' : ''}${mileage}K${
@@ -139,12 +140,12 @@ export const buildAnObjectFromAQuery = (
   if (editStep) {
     query.forEach((value: string, key: string) => {
       if (
-        (key === 'bodyStyles' &&
+        (key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
           steps.bodyStyles?.value?.length &&
           steps.bodyStyles?.value[0].length &&
           !steps.bodyStyles.active &&
           !editStep) ||
-        (key === 'bodyStyles' &&
+        (key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
           steps.bodyStyles?.value?.length &&
           steps.bodyStyles?.value[0].length &&
           editStep &&
@@ -153,12 +154,12 @@ export const buildAnObjectFromAQuery = (
         object.bodyStyles = steps.bodyStyles.value;
       }
       if (
-        (key === 'fuelTypes' &&
+        (key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
           steps.fuelTypes?.value?.length &&
           steps.fuelTypes?.value[0].length &&
           !steps.fuelTypes.active &&
           !editStep) ||
-        (key === 'fuelTypes' &&
+        (key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
           steps.fuelTypes?.value?.length &&
           steps.fuelTypes?.value[0].length &&
           editStep &&
@@ -167,12 +168,12 @@ export const buildAnObjectFromAQuery = (
         object.fuelTypes = steps.fuelTypes.value;
       }
       if (
-        (key === 'transmissions' &&
+        (key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
           steps.transmissions?.value?.length &&
           steps.transmissions?.value[0].length &&
           !steps.transmissions.active &&
           !editStep) ||
-        (key === 'transmissions' &&
+        (key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
           steps.transmissions?.value?.length &&
           steps.transmissions?.value[0].length &&
           editStep &&
@@ -181,12 +182,12 @@ export const buildAnObjectFromAQuery = (
         object.transmissions = steps.transmissions.value;
       }
       if (
-        (key === 'terms' &&
+        (key === HELP_ME_CHOOSE_STEPS.TERMS &&
           steps.terms?.value?.length &&
           steps.terms?.value[0].length &&
           !steps.terms.active &&
           !editStep) ||
-        (key === 'terms' &&
+        (key === HELP_ME_CHOOSE_STEPS.TERMS &&
           steps.terms?.value?.length &&
           steps.terms?.value[0].length &&
           editStep &&
@@ -195,12 +196,12 @@ export const buildAnObjectFromAQuery = (
         object.terms = [parseInt(steps.terms.value[0], 10)];
       }
       if (
-        (key === 'mileages' &&
+        (key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
           steps.mileages?.value?.length &&
           steps.mileages?.value[0].length &&
           !steps.mileages.active &&
           !editStep) ||
-        (key === 'mileages' &&
+        (key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
           steps.mileages?.value?.length &&
           steps.mileages?.value[0].length &&
           editStep &&
@@ -209,12 +210,12 @@ export const buildAnObjectFromAQuery = (
         object.mileages = [parseInt(steps.mileages.value[0] || '', 10)];
       }
       if (
-        (key === 'availability' &&
+        (key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
           steps.availability?.value?.length &&
           steps.availability?.value[0].length &&
           !steps.availability.active &&
           !editStep) ||
-        (key === 'availability' &&
+        (key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
           steps.availability?.value?.length &&
           steps.availability?.value[0].length &&
           editStep &&
@@ -223,7 +224,7 @@ export const buildAnObjectFromAQuery = (
         object.availability = parseInt(steps.availability.value[0] || '', 10);
       }
       if (
-        (key === 'rental' &&
+        (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
           value?.length &&
           !editStep &&
           steps.rental.active) ||
@@ -239,7 +240,7 @@ export const buildAnObjectFromAQuery = (
               };
       }
       if (
-        (key === 'initialPeriods' &&
+        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
           value?.length &&
           !editStep &&
           steps.initialPeriods.active) ||
@@ -253,7 +254,7 @@ export const buildAnObjectFromAQuery = (
   } else {
     Object.entries(steps).forEach(([key, val]) => {
       if (
-        key === 'bodyStyles' &&
+        key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
         val.value?.length &&
         val.value[0].length &&
         !val.active
@@ -261,7 +262,7 @@ export const buildAnObjectFromAQuery = (
         object.bodyStyles = val.value;
       }
       if (
-        key === 'fuelTypes' &&
+        key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
         val.value?.length &&
         val.value[0].length &&
         !val.active
@@ -269,7 +270,7 @@ export const buildAnObjectFromAQuery = (
         object.fuelTypes = val.value;
       }
       if (
-        key === 'transmissions' &&
+        key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
         val?.value?.length &&
         val.value[0].length &&
         !val.active
@@ -277,7 +278,7 @@ export const buildAnObjectFromAQuery = (
         object.transmissions = val.value;
       }
       if (
-        key === 'terms' &&
+        key === HELP_ME_CHOOSE_STEPS.TERMS &&
         val?.value?.length &&
         val.value[0].length &&
         !val.active
@@ -285,7 +286,7 @@ export const buildAnObjectFromAQuery = (
         object.terms = [parseInt(val.value[0], 10)];
       }
       if (
-        key === 'mileages' &&
+        key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
         val?.value?.length &&
         val.value[0].length &&
         !val.active
@@ -293,7 +294,7 @@ export const buildAnObjectFromAQuery = (
         object.mileages = [parseInt(val.value[0] || '', 10)];
       }
       if (
-        key === 'availability' &&
+        key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
         val?.value?.length &&
         val.value[0].length &&
         !val.active
@@ -301,8 +302,10 @@ export const buildAnObjectFromAQuery = (
         object.availability = parseInt(val.value[0] || '', 10);
       }
       if (
-        (key === 'rental' && val.value?.length && val.active) ||
-        (key === 'rental' && val.active)
+        (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
+          val.value?.length &&
+          val.active) ||
+        (key === HELP_ME_CHOOSE_STEPS.RENTAL && val.active)
       ) {
         object.rental =
           parseFloat(val.value as any) === 0
@@ -314,8 +317,10 @@ export const buildAnObjectFromAQuery = (
               };
       }
       if (
-        (key === 'initialPeriods' && val.value?.length && val.active) ||
-        (key === 'initialPeriods' && val.active)
+        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
+          val.value?.length &&
+          val.active) ||
+        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS && val.active)
       ) {
         object.initialPeriods = [parseInt(val.value as any, 10)];
       }

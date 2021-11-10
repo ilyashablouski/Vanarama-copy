@@ -12,7 +12,7 @@ import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
   getPathName,
-  HELP_ME_CHOSE_STEPS,
+  HELP_ME_CHOOSE_STEPS,
   IInitStep,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -37,51 +37,51 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   const progressSteps = [
     {
       active: steps.financeTypes.active,
-      key: 'financeTypes',
+      key: HELP_ME_CHOOSE_STEPS.FINANCE_TYPES,
       label: 'About You',
-      step: HELP_ME_CHOSE_STEPS.financeTypes,
+      step: 1,
     },
     {
       active: steps.bodyStyles.active,
-      key: 'bodyStyles',
+      key: HELP_ME_CHOOSE_STEPS.BODY_STYLES,
       label: 'Style',
-      step: HELP_ME_CHOSE_STEPS.bodyStyles,
+      step: 2,
     },
     {
       active: steps.fuelTypes.active,
-      key: 'fuelTypes',
+      key: HELP_ME_CHOOSE_STEPS.FUEL_TYPES,
       label: 'Fuel Types',
-      step: HELP_ME_CHOSE_STEPS.fuelTypes,
+      step: 3,
     },
     {
       active: steps.transmissions.active,
-      key: 'transmissions',
+      key: HELP_ME_CHOOSE_STEPS.TRANSMISSIONS,
       label: 'Gearbox',
-      step: HELP_ME_CHOSE_STEPS.transmissions,
+      step: 4,
     },
     {
       active: steps.terms.active,
-      key: 'terms',
+      key: HELP_ME_CHOOSE_STEPS.TERMS,
       label: 'Lease Length',
-      step: HELP_ME_CHOSE_STEPS.terms,
+      step: 5,
     },
     {
       active: steps.mileages.active,
-      key: 'mileages',
+      key: HELP_ME_CHOOSE_STEPS.MILEAGES,
       label: 'Mileage',
-      step: HELP_ME_CHOSE_STEPS.mileages,
+      step: 6,
     },
     {
       active: steps.availability.active,
-      key: 'availability',
+      key: HELP_ME_CHOOSE_STEPS.AVAILABILITY,
       label: 'Availability',
-      step: HELP_ME_CHOSE_STEPS.availability,
+      step: 7,
     },
     {
       active: steps.rental.active,
-      key: 'results',
+      key: HELP_ME_CHOOSE_STEPS.RESULTS,
       label: 'Results',
-      step: HELP_ME_CHOSE_STEPS.rental,
+      step: 8,
     },
   ];
 
@@ -140,7 +140,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                   setPageOffset(0);
 
                   let query = {};
-                  if (el.key !== 'financeTypes') {
+                  if (el.key !== HELP_ME_CHOOSE_STEPS.FINANCE_TYPES) {
                     const indexClickedTab = router.asPath.indexOf(el.key);
                     const nextSearchParams = router.asPath
                       .slice(0, indexClickedTab - 1)

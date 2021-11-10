@@ -13,7 +13,8 @@ import {
 } from '../../../generated/HelpMeChoose';
 import {
   buildAnObjectFromAQuery,
-  HELP_ME_CHOSE_STEPS,
+  HELP_ME_CHOOSE_STEPS,
+  HELP_ME_CHOSE_QUERY_PARAMS,
   IInitStep,
   initialSteps,
 } from '../../containers/HelpMeChooseContainer/helpers';
@@ -46,7 +47,10 @@ const getNextProgressStep = (
       const splitedParam = param.split('=');
       const key = splitedParam[0];
       const value = splitedParam[1].split(',');
-      if (key === 'rental' || key === 'initialPeriods') {
+      if (
+        key === HELP_ME_CHOOSE_STEPS.RENTAL ||
+        key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS
+      ) {
         Object.defineProperty(
           copyInitialSteps[key as keyof IInitStep],
           'value',
@@ -65,10 +69,10 @@ const getNextProgressStep = (
     });
 
   const lastSearchParam = arrOfSearchParams[arrOfSearchParams.length - 1][0];
-  const lastStepIndex = HELP_ME_CHOSE_STEPS[lastSearchParam as keyof IInitStep];
-  const nextStep = Object.keys(HELP_ME_CHOSE_STEPS).find(
-    key => HELP_ME_CHOSE_STEPS[key as keyof IInitStep] === lastStepIndex + 1,
+  const lastStepIndex = HELP_ME_CHOSE_QUERY_PARAMS.indexOf(
+    lastSearchParam as string,
   );
+  const nextStep = HELP_ME_CHOSE_QUERY_PARAMS[lastStepIndex + 1];
 
   if (!nextStep) {
     Object.defineProperty(copyInitialSteps.rental, 'active', { value: true });
