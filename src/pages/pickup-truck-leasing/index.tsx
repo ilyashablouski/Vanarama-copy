@@ -570,7 +570,7 @@ export const PickupsPage: NextPage<IProps> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'View Leasing Guides',
-              href: '/van-leasing-explained.html',
+              href: '/guides/van-leasing-explained',
             }}
           >
             View Leasing Guides <ArrowForwardSharp />
