@@ -13,10 +13,7 @@ import {
   GetQuoteDetails_quoteByCapId,
   GetQuoteDetails,
 } from '../../../generated/GetQuoteDetails';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
+import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { Nullable } from '../../types/common';
 
 export interface ILeaseScannerData {
@@ -47,8 +44,8 @@ export interface IProps {
     React.SetStateAction<ILeaseScannerData | null>
   >;
   quote?: GetQuoteDetails;
-  trimData: ITrimList[];
-  colourData: IColourList[];
+  trimData: GetTrimAndColor['trimList'];
+  colourData: GetTrimAndColor['colourList'];
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   mileage: number | null;

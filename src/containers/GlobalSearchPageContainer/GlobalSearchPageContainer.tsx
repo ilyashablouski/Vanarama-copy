@@ -516,7 +516,6 @@ const GlobalSearchPageContainer = memo(
                 <GlobalSearchPageFilters
                   config={config}
                   isAllProductsRequest={isAllProductsRequest}
-                  onRemoveTag={onRemoveTag}
                   preloadFilters={filtersData}
                   activeFilters={activeFilters}
                   setActiveFilters={setActiveFilters}
@@ -527,6 +526,7 @@ const GlobalSearchPageContainer = memo(
                   setIsPersonal={setIsPersonal}
                   isSpecialOffer={isSpecialOffer}
                   setIsSpecialOffer={setIsSpecialOffer}
+                  onRemoveTag={onRemoveTag}
                 />
               ) : (
                 <GlobalSearchPageSort

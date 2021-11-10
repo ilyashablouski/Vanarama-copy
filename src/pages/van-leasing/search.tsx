@@ -1,4 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
@@ -27,12 +31,13 @@ import {
 } from '../../../generated/GetProductCard';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
+import { Nullable } from '../../types/common';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  vehiclesList?: vehicleList;
-  productCardsData?: GetProductCard;
-  responseCapIds?: string[];
+  vehiclesList?: Nullable<vehicleList>;
+  productCardsData?: Nullable<GetProductCard>;
+  responseCapIds?: Nullable<string[]>;
 }
 
 const Page: NextPage<IProps> = ({
@@ -55,7 +60,9 @@ const Page: NextPage<IProps> = ({
   />
 );
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
   let vehiclesList;
   let productCardsData;
@@ -113,7 +120,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        context: cookieString,
         pageData: encodeData(data),
         metaData: data?.genericPage.metaData || null,
         vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
