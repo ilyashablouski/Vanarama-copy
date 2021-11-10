@@ -294,6 +294,7 @@ export enum FeatureFlags {
   DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
+  ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
 }
 
 function isFeatureFlagEnabled(
@@ -309,6 +310,15 @@ function isFeatureFlagEnabled(
   }
 
   return cookies.includes(`${featureFlag}=1`);
+}
+
+export function isAccountSectionFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(
+    cookies,
+    FeatureFlags.ACCOUNT_SECTION_MAINTENANCE,
+  );
 }
 
 export function isDerangedFeatureFlagEnabled(
