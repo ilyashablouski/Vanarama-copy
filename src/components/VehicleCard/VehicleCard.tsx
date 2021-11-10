@@ -80,7 +80,7 @@ const VehicleCard = React.memo(
       return `${productPageUrl.url}?leaseType=${
         isPersonalPrice ? FinanceTypeEnum.PCH : FinanceTypeEnum.BCH
       }`;
-    }, [data.vehicleType, isPersonalPrice, productPageUrl.url]);
+    }, [data?.vehicleType, isPersonalPrice, productPageUrl.url]);
     const fuelType = useMemo(
       () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
       [data],
