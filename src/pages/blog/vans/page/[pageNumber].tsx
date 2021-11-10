@@ -1,5 +1,5 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { PreviewNextPageContext } from 'types/common';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import { IPageWithData, IPageWithError } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
@@ -17,25 +17,17 @@ import {
   BlogPosts,
   BlogPostsVariables,
 } from '../../../../../generated/BlogPosts';
-import ErrorPage from '../../../_error';
 
-const CategoryPage: NextPage<IBlogCategory> = ({
-  data: encodedData,
-  error,
-  pageNumber,
-}) => {
-  if (error || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
+type IProps = IPageWithData<IBlogCategory>;
 
-  // De-obfuscate data for user
+const CategoryPage: NextPage<IProps> = ({ data: encodedData, pageNumber }) => {
   const data = decodeData(encodedData);
 
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getMetadataForPagination(
     getSectionsData(['metaData'], data?.blogPosts),
-    pageNumber,
+    pageNumber ?? 1,
   );
   const breadcrumbsItems = getBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
@@ -56,7 +48,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query<BlogPosts, BlogPostsVariables>({
@@ -83,8 +75,10 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   }
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+  const client = createApolloClient({});
   return getBlogPosts(client, BLOG_POSTS_PAGE, 'blog/vans', context);
 }
 
