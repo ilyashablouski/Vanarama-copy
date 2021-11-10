@@ -14,8 +14,13 @@ export const GET_CAR_DATA = gql`
     $capId: Int!
     $capIdDetails: ID!
     $vehicleType: VehicleTypeEnum
+    $leaseType: LeaseTypeEnum
   ) {
-    vehicleConfigurationByCapId(capId: $capId, vehicleType: $vehicleType) {
+    vehicleConfigurationByCapId(
+      capId: $capId
+      vehicleType: $vehicleType
+      leaseType: $leaseType
+    ) {
       uuid
       capManufacturerDescription
       capRangeDescription

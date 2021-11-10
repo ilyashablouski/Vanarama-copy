@@ -11,6 +11,7 @@ import {
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
+import { GetProductCard_productCard as IProductCard } from '../../../../generated/GetProductCard';
 
 const mockData = {
   loading: false,
@@ -260,7 +261,23 @@ describe('<TopOffersContainer />', () => {
       shouldForceUpdate: false,
       setShouldForceUpdate: jest.fn(),
       preLoadProductCardsData: {
-        productCard: [],
+        productCard: [
+          {
+            vehicleType: VehicleTypeEnum.CAR,
+            capId: '44514',
+            manufacturerName: 'manufacturerName',
+            rangeName: 'rangeName',
+            derivativeName: 'derivativeName',
+            averageRating: 4.5,
+            isOnOffer: false,
+            offerPosition: 5,
+            leadTime: '',
+            imageUrl: '',
+            keyInformation: [{ name: 'name' }],
+            businessRate: 55,
+            personalRate: 55,
+          },
+        ] as IProductCard[],
         vehicleList: { edges: [] },
         derivatives: [
           {

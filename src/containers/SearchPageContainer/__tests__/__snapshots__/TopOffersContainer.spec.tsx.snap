@@ -93,6 +93,134 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         1.5 BlueHDi 650Kg Enterprise 75ps
                       </span>
                     </a>
+                    <div
+                      class="rating -regular -orange"
+                    >
+                      <span>
+                        <i
+                          class="icon -orange"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                            />
+                          </svg>
+                        </i>
+                      </span>
+                      <span>
+                        <i
+                          class="icon -orange"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                            />
+                          </svg>
+                        </i>
+                      </span>
+                      <span>
+                        <i
+                          class="icon -orange"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                            />
+                          </svg>
+                        </i>
+                      </span>
+                      <span>
+                        <i
+                          class="icon -orange"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                            />
+                          </svg>
+                        </i>
+                      </span>
+                      <span>
+                        <i
+                          class="icon -orange"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+                            />
+                          </svg>
+                        </i>
+                      </span>
+                      <span
+                        class="text -regular -dark"
+                      >
+                        4.5
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="features"
+                  >
+                    <div>
+                      <i
+                        class="icon"
+                      >
+                        <i
+                          class="icon -dark"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <path
+                              d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
+                              style="fill: none; stroke: var(--class-color); stroke-miterlimit: 10; stroke-width: 32;"
+                            />
+                            <path
+                              d="M351.82,271.87v-16A96.15,96.15,0,0,0,184.09,192m-24.2,48.17v16A96.22,96.22,0,0,0,327.81,320"
+                              style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 32;"
+                            />
+                            <polyline
+                              points="135.87 256 159.46 232.4 184.13 256"
+                              style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 32;"
+                            />
+                            <polyline
+                              points="376.13 256 352.54 279.6 327.87 256"
+                              style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 32;"
+                            />
+                          </svg>
+                        </i>
+                      </i>
+                      <span
+                        class="text -xsmall -darker"
+                      >
+                        name
+                      </span>
+                      <span
+                        class="text -xsmall -dark"
+                      />
+                    </div>
                   </div>
                   <div
                     class="-flex-h"
@@ -111,8 +239,19 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         <span
                           class="price--pounds"
                         >
-                          POA
+                          55
                         </span>
+                        <span
+                          class="price--sub"
+                        >
+                          .
+                          00
+                        </span>
+                      </div>
+                      <div
+                        class="price--label"
+                      >
+                        Per Month Inc.VAT
                       </div>
                     </div>
                     <a
