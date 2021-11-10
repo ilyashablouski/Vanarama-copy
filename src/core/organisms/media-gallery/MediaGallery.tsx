@@ -3,6 +3,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
+import Text from 'core/atoms/text';
 import Media from 'core/atoms/media';
 import Tabs from 'core/molecules/tabs';
 import Tab from 'core/molecules/tabs/Tab';
@@ -15,7 +16,7 @@ import MediaRotate from 'core/assets/icons/MediaRotate';
 import MediaPicture from 'core/assets/icons/MediaPicture';
 
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
-import Text from 'core/atoms/text';
+
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { IMediaGalleryProps } from './interfaces';
 

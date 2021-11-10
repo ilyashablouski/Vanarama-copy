@@ -1,6 +1,5 @@
 import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
 import { ParsedUrlQuery } from 'querystring';
-import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
@@ -295,11 +294,8 @@ export const ssrCMSQueryExecutor = async (
   isCarSearch: boolean,
   pageType: string,
 ) => {
+  const { query } = context;
   const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-  // remove first slash from route and build valid path
-  const { req, query } = context;
-  const queryUrl = removeUrlQueryPart(req?.url || '');
-  const slug = queryUrl.slice(1);
   const newRangePagesSlug = context.req?.resolvedUrl || '';
   switch (pageType) {
     case 'isNewRangePage':
@@ -314,8 +310,8 @@ export const ssrCMSQueryExecutor = async (
     case 'isManufacturerPage':
     case 'isModelPage':
     case 'isBudgetType':
-      return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
     case 'isBodyStylePage':
+    case 'isFuelType':
       return onCallQuery(
         client,
         GENERIC_PAGE,
@@ -323,8 +319,6 @@ export const ssrCMSQueryExecutor = async (
       );
     case 'isTransmissionPage':
       return onCallQuery(client, GENERIC_PAGE, 'van-leasing/automatic');
-    case 'isFuelType':
-      return onCallQuery(client, GENERIC_PAGE, slug);
     case 'isSpecialOfferPage':
       return onCallQuery(
         client,
