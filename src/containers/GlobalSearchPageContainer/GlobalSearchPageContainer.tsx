@@ -212,8 +212,6 @@ const GlobalSearchPageContainer = memo(
 
     // reset filters after update search term
     useFirstRenderEffect(() => {
-      // prevent case when filter tags array not update
-      setActiveTab(ITabs.Filter);
       setActiveFilters(initialFilters);
     }, [initialFilters]);
 
@@ -503,7 +501,10 @@ const GlobalSearchPageContainer = memo(
         <Drawer
           isShowDrawer={isShowDrawer}
           isLoading={loading}
-          onCloseDrawer={() => setIsShowDrawer(false)}
+          onCloseDrawer={() => {
+            setIsShowDrawer(false);
+            setActiveTab(ITabs.Filter);
+          }}
           title={activeTab === ITabs.Filter ? 'Filter' : 'Sort'}
           renderContent={
             <div
