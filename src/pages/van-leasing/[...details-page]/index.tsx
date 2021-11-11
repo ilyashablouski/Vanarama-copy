@@ -84,6 +84,7 @@ interface IProps {
   productCard: GetProductCard | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  leaseTypeQuery?: LeaseTypeEnum | null;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -97,6 +98,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   productCard: encodedData,
   pdpContent,
   imacaAssets,
+  leaseTypeQuery,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -216,6 +218,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         genericPageHead={genericPageHead}
         genericPages={genericPages}
         productCard={productCard}
+        leaseTypeQuery={leaseTypeQuery}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -395,6 +398,7 @@ export async function getServerSideProps(
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
+        leaseTypeQuery: leaseType,
       },
     };
   } catch (error) {
