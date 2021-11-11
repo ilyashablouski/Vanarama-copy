@@ -12,6 +12,7 @@ import saveOrder from './mutation/saveOrder';
 import saveQuote from './mutation/saveQuote';
 import deletePersonEmail from './mutation/deletePersonEmail';
 import savePersonBankUuid from './mutation/savePersonBankUuid';
+import deleteStoredPerson from './mutation/deleteStoredPerson';
 
 export default {
   Query: {
@@ -30,5 +31,6 @@ export default {
     saveQuote,
     deletePersonEmail,
     savePersonBankUuid,
+    deleteStoredPerson,
   },
 };

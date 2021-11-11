@@ -61,5 +61,6 @@ extend type Mutation {
   savePersonEmail(email: String): String
   saveQuote(quote: QuoteInputObject): Quote
   deletePersonEmail: Boolean
+  deleteStoredPerson: Boolean
   savePersonBankUuid(bankUuid: ID): ID
 }
