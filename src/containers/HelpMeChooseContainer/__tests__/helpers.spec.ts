@@ -1,5 +1,13 @@
 import preloadAll from 'jest-next-dynamic';
-import { getBuckets, getMainImageUrl, onReplace } from '../helpers';
+import { NextRouter } from 'next/router';
+import {
+  getBuckets,
+  getMainImageUrl,
+  getNextProgressStep,
+  getPathName,
+  onReplace,
+  setQuery,
+} from '../helpers';
 
 describe('<helpers />', () => {
   beforeEach(async () => {
@@ -72,7 +80,6 @@ describe('<helpers />', () => {
       ]);
     });
   });
-
   describe('onReplace', () => {
     it('should call router.push', async () => {
       const router = {
@@ -133,5 +140,243 @@ describe('<helpers />', () => {
         { shallow: true },
       );
     });
+  });
+  describe('should getNextProgressStep works correctly', () => {
+    it('...with some step', async () => {
+      const searchParams = '?financeTypes=PCH';
+      const copyInitialSteps = {
+        financeTypes: {
+          active: false,
+          value: [],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: false,
+          value: [],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: [],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: [],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: [],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: [],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: [],
+          title: 'Availability',
+        },
+        rental: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+      };
+      const result = {
+        financeTypes: {
+          active: false,
+          value: ['PCH'],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: true,
+          value: [],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: [],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: [],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: [],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: [],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: [],
+          title: 'Availability',
+        },
+        rental: {
+          active: false,
+          value: '' as any,
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: false,
+          value: '' as any,
+          title: 'Results',
+        },
+      };
+
+      await getNextProgressStep(searchParams, copyInitialSteps);
+
+      expect(copyInitialSteps).toMatchObject(result);
+    });
+    it('...with last step', async () => {
+      const searchParams =
+        '?financeTypes=PCH&bodyStyles=Hatchback&fuelTypes=Diesel&transmissions=Manual&terms=36&mileages=8000&availability=14&rental=350&initialPeriods=6';
+      const copyInitialSteps = {
+        financeTypes: {
+          active: false,
+          value: [],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: false,
+          value: [],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: [],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: [],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: [],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: [],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: [],
+          title: 'Availability',
+        },
+        rental: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+      };
+      const result = {
+        financeTypes: {
+          active: false,
+          value: ['PCH'],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: false,
+          value: ['Hatchback'],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: ['Diesel'],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: ['Manual'],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: ['36'],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: ['8000'],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: ['14'],
+          title: 'Availability',
+        },
+        rental: {
+          active: true,
+          value: '350',
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: true,
+          value: '6',
+          title: 'Results',
+        },
+      };
+
+      await getNextProgressStep(searchParams, copyInitialSteps);
+
+      expect(copyInitialSteps).toMatchObject(result);
+    });
+  });
+  it('should getPathName works correctly', () => {
+    const router = {
+      route: '/help-me-choose/[[...param]]',
+    };
+    const queries = {
+      financeTypes: 'PCH',
+      bodyStyles: ['Hatchback'],
+    };
+    expect(getPathName(router as NextRouter, queries)).toEqual(
+      '/help-me-choose/?financeTypes=PCH&bodyStyles=Hatchback',
+    );
+  });
+  it('should setQuery works correctly', async () => {
+    const router = {
+      route: '/help-me-choose/[[...param]]',
+      query: {},
+      push: jest.fn(),
+    };
+    const queries = {
+      financeTypes: 'PCH',
+    };
+
+    await setQuery((router as any) as NextRouter, queries);
+    expect(router.push).toBeCalled();
+    expect(router.push).toBeCalledWith(
+      {
+        pathname: router.route,
+        query: queries,
+      },
+      '/help-me-choose/?financeTypes=PCH',
+      { shallow: true },
+    );
   });
 });

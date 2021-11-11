@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
+import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import { HELP_ME_CHOOSE } from '../../gql/help-me-choose';
 import { FilterListObject } from '../../../generated/globalTypes';
@@ -14,6 +15,7 @@ import {
   buildAnObjectFromAQuery,
   IInitStep,
   initialSteps,
+  getNextProgressStep,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
@@ -39,6 +41,7 @@ const HelpMeChoose: NextPage = () => {
   const [counterState, setCounterState] = useState(1);
   const [resultsData, setResultsData] = useState<Vehicles[]>([]);
   const [pageOffset, setPageOffset] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoading) {
@@ -80,120 +83,38 @@ const HelpMeChoose: NextPage = () => {
     helpMeChooseData?.data,
   );
 
-  const getData = useCallback(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const financeTypesQueryValue = searchParams.getAll('financeTypes');
-    const bodyStylesQuery = searchParams.getAll('bodyStyles');
-    const fuelTypesQuery = searchParams.getAll('fuelTypes');
-    const transmissionsQuery = searchParams.getAll('transmissions');
-    const termsQuery = searchParams.getAll('terms');
-    const mileagesQuery = searchParams.getAll('mileages');
-    const availabilityQuery = searchParams.getAll('availability');
-    const rentalQuery = searchParams.get('rental');
-    const initialPeriodsQuery = searchParams.get('initialPeriods');
-    const bodyStylesQueryValue = bodyStylesQuery.length
-      ? bodyStylesQuery[0].split(',')
-      : [];
-    const fuelTypesQueryValue = fuelTypesQuery.length
-      ? fuelTypesQuery[0].split(',')
-      : [];
-    const transmissionsQueryValue = transmissionsQuery.length
-      ? transmissionsQuery[0].split(',')
-      : [];
-    const termsQueryValue = termsQuery.length ? termsQuery[0].split(',') : [];
-    const mileagesQueryValue = mileagesQuery.length
-      ? mileagesQuery[0].split(',')
-      : [];
-    const availabilityQueryValue = availabilityQuery.length
-      ? availabilityQuery[0].split(',')
-      : [];
-    const isFinanceTypesActive =
-      searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
-    const isBodyStylesActive =
-      searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
-    const isFuelTypesActive =
-      searchParams.has('fuelTypes') && !searchParams.has('transmissions');
-    const isTransmissionsActive =
-      searchParams.has('transmissions') && !searchParams.has('terms');
-    const isTermsActive =
-      searchParams.has('terms') && !searchParams.has('mileages');
-    const isMileagesActive =
-      searchParams.has('mileages') && !searchParams.has('availability');
-    const isAvailabilityActive =
-      searchParams.has('availability') &&
-      !(searchParams.has('initialPeriods') || searchParams.has('rental'));
-    const isResultsActive =
-      searchParams.has('rental') || searchParams.has('initialPeriods');
-    const stepsFromSearch = {
-      financeTypes: {
-        active: isFinanceTypesActive,
-        value: financeTypesQueryValue,
-        title: 'About You',
-      },
-      bodyStyles: {
-        active: isBodyStylesActive,
-        value: bodyStylesQueryValue,
-        title: 'Style',
-      },
-      fuelTypes: {
-        active: isFuelTypesActive,
-        value: fuelTypesQueryValue,
-        title: 'Fuel Types',
-      },
-      transmissions: {
-        active: isTransmissionsActive,
-        value: transmissionsQueryValue,
-        title: 'Gearbox',
-      },
-      terms: {
-        active: isTermsActive,
-        value: termsQueryValue,
-        title: 'Lease Length',
-      },
-      mileages: {
-        active: isMileagesActive,
-        value: mileagesQueryValue,
-        title: 'Mileage',
-      },
-      availability: {
-        active: isAvailabilityActive,
-        value: availabilityQueryValue,
-        title: 'Availability',
-      },
-      rental: {
-        active: isResultsActive,
-        value: rentalQuery as any,
-        title: 'Results',
-      },
-      initialPeriods: {
-        active: isResultsActive,
-        value: initialPeriodsQuery as any,
-        title: 'Results',
-      },
-    };
-    setSteps(stepsFromSearch);
-    const variables = {
-      ...buildAnObjectFromAQuery(searchParams, stepsFromSearch),
-    };
-    getHelpMeChoose({
-      variables,
-    });
-  }, [getHelpMeChoose]);
+  const getData = useCallback(
+    url => {
+      if (url) {
+        const searchParams = url?.replace('/help-me-choose', '');
+        const copyInitialSteps = JSON.parse(JSON.stringify(initialSteps));
+        if (window.location.search.length === 0) {
+          copyInitialSteps.financeTypes.active = true;
+        } else {
+          getNextProgressStep(searchParams, copyInitialSteps);
+        }
+        setSteps(copyInitialSteps);
+
+        const variables = {
+          ...buildAnObjectFromAQuery(
+            new URLSearchParams(searchParams),
+            copyInitialSteps,
+          ),
+        };
+        getHelpMeChoose({
+          variables,
+        });
+      }
+    },
+    [getHelpMeChoose],
+  );
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window?.location.search);
-    if (searchParams.has('financeTypes')) {
-      getData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('popstate', getData);
+    router.events.on('routeChangeComplete', getData);
     return () => {
-      window.removeEventListener('popstate', getData);
+      router.events.off('routeChangeComplete', getData);
     };
-  }, [getData]);
+  }, [getData, router.events]);
 
   useEffect(() => {
     let animation: NodeJS.Timeout;
@@ -208,7 +129,10 @@ const HelpMeChoose: NextPage = () => {
     };
   }, [isLoading]);
 
-  const pageTitle = Object.values(steps).find(el => el.active).title;
+  const pageTitle = useMemo(
+    () => Object.values(steps).find(el => el.active)?.title || '',
+    [steps],
+  );
 
   const metaData = {
     title: `${pageTitle} Help Me Choose | Vanarama` || null,
@@ -228,7 +152,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (
         <>
@@ -240,16 +164,12 @@ const HelpMeChoose: NextPage = () => {
           )}
           <HelpMeChooseProgressIndicator
             steps={steps}
-            setSteps={setSteps}
-            getHelpMeChoose={getHelpMeChoose}
             setLoadingStatus={setLoadingStatus}
             setPageOffset={setPageOffset}
           />
           {steps.financeTypes.active && (
             <HelpMeChooseAboutYou
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -257,8 +177,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.bodyStyles.active && !!bodyStyleData?.length && (
             <HelpMeChooseBodyStyle
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -266,8 +184,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.fuelTypes.active && !!fuelTypesData?.length && (
             <HelpMeChooseFuelTypes
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -275,8 +191,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.transmissions.active && !!transmissionsData?.length && (
             <HelpMeChooseTransmissions
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -284,8 +198,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.terms.active && !!termsData?.length && (
             <HelpMeChooseTerms
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -293,8 +205,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.mileages.active && !!mileagesData?.length && (
             <HelpMeChooseMiles
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -302,8 +212,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.availability.active && !!availabilityData?.length && (
             <HelpMeChooseAvailability
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
             />
@@ -311,8 +219,6 @@ const HelpMeChoose: NextPage = () => {
           {steps.rental.active && steps.initialPeriods.active && (
             <HelpMeChooseResult
               steps={steps}
-              setSteps={setSteps}
-              getHelpMeChoose={getHelpMeChoose}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
               counterState={counterState}
