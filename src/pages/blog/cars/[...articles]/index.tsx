@@ -1,5 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -31,7 +35,6 @@ const BlogPost: NextPage<IBlogPostWithCarousel> = ({
   vehicleListUrlData,
   productsCarDerivatives,
 }) => {
-  // De-obfuscate data for user
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -66,9 +69,11 @@ const BlogPost: NextPage<IBlogPostWithCarousel> = ({
   );
 };
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IBlogPostWithCarousel>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {

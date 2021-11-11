@@ -1,6 +1,6 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { PreviewNextPageContext } from 'types/common';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -29,18 +29,10 @@ import {
   BlogPostVariables,
 } from '../../../../../generated/BlogPost';
 import { convertErrorToProps } from '../../../../utils/helpers';
-import ErrorPage from '../../../_error';
 
-const BlogPost: NextPage<IBlogPost> = ({
-  data,
-  error,
-  blogPosts: encodedData,
-}) => {
-  if (error || !data || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
+type IProps = IPageWithData<IBlogPost>;
 
-  // De-obfuscate data for user
+const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -71,7 +63,7 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query<BlogPosts, BlogPostsVariables>({
@@ -98,9 +90,11 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   }
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({});
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
@@ -132,6 +126,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
         blogPosts: newBlogPostsData,
       },
@@ -152,6 +147,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };
