@@ -51,6 +51,7 @@ extend type Query {
   storedPersonEmail: String
   storedPersonBankUuid: PersonBankUuidInputObject
   storedQuote: Quote
+  storedWishlistVehicleIds: [String]
   isSSRAuthError: Boolean
 }
 
@@ -62,4 +63,5 @@ extend type Mutation {
   saveQuote(quote: QuoteInputObject): Quote
   deletePersonEmail: Boolean
   savePersonBankUuid(bankUuid: ID): ID
+  saveWishlistVehicleIds(ids: [String]): [String]
 }
