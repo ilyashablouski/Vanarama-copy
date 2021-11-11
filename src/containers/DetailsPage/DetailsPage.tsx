@@ -78,6 +78,8 @@ import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
 import { PdpBanners } from '../../models/enum/PdpBanners';
 import FreeInsuranceBanner from './FreeInsuranceBanner';
+import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -369,7 +371,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const [saveOrderMutation] = useSaveOrderMutation();
   const [deletePersonEmailMutation] = useDeletePersonEmailMutation();
+  const [deleteStoredPersonMutation] = useDeleteStoredPersonMutation();
   const [saveQuoteMutation] = useSaveQuoteMutation();
+
+  const isPersonLoggedIn = isUserAuthenticated();
 
   const bannerList = useMemo(() => {
     const banners = pdpContentData?.pdpContent?.banners ?? [];
@@ -412,12 +417,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         },
       }),
     ])
-      .then(() =>
-        Promise.all([
+      .then(() => {
+        const onDeleteStoredPerson = !isPersonLoggedIn
+          ? deleteStoredPersonMutation().then(() => {})
+          : Promise.resolve();
+        return Promise.all([
           deletePersonEmailMutation(),
           localForage.removeItem('personUuid'),
-        ]),
-      )
+          onDeleteStoredPerson,
+        ]);
+      })
       .then(() => {
         let url =
           leaseType === LeaseTypeEnum.PERSONAL
