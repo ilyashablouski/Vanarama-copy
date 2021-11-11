@@ -20,6 +20,12 @@ import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
 
+interface ExtendsIColourList extends IColourList {
+  hex?: string;
+  leadTime?: string;
+  onOffer?: boolean;
+}
+
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -103,9 +109,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trimList, setTrimList] = useState<(ITrimList | null)[] | null>(
     trimData,
   );
-  const [colourList, setColourList] = useState<(IColourList | null)[] | null>(
-    colourData,
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [colourList, setColourList] = useState<
+    (ExtendsIColourList | null)[] | null
+  >(colourData);
 
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -142,7 +149,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     trim || undefined,
     result => {
       setTrimList(result?.trimList);
-      setColourList(result.colourList || []);
+      // setColourList(result.colourList || []);
     },
   );
 

@@ -314,6 +314,7 @@ const CustomiseLease = ({
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
+        isColorSelect
       />
 
       <CustomLeaseSelect
@@ -397,10 +398,9 @@ const CustomiseLease = ({
       </LazyLoadComponent>
       {!isMobile && (
         <div
-          className={cx(
-            'lease-scanner--sticky-wrap',
-            (screenY || 0) < 350 ? 'start-screen' : '',
-          )}
+          className={cx('lease-scanner--sticky-wrap', {
+            'start-screen': screenY,
+          })}
           style={{ opacity: '1' }}
         >
           <LeaseScanner

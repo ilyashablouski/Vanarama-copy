@@ -33,7 +33,7 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { toPriceFormat } from '../../../utils/helpers';
+import { createUpdatedColorsList, toPriceFormat } from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
   GenericPageHeadQuery,
@@ -83,6 +83,7 @@ interface IProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  fullColorInfo?: any;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -97,6 +98,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   leaseTypeQuery,
   pdpContent,
   imacaAssets,
+  fullColorInfo,
 }) => {
   // De-obfuscate data for user
   const productCard = decodeData(encodedData);
@@ -192,6 +194,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         genericPages={genericPages}
         productCard={productCard}
         leaseTypeQuery={leaseTypeQuery}
+        fullColorInfo={fullColorInfo}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -326,6 +329,17 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
+    const fullColorInfo = await createUpdatedColorsList(
+      trimAndColorData?.data?.colourList,
+      imacaAssets.data.getImacaAssets?.colours,
+      client,
+      capId,
+      mileage,
+      term,
+      upfront,
+      leaseType,
+    );
+
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
       breadcrumbSlugsArray.slice(0, id + 1).join('/'),
@@ -377,6 +391,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         genericPages: genericPages || null,
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
+        fullColorInfo,
       },
     };
   } catch (error) {

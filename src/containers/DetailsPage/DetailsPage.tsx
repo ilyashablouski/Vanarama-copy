@@ -152,6 +152,7 @@ interface IDetailsPageProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  fullColorInfo?: any;
 }
 
 const parseQuoteParams = (param?: string | null) =>
@@ -174,6 +175,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   leaseTypeQuery,
   pdpContent: pdpContentData,
   imacaAssets,
+  fullColorInfo,
 }) => {
   const router = useRouter();
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
@@ -766,7 +768,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseType={leaseType}
             setLeaseType={setLeaseType}
             trimData={trimList}
-            colourData={colourList}
+            colourData={fullColorInfo}
             setLeadTime={setLeadTime}
             isPlayingLeaseAnimation={isPlayingLeaseAnimation}
             setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
@@ -825,7 +827,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
           trimData={trimList}
-          colourData={colourList}
+          colourData={fullColorInfo}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
           isPlayingLeaseAnimation={isPlayingLeaseAnimation}

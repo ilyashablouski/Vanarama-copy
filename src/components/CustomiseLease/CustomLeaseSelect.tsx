@@ -1,13 +1,16 @@
 import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
 import Radio from 'core/atoms/radio';
-import CustomSelect from 'core/atoms/custom-select';
+import CustomColorsSelect from 'core/atoms/custom-colors-select/CustomColorsSelect';
+import CustomSelect from 'core/atoms/custom-select/CustomNewSelect';
+import CustomColorsList from 'core/atoms/custom-colors-select/components/CustomColorsList';
+import getStructuredList from 'core/atoms/custom-colors-select/helpers';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
 import { Nullish } from '../../types/common';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 interface IProps {
   defaultValue: string;
@@ -17,6 +20,7 @@ interface IProps {
   isDisabled: boolean;
   modalElement: HTMLDivElement;
   dataTestId: string;
+  isColorSelect?: boolean;
 }
 
 const CustomLeaseSelect = ({
@@ -27,6 +31,7 @@ const CustomLeaseSelect = ({
   isDisabled,
   modalElement,
   dataTestId,
+  isColorSelect,
 }: IProps) => {
   const [tempValue, setTempValue] = useState<string>(defaultValue);
   const isDesktop = !useMobileViewport();
@@ -43,6 +48,56 @@ const CustomLeaseSelect = ({
         : '',
     [items, defaultValue],
   );
+
+  const structuredOptionsList = useMemo(() => getStructuredList(items), [
+    items,
+  ]);
+
+  if (isColorSelect) {
+    return (
+      <>
+        {isDesktop ? (
+          <CustomColorsSelect
+            label={label}
+            dataTestId={dataTestId}
+            radioName={placeholder}
+            isDisabled={isDisabled}
+            selectedValue={selectedValue}
+            placeholder={placeholder}
+            className="-fullwidth"
+            onChange={option => {
+              setChanges(+option.currentTarget.getAttribute('data-id')!);
+            }}
+            selectedItemsList={structuredOptionsList}
+          />
+        ) : (
+          <CustomSelectInput
+            dataTestId={dataTestId}
+            label={label}
+            title={placeholder}
+            disabled={isDisabled}
+            modalElement={modalElement}
+            onCloseModal={() => {
+              if (tempValue !== defaultValue) {
+                setChanges(+tempValue);
+              }
+            }}
+            listRender={
+              <CustomColorsList
+                selectedItemsList={structuredOptionsList}
+                isDisabled={isDisabled}
+                selectedValue={selectedValue}
+                tempValue={Number(tempValue)}
+                onChange={option => {
+                  setTempValue(option.currentTarget.getAttribute('data-id')!);
+                }}
+              />
+            }
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <>
