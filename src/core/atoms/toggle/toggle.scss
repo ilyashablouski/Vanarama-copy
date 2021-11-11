@@ -26,13 +26,13 @@
       color $duration-medium $transition-soft;
   }
 
-  &--input:not(:checked) + &--input-label &--on {
+  &--input:not(:checked) + &--input-label &--off {
     background: var(--class-color);
     border-color: var(--class-color);
     color: var(--class-color-contrast);
   }
 
-  &--input:checked + &--input-label &--off {
+  &--input:checked + &--input-label &--on {
     background: var(--class-color);
     border-color: var(--class-color);
     color: var(--class-color-contrast);

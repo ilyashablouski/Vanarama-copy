@@ -8,6 +8,7 @@ import VehicleCard from '../../components/VehicleCard';
 import { rangeList } from '../../../generated/rangeList';
 import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';
+import { Nullable } from '../../types/common';
 
 const getUrlForVehicleCard = (vehicle: IVehicles) =>
   vehicle.node?.manufacturerName === 'Abarth'
@@ -23,7 +24,7 @@ interface IProps {
   isCarSearch?: boolean;
   manufacturers: manufacturerList;
   manufacturersUrls?: IGenericPages['items'];
-  cardsData: (IProductCard | null)[];
+  cardsData: Nullable<IProductCard>[];
   vehiclesList: any;
   isModelPage?: boolean;
   customCTAColor?: string;
