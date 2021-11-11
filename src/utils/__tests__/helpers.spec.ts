@@ -8,6 +8,7 @@ import {
   parseVehicleConfigId,
   toDataAbTestIdFormat,
   convertErrorToProps,
+  createWarrantyText,
 } from '../helpers';
 
 describe('arraysAreEqual', () => {
@@ -323,5 +324,24 @@ describe('convertErrorToProps', () => {
       statusCode: 500,
       message: errorMessage,
     });
+  });
+});
+
+describe('createWarrantyText', () => {
+  it('createWarrantyText should return unlimited miles', () => {
+    expect(
+      createWarrantyText({
+        years: 5,
+        mileage: -1,
+      }),
+    ).toEqual('5 Years Manufacturer AND Unlimited Miles');
+  });
+  it('createWarrantyText should return miles value', () => {
+    expect(
+      createWarrantyText({
+        years: 5,
+        mileage: 50000,
+      }),
+    ).toEqual('5 Years Manufacturer Or 50000 Miles');
   });
 });

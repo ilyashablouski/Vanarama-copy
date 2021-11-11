@@ -73,6 +73,15 @@ export interface IOrderList {
     | undefined;
 }
 
+export const createWarrantyText = (
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null,
+) =>
+  `${warrantyDetails?.years} Years Manufacturer ${
+    warrantyDetails?.mileage === -1 ? 'AND' : 'Or'
+  } ${
+    warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
+  } Miles`;
+
 export const getOrderList = ({
   quoteByCapId,
   stateVAT,
@@ -185,9 +194,9 @@ export const getOrderList = ({
     },
     {
       label: 'Warranty:',
-      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
+      value: createWarrantyText(warrantyDetails),
       id: 'warranty',
-      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
+      key: createWarrantyText(warrantyDetails),
       dataTestId: 'warranty',
       isOrange: false,
     },
