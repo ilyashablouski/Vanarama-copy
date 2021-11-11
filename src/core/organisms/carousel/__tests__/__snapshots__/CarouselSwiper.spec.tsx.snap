@@ -12,7 +12,7 @@ exports[`<CarouselSwiper /> should render correctly with children 1`] = `
         "prevEl": ".swiper-prev",
       }
     }
-    noSwipingSelector="input, select, option, textarea, button, video, label"
+    noSwipingSelector="input, select, option, textarea, button, .button, video, label"
     pagination={
       Object {
         "clickable": true,
@@ -87,7 +87,7 @@ exports[`<CarouselSwiper /> should render correctly with two children 1`] = `
         "prevEl": ".swiper-prev",
       }
     }
-    noSwipingSelector="input, select, option, textarea, button, video, label"
+    noSwipingSelector="input, select, option, textarea, button, .button, video, label"
     pagination={
       Object {
         "clickable": true,
