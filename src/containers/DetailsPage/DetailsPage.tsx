@@ -906,6 +906,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setIsAgreeInsuranceRules={setIsAgreeInsuranceRules}
           onContinueWithInsurance={() => onOrderStart(true)}
           onContinueWithoutInsurance={() => onOrderStart(false)}
+          isBusinessLease={leaseType === LeaseTypeEnum.BUSINESS}
         />
       )}
       <Head
