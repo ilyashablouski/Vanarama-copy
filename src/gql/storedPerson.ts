@@ -9,6 +9,7 @@ import {
 import { GetStoredPerson } from '../../generated/GetStoredPerson';
 import { SavePerson, SavePersonVariables } from '../../generated/SavePerson';
 import { PERSON_DATA_FRAGMENT } from '../containers/LoginFormContainer/gql';
+import { DeleteStoredPerson } from '../../generated/DeleteStoredPerson';
 
 export const GET_STORED_PERSON_QUERY = gql`
   query GetStoredPerson {
@@ -66,4 +67,20 @@ export function setStoredPerson(
     })
     .then(operation => operation.data?.savePerson)
     .catch(() => null);
+}
+
+export const DELETE_PERSON_MUTATION = gql`
+  mutation DeleteStoredPerson {
+    deleteStoredPerson @client
+  }
+`;
+
+export function useDeleteStoredPersonMutation(
+  onCompleted?: (mutationResult: DeleteStoredPerson) => void,
+  onError?: (error: ApolloError) => void,
+) {
+  return useMutation<DeleteStoredPerson>(DELETE_PERSON_MUTATION, {
+    onCompleted,
+    onError,
+  });
 }
