@@ -301,7 +301,7 @@ export const partnerOffersRequest = async (
   ] = await Promise.all([
     getCarDerivatives(client, VehicleTypeEnum.CAR, productsCarIds),
     getCarDerivatives(client, VehicleTypeEnum.LCV, productsPickupIds),
-    getCarDerivatives(client, VehicleTypeEnum.CAR, productsVanIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsVanIds),
   ]);
 
   const vehicleListUrlData = await getVehicleListUrlQuery(client, [
