@@ -127,7 +127,7 @@ exports[`<OlafCard /> Olaf Card should render correctly 1`] = `
           "dataTestId": "warranty",
           "label": "Warranty",
           "name": "warranty",
-          "value": "undefined Years Manufacturer AND undefined Miles",
+          "value": "undefined Years Manufacturer And undefined Miles",
         },
         Object {
           "dataTestId": "roadTax",
