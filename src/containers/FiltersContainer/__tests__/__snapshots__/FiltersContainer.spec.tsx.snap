@@ -130,21 +130,6 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   >
                     Select make
                   </option>
-                  <option
-                    value="Citroën"
-                  >
-                    Citroën
-                  </option>
-                  <option
-                    value="Dacia"
-                  >
-                    Dacia
-                  </option>
-                  <option
-                    value="BMW"
-                  >
-                    BMW
-                  </option>
                 </select>
                 <span
                   class="icon select--chevron"
@@ -456,32 +441,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             </label>
             <div
               class="formgroup--content"
-            >
-              <div
-                class="choice-boxes -cols-1 -medium"
-              >
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    Dropside Tipper
-                  </span>
-                </button>
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    Large Van
-                  </span>
-                </button>
-              </div>
-            </div>
+            />
           </div>
           <button
             class="button -fullwidth -teal -small -solid"
@@ -534,32 +494,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             </label>
             <div
               class="formgroup--content"
-            >
-              <div
-                class="choice-boxes -cols-1 -medium"
-              >
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    Automatic
-                  </span>
-                </button>
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    Manual
-                  </span>
-                </button>
-              </div>
-            </div>
+            />
           </div>
           <button
             class="button -fullwidth -teal -small -solid"
@@ -612,32 +547,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             </label>
             <div
               class="formgroup--content"
-            >
-              <div
-                class="choice-boxes -cols-1 -medium"
-              >
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    diesel
-                  </span>
-                </button>
-                <button
-                  class="choice-box"
-                  type="button"
-                >
-                  <span
-                    class="choice-label"
-                  >
-                    iii
-                  </span>
-                </button>
-              </div>
-            </div>
+            />
           </div>
           <button
             class="button -fullwidth -teal -small -solid"
