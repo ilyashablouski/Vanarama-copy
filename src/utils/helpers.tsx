@@ -76,9 +76,7 @@ export interface IOrderList {
 export const createWarrantyText = (
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null,
 ) =>
-  `${warrantyDetails?.years} Years Manufacturer ${
-    warrantyDetails?.mileage === -1 ? 'AND' : 'Or'
-  } ${
+  `${warrantyDetails?.years} Years Manufacturer AND ${
     warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
   } Miles`;
 

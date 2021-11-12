@@ -605,7 +605,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             className="structured-list-td"
             data-testid="warranty"
           >
-            undefined Years Manufacturer Or undefined Miles
+            undefined Years Manufacturer AND undefined Miles
           </div>
         </div>
         <div
@@ -1483,7 +1483,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             className="structured-list-td"
             data-testid="warranty"
           >
-            undefined Years Manufacturer Or undefined Miles
+            undefined Years Manufacturer AND undefined Miles
           </div>
         </div>
         <div

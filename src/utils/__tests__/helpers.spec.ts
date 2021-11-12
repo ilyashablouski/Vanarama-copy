@@ -237,9 +237,9 @@ describe('getOrderList', () => {
         dataTestId: 'warranty',
         id: 'warranty',
         isOrange: false,
-        key: '5 Years Manufacturer Or 50000 Miles',
+        key: '5 Years Manufacturer AND 50000 Miles',
         label: 'Warranty:',
-        value: '5 Years Manufacturer Or 50000 Miles',
+        value: '5 Years Manufacturer AND 50000 Miles',
       },
       {
         dataTestId: 'roadTax',
@@ -342,6 +342,6 @@ describe('createWarrantyText', () => {
         years: 5,
         mileage: 50000,
       }),
-    ).toEqual('5 Years Manufacturer Or 50000 Miles');
+    ).toEqual('5 Years Manufacturer AND 50000 Miles');
   });
 });
