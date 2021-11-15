@@ -41,30 +41,29 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
         onBlur={onBlur}
         onChange={onChange}
         onFocus={onFocus}
+        autoComplete="off"
         ref={ref}
         type="checkbox"
       />
       <label
+        htmlFor={id}
         className={cx('toggle--input-label', `-${color}`, {
           '-disabled': disabled,
         })}
-        htmlFor={id}
       >
         <span className="toggle--switch">
-          {checked ? (
-            <span className="toggle--off" style={customStyles}>
-              {onLabel}
-            </span>
-          ) : (
-            <span className="toggle--off">{onLabel}</span>
-          )}
-          {!checked ? (
-            <span className="toggle--on" style={customStyles}>
-              {offLabel}
-            </span>
-          ) : (
-            <span className="toggle--on">{offLabel}</span>
-          )}
+          <span
+            className="toggle--on"
+            style={checked ? customStyles : undefined}
+          >
+            {onLabel}
+          </span>
+          <span
+            className="toggle--off"
+            style={!checked ? customStyles : undefined}
+          >
+            {offLabel}
+          </span>
         </span>
       </label>
     </div>

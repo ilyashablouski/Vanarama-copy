@@ -91,7 +91,7 @@ export const getFunderTerm = (
 
 export const getFunderName = (data: Nullish<ILeaseData>) =>
   data?.creditApplicationByOrderUuid?.lineItem?.vehicleProduct?.funderData
-    .funder_name;
+    ?.funder_name;
 
 export const OlafContext = createContext({
   requiredMonths: DEFAULT_TERM,

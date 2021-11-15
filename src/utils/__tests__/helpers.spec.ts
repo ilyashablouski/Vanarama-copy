@@ -8,6 +8,7 @@ import {
   parseVehicleConfigId,
   toDataAbTestIdFormat,
   convertErrorToProps,
+  createWarrantyText,
 } from '../helpers';
 
 describe('arraysAreEqual', () => {
@@ -236,9 +237,9 @@ describe('getOrderList', () => {
         dataTestId: 'warranty',
         id: 'warranty',
         isOrange: false,
-        key: '5 Years Manufacturer Or 50000 Miles',
+        key: '5 Years Manufacturer And 50000 Miles',
         label: 'Warranty:',
-        value: '5 Years Manufacturer Or 50000 Miles',
+        value: '5 Years Manufacturer And 50000 Miles',
       },
       {
         dataTestId: 'roadTax',
@@ -323,5 +324,24 @@ describe('convertErrorToProps', () => {
       statusCode: 500,
       message: errorMessage,
     });
+  });
+});
+
+describe('createWarrantyText', () => {
+  it('createWarrantyText should return unlimited miles', () => {
+    expect(
+      createWarrantyText({
+        years: 5,
+        mileage: -1,
+      }),
+    ).toEqual('5 Years Manufacturer And Unlimited Miles');
+  });
+  it('createWarrantyText should return miles value', () => {
+    expect(
+      createWarrantyText({
+        years: 5,
+        mileage: 50000,
+      }),
+    ).toEqual('5 Years Manufacturer And 50000 Miles');
   });
 });

@@ -72,8 +72,8 @@ const VehicleCard = React.memo(
     const productPageUrl = formatProductPageUrl(url, derivativeId);
     const urlWithPriceQuery = useMemo(() => {
       if (
-        (isPersonalPrice && data.vehicleType === VehicleTypeEnum.CAR) ||
-        (!isPersonalPrice && data.vehicleType === VehicleTypeEnum.LCV)
+        (isPersonalPrice && data?.vehicleType === VehicleTypeEnum.CAR) ||
+        (!isPersonalPrice && data?.vehicleType === VehicleTypeEnum.LCV)
       ) {
         return productPageUrl.url;
       }

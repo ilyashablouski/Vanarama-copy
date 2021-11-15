@@ -52,6 +52,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         class="toggle--wrapper search-filters--toggle"
       >
         <input
+          autocomplete="off"
           checked=""
           class="toggle toggle--input"
           id="contractType"
@@ -65,12 +66,12 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             class="toggle--switch"
           >
             <span
-              class="toggle--off"
+              class="toggle--on"
             >
               Personal
             </span>
             <span
-              class="toggle--on"
+              class="toggle--off"
             >
               Business
             </span>
