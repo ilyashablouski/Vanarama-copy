@@ -10,6 +10,7 @@ import {
   GetDerivative_vehicleDetails_roadsideAssistance,
   GetDerivative_vehicleDetails_warrantyDetails,
 } from '../../../../../generated/GetDerivative';
+import { createWarrantyText } from '../../../../utils/helpers';
 
 export interface IOlafDetails {
   isFreeInsurance?: boolean | null;
@@ -134,7 +135,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
     {
       name: 'warranty',
       label: 'Warranty',
-      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
+      value: createWarrantyText(warrantyDetails),
       dataTestId: 'warranty',
     },
     {

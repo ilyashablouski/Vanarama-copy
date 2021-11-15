@@ -450,3 +450,6 @@ export const scrollIntoPreviousView = (
     setTimeout(() => scrollTo(), 400);
   }
 };
+
+export const countOfUniqueQueries = (queries: ParsedUrlQuery) =>
+  [...new Set(Object.values(queries))].length;
