@@ -328,7 +328,8 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
-  const path = context.req?.url?.split('?')[0] || '';
+  const path = context.resolvedUrl?.split('?')[0] || '';
+
   try {
     const { data } = await client.query<Partner, PartnerVariables>({
       query: PARTNER,
