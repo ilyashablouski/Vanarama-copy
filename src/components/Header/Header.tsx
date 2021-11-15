@@ -112,7 +112,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           classNames={{ color: 'orange', plain: true }}
           className="logo header-logo"
         >
-          <Logo asset="vanarama" />
+          <Logo assetName="vanarama" />
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}

@@ -14,11 +14,13 @@ import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 interface IProps {
   suggestions: ISuggestion[];
   searchQuery: string;
+  dataUiTestId?: string;
 }
 
 const GlobalSearchRightSideContainer = ({
   suggestions,
   searchQuery,
+  dataUiTestId,
 }: IProps) => {
   const router = useRouter();
 
@@ -89,12 +91,12 @@ const GlobalSearchRightSideContainer = ({
       ) : (
         <>
           <span className="heading -small -dark">Vehicle Deals</span>
-
           <div className="card-two-columns -animate">
             {suggestions.map((data, index) => {
               return (
                 <GlobalSearchCard
                   data={data}
+                  dataUiTestId={`${dataUiTestId}_product-card-${index}`}
                   imgUrl={getImgUrl(
                     `${data.derivativeId}`,
                     (data.vehicleType as VehicleTypeEnum) ??
@@ -111,6 +113,7 @@ const GlobalSearchRightSideContainer = ({
           </div>
           <RouterLink
             className="view-all"
+            dataUiTestId={`${dataUiTestId}_view-all-button`}
             link={{
               href: '/search',
               label: '',

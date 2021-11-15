@@ -45,6 +45,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   callBack,
   termsAndConditions,
   onCompleted,
+  dataUiTestId,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -58,6 +59,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
 
   const goldrushForm = () => (
     <GoldrushForm
+      dataUiTestId={`${dataUiTestId}_goldrush-form`}
       callBack={callBack}
       isSubmitting={loading}
       heading={callBack ? 'Please Fill In Your Details' : 'Get Your Quote Now'}

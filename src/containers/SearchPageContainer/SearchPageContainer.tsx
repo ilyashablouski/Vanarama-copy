@@ -145,6 +145,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
+  dataUiTestId,
 }: ISearchPageContainerProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -916,6 +917,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       {shouldBlackFridayBannerRender ? (
         <section className="row:featured-bf">
           <SearchPageTitle
+            dataUiTestId={`${dataUiTestId}_page-title`}
             breadcrumbsItems={breadcrumbsItems}
             pageTitle={pageTitle}
             titleWithBreaks={titleWithBreaks}
@@ -931,6 +933,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         </section>
       ) : (
         <SearchPageTitle
+          dataUiTestId={`${dataUiTestId}_page-title`}
           breadcrumbsItems={breadcrumbsItems}
           pageTitle={pageTitle}
           titleWithBreaks={titleWithBreaks}
@@ -955,7 +958,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           featured && <ReadMoreBlock featured={featured} />}
 
       {isNewPage && isRangePage ? (
-        <TopCategoryInfoBlock pageData={pageData} />
+        <TopCategoryInfoBlock
+          dataUiTestId={`${dataUiTestId}_top-category-info`}
+          pageData={pageData}
+        />
       ) : null}
 
       {isAllManufacturersPage && topInfoSection && (
@@ -964,6 +970,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
 
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
+          dataUiTestId={`${dataUiTestId}_top-offers`}
           isCarSearch={isCarSearch}
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
@@ -1052,6 +1059,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           )}
           <div className="row:cards-3col">
             <ResultsContainer
+              dataUiTestId={`${dataUiTestId}_search-results`}
               isManufacturerPage={isManufacturerPage}
               isAllManufacturersPage={isAllManufacturersPage}
               ranges={ranges}

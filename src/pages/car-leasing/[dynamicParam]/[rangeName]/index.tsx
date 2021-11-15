@@ -121,6 +121,7 @@ const Page: NextPage<IProps> = ({
 
   return (
     <SearchPageContainer
+      dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
       isRangePage
