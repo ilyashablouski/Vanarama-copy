@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import CheckBox from 'core/atoms/checkbox';
 import { termsAndCons, privacyPolicy } from '../../utils/inputValidators';
+import RouterLink from '../RouterLink';
 
 interface IGenericCheckboxes {
   id: string;
@@ -38,14 +39,15 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
       name="privacyPolicy"
       label={[
         'I have read and understood the ',
-        <a
-          key="a-privacy"
-          className="link -teal"
-          href="/legal/privacy-policy.html"
-          target="_blank"
-        >
-          Privacy Policy
-        </a>,
+        <RouterLink
+          key={id || ''}
+          link={{
+            href: '/legal/privacy-policy',
+            label: 'Privacy Policy',
+            target: '_blank',
+          }}
+          classNames={{ color: 'teal' }}
+        />,
       ]}
       ref={register(privacyPolicy)}
     />
