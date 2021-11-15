@@ -81,6 +81,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       {/* <NextLink href="/password-reset" passHref> */}
       <Link
         dataTestId="forgot-password"
+        dataUiTestId="login-form-forgot-password"
         href="/account/password-request"
         color="teal"
       >
