@@ -11,6 +11,7 @@ import { GET_VEHICLE_LIST } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import {
+  countOfUniqueQueries,
   getCapsIds,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
@@ -144,8 +145,8 @@ export async function getServerSideProps(
         direction: SortDirection.ASC,
       },
     ]);
-    // should contain only 2 routs params(make, range)
-    if (Object.keys(context.query).length === 2) {
+    // should contain only 2 routs params(make, range). But can contain dynamicParam with the same value as make when ApolloClient resets.
+    if (countOfUniqueQueries(context.query) === 2) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,

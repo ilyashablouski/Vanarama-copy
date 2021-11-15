@@ -9,6 +9,7 @@ import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../../apolloClient';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
+  countOfUniqueQueries,
   getCapsIds,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
@@ -154,7 +155,7 @@ export async function getServerSideProps(
         direction: SortDirection.ASC,
       },
     ]);
-    if (Object.keys(context.query).length === 3) {
+    if (countOfUniqueQueries(context.query) === 3) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,
