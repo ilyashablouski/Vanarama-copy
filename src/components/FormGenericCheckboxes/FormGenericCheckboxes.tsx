@@ -40,6 +40,7 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
       label={[
         'I have read and understood the ',
         <RouterLink
+          key={id || ''}
           link={{
             href: '/legal/privacy-policy',
             label: 'Privacy Policy',
