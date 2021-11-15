@@ -67,6 +67,7 @@ exports[`<RangeCard /> should be render correctly 1`] = `
         <a
           class="button -teal -regular -solid"
           data-testid="link"
+          data-uitestid="range-card_view-all-button"
           href="/bmw-car-leasing/2-series.html"
         >
           <div
@@ -148,6 +149,7 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         <a
           class="button -teal -regular -solid"
           data-testid="link"
+          data-uitestid="range-card_view-all-button"
           href="/bmw-car-leasing.html"
         >
           <div

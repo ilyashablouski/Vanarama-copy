@@ -295,7 +295,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
     return (
       <GoldrushFormContainer
-        dataUiTestId={`${dataUiTestId}_customize-lease`}
+        dataUiTestId={`${dataUiTestId}_goldrush-form`}
         termsAndConditions
         isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
         capId={capId}
@@ -359,7 +359,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         onRequestClose={() => setShowCallBackForm(false)}
       >
         <GoldrushFormContainer
-          dataUiTestId={`${dataUiTestId}_customize-lease`}
+          dataUiTestId={`${dataUiTestId}_goldrush-form`}
           isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
           capId={capId}
           callBack

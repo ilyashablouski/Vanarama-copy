@@ -194,7 +194,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-0_label"
+                      >
                         Lowest Price Guaranteed
                       </span>
                     </div>
@@ -221,7 +223,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-1_label"
+                      >
                         FREE 30-Day Returns
                       </span>
                     </div>
@@ -241,7 +245,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                         />
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-2_label"
+                      >
                         Rated Excellent
                       </span>
                     </div>
@@ -268,7 +274,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-3_label"
+                      >
                         £250 Cashback On Every Vehicle
                       </span>
                     </div>
@@ -317,7 +325,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-4_label"
+                      >
                         FREE & Fast Delivery
                       </span>
                     </div>
@@ -353,7 +363,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-0_label"
+                      >
                         Lowest Price Guaranteed
                       </span>
                     </div>
@@ -380,7 +392,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-1_label"
+                      >
                         FREE 30-Day Returns
                       </span>
                     </div>
@@ -400,7 +414,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                         />
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-2_label"
+                      >
                         Rated Excellent
                       </span>
                     </div>
@@ -427,7 +443,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-3_label"
+                      >
                         £250 Cashback On Every Vehicle
                       </span>
                     </div>
@@ -476,7 +494,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-4_label"
+                      >
                         FREE & Fast Delivery
                       </span>
                     </div>
@@ -512,7 +532,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-0_label"
+                      >
                         Lowest Price Guaranteed
                       </span>
                     </div>
@@ -539,7 +561,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-1_label"
+                      >
                         FREE 30-Day Returns
                       </span>
                     </div>
@@ -559,7 +583,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                         />
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-2_label"
+                      >
                         Rated Excellent
                       </span>
                     </div>
@@ -586,7 +612,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-3_label"
+                      >
                         £250 Cashback On Every Vehicle
                       </span>
                     </div>
@@ -635,7 +663,9 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                           </g>
                         </svg>
                       </i>
-                      <span>
+                      <span
+                        data-uitestid="benefits-bar_benefits-item-4_label"
+                      >
                         FREE & Fast Delivery
                       </span>
                     </div>

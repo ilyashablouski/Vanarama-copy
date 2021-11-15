@@ -260,6 +260,7 @@ describe('<TopOffersContainer />', () => {
       manualBodyStyle: ['test'],
       shouldForceUpdate: false,
       setShouldForceUpdate: jest.fn(),
+      dataUiTestId: 'top-offers',
       preLoadProductCardsData: {
         productCard: [
           {

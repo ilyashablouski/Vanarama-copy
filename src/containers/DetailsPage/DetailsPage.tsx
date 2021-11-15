@@ -770,7 +770,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {isMobile && (
           <CustomiseLeaseContainer
-            dataUiTestId={dataUiTestId}
+            dataUiTestId={`${dataUiTestId}_customise-lease`}
             quote={quote}
             capId={capId}
             isShowFreeInsuranceMerch={isFreeInsurance!}
@@ -832,7 +832,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </div>
       {!isMobile && (
         <CustomiseLeaseContainer
-          dataUiTestId={dataUiTestId}
+          dataUiTestId={`${dataUiTestId}_customise-lease`}
           quote={quote}
           capId={capId}
           isShowFreeInsuranceMerch={isFreeInsurance!}

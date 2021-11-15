@@ -237,6 +237,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         </Heading>
         <ForwardRef(Button)
           color="teal"
+          dataUiTestId="comparator-bar_compare-button"
           disabled={false}
           label="Compare Vehicles"
           onClick={[Function]}
@@ -244,6 +245,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         >
           <button
             className="button -teal -lead -solid"
+            data-uitestid="comparator-bar_compare-button"
             disabled={false}
             onClick={[Function]}
           >
