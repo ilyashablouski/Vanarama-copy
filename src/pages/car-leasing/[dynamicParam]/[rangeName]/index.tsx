@@ -22,7 +22,7 @@ import {
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   trimSlug,
-  countOfUniqueQuerys,
+  countOfUniqueQueries,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import {
@@ -184,7 +184,7 @@ export async function getServerSideProps(
       },
     ]);
     // should contain only 2 routs params(make, range). But can contain dynamicParam with the same value as make when ApolloClient resets.
-    if (countOfUniqueQuerys(context.query) === 2) {
+    if (countOfUniqueQueries(context.query) === 2) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,

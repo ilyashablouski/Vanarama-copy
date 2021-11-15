@@ -451,18 +451,5 @@ export const scrollIntoPreviousView = (
   }
 };
 
-export const countOfUniqueQuerys = (querys: ParsedUrlQuery) => {
-  const unique = {} as ParsedUrlQuery;
-  Object.keys(querys).forEach(queryKey => {
-    const hasUniqueThisValue = Object.keys(unique).some(
-      uniqueKey =>
-        unique[uniqueKey as keyof ParsedUrlQuery] ===
-        querys[queryKey as keyof ParsedUrlQuery],
-    );
-    if (!hasUniqueThisValue) {
-      unique[queryKey as keyof ParsedUrlQuery] =
-        querys[queryKey as keyof ParsedUrlQuery];
-    }
-  });
-  return Object.keys(unique).length;
-};
+export const countOfUniqueQueries = (queries: ParsedUrlQuery) =>
+  [...new Set(Object.values(queries))].length;
