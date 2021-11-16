@@ -87,6 +87,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="title"
         label="Title"
         error={errors?.title?.message?.toString()}
+        dataUiTestId="olaf_about_error-title"
       >
         <Select id="title" name="title" dataTestId="aboutTitle" ref={register}>
           <OptionsWithFavourites options={dropdownData.titles} />
@@ -97,7 +98,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="firstName"
         label="First Name"
         error={errors?.firstName?.message?.toString()}
-        dataUiTestId="olaf_about_error-in-form"
+        dataUiTestId="olaf_about_error-first-name"
       >
         <TextInput
           id="firstName"
@@ -114,6 +115,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="lastName"
         label="Last Name"
         error={errors?.lastName?.message?.toString()}
+        dataUiTestId="olaf_about_error-last-name"
       >
         <TextInput
           id="lastName"
@@ -133,6 +135,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           onLogInClick,
           onRegistrationClick,
         )}
+        dataUiTestId="olaf_about_error-email"
       >
         <TextInput
           disabled={isEmailDisabled && errors.email?.message === undefined}
@@ -150,6 +153,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           controlId="telephone"
           label="Telephone"
           error={errors?.telephone?.message?.toString()}
+          dataUiTestId="olaf_about_error-telephone"
         >
           <NumericInput
             id="telephone"
@@ -171,6 +175,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           errors?.monthOfBirth?.message?.toString() ||
           errors?.yearOfBirth?.message?.toString()
         }
+        dataUiTestId="olaf_about_error-date-of-birth"
       >
         <Select
           id="dayOfBirth"
@@ -217,6 +222,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="countryOfBirth"
         label="Country of Birth"
         error={errors?.countryOfBirth?.message?.toString()}
+        dataUiTestId="olaf_about_error-country-of-birth"
       >
         <Select
           id="countryOfBirth"
@@ -233,6 +239,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="nationality"
         label="Nationality"
         error={errors?.nationality?.message?.toString()}
+        dataUiTestId="olaf_about_error-nationality"
       >
         <Select
           id="nationality"
@@ -249,6 +256,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="maritalStatus"
         label="Marital Status"
         error={errors?.maritalStatus?.message?.toString()}
+        dataUiTestId="olaf_about_error-marital-status"
       >
         <Select
           id="maritalStatus"
@@ -268,6 +276,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="dependants"
         label="No. of Dependants"
         error={errors?.dependants?.message?.toString()}
+        dataUiTestId="olaf_about_error-no-of-dependants"
       >
         <Select
           id="dependants"
@@ -287,6 +296,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="adultsInHousehold"
         label="No. of Adults in Household"
         error={errors?.adultsInHousehold?.message?.toString()}
+        dataUiTestId="olaf_about_error-no-of-adults"
       >
         <Select
           id="adultsInHousehold"
@@ -305,6 +315,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         label="Please Confirm"
         error={errors?.termsAndCons?.message?.toString()}
+        dataUiTestId="olaf_about_error-tncs"
       >
         <CheckBox
           id="marketing"
@@ -333,7 +344,11 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
         />
       </FormGroup>
-      <FormGroup label="" error={errors?.privacyPolicy?.message?.toString()}>
+      <FormGroup
+        label=""
+        error={errors?.privacyPolicy?.message?.toString()}
+        dataUiTestId="olaf_about_error-privacy-policy"
+      >
         <CheckBox
           id="privacyPolicy"
           dataTestId="aboutPrivacyPolicy"
