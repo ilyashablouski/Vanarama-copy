@@ -11,25 +11,21 @@ import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
-  buildAnObjectFromAQuery,
+  getPathName,
+  HELP_ME_CHOOSE_STEPS,
   IInitStep,
-  onReplace,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
 interface IProps {
   steps: IInitStep;
-  setSteps: (step: IInitStep) => void;
-  getHelpMeChoose: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
   setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
 const ContextualProgressIndicator: React.FC<IProps> = ({
-  setSteps,
   steps,
-  getHelpMeChoose,
   setLoadingStatus,
   setPageOffset,
 }) => {
@@ -41,49 +37,49 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   const progressSteps = [
     {
       active: steps.financeTypes.active,
-      key: 'financeTypes',
+      key: HELP_ME_CHOOSE_STEPS.FINANCE_TYPES,
       label: 'About You',
       step: 1,
     },
     {
       active: steps.bodyStyles.active,
-      key: 'bodyStyles',
+      key: HELP_ME_CHOOSE_STEPS.BODY_STYLES,
       label: 'Style',
       step: 2,
     },
     {
       active: steps.fuelTypes.active,
-      key: 'fuelTypes',
+      key: HELP_ME_CHOOSE_STEPS.FUEL_TYPES,
       label: 'Fuel Types',
       step: 3,
     },
     {
       active: steps.transmissions.active,
-      key: 'transmissions',
+      key: HELP_ME_CHOOSE_STEPS.TRANSMISSIONS,
       label: 'Gearbox',
       step: 4,
     },
     {
       active: steps.terms.active,
-      key: 'terms',
+      key: HELP_ME_CHOOSE_STEPS.TERMS,
       label: 'Lease Length',
       step: 5,
     },
     {
       active: steps.mileages.active,
-      key: 'mileages',
+      key: HELP_ME_CHOOSE_STEPS.MILEAGES,
       label: 'Mileage',
       step: 6,
     },
     {
       active: steps.availability.active,
-      key: 'availability',
+      key: HELP_ME_CHOOSE_STEPS.AVAILABILITY,
       label: 'Availability',
       step: 7,
     },
     {
       active: steps.rental.active,
-      key: 'results',
+      key: HELP_ME_CHOOSE_STEPS.RESULTS,
       label: 'Results',
       step: 8,
     },
@@ -142,58 +138,27 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                 if (activeStep > el.step) {
                   setLoadingStatus(true);
                   setPageOffset(0);
-                  const searchParams = new URLSearchParams(
-                    window.location.search,
-                  );
-                  const currentStepObject =
-                    currentStep?.key === 'results'
-                      ? {
-                          rental: {
-                            active: false,
-                            value: steps.rental.value,
-                            title: el.label,
-                          },
-                          initialPeriods: {
-                            active: false,
-                            value: steps.initialPeriods.value,
-                            title: el.label,
-                          },
-                        }
-                      : { [currentStep?.key || '']: { active: false } };
-                  getHelpMeChoose({
-                    variables: {
-                      ...buildAnObjectFromAQuery(
-                        searchParams,
-                        {
-                          ...steps,
-                          [el.key]: {
-                            active: true,
-                            value: router.query[el.key],
-                            title: el.label,
-                          },
-                          ...currentStepObject,
-                        },
-                        el.step,
-                      ),
+
+                  let query = {};
+                  if (el.key !== HELP_ME_CHOOSE_STEPS.FINANCE_TYPES) {
+                    const indexClickedTab = router.asPath.indexOf(el.key);
+                    const nextSearchParams = router.asPath
+                      .slice(0, indexClickedTab - 1)
+                      .replace('/help-me-choose?', '');
+                    const arrNextSearchParams = nextSearchParams.split('&');
+                    query = arrNextSearchParams.reduce((acc, item) => {
+                      const [key, value] = item.split('=');
+                      return { ...acc, [key]: value };
+                    }, {});
+                  }
+                  const pathname = getPathName(router, query);
+                  router.push(
+                    {
+                      pathname: router.route,
+                      query,
                     },
-                  });
-                  setSteps({
-                    ...steps,
-                    [el.key]: {
-                      active: true,
-                      value:
-                        typeof router.query[el.key] !== 'object'
-                          ? [router.query[el.key]]
-                          : router.query[el.key],
-                      title: el.label,
-                    },
-                    ...currentStepObject,
-                  });
-                  onReplace(
-                    router,
-                    { ...steps },
-                    '',
-                    activeStep === 8 ? el.key : undefined,
+                    pathname,
+                    { shallow: true },
                   );
                 }
               }}

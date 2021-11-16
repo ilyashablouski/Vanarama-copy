@@ -12,6 +12,7 @@ const Heading: FC<IHeadingProps> = memo(props => {
     href,
     children,
     dataTestId,
+    dataUiTestId,
   } = props;
 
   return (
@@ -22,6 +23,7 @@ const Heading: FC<IHeadingProps> = memo(props => {
       })}
       href={href}
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
     >
       {children}
     </Tag>

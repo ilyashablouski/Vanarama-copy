@@ -1,10 +1,15 @@
-import { NextPage, NextPageContext } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../../apolloClient';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
+  countOfUniqueQueries,
   getCapsIds,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
@@ -36,13 +41,14 @@ import {
 } from '../../../../../generated/filterList';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../../../utils/data';
+import { Nullable } from '../../../../types/common';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  vehiclesList?: vehicleList;
-  productCardsData?: GetProductCard;
-  responseCapIds?: string[];
-  filtersData?: IFilterList | undefined;
+  vehiclesList?: Nullable<vehicleList>;
+  productCardsData?: Nullable<GetProductCard>;
+  responseCapIds?: Nullable<string[]>;
+  filtersData?: Nullable<IFilterList>;
   manufacturerParam: string;
   rangeParam?: string;
   defaultSort?: SortObject[];
@@ -103,7 +109,9 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
   const { query } = context;
   let vehiclesList;
@@ -117,7 +125,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
       query: { ...context.query },
     };
-    const { data, errors } = (await ssrCMSQueryExecutor(
+    const { data } = (await ssrCMSQueryExecutor(
       client,
       contextData,
       true,
@@ -146,7 +154,7 @@ export async function getServerSideProps(context: NextPageContext) {
         direction: SortDirection.ASC,
       },
     ]);
-    if (Object.keys(context.query).length === 3) {
+    if (countOfUniqueQueries(context.query) === 3) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,
@@ -166,21 +174,17 @@ export async function getServerSideProps(context: NextPageContext) {
         })
         .then(resp => resp.data);
 
-      try {
-        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
-        if (responseCapIds.length) {
-          productCardsData = await client
-            .query<GetProductCard, GetProductCardVariables>({
-              query: GET_PRODUCT_CARDS_DATA,
-              variables: {
-                capIds: responseCapIds,
-                vehicleType: VehicleTypeEnum.CAR,
-              },
-            })
-            .then(resp => resp.data);
-        }
-      } catch {
-        return false;
+      responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+      if (responseCapIds.length) {
+        productCardsData = await client
+          .query<GetProductCard, GetProductCardVariables>({
+            query: GET_PRODUCT_CARDS_DATA,
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: VehicleTypeEnum.CAR,
+            },
+          })
+          .then(resp => resp.data);
       }
     }
     query.make = (query.dynamicParam as string).toLowerCase();
@@ -195,7 +199,6 @@ export async function getServerSideProps(context: NextPageContext) {
           ? encodeData(productCardsData)
           : null,
         responseCapIds: responseCapIds || null,
-        error: errors ? errors[0] : null,
         defaultSort: defaultSort || null,
         manufacturerParam: (context?.query
           ?.dynamicParam as string).toLowerCase(),

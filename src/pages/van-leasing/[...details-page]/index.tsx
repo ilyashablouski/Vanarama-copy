@@ -1,9 +1,12 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PreviewNextPageContext } from 'types/common';
 import {
   GET_CAR_DATA,
   GET_IMACA_ASSETS,
@@ -11,6 +14,7 @@ import {
   GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
 import {
+  FinanceTypeEnum,
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
@@ -42,12 +46,10 @@ import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import {
   genericPagesQuery,
   genericPagesQueryVariables,
-  genericPagesQuery_genericPages_items as GenericPages,
+  genericPagesQuery_genericPages as IGenericPages,
 } from '../../../../generated/genericPagesQuery';
 import {
   GetTrimAndColor,
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
 import {
@@ -68,6 +70,7 @@ import {
   GetPdpContent as IGetPdpContentQuery,
   GetPdpContentVariables as IGetPdpContentVariables,
 } from '../../../../generated/GetPdpContent';
+import { IStatusCode } from '../../../types/common';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -75,12 +78,13 @@ interface IProps {
   capId?: number;
   quote?: GetQuoteDetails;
   genericPageHead: GenericPageHeadQuery;
-  genericPages: GenericPages[];
-  trim: ITrimList[];
-  colour: IColourList[];
+  genericPages: IGenericPages['items'];
+  trim: GetTrimAndColor['trimList'];
+  colour: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  leaseTypeQuery?: LeaseTypeEnum | null;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -94,6 +98,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   productCard: encodedData,
   pdpContent,
   imacaAssets,
+  leaseTypeQuery,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -213,13 +218,16 @@ const VanDetailsPage: NextPage<IProps> = ({
         genericPageHead={genericPageHead}
         genericPages={genericPages}
         productCard={productCard}
+        leaseTypeQuery={leaseTypeQuery}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
   const path = context.resolvedUrl || '';
   try {
@@ -240,7 +248,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       return {
         redirect: {
           destination: `/${redirectTo}`,
-          statusCode: redirectStatusCode,
+          statusCode: redirectStatusCode as IStatusCode,
         },
       };
     }
@@ -259,6 +267,11 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
         ?.capDerivativeId || 0;
 
+    const leaseType =
+      context.query.leaseType === FinanceTypeEnum.PCH
+        ? LeaseTypeEnum.PERSONAL
+        : LeaseTypeEnum.BUSINESS;
+
     const getCarDataQuery = await client.query<
       GetVehicleDetails,
       GetVehicleDetailsVariables
@@ -268,6 +281,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         capId,
         capIdDetails: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
+        leaseType,
       },
     });
 
@@ -300,7 +314,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType,
         // we have to use null for colour and trim to get the cheapest price
         colour: null,
         trim: null,
@@ -347,7 +361,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     let productCard = null;
 
     if (capsIds.length) {
-      const productCardData = await client.query<
+      const { data: productCardData } = await client.query<
         GetProductCard,
         GetProductCardVariables
       >({
@@ -384,6 +398,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
+        leaseTypeQuery: leaseType,
       },
     };
   } catch (error) {

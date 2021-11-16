@@ -1,16 +1,10 @@
 import { AppProps } from 'next/app';
-import { NextPageContext } from 'next';
 import { ReactChild, ReactPortal } from 'react';
 import { IBreadcrumb } from './breadcrumbs';
 
 export type Nullish<T> = T | null | undefined;
 export type Nullable<T> = T | null;
 export type Component = ReactChild | Array<Component> | ReactPortal;
-
-export interface PreviewNextPageContext extends NextPageContext {
-  preview?: boolean;
-  resolvedUrl?: string;
-}
 
 export enum PageTypeEnum {
   DEFAULT = 'DEFAULT',
@@ -27,9 +21,11 @@ export type IPageWithError = {
   error: IErrorProps;
 };
 
-export type CustomAppProps = {
+export type ICustomAppProps = {
   pageProps: IPageWithData<unknown> | IPageWithError;
 } & Omit<AppProps<IPageWithData<unknown>>, 'pageProps'>;
+
+export type IStatusCode = 301 | 302 | 303 | 307 | 308;
 
 export interface IErrorProps {
   statusCode: number;

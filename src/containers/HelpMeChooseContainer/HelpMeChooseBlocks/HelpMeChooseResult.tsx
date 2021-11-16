@@ -24,8 +24,8 @@ import {
   formatForCompare,
   formatForWishlist,
   getMainImageUrl,
-  initialSteps,
   onReplace,
+  setQuery,
 } from '../helpers';
 import truncateString from '../../../utils/truncateString';
 import { useModelImages } from '../../SearchPageContainer/gql';
@@ -101,9 +101,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
-    setSteps,
     steps,
-    getHelpMeChoose,
     helpMeChooseData,
     setLoadingStatus,
     counterState,
@@ -190,40 +188,20 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const onChangeParams = (rentalId: number, initialPeriodValue: string) => {
     setLoadingStatus(true);
-    const searchParams = new URLSearchParams(window.location.search);
     const rentalValue = RENTAL_DATA[rentalId - 1].value;
-    const newStep = {
-      ...steps,
-      rental: {
-        active: true,
-        value: rentalValue as any,
-        title: steps.rental.title,
-      },
-      initialPeriods: {
-        active: true,
-        value: initialPeriodValue as any,
-        title: steps.initialPeriods.title,
-      },
+    const query = {
+      rental: rentalValue,
+      initialPeriods: initialPeriodValue,
     };
-    setSteps(newStep);
-    getHelpMeChoose({
-      variables: {
-        ...buildAnObjectFromAQuery(searchParams, newStep),
-      },
-    });
-    onReplace(router, newStep);
+    setQuery(router, query);
   };
 
   const clickSearchAgain = () => {
     setLoadingStatus(true);
-    const searchParams = new URLSearchParams();
-    setSteps(initialSteps);
-    getHelpMeChoose({
-      variables: {
-        ...buildAnObjectFromAQuery(searchParams, steps),
-      },
+    router.push({
+      pathname: router.route,
+      query: {},
     });
-    onReplace(router, { ...initialSteps });
   };
 
   const loadMoreResults = () => {

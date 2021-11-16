@@ -63,7 +63,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       className="heading link -black -large"
       data-menu={null}
       data-testid="heading-link"
-      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug?leaseType=BCH"
       onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
@@ -192,7 +192,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       className="button link -teal -regular -solid"
       data-menu={null}
       data-testid="view-offer"
-      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug?leaseType=BCH"
       onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
@@ -755,19 +755,19 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         <span
           className="price--pounds"
         >
-          138
+          189
         </span>
         <span
           className="price--sub"
         >
           .
-          91
+          97
         </span>
       </div>
       <div
         className="price--label"
       >
-        Per Month Exc.VAT
+        Per Month Inc.VAT
       </div>
     </div>
     <a

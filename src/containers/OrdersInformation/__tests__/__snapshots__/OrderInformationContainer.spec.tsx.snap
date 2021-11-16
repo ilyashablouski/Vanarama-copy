@@ -54,7 +54,7 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
         </span>
       </div>
       <span
-        className="text text--quotes -regular -dark"
+        className="text -regular -dark"
       >
         You have (2) quotes.
       </span>

@@ -98,7 +98,12 @@ export const OffersPage: NextPage<IProps> = ({
       )}
       <div className="row:plain-hero">
         <div className="-col-100">
-          <Heading color="black" size="xlarge" tag="h1">
+          <Heading
+            color="black"
+            size="xlarge"
+            tag="h1"
+            dataUiTestId="leasing-offers-heading-text"
+          >
             <Icon icon={<Flame />} color="orange" /> {metaData?.name}
           </Heading>
           <Text size="large" color="darker">
@@ -189,6 +194,7 @@ export const OffersPage: NextPage<IProps> = ({
       <div
         className="row:bg-lighter"
         id="car-offers"
+        data-uitestid="car-offers-car_carousel"
         ref={carRef as MutableRefObject<HTMLDivElement>}
       >
         <div>
@@ -209,11 +215,13 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-car"
           />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
             className="button"
+            dataUiTestId="car-offers-view_all_car-button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
               label: 'View All Car Offers',
@@ -248,6 +256,7 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-van"
           />
         </div>
         <div className="-justify-content-row -pt-500">
@@ -287,6 +296,7 @@ export const OffersPage: NextPage<IProps> = ({
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
+            dataUiTestIdMask="ui-leasing_offers-pickup"
           />
         </div>
         <div className="-justify-content-row -pt-500">

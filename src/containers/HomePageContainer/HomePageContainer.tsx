@@ -128,6 +128,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <Heading
             size="xlarge"
             color="black"
+            dataUiTestId="homepage-heading-text"
             tag={
               getTitleTag(
                 getSectionsData(
@@ -185,6 +186,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     }}
                     countItems={productsCar?.productCarousel?.length || 6}
                     dataTestIdBtn="car-view-offer"
+                    dataUiTestIdMask="ui-car"
                   />
                 </LazyLoadComponent>
 
@@ -226,6 +228,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     }}
                     countItems={productsVan?.productCarousel?.length || 6}
                     dataTestIdBtn="van-view-offer"
+                    dataUiTestIdMask="ui-van"
                   />
                 </LazyLoadComponent>
                 <div className="-justify-content-row -pt-500">
@@ -268,6 +271,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     }}
                     countItems={productsPickup?.productCarousel?.length || 6}
                     dataTestIdBtn="pickup-view-offer"
+                    dataUiTestIdMask="ui-pickup"
                   />
                 </LazyLoadComponent>
                 <div className="-justify-content-row -pt-500">

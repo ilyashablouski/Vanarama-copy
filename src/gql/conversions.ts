@@ -26,6 +26,7 @@ export const GET_CONVERSIONS_VEHICLE_LIST = gql`
       isOnOffer
       offerPosition
       imageUrl
+      conversionImages
       availability
       leadTime
       keyInformation {

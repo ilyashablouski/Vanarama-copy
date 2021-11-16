@@ -1,9 +1,8 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { PreviewNextPageContext } from 'types/common';
 import { addApolloState, initializeApollo } from 'apolloClient';
 import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -11,6 +10,7 @@ import { GET_PERSON_INFORMATION_DATA } from 'containers/PersonalInformationConta
 import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
 import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
+import Loading from 'core/atoms/loading';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
@@ -21,6 +21,8 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -78,11 +80,26 @@ const metaData = {
 const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const client = useApolloClient();
   useEffect(
     () => client.onResetStore(() => router.push('/account/login-register')),
     [client, router],
   );
+
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      if (url.includes('/account')) {
+        setIsLoading(true);
+      } else if (isLoading) {
+        setIsLoading(false);
+      }
+    };
+    router.events.on('routeChangeStart', handleStart);
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+    };
+  }, []);
 
   return (
     <>
@@ -97,48 +114,72 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
           My Details
         </Heading>
       </div>
-      <OrderInformationContainer orders={orders} quotes={quotes} uuid={uuid} />
-      <div className="row:my-details">
-        <div className="my-details--form">
-          <PersonalInformationFormContainer person={person} uuid={uuid} />
-        </div>
-        <div className="my-details--form ">
-          <Heading tag="span" size="large" color="black" className="-mb-300">
-            Password
-          </Heading>
-          {!resetPassword ? (
-            <div className="form">
-              <Text>
-                It’s important that you choose a strong password for your
-                account and don&#39;t re-use it for other accounts. If you need
-                to change your password, simply hit the button below.
-              </Text>
-              <div className="-pt-300 -pb-300">
-                <Button
-                  label="Change Password"
-                  color="teal"
-                  onClick={() => setResetPassword(true)}
-                />
-              </div>
+      {isLoading ? (
+        <Loading size="large" />
+      ) : (
+        <>
+          <OrderInformationContainer
+            orders={orders}
+            quotes={quotes}
+            uuid={uuid}
+          />
+          <div className="row:my-details">
+            <div className="my-details--form">
+              <PersonalInformationFormContainer person={person} uuid={uuid} />
             </div>
-          ) : (
-            <PasswordChangeContainer
-              uuid={uuid}
-              onCompleted={() => {
-                toast.success('Your New Password Has Been Saved', '');
-                setResetPassword(false);
-              }}
-              onNetworkError={handleNetworkError}
-            />
-          )}
-        </div>
-      </div>
+            <div className="my-details--form ">
+              <Heading
+                tag="span"
+                size="large"
+                color="black"
+                className="-mb-300"
+              >
+                Password
+              </Heading>
+              {!resetPassword ? (
+                <div className="form">
+                  <Text>
+                    It’s important that you choose a strong password for your
+                    account and don&#39;t re-use it for other accounts. If you
+                    need to change your password, simply hit the button below.
+                  </Text>
+                  <div className="-pt-300 -pb-300">
+                    <Button
+                      label="Change Password"
+                      color="teal"
+                      onClick={() => setResetPassword(true)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <PasswordChangeContainer
+                  uuid={uuid}
+                  onCompleted={() => {
+                    toast.success('Your New Password Has Been Saved', '');
+                    setResetPassword(false);
+                  }}
+                  onNetworkError={handleNetworkError}
+                />
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
       <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+
+  if (!isAccountSectionEnabled) {
+    return redirectToMaintenancePage();
+  }
+
   const client = initializeApollo(undefined, context);
   try {
     if (!isUserAuthenticatedSSR(context?.req?.headers.cookie || '')) {

@@ -83,6 +83,13 @@ export interface IOrderList {
     | undefined;
 }
 
+export const createWarrantyText = (
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null,
+) =>
+  `${warrantyDetails?.years} Years Manufacturer And ${
+    warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
+  } Miles`;
+
 export const getOrderList = ({
   quoteByCapId,
   stateVAT,
@@ -195,9 +202,9 @@ export const getOrderList = ({
     },
     {
       label: 'Warranty:',
-      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
+      value: createWarrantyText(warrantyDetails),
       id: 'warranty',
-      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
+      key: createWarrantyText(warrantyDetails),
       dataTestId: 'warranty',
       isOrange: false,
     },
@@ -304,6 +311,7 @@ export enum FeatureFlags {
   DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
+  ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
 }
 
 function isFeatureFlagEnabled(
@@ -319,6 +327,15 @@ function isFeatureFlagEnabled(
   }
 
   return cookies.includes(`${featureFlag}=1`);
+}
+
+export function isAccountSectionFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(
+    cookies,
+    FeatureFlags.ACCOUNT_SECTION_MAINTENANCE,
+  );
 }
 
 export function isDerangedFeatureFlagEnabled(

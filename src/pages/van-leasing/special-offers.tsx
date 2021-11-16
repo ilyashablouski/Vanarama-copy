@@ -1,12 +1,16 @@
 import React, { useMemo } from 'react';
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { Nullable, PreviewNextPageContext } from 'types/common';
+import { Nullable } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import {
   VanOffersPageData,
@@ -132,6 +136,7 @@ export const VanOffers: NextPage<IProps> = ({
                 }}
                 countItems={productsSmallVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
+                dataUiTestIdMask="ui-van_leasing-special-smallVan"
               />
             </div>
             <div className="-justify-content-row -pt-500">
@@ -176,6 +181,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsMediumVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-mediumVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -221,6 +227,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsLargeVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-largeVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -265,6 +272,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsPickup?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-pickup"
                 />
               </LazyLoadComponent>
             </div>
@@ -313,6 +321,7 @@ export const VanOffers: NextPage<IProps> = ({
                     productsDropsideTipper?.productCarousel?.length || 6
                   }
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-dropsideTipper"
                 />
               </LazyLoadComponent>
             </div>
@@ -358,6 +367,7 @@ export const VanOffers: NextPage<IProps> = ({
                   }}
                   countItems={productsSpecialist?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-special-specialist"
                 />
               </LazyLoadComponent>
             </div>
@@ -482,7 +492,9 @@ export const VanOffers: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({}, context);
 
   try {

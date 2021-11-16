@@ -77,7 +77,7 @@ const AboutUsLandingPage: NextPage<IProps> = ({ data: encodedData }) => {
 export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
-  const client = createApolloClient({}, context);
+  const client = createApolloClient({});
   try {
     const { data: rawData } = await client.query<
       GetAboutUsPageData,

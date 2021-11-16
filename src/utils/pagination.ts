@@ -1,5 +1,5 @@
 import { ApolloClient, ApolloError, DocumentNode } from '@apollo/client';
-import { GetStaticPropsContext } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import {
   BlogPosts,
   BlogPostsVariables,
@@ -12,6 +12,8 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from './env';
 import { convertErrorToProps } from './helpers';
+import { IPageWithData, IPageWithError, PageTypeEnum } from '../types/common';
+import { IBlogCategory } from '../models/IBlogsProps';
 
 export const ARTICLES_PER_PAGE = 9;
 
@@ -20,7 +22,9 @@ export const getBlogPosts = async (
   query: DocumentNode,
   slug: string,
   context: GetStaticPropsContext,
-) => {
+): Promise<GetStaticPropsResult<
+  IPageWithData<IBlogCategory> | IPageWithError
+>> => {
   try {
     const { data: blogPosts } = await client.query<
       BlogPosts,
@@ -39,6 +43,7 @@ export const getBlogPosts = async (
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
         pageNumber:
           parseInt((context?.params?.pageNumber as string) || '', 10) || null,
@@ -60,6 +65,7 @@ export const getBlogPosts = async (
     return {
       revalidate,
       props: {
+        pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
       },
     };

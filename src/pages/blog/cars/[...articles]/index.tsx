@@ -1,6 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { PreviewNextPageContext } from 'types/common';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -9,17 +12,12 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
-import { IBlogPost } from '../../../../models/IBlogsProps';
+import { IBlogPostWithCarousel } from '../../../../models/IBlogsProps';
 import {
   BlogPosts,
   BlogPostsVariables,
 } from '../../../../../generated/BlogPosts';
-import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { decodeData, encodeData } from '../../../../utils/data';
-import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../../../utils/env';
 import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
@@ -28,19 +26,15 @@ import {
   BlogPost as BlogPostData,
   BlogPostVariables,
 } from '../../../../../generated/BlogPost';
-import { convertErrorToProps } from '../../../../utils/helpers';
-import ErrorPage from '../../../_error';
+import { specialOffersForBlogPageRequest } from '../../../../utils/offers';
 
-const BlogPost: NextPage<IBlogPost> = ({
+const BlogPost: NextPage<IBlogPostWithCarousel> = ({
   data,
   blogPosts: encodedData,
-  error,
+  productsCar,
+  vehicleListUrlData,
+  productsCarDerivatives,
 }) => {
-  if (error || !data || !encodedData) {
-    return <ErrorPage errorData={error} />;
-  }
-
-  // De-obfuscate data for user
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -63,6 +57,10 @@ const BlogPost: NextPage<IBlogPost> = ({
         image={image}
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
+        isShowCarousel
+        productsCar={productsCar}
+        vehicleListUrlData={vehicleListUrlData}
+        productsCarDerivatives={productsCarDerivatives}
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
@@ -71,36 +69,11 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IBlogPostWithCarousel>> {
   try {
-    const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts, BlogPostsVariables>({
-      query: BLOG_POSTS_PAGE,
-      variables: {
-        slug: 'blog/cars',
-        isPreview: !!context?.preview,
-      },
-    });
-
-    return {
-      paths: getBlogPaths(data?.blogPosts),
-      fallback: 'blocking',
-    };
-  } catch {
-    return {
-      paths: [
-        {
-          params: { articles: ['/'] },
-        },
-      ],
-      fallback: 'blocking',
-    };
-  }
-}
-
-export async function getStaticProps(context: GetStaticPropsContext) {
-  try {
-    const client = createApolloClient({}, context as NextPageContext);
+    const client = createApolloClient({}, context);
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
@@ -119,6 +92,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       },
     });
 
+    const {
+      productsCar,
+      productsCarDerivatives,
+      vehicleListUrlData,
+    } = await specialOffersForBlogPageRequest(client);
+
     const newBlogPosts = {
       blogPosts: { ...blogPosts.blogPosts },
     };
@@ -131,31 +110,26 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const newBlogPostsData = encodeData(newBlogPosts);
 
     return {
-      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         data,
         blogPosts: newBlogPostsData,
+        productsCar,
+        productsCarDerivatives,
+        vehicleListUrlData,
       },
     };
   } catch (error) {
     const apolloError = error as ApolloError;
-    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
-      return {
-        notFound: true,
-        revalidate,
-      };
+      return { notFound: true };
     }
 
-    return {
-      revalidate,
-      props: {
-        error: convertErrorToProps(error),
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

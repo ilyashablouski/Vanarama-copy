@@ -1,14 +1,29 @@
 import React, { memo } from 'react';
+import cx from 'classnames';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
+import { NavigationOptions, PaginationOptions } from 'swiper/types';
 import { Swiper } from 'swiper/react';
 
 import { ICarouselProps } from 'core/organisms/carousel/interface';
-import cx from 'classnames';
-import Icon from 'core/atoms/icon';
+
 import ArrowBackSharp from 'core/assets/icons/ArrowBackSharp';
 import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
 
+import Icon from 'core/atoms/icon';
+
 SwiperCore.use([Navigation, Pagination]);
+
+const navigationOptions: NavigationOptions = {
+  prevEl: `.swiper-prev`,
+  nextEl: `.swiper-next`,
+};
+const paginationOptions: PaginationOptions = {
+  el: '.swiper-pagination',
+  type: 'bullets',
+  clickable: true,
+};
+const noSwipingSelector: string =
+  'input, select, option, textarea, button, .button, video, label';
 
 function CarouselSwiper({
   loop,
@@ -25,16 +40,9 @@ function CarouselSwiper({
         slidesPerView="auto"
         loop={loop ?? countItems > 1}
         watchOverflow={watchOverflow}
-        navigation={{
-          prevEl: `.swiper-prev`,
-          nextEl: `.swiper-next`,
-        }}
-        pagination={{
-          el: '.swiper-pagination',
-          type: 'bullets',
-          clickable: true,
-        }}
-        noSwipingSelector="input, select, option, textarea, button, video, label"
+        navigation={navigationOptions}
+        pagination={paginationOptions}
+        noSwipingSelector={noSwipingSelector}
         touchEventsTarget="wrapper"
         onSlideChange={onSlideChange}
       >

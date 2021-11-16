@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
+import { redirectToMaintenancePage } from '../../../utils/redirect';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -54,5 +56,19 @@ export const PasswordResetPage: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+
+  if (!isAccountSectionEnabled) {
+    return redirectToMaintenancePage();
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default withApollo(PasswordResetPage);

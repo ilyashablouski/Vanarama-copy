@@ -261,6 +261,7 @@ export const VansPage: NextPage<IProps> = ({
                   }}
                   countItems={productsSmallVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-smallVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -306,6 +307,7 @@ export const VansPage: NextPage<IProps> = ({
                   }}
                   countItems={productsMediumVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-mediumVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -351,6 +353,7 @@ export const VansPage: NextPage<IProps> = ({
                   }}
                   countItems={productsLargeVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
+                  dataUiTestIdMask="ui-van_leasing-largeVan"
                 />
               </LazyLoadComponent>
             </div>
@@ -636,7 +639,7 @@ export const VansPage: NextPage<IProps> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'View Leasing Guides',
-              href: '/van-leasing-explained.html',
+              href: '/guides/van-leasing-explained',
             }}
           >
             View Leasing Guides <ArrowForwardSharp />

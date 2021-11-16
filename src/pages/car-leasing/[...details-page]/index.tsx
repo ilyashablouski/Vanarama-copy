@@ -1,9 +1,12 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
-import { PreviewNextPageContext } from 'types/common';
 import {
   GET_CAR_DATA,
   GET_IMACA_ASSETS,
@@ -43,12 +46,10 @@ import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import {
   genericPagesQuery,
   genericPagesQueryVariables,
-  genericPagesQuery_genericPages_items as GenericPages,
+  genericPagesQuery_genericPages as IGenericPages,
 } from '../../../../generated/genericPagesQuery';
 import {
   GetTrimAndColor,
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
 import {
@@ -68,17 +69,17 @@ import {
   GetPdpContentVariables as IGetPdpContentVariables,
 } from '../../../../generated/GetPdpContent';
 import { pdpCarType } from '../../../containers/DetailsPage/helpers';
+import { IStatusCode } from '../../../types/common';
 
 interface IProps {
   query?: ParsedUrlQuery;
   data?: GetVehicleDetails;
   capId?: number;
   quote?: GetQuoteDetails;
-  errors: any[];
   genericPageHead: GenericPageHeadQuery;
-  genericPages: GenericPages[];
-  trim: ITrimList[];
-  colour: IColourList[];
+  genericPages: IGenericPages['items'];
+  trim: GetTrimAndColor['trimList'];
+  colour: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
@@ -201,7 +202,9 @@ const CarDetailsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: PreviewNextPageContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps>> {
   const client = createApolloClient({});
   const path = context.resolvedUrl || '';
 
@@ -223,7 +226,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       return {
         redirect: {
           destination: `/${redirectTo}`,
-          statusCode: redirectStatusCode,
+          statusCode: redirectStatusCode as IStatusCode,
         },
       };
     }
@@ -241,6 +244,11 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const capId =
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
         ?.capDerivativeId || 0;
+    const leaseType =
+      context.query.leaseType === FinanceTypeEnum.BCH
+        ? LeaseTypeEnum.BUSINESS
+        : LeaseTypeEnum.PERSONAL;
+
     const getCarDataQuery = await client.query<
       GetVehicleDetails,
       GetVehicleDetailsVariables
@@ -250,6 +258,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         capId,
         capIdDetails: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
+        leaseType,
       },
     });
 
@@ -264,11 +273,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       ? +context.query?.upfront
       : getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
           ?.upfront;
-
-    const leaseType =
-      context.query.leaseType === FinanceTypeEnum.BCH
-        ? LeaseTypeEnum.BUSINESS
-        : LeaseTypeEnum.PERSONAL;
 
     const imacaAssets = await client.query<
       GetImacaAssets,
@@ -353,7 +357,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     let productCard;
 
     if (capsIds.length) {
-      const productCardData = await client.query<
+      const { data: productCardData } = await client.query<
         GetProductCard,
         GetProductCardVariables
       >({

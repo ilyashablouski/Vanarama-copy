@@ -1,8 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
-import ComparatorTable from './ComparatorTable';
+
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
+
+import ComparatorTable from './ComparatorTable';
 
 const criterias = [
   {
@@ -97,6 +100,7 @@ storiesOf(`${atomicDir(base)}/ComparatorTable`, module).add('Default', () => (
         addVehicle={() => {}}
         deleteVehicle={() => {}}
         criterias={criterias}
+        leaseType={LeaseTypeEnum.PERSONAL}
         viewOffer={() => {}}
       />
     </div>

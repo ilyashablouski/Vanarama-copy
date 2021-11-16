@@ -82,8 +82,6 @@ const HeaderContainer: FC = () => {
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
   const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
   const [partnershipPhoneLink, setPartnershipPhoneLink] = useState<any>(null);
-  const [ordersLength, setOrdersLength] = useState<number | null>(null);
-  const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -184,23 +182,6 @@ const HeaderContainer: FC = () => {
     [] as any[],
   );
 
-  useEffect(() => {
-    if (!ordersLength) {
-      localForage.getItem<number>('ordersLength').then(value => {
-        if (value) {
-          setOrdersLength(value);
-        }
-      });
-    }
-    if (!quotesLength) {
-      localForage.getItem<number>('quotesLength').then(value => {
-        if (value) {
-          setQuotesLength(value);
-        }
-      });
-    }
-  }, [ordersLength, quotesLength]);
-
   // check if user is on a partnership journey
   useEffect(() => {
     const partnerDetails = getPartnerProperties();
@@ -248,15 +229,13 @@ const HeaderContainer: FC = () => {
   const handleLogOut = useCallback(async () => {
     removeAuthenticationCookies();
     await localForage.clear();
-    await client.resetStore();
     await logOut().catch(() => {});
+    await client.resetStore();
   }, [client, logOut]);
 
   if (partnership) {
     return (
       <Header
-        ordersLength={ordersLength}
-        quotesLength={quotesLength}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}
@@ -270,8 +249,6 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
-        ordersLength={ordersLength}
-        quotesLength={quotesLength}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}

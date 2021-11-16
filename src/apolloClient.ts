@@ -13,7 +13,7 @@ import { RetryLink } from '@apollo/client/link/retry';
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
-import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
+import { GetServerSidePropsContext, NextPageContext } from 'next';
 import localforage from 'localforage';
 import merge from 'deepmerge';
 
@@ -320,13 +320,9 @@ function apolloClientLink(cookie: string) {
 
 export default function createApolloClient(
   initialState: any,
-  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
+  ctx?: GetServerSidePropsContext | NextPageContext,
 ) {
-  // TODO: Temporary solution. We'll remove context argument for getStaticProps function
-  let cookie = '';
-  if (ctx && 'req' in ctx) {
-    cookie = ctx?.req?.headers.cookie || '';
-  }
+  const cookie = ctx?.req?.headers.cookie || '';
 
   return new ApolloClient({
     // The `ctx` (NextPageContext) will only be present on the server.
@@ -369,7 +365,7 @@ export default function createApolloClient(
  * */
 export function initializeApollo(
   initialState?: NormalizedCacheObject,
-  ctx?: GetServerSidePropsContext | GetStaticPropsContext,
+  ctx?: GetServerSidePropsContext | NextPageContext,
 ) {
   const initializedApolloClient =
     apolloClient ?? createApolloClient(initialState, ctx);

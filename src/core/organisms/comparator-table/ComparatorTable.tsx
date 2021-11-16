@@ -23,6 +23,7 @@ const ComparatorTable: React.FC<IComparatorTable> = ({
   criterias,
   addVehicle,
   viewOffer,
+  leaseType,
   isNotEmptyPage,
 }) => {
   const [index, setIndex] = useState(0);
@@ -84,6 +85,7 @@ const ComparatorTable: React.FC<IComparatorTable> = ({
               columns={columns}
               index={index}
               compares={criteria}
+              leaseType={leaseType}
             />
           ),
       )}
@@ -94,6 +96,7 @@ const ComparatorTable: React.FC<IComparatorTable> = ({
           columns={columns}
           priceValues={priceValues?.values}
           viewOffer={capId => viewOffer && viewOffer(capId)}
+          leaseType={leaseType}
         />
       )}
     </div>
