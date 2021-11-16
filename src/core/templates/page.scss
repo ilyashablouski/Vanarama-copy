@@ -119,6 +119,21 @@
         }
       }
     }
+
+    &.-olaf {
+      .header-search,
+      .header-account,
+      .menu, .header-wishlist,
+      .footer .footer--column:not(:first-child),
+      .swiper-prev,
+      .swiper-next {
+        display: none;
+      }
+
+      .header-logo {
+        pointer-events: none;
+      }
+    }
   }
 
   &pdp {
@@ -956,5 +971,4 @@
     }
   }
 }
-
 
