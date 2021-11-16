@@ -24,6 +24,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
             aria-selected={true}
             className="-active"
             data-testid="Vans & Truckstab"
+            data-uitestid="searchPod-Vans & Trucks-tab"
             id="tab:1-1"
             onClick={[Function]}
             role="tab"
@@ -36,6 +37,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
             aria-selected={false}
             className=""
             data-testid="Carstab"
+            data-uitestid="searchPod-Cars-tab"
             id="tab:1-2"
             onClick={[Function]}
             role="tab"
@@ -78,6 +80,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeVans"
+                  dataUiTestId="searchPod-typeVans-select"
                   defaultValue=""
                   name="typeVans"
                 >
@@ -147,6 +150,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="manufacturerVans"
+                  dataUiTestId="searchPod-manufacturerVans-select"
                   defaultValue=""
                   name="manufacturerVans"
                 >
@@ -221,6 +225,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelVans"
+                  dataUiTestId="searchPod-modelVans-select"
                   defaultValue=""
                   name="modelVans"
                 >
@@ -322,6 +327,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetVans"
+                  dataUiTestId="searchPod-budgetVans-select"
                   defaultValue=""
                   name="budgetVans"
                 >
@@ -403,6 +409,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <button
           className="button -fullwidth -teal -large -solid"
           data-testid="VanssearchBtn"
+          data-uitestid="searchPod-VansSearch-button"
           onClick={[Function]}
         >
           <div
@@ -440,6 +447,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="manufacturerCars"
+                  dataUiTestId="searchPod-manufacturerCars-select"
                   defaultValue=""
                   name="manufacturerCars"
                 >
@@ -499,6 +507,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelCars"
+                  dataUiTestId="searchPod-modelCars-select"
                   defaultValue=""
                   name="modelCars"
                 >
@@ -553,6 +562,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeCars"
+                  dataUiTestId="searchPod-typeCars-select"
                   defaultValue=""
                   name="typeCars"
                 >
@@ -612,6 +622,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetCars"
+                  dataUiTestId="searchPod-budgetCars-select"
                   defaultValue=""
                   name="budgetCars"
                 >
@@ -693,6 +704,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <button
           className="button -fullwidth -teal -large -solid"
           data-testid="CarssearchBtn"
+          data-uitestid="searchPod-CarsSearch-button"
           onClick={[Function]}
         >
           <div
