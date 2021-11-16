@@ -87,6 +87,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="title"
         label="Title"
         error={errors?.title?.message?.toString()}
+        dataUiTestId="olaf_about_error-title"
       >
         <Select id="title" name="title" dataTestId="aboutTitle" ref={register}>
           <OptionsWithFavourites options={dropdownData.titles} />
@@ -97,12 +98,14 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="firstName"
         label="First Name"
         error={errors?.firstName?.message?.toString()}
+        dataUiTestId="olaf_about_error-first-name"
       >
         <TextInput
           id="firstName"
           name="firstName"
           type="text"
           dataTestId="aboutFirstName"
+          dataUiTestId="olaf_about_first-name"
           ref={register}
           width="45ch"
         />
@@ -112,12 +115,14 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="lastName"
         label="Last Name"
         error={errors?.lastName?.message?.toString()}
+        dataUiTestId="olaf_about_error-last-name"
       >
         <TextInput
           id="lastName"
           type="text"
           name="lastName"
           dataTestId="aboutLastName"
+          dataUiTestId="olaf_about_last-name"
           ref={register}
           width="45ch"
         />
@@ -130,6 +135,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           onLogInClick,
           onRegistrationClick,
         )}
+        dataUiTestId="olaf_about_error-email"
       >
         <TextInput
           disabled={isEmailDisabled && errors.email?.message === undefined}
@@ -137,6 +143,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           type="email"
           name="email"
           dataTestId="aboutEmail"
+          dataUiTestId="olaf_about_email"
           ref={register}
           width="35ch"
         />
@@ -146,12 +153,14 @@ const AboutForm: FCWithFragments<IProps> = ({
           controlId="telephone"
           label="Telephone"
           error={errors?.telephone?.message?.toString()}
+          dataUiTestId="olaf_about_error-telephone"
         >
           <NumericInput
             id="telephone"
             type="tel"
             name="telephone"
             dataTestId="aboutTelephone"
+            dataUiTestId="olaf_about_telephone"
             width="45ch"
             ref={register}
           />
@@ -166,10 +175,12 @@ const AboutForm: FCWithFragments<IProps> = ({
           errors?.monthOfBirth?.message?.toString() ||
           errors?.yearOfBirth?.message?.toString()
         }
+        dataUiTestId="olaf_about_error-date-of-birth"
       >
         <Select
           id="dayOfBirth"
           dataTestId="aboutSelectDOB"
+          dataUiTestId="olaf_about_day-of-birth"
           name="dayOfBirth"
           ref={register}
           placeholder="Day"
@@ -182,6 +193,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         </Select>
         <Select
           dataTestId="aboutSelectMOB"
+          dataUiTestId="olaf_about_month-of-birth"
           name="monthOfBirth"
           ref={register}
           placeholder="Month"
@@ -194,6 +206,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         </Select>
         <Select
           dataTestId="aboutSelectYOB"
+          dataUiTestId="olaf_about_year-of-birth"
           name="yearOfBirth"
           ref={register}
           placeholder="Year"
@@ -209,11 +222,13 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="countryOfBirth"
         label="Country of Birth"
         error={errors?.countryOfBirth?.message?.toString()}
+        dataUiTestId="olaf_about_error-country-of-birth"
       >
         <Select
           id="countryOfBirth"
           name="countryOfBirth"
           dataTestId="aboutSelectCOB"
+          dataUiTestId="olaf_about_country-of-birth"
           ref={register}
           style={{ maxWidth: '295px' }}
         >
@@ -224,11 +239,13 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="nationality"
         label="Nationality"
         error={errors?.nationality?.message?.toString()}
+        dataUiTestId="olaf_about_error-nationality"
       >
         <Select
           id="nationality"
           name="nationality"
           dataTestId="aboutNationality"
+          dataUiTestId="olaf_about_nationality-dropdown"
           ref={register}
           style={{ maxWidth: '220px' }}
         >
@@ -239,11 +256,13 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="maritalStatus"
         label="Marital Status"
         error={errors?.maritalStatus?.message?.toString()}
+        dataUiTestId="olaf_about_error-marital-status"
       >
         <Select
           id="maritalStatus"
           name="maritalStatus"
           dataTestId="aboutMaritalStatus"
+          dataUiTestId="olaf_about_marital-status-dropdown"
           ref={register}
         >
           {dropdownData?.maritalStatuses?.data.map(value => (
@@ -257,11 +276,13 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="dependants"
         label="No. of Dependants"
         error={errors?.dependants?.message?.toString()}
+        dataUiTestId="olaf_about_error-no-of-dependants"
       >
         <Select
           id="dependants"
           name="dependants"
           dataTestId="aboutDependants"
+          dataUiTestId="olaf_about_no-of-dependants-dropdown"
           ref={register}
         >
           {dropdownData?.noOfDependants?.data.map(value => (
@@ -275,11 +296,13 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="adultsInHousehold"
         label="No. of Adults in Household"
         error={errors?.adultsInHousehold?.message?.toString()}
+        dataUiTestId="olaf_about_error-no-of-adults"
       >
         <Select
           id="adultsInHousehold"
           name="adultsInHousehold"
           dataTestId="aboutAdultsInHouse"
+          dataUiTestId="olaf_about_no-of-adults-dropdown"
           ref={register}
         >
           {dropdownData?.noOfAdultsInHousehold?.data.map(value => (
@@ -292,10 +315,12 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         label="Please Confirm"
         error={errors?.termsAndCons?.message?.toString()}
+        dataUiTestId="olaf_about_error-tncs"
       >
         <CheckBox
           id="marketing"
           dataTestId="aboutMarketingB2C"
+          dataUiTestId="olaf_about_marketing-consent-checkbox"
           name="marketing"
           label="I want to be kept updated about exclusive deals & offers."
           ref={register}
@@ -303,6 +328,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         <CheckBox
           id="termsAndCons"
           dataTestId="aboutTermsAndConditionsB2C"
+          dataUiTestId="olaf_about_tncs-consent-checkbox-b2c"
           name="termsAndCons"
           label={[
             'I agree to the ',
@@ -318,10 +344,15 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
         />
       </FormGroup>
-      <FormGroup label="" error={errors?.privacyPolicy?.message?.toString()}>
+      <FormGroup
+        label=""
+        error={errors?.privacyPolicy?.message?.toString()}
+        dataUiTestId="olaf_about_error-privacy-policy"
+      >
         <CheckBox
           id="privacyPolicy"
           dataTestId="aboutPrivacyPolicy"
+          dataUiTestId="olaf_about_privacy-policy-consent-checkbox"
           name="privacyPolicy"
           label={[
             'I have read and understood the ',
@@ -346,6 +377,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         iconColor="white"
         iconPosition="after"
         dataTestId="aboutSubmit"
+        dataUiTestId="olaf_about_continue-button"
       />
     </Form>
   );
