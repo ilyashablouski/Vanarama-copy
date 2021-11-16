@@ -22,7 +22,7 @@ export interface ISearchPageFiltersProps
   isFuelPage?: boolean;
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;
-  isPartnershipActive: boolean;
+  isPartnershipActive?: boolean;
   preLoadFilters?: Nullable<IFilterList>;
   isPreloadList: boolean;
   setSearchFilters: (filters: IFilters) => void;
