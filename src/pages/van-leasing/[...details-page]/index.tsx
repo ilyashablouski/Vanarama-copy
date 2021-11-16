@@ -206,6 +206,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   return (
     <>
       <DetailsPage
+        dataUiTestId="van-details-page"
         pdpContent={pdpContent}
         capId={capId || 0}
         vans={!isPickup}

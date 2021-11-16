@@ -8,4 +8,5 @@ export interface GoldrushFormContainerProps {
   termsAndConditions?: boolean;
   vehicleType?: string;
   callBack?: boolean;
+  dataUiTestId?: string;
 }

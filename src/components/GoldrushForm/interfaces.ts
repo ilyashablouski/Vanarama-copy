@@ -11,6 +11,7 @@ export interface IGoldrushFormProps {
   noTermsAndConditions?: boolean;
   isPlaceholdersShown?: IPlaceholders;
   isLabelsShown?: ILabels;
+  dataUiTestId?: string;
 }
 
 export interface IGoldrushFromValues {

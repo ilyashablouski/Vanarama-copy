@@ -52,11 +52,13 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   >
     <span
       className="heading -black -lead"
+      data-uitestid="customise-lease_goldrush-form_heading"
     >
       Get Your Quote Now
     </span>
     <span
       className="text -mb-400 -regular -darker"
+      data-uitestid="customise-lease_goldrush-form_text"
     >
       We’ll be in touch within 1-2 business hours
     </span>

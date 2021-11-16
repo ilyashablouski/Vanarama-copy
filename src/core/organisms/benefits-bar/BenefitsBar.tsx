@@ -29,7 +29,7 @@ const Slider: FC<ICarouselProps> = () => (
         preventClicks
         preventClicksPropagation
       >
-        {BENEFIT_LIST.map(item => {
+        {BENEFIT_LIST.map((item, index) => {
           return (
             <SwiperSlide key={item.title}>
               <div className="text -small -white">
@@ -38,7 +38,11 @@ const Slider: FC<ICarouselProps> = () => (
                   className="benefits-bar__icon"
                   size="lead"
                 />
-                <span>{item.title}</span>
+                <span
+                  data-uitestid={`benefits-bar_benefits-item-${index}_label`}
+                >
+                  {item.title}
+                </span>
               </div>
             </SwiperSlide>
           );

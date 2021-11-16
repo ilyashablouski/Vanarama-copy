@@ -51,6 +51,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
     phoneNumber: true,
     postcode: true,
   },
+  dataUiTestId,
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
@@ -81,12 +82,23 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         {heading && (
-          <Heading tag="span" size={callBack ? 'large' : 'lead'} color="black">
+          <Heading
+            tag="span"
+            size={callBack ? 'large' : 'lead'}
+            color="black"
+            dataUiTestId={dataUiTestId ? `${dataUiTestId}_heading` : undefined}
+          >
             {heading}
           </Heading>
         )}
         {text && (
-          <Text tag="span" size="regular" color="darker" className="-mb-400">
+          <Text
+            tag="span"
+            size="regular"
+            color="darker"
+            className="-mb-400"
+            dataUiTestId={dataUiTestId ? `${dataUiTestId}_text` : undefined}
+          >
             {text}
           </Text>
         )}

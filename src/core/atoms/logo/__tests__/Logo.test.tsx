@@ -11,7 +11,7 @@ const optionalProps = {
 };
 
 function getComponent(props?: Partial<ILogoProps>, asset: TAsset = 'vanarama') {
-  return renderer.create(<Logo asset={asset} {...props} />).toJSON();
+  return renderer.create(<Logo assetName={asset} {...props} />).toJSON();
 }
 
 describe('<Logo />', () => {

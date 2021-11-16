@@ -42,6 +42,7 @@ const Page: NextPage<IProps> = ({
   manufacturersUrls: encodedData,
 }) => (
   <SearchPageContainer
+    dataUiTestId="cars-search-page"
     isServer={isServer}
     isCarSearch
     isAllManufacturersPage
