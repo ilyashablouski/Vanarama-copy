@@ -12,6 +12,7 @@ const Text: React.FC<ITextProps> = ({
   children,
   invalid,
   dataTestId,
+  dataUiTestId,
 }) => (
   <Tag
     id={id}
@@ -21,6 +22,7 @@ const Text: React.FC<ITextProps> = ({
       '-invalid': invalid,
     })}
     data-testid={dataTestId}
+    data-uitestid={dataUiTestId}
     htmlFor={htmlFor}
   >
     {children}
