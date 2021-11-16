@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
+import Cookies from 'js-cookie';
 import { useSavePersonUuidMutation } from '../../../gql/storedPersonUuid';
 import { useSaveOrderMutation } from '../../../gql/storedOrder';
 import {
@@ -30,6 +31,10 @@ import { GetPerson } from '../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../gql/storedOLAFData';
 import { useSavePersonEmailMutation } from '../../../gql/storedPersonEmail';
 import ErrorMessages from '../../../models/enum/ErrorMessages';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../../utils/addHeapProperties';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -124,9 +129,9 @@ const AboutYouPage: NextPage = () => {
     });
   };
 
-  const clickOnComplete = async (createUpdatePerson: IPerson) => {
+  const clickOnComplete = (createUpdatePerson: IPerson) => {
     savePersonDataInLocalStorage(createUpdatePerson);
-    await refetch({
+    return refetch({
       uuid: createUpdatePerson.uuid,
     })
       .then(resp =>
@@ -167,11 +172,14 @@ const AboutYouPage: NextPage = () => {
       .then(() => getUrlParam({ uuid: createUpdatePerson.uuid }))
       .then(params => redirect || `/olaf/address-history${params}`)
       .then(url => router.push(url, url))
-      .then(() =>
-        setTimeout(() => {
-          pushAboutYouDataLayer(detailsData, derivativeData);
-        }, 200),
-      );
+      .finally(() => {
+        addHeapUserIdentity(createUpdatePerson?.emailAddresses?.[0]?.value);
+        addHeapUserProperties({
+          uuid: createUpdatePerson?.uuid,
+          bcuid: Cookies.get('BCSessionID') || 'undefined',
+        });
+        pushAboutYouDataLayer(detailsData, derivativeData);
+      });
   };
 
   return (
