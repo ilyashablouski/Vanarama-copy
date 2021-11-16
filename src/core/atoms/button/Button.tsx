@@ -20,7 +20,6 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
       size = 'regular',
       withoutDefaultClass,
       customCTAColor,
-      dataUiTestId,
       ...rest
     } = props;
 
@@ -80,7 +79,6 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
         data-testid={dataTestId}
         data-uitestid={dataUiTestId}
         ref={ref}
-        data-uitestid={dataUiTestId}
       >
         <div className="button--inner">
           {icon && iconPosition === 'before' && renderIcon()}
