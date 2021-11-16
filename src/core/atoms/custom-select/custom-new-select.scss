@@ -35,14 +35,14 @@
   left: -1px;
   position: absolute;
   background-color: #fff;
-  z-index: 999;
+  z-index: 10;
   border-bottom: 1px solid #007f85;
   border-right: 1px solid #007f85;
   border-left: 1px solid #007f85;
   border-bottom-left-radius: 0.25em;
   border-bottom-right-radius: 0.25em;
   overflow-y: auto;
-  max-height: 34vh;
+  max-height: 60vh;
 }
 
 .selected-text {

@@ -6,7 +6,7 @@
   right: 0;
   width: 100%;
   overflow: hidden;
-  z-index: 999;
+  z-index: $z-index-PDP;
   margin-top: 0 !important;
   .select-window {
     width: 100%;
@@ -15,7 +15,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 50vh;
+    height: 75vh;
     .list-header {
       height: 56px;
       padding: 16px;
@@ -44,6 +44,9 @@
       }
       & > *:first-child {
         padding-top: 0;
+      }
+      .select-options__mobile {
+        padding-bottom: 150px;
       }
     }
   }
