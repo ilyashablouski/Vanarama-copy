@@ -1,10 +1,10 @@
 import React, { FC, memo } from 'react';
 import cx from 'classnames';
 
-import { ILogoProps } from './interfaces';
+import LogoBVRLA from 'core/assets/images/logo-bvrla';
+import LogoVanaramaInline from 'core/assets/images/logo-vanarama-inline';
 
-import LogoVanaramaInline from '../../assets/images/logo-vanarama-inline';
-import LogoBVRLA from '../../assets/images/logo-bvrla';
+import { ILogoProps } from './interfaces';
 
 const getLogo = (asset: string) => {
   switch (asset.toLowerCase()) {
@@ -16,10 +16,16 @@ const getLogo = (asset: string) => {
   }
 };
 
-const Logo: FC<ILogoProps> = memo(props => {
-  const { className, asset } = props;
-  return <span className={cx('logo', className)}>{getLogo(asset)}</span>;
-});
+const Logo: FC<ILogoProps> = memo(({ className, dataUiTestId, assetName }) => (
+  <span
+    className={cx('logo', className)}
+    data-uitestid={
+      dataUiTestId ? `${dataUiTestId}_${assetName}-logo` : undefined
+    }
+  >
+    {getLogo(assetName)}
+  </span>
+));
 
 Logo.displayName = 'Logo';
 

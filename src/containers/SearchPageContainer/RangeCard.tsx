@@ -48,6 +48,7 @@ interface IVehicleCardProps {
   isAllManufacturersCard?: boolean;
   rangesUrls?: IGenericPages['items'];
   manufacturersUrls?: IGenericPages['items'];
+  dataUiTestId?: string;
 }
 
 const RangeCard = memo(
@@ -60,6 +61,7 @@ const RangeCard = memo(
     isAllManufacturersCard,
     rangesUrls,
     manufacturersUrls,
+    dataUiTestId,
   }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
@@ -132,6 +134,9 @@ const RangeCard = memo(
             className="button"
             classNames={{ size: 'regular', color: 'teal', solid: true }}
             withoutDefaultClassName
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_view-all-button` : undefined
+            }
           >
             <div className="button--inner">View All</div>
           </RouterLink>

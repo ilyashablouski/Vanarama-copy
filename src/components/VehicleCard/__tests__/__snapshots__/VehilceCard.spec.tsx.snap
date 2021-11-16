@@ -4,6 +4,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
 <div
   className="card product"
   data-testid="card"
+  data-uitestid="vehicle-card"
 >
   <div
     className="card-header"
@@ -192,6 +193,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       className="button link -teal -regular -solid"
       data-menu={null}
       data-testid="view-offer"
+      data-uitestid="vehicle-card_view-offer-button"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug?leaseType=BCH"
       onClick={[Function]}
       onFocus={[Function]}
@@ -216,6 +218,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   >
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_compare-button"
       onClick={[Function]}
     >
       <div
@@ -265,6 +268,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_wishlist-button"
       onClick={[Function]}
     >
       <div
@@ -295,6 +299,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
 <div
   className="card product"
   data-testid="card"
+  data-uitestid="vehicle-card"
 >
   <div
     className="card-header"
@@ -483,6 +488,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       className="button link -teal -regular -solid"
       data-menu={null}
       data-testid="view-offer"
+      data-uitestid="vehicle-card_view-offer-button"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
       onFocus={[Function]}
@@ -507,6 +513,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   >
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_compare-button"
       onClick={[Function]}
     >
       <div
@@ -556,6 +563,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_wishlist-button"
       onClick={[Function]}
     >
       <div
@@ -586,6 +594,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
 <div
   className="card product"
   data-testid="card"
+  data-uitestid="vehicle-card"
 >
   <div
     className="card-header"
@@ -774,6 +783,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       className="button link -teal -regular -solid"
       data-menu={null}
       data-testid="view-offer"
+      data-uitestid="vehicle-card_view-offer-button"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
       onFocus={[Function]}
@@ -798,6 +808,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   >
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_compare-button"
       onClick={[Function]}
     >
       <div
@@ -847,6 +858,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
+      data-uitestid="vehicle-card_wishlist-button"
       onClick={[Function]}
     >
       <div

@@ -16,6 +16,7 @@ const Text: React.FC<ITextProps> = ({
 }) => (
   <Tag
     id={id}
+    htmlFor={htmlFor}
     className={cx('text', className, {
       [`-${size}`]: size,
       [`-${color}`]: color,
@@ -23,7 +24,6 @@ const Text: React.FC<ITextProps> = ({
     })}
     data-testid={dataTestId}
     data-uitestid={dataUiTestId}
-    htmlFor={htmlFor}
   >
     {children}
   </Tag>

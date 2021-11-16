@@ -22,39 +22,38 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 
 interface IFooterColumn {
   linkGroup: LinkGroups | null;
+  dataUiTestId?: string;
 }
 
 const socialButtons = [
   {
-    id: 'Facebook',
+    id: 'facebook',
     link: 'https://www.facebook.com/vanarama/',
     icon: <LogoFacebookV2 />,
   },
   {
-    id: 'Twitter',
+    id: 'twitter',
     link: 'https://twitter.com/Vanarama',
     icon: <LogoTwitterV2 />,
   },
   {
-    id: 'Instagram',
+    id: 'instagram',
     link: 'https://www.instagram.com/vanaramauk/',
     icon: <LogoInstagramV2 />,
   },
   {
-    id: 'Linkedin',
+    id: 'linkedin',
     link: 'https://www.linkedin.com/company/vanarama',
     icon: <LogoLinkedinV2 />,
   },
   {
-    id: 'YouTube',
+    id: 'youtube',
     link: 'https://www.youtube.com/user/vanaramauk',
     icon: <LogoYouTubeV2 />,
   },
 ];
 
-const FooterColumn: FC<IFooterColumn> = props => {
-  const { linkGroup } = props;
-
+const FooterColumn: FC<IFooterColumn> = ({ linkGroup, dataUiTestId }) => {
   if (linkGroup) {
     return (
       <div className="footer--column" key={linkGroup.name || ''}>
@@ -120,6 +119,7 @@ const FooterColumn: FC<IFooterColumn> = props => {
                     href={item.link}
                     target="_blank"
                     className="button--inner"
+                    data-uitestid={`${dataUiTestId}_${item.id}-social-link`}
                     rel="noreferrer"
                   >
                     <div>
@@ -129,7 +129,7 @@ const FooterColumn: FC<IFooterColumn> = props => {
                 </div>
               ))}
             </div>
-            <Logo asset="bvrla" />
+            <Logo assetName="bvrla" dataUiTestId={dataUiTestId} />
           </>
         )}
       </div>
