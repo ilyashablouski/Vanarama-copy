@@ -68,6 +68,7 @@ const SearchPod = ({
                 index={parseInt(TypeToIndex[type as any], 10)}
                 key={`${tabName}-tab`}
                 dataTestId={`${tabName}tab`}
+                dataUiTestId={`searchPod-${tabName}-tab`}
               >
                 {tabName}
               </Tab>
@@ -80,6 +81,7 @@ const SearchPod = ({
               className="hero-card--inner"
               key={`${tab.tabName}-panels`}
               dataTestId={`${tab.tabName}-panel`}
+              dataUiTestId={`searchPod-${tab.tabName}-panel`}
             >
               <Heading
                 size={isHomePage ? 'small' : 'lead'}
@@ -93,6 +95,7 @@ const SearchPod = ({
                   <Formgroup key={accessor}>
                     <Select
                       dataTestId={accessor}
+                      dataUiTestId={`searchPod-${accessor}-select`}
                       name={accessor}
                       className="-fullwidth"
                       placeholder={label}
@@ -173,6 +176,7 @@ const SearchPod = ({
                 label={isHomePage ? tab.buttonText : 'Search Vehicles'}
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
+                dataUiTestId={`searchPod-${tab.type}Search-button`}
               />
             </TabPanel>
           ))}

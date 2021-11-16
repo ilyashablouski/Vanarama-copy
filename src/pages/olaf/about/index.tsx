@@ -179,7 +179,13 @@ const AboutYouPage: NextPage = () => {
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
     >
-      <Heading color="black" size="xlarge" dataTestId="aboutHeading" tag="h1">
+      <Heading
+        color="black"
+        size="xlarge"
+        dataTestId="aboutHeading"
+        tag="h1"
+        dataUiTestId="olaf_about_heading"
+      >
         About You
       </Heading>
       <Text color="darker" size="lead">

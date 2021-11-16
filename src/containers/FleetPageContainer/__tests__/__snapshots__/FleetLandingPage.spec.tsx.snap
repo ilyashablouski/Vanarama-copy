@@ -240,7 +240,8 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                           I have read and understood the 
                           <a
                             class="link -teal"
-                            href="/legal/privacy-policy.html"
+                            data-testid="link"
+                            href="/legal/privacy-policy"
                             target="_blank"
                           >
                             Privacy Policy

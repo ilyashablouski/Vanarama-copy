@@ -68,6 +68,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
       <RouterLink
         key={link.id}
         link={link}
+        dataUiTestId={`header-${link.label}-link`}
         onClick={
           isTabletOrMobile && link.children?.length
             ? el => {

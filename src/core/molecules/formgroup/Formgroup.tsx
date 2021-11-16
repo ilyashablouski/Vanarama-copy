@@ -20,6 +20,7 @@ const Formgroup: React.FC<IFormgroupProps> = ({
   children,
   className,
   controlId,
+  dataUiTestId,
   dataTestId,
   error,
   hint,
@@ -64,7 +65,12 @@ const Formgroup: React.FC<IFormgroupProps> = ({
       </div>
     )}
     {error && (
-      <Text className="formgroup--error" size="small" color="danger">
+      <Text
+        className="formgroup--error"
+        size="small"
+        color="danger"
+        dataUiTestId={dataUiTestId}
+      >
         {error}
       </Text>
     )}

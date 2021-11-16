@@ -1,3 +1,1 @@
-import GoldrushFrom from './GoldrushForm';
-
-export default GoldrushFrom;
+export { default } from './GoldrushForm';

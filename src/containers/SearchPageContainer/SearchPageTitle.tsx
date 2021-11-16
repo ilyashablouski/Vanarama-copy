@@ -16,6 +16,7 @@ interface IProps {
   isDesktopOrTablet: boolean;
   isPartnershipActive: boolean;
   isNewPage: boolean;
+  dataUiTestId?: string;
 }
 
 const SearchPageTitle = ({
@@ -27,6 +28,7 @@ const SearchPageTitle = ({
   isPartnershipActive,
   isDesktopOrTablet,
   isNewPage,
+  dataUiTestId,
 }: IProps) => {
   const headingText = useMemo(
     () =>
@@ -44,7 +46,12 @@ const SearchPageTitle = ({
     <div className="row:title">
       {!isPartnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
       {isNewPage ? null : (
-        <Heading tag="h1" size="xlarge" color="black">
+        <Heading
+          tag="h1"
+          size="xlarge"
+          color="black"
+          dataUiTestId={`${dataUiTestId}_heading`}
+        >
           {headingText}
         </Heading>
       )}
