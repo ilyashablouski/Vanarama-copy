@@ -3,7 +3,6 @@ import Select from 'core/atoms/select';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { getSessionStorage } from '../../utils/windowSessionStorage';
 import {
   budgets,
   FilterFields,
@@ -69,7 +68,7 @@ const SearchPageFilters = ({
   isTransmissionPage,
   isDynamicFilterPage,
   isPreloadList,
-  isPartnershipActive,
+  isPartnershipActive = false,
   setSearchFilters,
   filtersData,
   setFiltersData,
@@ -122,17 +121,9 @@ const SearchPageFilters = ({
     [selectedFiltersState],
   );
 
-  const [isPartnership, setIsPartnership] = useState(false);
-  const [filterFuelTypes, setFilterFuelTypes] = useState<string[] | undefined>(
-    [],
+  const [filterFuelTypes] = useState<string[] | undefined>(
+    (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
   );
-
-  useEffect(() => {
-    if (getSessionStorage('partnershipSessionActive')) {
-      setIsPartnership(true);
-      setFilterFuelTypes(getPartnerProperties()?.fuelTypes || []);
-    }
-  }, []);
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -365,6 +356,10 @@ const SearchPageFilters = ({
           (isFuelPage &&
             selectedFiltersState?.fuelTypes[0] &&
             searchWithParams(1)) ||
+          (isPartnershipActive &&
+            (initialState?.fuelTypes.length !==
+              selectedFiltersState?.fuelTypes.length ||
+              Object.keys(router.query).length !== 0)) ||
           (isRangePage &&
             selectedFiltersState?.model[0] &&
             searchWithParams(2)))) ||
@@ -491,7 +486,7 @@ const SearchPageFilters = ({
                       (
                         ((isModelPage || isBodyPage) &&
                           filter.accessor === FilterFields.bodyStyles) ||
-                        (isFuelPage &&
+                        ((isFuelPage || isPartnershipActive) &&
                           filter.accessor === FilterFields.fuelTypes) ||
                         (isTransmissionPage &&
                           filter.accessor === FilterFields.transmissions)
@@ -530,11 +525,15 @@ const SearchPageFilters = ({
                         onSubmit={value =>
                           handleChecked?.(value, filter.accessor as any)
                         }
+                        preventUnselectAllValues={
+                          filter.accessor === FilterFields.fuelTypes &&
+                          isPartnershipActive
+                        }
                         choices={
                           isPickups ||
                           isModelPage ||
                           isDynamicFilterPage ||
-                          isPartnership
+                          isPartnershipActive
                             ? buildPreselectChoiseboxes(
                                 {
                                   isPickups,
@@ -542,7 +541,7 @@ const SearchPageFilters = ({
                                   isBodyPage,
                                   isTransmissionPage,
                                   isFuelPage,
-                                  isPartnership,
+                                  isPartnershipActive,
                                 },
                                 filter.accessor,
                                 selectedFiltersState,
@@ -557,7 +556,7 @@ const SearchPageFilters = ({
                           (filter.accessor === FilterFields.bodyStyles &&
                             (isPickups || isModelPage || isBodyPage)) ||
                           (filter.accessor === FilterFields.fuelTypes &&
-                            (isFuelPage || isPartnershipActive)) ||
+                            isFuelPage) ||
                           (filter.accessor === FilterFields.transmissions &&
                             isTransmissionPage) ||
                           // disable if only one option is available
