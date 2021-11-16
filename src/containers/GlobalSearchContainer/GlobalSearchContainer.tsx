@@ -70,7 +70,7 @@ const GlobalSearchContainer = () => {
           type="text"
           value={fieldValue}
           placeholder="Search for vehicles or information..."
-          data-uitestid="global-search_search-field"
+          dataUiTestId="global-search_search-field"
           onFocus={() => {
             if (!isOpenResults && fieldValue.length > 2) {
               setIsOpenResults(true);
