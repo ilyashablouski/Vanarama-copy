@@ -16,7 +16,11 @@ const Toast: React.FC<IToastProps> = ({
   title,
   variant,
 }) => (
-  <div className={cx('toast--inner', className)} data-testid={dataTestId}>
+  <div
+    className={cx('toast--inner', className)}
+    data-testid={dataTestId}
+    data-uitestid="testUi-toast"
+  >
     <LazyLoadComponent>
       <Icon color={getIconColor(variant)} icon={<AlertCircleSharp />} />
       <div>
