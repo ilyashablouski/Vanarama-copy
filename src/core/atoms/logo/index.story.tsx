@@ -7,6 +7,5 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Logo from '.';
 
 storiesOf(`${atomicDir(base)}/Logo`, module)
-  .add('Vanarama', () => <Logo asset="vanarama" />)
-
-  .add('BVRLA', () => <Logo asset="bvrla" />);
+  .add('Vanarama', () => <Logo assetName="vanarama" />)
+  .add('BVRLA', () => <Logo assetName="bvrla" />);

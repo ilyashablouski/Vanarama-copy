@@ -19,6 +19,7 @@ const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
 const CloseSharp = dynamic(() => import('core/assets/icons/CloseSharp'), {
   ssr: false,
 });
+
 const GlobalSearchContainer = () => {
   const isDesktop = useDesktopViewport();
   const router = useRouter();
@@ -69,6 +70,7 @@ const GlobalSearchContainer = () => {
           type="text"
           value={fieldValue}
           placeholder="Search for vehicles or information..."
+          dataUiTestId="global-search_search-field"
           onFocus={() => {
             if (!isOpenResults && fieldValue.length > 2) {
               setIsOpenResults(true);
@@ -114,9 +116,11 @@ const GlobalSearchContainer = () => {
         <>
           <div className="header-search-results-container">
             <GlobalSearchLeftSideContainer
+              dataUiTestId="global-search_suggestions"
               suggestions={suggestions.suggestsList}
             />
             <GlobalSearchRightSideContainer
+              dataUiTestId="global-search_results"
               suggestions={
                 isDesktop
                   ? (suggestions.vehiclesList as ISuggestions[])

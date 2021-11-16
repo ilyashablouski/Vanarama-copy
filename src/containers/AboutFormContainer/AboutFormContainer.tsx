@@ -1,10 +1,5 @@
 import dynamic from 'next/dynamic';
-import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
-import {
-  addHeapUserIdentity,
-  addHeapUserProperties,
-} from '../../utils/addHeapProperties';
 import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { useCreatePerson, useAboutYouData, useAboutPageDataQuery } from './gql';
@@ -32,7 +27,7 @@ const AboutFormContainer: React.FC<IProps> = ({
   onRegistrationClick,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
-  const [createPerson] = useCreatePerson(onCompleted);
+  const [createPerson] = useCreatePerson();
   const aboutYouData = useAboutYouData(personUuid);
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
@@ -98,18 +93,14 @@ const AboutFormContainer: React.FC<IProps> = ({
           values.email,
           values.firstName,
           values.lastName,
-        ).then(query =>
-          handlePersonCreation(
-            values,
-            query.data?.registerForTemporaryAccess,
-          ).then(({ data }) => {
-            addHeapUserIdentity(values.email);
-            addHeapUserProperties({
-              uuid: data?.createUpdatePerson?.uuid,
-              bcuid: Cookies.get('BCSessionID') || 'undefined',
-            });
-          }),
         )
+          .then(query =>
+            handlePersonCreation(
+              values,
+              query.data?.registerForTemporaryAccess,
+            ),
+          )
+          .then(operation => onCompleted?.(operation?.data))
       }
     />
   );

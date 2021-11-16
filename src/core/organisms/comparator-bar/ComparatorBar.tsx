@@ -89,6 +89,7 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
               compareVehicles();
             }}
             disabled={vehicles.length < 2}
+            dataUiTestId="comparator-bar_compare-button"
             size="lead"
             color="teal"
             label="Compare Vehicles"

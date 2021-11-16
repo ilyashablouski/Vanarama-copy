@@ -24,6 +24,7 @@ const Select: React.FC<ISelectProps> = React.forwardRef<
     onFocus,
     placeholder = 'Please Select',
     value,
+    dataUiTestId,
     ...rest
   } = props;
 
@@ -37,6 +38,7 @@ const Select: React.FC<ISelectProps> = React.forwardRef<
         id={id}
         className="select--native"
         data-testid={dataTestId}
+        data-uitestid={dataUiTestId}
         defaultValue={
           showPlaceholder && !isControlledMode
             ? PLACEHOLDER_VALUE

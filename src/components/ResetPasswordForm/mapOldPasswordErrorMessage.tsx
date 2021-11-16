@@ -17,7 +17,11 @@ export const resetPasswordLink = {
 export const wrongPasswordError = (
   <>
     {'Your old password seems incorrect. '}
-    <RouterLink dataTestId="forgot-password" link={resetPasswordLink}>
+    <RouterLink
+      dataTestId="forgot-password"
+      link={resetPasswordLink}
+      dataUiTestId="error-message-forgot-password"
+    >
       <Text tag="span" color="teal" size="small">
         Reset your password here
       </Text>

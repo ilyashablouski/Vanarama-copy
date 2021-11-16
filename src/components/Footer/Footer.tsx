@@ -23,7 +23,11 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
         threshold={250}
       >
         {linkGroups?.map(linkGroup => (
-          <FooterColumn key={linkGroup?.name || ''} linkGroup={linkGroup} />
+          <FooterColumn
+            key={linkGroup?.name || ''}
+            dataUiTestId="footer_footer-column"
+            linkGroup={linkGroup}
+          />
         ))}
         <hr className="footer--divider -fullwidth" />
         {legalStatement?.title && (
