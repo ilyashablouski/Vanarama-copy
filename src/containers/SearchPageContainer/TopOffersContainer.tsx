@@ -57,6 +57,7 @@ interface IProps {
   preloadRange?: string;
   shouldForceUpdate: boolean;
   setShouldForceUpdate: (value: boolean) => void;
+  dataUiTestId?: string;
 }
 
 const SLIDES_PER_VIEW = 3;
@@ -80,6 +81,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   preloadRange,
   shouldForceUpdate,
   setShouldForceUpdate,
+  dataUiTestId,
 }: IProps) => {
   const router = useRouter();
 
@@ -223,6 +225,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const renderVehicleCard = (vehicle: IVehicles, index: number) => (
     <SwiperSlide key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}>
       <VehicleCard
+        dataUiTestId={`${dataUiTestId}_product-card-${index}`}
         loadImage
         lazyLoad={index !== 0}
         derivativeId={vehicle.node?.derivativeId}
@@ -275,8 +278,9 @@ const TopOffersContainer: React.FC<IProps> = ({
       {isRangePage && isCarSearch && bodyStyleList.length > 1 && (
         <div className="row:bg-lighter">
           <div className="row:cards-2col">
-            {bodyStyleList.map(bodyStyle => (
+            {bodyStyleList.map((bodyStyle, index) => (
               <ModelCard
+                dataUiTestId={`${dataUiTestId}_model-card-${index}`}
                 data={bodyStyle}
                 key={`${bodyStyle.bodyStyle}_${bodyStyle.capId}`}
                 manufacturer={preloadManufacturer}

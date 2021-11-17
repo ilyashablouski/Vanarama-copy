@@ -28,10 +28,11 @@ interface IProps {
   vehiclesList: any;
   isModelPage?: boolean;
   customCTAColor?: string;
+  dataUiTestId?: string;
 }
 
-const ResultsContainer = memo((props: IProps) => {
-  const {
+const ResultsContainer = memo(
+  ({
     isManufacturerPage,
     isAllManufacturersPage,
     ranges,
@@ -44,66 +45,71 @@ const ResultsContainer = memo((props: IProps) => {
     vehiclesList,
     isModelPage,
     customCTAColor,
-  } = props;
-  const router = useRouter();
+    dataUiTestId,
+  }: IProps) => {
+    const router = useRouter();
 
-  const getCardData = (capId: string, dataForCards = cardsData) =>
-    dataForCards?.filter(card => card?.capId === capId)[0];
+    const getCardData = (capId: string, dataForCards = cardsData) =>
+      dataForCards?.filter(card => card?.capId === capId)[0];
 
-  return isManufacturerPage || isAllManufacturersPage ? (
-    <>
-      {isManufacturerPage &&
-        !!ranges?.rangeList?.length &&
-        ranges?.rangeList?.map((range, index) => (
-          <RangeCard
-            title={range.rangeName || ''}
-            fromPrice={range.minPrice || undefined}
-            key={range.rangeId || index}
+    return isManufacturerPage || isAllManufacturersPage ? (
+      <>
+        {isManufacturerPage &&
+          !!ranges?.rangeList?.length &&
+          ranges?.rangeList?.map((range, index) => (
+            <RangeCard
+              dataUiTestId={`${dataUiTestId}_range-card-${index}`}
+              title={range.rangeName || ''}
+              fromPrice={range.minPrice || undefined}
+              key={range.rangeId || index}
+              isPersonalPrice={isPersonal ?? false}
+              id={range.rangeId || ''}
+              rangesUrls={rangesUrls}
+              vehicleType={
+                isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV
+              }
+            />
+          ))}
+        {isAllManufacturersPage &&
+          !!manufacturers?.manufacturerList?.length &&
+          manufacturers?.manufacturerList?.map((manufacturerData, index) => (
+            <RangeCard
+              dataUiTestId={`${dataUiTestId}_range-card-${index}`}
+              title={manufacturerData.manufacturerName || ''}
+              fromPrice={manufacturerData.minPrice || undefined}
+              manufacturersUrls={manufacturersUrls}
+              key={manufacturerData.manufacturerId || index}
+              isPersonalPrice={isPersonal ?? false}
+              id={manufacturerData?.capId?.toString() || ''}
+              vehicleType={
+                isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV
+              }
+              isAllManufacturersCard
+            />
+          ))}
+      </>
+    ) : (
+      !!cardsData.length &&
+        vehiclesList?.map((vehicle: IVehicles, index: number) => (
+          <VehicleCard
+            dataUiTestId={`${dataUiTestId}_product-card-${index}`}
+            bodyStyle={router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null}
+            key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
+            data={getCardData(vehicle.node?.derivativeId || '') as IProductCard}
+            derivativeId={vehicle.node?.derivativeId}
+            url={getUrlForVehicleCard(vehicle) || ''}
+            title={{
+              title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
+              description: vehicle.node?.derivativeName || '',
+            }}
             isPersonalPrice={isPersonal ?? false}
-            id={range.rangeId || ''}
-            rangesUrls={rangesUrls}
-            vehicleType={
-              isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV
-            }
+            isModelPage={isModelPage}
+            customCTAColor={customCTAColor}
+            index={index}
           />
-        ))}
-      {isAllManufacturersPage &&
-        !!manufacturers?.manufacturerList?.length &&
-        manufacturers?.manufacturerList?.map((manufacturerData, index) => (
-          <RangeCard
-            title={manufacturerData.manufacturerName || ''}
-            fromPrice={manufacturerData.minPrice || undefined}
-            manufacturersUrls={manufacturersUrls}
-            key={manufacturerData.manufacturerId || index}
-            isPersonalPrice={isPersonal ?? false}
-            id={manufacturerData?.capId?.toString() || ''}
-            vehicleType={
-              isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV
-            }
-            isAllManufacturersCard
-          />
-        ))}
-    </>
-  ) : (
-    !!cardsData.length &&
-      vehiclesList?.map((vehicle: IVehicles, index: number) => (
-        <VehicleCard
-          bodyStyle={router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null}
-          key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-          data={getCardData(vehicle.node?.derivativeId || '') as IProductCard}
-          derivativeId={vehicle.node?.derivativeId}
-          url={getUrlForVehicleCard(vehicle) || ''}
-          title={{
-            title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
-            description: vehicle.node?.derivativeName || '',
-          }}
-          isPersonalPrice={isPersonal ?? false}
-          isModelPage={isModelPage}
-          customCTAColor={customCTAColor}
-          index={index}
-        />
-      ))
-  );
-});
+        ))
+    );
+  },
+);
 
 export default ResultsContainer;

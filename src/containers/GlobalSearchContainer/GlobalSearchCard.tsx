@@ -22,9 +22,10 @@ const Button = dynamic(() => import('core/atoms/button'), {
 interface IProps {
   data: ISuggestion;
   imgUrl: string;
+  dataUiTestId?: string;
 }
 
-const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
+const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
   const router = useRouter();
   const isSpecialOffer = useMemo(() => data.onOffer, [data.onOffer]);
   const isCar = useMemo(() => data.vehicleType === VehicleTypeEnum.CAR, [
@@ -40,8 +41,9 @@ const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
     () => (data.rental as number).toFixed(2).split('.')[1],
     [data.rental],
   );
+
   return (
-    <div className="card-mini">
+    <div className="card-mini" data-uitestid={dataUiTestId}>
       {isSpecialOffer && (
         <span className="hot-offer">
           <Icon icon={<Flame />} className="flame" />
@@ -80,6 +82,7 @@ const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
           color="teal"
           size="xsmall"
           className="arrow-cta"
+          dataUiTestId={`${dataUiTestId}_arrow-cta-button`}
           label={<span className="arrow-cta" />}
           onClick={() => router.push(`/${data.url}` || '')}
         />

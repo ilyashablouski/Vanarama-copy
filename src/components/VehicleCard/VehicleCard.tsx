@@ -27,12 +27,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
 });
-const ProductCard = dynamic(
-  () => import('core/molecules/cards/ProductCard/ProductCard'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const ProductCard = dynamic(() => import('core/molecules/cards/ProductCard'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
@@ -48,6 +45,7 @@ interface IVehicleCardProps {
   derivativeId?: string | null;
   index?: number;
   customCTAColor?: string;
+  dataUiTestId?: string;
 }
 
 const VehicleCard = React.memo(
@@ -63,6 +61,7 @@ const VehicleCard = React.memo(
     isModelPage,
     customCTAColor,
     index,
+    dataUiTestId,
   }: IVehicleCardProps) => {
     const router = useRouter();
 
@@ -114,6 +113,7 @@ const VehicleCard = React.memo(
 
     return (
       <ProductCard
+        dataUiTestId={dataUiTestId}
         isBlackFridayLabel
         loadImage={loadImage}
         className="product"
@@ -202,6 +202,7 @@ const VehicleCard = React.memo(
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
             dataTestId="view-offer"
+            dataUiTestId={`${dataUiTestId}_view-offer-button`}
           >
             <div className="button--inner" style={extraStyles}>
               View Offer

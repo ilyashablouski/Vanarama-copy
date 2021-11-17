@@ -102,16 +102,6 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const initialFiltersState = {
-  bodyStyles: [],
-  transmissions: [],
-  fuelTypes: [],
-  manufacturer: [],
-  model: [],
-  from: [],
-  to: [],
-};
-
 const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   isServer,
   isCarSearch = false,
@@ -145,6 +135,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
+  dataUiTestId,
 }: ISearchPageContainerProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -152,7 +143,21 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
+  const [isPartnershipActive] = useState<boolean>(!!getPartnerProperties());
   const applyColumns = !isEvPage ? '-columns' : '';
+  const initialFiltersState = useMemo(
+    () => ({
+      bodyStyles: [],
+      transmissions: [],
+      fuelTypes:
+        (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
+      manufacturer: [],
+      model: [],
+      from: [],
+      to: [],
+    }),
+    [isPartnershipActive],
+  );
 
   const client = useApolloClient();
   const router = useRouter();
@@ -225,7 +230,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [partnershipDescription, setPartnershipDescription] = useState<string>(
     '',
   );
@@ -246,7 +250,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     const partnerActive = getPartnerProperties();
 
     if (partnerActive) {
-      setPartnershipActive(true);
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
       setPartnershipDescription(partnerActive.searchPageDescription);
@@ -589,7 +592,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             (key === 'make' || key === 'rangeName')
           ) &&
           !(isBodyStylePage && key === 'bodyStyles') &&
-          !(isFuelPage && key === 'fuelTypes') &&
+          !((isFuelPage || isPartnershipActive) && key === 'fuelTypes') &&
           !(isTransmissionPage && key === 'transmissions') &&
           !(isBudgetPage && key === 'pricePerMonth') &&
           !(
@@ -916,6 +919,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       {shouldBlackFridayBannerRender ? (
         <section className="row:featured-bf">
           <SearchPageTitle
+            dataUiTestId={`${dataUiTestId}_page-title`}
             breadcrumbsItems={breadcrumbsItems}
             pageTitle={pageTitle}
             titleWithBreaks={titleWithBreaks}
@@ -931,6 +935,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         </section>
       ) : (
         <SearchPageTitle
+          dataUiTestId={`${dataUiTestId}_page-title`}
           breadcrumbsItems={breadcrumbsItems}
           pageTitle={pageTitle}
           titleWithBreaks={titleWithBreaks}
@@ -955,7 +960,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           featured && <ReadMoreBlock featured={featured} />}
 
       {isNewPage && isRangePage ? (
-        <TopCategoryInfoBlock pageData={pageData} />
+        <TopCategoryInfoBlock
+          dataUiTestId={`${dataUiTestId}_top-category-info`}
+          pageData={pageData}
+        />
       ) : null}
 
       {isAllManufacturersPage && topInfoSection && (
@@ -964,6 +972,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
 
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
+          dataUiTestId={`${dataUiTestId}_top-offers`}
           isCarSearch={isCarSearch}
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
@@ -1052,6 +1061,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           )}
           <div className="row:cards-3col">
             <ResultsContainer
+              dataUiTestId={`${dataUiTestId}_search-results`}
               isManufacturerPage={isManufacturerPage}
               isAllManufacturersPage={isAllManufacturersPage}
               ranges={ranges}

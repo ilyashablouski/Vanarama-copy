@@ -3,8 +3,8 @@ import cx from 'classnames';
 
 import { IHeadingProps } from './interfaces';
 
-const Heading: FC<IHeadingProps> = memo(props => {
-  const {
+const Heading: FC<IHeadingProps> = memo(
+  ({
     className,
     size = 'regular',
     color = 'primary',
@@ -12,9 +12,8 @@ const Heading: FC<IHeadingProps> = memo(props => {
     href,
     children,
     dataTestId,
-  } = props;
-
-  return (
+    dataUiTestId,
+  }) => (
     <Tag
       className={cx('heading', className, {
         [`-${color}`]: color,
@@ -22,11 +21,12 @@ const Heading: FC<IHeadingProps> = memo(props => {
       })}
       href={href}
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
     >
       {children}
     </Tag>
-  );
-});
+  ),
+);
 
 Heading.displayName = 'Heading';
 

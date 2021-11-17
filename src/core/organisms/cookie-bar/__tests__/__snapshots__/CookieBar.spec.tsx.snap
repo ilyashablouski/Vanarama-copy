@@ -83,12 +83,14 @@ exports[`<CookieBar /> should render correctly 1`] = `
     >
       <ForwardRef(Button)
         color="primary"
+        dataUiTestId="cookieBar-accept-button"
         fill="solid"
         label="Accept"
         onClick={[Function]}
       >
         <button
           className="button -primary -regular -solid"
+          data-uitestid="cookieBar-accept-button"
           onClick={[Function]}
         >
           <div
@@ -100,12 +102,14 @@ exports[`<CookieBar /> should render correctly 1`] = `
       </ForwardRef(Button)>
       <ForwardRef(Button)
         color="primary"
+        dataUiTestId="cookieBar-decline-button"
         fill="outline"
         label="Decline"
         onClick={[Function]}
       >
         <button
           className="button -primary -regular -outline"
+          data-uitestid="cookieBar-decline-button"
           onClick={[Function]}
         >
           <div

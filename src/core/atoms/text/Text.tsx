@@ -12,16 +12,18 @@ const Text: React.FC<ITextProps> = ({
   children,
   invalid,
   dataTestId,
+  dataUiTestId,
 }) => (
   <Tag
     id={id}
+    htmlFor={htmlFor}
     className={cx('text', className, {
       [`-${size}`]: size,
       [`-${color}`]: color,
       '-invalid': invalid,
     })}
     data-testid={dataTestId}
-    htmlFor={htmlFor}
+    data-uitestid={dataUiTestId}
   >
     {children}
   </Tag>

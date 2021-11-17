@@ -49,6 +49,7 @@ const Page: NextPage<IProps> = ({
   responseCapIds,
 }) => (
   <SearchPageContainer
+    dataUiTestId="cars-search-page"
     isServer={isServer}
     isCarSearch
     isSimpleSearchPage
