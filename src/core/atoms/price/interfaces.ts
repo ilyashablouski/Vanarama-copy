@@ -10,4 +10,5 @@ export interface IPriceProps extends IBaseProps {
   hidePence?: boolean;
   priceLabel?: string;
   priceDescription?: string;
+  dataUitestId?: string;
 }

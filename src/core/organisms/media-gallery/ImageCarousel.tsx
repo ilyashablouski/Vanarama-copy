@@ -54,7 +54,11 @@ function ImageCarousel({
           />
           <div className="swiper-button-next" />
           {images.map((imageUrl, index) => (
-            <SwiperSlide key={imageUrl} tag="li">
+            <SwiperSlide
+              key={imageUrl}
+              tag="li"
+              data-uitestid={`details-page_image-carousel_${index}`}
+            >
               {renderImageDecoration?.(imageUrl, index)}
               <Image
                 plain
