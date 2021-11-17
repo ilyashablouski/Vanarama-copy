@@ -1,9 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextPage,
-} from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -12,7 +8,10 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
-import { IBlogPostWithCarousel } from '../../../../models/IBlogsProps';
+import {
+  IBlogPost,
+  IBlogPostWithCarousel,
+} from '../../../../models/IBlogsProps';
 import {
   BlogPosts,
   BlogPostsVariables,
@@ -26,14 +25,23 @@ import {
   BlogPost as BlogPostData,
   BlogPostVariables,
 } from '../../../../../generated/BlogPost';
-import { specialOffersForBlogPageRequest } from '../../../../utils/offers';
+import { getBlogPaths } from '../../../../utils/pageSlugs';
+import {
+  IPageWithData,
+  IPageWithError,
+  PageTypeEnum,
+} from '../../../../types/common';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../../utils/env';
+import { convertErrorToProps } from '../../../../utils/helpers';
+
+type IProps = IPageWithData<IBlogPost>;
 
 const BlogPost: NextPage<IBlogPostWithCarousel> = ({
   data,
   blogPosts: encodedData,
-  productsCar,
-  vehicleListUrlData,
-  productsCarDerivatives,
 }) => {
   const blogPosts = decodeData(encodedData);
 
@@ -58,9 +66,6 @@ const BlogPost: NextPage<IBlogPostWithCarousel> = ({
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
         isShowCarousel
-        productsCar={productsCar}
-        vehicleListUrlData={vehicleListUrlData}
-        productsCarDerivatives={productsCarDerivatives}
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
@@ -69,11 +74,38 @@ const BlogPost: NextPage<IBlogPostWithCarousel> = ({
   );
 };
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<IBlogPostWithCarousel>> {
+export async function getStaticPaths(context: GetStaticPropsContext) {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({});
+    const { data } = await client.query<BlogPosts, BlogPostsVariables>({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/cars',
+        isPreview: !!context?.preview,
+      },
+    });
+
+    return {
+      paths: getBlogPaths(data?.blogPosts),
+      fallback: 'blocking',
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { articles: ['/'] },
+        },
+      ],
+      fallback: 'blocking',
+    };
+  }
+}
+
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+  try {
+    const client = createApolloClient({});
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
@@ -81,6 +113,7 @@ export async function getServerSideProps(
         isPreview: !!context?.preview,
       },
     });
+
     const { data: blogPosts } = await client.query<
       BlogPosts,
       BlogPostsVariables
@@ -91,13 +124,6 @@ export async function getServerSideProps(
         isPreview: !!context?.preview,
       },
     });
-
-    const {
-      productsCar,
-      productsCarDerivatives,
-      vehicleListUrlData,
-    } = await specialOffersForBlogPageRequest(client);
-
     const newBlogPosts = {
       blogPosts: { ...blogPosts.blogPosts },
     };
@@ -110,26 +136,33 @@ export async function getServerSideProps(
     const newBlogPostsData = encodeData(newBlogPosts);
 
     return {
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        pageType: PageTypeEnum.DEFAULT,
         data,
         blogPosts: newBlogPostsData,
-        productsCar,
-        productsCarDerivatives,
-        vehicleListUrlData,
       },
     };
   } catch (error) {
     const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
-      return { notFound: true };
+      return {
+        notFound: true,
+        revalidate,
+      };
     }
 
-    // throw any other errors
-    // Next will render our custom pages/_error
-    throw error;
+    return {
+      revalidate,
+      props: {
+        pageType: PageTypeEnum.ERROR,
+        error: convertErrorToProps(error),
+      },
+    };
   }
 }
 

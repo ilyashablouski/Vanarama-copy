@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
+import { useApolloClient } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
+import Cookies from 'js-cookie';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -26,6 +28,8 @@ import { ProductCardData } from '../../../generated/ProductCardData';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
 import BlogCarsCarousel from './BlogCarCarousel';
+import { specialOffersForBlogPageRequest } from '../../utils/offers';
+import { isBlogCarPagesCarouselFeatureFlagEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -106,11 +110,35 @@ const BlogPostContainer: NextPage<IProps> = ({
   breadcrumbsItems,
   metaData,
   articles,
-  productsCar,
-  productsCarDerivatives,
-  vehicleListUrlData,
   isShowCarousel,
 }) => {
+  const [productsCarState, setProductsCarState] = useState<
+    Nullable<ProductCardData | undefined>
+  >(null);
+  const [productsCarDerivativesState, setProductsCarDerivatives] = useState<
+    Nullable<GetDerivatives | undefined>
+  >(null);
+  const [vehicleListUrlDataState, setVehicleListUrlDataState] = useState<
+    Nullable<IVehicleList | undefined>
+  >(null);
+
+  const client = useApolloClient();
+  useEffect(() => {
+    if (isBlogCarPagesCarouselFeatureFlagEnabled(Cookies)) {
+      const getDataForCarousel = async () => {
+        const {
+          productsCar,
+          productsCarDerivatives,
+          vehicleListUrlData,
+        } = await specialOffersForBlogPageRequest(client);
+        setProductsCarState(productsCar);
+        setProductsCarDerivatives(productsCarDerivatives);
+        setVehicleListUrlDataState(vehicleListUrlData);
+      };
+      getDataForCarousel();
+    }
+  }, [client]);
+
   return (
     <>
       <div className="row:title">
@@ -192,9 +220,9 @@ const BlogPostContainer: NextPage<IProps> = ({
       </div>
       {isShowCarousel && (
         <BlogCarsCarousel
-          productsCar={productsCar}
-          productsCarDerivatives={productsCarDerivatives}
-          vehicleListUrlData={vehicleListUrlData}
+          productsCar={productsCarState}
+          productsCarDerivatives={productsCarDerivativesState}
+          vehicleListUrlData={vehicleListUrlDataState}
         />
       )}
       {metaData && (
