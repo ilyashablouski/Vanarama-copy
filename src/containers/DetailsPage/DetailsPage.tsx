@@ -151,6 +151,7 @@ interface IDetailsPageProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  dataUiTestId?: string;
 }
 
 const parseQuoteParams = (param?: string | null) =>
@@ -173,6 +174,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   leaseTypeQuery,
   pdpContent: pdpContentData,
   imacaAssets,
+  dataUiTestId,
 }) => {
   const router = useRouter();
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
@@ -628,7 +630,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         <h1
           className="heading -pt-100 -black -xlarge"
-          data-uitestid="details-page_page-title"
+          data-uitestid={
+            dataUiTestId ? `${dataUiTestId}_page-title` : undefined
+          }
         >
           {pageTitle}
         </h1>
@@ -766,6 +770,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {isMobile && (
           <CustomiseLeaseContainer
+            dataUiTestId={`${dataUiTestId}_customise-lease`}
             quote={quote}
             capId={capId}
             isShowFreeInsuranceMerch={isFreeInsurance!}
@@ -827,6 +832,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </div>
       {!isMobile && (
         <CustomiseLeaseContainer
+          dataUiTestId={`${dataUiTestId}_customise-lease`}
           quote={quote}
           capId={capId}
           isShowFreeInsuranceMerch={isFreeInsurance!}

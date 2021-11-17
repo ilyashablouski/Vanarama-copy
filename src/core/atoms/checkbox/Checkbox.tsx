@@ -37,6 +37,7 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
         checked={checked}
         className="checkbox--native visually-hidden"
         data-testid={dataTestId}
+        data-uitestid={dataUiTestId}
         defaultChecked={defaultChecked}
         disabled={disabled}
         id={id}

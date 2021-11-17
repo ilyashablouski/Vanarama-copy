@@ -67,6 +67,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
         <a
           class="button -teal -regular -solid"
           data-testid="link"
+          data-uitestid="model-card_view-all-button"
           href="/bmw-car-leasing/3-series/coupe.html"
         >
           <div

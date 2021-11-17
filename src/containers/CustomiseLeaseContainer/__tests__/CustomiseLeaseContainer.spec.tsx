@@ -92,6 +92,7 @@ describe('<CustomiseLeaseContainer />', () => {
         setLeadTime={jest.fn()}
         isPlayingLeaseAnimation={false}
         setIsPlayingLeaseAnimation={jest.fn()}
+        dataUiTestId="customise-lease"
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
@@ -219,6 +220,7 @@ describe('<CustomiseLeaseContainer />', () => {
       setLeadTime: jest.fn(),
       isPlayingLeaseAnimation: false,
       setIsPlayingLeaseAnimation: jest.fn(),
+      dataUiTestId: 'customise-lease',
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -410,6 +412,7 @@ describe('<CustomiseLeaseContainer />', () => {
         setLeadTime={jest.fn()}
         isPlayingLeaseAnimation={false}
         setIsPlayingLeaseAnimation={jest.fn()}
+        dataUiTestId="customise-lease"
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],

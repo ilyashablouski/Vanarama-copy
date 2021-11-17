@@ -178,6 +178,9 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
     if (router.pathname.includes('/search')) {
       return 'page:default srp';
     }
+    if (router.pathname.includes('/olaf')) {
+      return 'page:default -olaf';
+    }
     return 'page:default';
   };
 

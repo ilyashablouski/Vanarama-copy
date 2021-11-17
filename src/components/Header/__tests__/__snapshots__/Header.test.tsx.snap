@@ -101,6 +101,7 @@ exports[`<Header /> renders correctly 1`] = `
         >
           <input
             className="header-search--input"
+            data-uitestid="global-search_search-field"
             id="search"
             onChange={[Function]}
             onFocus={[Function]}
@@ -2323,7 +2324,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -2355,7 +2358,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -2375,7 +2380,9 @@ exports[`<Header /> renders correctly 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -2402,7 +2409,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -2463,7 +2472,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>
@@ -2507,7 +2518,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -2539,7 +2552,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -2559,7 +2574,9 @@ exports[`<Header /> renders correctly 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -2586,7 +2603,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -2647,7 +2666,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>
@@ -2691,7 +2712,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -2723,7 +2746,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -2743,7 +2768,9 @@ exports[`<Header /> renders correctly 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -2770,7 +2797,9 @@ exports[`<Header /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -2831,7 +2860,9 @@ exports[`<Header /> renders correctly 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>
@@ -2998,6 +3029,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
         >
           <input
             className="header-search--input"
+            data-uitestid="global-search_search-field"
             id="search"
             onChange={[Function]}
             onFocus={[Function]}
@@ -5220,7 +5252,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -5252,7 +5286,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -5272,7 +5308,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -5299,7 +5337,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -5360,7 +5400,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>
@@ -5404,7 +5446,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -5436,7 +5480,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -5456,7 +5502,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -5483,7 +5531,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -5544,7 +5594,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>
@@ -5588,7 +5640,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-0_label"
+              >
                 Lowest Price Guaranteed
               </span>
             </div>
@@ -5620,7 +5674,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-1_label"
+              >
                 FREE 30-Day Returns
               </span>
             </div>
@@ -5640,7 +5696,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   src="/Assets/images/benefits-bar/trust-pilot-logo.png"
                 />
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-2_label"
+              >
                 Rated Excellent
               </span>
             </div>
@@ -5667,7 +5725,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   />
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-3_label"
+              >
                 £250 Cashback On Every Vehicle
               </span>
             </div>
@@ -5728,7 +5788,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </g>
                 </svg>
               </i>
-              <span>
+              <span
+                data-uitestid="benefits-bar_benefits-item-4_label"
+              >
                 FREE & Fast Delivery
               </span>
             </div>

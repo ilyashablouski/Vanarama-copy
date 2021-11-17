@@ -115,7 +115,7 @@ const Header: FC<IHeaderProps> = memo(props => {
     <header className={cx('header', className)}>
       <div className="header--logo">
         <Link href="/" color="orange" plain>
-          <Logo asset="vanarama" />
+          <Logo assetName="vanarama" />
         </Link>
       </div>
       {renderMenu()}

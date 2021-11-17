@@ -119,6 +119,28 @@
         }
       }
     }
+
+    &.-olaf {
+      .header-search,
+      .header-account,
+      .menu, .header-wishlist,
+      .header-navtoggle,
+      .footer .footer--column:not(:first-child),
+      .swiper-prev,
+      .swiper-next {
+        display: none;
+      }
+
+      .header-logo {
+        pointer-events: none;
+      }
+
+      .header-content.-with-wishlist {
+        @include mobile-tablet {
+          grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 0.5rem;
+        }
+      }
+    }
   }
 
   &pdp {
@@ -956,5 +978,4 @@
     }
   }
 }
-
 
