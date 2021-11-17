@@ -1,8 +1,8 @@
 import React from 'react';
-import { SelectOptionList } from 'core/atoms/custom-colors-select/interface';
+import { IColor } from '../../../../types/detailsPage';
 
 interface IProps {
-  option: SelectOptionList;
+  option: IColor;
   checked: boolean;
 }
 

@@ -11,20 +11,12 @@ import {
 import { IProps } from './interfaces';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import GoldrushFormContainer from '../GoldrushFormContainer';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
-
-interface ExtendsIColourList extends IColourList {
-  hex?: string;
-  leadTime?: string;
-  onOffer?: boolean;
-}
+import { IGetColourGroupList } from '../../types/detailsPage';
+import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -105,14 +97,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
-
-  const [trimList, setTrimList] = useState<(ITrimList | null)[] | null>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [trimList, setTrimList] = useState<(TrimGroupList | null)[] | null>(
     trimData,
   );
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [colourList, setColourList] = useState<
-    (ExtendsIColourList | null)[] | null
-  >(colourData);
+  const [colourList, setColourList] = useState<IGetColourGroupList[] | null>(
+    colourData,
+  );
 
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -142,16 +134,16 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       ),
   );
 
-  const [getTrimAndColour] = useTrimAndColour(
-    `${capId}`,
-    vehicleType,
-    colour || undefined,
-    trim || undefined,
-    result => {
-      setTrimList(result?.trimList);
-      // setColourList(result.colourList || []);
-    },
-  );
+  // const [getTrimAndColour] = useTrimAndColour(
+  //   `${capId}`,
+  //   vehicleType,
+  //   colour || undefined,
+  //   trim || undefined,
+  //   result => {
+  //     setTrimList(result?.trimList);
+  //     // setColourList(result.colourList || []);
+  //   },
+  // );
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -186,9 +178,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     return () => window.removeEventListener('scroll', scrollChange);
   }, []);
 
-  useFirstRenderEffect(() => {
-    getTrimAndColour();
-  }, [trim, colour]);
+  // useFirstRenderEffect(() => {
+  //   getTrimAndColour();
+  // }, [trim, colour]);
 
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;
   const currentQuoteColour = quoteData?.quoteByCapId?.colour;
@@ -332,9 +324,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         data={quoteData}
         capId={capId}
         mileage={mileage || quoteData?.quoteByCapId?.mileage}
-        trim={trim}
+        trim={String(trim)}
         derivativeInfo={derivativeInfo}
-        colour={colour}
+        colour={String(colour)}
         trimList={trimList}
         colourList={colourList}
         isPlayingLeaseAnimation={isPlayingLeaseAnimation}

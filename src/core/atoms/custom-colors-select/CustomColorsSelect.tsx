@@ -3,15 +3,15 @@ import cx from 'classnames';
 import Icon from 'core/atoms/icon';
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import ChevronUp from 'core/assets/icons/ChevronUp';
-import { SelectOptionList } from 'core/atoms/custom-colors-select/interface';
 import CustomColorsList from 'core/atoms/custom-colors-select/components/CustomColorsList';
+import { IGetColourGroupList } from '../../../types/detailsPage';
 
 interface CustomSelectInterface {
   label: string;
   selectedValue: string;
   placeholder: string;
   isDisabled: boolean;
-  selectedItemsList: (SelectOptionList | null)[][] | null;
+  selectedItemsList: Nullable<IGetColourGroupList[]> | undefined;
   radioName: string;
   className: string;
   invalid?: boolean;

@@ -4,23 +4,24 @@ import Radio from 'core/atoms/radio';
 import CustomColorsSelect from 'core/atoms/custom-colors-select/CustomColorsSelect';
 import CustomSelect from 'core/atoms/custom-select/CustomNewSelect';
 import CustomColorsList from 'core/atoms/custom-colors-select/components/CustomColorsList';
-import getStructuredList from 'core/atoms/custom-colors-select/helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
-import { Nullish } from '../../types/common';
+import { Nullable } from '../../types/common';
+import { IGetColourGroupList } from '../../types/detailsPage';
+import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 
 interface IProps {
   defaultValue: string;
   setChanges: Dispatch<SetStateAction<number | null>>;
-  items: Nullish<(ITrimList | IColourList | null)[]>;
+  items: Nullable<IGetColourGroupList[] | (TrimGroupList | null)[]>;
   placeholder: string;
   isDisabled: boolean;
   modalElement: HTMLDivElement;
   dataTestId: string;
   isColorSelect?: boolean;
+  tempValue: string;
+  setTempValue: Dispatch<SetStateAction<string>>;
+  selectedValue: string;
+  label: string;
 }
 
 const CustomLeaseSelect = ({
@@ -32,26 +33,12 @@ const CustomLeaseSelect = ({
   modalElement,
   dataTestId,
   isColorSelect,
+  tempValue,
+  setTempValue,
+  selectedValue,
+  label,
 }: IProps) => {
-  const [tempValue, setTempValue] = useState<string>(defaultValue);
   const isDesktop = !useMobileViewport();
-
-  const label = useMemo(
-    () =>
-      items?.find(item => `${item?.optionId}` === defaultValue)?.label ?? '',
-    [items, defaultValue],
-  );
-  const selectedValue = useMemo(
-    () =>
-      items?.find(item => `${item?.optionId}` === defaultValue)
-        ? defaultValue
-        : '',
-    [items, defaultValue],
-  );
-
-  const structuredOptionsList = useMemo(() => getStructuredList(items), [
-    items,
-  ]);
 
   if (isColorSelect) {
     return (
@@ -68,7 +55,7 @@ const CustomLeaseSelect = ({
             onChange={option => {
               setChanges(+option.currentTarget.getAttribute('data-id')!);
             }}
-            selectedItemsList={structuredOptionsList}
+            selectedItemsList={items}
           />
         ) : (
           <CustomSelectInput
@@ -84,7 +71,7 @@ const CustomLeaseSelect = ({
             }}
             listRender={
               <CustomColorsList
-                selectedItemsList={structuredOptionsList}
+                selectedItemsList={items}
                 isDisabled={isDisabled}
                 selectedValue={selectedValue}
                 tempValue={Number(tempValue)}

@@ -52,7 +52,6 @@ import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
-import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
@@ -77,6 +76,8 @@ import { PdpBanners } from '../../models/enum/PdpBanners';
 import FreeInsuranceBanner from './FreeInsuranceBanner';
 import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
+import { IGetColourGroupList } from '../../types/detailsPage';
+import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -145,13 +146,12 @@ interface IDetailsPageProps {
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
   genericPages: IGenericPages['items'];
-  trimList: GetTrimAndColor['trimList'];
-  colourList: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  fullColorInfo?: any;
+  colourData: IGetColourGroupList[] | null;
+  trimData: (TrimGroupList | null)[] | null;
 }
 
 const parseQuoteParams = (param?: string | null) =>
@@ -168,13 +168,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   schema,
   genericPageHead,
   genericPages,
-  trimList,
-  colourList,
+  trimData,
+  colourData,
   productCard,
   leaseTypeQuery,
   pdpContent: pdpContentData,
   imacaAssets,
-  fullColorInfo,
 }) => {
   const router = useRouter();
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
@@ -519,14 +518,29 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }
 
   const onSubmitClickMobile = () => {
-    const colourDescription = colourList?.find(
-      item =>
-        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.colour,
-    )?.label;
-    const trimDescription = trimList?.find(
-      item =>
-        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.trim,
-    )?.label;
+    let colourDescription;
+    let trimDescription;
+
+    colourData?.forEach(colourGroup =>
+      colourGroup?.colors?.forEach(color => {
+        if (
+          color.optionId?.toString() === leaseScannerData?.quoteByCapId?.colour
+        ) {
+          colourDescription = color.label;
+        }
+      }),
+    );
+
+    colourData?.forEach(colourGroup =>
+      colourGroup?.colors?.forEach(trim => {
+        if (
+          trim.optionId?.toString() === leaseScannerData?.quoteByCapId?.trim
+        ) {
+          trimDescription = trim.label;
+        }
+      }),
+    );
+
     onSubmitClick({
       leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
       lineItems: [
@@ -773,8 +787,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
-            trimData={trimList}
-            colourData={fullColorInfo}
+            trimData={trimData}
+            colourData={colourData}
             setLeadTime={setLeadTime}
             isPlayingLeaseAnimation={isPlayingLeaseAnimation}
             setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
@@ -789,6 +803,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
+
         <LazyLoadComponent
           visibleByDefault={isServerRenderOrAppleDevice}
           placeholder={<span className="-d-block -h-400" />}
@@ -832,8 +847,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
-          trimData={trimList}
-          colourData={fullColorInfo}
+          trimData={trimData}
+          colourData={colourData}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
           isPlayingLeaseAnimation={isPlayingLeaseAnimation}

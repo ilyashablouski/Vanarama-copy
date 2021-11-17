@@ -1,21 +1,13 @@
 import Cookies from 'js-cookie';
-import {
-  ApolloClient,
-  ApolloError,
-  NormalizedCacheObject,
-} from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 import { IListItemProps } from 'core/organisms/structured-list/interfaces';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../generated/GetVehicleDetails';
 import { GetProductCard_productCard } from '../../generated/GetProductCard';
-import {
-  GetQuoteDetails,
-  GetQuoteDetails_quoteByCapId,
-  GetQuoteDetailsVariables,
-} from '../../generated/GetQuoteDetails';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../generated/globalTypes';
+import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IErrorProps, Nullish } from '../types/common';
 import {
   GetTrimAndColor_colourList as IColourList,
@@ -23,7 +15,8 @@ import {
 } from '../../generated/GetTrimAndColor';
 import { getLocalStorage } from './windowLocalStorage';
 import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaAssets';
-import { GET_QUOTE_DATA } from '../containers/CustomiseLeaseContainer/gql';
+import { IGetColourGroupList } from '../types/detailsPage';
+import { GetColourAndTrimGroupList_colourGroupList } from '../../generated/GetColourAndTrimGroupList';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -365,56 +358,25 @@ export const isBlackFridayCampaignEnabled = () => {
   return Cookies.get(FeatureFlags.BLACK_FRIDAY) === '1';
 };
 
-export async function createUpdatedColorsList(
-  defaultColorsData: (IColourList | null)[] | null,
+export function addImacaHexToColourList(
+  colorsList: (GetColourAndTrimGroupList_colourGroupList | null)[] | null,
   imacaColors: GetImacaAssets_getImacaAssets_colours[] | null | undefined,
-  client: ApolloClient<NormalizedCacheObject>,
-  capId: number,
-  mileage: number | undefined,
-  term: number | undefined,
-  upfront: number | undefined,
-  leaseType: LeaseTypeEnum,
-) {
-  let colorsInfo;
+): IGetColourGroupList[] | null {
+  return (
+    colorsList?.map(colorGroup => {
+      return {
+        leadTime: colorGroup?.leadTime || '',
+        colors: colorGroup?.colours?.map(colorData => {
+          const imacaColor = imacaColors?.find(
+            item => item.capId === colorData?.optionId,
+          );
 
-  if (defaultColorsData) {
-    colorsInfo = await Promise.all(
-      defaultColorsData.map(color =>
-        client.query<GetQuoteDetails, GetQuoteDetailsVariables>({
-          query: GET_QUOTE_DATA,
-          variables: {
-            capId: `${capId}`,
-            vehicleType: VehicleTypeEnum.CAR,
-            colour: color?.optionId,
-            mileage,
-            term,
-            upfront,
-            leaseType,
-          },
+          return {
+            ...colorData,
+            hex: imacaColor?.hex || null,
+          };
         }),
-      ),
-    );
-  }
-
-  const clearColorsInfo = colorsInfo?.map(item => item.data.quoteByCapId);
-
-  const updatedColorsData = defaultColorsData?.map(colorItem => {
-    const colorData = clearColorsInfo?.find(
-      color => color?.colour === `${colorItem?.optionId}`,
-    );
-
-    return { ...colorItem, leadTime: colorData?.leadTime || null };
-  });
-
-  return updatedColorsData?.map(colorItem => {
-    const colorData = imacaColors?.find(
-      item => item.capId === colorItem.optionId,
-    );
-
-    return {
-      ...colorItem,
-      hex: colorData?.hex || null,
-      onOffer: colorData?.onOffer || false,
-    };
-  });
+      };
+    }) || null
+  );
 }

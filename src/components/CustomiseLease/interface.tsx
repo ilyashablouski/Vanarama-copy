@@ -11,11 +11,9 @@ import {
   LineItemInputObject,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
 import { Nullable } from '../../types/common';
+import { IGetColourGroupList } from '../../types/detailsPage';
+import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 
 export interface IChoice {
   label: string;
@@ -53,8 +51,8 @@ export interface IProps {
   data: GetQuoteDetails;
   capId?: number;
   leaseType: string;
-  trim: number | null;
-  colour: number | null;
+  trim: Nullable<string>;
+  colour: Nullable<string>;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
   mileage: number | null | undefined;
@@ -73,8 +71,8 @@ export interface IProps {
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
   screenY: number | null;
-  trimList: (ITrimList | null)[] | null;
-  colourList: (IColourList | null)[] | null;
+  trimList: Nullable<(TrimGroupList | null)[]>;
+  colourList: Nullable<IGetColourGroupList[]>;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;

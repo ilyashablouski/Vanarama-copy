@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import {
   GET_CAR_DATA,
+  GET_COLOUR_AND_TRIM_GROUP_LIST,
   GET_IMACA_ASSETS,
   GET_PDP_CONTENT,
   GET_TRIM_AND_COLOR_DATA,
@@ -36,7 +37,7 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { createUpdatedColorsList, toPriceFormat } from '../../../utils/helpers';
+import { addImacaHexToColourList, toPriceFormat } from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
   GenericPageHeadQuery,
@@ -70,6 +71,12 @@ import {
 } from '../../../../generated/GetPdpContent';
 import { pdpCarType } from '../../../containers/DetailsPage/helpers';
 import { IStatusCode } from '../../../types/common';
+import { IGetColourGroupList } from '../../../types/detailsPage';
+import {
+  GetColourAndTrimGroupList,
+  GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
+  GetColourAndTrimGroupListVariables,
+} from '../../../../generated/GetColourAndTrimGroupList';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -78,13 +85,12 @@ interface IProps {
   quote?: GetQuoteDetails;
   genericPageHead: GenericPageHeadQuery;
   genericPages: IGenericPages['items'];
-  trim: GetTrimAndColor['trimList'];
-  colour: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  fullColorInfo?: any;
+  colourData: IGetColourGroupList[] | null;
+  trimData: (TrimGroupList | null)[] | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -93,13 +99,12 @@ const CarDetailsPage: NextPage<IProps> = ({
   quote,
   genericPageHead,
   genericPages,
-  trim,
-  colour,
   productCard: encodedData,
   leaseTypeQuery,
   pdpContent,
   imacaAssets,
-  fullColorInfo,
+  colourData,
+  trimData,
 }) => {
   // De-obfuscate data for user
   const productCard = decodeData(encodedData);
@@ -188,14 +193,13 @@ const CarDetailsPage: NextPage<IProps> = ({
         quote={quote}
         capId={capId || 0}
         data={data}
-        trimList={trim}
-        colourList={colour}
         imacaAssets={imacaAssets}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
         productCard={productCard}
         leaseTypeQuery={leaseTypeQuery}
-        fullColorInfo={fullColorInfo}
+        colourData={colourData}
+        trimData={trimData}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -316,32 +320,41 @@ export async function getServerSideProps(
       },
     });
 
-    const trimAndColorData = await client.query<
-      GetTrimAndColor,
-      GetTrimAndColorVariables
+    // const trimAndColorData = await client.query<
+    //   GetTrimAndColor,
+    //   GetTrimAndColorVariables
+    // >({
+    //   query: GET_TRIM_AND_COLOR_DATA,
+    //   variables: {
+    //     capId: `${capId}`,
+    //     vehicleType: VehicleTypeEnum.CAR,
+    //     trimId:
+    //       parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10) ||
+    //       undefined,
+    //     colourId:
+    //       parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
+    //       undefined,
+    //   },
+    // });
+
+    const colorAndTrimData = await client.query<
+      GetColourAndTrimGroupList,
+      GetColourAndTrimGroupListVariables
     >({
-      query: GET_TRIM_AND_COLOR_DATA,
+      query: GET_COLOUR_AND_TRIM_GROUP_LIST,
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
-        trimId:
-          parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10) ||
-          undefined,
-        colourId:
-          parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
-          undefined,
+        colourId: parseInt(
+          quoteDataQuery.data?.quoteByCapId?.colour || '0',
+          10,
+        ),
       },
     });
 
-    const fullColorInfo = await createUpdatedColorsList(
-      trimAndColorData?.data?.colourList,
+    const colourData = addImacaHexToColourList(
+      colorAndTrimData?.data.colourGroupList,
       imacaAssets.data.getImacaAssets?.colours,
-      client,
-      capId,
-      mileage,
-      term,
-      upfront,
-      leaseType,
     );
 
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
@@ -388,14 +401,13 @@ export async function getServerSideProps(
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
-        trim: trimAndColorData?.data?.trimList || null,
-        colour: trimAndColorData?.data?.colourList || null,
         imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
-        fullColorInfo,
+        colourData,
+        trimData: colorAndTrimData.data.trimGroupList || null,
       },
     };
   } catch (error) {

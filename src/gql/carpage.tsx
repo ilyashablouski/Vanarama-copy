@@ -182,6 +182,35 @@ export const GET_TRIM_AND_COLOR_DATA = gql`
   }
 `;
 
+export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
+  query GetColourAndTrimGroupList(
+    $capId: ID!
+    $vehicleType: VehicleTypeEnum!
+    $colourId: Int!
+  ) {
+    colourGroupList(capId: $capId, vehicleType: $vehicleType) {
+      leadTime
+      colours {
+        label
+        optionId
+        hotOffer
+      }
+    }
+    trimGroupList(
+      capId: $capId
+      vehicleType: $vehicleType
+      colourId: $colourId
+    ) {
+      leadTime
+      trims {
+        label
+        optionId
+        hotOffer
+      }
+    }
+  }
+`;
+
 export function useTrimAndColour(
   capId: string,
   vehicleType: VehicleTypeEnum,

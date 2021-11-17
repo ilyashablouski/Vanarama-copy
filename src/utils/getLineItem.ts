@@ -2,19 +2,17 @@ import {
   VehicleTypeEnum,
   LineItemInputObject,
 } from '../../generated/globalTypes';
-import {
-  GetTrimAndColor_trimList as ITrimList,
-  GetTrimAndColor_colourList as IColourList,
-} from '../../generated/GetTrimAndColor';
 import { GetQuoteDetails } from '../../generated/GetQuoteDetails';
 import { Nullable, Nullish } from '../types/common';
 import { getPartnerSlug } from './partnerProperties';
+import { IGetColourGroupList } from '../types/detailsPage';
+import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../generated/GetColourAndTrimGroupList';
 
 interface ILineItemParams {
   capId: number;
   quoteData: Nullish<GetQuoteDetails>;
-  colourList: Nullable<Nullable<IColourList>[]>;
-  trimList: Nullable<Nullable<ITrimList>[]>;
+  colourList: Nullable<Nullable<IGetColourGroupList>[]>;
+  trimList: Nullable<Nullable<TrimGroupList>[]>;
   vehicleTypeValue: VehicleTypeEnum;
   maintenanceValue: Nullish<boolean>;
   trimValue: Nullable<number>;
@@ -35,14 +33,27 @@ const getLineItem = ({
   mileageValue,
   upfrontValue,
 }: ILineItemParams): LineItemInputObject => {
-  const colourDescription = colourList?.find(
-    item => item?.optionId?.toString() === quoteData?.quoteByCapId?.colour,
-  )?.label;
-  const trimDescription = trimList?.find(
-    item =>
-      item?.optionId?.toString() === quoteData?.quoteByCapId?.trim ||
-      item?.optionId === trimValue,
-  )?.label;
+  let colourDescription;
+  let trimDescription;
+
+  colourList?.forEach(colourGroup =>
+    colourGroup?.colors?.forEach(colour => {
+      if (colour.optionId?.toString() === quoteData?.quoteByCapId?.colour) {
+        colourDescription = colour.label;
+      }
+    }),
+  );
+
+  trimList?.forEach(trimGroup =>
+    trimGroup?.trims?.forEach(trim => {
+      if (
+        trim?.optionId?.toString() === quoteData?.quoteByCapId?.trim ||
+        trim?.optionId === trimValue
+      ) {
+        trimDescription = trim?.label;
+      }
+    }),
+  );
 
   const partnerSlug = getPartnerSlug();
 
