@@ -23,7 +23,7 @@ import {
   IMarkdownLink,
   IMarkdownParagraph,
 } from '../../types/markdown';
-import { Nullable } from '../../types/common';
+import { Nullish } from '../../types/common';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
@@ -98,9 +98,6 @@ interface IProps {
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
   isShowCarousel?: boolean;
-  productsCar?: Nullable<ProductCardData>;
-  productsCarDerivatives?: Nullable<GetDerivatives>;
-  vehicleListUrlData?: IVehicleList;
 }
 
 const BlogPostContainer: NextPage<IProps> = ({
@@ -113,13 +110,13 @@ const BlogPostContainer: NextPage<IProps> = ({
   isShowCarousel,
 }) => {
   const [productsCarState, setProductsCarState] = useState<
-    Nullable<ProductCardData | undefined>
+    Nullish<ProductCardData>
   >(null);
   const [productsCarDerivativesState, setProductsCarDerivatives] = useState<
-    Nullable<GetDerivatives | undefined>
+    Nullish<GetDerivatives>
   >(null);
   const [vehicleListUrlDataState, setVehicleListUrlDataState] = useState<
-    Nullable<IVehicleList | undefined>
+    Nullish<IVehicleList>
   >(null);
 
   const client = useApolloClient();
