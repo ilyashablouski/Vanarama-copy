@@ -15,6 +15,7 @@ const Link: FC<ILinkProps> = memo(props => {
     children,
     onClick,
     dataTestId,
+    dataUiTestId,
   } = props;
 
   return (
@@ -29,6 +30,7 @@ const Link: FC<ILinkProps> = memo(props => {
       href={href}
       onClick={onClick}
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
     >
       {children || href}
     </a>

@@ -21,10 +21,14 @@ const Radio: React.FC<IRadioProps> = React.forwardRef<
     onFocus,
     value,
     children,
+    dataUiTestId,
   } = props;
 
   return (
-    <div className={cx('radio', className)}>
+    <div
+      className={cx('radio', className)}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_${value}` : undefined}
+    >
       <input
         checked={checked}
         className="radio--native visually-hidden"

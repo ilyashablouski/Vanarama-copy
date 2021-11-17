@@ -44,6 +44,7 @@ function WishlistToggle({ productDetails }: IProps) {
       }
       withoutDefaultClass
       onClick={handleClick}
+      dataUiTestId={`details-page_button_${wished ? 'Remove' : 'Wishlist'}`}
     />
   );
 }

@@ -626,7 +626,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumbs items={breadcrumbItems} />
           </div>
         )}
-        <h1 className="heading -pt-100 -black -xlarge">{pageTitle}</h1>
+        <h1
+          className="heading -pt-100 -black -xlarge"
+          data-uitestid="details-page_page-title"
+        >
+          {pageTitle}
+        </h1>
         <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
