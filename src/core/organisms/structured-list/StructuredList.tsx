@@ -22,6 +22,7 @@ const StructuredList: FC<IStructuredListProps> = ({
   priceTagDataTestId,
   headingDataTestId,
   itemWrap,
+  dataUiTestId,
 }) => {
   const [editing, setEditing] = useState(false);
   return (
@@ -70,6 +71,7 @@ const StructuredList: FC<IStructuredListProps> = ({
             testId={index}
             onChange={onChange}
             editing={editing}
+            dataUiTestId={dataUiTestId}
           />
         ))}
       </div>

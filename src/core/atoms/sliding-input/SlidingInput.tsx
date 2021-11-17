@@ -118,6 +118,7 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
       onMouseLeave={handleMouseOut}
       onMouseUp={handleMouseOut}
       onMouseDown={handleMouseIn}
+      data-uitestid="details-page_sliding-input_mileage-slider"
     >
       <input
         min={1}
@@ -134,7 +135,11 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
       </div>
       <div className="sliding-input-handle" />
       {labels.map(label => (
-        <div key={label} className="sliding-input-step">
+        <div
+          key={label}
+          className="sliding-input-step"
+          data-uitestid={`details-page_sliding-input_div_${label}`}
+        >
           {label}
         </div>
       ))}
