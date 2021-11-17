@@ -8,10 +8,7 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
-import {
-  IBlogPost,
-  IBlogPostWithCarousel,
-} from '../../../../models/IBlogsProps';
+import { IBlogPost } from '../../../../models/IBlogsProps';
 import {
   BlogPosts,
   BlogPostsVariables,
@@ -39,10 +36,7 @@ import { convertErrorToProps } from '../../../../utils/helpers';
 
 type IProps = IPageWithData<IBlogPost>;
 
-const BlogPost: NextPage<IBlogPostWithCarousel> = ({
-  data,
-  blogPosts: encodedData,
-}) => {
+const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts: encodedData }) => {
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
