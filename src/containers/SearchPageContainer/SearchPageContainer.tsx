@@ -102,16 +102,6 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const initialFiltersState = {
-  bodyStyles: [],
-  transmissions: [],
-  fuelTypes: [],
-  manufacturer: [],
-  model: [],
-  from: [],
-  to: [],
-};
-
 const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   isServer,
   isCarSearch = false,
@@ -153,7 +143,21 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
+  const [isPartnershipActive] = useState<boolean>(!!getPartnerProperties());
   const applyColumns = !isEvPage ? '-columns' : '';
+  const initialFiltersState = useMemo(
+    () => ({
+      bodyStyles: [],
+      transmissions: [],
+      fuelTypes:
+        (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
+      manufacturer: [],
+      model: [],
+      from: [],
+      to: [],
+    }),
+    [isPartnershipActive],
+  );
 
   const client = useApolloClient();
   const router = useRouter();
@@ -226,7 +230,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [partnershipDescription, setPartnershipDescription] = useState<string>(
     '',
   );
@@ -247,7 +250,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     const partnerActive = getPartnerProperties();
 
     if (partnerActive) {
-      setPartnershipActive(true);
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
       setPartnershipDescription(partnerActive.searchPageDescription);
@@ -590,7 +592,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             (key === 'make' || key === 'rangeName')
           ) &&
           !(isBodyStylePage && key === 'bodyStyles') &&
-          !(isFuelPage && key === 'fuelTypes') &&
+          !((isFuelPage || isPartnershipActive) && key === 'fuelTypes') &&
           !(isTransmissionPage && key === 'transmissions') &&
           !(isBudgetPage && key === 'pricePerMonth') &&
           !(
