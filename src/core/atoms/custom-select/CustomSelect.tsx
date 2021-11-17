@@ -3,15 +3,15 @@ import cx from 'classnames';
 import Icon from 'core/atoms/icon';
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import ChevronUp from 'core/assets/icons/ChevronUp';
-import CustomColorsList from 'core/atoms/custom-colors-select/components/CustomColorsList';
-import { IGetColourGroupList } from '../../../types/detailsPage';
+import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
+import { IOptionsList } from '../../../types/detailsPage';
 
 interface CustomSelectInterface {
   label: string;
-  selectedValue: string;
+  selectedValue?: Nullable<string>;
   placeholder: string;
   isDisabled: boolean;
-  selectedItemsList: Nullable<IGetColourGroupList[]> | undefined;
+  items: IOptionsList[];
   radioName: string;
   className: string;
   invalid?: boolean;
@@ -19,12 +19,12 @@ interface CustomSelectInterface {
   dataTestId?: string;
 }
 
-const CustomColorsSelect: React.FC<CustomSelectInterface> = ({
+const CustomSelect: React.FC<CustomSelectInterface> = ({
   label,
   selectedValue,
   isDisabled,
   placeholder,
-  selectedItemsList,
+  items,
   className,
   radioName,
   onChange,
@@ -32,7 +32,6 @@ const CustomColorsSelect: React.FC<CustomSelectInterface> = ({
   dataTestId,
 }) => {
   const wrapperRef = useRef<null | HTMLDivElement>(null);
-
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
   const handleListDisplay = () => {
@@ -79,7 +78,7 @@ const CustomColorsSelect: React.FC<CustomSelectInterface> = ({
 
       {showOptionList && (
         <CustomColorsList
-          selectedItemsList={selectedItemsList}
+          items={items}
           setShowOptionList={setShowOptionList}
           isDisabled={isDisabled}
           selectedValue={selectedValue}
@@ -98,4 +97,4 @@ const CustomColorsSelect: React.FC<CustomSelectInterface> = ({
   );
 };
 
-export default React.memo(CustomColorsSelect);
+export default React.memo(CustomSelect);

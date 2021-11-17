@@ -9,9 +9,30 @@ const params = {
   trimValue: 45575,
   termValue: 60,
   capId: 96099,
-  trimList: [{ optionId: 45575, label: 'Cloth - Black - In Stock' }],
-  colourList: [
-    { optionId: 101985, label: 'Special solid - Polar white - In Stock' },
+  trimList: [
+    {
+      leadTime: '14-21 Day Delivery',
+      trims: [
+        {
+          optionId: 104562,
+          label: 'Cloth - Black - In Stock',
+          hotOffer: false,
+        },
+      ],
+    },
+  ],
+  colourData: [
+    {
+      leadTime: '14-21 Day Delivery',
+      colors: [
+        {
+          hex: null,
+          optionId: 13990,
+          label: 'Special solid - Polar white - In Stock',
+          hotOffer: false,
+        },
+      ],
+    },
   ],
   quoteData: {
     quoteByCapId: {
@@ -19,8 +40,8 @@ const params = {
       funderId: 2,
       mileage: 6000,
       upfront: 9,
-      trim: null,
-      colour: '101985',
+      trim: '104562',
+      colour: '13990',
       leadTime: '14-21 Day Delivery',
       stock: 'Brand New - ',
       vehicleType: VehicleTypeEnum.CAR,

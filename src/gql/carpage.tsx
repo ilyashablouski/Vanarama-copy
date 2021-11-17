@@ -8,6 +8,10 @@ import {
   GetTrimAndColor,
   GetTrimAndColorVariables,
 } from '../../generated/GetTrimAndColor';
+import {
+  GetTrimGroupList,
+  GetTrimGroupListVariables,
+} from '../../generated/GetTrimGroupList';
 
 export const GET_CAR_DATA = gql`
   query GetVehicleDetails(
@@ -211,6 +215,27 @@ export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
   }
 `;
 
+export const GET_TRIM_GROUP_LIST = gql`
+  query GetTrimGroupList(
+    $capId: ID!
+    $vehicleType: VehicleTypeEnum!
+    $colourId: Int!
+  ) {
+    trimGroupList(
+      capId: $capId
+      vehicleType: $vehicleType
+      colourId: $colourId
+    ) {
+      leadTime
+      trims {
+        label
+        optionId
+        hotOffer
+      }
+    }
+  }
+`;
+
 export function useTrimAndColour(
   capId: string,
   vehicleType: VehicleTypeEnum,
@@ -225,6 +250,25 @@ export function useTrimAndColour(
         capId,
         colourId,
         trimId,
+        vehicleType,
+      },
+      onCompleted,
+    },
+  );
+}
+
+export function useTrim(
+  capId: string,
+  vehicleType: VehicleTypeEnum,
+  colourId: number,
+  onCompleted?: (data: GetTrimGroupList) => void,
+) {
+  return useLazyQuery<GetTrimGroupList, GetTrimGroupListVariables>(
+    GET_TRIM_GROUP_LIST,
+    {
+      variables: {
+        capId,
+        colourId,
         vehicleType,
       },
       onCompleted,

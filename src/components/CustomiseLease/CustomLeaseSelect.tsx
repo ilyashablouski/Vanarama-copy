@@ -1,26 +1,21 @@
-import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
-import Radio from 'core/atoms/radio';
-import CustomColorsSelect from 'core/atoms/custom-colors-select/CustomColorsSelect';
-import CustomSelect from 'core/atoms/custom-select/CustomNewSelect';
-import CustomColorsList from 'core/atoms/custom-colors-select/components/CustomColorsList';
+import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
+import CustomSelect from 'core/atoms/custom-select/CustomSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { Nullable } from '../../types/common';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../types/detailsPage';
 
 interface IProps {
   defaultValue: string;
   setChanges: Dispatch<SetStateAction<number | null>>;
-  items: Nullable<IGetColourGroupList[] | (TrimGroupList | null)[]>;
+  items: IOptionsList[];
   placeholder: string;
   isDisabled: boolean;
   modalElement: HTMLDivElement;
   dataTestId: string;
-  isColorSelect?: boolean;
-  tempValue: string;
-  setTempValue: Dispatch<SetStateAction<string>>;
-  selectedValue: string;
+  tempValue: Nullable<string>;
+  setTempValue: Dispatch<SetStateAction<Nullable<string>>>;
+  selectedValue?: Nullable<string>;
   label: string;
 }
 
@@ -32,59 +27,12 @@ const CustomLeaseSelect = ({
   isDisabled,
   modalElement,
   dataTestId,
-  isColorSelect,
   tempValue,
   setTempValue,
   selectedValue,
   label,
 }: IProps) => {
   const isDesktop = !useMobileViewport();
-
-  if (isColorSelect) {
-    return (
-      <>
-        {isDesktop ? (
-          <CustomColorsSelect
-            label={label}
-            dataTestId={dataTestId}
-            radioName={placeholder}
-            isDisabled={isDisabled}
-            selectedValue={selectedValue}
-            placeholder={placeholder}
-            className="-fullwidth"
-            onChange={option => {
-              setChanges(+option.currentTarget.getAttribute('data-id')!);
-            }}
-            selectedItemsList={items}
-          />
-        ) : (
-          <CustomSelectInput
-            dataTestId={dataTestId}
-            label={label}
-            title={placeholder}
-            disabled={isDisabled}
-            modalElement={modalElement}
-            onCloseModal={() => {
-              if (tempValue !== defaultValue) {
-                setChanges(+tempValue);
-              }
-            }}
-            listRender={
-              <CustomColorsList
-                selectedItemsList={items}
-                isDisabled={isDisabled}
-                selectedValue={selectedValue}
-                tempValue={Number(tempValue)}
-                onChange={option => {
-                  setTempValue(option.currentTarget.getAttribute('data-id')!);
-                }}
-              />
-            }
-          />
-        )}
-      </>
-    );
-  }
 
   return (
     <>
@@ -100,7 +48,7 @@ const CustomLeaseSelect = ({
           onChange={option => {
             setChanges(+option.currentTarget.getAttribute('data-id')!);
           }}
-          optionList={items}
+          items={items}
         />
       ) : (
         <CustomSelectInput
@@ -111,24 +59,19 @@ const CustomLeaseSelect = ({
           modalElement={modalElement}
           onCloseModal={() => {
             if (tempValue !== defaultValue) {
-              setChanges(+tempValue);
+              setChanges(Number(tempValue));
             }
           }}
           listRender={
-            <>
-              {items?.map(item => (
-                <Radio
-                  key={item?.optionId || 0}
-                  checked={`${item?.optionId}` === tempValue}
-                  id={item?.label || ''}
-                  value={`${item?.optionId || 0}`}
-                  label={item?.label || ''}
-                  onChange={option => {
-                    setTempValue(option.currentTarget.value);
-                  }}
-                />
-              ))}
-            </>
+            <CustomColorsList
+              items={items}
+              isDisabled={isDisabled}
+              selectedValue={selectedValue}
+              tempValue={Number(tempValue)}
+              onChange={option => {
+                setTempValue(option.currentTarget.getAttribute('data-id')!);
+              }}
+            />
           }
         />
       )}

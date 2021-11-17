@@ -25,8 +25,7 @@ import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceMod
 import CustomLeaseSelect from './CustomLeaseSelect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { Nullable } from '../../types/common';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import getOptionFromList from './helpers';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -209,81 +208,46 @@ const CustomiseLease = ({
 
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
-  const [tempColorValue, setTempColorValue] = useState<string>(`${colour}`);
-  const [tempTrimValue, setTempTrimValue] = useState<string>(`${trim}`);
+  const [tempColorValue, setTempColorValue] = useState<Nullable<string>>(
+    colour,
+  );
+  const [tempTrimValue, setTempTrimValue] = useState<Nullable<string>>(trim);
 
-  const colorLabel = useMemo(
+  const newColourList = useMemo(
     () =>
-      colourList?.reduce((acc: string, colorGroup: IGetColourGroupList) => {
-        const foundValue = colorGroup?.colors?.find(
-          item => item?.optionId === colour,
-        )?.label;
-
-        if (foundValue) {
-          // eslint-disable-next-line no-param-reassign
-          acc = foundValue;
-        }
-
-        return acc;
-      }, ''),
-    [colourList, colour],
+      (colourList ?? []).map(item => ({
+        leadTime: item.leadTime,
+        options: item.colors,
+      })),
+    [colourList],
   );
 
-  const trimLabel = useMemo(
+  const newTrimList = useMemo(
     () =>
-      trimList?.reduce(
-        (
-          acc: string | null | undefined,
-          trimGroup: Nullable<TrimGroupList>,
-        ) => {
-          // eslint-disable-next-line no-param-reassign
-          acc = trimGroup?.trims?.find(item => item?.optionId === trim)?.label;
-
-          return acc;
-        },
-        '',
-      ) ?? '',
-    [trimList, trim],
+      (trimList ?? []).map(item => ({
+        leadTime: item?.leadTime ?? '',
+        options: item?.trims?.map(option => {
+          return { ...option, hex: null };
+        }),
+      })),
+    [trimList],
   );
 
-  const selectedColorValue = useMemo(
-    () =>
-      colourList?.reduce(
-        (acc: string | null, colorGroup: IGetColourGroupList) => {
-          // eslint-disable-next-line no-param-reassign
-          acc = colorGroup?.colors?.find(
-            item => `${item?.optionId}` === `${colour}`,
-          )
-            ? `${colour}`
-            : '';
+  const colorLabel = useMemo(() => {
+    return getOptionFromList(newColourList, colour).label ?? '';
+  }, [newColourList, colour]);
 
-          return acc;
-        },
-        '',
-      ),
-    [colourList, colour],
-  );
+  const trimLabel = useMemo(() => {
+    return getOptionFromList(newTrimList, trim).label ?? '';
+  }, [newTrimList, trim]);
 
-  const selectedTrimValue = useMemo(
-    () =>
-      trimList?.reduce(
-        (acc: string | null, trimGroup: Nullable<TrimGroupList>) => {
-          // eslint-disable-next-line no-param-reassign
-          const foundValue = trimGroup?.trims?.find(
-            item => item?.optionId === trim,
-          )?.label;
+  const selectedColorValue = useMemo(() => {
+    return `${getOptionFromList(newColourList, colour).optionId}` ?? '';
+  }, [newColourList, colour]);
 
-          if (foundValue) {
-            // eslint-disable-next-line no-param-reassign
-            acc = foundValue;
-          }
-
-          return acc;
-        },
-        '',
-      ),
-    [trimList, trim],
-  );
+  const selectedTrimValue = useMemo(() => {
+    return `${getOptionFromList(newTrimList, trim).optionId}` ?? '';
+  }, [newTrimList, trim]);
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -389,14 +353,13 @@ const CustomiseLease = ({
         setTempValue={setTempColorValue}
         defaultValue={`${colour}`}
         setChanges={setColour}
-        items={colourList}
-        selectedValue={String(selectedColorValue)}
-        label={colorLabel}
+        items={newColourList}
+        selectedValue={selectedColorValue}
+        label={colorLabel ?? ''}
         dataTestId="colour-selector"
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
-        isColorSelect
       />
 
       <CustomLeaseSelect
@@ -404,14 +367,13 @@ const CustomiseLease = ({
         setTempValue={setTempTrimValue}
         defaultValue={`${trim}`}
         setChanges={setTrim}
-        selectedValue={String(selectedTrimValue)}
-        items={trimList}
-        label={trimLabel}
+        selectedValue={selectedTrimValue}
+        items={newTrimList}
+        label={trimLabel ?? ''}
         dataTestId="trim-selector"
         placeholder="Select Interior:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
-        isColorSelect
       />
 
       <Heading tag="span" size="regular" color="black">
@@ -475,7 +437,7 @@ const CustomiseLease = ({
           maintenance={maintenance}
           colours={colourList}
           trims={trimList}
-          trim={trim}
+          trim={Number(trim)}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
           isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}

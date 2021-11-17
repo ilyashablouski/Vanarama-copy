@@ -11,7 +11,7 @@ import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../
 interface ILineItemParams {
   capId: number;
   quoteData: Nullish<GetQuoteDetails>;
-  colourList: Nullable<Nullable<IGetColourGroupList>[]>;
+  colourData: Nullable<Nullable<IGetColourGroupList>[]>;
   trimList: Nullable<Nullable<TrimGroupList>[]>;
   vehicleTypeValue: VehicleTypeEnum;
   maintenanceValue: Nullish<boolean>;
@@ -24,7 +24,7 @@ interface ILineItemParams {
 const getLineItem = ({
   capId,
   quoteData,
-  colourList,
+  colourData,
   trimList,
   vehicleTypeValue,
   maintenanceValue,
@@ -36,7 +36,7 @@ const getLineItem = ({
   let colourDescription;
   let trimDescription;
 
-  colourList?.forEach(colourGroup =>
+  colourData?.forEach(colourGroup =>
     colourGroup?.colors?.forEach(colour => {
       if (colour.optionId?.toString() === quoteData?.quoteByCapId?.colour) {
         colourDescription = colour.label;

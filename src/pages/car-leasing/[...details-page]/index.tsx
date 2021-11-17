@@ -12,7 +12,6 @@ import {
   GET_COLOUR_AND_TRIM_GROUP_LIST,
   GET_IMACA_ASSETS,
   GET_PDP_CONTENT,
-  GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
 import {
   FinanceTypeEnum,
@@ -49,10 +48,6 @@ import {
   genericPagesQueryVariables,
   genericPagesQuery_genericPages as IGenericPages,
 } from '../../../../generated/genericPagesQuery';
-import {
-  GetTrimAndColor,
-  GetTrimAndColorVariables,
-} from '../../../../generated/GetTrimAndColor';
 import {
   GetImacaAssets,
   GetImacaAssetsVariables,
@@ -320,23 +315,6 @@ export async function getServerSideProps(
       },
     });
 
-    // const trimAndColorData = await client.query<
-    //   GetTrimAndColor,
-    //   GetTrimAndColorVariables
-    // >({
-    //   query: GET_TRIM_AND_COLOR_DATA,
-    //   variables: {
-    //     capId: `${capId}`,
-    //     vehicleType: VehicleTypeEnum.CAR,
-    //     trimId:
-    //       parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10) ||
-    //       undefined,
-    //     colourId:
-    //       parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
-    //       undefined,
-    //   },
-    // });
-
     const colorAndTrimData = await client.query<
       GetColourAndTrimGroupList,
       GetColourAndTrimGroupListVariables
@@ -407,7 +385,7 @@ export async function getServerSideProps(
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
         colourData,
-        trimData: colorAndTrimData.data.trimGroupList || null,
+        trimData: colorAndTrimData.data.trimGroupList,
       },
     };
   } catch (error) {

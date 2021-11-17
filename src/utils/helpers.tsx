@@ -8,15 +8,14 @@ import {
 import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { IErrorProps, Nullish } from '../types/common';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../generated/GetTrimAndColor';
+import { IErrorProps, Nullable, Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
 import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaAssets';
 import { IGetColourGroupList } from '../types/detailsPage';
-import { GetColourAndTrimGroupList_colourGroupList } from '../../generated/GetColourAndTrimGroupList';
+import {
+  GetColourAndTrimGroupList_colourGroupList,
+  GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
+} from '../../generated/GetColourAndTrimGroupList';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -65,8 +64,8 @@ export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours: (IColourList | null)[] | null;
-  trims: (ITrimList | null)[] | null;
+  colours: Nullable<IGetColourGroupList[]>;
+  trims: Nullable<(TrimGroupList | null)[]>;
   trim: number | null | undefined;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
@@ -94,14 +93,38 @@ export const getOrderList = ({
   roadsideAssistance,
   warrantyDetails,
 }: IOrderList) => {
-  const colourDescription = colours?.find(
-    item => item?.optionId?.toString() === quoteByCapId?.colour,
-  )?.label;
-  const trimDescription = trims?.find(
-    item =>
-      item?.optionId?.toString() === quoteByCapId?.trim ||
-      item?.optionId === trim,
-  )?.label;
+  const colourDescription = colours?.reduce(
+    (acc: string, colorGroup: IGetColourGroupList) => {
+      const foundValue = colorGroup?.colors?.find(
+        item => `${item?.optionId}` === quoteByCapId?.colour,
+      )?.label;
+
+      if (foundValue) {
+        // eslint-disable-next-line no-param-reassign
+        acc = foundValue;
+      }
+
+      return acc;
+    },
+    '',
+  );
+
+  const trimDescription = trims?.reduce(
+    (acc: string, trimGroup: Nullable<TrimGroupList>) => {
+      const foundValue = trimGroup?.trims?.find(
+        item =>
+          `${item?.optionId}` === quoteByCapId?.trim || item?.optionId === trim,
+      )?.label;
+
+      if (foundValue) {
+        // eslint-disable-next-line no-param-reassign
+        acc = foundValue;
+      }
+
+      return acc;
+    },
+    '',
+  );
 
   const orderList: IListItemProps[] = [
     {

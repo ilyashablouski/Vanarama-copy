@@ -750,7 +750,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="lease-scanner--sticky-wrap start-screen"
+    className="lease-scanner--sticky-wrap"
     style={
       Object {
         "opacity": "1",
@@ -1628,7 +1628,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </div>
   </div>
   <div
-    className="lease-scanner--sticky-wrap start-screen"
+    className="lease-scanner--sticky-wrap"
     style={
       Object {
         "opacity": "1",

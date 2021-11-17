@@ -148,8 +148,31 @@ describe('getOrderList', () => {
           freeInsurance: true,
           vehicleType: VehicleTypeEnum.CAR,
         },
-        colours: [{ optionId: 13990, label: 'Solid - Polar white' }],
-        trims: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
+        colours: [
+          {
+            leadTime: '14-21 Day Delivery',
+            colors: [
+              {
+                hex: null,
+                optionId: 13990,
+                label: 'Solid - Polar white',
+                hotOffer: false,
+              },
+            ],
+          },
+        ],
+        trims: [
+          {
+            leadTime: '14-21 Day Delivery',
+            trims: [
+              {
+                optionId: 104562,
+                label: 'Leather - Cranberry red',
+                hotOffer: false,
+              },
+            ],
+          },
+        ],
         trim: 112981,
         stateVAT: 'inc',
         maintenance: false,

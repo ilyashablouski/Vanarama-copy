@@ -13,7 +13,6 @@ import {
   GetQuoteDetails_quoteByCapId,
   GetQuoteDetails,
 } from '../../../generated/GetQuoteDetails';
-import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { Nullable } from '../../types/common';
 import { IGetColourGroupList } from '../../types/detailsPage';
 import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
