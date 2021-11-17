@@ -13,7 +13,6 @@ import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
 import { isPartnerSessionActive } from '../../utils/partnerProperties';
-import { isBrowser } from '../../utils/deviceType';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -48,9 +47,7 @@ const GlobalSearchContainer = () => {
   };
 
   useEffect(() => {
-    if (isBrowser()) {
-      setIsPartnerSession(isPartnerSessionActive());
-    }
+    setIsPartnerSession(isPartnerSessionActive());
   }, []);
 
   useEffect(() => {
