@@ -32,6 +32,7 @@ import {
   getLocalWishlistState,
 } from '../../utils/wishlistHelpers';
 import { Nullish } from '../../types/common';
+import { setLocalCookies } from '../../utils/authentication';
 
 export const filterExistingUuids = (personUuid: string | undefined = '') => (
   uuids: string[] | undefined = [],
@@ -98,6 +99,7 @@ const LoginFormContainer = ({
     values => {
       setIsLoading(true);
       return requestLogin(values)
+        .then(operation => setLocalCookies(operation.data))
         .then(requestPerson)
         .then(personQuery => {
           Promise.all([
