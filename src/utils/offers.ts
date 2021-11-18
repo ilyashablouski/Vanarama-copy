@@ -17,9 +17,7 @@ import {
 } from '../../generated/VehicleListUrl';
 import { VEHICLE_LIST_URL } from '../gql/vehicleList';
 import { Nullable } from '../types/common';
-
-const getCapIds = (data: ProductCardData | undefined) =>
-  data?.productCarousel?.map(el => el?.capId || '').filter(Boolean) || [];
+import getCapIds from './getProductCarouselCapIds';
 
 export const getVehicleListUrlQuery = async (
   client: ApolloClient<any>,
@@ -364,14 +362,15 @@ export const specialOffersRequest = async (
 
 export const specialOffersForBlogPageRequest = async (
   client: ApolloClient<any>,
+  vehicleType: VehicleTypeEnum,
 ): Promise<ISpecialOffersBlogPostPageData> => {
   const {
     products: productsCar,
     productsCapIds: productsCarIds,
-  } = await getProductCardContent(client, VehicleTypeEnum.CAR);
+  } = await getProductCardContent(client, vehicleType);
   const { data: productsCarDerivatives } = await getCarDerivatives(
     client,
-    VehicleTypeEnum.CAR,
+    vehicleType,
     productsCarIds,
   );
   const derivativeIds = [...productsCarIds];
