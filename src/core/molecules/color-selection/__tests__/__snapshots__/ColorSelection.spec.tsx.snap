@@ -13,6 +13,7 @@ Object {
         >
           <span
             class="text color-selection__selected-color -regular -dark"
+            data-uitestid="details-page_color-selection_Hot White (K8J2)"
           >
             <span>
               Colour:
@@ -65,6 +66,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Hot White (K8J2)"
                   for="Hot White (K8J2)"
                   style="background-color: rgb(255, 255, 255);"
                   title="Hot White (K8J2)"
@@ -95,6 +97,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Hot Orange (K8J2)"
                   for="Hot Orange (K8J2)"
                   style="background-color: rgb(236, 100, 9);"
                   title="Hot Orange (K8J2)"
@@ -125,6 +128,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Hot Yellow (K8J2)"
                   for="Hot Yellow (K8J2)"
                   style="background-color: rgb(248, 187, 32);"
                   title="Hot Yellow (K8J2)"
@@ -177,6 +181,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Factory Blue (K8J2)"
                   for="Factory Blue (K8J2)"
                   style="background-color: rgb(103, 128, 152);"
                   title="Factory Blue (K8J2)"
@@ -193,6 +198,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Factory Gray (K8J2)"
                   for="Factory Gray (K8J2)"
                   style="background-color: rgb(68, 87, 106);"
                   title="Factory Gray (K8J2)"
@@ -209,6 +215,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Factory Red (K8J2)"
                   for="Factory Red (K8J2)"
                   style="background-color: rgb(190, 39, 39);"
                   title="Factory Red (K8J2)"
@@ -225,6 +232,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Factory Green (K8J2)"
                   for="Factory Green (K8J2)"
                   style="background-color: rgb(94, 172, 53);"
                   title="Factory Green (K8J2)"
@@ -241,6 +249,7 @@ Object {
                 />
                 <label
                   class="color-selection__color"
+                  data-uitestid="details-page_swiper-slide_Factory Black (K8J2)"
                   for="Factory Black (K8J2)"
                   style="background-color: rgb(10, 13, 16);"
                   title="Factory Black (K8J2)"
@@ -261,6 +270,7 @@ Object {
       >
         <span
           class="text color-selection__selected-color -regular -dark"
+          data-uitestid="details-page_color-selection_Hot White (K8J2)"
         >
           <span>
             Colour:
@@ -313,6 +323,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Hot White (K8J2)"
                 for="Hot White (K8J2)"
                 style="background-color: rgb(255, 255, 255);"
                 title="Hot White (K8J2)"
@@ -343,6 +354,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Hot Orange (K8J2)"
                 for="Hot Orange (K8J2)"
                 style="background-color: rgb(236, 100, 9);"
                 title="Hot Orange (K8J2)"
@@ -373,6 +385,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Hot Yellow (K8J2)"
                 for="Hot Yellow (K8J2)"
                 style="background-color: rgb(248, 187, 32);"
                 title="Hot Yellow (K8J2)"
@@ -425,6 +438,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Factory Blue (K8J2)"
                 for="Factory Blue (K8J2)"
                 style="background-color: rgb(103, 128, 152);"
                 title="Factory Blue (K8J2)"
@@ -441,6 +455,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Factory Gray (K8J2)"
                 for="Factory Gray (K8J2)"
                 style="background-color: rgb(68, 87, 106);"
                 title="Factory Gray (K8J2)"
@@ -457,6 +472,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Factory Red (K8J2)"
                 for="Factory Red (K8J2)"
                 style="background-color: rgb(190, 39, 39);"
                 title="Factory Red (K8J2)"
@@ -473,6 +489,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Factory Green (K8J2)"
                 for="Factory Green (K8J2)"
                 style="background-color: rgb(94, 172, 53);"
                 title="Factory Green (K8J2)"
@@ -489,6 +506,7 @@ Object {
               />
               <label
                 class="color-selection__color"
+                data-uitestid="details-page_swiper-slide_Factory Black (K8J2)"
                 for="Factory Black (K8J2)"
                 style="background-color: rgb(10, 13, 16);"
                 title="Factory Black (K8J2)"

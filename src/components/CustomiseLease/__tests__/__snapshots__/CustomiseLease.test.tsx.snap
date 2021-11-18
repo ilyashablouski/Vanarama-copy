@@ -3,6 +3,7 @@
 exports[`<CustomiseLease /> renders correctly 1`] = `
 <div
   className="pdp--sidebar"
+  data-uitestid="details-page_customise-lease-container_sidebar"
 >
   <h2
     className="heading -black -xlarge"
@@ -20,6 +21,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-Personal"
       disabled={false}
       id="Personal"
       name="leaseType"
@@ -40,6 +42,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-Business"
       disabled={false}
       id="Business"
       name="leaseType"
@@ -72,6 +75,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   </span>
   <label
     className="sliding-input"
+    data-uitestid="details-page_sliding-input_mileage-slider"
     onClick={[Function]}
     onMouseDown={[Function]}
     onMouseLeave={[Function]}
@@ -108,16 +112,19 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_6K"
     >
       6K
     </div>
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_8K"
     >
       8K
     </div>
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_10K"
     >
       10K
     </div>
@@ -139,6 +146,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-24, 36"
       disabled={false}
       id="24, 36"
       name="terms"
@@ -159,6 +167,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-77"
       disabled={false}
       id="77"
       name="terms"
@@ -208,6 +217,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={true}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-1"
       disabled={false}
       id="1"
       name="upfront"
@@ -233,6 +243,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-3"
       disabled={false}
       id="3"
       name="upfront"
@@ -264,6 +275,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <div
     className="custom-select-container -fullwidth"
     data-testid="colour-selector"
+    data-uitestid="details-page_custom-lease-select_colour"
     onClick={[Function]}
   >
     <div
@@ -306,6 +318,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <div
     className="custom-select-container -fullwidth"
     data-testid="trim-selector"
+    data-uitestid="details-page_custom-lease-select_trim"
     onClick={[Function]}
   >
     <div
@@ -357,6 +370,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   </span>
   <a
     className="link -primary -small -plain"
+    data-uitestid="details-page_customise-lease_what-included"
     onClick={[Function]}
   >
     See What's Included
@@ -485,6 +499,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             className="structured-list-td structured-list-content--nowrap"
             data-abtestid="product-page_structured-list_processing-fee-label"
             data-testid="data_id-0-Processing Fee:"
+            data-uitestid="details-page_order-summary_Processing Fee:"
           >
             Processing Fee:
           </div>
@@ -502,6 +517,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-1-Initial Payment:"
+            data-uitestid="details-page_order-summary_Initial Payment:"
           >
             Initial Payment:
           </div>
@@ -518,6 +534,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-2-Contract Length:"
+            data-uitestid="details-page_order-summary_Contract Length:"
           >
             Contract Length:
           </div>
@@ -534,6 +551,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-3-Annual Mileage:"
+            data-uitestid="details-page_order-summary_Annual Mileage:"
           >
             Annual Mileage:
           </div>
@@ -550,6 +568,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-4-Vanarama Service Plan:"
+            data-uitestid="details-page_order-summary_Vanarama Service Plan:"
           >
             Vanarama Service Plan:
           </div>
@@ -566,6 +585,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-5-Colour:"
+            data-uitestid="details-page_order-summary_Colour:"
           >
             Colour:
           </div>
@@ -582,6 +602,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-7-Stock:"
+            data-uitestid="details-page_order-summary_Stock:"
           >
             Stock:
           </div>
@@ -598,6 +619,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-8-Warranty:"
+            data-uitestid="details-page_order-summary_Warranty:"
           >
             Warranty:
           </div>
@@ -614,6 +636,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-9-Road Tax:"
+            data-uitestid="details-page_order-summary_Road Tax:"
           >
             Road Tax:
           </div>
@@ -630,6 +653,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-10-Redundancy & Life Event Cover:"
+            data-uitestid="details-page_order-summary_Redundancy & Life Event Cover:"
           >
             Redundancy & Life Event Cover:
           </div>
@@ -646,6 +670,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-11-Delivery:"
+            data-uitestid="details-page_order-summary_Delivery:"
           >
             Delivery:
           </div>
@@ -788,6 +813,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
+          data-uitestid="details-page_button_PM inc. VAT"
         >
           PM inc. VAT
         </div>
@@ -797,6 +823,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <button
           className="button -fullwidth -teal -regular -solid"
+          data-uitestid="details-page_button_order-now"
           onClick={[Function]}
           style={
             Object {
@@ -881,6 +908,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
 exports[`<CustomiseLease /> renders correctly 2`] = `
 <div
   className="pdp--sidebar"
+  data-uitestid="details-page_customise-lease-container_sidebar"
 >
   <h2
     className="heading -black -xlarge"
@@ -898,6 +926,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-Personal"
       disabled={false}
       id="Personal"
       name="leaseType"
@@ -918,6 +947,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-Business"
       disabled={false}
       id="Business"
       name="leaseType"
@@ -950,6 +980,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   </span>
   <label
     className="sliding-input"
+    data-uitestid="details-page_sliding-input_mileage-slider"
     onClick={[Function]}
     onMouseDown={[Function]}
     onMouseLeave={[Function]}
@@ -986,16 +1017,19 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_6K"
     >
       6K
     </div>
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_8K"
     >
       8K
     </div>
     <div
       className="sliding-input-step"
+      data-uitestid="details-page_sliding-input_div_10K"
     >
       10K
     </div>
@@ -1017,6 +1051,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-24, 36"
       disabled={false}
       id="24, 36"
       name="terms"
@@ -1037,6 +1072,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-77"
       disabled={false}
       id="77"
       name="terms"
@@ -1086,6 +1122,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={true}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-1"
       disabled={false}
       id="1"
       name="upfront"
@@ -1111,6 +1148,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       checked={false}
       className="choice-input visually-hidden"
+      data-uitestid="details-page_choice-boxes-v2_input-3"
       disabled={false}
       id="3"
       name="upfront"
@@ -1142,6 +1180,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <div
     className="custom-select-container -fullwidth"
     data-testid="colour-selector"
+    data-uitestid="details-page_custom-lease-select_colour"
     onClick={[Function]}
   >
     <div
@@ -1184,6 +1223,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <div
     className="custom-select-container -fullwidth"
     data-testid="trim-selector"
+    data-uitestid="details-page_custom-lease-select_trim"
     onClick={[Function]}
   >
     <div
@@ -1235,6 +1275,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   </span>
   <a
     className="link -primary -small -plain"
+    data-uitestid="details-page_customise-lease_what-included"
     onClick={[Function]}
   >
     See What's Included
@@ -1363,6 +1404,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             className="structured-list-td structured-list-content--nowrap"
             data-abtestid="product-page_structured-list_processing-fee-label"
             data-testid="data_id-0-Processing Fee:"
+            data-uitestid="details-page_order-summary_Processing Fee:"
           >
             Processing Fee:
           </div>
@@ -1380,6 +1422,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-1-Initial Payment:"
+            data-uitestid="details-page_order-summary_Initial Payment:"
           >
             Initial Payment:
           </div>
@@ -1396,6 +1439,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-2-Contract Length:"
+            data-uitestid="details-page_order-summary_Contract Length:"
           >
             Contract Length:
           </div>
@@ -1412,6 +1456,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-3-Annual Mileage:"
+            data-uitestid="details-page_order-summary_Annual Mileage:"
           >
             Annual Mileage:
           </div>
@@ -1428,6 +1473,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-4-Vanarama Service Plan:"
+            data-uitestid="details-page_order-summary_Vanarama Service Plan:"
           >
             Vanarama Service Plan:
           </div>
@@ -1444,6 +1490,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-5-Colour:"
+            data-uitestid="details-page_order-summary_Colour:"
           >
             Colour:
           </div>
@@ -1460,6 +1507,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-7-Stock:"
+            data-uitestid="details-page_order-summary_Stock:"
           >
             Stock:
           </div>
@@ -1476,6 +1524,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-8-Warranty:"
+            data-uitestid="details-page_order-summary_Warranty:"
           >
             Warranty:
           </div>
@@ -1492,6 +1541,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-9-Road Tax:"
+            data-uitestid="details-page_order-summary_Road Tax:"
           >
             Road Tax:
           </div>
@@ -1508,6 +1558,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-10-Redundancy & Life Event Cover:"
+            data-uitestid="details-page_order-summary_Redundancy & Life Event Cover:"
           >
             Redundancy & Life Event Cover:
           </div>
@@ -1524,6 +1575,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           <div
             className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-11-Delivery:"
+            data-uitestid="details-page_order-summary_Delivery:"
           >
             Delivery:
           </div>
@@ -1659,11 +1711,13 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             </span>
             <span
               className="price--pounds"
+              data-uitestid="details-page_price_span_pounds"
             >
               605
             </span>
             <span
               className="price--sub"
+              data-uitestid="details-page_price_span_sub"
             >
               .
               95
@@ -1672,6 +1726,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
+          data-uitestid="details-page_button_PM inc. VAT"
         >
           PM inc. VAT
         </div>
@@ -1681,6 +1736,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <button
           className="button -fullwidth -teal -regular -solid"
+          data-uitestid="details-page_button_order-now"
           onClick={[Function]}
           style={
             Object {

@@ -17,6 +17,7 @@ interface CustomSelectInterface {
   invalid?: boolean;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   dataTestId?: string;
+  dataUiTestId?: string;
 }
 
 const CustomSelect: React.FC<CustomSelectInterface> = ({
@@ -30,8 +31,10 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
   onChange,
   invalid,
   dataTestId,
+  dataUiTestId,
 }) => {
   const wrapperRef = useRef<null | HTMLDivElement>(null);
+
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
   const handleListDisplay = () => {
@@ -59,6 +62,7 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
       ref={wrapperRef}
       className={cx('custom-select-container', className, {
         'custom-select-container-border': showOptionList,

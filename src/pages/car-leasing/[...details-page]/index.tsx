@@ -183,6 +183,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   return (
     <>
       <DetailsPage
+        dataUiTestId="car-details-page"
         pdpContent={pdpContent}
         cars
         quote={quote}

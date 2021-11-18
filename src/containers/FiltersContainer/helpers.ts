@@ -64,7 +64,7 @@ export const buildPreselectChoiseboxes = (
     isBodyPage = false,
     isTransmissionPage = false,
     isFuelPage = false,
-    isPartnership = false,
+    isPartnershipActive = false,
   },
   accessor: string,
   selectedFiltersState: ISelectedFiltersState,
@@ -103,12 +103,16 @@ export const buildPreselectChoiseboxes = (
       },
     ];
   }
-  if (isPartnership && accessor === FilterFields.fuelTypes) {
+  if (isPartnershipActive && accessor === FilterFields.fuelTypes) {
     const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
-    const choices = choiceBoxesData.filter(fuelType =>
-      partnershipFuelTypes?.includes(fuelType.label),
-    );
-    return choices;
+    return choiceBoxesData
+      .filter(fuelType => partnershipFuelTypes?.includes(fuelType.label))
+      .map(choiseboxValue => ({
+        ...choiseboxValue,
+        active: selectedFiltersState[FilterFields.fuelTypes].includes(
+          choiseboxValue.value as string,
+        ),
+      }));
   }
   return null;
 };

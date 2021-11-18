@@ -83,6 +83,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
+  dataUiTestId,
 }) => {
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
@@ -285,6 +286,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
     return (
       <GoldrushFormContainer
+        dataUiTestId={`${dataUiTestId}_goldrush-form`}
         termsAndConditions
         isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
         capId={capId}
@@ -348,6 +350,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         onRequestClose={() => setShowCallBackForm(false)}
       >
         <GoldrushFormContainer
+          dataUiTestId={`${dataUiTestId}_goldrush-form`}
           isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
           capId={capId}
           callBack

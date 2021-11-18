@@ -17,6 +17,7 @@ interface IProps {
   setTempValue: Dispatch<SetStateAction<Nullable<string>>>;
   selectedValue?: Nullable<string>;
   label: string;
+  dataUiTestId?: string;
 }
 
 const CustomLeaseSelect = ({
@@ -31,6 +32,7 @@ const CustomLeaseSelect = ({
   setTempValue,
   selectedValue,
   label,
+  dataUiTestId,
 }: IProps) => {
   const isDesktop = !useMobileViewport();
 
@@ -40,6 +42,7 @@ const CustomLeaseSelect = ({
         <CustomSelect
           label={label}
           dataTestId={dataTestId}
+          dataUiTestId={dataUiTestId}
           radioName={placeholder}
           isDisabled={isDisabled}
           selectedValue={selectedValue}
@@ -53,6 +56,7 @@ const CustomLeaseSelect = ({
       ) : (
         <CustomSelectInput
           dataTestId={dataTestId}
+          dataUiTestId={dataUiTestId}
           label={label}
           title={placeholder}
           disabled={isDisabled}

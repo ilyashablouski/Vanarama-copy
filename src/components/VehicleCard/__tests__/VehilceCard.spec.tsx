@@ -57,6 +57,7 @@ describe('<VehicleCard />', () => {
           id: '86343',
         } as any,
       ],
+      dataUiTestId: 'vehicle-card',
     };
   };
 

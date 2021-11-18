@@ -40,7 +40,12 @@ const PageNotFoundContainer: NextPage<IProps> = ({
     <>
       <div className="row:title">
         <Breadcrumbs items={breadcrumbsItems} />
-        <Heading tag="h1" size="xlarge" color="black">
+        <Heading
+          tag="h1"
+          size="xlarge"
+          color="black"
+          dataUiTestId="not-found-page_heading"
+        >
           {name || ''}
         </Heading>
       </div>
