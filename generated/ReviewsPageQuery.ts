@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: ReviewsPageQuery
 // ====================================================
+
 
 export interface ReviewsPageQuery_reviewsPage_metaData {
   title: string | null;

@@ -23,6 +23,7 @@ export interface IHeroProps extends IBaseProps {
   activeSearchIndex?: number;
   searchType?: VehicleTypeEnum;
   expand?: boolean;
+  terms?: string | null;
 }
 
 export interface IHeroTitleProps extends IBaseProps {

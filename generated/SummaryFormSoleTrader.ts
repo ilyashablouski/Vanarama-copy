@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: SummaryFormSoleTrader
 // ====================================================
+
 
 export interface SummaryFormSoleTrader_addresses {
   serviceId: string | null;

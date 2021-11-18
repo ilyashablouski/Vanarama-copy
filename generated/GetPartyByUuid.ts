@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetPartyByUuid
 // ====================================================
+
 
 export interface GetPartyByUuid_partyByUuid_person_companies {
   partyUuid: string;

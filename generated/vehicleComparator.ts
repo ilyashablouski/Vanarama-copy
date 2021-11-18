@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleToCompare, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: vehicleComparator
 // ====================================================
+
 
 export interface vehicleComparator_vehicleComparator_data {
   name: string | null;

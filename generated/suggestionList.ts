@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: suggestionList
 // ====================================================
+
 
 export interface suggestionList_suggestionListV2 {
   suggestions: (string | null)[] | null;
