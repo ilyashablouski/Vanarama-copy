@@ -4,6 +4,8 @@ import storedPersonEmail from './query/storedPersonEmail';
 import storedOrder from './query/storedOrder';
 import storedPersonBankUuid from './query/storedPersonBankUuid';
 import storedQuote from './query/storedQuote';
+import storedWishlistVehicleIds from './query/storedWishlistVehicleIds';
+import storedItemsToCompare from './query/storedItemsToCompare';
 
 import savePerson from './mutation/savePerson';
 import savePersonUuid from './mutation/savePersonUuid';
@@ -13,6 +15,8 @@ import saveQuote from './mutation/saveQuote';
 import deletePersonEmail from './mutation/deletePersonEmail';
 import savePersonBankUuid from './mutation/savePersonBankUuid';
 import deleteStoredPerson from './mutation/deleteStoredPerson';
+import saveWishlistVehicleIds from './mutation/saveWishlistVehicleIds';
+import saveItemsToCompare from './mutation/saveItemsToCompare';
 
 export default {
   Query: {
@@ -22,6 +26,8 @@ export default {
     storedPersonEmail,
     storedPersonBankUuid,
     storedQuote,
+    storedWishlistVehicleIds,
+    storedItemsToCompare,
   },
   Mutation: {
     savePerson,
@@ -32,5 +38,7 @@ export default {
     deletePersonEmail,
     savePersonBankUuid,
     deleteStoredPerson,
+    saveWishlistVehicleIds,
+    saveItemsToCompare,
   },
 };
