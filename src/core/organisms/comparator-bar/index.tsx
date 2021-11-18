@@ -1,3 +1,1 @@
-import ComparatorBar from './ComparatorBar';
-
-export default ComparatorBar;
+export { default } from './ComparatorBar';

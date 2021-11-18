@@ -24,10 +24,17 @@ interface IModelCardProps {
   data?: IExtModelData;
   range?: string;
   manufacturer?: string;
+  dataUiTestId?: string;
 }
 
 const ModelCard = memo(
-  ({ isPersonalPrice, data, range, manufacturer }: IModelCardProps) => {
+  ({
+    isPersonalPrice,
+    data,
+    range,
+    manufacturer,
+    dataUiTestId,
+  }: IModelCardProps) => {
     const [legacySlug, setLegacySlug] = useState(data?.legacyUrl || '');
     const { query } = useRouter();
     const { data: imageData } = useModelImages(
@@ -95,6 +102,7 @@ const ModelCard = memo(
             className="button"
             classNames={{ size: 'regular', color: 'teal', solid: true }}
             withoutDefaultClassName
+            dataUiTestId={`${dataUiTestId}_view-all-button`}
           >
             <div className="button--inner">
               View {data?.count || 'All'} Offers

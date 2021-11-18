@@ -32,6 +32,7 @@ const ProductCard: FC<IProductCardProps> = props => {
     wished,
     features,
     isBlackFridayLabel,
+    dataUiTestId,
   } = props;
   const isBlackFridayFlag =
     isBlackFridayCampaignEnabled() && isBlackFridayLabel;
@@ -46,6 +47,9 @@ const ProductCard: FC<IProductCardProps> = props => {
             color={compared ? 'teal' : 'dark'}
             fill="clear"
             iconPosition="before"
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_compare-button` : undefined
+            }
             label={
               <>
                 <Icon icon={<Scale />} color={compared ? 'teal' : 'dark'} />
@@ -62,6 +66,9 @@ const ProductCard: FC<IProductCardProps> = props => {
             color={wished ? 'teal' : 'dark'}
             fill="clear"
             iconPosition="before"
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_wishlist-button` : undefined
+            }
             label={
               <>
                 <Icon icon={<Heart />} color={wished ? 'teal' : 'dark'} />

@@ -112,7 +112,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           classNames={{ color: 'orange', plain: true }}
           className="logo header-logo"
         >
-          <Logo asset="vanarama" />
+          <Logo assetName="vanarama" />
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
@@ -121,6 +121,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {isUserAuthenticated() ? (
             <>
               <Button
+                dataUiTestId="header-account-toggle"
                 withoutDefaultClass
                 fill="clear"
                 onClick={() => setOpenMyAccount(!isMyAccountOpen)}
@@ -148,6 +149,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                 <ul className="header-account--nav">
                   <li>
                     <RouterLink
+                      dataUiTestId="header-dashboard-button"
                       onClick={handleMenuClose}
                       className="header-account--link"
                       link={{
@@ -192,6 +194,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                   </li>
                   <li>
                     <RouterLink
+                      dataUiTestId="header-logout-button"
                       className="header-account--link"
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}

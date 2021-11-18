@@ -8,6 +8,7 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
     >
       <h1
         class="heading -black -xlarge"
+        data-uitestid="not-found-page_heading"
       >
         Top 5 Electric Vans Sort Of
       </h1>

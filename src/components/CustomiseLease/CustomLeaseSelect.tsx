@@ -17,6 +17,7 @@ interface IProps {
   isDisabled: boolean;
   modalElement: HTMLDivElement;
   dataTestId: string;
+  dataUiTestId?: string;
 }
 
 const CustomLeaseSelect = ({
@@ -27,6 +28,7 @@ const CustomLeaseSelect = ({
   isDisabled,
   modalElement,
   dataTestId,
+  dataUiTestId,
 }: IProps) => {
   const [tempValue, setTempValue] = useState<string>(defaultValue);
   const isDesktop = !useMobileViewport();
@@ -50,6 +52,7 @@ const CustomLeaseSelect = ({
         <CustomSelect
           label={label}
           dataTestId={dataTestId}
+          dataUiTestId={dataUiTestId}
           radioName={placeholder}
           isDisabled={isDisabled}
           selectedValue={selectedValue}
@@ -63,6 +66,7 @@ const CustomLeaseSelect = ({
       ) : (
         <CustomSelectInput
           dataTestId={dataTestId}
+          dataUiTestId={dataUiTestId}
           label={label}
           title={placeholder}
           disabled={isDisabled}

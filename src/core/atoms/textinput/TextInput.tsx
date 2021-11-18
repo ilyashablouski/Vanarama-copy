@@ -17,6 +17,7 @@ const TextInput: React.FC<ITextInputProps> = React.forwardRef<
     suffix,
     max,
     isNative = true,
+    dataUiTestId,
     ...rest
   } = props;
 
@@ -33,6 +34,7 @@ const TextInput: React.FC<ITextInputProps> = React.forwardRef<
           '-suffix': suffix,
         })}
         data-testid={dataTestId}
+        data-uitestid={dataUiTestId}
         ref={ref}
         type={type}
         readOnly={calculated}

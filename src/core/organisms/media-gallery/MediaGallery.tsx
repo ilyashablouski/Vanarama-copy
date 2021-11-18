@@ -114,7 +114,9 @@ function MediaGallery({
                         color="dark"
                         size="lead"
                       />
-                      <Text>Select Colour</Text>
+                      <Text dataUiTestId="details-page_text_select-colour">
+                        Select Colour
+                      </Text>
                     </button>
                   )
                 }
@@ -136,17 +138,17 @@ function MediaGallery({
           </TabPanels>
           <TabList className="media-gallery__tabs">
             {shouldRenderImaca && (
-              <Tab index={0}>
+              <Tab index={0} dataUiTestId="details-page_tab_360">
                 <Icon className="rotate" icon={<MediaRotate />} />
                 360°
               </Tab>
             )}
-            <Tab index={1}>
+            <Tab index={1} dataUiTestId="details-page_tab_Photos">
               <Icon className="picture" icon={<MediaPicture />} />
               Photos
             </Tab>
             {videoSrc && (
-              <Tab index={2}>
+              <Tab index={2} dataUiTestId="details-page_tab_Video">
                 <Icon className="video" icon={<MediaVideo />} />
                 Video
               </Tab>

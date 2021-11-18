@@ -29,6 +29,7 @@ const Choiceboxes = forwardRef(
       setChoiceIndex,
       boxClassName,
       labelClassName,
+      preventUnselectAllValues = false,
     }: IChoiceBoxesProps,
     ref,
   ) => {
@@ -59,6 +60,13 @@ const Choiceboxes = forwardRef(
           };
         },
       );
+      const numberOfActiveChoices = changedChoices.reduce(
+        (count, choice) => (choice.active ? count + 1 : count),
+        0,
+      );
+      if (preventUnselectAllValues && numberOfActiveChoices === 0) {
+        return;
+      }
       index !== -1 && onSubmit(changedChoices[index]);
       if (index !== -1 && setChoiceIndex) {
         setChoiceIndex(index);

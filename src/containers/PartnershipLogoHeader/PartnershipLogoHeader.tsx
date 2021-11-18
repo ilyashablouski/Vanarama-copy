@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import PartnershipLogo from '../../components/Partnerships/PartnershipLogo';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 
-const PartnershipLogoHeader = () => {
+const PartnershipLogoHeader = memo(() => {
   const [partnershipLogo, setPartnershipLogo] = useState<string | undefined>();
   const [partnershipTitle, setPartnershipTitle] = useState<
     string | undefined
@@ -27,6 +27,6 @@ const PartnershipLogoHeader = () => {
       />
     </div>
   );
-};
+});
 
 export default PartnershipLogoHeader;

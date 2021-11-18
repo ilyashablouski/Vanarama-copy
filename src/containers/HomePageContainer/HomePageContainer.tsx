@@ -128,6 +128,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <Heading
             size="xlarge"
             color="black"
+            dataUiTestId="homepage-heading-text"
             tag={
               getTitleTag(
                 getSectionsData(
