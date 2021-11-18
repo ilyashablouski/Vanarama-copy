@@ -1,26 +1,37 @@
 import Cookies from 'js-cookie';
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import { GET_SSR_AUTH_STATUS, ISSRAuthStatus } from '../gql/session';
+import { LoginUserMutation } from '../../generated/LoginUserMutation';
+import { Nullish } from '../types/common';
 
 export const IDENTITY_COOKIE_NAME = 'ic';
-export const IDENTITY_LOCAL_COOKIE_NAME = 'ic_local';
+export const ACCESS_COOKIE_NAME = 'ac';
+
+const IS_DEVELOPMENT_ENV = process.env.ENV === 'dev';
 
 export function isUserAuthenticated() {
   const identityCookie = Cookies.get(IDENTITY_COOKIE_NAME);
-  const identityLocalCookie = Cookies.get(IDENTITY_LOCAL_COOKIE_NAME);
 
-  // will be unavailable in case of expiration or absence
-  return [identityCookie, identityLocalCookie].some(cookie => cookie === '1');
+  return identityCookie === '1';
 }
 
-export function removeAuthenticationCookies() {
+export const removeAuthenticationCookies = () => {
+  if (IS_DEVELOPMENT_ENV) {
+    Cookies.remove(ACCESS_COOKIE_NAME);
+  }
+
   Cookies.remove(IDENTITY_COOKIE_NAME);
-  Cookies.remove(IDENTITY_LOCAL_COOKIE_NAME);
-}
+};
+
+export const setLocalCookies = (data: Nullish<LoginUserMutation>) => {
+  if (IS_DEVELOPMENT_ENV) {
+    Cookies.set(IDENTITY_COOKIE_NAME, data?.loginV2?.idToken || '');
+    Cookies.set(ACCESS_COOKIE_NAME, data?.loginV2?.accessToken || '');
+  }
+};
 
 export const isUserAuthenticatedSSR = (cookie: string) =>
-  cookie?.includes(`${IDENTITY_COOKIE_NAME}=1`) ||
-  cookie?.includes(`${IDENTITY_LOCAL_COOKIE_NAME}=1`);
+  cookie?.includes(`${IDENTITY_COOKIE_NAME}=1`);
 
 export const getAuthStatusFromCache = (
   client: ApolloClient<NormalizedCacheObject>,
