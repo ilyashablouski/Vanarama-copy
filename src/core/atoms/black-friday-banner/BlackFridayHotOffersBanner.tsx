@@ -9,8 +9,9 @@ import EarLeftIcon from 'core/assets/icons/black-friday/EarLeftLarge';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRightLarge';
 
 import { IBaseProps } from 'core/interfaces/base';
+import Image from 'core/atoms/image/Image';
 
-const BASE_IMAGE_URL = '/Assets/images/black-friday';
+const BASE_IMAGE_URL = `${process.env.HOST_DOMAIN}/Assets/images/black-friday`;
 export const BANNER_VARIANTS = {
   cars: {
     vehicleImageName: `car.png`,
@@ -47,10 +48,22 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
       <div className="bf-banner__inner">
         <div className="bf-banner__container">
           <div className="bf-banner__car -vehicle">
-            <img src={`${BASE_IMAGE_URL}/${vehicleImageName}`} alt="" />
+            <Image
+              className="image"
+              src={`${BASE_IMAGE_URL}/${vehicleImageName}`}
+              size="expand"
+              plain
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            />
           </div>
           <div className="bf-banner__car -light">
-            <img src={`${BASE_IMAGE_URL}/light.png`} alt="" />
+            <Image
+              className="image"
+              src={`${BASE_IMAGE_URL}/light.png`}
+              size="expand"
+              plain
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            />
           </div>
           <div className="bf-banner__group -first">
             <div className="bf-banner__badge">

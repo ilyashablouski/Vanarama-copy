@@ -77,6 +77,7 @@ function ImacaConfigurator({
       onClick={onClick}
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
+      data-uitestid="details-page_imaca-configurator_div_imaca-viewer"
     />
   );
 }

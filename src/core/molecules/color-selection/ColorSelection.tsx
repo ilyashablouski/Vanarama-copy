@@ -29,7 +29,12 @@ function ColorSelection({
   return (
     <div className={cx(baseClassName, className)}>
       <div className={getClassName('header')}>
-        <Text className={getClassName('selected-color')} color="dark">
+        <Text
+          className={getClassName('selected-color')}
+          color="dark"
+          dataUiTestId={`details-page_color-selection_${selectedColor?.lqName ??
+            'Not Selected'}`}
+        >
           <span>Colour:</span>
           {selectedColor?.lqName ?? 'Not Selected'}
         </Text>
@@ -83,6 +88,8 @@ function ColorSelection({
                   htmlFor={color.lqName ?? ''}
                   style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
+                  data-uitestid={`details-page_swiper-slide_${color.lqName ??
+                    ''}`}
                 >
                   <Icon icon={<Flame />} />
                 </label>
@@ -126,6 +133,8 @@ function ColorSelection({
                   htmlFor={color.lqName ?? ''}
                   style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
+                  data-uitestid={`details-page_swiper-slide_${color.lqName ??
+                    ''}`}
                 />
               </SwiperSlide>
             ))}

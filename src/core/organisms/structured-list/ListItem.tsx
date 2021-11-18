@@ -24,6 +24,7 @@ const ListItem: FC<IListItemProps> = props => {
     dataAbTestId,
     labelElementAttributes,
     valueElementAttributes,
+    dataUiTestId,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -109,6 +110,7 @@ const ListItem: FC<IListItemProps> = props => {
         })}
         data-testid={`data_id-${testId}-${label}`}
         data-abtestid={labelElementAttributes?.dataAbTestId}
+        data-uitestid={dataUiTestId ? `${dataUiTestId}_${label}` : undefined}
       >
         {label}
       </div>

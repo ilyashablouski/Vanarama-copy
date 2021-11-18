@@ -152,13 +152,20 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   return (
     <>
       {!isInitialLoading && nextBestPrice && !isLoading && (
-        <div className="card-header lease-card-header">
+        <div
+          className="card-header lease-card-header"
+          data-uitestid="details-page_text_best-price"
+        >
           <Text size="small">{bestPriceText}</Text>
         </div>
       )}
       <div className="lease-scanner" style={positionStyle}>
         <div className="content-wrapper">
-          <Price price={monthlyPrice} size="xlarge" />
+          <Price
+            price={monthlyPrice}
+            size="xlarge"
+            dataUitestId="details-page_price"
+          />
           {priceLabel && (
             <Heading
               className={`${classNameHeading} -pt-100`}
@@ -174,6 +181,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
             size="small"
             color="darker"
             className={`${classNameHeading} -pt-100`}
+            dataUiTestId={`details-page_button_${headingText}`}
           >
             {headingText}
           </Heading>
@@ -185,6 +193,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
             label="Order Now"
             color="teal"
             onClick={orderNowClick}
+            dataUiTestId="details-page_button_order-now"
           />
           <div className="-eta">
             <Icon icon={<Clock />} color="orange" size="small" />

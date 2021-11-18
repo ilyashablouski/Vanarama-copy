@@ -9,32 +9,38 @@ const Text = dynamic(() => import('core/atoms/text'), {
 interface IProps {
   suggestions: string[];
   dataUiTestId?: string;
+  isPartnerSession: boolean;
 }
 
 const GlobalSearchLeftSideContainer = ({
   suggestions,
   dataUiTestId,
+  isPartnerSession,
 }: IProps) => (
   <div>
-    <span className="heading -small -dark">Suggestions</span>
-    {suggestions.length === 0 && (
-      <Text className="-small -dark" tag="p">
-        No suggestions
-      </Text>
+    {!isPartnerSession && (
+      <>
+        <span className="heading -small -dark">Suggestions</span>
+        {suggestions.length === 0 && (
+          <Text className="-small -dark" tag="p">
+            No suggestions
+          </Text>
+        )}
+        <ul>
+          {suggestions.map((suggestion, index) => (
+            <li key={suggestion}>
+              <RouterLink
+                dataUiTestId={`${dataUiTestId}_suggestions-link-${index}`}
+                link={{
+                  href: `/search?searchTerm=${suggestion}`,
+                  label: suggestion,
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </>
     )}
-    <ul>
-      {suggestions.map((suggestion, index) => (
-        <li key={suggestion}>
-          <RouterLink
-            dataUiTestId={`${dataUiTestId}_suggestions-link-${index}`}
-            link={{
-              href: `/search?searchTerm=${suggestion}`,
-              label: suggestion,
-            }}
-          />
-        </li>
-      ))}
-    </ul>
   </div>
 );
 

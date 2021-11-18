@@ -87,6 +87,7 @@ const InsuranceModal = ({
             terms & conditions
           </a>,
         ]}
+        dataUiTestId="details-page-insurance-modal"
       />
       <div className="-mt-400">
         <Button
@@ -95,12 +96,14 @@ const InsuranceModal = ({
           onClick={onContinueWithInsurance}
           disabled={!isAgreeInsuranceRules}
           className={isMobile ? '-mr-500 -mb-400' : '-mr-500'}
+          dataUiTestId="details-page_button_continue-with-insurance"
         />
         <Button
           label="Continue Without Insurance"
           color="teal"
           onClick={onContinueWithoutInsurance}
           fill="outline"
+          dataUiTestId="details-page_button_continue-without-insurance"
         />
       </div>
     </Modal>
