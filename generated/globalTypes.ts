@@ -561,6 +561,10 @@ export interface IncomeAndExpenseV2InputObject {
   withStudentLoan?: boolean | null;
 }
 
+export interface ItemToCompareInputObject {
+  capId?: string | null;
+}
+
 /**
  * Input object to create a Limited Company
  */
