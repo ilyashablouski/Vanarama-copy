@@ -85,8 +85,31 @@ describe('<CustomiseLeaseContainer />', () => {
       <CustomiseLeaseContainer
         quote={data}
         capId={84429}
-        colourData={[{ optionId: 13990, label: 'Solid - Polar white' }]}
-        trimData={[{ optionId: 104562, label: 'Leather - Cranberry red' }]}
+        colourData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            colors: [
+              {
+                hex: null,
+                label: 'Solid - Polar white',
+                optionId: 13990,
+                hotOffer: false,
+              },
+            ],
+          },
+        ]}
+        trimData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            trims: [
+              {
+                label: 'Leather - Cranberry red',
+                optionId: 104562,
+                hotOffer: false,
+              },
+            ],
+          },
+        ]}
         vehicleType={VehicleTypeEnum.CAR}
         onCompletedCallBack={jest.fn()}
         setLeadTime={jest.fn()}
@@ -214,8 +237,31 @@ describe('<CustomiseLeaseContainer />', () => {
     const tree = getComponent({
       quote: data,
       capId: 84429,
-      colourData: [{ optionId: 13990, label: 'Solid - Polar white' }],
-      trimData: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
+      colourData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          colors: [
+            {
+              hex: null,
+              label: 'Solid - Polar white',
+              optionId: 13990,
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
+      trimData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          trims: [
+            {
+              label: 'Leather - Cranberry red',
+              optionId: 104562,
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
       vehicleType: VehicleTypeEnum.CAR,
       setLeadTime: jest.fn(),
       isPlayingLeaseAnimation: false,
@@ -295,8 +341,31 @@ describe('<CustomiseLeaseContainer />', () => {
     const tree = getComponent({
       capId: 84429,
       vehicleType: VehicleTypeEnum.CAR,
-      colourData: [{ optionId: 13990, label: 'Solid - Polar white' }],
-      trimData: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
+      colourData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          colors: [
+            {
+              hex: null,
+              label: 'Solid - Polar white',
+              optionId: 13990,
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
+      trimData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          trims: [
+            {
+              label: 'Leather - Cranberry red',
+              optionId: 104562,
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
       isPlayingLeaseAnimation: false,
       setIsPlayingLeaseAnimation: jest.fn(),
       onCompletedCallBack: jest.fn(),
@@ -405,8 +474,31 @@ describe('<CustomiseLeaseContainer />', () => {
       <CustomiseLeaseContainer
         quote={data}
         capId={84429}
-        colourData={[{ optionId: 13990, label: 'Solid - Polar white' }]}
-        trimData={[{ optionId: 104562, label: 'Leather - Cranberry red' }]}
+        colourData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            colors: [
+              {
+                hex: null,
+                label: 'Solid - Polar white',
+                optionId: 13990,
+                hotOffer: false,
+              },
+            ],
+          },
+        ]}
+        trimData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            trims: [
+              {
+                label: 'Leather - Cranberry red',
+                optionId: 104562,
+                hotOffer: false,
+              },
+            ],
+          },
+        ]}
         onCompletedCallBack={jest.fn()}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
