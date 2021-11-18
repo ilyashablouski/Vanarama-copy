@@ -13,6 +13,7 @@ interface IProps {
   disabled?: boolean;
   onCloseModal?: () => void;
   dataTestId?: string;
+  dataUiTestId?: string;
 }
 
 const CustomSelectInput = ({
@@ -23,12 +24,14 @@ const CustomSelectInput = ({
   disabled,
   onCloseModal,
   dataTestId,
+  dataUiTestId,
 }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="select -fullwidth">
       <select
         data-testId={dataTestId}
+        data-uitestid={dataUiTestId}
         className="select--native"
         disabled={disabled}
         defaultValue={label}

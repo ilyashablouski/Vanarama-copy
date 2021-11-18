@@ -19,6 +19,7 @@ function ChoiceBoxesV2({
   renderValuesFunction,
   customCTAColor,
   dataAbTestId,
+  dataUiTestId,
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
@@ -70,6 +71,9 @@ function ChoiceBoxesV2({
               checked={checked}
               onChange={handleChange}
               disabled={disabled}
+              data-uitestid={
+                dataUiTestId ? `${dataUiTestId}_input-${value}` : undefined
+              }
             />
             <label
               htmlFor={`${idPrefix}${value}`}

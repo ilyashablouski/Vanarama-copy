@@ -111,6 +111,9 @@ function ImacaViewer({
                 type="button"
                 className="colours-toggle imaca-viewer__colours-toggle"
                 onClick={handleColorsToggleClick}
+                data-uitestid={`details-page_imaca-viewer_button_colours-toggle_${
+                  isColorSelectionOpen ? 'hide' : 'select-colour'
+                }`}
               >
                 <Icon
                   className="colours-toggle__icon"

@@ -21,6 +21,7 @@ interface CustomSelectInterface {
   invalid?: boolean;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   dataTestId?: string;
+  dataUiTestId?: string;
 }
 
 const CustomNewSelect: React.FC<CustomSelectInterface> = ({
@@ -34,6 +35,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
   onChange,
   invalid,
   dataTestId,
+  dataUiTestId,
 }) => {
   const wrapperRef = useRef<null | HTMLDivElement>(null);
 
@@ -69,6 +71,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
       ref={wrapperRef}
       className={cx('custom-select-container', className, {
         'custom-select-container-border': showOptionList,
@@ -95,6 +98,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
                 data-id={option?.optionId ?? 0}
                 key={option?.optionId ?? 0}
                 onClick={handleOptionClick}
+                data-uitestid={`${dataUiTestId}_${option?.label ?? ''}`}
               >
                 <FormGroup>
                   <Radio
@@ -108,6 +112,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
                       option ? selectedValue === `${option.optionId}` : false
                     }
                     disabled={isDisabled}
+                    dataUiTestId={dataUiTestId}
                   />
                 </FormGroup>
               </li>
