@@ -67,6 +67,9 @@ import {
 import {
   buildAccordionItems,
   filterBannersBySlug,
+  getColorItem,
+  getTrimItem,
+  parseQuoteParams,
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
@@ -153,9 +156,6 @@ interface IDetailsPageProps {
   colourData: IGetColourGroupList[] | null;
   trimData: (TrimGroupList | null)[] | null;
 }
-
-const parseQuoteParams = (param?: string | null) =>
-  parseInt(param || '', 10) || null;
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
@@ -518,28 +518,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }
 
   const onSubmitClickMobile = () => {
-    let colourDescription;
-    let trimDescription;
+    const colourDescription =
+      getColorItem(colourData, leaseScannerData?.quoteByCapId?.colour)?.label ??
+      '';
 
-    colourData?.forEach(colourGroup =>
-      colourGroup?.colors?.forEach(color => {
-        if (
-          color.optionId?.toString() === leaseScannerData?.quoteByCapId?.colour
-        ) {
-          colourDescription = color.label;
-        }
-      }),
-    );
-
-    colourData?.forEach(colourGroup =>
-      colourGroup?.colors?.forEach(trim => {
-        if (
-          trim.optionId?.toString() === leaseScannerData?.quoteByCapId?.trim
-        ) {
-          trimDescription = trim.label;
-        }
-      }),
-    );
+    const trimDescription =
+      getTrimItem(trimData, leaseScannerData?.quoteByCapId?.trim)?.label ?? '';
 
     onSubmitClick({
       leaseType: leaseType.toUpperCase() as LeaseTypeEnum,

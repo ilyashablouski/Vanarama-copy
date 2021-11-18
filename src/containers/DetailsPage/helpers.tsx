@@ -15,6 +15,11 @@ import { formatProductPageUrl } from '../../utils/url';
 
 import RouterLink from '../../components/RouterLink';
 import { PdpBanners } from '../../models/enum/PdpBanners';
+import { IColor, IGetColourGroupList } from '../../types/detailsPage';
+import {
+  GetColourAndTrimGroupList_trimGroupList,
+  GetColourAndTrimGroupList_trimGroupList_trims as TrimItem,
+} from '../../../generated/GetColourAndTrimGroupList';
 
 export const removeImacaColoursDuplications = (
   colourList: Array<IImacaColour>,
@@ -109,4 +114,43 @@ export const pdpVanType = (data: GetVehicleDetails): PdpVehicleType => {
     default:
       return PdpVehicleType.Van;
   }
+};
+
+export const parseQuoteParams = (param?: string | null) =>
+  parseInt(param || '', 10) || null;
+
+export const getColorItem = (
+  colorList: IGetColourGroupList[] | null,
+  value?: Nullable<string>,
+) => {
+  return colorList?.reduce<Nullable<IColor>>((acc, colorGroup) => {
+    const foundedItem = colorGroup?.colors?.find(
+      colorItem => `${colorItem?.optionId}` === value,
+    );
+
+    if (foundedItem) {
+      // eslint-disable-next-line no-param-reassign
+      acc = foundedItem;
+    }
+
+    return acc;
+  }, null);
+};
+
+export const getTrimItem = (
+  trimList: (GetColourAndTrimGroupList_trimGroupList | null)[] | null,
+  value?: Nullable<string>,
+) => {
+  return trimList?.reduce<Nullable<TrimItem>>((acc, trimGroup) => {
+    const foundedItem = trimGroup?.trims?.find(
+      trimItem => `${trimItem?.optionId}` === value,
+    );
+
+    if (foundedItem) {
+      // eslint-disable-next-line no-param-reassign
+      acc = foundedItem;
+    }
+
+    return acc;
+  }, null);
 };
