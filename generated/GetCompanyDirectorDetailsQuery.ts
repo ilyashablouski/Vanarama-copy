@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetCompanyDirectorDetailsQuery
 // ====================================================
+
 
 export interface GetCompanyDirectorDetailsQuery_companyByUuid {
   uuid: string;

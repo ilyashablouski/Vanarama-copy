@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetLeaseCompanyData
 // ====================================================
+
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2_addresses {
   city: string | null;

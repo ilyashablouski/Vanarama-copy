@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: sicCodes
 // ====================================================
+
 
 export interface sicCodes_sicCodes_sicData {
   sicCode: string;

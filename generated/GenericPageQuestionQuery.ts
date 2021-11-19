@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GenericPageQuestionQuery
 // ====================================================
+
 
 export interface GenericPageQuestionQuery_genericPage_metaData {
   title: string | null;

@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: SoleTraderPerson
 // ====================================================
+
 
 export interface SoleTraderPerson_emailAddresses {
   __typename: "EmailAddressType";

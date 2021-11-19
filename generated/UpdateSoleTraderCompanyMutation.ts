@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { SoleTraderCompanyInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateSoleTraderCompanyMutation
 // ====================================================
+
 
 export interface UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany_addresses {
   lineOne: string;

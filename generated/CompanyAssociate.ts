@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: CompanyAssociate
 // ====================================================
+
 
 export interface CompanyAssociate_roles {
   position: string | null;

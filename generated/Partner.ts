@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: Partner
 // ====================================================
+
 
 export interface Partner_partner_logo_file {
   url: string;

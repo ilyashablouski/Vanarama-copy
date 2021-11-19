@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { QuickCreditCheckerInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateQuickCreditCheckerMutation
 // ====================================================
+
 
 export interface CreateQuickCreditCheckerMutation_quickCreditChecker_person_emailAddresses {
   __typename: "EmailAddressType";

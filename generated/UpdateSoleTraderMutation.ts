@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { CompanySoleTraderInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateSoleTraderMutation
 // ====================================================
+
 
 export interface UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates_emailAddresses {
   __typename: "EmailAddressType";

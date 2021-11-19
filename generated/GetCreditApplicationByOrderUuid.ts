@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetCreditApplicationByOrderUuid
 // ====================================================
+
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2_addresses {
   city: string | null;
