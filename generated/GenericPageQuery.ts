@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GenericPageQuery
 // ====================================================
+
 
 export interface GenericPageQuery_genericPage_metaData {
   title: string | null;
@@ -805,6 +807,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero {
   image: GenericPageQuery_genericPage_sectionsAsArray_hero_image | null;
   heroCard: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard | null)[] | null;
   heroLabel: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel | null)[] | null;
+  heroTerms: string | null;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets_iconBullets {

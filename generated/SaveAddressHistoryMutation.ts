@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { AddressHistoryInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveAddressHistoryMutation
 // ====================================================
+
 
 export interface SaveAddressHistoryMutation_createUpdateAddress {
   __typename: "AddressType";

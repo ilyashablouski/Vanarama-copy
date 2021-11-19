@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: SoleTraderDetailsDropDownData
 // ====================================================
+
 
 export interface SoleTraderDetailsDropDownData_titles {
   __typename: "DropDownDataType";

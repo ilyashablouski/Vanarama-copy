@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: GenericPageQueryFeatured
 // ====================================================
+
 
 export interface GenericPageQueryFeatured_iconList {
   text: string | null;

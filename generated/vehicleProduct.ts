@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: vehicleProduct
 // ====================================================
+
 
 export interface vehicleProduct_freeInsurance {
   optIn: boolean | null;

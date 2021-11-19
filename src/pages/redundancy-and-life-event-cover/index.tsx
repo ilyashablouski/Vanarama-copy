@@ -36,7 +36,6 @@ import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
 import RouterLink from '../../components/RouterLink';
 import { HeroEv as Hero } from '../../components/Hero';
-import { freeInsuranceSmallPrint } from '../car-leasing/free-car-insurance';
 import FeaturedSection from '../../components/FeaturedSection';
 import ArticleCarousel from '../../components/ArticleCarousel';
 import ProductCarousel from '../../components/ProductCarousel';
@@ -140,7 +139,7 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
           />
         </>
       )}
-      <Hero hideCurve smallPrint={freeInsuranceSmallPrint}>
+      <Hero hideCurve terms={sections?.hero?.[0]?.heroTerms}>
         <div className="hero--left">
           <div className="nlol nlol-free-insurance" style={{ left: 'auto' }}>
             <ReactMarkdown

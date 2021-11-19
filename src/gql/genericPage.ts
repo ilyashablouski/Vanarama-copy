@@ -322,6 +322,7 @@ export const GENERIC_PAGE = gql`
               visible
             }
           }
+          heroTerms
         }
         iconBullets {
           title

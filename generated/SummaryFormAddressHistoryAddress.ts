@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: SummaryFormAddressHistoryAddress
 // ====================================================
+
 
 export interface SummaryFormAddressHistoryAddress {
   __typename: "AddressType";
