@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: ReviewsHubCategoryQuery
 // ====================================================
+
 
 export interface ReviewsHubCategoryQuery_genericPage_featuredImage_file {
   url: string;

@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: SearchPageSlug
 // ====================================================
+
 
 export interface SearchPageSlug_genericPage_metaData {
   legacyUrl: string | null;

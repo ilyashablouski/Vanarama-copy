@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { FunderInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: FunderDirectors
 // ====================================================
+
 
 export interface FunderDirectors_funderDirectors {
   id: string | null;

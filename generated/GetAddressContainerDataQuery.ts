@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetAddressContainerDataQuery
 // ====================================================
+
 
 export interface GetAddressContainerDataQuery_personByUuid_addresses {
   __typename: "AddressType";

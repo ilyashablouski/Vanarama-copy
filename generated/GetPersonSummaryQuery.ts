@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetPersonSummaryQuery
 // ====================================================
+
 
 export interface GetPersonSummaryQuery_personByUuid_emailAddresses {
   __typename: "EmailAddressType";

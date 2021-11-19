@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetStoredQuote
 // ====================================================
+
 
 export interface GetStoredQuote_storedQuote_nextBestPrice {
   maintained: number | null;

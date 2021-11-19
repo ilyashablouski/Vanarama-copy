@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: ProductCardData
 // ====================================================
+
 
 export interface ProductCardData_productCarousel_keyInformation {
   name: string | null;

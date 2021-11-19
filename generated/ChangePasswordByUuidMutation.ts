@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL mutation operation: ChangePasswordByUuidMutation
 // ====================================================
+
 
 export interface ChangePasswordByUuidMutation_passwordChangeV2 {
   isSuccessful: boolean | null;

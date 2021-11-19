@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { LimitedCompanyInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateLimitedBankDetailsMutation
 // ====================================================
+
 
 export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts {
   __typename: "BankAccountType";

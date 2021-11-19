@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, RateInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: filterList
 // ====================================================
+
 
 export interface filterList_filterList_groupedRangesWithSlug_parent {
   label: string | null;

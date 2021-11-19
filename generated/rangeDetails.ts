@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: rangeDetails
 // ====================================================
+
 
 export interface rangeDetails_rangeDetails_customerReviews {
   rating: number | null;

@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { FilterListObject, PaginationInputObject, SortObject, FinanceTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: HelpMeChoose
 // ====================================================
+
 
 export interface HelpMeChoose_helpMeChoose_vehicles {
   financeType: FinanceTypeEnum | null;

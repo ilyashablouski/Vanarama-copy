@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL mutation operation: SaveWishlistVehiclesIds
 // ====================================================
+
 
 export interface SaveWishlistVehiclesIds {
   saveWishlistVehicleIds: (string | null)[] | null;

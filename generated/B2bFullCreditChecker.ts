@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { FullCreditCheckerInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: B2bFullCreditChecker
 // ====================================================
+
 
 export interface B2bFullCreditChecker_b2bFullCreditChecker_creditCheck_creditCheckLines {
   uuid: string | null;

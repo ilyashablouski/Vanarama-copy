@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: AddressFormDropDownData
 // ====================================================
+
 
 export interface AddressFormDropDownData_propertyStatuses {
   __typename: "DropDownDataType";
