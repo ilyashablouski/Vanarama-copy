@@ -4,15 +4,14 @@ import {
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import { Nullable } from '../../types/common';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../types/detailsPage';
 
 export interface IProps {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours: Nullable<IGetColourGroupList[]>;
-  trims: Nullable<Nullable<TrimGroupList>[]>;
+  colours: Nullable<IOptionsList[]>;
+  trims: Nullable<IOptionsList[]>;
   trim?: number | null;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;

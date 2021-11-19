@@ -16,7 +16,7 @@ import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
-import { toPriceFormat } from '../../utils/helpers';
+import { getOptionFromList, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
@@ -25,7 +25,6 @@ import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceMod
 import CustomLeaseSelect from './CustomLeaseSelect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { Nullable } from '../../types/common';
-import getOptionFromList from './helpers';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -141,8 +140,8 @@ const CustomiseLease = ({
   onSubmit,
   showCallBackForm,
   screenY,
-  trimList,
-  colourList,
+  trimData,
+  colourData,
   isInitPayModalShowing,
   setIsInitPayModalShowing,
   pickups,
@@ -214,42 +213,24 @@ const CustomiseLease = ({
   );
   const [tempTrimValue, setTempTrimValue] = useState<Nullable<string>>(trim);
 
-  const updatedColourList = useMemo(
-    () =>
-      (colourList ?? []).map(item => ({
-        leadTime: item.leadTime,
-        options: item.colors,
-      })),
-    [colourList],
-  );
-
-  const updatedTrimList = useMemo(
-    () =>
-      (trimList ?? []).map(item => ({
-        leadTime: item?.leadTime ?? '',
-        options: item?.trims?.map(option => ({ ...option, hex: null })),
-      })),
-    [trimList],
-  );
-
   const colorLabel = useMemo(
-    () => getOptionFromList(updatedColourList, colour).label ?? '',
-    [updatedColourList, colour],
+    () => getOptionFromList(colourData, colour)?.label ?? '',
+    [colourData, colour],
   );
 
   const trimLabel = useMemo(
-    () => getOptionFromList(updatedTrimList, trim).label ?? '',
-    [updatedTrimList, trim],
+    () => getOptionFromList(trimData, trim)?.label ?? '',
+    [trimData, trim],
   );
 
   const selectedColorValue = useMemo(
-    () => `${getOptionFromList(updatedColourList, colour).optionId}` ?? '',
-    [updatedColourList, colour],
+    () => `${getOptionFromList(colourData, colour)?.optionId}` ?? '',
+    [colourData, colour],
   );
 
   const selectedTrimValue = useMemo(
-    () => `${getOptionFromList(updatedTrimList, trim).optionId}` ?? '',
-    [updatedTrimList, trim],
+    () => `${getOptionFromList(trimData, trim)?.optionId}` ?? '',
+    [trimData, trim],
   );
 
   const setSessionValues = () => {
@@ -357,7 +338,7 @@ const CustomiseLease = ({
         setTempValue={setTempColorValue}
         defaultValue={`${colour}`}
         setChanges={setColour}
-        items={updatedColourList}
+        items={colourData}
         selectedValue={selectedColorValue}
         label={colorLabel ?? ''}
         dataTestId="colour-selector"
@@ -373,7 +354,7 @@ const CustomiseLease = ({
         defaultValue={`${trim}`}
         setChanges={setTrim}
         selectedValue={selectedTrimValue}
-        items={updatedTrimList}
+        items={trimData}
         label={trimLabel ?? ''}
         dataTestId="trim-selector"
         placeholder="Select Interior:"
@@ -447,8 +428,8 @@ const CustomiseLease = ({
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
           maintenance={maintenance}
-          colours={colourList}
-          trims={trimList}
+          colours={colourData}
+          trims={trimData}
           trim={Number(trim)}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}

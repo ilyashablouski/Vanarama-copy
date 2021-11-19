@@ -5,13 +5,14 @@ import ChevronDown from 'core/assets/icons/ChevronDown';
 import ChevronUp from 'core/assets/icons/ChevronUp';
 import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
 import { IOptionsList } from '../../../types/detailsPage';
+import { Nullable } from '../../../types/common';
 
 interface CustomSelectInterface {
   label: string;
   selectedValue?: Nullable<string>;
   placeholder: string;
   isDisabled: boolean;
-  items: IOptionsList[];
+  items: Nullable<IOptionsList[]>;
   radioName: string;
   className: string;
   invalid?: boolean;

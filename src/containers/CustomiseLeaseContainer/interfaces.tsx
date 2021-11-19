@@ -14,8 +14,7 @@ import {
   GetQuoteDetails,
 } from '../../../generated/GetQuoteDetails';
 import { Nullable } from '../../types/common';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../types/detailsPage';
 
 export interface ILeaseScannerData {
   maintenance: boolean | null;
@@ -45,8 +44,8 @@ export interface IProps {
     React.SetStateAction<ILeaseScannerData | null>
   >;
   quote?: GetQuoteDetails;
-  trimData: Nullable<Nullable<TrimGroupList>[]>;
-  colourData: Nullable<IGetColourGroupList[]>;
+  trimData: Nullable<IOptionsList[]>;
+  colourData: Nullable<IOptionsList[]>;
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   mileage: number | null;

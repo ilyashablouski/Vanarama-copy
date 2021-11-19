@@ -36,7 +36,11 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { addImacaHexToColourList, toPriceFormat } from '../../../utils/helpers';
+import {
+  addImacaHexToColourList,
+  toPriceFormat,
+  transformTrimList,
+} from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
   GenericPageHeadQuery,
@@ -69,10 +73,9 @@ import {
 import { IStatusCode, Nullable } from '../../../types/common';
 import {
   GetColourAndTrimGroupList,
-  GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
   GetColourAndTrimGroupListVariables,
 } from '../../../../generated/GetColourAndTrimGroupList';
-import { IGetColourGroupList } from '../../../types/detailsPage';
+import { IOptionsList } from '../../../types/detailsPage';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -85,8 +88,8 @@ interface IProps {
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
-  colourData: Nullable<IGetColourGroupList[]>;
-  trimData: Nullable<Nullable<TrimGroupList>[]>;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -399,7 +402,7 @@ export async function getServerSideProps(
         quote: quoteDataQuery.data,
         query: context.query,
         colourData,
-        trimData: colorAndTrimData.data.trimGroupList,
+        trimData: transformTrimList(colorAndTrimData.data.trimGroupList),
         imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,

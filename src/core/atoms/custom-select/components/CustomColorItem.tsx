@@ -1,8 +1,8 @@
 import React from 'react';
-import { IColor } from '../../../../types/detailsPage';
+import { IOption } from '../../../../types/detailsPage';
 
 interface IProps {
-  option: IColor;
+  option: IOption;
   checked: boolean;
 }
 

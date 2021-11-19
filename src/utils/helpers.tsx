@@ -11,11 +11,10 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IErrorProps, Nullable, Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
 import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaAssets';
-import { IColor, IGetColourGroupList } from '../types/detailsPage';
+import { IOption, IOptionsList } from '../types/detailsPage';
 import {
   GetColourAndTrimGroupList_colourGroupList as ColorGroupList,
   GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
-  GetColourAndTrimGroupList_trimGroupList_trims as TrimItem,
 } from '../../generated/GetColourAndTrimGroupList';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
@@ -65,8 +64,8 @@ export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours: Nullable<IGetColourGroupList[]>;
-  trims: Nullable<Nullable<TrimGroupList>[]>;
+  colours: Nullable<IOptionsList[]>;
+  trims: Nullable<IOptionsList[]>;
   trim: number | null | undefined;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
@@ -83,41 +82,26 @@ export const createWarrantyText = (
     warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
   } Miles`;
 
-export const getColorItem = (
-  colorList: Nullable<IGetColourGroupList[]>,
-  value?: Nullable<string>,
-) => {
-  return colorList?.reduce<Nullable<IColor>>((acc, colorGroup) => {
-    const foundedItem = colorGroup?.colors?.find(
-      colorItem => `${colorItem?.optionId}` === value,
-    );
+export function getOptionFromList(
+  array: Nullable<IOptionsList[]>,
+  value: Nullish<string>,
+): Nullish<IOption> {
+  return array?.reduce(
+    (acc: Nullish<IOption>, group: Nullish<IOptionsList>) => {
+      const foundValue = group?.options?.find(
+        item => `${item?.optionId}` === value,
+      );
 
-    if (foundedItem) {
-      // eslint-disable-next-line no-param-reassign
-      acc = foundedItem;
-    }
+      if (foundValue) {
+        // eslint-disable-next-line no-param-reassign
+        acc = foundValue;
+      }
 
-    return acc;
-  }, null);
-};
-
-export const getTrimItem = (
-  trimList: Nullable<Nullable<TrimGroupList>[]>,
-  value?: Nullable<string>,
-) => {
-  return trimList?.reduce<Nullable<TrimItem>>((acc, trimGroup) => {
-    const foundedItem = trimGroup?.trims?.find(
-      trimItem => `${trimItem?.optionId}` === value,
-    );
-
-    if (foundedItem) {
-      // eslint-disable-next-line no-param-reassign
-      acc = foundedItem;
-    }
-
-    return acc;
-  }, null);
-};
+      return acc;
+    },
+    null,
+  );
+}
 
 export const getOrderList = ({
   quoteByCapId,
@@ -131,11 +115,11 @@ export const getOrderList = ({
   warrantyDetails,
 }: IOrderList) => {
   const colourDescription =
-    getColorItem(colours, quoteByCapId?.colour)?.label ?? '';
+    getOptionFromList(colours, quoteByCapId?.colour)?.label ?? '';
 
   const trimDescription =
-    getTrimItem(trims, quoteByCapId?.trim)?.label ||
-    getTrimItem(trims, String(trim))?.label ||
+    getOptionFromList(trims, quoteByCapId?.trim)?.label ||
+    getOptionFromList(trims, String(trim))?.label ||
     '';
 
   const orderList: IListItemProps[] = [
@@ -403,12 +387,12 @@ export const isBlackFridayCampaignEnabled = () => {
 export function addImacaHexToColourList(
   colorsList: Nullable<Nullable<ColorGroupList>[]>,
   imacaColors?: Nullable<GetImacaAssets_getImacaAssets_colours[]>,
-): IGetColourGroupList[] | null {
+): Nullable<IOptionsList[]> {
   return (
     colorsList?.map(colorGroup => {
       return {
         leadTime: colorGroup?.leadTime || '',
-        colors: colorGroup?.colours?.map(colorData => {
+        options: colorGroup?.colours?.map(colorData => {
           const imacaColor = imacaColors?.find(
             item => item.capId === colorData?.optionId,
           );
@@ -416,6 +400,23 @@ export function addImacaHexToColourList(
           return {
             ...colorData,
             hex: imacaColor?.hex || null,
+          };
+        }),
+      };
+    }) || null
+  );
+}
+
+export function transformTrimList(
+  trimsList: Nullable<Nullable<TrimGroupList>[]>,
+): Nullable<IOptionsList[]> {
+  return (
+    trimsList?.map(trimGroup => {
+      return {
+        leadTime: trimGroup?.leadTime || '',
+        options: trimGroup?.trims?.map(trimData => {
+          return {
+            ...trimData,
           };
         }),
       };

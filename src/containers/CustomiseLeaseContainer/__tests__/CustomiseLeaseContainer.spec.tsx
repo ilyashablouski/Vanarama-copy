@@ -88,7 +88,7 @@ describe('<CustomiseLeaseContainer />', () => {
         colourData={[
           {
             leadTime: '14-21 Day Delivery',
-            colors: [
+            options: [
               {
                 hex: null,
                 label: 'Solid - Polar white',
@@ -101,7 +101,7 @@ describe('<CustomiseLeaseContainer />', () => {
         trimData={[
           {
             leadTime: '14-21 Day Delivery',
-            trims: [
+            options: [
               {
                 label: 'Leather - Cranberry red',
                 optionId: 104562,
@@ -240,7 +240,7 @@ describe('<CustomiseLeaseContainer />', () => {
       colourData: [
         {
           leadTime: '14-21 Day Delivery',
-          colors: [
+          options: [
             {
               hex: null,
               label: 'Solid - Polar white',
@@ -253,7 +253,7 @@ describe('<CustomiseLeaseContainer />', () => {
       trimData: [
         {
           leadTime: '14-21 Day Delivery',
-          trims: [
+          options: [
             {
               label: 'Leather - Cranberry red',
               optionId: 104562,
@@ -344,7 +344,7 @@ describe('<CustomiseLeaseContainer />', () => {
       colourData: [
         {
           leadTime: '14-21 Day Delivery',
-          colors: [
+          options: [
             {
               hex: null,
               label: 'Solid - Polar white',
@@ -357,7 +357,7 @@ describe('<CustomiseLeaseContainer />', () => {
       trimData: [
         {
           leadTime: '14-21 Day Delivery',
-          trims: [
+          options: [
             {
               label: 'Leather - Cranberry red',
               optionId: 104562,
@@ -477,7 +477,7 @@ describe('<CustomiseLeaseContainer />', () => {
         colourData={[
           {
             leadTime: '14-21 Day Delivery',
-            colors: [
+            options: [
               {
                 hex: null,
                 label: 'Solid - Polar white',
@@ -490,7 +490,7 @@ describe('<CustomiseLeaseContainer />', () => {
         trimData={[
           {
             leadTime: '14-21 Day Delivery',
-            trims: [
+            options: [
               {
                 label: 'Leather - Cranberry red',
                 optionId: 104562,

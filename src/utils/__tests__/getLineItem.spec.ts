@@ -9,10 +9,10 @@ const params = {
   trimValue: 45575,
   termValue: 60,
   capId: 96099,
-  trimList: [
+  trimData: [
     {
       leadTime: '14-21 Day Delivery',
-      trims: [
+      options: [
         {
           optionId: 104562,
           label: 'Cloth - Black - In Stock',
@@ -24,7 +24,7 @@ const params = {
   colourData: [
     {
       leadTime: '14-21 Day Delivery',
-      colors: [
+      options: [
         {
           hex: null,
           optionId: 13990,

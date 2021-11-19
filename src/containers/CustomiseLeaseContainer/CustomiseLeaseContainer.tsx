@@ -14,9 +14,10 @@ import GoldrushFormContainer from '../GoldrushFormContainer';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 import { useTrim } from '../../gql/carpage';
 import { Nullable } from '../../types/common';
+import { IOptionsList } from '../../types/detailsPage';
+import { transformTrimList } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -98,9 +99,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
-  const [trimList, setTrimList] = useState<Nullable<Nullable<TrimGroupList>[]>>(
-    trimData,
-  );
+  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(trimData);
 
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -131,7 +130,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
 
   const [getTrim] = useTrim(result => {
-    setTrimList(result.trimGroupList || []);
+    setTrimList(transformTrimList(result.trimGroupList || []));
   });
 
   useEffect(() => {
@@ -215,7 +214,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     capId,
     quoteData,
     colourData,
-    trimList,
+    trimData: trimList,
   });
 
   useEffect(() => {
@@ -319,8 +318,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         trim={String(trim)}
         derivativeInfo={derivativeInfo}
         colour={String(colour)}
-        trimList={trimList}
-        colourList={colourData}
+        trimData={trimList}
+        colourData={colourData}
         isPlayingLeaseAnimation={isPlayingLeaseAnimation}
         setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
         leaseAdjustParams={leaseAdjustParams}

@@ -39,10 +39,10 @@ describe('<CustomiseLease />', () => {
       colour: '13990',
       trim: '112981',
       screenY: 0,
-      colourList: [
+      colourData: [
         {
           leadTime: '14-21 Day Delivery',
-          colors: [
+          options: [
             {
               hex: null,
               optionId: 13990,
@@ -52,10 +52,10 @@ describe('<CustomiseLease />', () => {
           ],
         },
       ],
-      trimList: [
+      trimData: [
         {
           leadTime: '14-21 Day Delivery',
-          trims: [
+          options: [
             {
               optionId: 104562,
               label: 'Leather - Cranberry red',
@@ -181,10 +181,10 @@ describe('<CustomiseLease />', () => {
     const tree = getComponent({
       trim: String(112981),
       colour: String(13990),
-      colourList: [
+      colourData: [
         {
           leadTime: '14-21 Day Delivery',
-          colors: [
+          options: [
             {
               hex: null,
               optionId: 13990,
@@ -194,10 +194,10 @@ describe('<CustomiseLease />', () => {
           ],
         },
       ],
-      trimList: [
+      trimData: [
         {
           leadTime: '14-21 Day Delivery',
-          trims: [
+          options: [
             {
               optionId: 104562,
               label: 'Leather - Cranberry red',
@@ -362,10 +362,10 @@ describe('<CustomiseLease />', () => {
         leaseType={LeaseTypeEnum.PERSONAL}
         isModalShowing={false}
         maintenance={false}
-        colourList={[
+        colourData={[
           {
             leadTime: '14-21 Day Delivery',
-            colors: [
+            options: [
               {
                 hex: null,
                 optionId: 13990,
@@ -381,10 +381,10 @@ describe('<CustomiseLease />', () => {
             ],
           },
         ]}
-        trimList={[
+        trimData={[
           {
             leadTime: '14-21 Day Delivery',
-            trims: [
+            options: [
               {
                 optionId: 104562,
                 label: 'Leather - Cranberry red',

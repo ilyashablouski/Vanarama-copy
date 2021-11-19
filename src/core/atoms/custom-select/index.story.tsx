@@ -3,14 +3,15 @@ import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import CustomSelect from '.';
-import { IOption } from '../../../types/detailsPage';
-import getOptionFromList from '../../../components/CustomiseLease/helpers';
+import { IOptionsList } from '../../../types/detailsPage';
+import { getOptionFromList } from '../../../utils/helpers';
+import { Nullable } from '../../../types/common';
 
 storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
   const customSelect = (
     defaultValue: string,
     setChanges: Dispatch<SetStateAction<number | null>>,
-    items: { leadTime: string; options?: IOption[] }[],
+    items: Nullable<IOptionsList[]>,
     placeholder: string,
     isDisabled: boolean,
     key: string,
@@ -18,9 +19,9 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
     <CustomSelect
       radioName={key}
       isDisabled={isDisabled}
-      label={getOptionFromList(items, defaultValue).label ?? placeholder}
+      label={getOptionFromList(items, defaultValue)?.label ?? placeholder}
       selectedValue={
-        `${getOptionFromList(items, defaultValue).optionId}` === defaultValue
+        `${getOptionFromList(items, defaultValue)?.optionId}` === defaultValue
           ? defaultValue
           : ''
       }

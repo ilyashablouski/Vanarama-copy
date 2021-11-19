@@ -29,8 +29,7 @@ import {
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import {
-  getColorItem,
-  getTrimItem,
+  getOptionFromList,
   isBlackFridayCampaignEnabled,
   toPriceFormat,
 } from '../../utils/helpers';
@@ -79,8 +78,7 @@ import { PdpBanners } from '../../models/enum/PdpBanners';
 import FreeInsuranceBanner from './FreeInsuranceBanner';
 import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../types/detailsPage';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -153,8 +151,8 @@ interface IDetailsPageProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  colourData: Nullable<IGetColourGroupList[]>;
-  trimData: Nullable<Nullable<TrimGroupList>[]>;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
   dataUiTestId?: string;
 }
 
@@ -521,11 +519,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const onSubmitClickMobile = () => {
     const colourDescription =
-      getColorItem(colourData, leaseScannerData?.quoteByCapId?.colour)?.label ??
-      '';
+      getOptionFromList(colourData, leaseScannerData?.quoteByCapId?.colour)
+        ?.label ?? '';
 
     const trimDescription =
-      getTrimItem(trimData, leaseScannerData?.quoteByCapId?.trim)?.label ?? '';
+      getOptionFromList(trimData, leaseScannerData?.quoteByCapId?.trim)
+        ?.label ?? '';
 
     onSubmitClick({
       leaseType: leaseType.toUpperCase() as LeaseTypeEnum,

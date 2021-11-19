@@ -4,11 +4,12 @@ import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsLi
 import CustomSelect from 'core/atoms/custom-select/CustomSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { IOptionsList } from '../../types/detailsPage';
+import { Nullable } from '../../types/common';
 
 interface IProps {
   defaultValue: string;
   setChanges: Dispatch<SetStateAction<number | null>>;
-  items: IOptionsList[];
+  items: Nullable<IOptionsList[]>;
   placeholder: string;
   isDisabled: boolean;
   modalElement: HTMLDivElement;

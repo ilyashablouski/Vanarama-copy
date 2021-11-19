@@ -5,11 +5,12 @@ import Radio from 'core/atoms/radio';
 import dynamic from 'next/dynamic';
 import CustomColorItem from 'core/atoms/custom-select/components/CustomColorItem';
 import { IOptionsList } from '../../../../types/detailsPage';
+import { Nullable } from '../../../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
 interface IProps {
-  items: IOptionsList[];
+  items: Nullable<IOptionsList[]>;
   setShowOptionList?: Dispatch<SetStateAction<boolean>>;
   selectedValue?: Nullable<string>;
   radioName?: string;
@@ -40,7 +41,7 @@ const CustomColorsList: React.FC<IProps> = ({
 
   return (
     <ul className="select-options select-options__mobile">
-      {items.map(({ options, leadTime }) => (
+      {items?.map(({ options, leadTime }) => (
         <div className="option__content" key={leadTime}>
           <div className="option__title-content">
             {options && options[0].hotOffer ? (

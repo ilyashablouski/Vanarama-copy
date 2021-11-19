@@ -12,8 +12,7 @@ import {
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
 import { Nullable } from '../../types/common';
-import { IGetColourGroupList } from '../../types/detailsPage';
-import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../types/detailsPage';
 
 export interface IChoice {
   label: string;
@@ -71,8 +70,8 @@ export interface IProps {
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
   screenY: number | null;
-  trimList: Nullable<Nullable<TrimGroupList>[]>;
-  colourList: Nullable<IGetColourGroupList[]>;
+  trimData: Nullable<IOptionsList[]>;
+  colourData: Nullable<IOptionsList[]>;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;

@@ -151,7 +151,7 @@ describe('getOrderList', () => {
         colours: [
           {
             leadTime: '14-21 Day Delivery',
-            colors: [
+            options: [
               {
                 hex: null,
                 optionId: 13990,
@@ -164,7 +164,7 @@ describe('getOrderList', () => {
         trims: [
           {
             leadTime: '14-21 Day Delivery',
-            trims: [
+            options: [
               {
                 optionId: 104562,
                 label: 'Leather - Cranberry red',

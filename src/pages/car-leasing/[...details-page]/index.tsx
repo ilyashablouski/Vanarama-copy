@@ -36,7 +36,11 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { addImacaHexToColourList, toPriceFormat } from '../../../utils/helpers';
+import {
+  addImacaHexToColourList,
+  toPriceFormat,
+  transformTrimList,
+} from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
   GenericPageHeadQuery,
@@ -66,10 +70,9 @@ import {
 } from '../../../../generated/GetPdpContent';
 import { pdpCarType } from '../../../containers/DetailsPage/helpers';
 import { IStatusCode, Nullable } from '../../../types/common';
-import { IGetColourGroupList } from '../../../types/detailsPage';
+import { IOptionsList } from '../../../types/detailsPage';
 import {
   GetColourAndTrimGroupList,
-  GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
   GetColourAndTrimGroupListVariables,
 } from '../../../../generated/GetColourAndTrimGroupList';
 
@@ -84,8 +87,8 @@ interface IProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  colourData: Nullable<IGetColourGroupList[]>;
-  trimData: Nullable<Nullable<TrimGroupList>[]>;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -386,7 +389,7 @@ export async function getServerSideProps(
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
         colourData,
-        trimData: colorAndTrimData.data.trimGroupList,
+        trimData: transformTrimList(colorAndTrimData.data.trimGroupList),
       },
     };
   } catch (error) {
