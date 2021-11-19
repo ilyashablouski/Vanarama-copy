@@ -72,7 +72,7 @@ export interface IProps {
   onSubmit: (values: OrderInputObject) => void;
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
-  screenY: number | null;
+  isStartScreen: boolean;
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
   pickups?: boolean;
