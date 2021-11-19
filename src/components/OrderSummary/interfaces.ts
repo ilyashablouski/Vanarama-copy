@@ -12,7 +12,7 @@ export interface IProps {
   stateVAT: string;
   maintenance: boolean | null;
   colours: Nullable<IGetColourGroupList[]>;
-  trims: Nullable<(TrimGroupList | null)[]>;
+  trims: Nullable<Nullable<TrimGroupList>[]>;
   trim?: number | null;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;

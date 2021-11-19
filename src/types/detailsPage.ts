@@ -4,17 +4,17 @@ export interface IGetColourGroupList {
 }
 
 export interface IColor {
-  hex?: string | null;
-  label?: string | null;
-  optionId?: number | null;
-  hotOffer?: boolean | null;
+  hex?: Nullable<string>;
+  label?: Nullable<string>;
+  optionId?: Nullable<number>;
+  hotOffer?: Nullable<boolean>;
 }
 
 export interface IOption {
-  hex?: string | null;
-  label?: string | null;
-  optionId?: number | null;
-  hotOffer?: boolean | null;
+  hex?: Nullable<string>;
+  label?: Nullable<string>;
+  optionId?: Nullable<number>;
+  hotOffer?: Nullable<boolean>;
 }
 
 export interface IOptionsList {

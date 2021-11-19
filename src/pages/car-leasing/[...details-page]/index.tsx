@@ -65,7 +65,7 @@ import {
   GetPdpContentVariables as IGetPdpContentVariables,
 } from '../../../../generated/GetPdpContent';
 import { pdpCarType } from '../../../containers/DetailsPage/helpers';
-import { IStatusCode } from '../../../types/common';
+import { IStatusCode, Nullable } from '../../../types/common';
 import { IGetColourGroupList } from '../../../types/detailsPage';
 import {
   GetColourAndTrimGroupList,
@@ -84,8 +84,8 @@ interface IProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  colourData: IGetColourGroupList[] | null;
-  trimData: (TrimGroupList | null)[] | null;
+  colourData: Nullable<IGetColourGroupList[]>;
+  trimData: Nullable<Nullable<TrimGroupList>[]>;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({

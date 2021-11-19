@@ -257,20 +257,10 @@ export function useTrimAndColour(
   );
 }
 
-export function useTrim(
-  capId: string,
-  vehicleType: VehicleTypeEnum,
-  colourId: number,
-  onCompleted?: (data: GetTrimGroupList) => void,
-) {
+export function useTrim(onCompleted?: (data: GetTrimGroupList) => void) {
   return useLazyQuery<GetTrimGroupList, GetTrimGroupListVariables>(
     GET_TRIM_GROUP_LIST,
     {
-      variables: {
-        capId,
-        colourId,
-        vehicleType,
-      },
       onCompleted,
     },
   );

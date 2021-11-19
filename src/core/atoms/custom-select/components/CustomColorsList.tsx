@@ -27,7 +27,7 @@ const CustomColorsList: React.FC<IProps> = ({
   onChange,
   tempValue,
 }) => {
-  const checkValue = (value: number | null | undefined) => {
+  const checkValue = (value?: Nullable<number>) => {
     return tempValue ? value === tempValue : value === Number(selectedValue);
   };
 

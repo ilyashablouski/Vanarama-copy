@@ -45,8 +45,8 @@ export interface IProps {
     React.SetStateAction<ILeaseScannerData | null>
   >;
   quote?: GetQuoteDetails;
-  trimData: (TrimGroupList | null)[] | null;
-  colourData: IGetColourGroupList[] | null;
+  trimData: Nullable<Nullable<TrimGroupList>[]>;
+  colourData: Nullable<IGetColourGroupList[]>;
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   mileage: number | null;

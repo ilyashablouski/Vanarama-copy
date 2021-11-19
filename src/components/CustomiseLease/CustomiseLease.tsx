@@ -214,7 +214,7 @@ const CustomiseLease = ({
   );
   const [tempTrimValue, setTempTrimValue] = useState<Nullable<string>>(trim);
 
-  const newColourList = useMemo(
+  const updatedColourList = useMemo(
     () =>
       (colourList ?? []).map(item => ({
         leadTime: item.leadTime,
@@ -223,32 +223,34 @@ const CustomiseLease = ({
     [colourList],
   );
 
-  const newTrimList = useMemo(
+  const updatedTrimList = useMemo(
     () =>
       (trimList ?? []).map(item => ({
         leadTime: item?.leadTime ?? '',
-        options: item?.trims?.map(option => {
-          return { ...option, hex: null };
-        }),
+        options: item?.trims?.map(option => ({ ...option, hex: null })),
       })),
     [trimList],
   );
 
-  const colorLabel = useMemo(() => {
-    return getOptionFromList(newColourList, colour).label ?? '';
-  }, [newColourList, colour]);
+  const colorLabel = useMemo(
+    () => getOptionFromList(updatedColourList, colour).label ?? '',
+    [updatedColourList, colour],
+  );
 
-  const trimLabel = useMemo(() => {
-    return getOptionFromList(newTrimList, trim).label ?? '';
-  }, [newTrimList, trim]);
+  const trimLabel = useMemo(
+    () => getOptionFromList(updatedTrimList, trim).label ?? '',
+    [updatedTrimList, trim],
+  );
 
-  const selectedColorValue = useMemo(() => {
-    return `${getOptionFromList(newColourList, colour).optionId}` ?? '';
-  }, [newColourList, colour]);
+  const selectedColorValue = useMemo(
+    () => `${getOptionFromList(updatedColourList, colour).optionId}` ?? '',
+    [updatedColourList, colour],
+  );
 
-  const selectedTrimValue = useMemo(() => {
-    return `${getOptionFromList(newTrimList, trim).optionId}` ?? '';
-  }, [newTrimList, trim]);
+  const selectedTrimValue = useMemo(
+    () => `${getOptionFromList(updatedTrimList, trim).optionId}` ?? '',
+    [updatedTrimList, trim],
+  );
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -355,7 +357,7 @@ const CustomiseLease = ({
         setTempValue={setTempColorValue}
         defaultValue={`${colour}`}
         setChanges={setColour}
-        items={newColourList}
+        items={updatedColourList}
         selectedValue={selectedColorValue}
         label={colorLabel ?? ''}
         dataTestId="colour-selector"
@@ -371,7 +373,7 @@ const CustomiseLease = ({
         defaultValue={`${trim}`}
         setChanges={setTrim}
         selectedValue={selectedTrimValue}
-        items={newTrimList}
+        items={updatedTrimList}
         label={trimLabel ?? ''}
         dataTestId="trim-selector"
         placeholder="Select Interior:"

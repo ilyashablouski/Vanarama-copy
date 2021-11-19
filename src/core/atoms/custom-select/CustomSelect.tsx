@@ -91,11 +91,10 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
         />
       )}
       <span className="icon select--chevron">
-        {showOptionList ? (
-          <Icon icon={<ChevronUp />} className="-stroke -dark" />
-        ) : (
-          <Icon icon={<ChevronDown />} className="-stroke -dark" />
-        )}
+        <Icon
+          icon={showOptionList ? <ChevronUp /> : <ChevronDown />}
+          className="-stroke -dark"
+        />
       </span>
     </div>
   );

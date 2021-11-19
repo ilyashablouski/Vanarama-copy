@@ -16,6 +16,7 @@ import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
 import { GetColourAndTrimGroupList_trimGroupList as TrimGroupList } from '../../../generated/GetColourAndTrimGroupList';
 import { useTrim } from '../../gql/carpage';
+import { Nullable } from '../../types/common';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -97,7 +98,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
-  const [trimList, setTrimList] = useState<(TrimGroupList | null)[] | null>(
+  const [trimList, setTrimList] = useState<Nullable<Nullable<TrimGroupList>[]>>(
     trimData,
   );
 
@@ -129,14 +130,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       ),
   );
 
-  const [getTrim] = useTrim(
-    `${capId}`,
-    vehicleType,
-    colour as number,
-    result => {
-      setTrimList(result.trimGroupList || []);
-    },
-  );
+  const [getTrim] = useTrim(result => {
+    setTrimList(result.trimGroupList || []);
+  });
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -172,7 +168,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   }, []);
 
   useFirstRenderEffect(() => {
-    getTrim();
+    getTrim({
+      variables: { capId: `${capId}`, vehicleType, colourId: colour as number },
+    });
   }, [colour]);
 
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;

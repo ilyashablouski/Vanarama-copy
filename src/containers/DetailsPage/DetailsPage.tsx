@@ -29,6 +29,8 @@ import {
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import {
+  getColorItem,
+  getTrimItem,
   isBlackFridayCampaignEnabled,
   toPriceFormat,
 } from '../../utils/helpers';
@@ -67,8 +69,6 @@ import {
 import {
   buildAccordionItems,
   filterBannersBySlug,
-  getColorItem,
-  getTrimItem,
   parseQuoteParams,
   removeImacaColoursDuplications,
 } from './helpers';
@@ -153,8 +153,8 @@ interface IDetailsPageProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
-  colourData: IGetColourGroupList[] | null;
-  trimData: (TrimGroupList | null)[] | null;
+  colourData: Nullable<IGetColourGroupList[]>;
+  trimData: Nullable<Nullable<TrimGroupList>[]>;
   dataUiTestId?: string;
 }
 

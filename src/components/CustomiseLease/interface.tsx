@@ -71,7 +71,7 @@ export interface IProps {
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
   screenY: number | null;
-  trimList: Nullable<(TrimGroupList | null)[]>;
+  trimList: Nullable<Nullable<TrimGroupList>[]>;
   colourList: Nullable<IGetColourGroupList[]>;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
