@@ -12,7 +12,6 @@ import { useGlobalSearch } from './gql';
 import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
-import { isPartnerSessionActive } from '../../utils/partnerProperties';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -25,9 +24,6 @@ const GlobalSearchContainer = () => {
   const isDesktop = useDesktopViewport();
   const router = useRouter();
   const [isOpenResults, setIsOpenResults] = useState(false);
-  const [isPartnerSession, setIsPartnerSession] = useState(
-    isPartnerSessionActive(),
-  );
   const [fieldValue, setFieldValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
@@ -45,10 +41,6 @@ const GlobalSearchContainer = () => {
       { shallow: false },
     );
   };
-
-  useEffect(() => {
-    setIsPartnerSession(isPartnerSessionActive());
-  }, []);
 
   useEffect(() => {
     if (searchValue && !isOpenResults) {
@@ -126,7 +118,6 @@ const GlobalSearchContainer = () => {
             <GlobalSearchLeftSideContainer
               dataUiTestId="global-search_suggestions"
               suggestions={suggestions.suggestsList}
-              isPartnerSession={isPartnerSession}
             />
             <GlobalSearchRightSideContainer
               dataUiTestId="global-search_results"
