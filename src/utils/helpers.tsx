@@ -66,7 +66,7 @@ export interface IOrderList {
   stateVAT: string;
   maintenance: boolean | null;
   colours: Nullable<IGetColourGroupList[]>;
-  trims: Nullable<Nullable<TrimGroupList[]>>;
+  trims: Nullable<Nullable<TrimGroupList>[]>;
   trim: number | null | undefined;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
