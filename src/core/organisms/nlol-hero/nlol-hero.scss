@@ -243,6 +243,10 @@
   @media (max-width: 767px) {
     position: initial;
   }
+  & p {
+    font-size: 0.6rem;
+    position: static;
+  }
 }
 
 .nlol-small-print-cta {

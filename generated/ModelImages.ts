@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: ModelImages
 // ====================================================
+
 
 export interface ModelImages_vehicleImages {
   capId: number | null;

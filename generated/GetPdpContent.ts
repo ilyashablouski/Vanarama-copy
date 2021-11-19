@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { PdpVehicleType } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetPdpContent
 // ====================================================
+
 
 export interface GetPdpContent_pdpContent_content_questionAnswers {
   question: string | null;

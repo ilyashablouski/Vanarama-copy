@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { OpportunityTypeEnum, OpportunitySubtypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateOpportunity
 // ====================================================
+
 
 export interface CreateOpportunity_createOpportunity {
   uuid: string;

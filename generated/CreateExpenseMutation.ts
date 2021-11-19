@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { IncomeAndExpenseInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateExpenseMutation
 // ====================================================
+
 
 export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
   __typename: "IncomeAndExpenseType";

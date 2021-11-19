@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetDirectorDetailsQuery
 // ====================================================
+
 
 export interface GetDirectorDetailsQuery_companyOfficers_nodes {
   name: string;

@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: VatDetails
 // ====================================================
+
 
 export interface VatDetails_turnoverPercentageOutsideUk {
   country: string;

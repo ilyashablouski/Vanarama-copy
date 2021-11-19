@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, LeaseTypeEnum, RateInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: manufacturerList
 // ====================================================
+
 
 export interface manufacturerList_manufacturerList {
   count: number | null;

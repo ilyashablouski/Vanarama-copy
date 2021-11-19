@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: SummaryFormCompany
 // ====================================================
+
 
 export interface SummaryFormCompany_turnoverPercentageOutsideUk {
   country: string;

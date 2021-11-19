@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: filtersAggregation
 // ====================================================
+
 
 export interface filtersAggregation_rangeNames {
   manufacturer: string | null;

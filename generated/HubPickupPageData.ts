@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: HubPickupPageData
 // ====================================================
+
 
 export interface HubPickupPageData_hubPickupPage_metaData {
   title: string | null;

@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL mutation operation: EmailAlreadyExistsMutation
 // ====================================================
+
 
 export interface EmailAlreadyExistsMutation_emailAlreadyExists {
   isSuccessful: boolean | null;

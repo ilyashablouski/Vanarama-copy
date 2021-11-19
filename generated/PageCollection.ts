@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: PageCollection
 // ====================================================
+
 
 export interface PageCollection_pageCollection_items {
   legacyUrl: string | null;
