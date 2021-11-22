@@ -81,6 +81,7 @@ interface IProps {
   query?: ParsedUrlQuery;
   data?: GetVehicleDetails;
   capId?: number;
+  capsId?: string[];
   quote?: GetQuoteDetails;
   genericPageHead: GenericPageHeadQuery;
   genericPages: IGenericPages['items'];
@@ -94,6 +95,7 @@ interface IProps {
 
 const VanDetailsPage: NextPage<IProps> = ({
   capId,
+  capsId,
   data,
   quote,
   genericPageHead,
@@ -214,6 +216,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         dataUiTestId="van-details-page"
         pdpContent={pdpContent}
         capId={capId || 0}
+        capsId={capsId}
         vans={!isPickup}
         pickups={isPickup}
         data={data}
@@ -397,6 +400,7 @@ export async function getServerSideProps(
     return {
       props: {
         capId,
+        capsId: capsIds,
         data: getCarDataQuery.data,
         pdpContent: pdpContent || null,
         quote: quoteDataQuery.data,

@@ -139,7 +139,7 @@ const CustomiseLease = ({
   lineItem,
   onSubmit,
   showCallBackForm,
-  screenY,
+  isStartScreen,
   trimData,
   colourData,
   isInitPayModalShowing,
@@ -439,12 +439,13 @@ const CustomiseLease = ({
         />
       </LazyLoadComponent>
       {!isMobile && (
-        <div
-          className={cx('lease-scanner--sticky-wrap', {
-            'start-screen': screenY,
-          })}
-          style={{ opacity: '1' }}
-        >
+          <div
+              className={cx(
+                  'lease-scanner--sticky-wrap',
+                  isStartScreen ? 'start-screen' : '',
+              )}
+              style={{ opacity: '1' }}
+          >
           <LeaseScanner
             classNameHeading="headingText"
             className="pdp-footer"

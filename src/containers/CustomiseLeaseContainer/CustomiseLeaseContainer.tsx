@@ -14,6 +14,7 @@ import GoldrushFormContainer from '../GoldrushFormContainer';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useTrim } from '../../gql/carpage';
 import { Nullable } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
@@ -58,6 +59,8 @@ const createEmptyQuoteData = (
     },
   },
 });
+
+const START_SCREEN_HEIGHT = 350;
 
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
@@ -109,7 +112,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isRestoreLeaseSettings, setIsRestoreLeaseSettings] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
-  const [screenY, setScreenY] = useState<number | null>(null);
+  const [isStartScreen, setIsStartScreen] = useState<boolean>(true);
+  const isMobile = useMobileViewport();
   const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
     updatedQuote => {
       setIsRestoreLeaseSettings(false);
@@ -158,13 +162,17 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   }, [quoteData]);
 
   const scrollChange = () => {
-    setScreenY(window.pageYOffset);
+    if (isMobile) {
+      setIsStartScreen(() => window.pageYOffset < START_SCREEN_HEIGHT);
+    }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollChange);
-    return () => window.removeEventListener('scroll', scrollChange);
-  }, []);
+    if (isMobile) {
+      window?.addEventListener('scroll', scrollChange);
+    }
+    return () => window?.removeEventListener('scroll', scrollChange);
+  }, [isMobile]);
 
   useFirstRenderEffect(() => {
     getTrim({
@@ -332,7 +340,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         setIsInitialLoading={setIsInitialLoading}
         setIsRestoreLeaseSettings={setIsRestoreLeaseSettings}
         lineItem={lineItemData}
-        screenY={screenY}
+        isStartScreen={isStartScreen}
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
         pickups={pickups}

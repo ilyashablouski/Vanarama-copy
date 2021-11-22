@@ -7,4 +7,5 @@ export interface IModalProps extends IBaseProps {
   additionalText?: string;
   onRequestClose?: () => void;
   containerClassName?: string;
+  dataUiTestIdHeading?: string;
 }

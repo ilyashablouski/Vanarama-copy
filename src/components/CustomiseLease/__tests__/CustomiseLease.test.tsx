@@ -38,7 +38,7 @@ describe('<CustomiseLease />', () => {
       mileage: 6000,
       colour: '13990',
       trim: '112981',
-      screenY: 0,
+      isStartScreen: true,
       colourData: [
         {
           leadTime: '14-21 Day Delivery',
@@ -234,7 +234,7 @@ describe('<CustomiseLease />', () => {
       setIsInitialLoading: jest.fn(),
       setIsPlayingLeaseAnimation: jest.fn(),
       setIsRestoreLeaseSettings: jest.fn(),
-      screenY: 0,
+      isStartScreen: true,
       data: {
         quoteByCapId: {
           colour: '13990',
@@ -347,7 +347,7 @@ describe('<CustomiseLease />', () => {
         {...mocks}
         trim="112981"
         colour="13990"
-        screenY={0}
+        isStartScreen
         isPlayingLeaseAnimation={false}
         term={24}
         terms={['24, 36', '77']}
