@@ -4,6 +4,7 @@ import Button from 'core/atoms/button/Button';
 import { features } from '../ProductCarousel/helpers';
 import Skeleton from '../Skeleton';
 import { GetConversionsVehicleList_conversions as IDerangedCard } from '../../../generated/GetConversionsVehicleList';
+import { Nullable } from '../../types/common';
 
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
@@ -29,7 +30,8 @@ interface IDerangedVehicleCardProps {
     imageSrc: string,
     title: string,
     description: string,
-    conversionId?: number | null,
+    conversionId: Nullable<number>,
+    capId: Nullable<string>,
   ) => void;
 }
 
@@ -89,6 +91,7 @@ const DerangedVehicleCard = React.memo(
                 title.title,
                 title.description,
                 data.conversionId,
+                data.capId,
               )
             }
           />

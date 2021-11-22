@@ -3,6 +3,7 @@ export const DERANGED_FORM_DEFAULT_VALUES = {
   description: '',
   imageSrc: '',
   conversionId: null,
+  capId: null,
 };
 
 export const DERANGED_FORM_LABELS_VALUES = {
