@@ -285,8 +285,16 @@ export const GET_IMACA_ASSETS = gql`
 `;
 
 export const GET_PDP_CONTENT = gql`
-  query GetPdpContent($vehicleType: PdpVehicleType!, $isPreview: Boolean) {
-    pdpContent(vehicleType: $vehicleType, isPreview: $isPreview) {
+  query GetPdpContent(
+    $vehicleType: PdpVehicleType!
+    $isPreview: Boolean
+    $derivativeId: Int
+  ) {
+    pdpContent(
+      vehicleType: $vehicleType
+      isPreview: $isPreview
+      derivativeId: $derivativeId
+    ) {
       title
       vehicleType
       content {
