@@ -57,4 +57,5 @@ export interface GetPdpContent {
 export interface GetPdpContentVariables {
   vehicleType: PdpVehicleType;
   isPreview?: boolean | null;
+  derivativeId?: number | null;
 }
