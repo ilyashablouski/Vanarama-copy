@@ -138,7 +138,7 @@ const CustomiseLease = ({
   lineItem,
   onSubmit,
   showCallBackForm,
-  screenY,
+  isStartScreen,
   trimList,
   colourList,
   isInitPayModalShowing,
@@ -409,7 +409,7 @@ const CustomiseLease = ({
         <div
           className={cx(
             'lease-scanner--sticky-wrap',
-            (screenY || 0) < 350 ? 'start-screen' : '',
+            isStartScreen ? 'start-screen' : '',
           )}
           style={{ opacity: '1' }}
         >
