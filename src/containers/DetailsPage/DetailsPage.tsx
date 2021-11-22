@@ -50,7 +50,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
@@ -80,7 +80,6 @@ import { isUserAuthenticated } from '../../utils/authentication';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
-const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
   ssr: false,
@@ -136,11 +135,11 @@ const InsuranceModal = dynamic(() => import('./InsuranceModal'));
 
 interface IDetailsPageProps {
   capId: number;
+  capsId?: string[];
   cars?: boolean;
   vans?: boolean;
   pickups?: boolean;
   data?: GetVehicleDetails;
-  loading?: boolean;
   quote?: GetQuoteDetails;
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
@@ -159,11 +158,11 @@ const parseQuoteParams = (param?: string | null) =>
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
+  capsId,
   cars,
   vans,
   pickups,
   data,
-  loading,
   quote,
   schema,
   genericPageHead,
@@ -177,6 +176,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   dataUiTestId,
 }) => {
   const router = useRouter();
+  const isMobile = useMobileViewport();
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
   const leaseScannerRef = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
@@ -190,7 +190,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isPlayingLeaseAnimation, setIsPlayingLeaseAnimation] = useState(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState(true);
-  const [screenY, setScreenY] = useState<Nullable<number>>(null);
+  const [isFixedLeaseScanner, setIsFixedLeaseScanner] = useState<boolean>(
+    false,
+  );
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
@@ -203,9 +205,38 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
   }, [imacaAssets]);
 
-  const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
+  const scrollHeight = () => {
+    if (isBrowser() && pdpContentRef.current) {
+      const pdpContentHeight = pdpContentRef.current!.scrollHeight;
+      const customerAlsoViewHeight =
+        !!productCard || !!capsId?.length ? 700 : 0;
+      return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
+    }
+    return 0;
+  };
+
+  const scrollChange = () => {
+    if (isMobile) {
+      setIsFixedLeaseScanner(() => (window?.pageYOffset || 0) < scrollHeight());
+    }
+  };
+
+  useEffect(() => {
+    let timerId: NodeJS.Timeout;
+
+    if (isMobile) {
+      window.addEventListener('scroll', scrollChange);
+      leaseScannerRef.current?.classList.remove('-fixed');
+      timerId = setTimeout(() => {
+        leaseScannerRef.current?.classList.add('-fixed');
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timerId);
+      window.removeEventListener('scroll', scrollChange);
+    };
+  }, [isMobile]);
 
   const accordionQAData = useMemo(
     () =>
@@ -224,11 +255,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseScannerData, setLeaseScannerData] = useState<
     Nullable<ILeaseScannerData>
   >(null);
-  const isMobile = useMobileViewport();
-
-  const scrollChange = () => {
-    setScreenY(window.pageYOffset);
-  };
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
   const vehicleValue = useMemo(() => data?.vehicleDetails?.vehicleValue, [
@@ -254,22 +280,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capId, cars, data, price, pickups, vans, mileage]);
-
-  useEffect(() => {
-    let timerId: NodeJS.Timeout;
-
-    if (isMobile) {
-      window.addEventListener('scroll', scrollChange);
-      leaseScannerRef.current?.classList.remove('-fixed');
-      timerId = setTimeout(() => {
-        leaseScannerRef.current?.classList.add('-fixed');
-      }, 1000);
-    }
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [isMobile]);
 
   useEffect(() => {
     async function pushAnalytics() {
@@ -463,25 +473,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     onOrderStart(false, values);
   };
 
-  if (loading) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        <Loading size="xlarge" />
-      </div>
-    );
-  }
-
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
-  const capsId = data?.vehicleDetails?.relatedVehicles?.map(
-    el => el?.capId || '',
-  );
+
   const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
     text: review?.review ? replaceReview(review.review) : '',
     author: review?.name || '',
@@ -599,11 +596,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
-  const calcScrollHeight = () => {
-    const pdpContentHeight = pdpContentRef.current!.scrollHeight;
-    const customerAlsoViewHeight = !!productCard || !!capsId?.length ? 700 : 0;
-    return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
-  };
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
+  );
 
   return (
     <>
@@ -877,7 +872,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       {isMobile && (
         <div
           className={cx('lease-scanner--sticky-wrap', {
-            '-fixed': (screenY || 0) < calcScrollHeight(),
+            '-fixed': isFixedLeaseScanner,
           })}
           ref={leaseScannerRef}
         >
