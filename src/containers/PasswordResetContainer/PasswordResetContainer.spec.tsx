@@ -33,7 +33,9 @@ describe('<PasswordResetContainer />', () => {
           mockCalled = true;
           return {
             data: {
-              passwordConfirm: 'Alpha!23',
+              passwordConfirmV2: {
+                isSuccessful: true,
+              },
             },
           };
         },
