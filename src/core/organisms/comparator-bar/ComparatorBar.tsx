@@ -18,6 +18,7 @@ const MAX_AMOUNT_VEHICLES = 3;
 const ComporatorBar: React.FC<IComparatorBar> = ({
   className,
   dataTestId,
+  dataUiTestId,
   deleteVehicle,
   compareVehicles,
   vehicles: vehiclesState,
@@ -55,7 +56,11 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
 
   return (vehicles?.length > 0 || router.pathname === '/comparator') &&
     existComparator ? (
-    <div className={cx('comparator-bar', className)} data-testid={dataTestId}>
+    <div
+      className={cx('comparator-bar', className)}
+      data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
+    >
       <div className="comparator-bar--container">
         {arrayCards.map((card, index) => (
           <ComporatorBarCard
@@ -65,6 +70,7 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
             key={`${(vehicles[index]?.capId || '') + index}`}
             vehicle={vehicles[index]}
             number={index + 1}
+            dataUiTestId={`comparator-bar-vehicle-card${index}`}
           />
         ))}
         <div className="comparator-bar--actions">
@@ -80,6 +86,7 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
               size="xsmall"
               color="black"
               className="comparator-bar--actions-max"
+              dataUiTestId="comparator-bar-vehicles_max-text"
             >
               {`${MAX_AMOUNT_VEHICLES} Vehicles Max`}
             </Heading>
@@ -89,7 +96,7 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
               compareVehicles();
             }}
             disabled={vehicles.length < 2}
-            dataUiTestId="comparator-bar_compare-button"
+            dataUiTestId="comparator-bar-bar_compare-button"
             size="lead"
             color="teal"
             label="Compare Vehicles"

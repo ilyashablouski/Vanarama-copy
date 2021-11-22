@@ -62,6 +62,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
       className="comparator-bar--container"
     >
       <ComporatorBar
+        dataUiTestId="comparator-bar-vehicle-card0"
         deleteVehicle={[Function]}
         key="12340"
         number={1}
@@ -76,6 +77,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
       >
         <div
           className="card"
+          data-uitestid="comparator-bar-vehicle-card0-present"
         >
           <Heading
             color="black"
@@ -100,6 +102,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
           <button
             className="corner-button"
             data-testid="comparatorBar-delete-1"
+            data-uitestid="comparator-bar-vehicle_card-remove-button-1"
             onClick={[Function]}
             type="button"
           >
@@ -127,6 +130,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         </div>
       </ComporatorBar>
       <ComporatorBar
+        dataUiTestId="comparator-bar-vehicle-card1"
         deleteVehicle={[Function]}
         key="123451"
         number={2}
@@ -141,6 +145,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
       >
         <div
           className="card"
+          data-uitestid="comparator-bar-vehicle-card1-present"
         >
           <Heading
             color="black"
@@ -165,6 +170,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
           <button
             className="corner-button"
             data-testid="comparatorBar-delete-2"
+            data-uitestid="comparator-bar-vehicle_card-remove-button-2"
             onClick={[Function]}
             type="button"
           >
@@ -192,12 +198,14 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         </div>
       </ComporatorBar>
       <ComporatorBar
+        dataUiTestId="comparator-bar-vehicle-card2"
         deleteVehicle={[Function]}
         key="2"
         number={3}
       >
         <div
           className="card -skeleton"
+          data-uitestid="comparator-bar-vehicle-card2-absent"
         >
           <Heading
             color="black"
@@ -237,7 +245,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         </Heading>
         <ForwardRef(Button)
           color="teal"
-          dataUiTestId="comparator-bar_compare-button"
+          dataUiTestId="comparator-bar-bar_compare-button"
           disabled={false}
           label="Compare Vehicles"
           onClick={[Function]}
@@ -245,7 +253,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         >
           <button
             className="button -teal -lead -solid"
-            data-uitestid="comparator-bar_compare-button"
+            data-uitestid="comparator-bar-bar_compare-button"
             disabled={false}
             onClick={[Function]}
           >
@@ -265,6 +273,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
 exports[`<ComparatorBarCard /> renders correctly with ComparatorBarCard 1`] = `
 <div
   className="card"
+  data-uitestid="undefined-present"
 >
   <Heading
     color="black"
@@ -281,6 +290,7 @@ exports[`<ComparatorBarCard /> renders correctly with ComparatorBarCard 1`] = `
   <button
     className="corner-button"
     data-testid="comparatorBar-delete-0"
+    data-uitestid="comparator-bar-vehicle_card-remove-button-0"
     onClick={[Function]}
     type="button"
   >
