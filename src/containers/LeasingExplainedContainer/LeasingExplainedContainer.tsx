@@ -43,9 +43,9 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
           {isDesktopOrTablet
             ? title
             : titleWithBreaks.map(line => (
-                <>
+                <React.Fragment key={line}>
                   {line} <br />
-                </>
+                </React.Fragment>
               ))}
         </Heading>
       </div>
