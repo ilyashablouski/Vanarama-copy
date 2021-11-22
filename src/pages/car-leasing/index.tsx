@@ -234,6 +234,7 @@ export const CarsPage: NextPage<IProps> = ({
             <RouterLink
               className="button"
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              dataUiTestId="car-leasing-page_help-me-choose-button"
               link={{
                 label: 'Help Me Choose',
                 href: '/help-me-choose',

@@ -53,6 +53,7 @@ export interface IProps {
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
+  dataUiTestId?: string;
 }
 
 export interface IQuoteDataInputs {

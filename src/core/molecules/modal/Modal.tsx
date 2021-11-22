@@ -18,6 +18,7 @@ const Modal: FC<IModalProps> = props => {
     show,
     onRequestClose,
     additionalText,
+    dataUiTestIdHeading,
   } = props;
 
   React.useEffect(() => {
@@ -50,7 +51,7 @@ const Modal: FC<IModalProps> = props => {
       )}
       <div className={cx('modal', containerClassName)}>
         {title && (
-          <Heading tag="span" color="black">
+          <Heading tag="span" color="black" dataUiTestId={dataUiTestIdHeading}>
             {title}
           </Heading>
         )}

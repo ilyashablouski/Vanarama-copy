@@ -178,6 +178,9 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
     if (router.pathname.includes('/search')) {
       return 'page:default srp';
     }
+    if (router.pathname.includes('/olaf')) {
+      return 'page:default -olaf';
+    }
     return 'page:default';
   };
 
@@ -208,12 +211,14 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
           }}
           vehicles={compareVehicles}
           setCompareVehicles={setCompareVehicles}
+          dataUiTestId="comparator-bar"
         />
 
         {modalCompareTypeError && (
           <Modal
             title="You cannot compare two different vehicle types."
             show
+            dataUiTestIdHeading="comparator-cant_compare-text"
             onRequestClose={() => setModalCompareTypeError(false)}
           >
             <Button
@@ -221,6 +226,7 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
               color="teal"
               onClick={() => setModalCompareTypeError(false)}
               label="Okay"
+              dataUiTestId="comparator-cant_compare-button"
             />
           </Modal>
         )}

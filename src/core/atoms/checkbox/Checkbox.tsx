@@ -23,6 +23,7 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
     onFocus,
     outline,
     value,
+    dataUiTestId,
   } = props;
 
   return (
@@ -36,6 +37,7 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
         checked={checked}
         className="checkbox--native visually-hidden"
         data-testid={dataTestId}
+        data-uitestid={dataUiTestId}
         defaultChecked={defaultChecked}
         disabled={disabled}
         id={id}
@@ -47,7 +49,11 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
         type="checkbox"
         value={value}
       />
-      <label className="checkbox--label" htmlFor={id}>
+      <label
+        className="checkbox--label"
+        htmlFor={id}
+        data-uitestid={dataUiTestId ? `${dataUiTestId}_label_${id}` : undefined}
+      >
         <Text size="regular" color="darker">
           {label}
         </Text>

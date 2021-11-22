@@ -100,6 +100,7 @@ const choices = (
       }
       customCTAColor={customCTA}
       dataAbTestId="product-page_choice-box-v2"
+      dataUiTestId="details-page_choice-boxes-v2"
     />
   </>
 );
@@ -137,7 +138,7 @@ const CustomiseLease = ({
   lineItem,
   onSubmit,
   showCallBackForm,
-  screenY,
+  isStartScreen,
   trimList,
   colourList,
   isInitPayModalShowing,
@@ -240,6 +241,7 @@ const CustomiseLease = ({
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
       ref={sideBarRef}
+      data-uitestid="details-page_customise-lease-container_sidebar"
     >
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
@@ -314,6 +316,7 @@ const CustomiseLease = ({
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
+        dataUiTestId="details-page_custom-lease-select_colour"
       />
 
       <CustomLeaseSelect
@@ -324,6 +327,7 @@ const CustomiseLease = ({
         placeholder="Select Interior:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
+        dataUiTestId="details-page_custom-lease-select_trim"
       />
 
       <Heading tag="span" size="regular" color="black">
@@ -334,7 +338,11 @@ const CustomiseLease = ({
           )} Per Month ${stateVAT}. VAT`}
         </Text>
       </Heading>
-      <Link size="small" onClick={() => setIsModalShowing(true)}>
+      <Link
+        size="small"
+        onClick={() => setIsModalShowing(true)}
+        dataUiTestId="details-page_customise-lease_what-included"
+      >
         See What&apos;s Included
       </Link>
       <Formgroup>
@@ -373,7 +381,9 @@ const CustomiseLease = ({
           <ShieldFreeInsurance />
           <div>
             <Badge label="Free" color="orange" size="small" />
-            <Text tag="span">1 Year&lsquo;s Free Car Insurance</Text>
+            <Text tag="span" dataUiTestId="details-page_text_free-insurance">
+              1 Year&lsquo;s Free Car Insurance
+            </Text>
           </div>
         </div>
       )}
@@ -399,7 +409,7 @@ const CustomiseLease = ({
         <div
           className={cx(
             'lease-scanner--sticky-wrap',
-            (screenY || 0) < 350 ? 'start-screen' : '',
+            isStartScreen ? 'start-screen' : '',
           )}
           style={{ opacity: '1' }}
         >

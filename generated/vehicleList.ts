@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, RateInputObject, LeaseTypeEnum, SortObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: vehicleList
 // ====================================================
+
 
 export interface vehicleList_vehicleList_pageInfo {
   /**

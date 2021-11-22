@@ -71,12 +71,14 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
       </Text>
       <div className="cookie-dialog__actions">
         <Button
+          dataUiTestId="cookieBar-accept-button"
           fill="solid"
           color="primary"
           label="Accept"
           onClick={handleAcceptClick}
         />
         <Button
+          dataUiTestId="cookieBar-decline-button"
           fill="outline"
           color="primary"
           label="Decline"

@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: HubCarPageData
 // ====================================================
+
 
 export interface HubCarPageData_hubCarPage_metaData {
   title: string | null;

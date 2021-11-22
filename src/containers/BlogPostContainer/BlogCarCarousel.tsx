@@ -17,7 +17,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 interface IProps {
   productsCar?: Nullable<ProductCardData>;
   productsCarDerivatives?: Nullable<GetDerivatives>;
-  vehicleListUrlData?: IVehicleList;
+  vehicleListUrlData?: Nullable<IVehicleList>;
 }
 
 const BlogCarsCarousel: NextPage<IProps> = ({

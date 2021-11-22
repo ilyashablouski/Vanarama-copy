@@ -23,6 +23,7 @@ export interface CreateOpportunity {
 export interface CreateOpportunityVariables {
   additionalData?: CustomJson | null;
   capId?: number | null;
+  conversionId?: number | null;
   email: string;
   fullName: string;
   opportunityType: OpportunityTypeEnum;

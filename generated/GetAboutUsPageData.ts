@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL query operation: GetAboutUsPageData
 // ====================================================
+
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   title: string | null;

@@ -23,4 +23,5 @@ export interface IChoiceBoxesProps extends IBaseProps {
   choiceIndex?: number;
   setChoiceIndex?: Dispatch<SetStateAction<number>>;
   onSubmit: (choice: IChoice) => void;
+  preventUnselectAllValues?: boolean;
 }

@@ -30,6 +30,7 @@ describe('<RangeCard />', () => {
       fromPrice: 191.91,
       isPersonalPrice: true,
       isAllManufacturersCard: false,
+      dataUiTestId: 'range-card',
       rangesUrls: [
         {
           slug: 'car-leasing/bmw/2-series',
@@ -87,6 +88,7 @@ describe('<RangeCard />', () => {
               {
                 mainImageUrl:
                   'https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg',
+                capId: 11111,
               },
             ],
           },

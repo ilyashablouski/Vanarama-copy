@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: VehicleListTotalCount
 // ====================================================
+
 
 export interface VehicleListTotalCount_vehicleList {
   totalCount: number;

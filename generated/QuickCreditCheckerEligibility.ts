@@ -3,9 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 // ====================================================
 // GraphQL fragment: QuickCreditCheckerEligibility
 // ====================================================
+
 
 export interface QuickCreditCheckerEligibility_person_emailAddresses {
   __typename: "EmailAddressType";

@@ -8,6 +8,7 @@ import Icon from '../../atoms/icon';
 
 const ComporatorBar: React.FC<IComparatorBarCard> = ({
   dataTestId,
+  dataUiTestId,
   deleteVehicle,
   number,
   vehicle,
@@ -16,6 +17,7 @@ const ComporatorBar: React.FC<IComparatorBarCard> = ({
     <div
       className={cx('card', !vehicle ? '-skeleton' : '')}
       data-testid={dataTestId}
+      data-uitestid={`${dataUiTestId}-${!vehicle ? 'absent' : 'present'}`}
     >
       {!vehicle ? (
         <>
@@ -37,6 +39,7 @@ const ComporatorBar: React.FC<IComparatorBarCard> = ({
             onClick={() => deleteVehicle()}
             type="button"
             data-testid={`comparatorBar-delete-${number}`}
+            data-uitestid={`comparator-bar-vehicle_card-remove-button-${number}`}
             className="corner-button"
           >
             <Icon color="white" icon={<CloseSharp />} />

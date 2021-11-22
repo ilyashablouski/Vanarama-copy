@@ -4,6 +4,7 @@ import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
 import { Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
+import { isBrowser } from './deviceType';
 
 const PARTNER_COOKIE_NAME = 'activePartnership';
 const PARTNER_SESSION_ACTIVE = 'partnershipSessionActive';
@@ -38,8 +39,10 @@ export interface IPartnerPropertiesLogoFile {
 }
 
 export function isPartnerSessionActive() {
-  const partnershipActive = getSessionStorage(PARTNER_SESSION_ACTIVE);
-  return !!partnershipActive;
+  if (isBrowser()) {
+    return !!getSessionStorage(PARTNER_SESSION_ACTIVE);
+  }
+  return false;
 }
 
 export function getPartnerProperties(): IPartnerProperties | undefined {

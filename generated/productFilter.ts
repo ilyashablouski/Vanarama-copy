@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { ProductDerivativeFilter } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: productFilter
 // ====================================================
+
 
 export interface productFilter_productFilter_rangeNames {
   manufacturer: string | null;

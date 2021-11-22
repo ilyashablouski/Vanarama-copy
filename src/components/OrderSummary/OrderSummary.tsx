@@ -82,6 +82,7 @@ const OrderSummary: React.FC<IProps> = ({
         className="-compact"
         editable={false}
         list={orderSummaryList}
+        dataUiTestId="details-page_order-summary"
       />
       {isBlackFridayCampaignEnabled() && (
         <BlackFridayPlainBanner className="bf-banner--summary -mt-300" />

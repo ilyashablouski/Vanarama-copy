@@ -116,6 +116,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
+          data-uitestid="footer_footer-column_facebook-social-link"
           href="https://www.facebook.com/vanarama/"
           rel="noreferrer"
           target="_blank"
@@ -142,6 +143,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
+          data-uitestid="footer_footer-column_twitter-social-link"
           href="https://twitter.com/Vanarama"
           rel="noreferrer"
           target="_blank"
@@ -168,6 +170,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
+          data-uitestid="footer_footer-column_instagram-social-link"
           href="https://www.instagram.com/vanaramauk/"
           rel="noreferrer"
           target="_blank"
@@ -194,6 +197,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
+          data-uitestid="footer_footer-column_linkedin-social-link"
           href="https://www.linkedin.com/company/vanarama"
           rel="noreferrer"
           target="_blank"
@@ -220,6 +224,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
+          data-uitestid="footer_footer-column_youtube-social-link"
           href="https://www.youtube.com/user/vanaramauk"
           rel="noreferrer"
           target="_blank"
@@ -245,6 +250,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
     </div>
     <span
       className="logo"
+      data-uitestid="footer_footer-column_bvrla-logo"
     >
       <svg
         className="logo--asset logo--asset-bvrla"

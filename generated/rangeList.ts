@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { VehicleTypeEnum, LeaseTypeEnum, RateInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: rangeList
 // ====================================================
+
 
 export interface rangeList_rangeList {
   rangeName: string | null;

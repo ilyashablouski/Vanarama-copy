@@ -27,6 +27,7 @@ describe('<ModelCard />', () => {
         capId: 123,
         legacyUrl: '/bmw-car-leasing/3-series/coupe.html',
       },
+      dataUiTestId: 'model-card',
       isPersonalPrice: true,
     };
   };
@@ -50,6 +51,7 @@ describe('<ModelCard />', () => {
               {
                 mainImageUrl:
                   'https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg',
+                capId: 11111,
               },
             ],
           },

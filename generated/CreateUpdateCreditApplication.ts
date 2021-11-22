@@ -3,11 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+
 import { CreditApplicationInputObject, VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateCreditApplication
 // ====================================================
+
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_aboutDetailsV2_addresses {
   city: string | null;

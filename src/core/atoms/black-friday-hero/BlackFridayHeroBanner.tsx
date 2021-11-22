@@ -17,7 +17,7 @@ const TERMS_LINK = {
   href: '/legal/terms-and-conditions/black-friday-2021-terms-and-conditions',
 };
 
-const BASE_IMAGE_URL = '/Assets/images/black-friday';
+const BASE_IMAGE_URL = `${process.env.HOST_DOMAIN}/Assets/images/black-friday`;
 
 interface IProps {
   vehicleImageName: string;
@@ -28,10 +28,22 @@ const BlackFridayHeroBanner: React.FC<IProps> = ({ vehicleImageName }) => (
     <div className="bf-hero__inner">
       <div className="bf-hero__group">
         <div className="bf-hero__car -vehicle">
-          <img src={`${BASE_IMAGE_URL}/${vehicleImageName}`} alt="" />
+          <Image
+            className="image"
+            src={`${BASE_IMAGE_URL}/${vehicleImageName}`}
+            size="expand"
+            plain
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          />
         </div>
         <div className="bf-hero__car -light">
-          <img src={`${BASE_IMAGE_URL}/light.png`} alt="" />
+          <Image
+            className="image"
+            src={`${BASE_IMAGE_URL}/light.png`}
+            size="expand"
+            plain
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          />
         </div>
         <div className="bf-hero__badge">
           <Image

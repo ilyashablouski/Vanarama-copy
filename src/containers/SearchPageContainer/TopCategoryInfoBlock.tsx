@@ -18,9 +18,10 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   pageData: GenericPageQuery | undefined;
+  dataUiTestId?: string;
 }
 
-const TopCategoryInfoBlock = ({ pageData }: IProps) => {
+const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
   const headingTag = getTitleTag(
     getSectionsData(
       ['sectionsAsArray', 'featured', '0', 'titleTag'],
@@ -51,6 +52,7 @@ const TopCategoryInfoBlock = ({ pageData }: IProps) => {
           size="large"
           color="black"
           tag={headingTag}
+          dataUiTestId={`${dataUiTestId}_heading`}
         >
           {headingText}
         </Heading>
