@@ -32,7 +32,10 @@ export function makeLoginUserMutationMock(email: string, password: string) {
     },
     result: {
       data: {
-        loginV2: 'some-fake-token',
+        loginV2: {
+          idToken: 'some-fake-token',
+          accessToken: 'some-fake-token',
+        },
       },
     },
   };
