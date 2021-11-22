@@ -340,7 +340,7 @@ export async function getServerSideProps(
       query: GET_COLOUR_AND_TRIM_GROUP_LIST,
       variables: {
         capId: `${capId}`,
-        vehicleType: VehicleTypeEnum.CAR,
+        vehicleType: VehicleTypeEnum.LCV,
         colourId: parseInt(
           quoteDataQuery.data?.quoteByCapId?.colour || '0',
           10,
