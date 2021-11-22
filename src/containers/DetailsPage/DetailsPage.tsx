@@ -479,6 +479,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const independentReview = data?.vehicleDetails?.independentReview;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
 
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
+  );
+
   const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
     text: review?.review ? replaceReview(review.review) : '',
     author: review?.name || '',
@@ -595,10 +599,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleValue,
     });
   };
-
-  const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
 
   return (
     <>
