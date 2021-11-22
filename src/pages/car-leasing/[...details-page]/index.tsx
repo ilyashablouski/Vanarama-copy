@@ -314,6 +314,7 @@ export async function getServerSideProps(
       variables: {
         vehicleType: pageType,
         isPreview: context?.preview,
+        derivativeId: capId,
       },
     });
 
