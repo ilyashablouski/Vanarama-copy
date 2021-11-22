@@ -15,8 +15,8 @@ describe('<HelpMeChooseContainer />', () => {
     const tree = getComponent({
       title: 'Which Fuel Type Do You Prefer?',
       choicesValues: [
-        { label: 'Diesel', active: false },
-        { label: 'Petrol', active: false },
+        { label: 'Diesel', active: false, value: 'Diesel' },
+        { label: 'Petrol', active: false, value: 'Petrol' },
       ],
       setChoice: jest.fn(),
       multiSelect: true,
@@ -32,8 +32,8 @@ describe('<HelpMeChooseContainer />', () => {
     const tree = getComponent({
       title: 'Which Fuel Type Do You Prefer?',
       choicesValues: [
-        { label: 'Diesel', active: false },
-        { label: 'Petrol', active: true },
+        { label: 'Diesel', active: false, value: 'Diesel' },
+        { label: 'Petrol', active: true, value: 'Petrol' },
       ],
       setChoice: jest.fn(),
       multiSelect: true,
