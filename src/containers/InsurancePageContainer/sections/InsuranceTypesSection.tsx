@@ -64,6 +64,7 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
                 />
               );
             },
+            paragraph: 'span',
           }}
         />
       </Text>
