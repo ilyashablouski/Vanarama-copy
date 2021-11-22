@@ -319,6 +319,69 @@ export const convertErrorToProps = (
   };
 };
 
+export function addImacaHexToColourList(
+  colorsList: Nullable<Nullable<ColorGroupList>[]>,
+  imacaColors?: Nullable<GetImacaAssets_getImacaAssets_colours[]>,
+): Nullable<IOptionsList[]> {
+  return (
+    colorsList?.map(colorGroup => {
+      return {
+        leadTime: colorGroup?.leadTime || '',
+        options: colorGroup?.colours?.map(colorData => {
+          const imacaColor = imacaColors?.find(
+            item => item.capId === colorData?.optionId,
+          );
+
+          return {
+            ...colorData,
+            hex: imacaColor?.hex || null,
+          };
+        }),
+      };
+    }) || null
+  );
+}
+
+export function transformTrimList(
+  trimsList: Nullable<Nullable<TrimGroupList>[]>,
+): Nullable<IOptionsList[]> {
+  return (
+    trimsList?.map(trimGroup => {
+      return {
+        leadTime: trimGroup?.leadTime || '',
+        options: trimGroup?.trims?.map(trimData => {
+          return {
+            ...trimData,
+          };
+        }),
+      };
+    }) || null
+  );
+}
+
+export function sortByHotOffer(
+  optionsList: Nullable<IOptionsList[]>,
+): Nullable<IOptionsList[]> {
+  const hotOffer: IOptionsList[] = [];
+  const notHotOffer: IOptionsList[] = [];
+
+  (optionsList ?? []).forEach(optionList => {
+    hotOffer.push({
+      leadTime: optionList?.leadTime,
+      hotOffer: true,
+      options: optionList.options?.filter(option => option.hotOffer),
+    });
+
+    notHotOffer.push({
+      leadTime: optionList?.leadTime,
+      hotOffer: false,
+      options: optionList.options?.filter(option => !option.hotOffer),
+    });
+  });
+
+  return [...hotOffer, ...notHotOffer];
+}
+
 export enum FeatureFlags {
   DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
@@ -383,43 +446,3 @@ export const isBlackFridayCampaignEnabled = () => {
 
   return Cookies.get(FeatureFlags.BLACK_FRIDAY) === '1';
 };
-
-export function addImacaHexToColourList(
-  colorsList: Nullable<Nullable<ColorGroupList>[]>,
-  imacaColors?: Nullable<GetImacaAssets_getImacaAssets_colours[]>,
-): Nullable<IOptionsList[]> {
-  return (
-    colorsList?.map(colorGroup => {
-      return {
-        leadTime: colorGroup?.leadTime || '',
-        options: colorGroup?.colours?.map(colorData => {
-          const imacaColor = imacaColors?.find(
-            item => item.capId === colorData?.optionId,
-          );
-
-          return {
-            ...colorData,
-            hex: imacaColor?.hex || null,
-          };
-        }),
-      };
-    }) || null
-  );
-}
-
-export function transformTrimList(
-  trimsList: Nullable<Nullable<TrimGroupList>[]>,
-): Nullable<IOptionsList[]> {
-  return (
-    trimsList?.map(trimGroup => {
-      return {
-        leadTime: trimGroup?.leadTime || '',
-        options: trimGroup?.trims?.map(trimData => {
-          return {
-            ...trimData,
-          };
-        }),
-      };
-    }) || null
-  );
-}

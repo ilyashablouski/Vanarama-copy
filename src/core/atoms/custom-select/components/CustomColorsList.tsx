@@ -5,7 +5,7 @@ import Radio from 'core/atoms/radio';
 import dynamic from 'next/dynamic';
 import CustomColorItem from 'core/atoms/custom-select/components/CustomColorItem';
 import { IOptionsList } from '../../../../types/detailsPage';
-import { Nullable } from '../../../../types/common';
+import { Nullable, Nullish } from '../../../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
@@ -39,63 +39,73 @@ const CustomColorsList: React.FC<IProps> = ({
     }
   };
 
+  const renderOptions = (hotOffer: Nullish<boolean>, leadTime: string) => {
+    if (hotOffer) {
+      return (
+        <>
+          <Icon
+            icon={<Flame />}
+            color="orange"
+            size="regular"
+            className="option__icon"
+          />
+          <span className="option__title option__title-offer">HOT OFFER</span>
+          <span className="option__title">{leadTime}</span>
+        </>
+      );
+    }
+    if (leadTime.toLowerCase().includes('factory order')) {
+      return (
+        <span className="option__title option__title-stock">FACTORY ORDER</span>
+      );
+    }
+    return (
+      <>
+        <span className="option__title option__title-stock">IN STOCK</span>
+        <span className="option__title">{leadTime}</span>
+      </>
+    );
+  };
+
   return (
     <ul className="select-options select-options__mobile">
-      {items?.map(({ options, leadTime }) => (
-        <div className="option__content" key={leadTime}>
-          <div className="option__title-content">
-            {options && options[0].hotOffer ? (
-              <>
-                <Icon
-                  icon={<Flame />}
-                  color="orange"
-                  size="regular"
-                  className="option__icon"
-                />
-                <span className="option__title option__title-offer">
-                  HOT OFFER
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="option__title option__title-stock">
-                  IN STOCK
-                </span>
-              </>
-            )}
-
-            <span className="option__title">{leadTime}</span>
-          </div>
-          {options?.map((option, index) => (
-            <li
-              data-name={option.label ?? ''}
-              data-id={option.optionId ?? 0}
-              onClick={handleOptionClick}
-              key={option.optionId ?? index}
-            >
-              {option.hex ? (
-                <CustomColorItem
-                  option={option}
-                  checked={checkValue(option.optionId)}
-                />
-              ) : (
-                <FormGroup>
-                  <Radio
-                    className="custom-select-option"
-                    name={`customSelect${radioName}`}
-                    id={`${option.optionId ?? 0}`}
-                    label={option.label ?? ''}
-                    value={`${option.optionId ?? 0}`}
-                    onChange={() => {}}
+      {items?.map(({ options, leadTime, hotOffer }) =>
+        options?.length ? (
+          <div className="option__content" key={leadTime}>
+            <div className="option__title-content">
+              {renderOptions(hotOffer, leadTime)}
+            </div>
+            {options?.map((option, index) => (
+              <li
+                data-name={option.label ?? ''}
+                data-id={option.optionId ?? 0}
+                onClick={handleOptionClick}
+                key={option.optionId ?? index}
+              >
+                {option.hex ? (
+                  <CustomColorItem
+                    option={option}
                     checked={checkValue(option.optionId)}
-                    disabled={isDisabled}
                   />
-                </FormGroup>
-              )}
-            </li>
-          ))}
-        </div>
-      ))}
+                ) : (
+                  <FormGroup>
+                    <Radio
+                      className="custom-select-option"
+                      name={`customSelect${radioName}`}
+                      id={`${option.optionId ?? 0}`}
+                      label={option.label ?? ''}
+                      value={`${option.optionId ?? 0}`}
+                      onChange={() => {}}
+                      checked={checkValue(option.optionId)}
+                      disabled={isDisabled}
+                    />
+                  </FormGroup>
+                )}
+              </li>
+            ))}
+          </div>
+        ) : null,
+      )}
     </ul>
   );
 };

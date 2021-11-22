@@ -38,6 +38,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import {
   addImacaHexToColourList,
+  sortByHotOffer,
   toPriceFormat,
   transformTrimList,
 } from '../../../utils/helpers';
@@ -352,6 +353,7 @@ export async function getServerSideProps(
       colorAndTrimData?.data.colourGroupList,
       imacaAssets.data.getImacaAssets?.colours,
     );
+    const trimData = transformTrimList(colorAndTrimData.data.trimGroupList);
 
     const pageType = pdpVanType(getCarDataQuery.data);
     const { data: pdpContent } = await client.query<
@@ -406,8 +408,8 @@ export async function getServerSideProps(
         pdpContent: pdpContent || null,
         quote: quoteDataQuery.data,
         query: context.query,
-        colourData,
-        trimData: transformTrimList(colorAndTrimData.data.trimGroupList),
+        colourData: sortByHotOffer(colourData),
+        trimData: sortByHotOffer(trimData),
         imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,

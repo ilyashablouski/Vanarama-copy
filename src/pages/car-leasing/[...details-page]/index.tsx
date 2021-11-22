@@ -38,6 +38,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import {
   addImacaHexToColourList,
+  sortByHotOffer,
   toPriceFormat,
   transformTrimList,
 } from '../../../utils/helpers';
@@ -342,6 +343,7 @@ export async function getServerSideProps(
       colorAndTrimData?.data.colourGroupList,
       imacaAssets.data.getImacaAssets?.colours,
     );
+    const trimData = transformTrimList(colorAndTrimData.data.trimGroupList);
 
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
@@ -393,8 +395,8 @@ export async function getServerSideProps(
         genericPages: genericPages || null,
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
-        colourData,
-        trimData: transformTrimList(colorAndTrimData.data.trimGroupList),
+        colourData: sortByHotOffer(colourData),
+        trimData: sortByHotOffer(trimData),
       },
     };
   } catch (error) {

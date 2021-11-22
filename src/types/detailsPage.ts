@@ -7,5 +7,6 @@ export interface IOption {
 
 export interface IOptionsList {
   leadTime: string;
+  hotOffer?: Nullable<boolean>;
   options?: IOption[];
 }
