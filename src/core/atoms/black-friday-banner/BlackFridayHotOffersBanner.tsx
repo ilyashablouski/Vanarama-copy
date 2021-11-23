@@ -73,7 +73,7 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
               </Text>
             </div>
             <Text className="bf-banner__subtext" tag="span">
-              Ends 26th November
+              Extended To 29th Nov
             </Text>
           </div>
           <div className="bf-banner__group -second">
@@ -81,7 +81,7 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
               <span>£250</span>Cashback
             </Text>
             <Text className="bf-banner__subtext" tag="span">
-              Ends 26th November
+              Extended To 29th Nov
             </Text>
           </div>
         </div>

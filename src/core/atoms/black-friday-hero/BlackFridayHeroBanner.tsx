@@ -61,7 +61,7 @@ const BlackFridayHeroBanner: React.FC<IProps> = ({ vehicleImageName }) => (
         <Heading className="bf-hero__title" tag="span">
           On Every Vehicle
         </Heading>
-        <Text className="bf-hero__text">Ends 26th November</Text>
+        <Text className="bf-hero__text">Extended To 29th Nov</Text>
         <RouterLink className="bf-hero__link" link={OFFERS_LINK}>
           See Our Hot Offers
           <Icon

@@ -11,7 +11,7 @@ storiesOf(`${atomicDir(base)}/BlackFridayBanner`, module)
   .add('PDP', () => (
     <BlackFridayBanner
       className="bf-banner--pdp"
-      rightText="Ends 26th November"
+      rightText="Extended To 29th Nov"
     />
   ))
   .add('HMC', () => (

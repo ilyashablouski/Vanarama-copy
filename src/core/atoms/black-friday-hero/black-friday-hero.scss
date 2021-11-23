@@ -214,17 +214,43 @@
 
       &__text {
         display: block;
-        margin-bottom: $rem-200;
-        font-size: 1.125rem;
+        margin-bottom: $rem-400;
+        font-size: 32px;
+        font-height: 100px;
         font-weight: $font-weight-bold;
         font-family: $font-family-body;
         letter-spacing: 0;
         white-space: nowrap;
-        color: $white !important;
+        color: hsla(43, 94%, 55%, 1) !important;
+        position: relative;
+        padding-right: 24px;
+        padding-left: 24px;
+
+        &::before,
+        &::after {
+          content: '';
+          display: block;
+          width: 8px;
+          height: 8px;
+          background: hsla(43, 94%, 55%, 1);
+          border-radius: 50%;
+          position: absolute;
+          top: calc(50% - 4px);
+        }
+
+        &::before {
+          right: 0;
+        }
+
+        &::after {
+          left: 0;
+        }
 
         @include mobile {
           margin-bottom: $rem-100;
-          font-size: 1.125rem;
+          font-size: 1.5rem;
+          padding-right: 16px;
+          padding-left: 16px;
         }
       }
 
