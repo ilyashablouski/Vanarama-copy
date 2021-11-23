@@ -29,7 +29,7 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
           />
           <div>
             <HeroHeading text={title || ''} />
-            <HeroTitle text={body || ''} className="-w-500"/>
+            <HeroTitle text={body || ''} className="-w-500" />
           </div>
         </div>
       </div>
