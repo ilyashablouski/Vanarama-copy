@@ -3,6 +3,7 @@ import React, {
   Dispatch,
   SetStateAction,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -15,7 +16,7 @@ import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
-import { toPriceFormat } from '../../utils/helpers';
+import { getOptionFromList, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
@@ -139,8 +140,8 @@ const CustomiseLease = ({
   onSubmit,
   showCallBackForm,
   isStartScreen,
-  trimList,
-  colourList,
+  trimData,
+  colourData,
   isInitPayModalShowing,
   setIsInitPayModalShowing,
   pickups,
@@ -207,6 +208,30 @@ const CustomiseLease = ({
 
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
+  const [tempColorValue, setTempColorValue] = useState<Nullable<string>>(
+    colour,
+  );
+  const [tempTrimValue, setTempTrimValue] = useState<Nullable<string>>(trim);
+
+  const colorLabel = useMemo(
+    () => getOptionFromList(colourData, colour)?.label ?? '',
+    [colourData, colour],
+  );
+
+  const trimLabel = useMemo(
+    () => getOptionFromList(trimData, trim)?.label ?? '',
+    [trimData, trim],
+  );
+
+  const selectedColorValue = useMemo(
+    () => `${getOptionFromList(colourData, colour)?.optionId}` ?? '',
+    [colourData, colour],
+  );
+
+  const selectedTrimValue = useMemo(
+    () => `${getOptionFromList(trimData, trim)?.optionId}` ?? '',
+    [trimData, trim],
+  );
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -309,9 +334,13 @@ const CustomiseLease = ({
         )}
       </Heading>
       <CustomLeaseSelect
+        tempValue={tempColorValue}
+        setTempValue={setTempColorValue}
         defaultValue={`${colour}`}
         setChanges={setColour}
-        items={colourList}
+        items={colourData}
+        selectedValue={selectedColorValue}
+        label={colorLabel ?? ''}
         dataTestId="colour-selector"
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
@@ -320,9 +349,13 @@ const CustomiseLease = ({
       />
 
       <CustomLeaseSelect
+        tempValue={tempTrimValue}
+        setTempValue={setTempTrimValue}
         defaultValue={`${trim}`}
         setChanges={setTrim}
-        items={trimList}
+        selectedValue={selectedTrimValue}
+        items={trimData}
+        label={trimLabel ?? ''}
         dataTestId="trim-selector"
         placeholder="Select Interior:"
         isDisabled={isPlayingLeaseAnimation}
@@ -395,9 +428,9 @@ const CustomiseLease = ({
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
           maintenance={maintenance}
-          colours={colourList}
-          trims={trimList}
-          trim={trim}
+          colours={colourData}
+          trims={trimData}
+          trim={Number(trim)}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
           isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}

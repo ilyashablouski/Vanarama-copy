@@ -110,3 +110,6 @@ export const pdpVanType = (data: GetVehicleDetails): PdpVehicleType => {
       return PdpVehicleType.Van;
   }
 };
+
+export const parseQuoteParams = (param?: Nullable<string>) =>
+  parseInt(param || '', 10) || null;

@@ -3,18 +3,16 @@ import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
+import { Nullable } from '../../types/common';
+import { IOptionsList } from '../../types/detailsPage';
 
 export interface IProps {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours: (IColourList | null)[] | null;
-  trims: (ITrimList | null)[] | null;
-  trim: number | null | undefined;
+  colours: Nullable<IOptionsList[]>;
+  trims: Nullable<IOptionsList[]>;
+  trim?: number | null;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;
   isShowFreeHomeChargerMerch?: boolean;

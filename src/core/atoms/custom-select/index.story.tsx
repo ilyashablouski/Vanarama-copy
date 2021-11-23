@@ -1,19 +1,17 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../../generated/GetTrimAndColor';
-
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import CustomSelect from '.';
+import { IOptionsList } from '../../../types/detailsPage';
+import { getOptionFromList } from '../../../utils/helpers';
+import { Nullable } from '../../../types/common';
 
 storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
   const customSelect = (
     defaultValue: string,
     setChanges: Dispatch<SetStateAction<number | null>>,
-    items: (ITrimList | IColourList | null)[] | null,
+    items: Nullable<IOptionsList[]>,
     placeholder: string,
     isDisabled: boolean,
     key: string,
@@ -21,12 +19,9 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
     <CustomSelect
       radioName={key}
       isDisabled={isDisabled}
-      label={
-        items?.find(item => `${item?.optionId}` === defaultValue)?.label ??
-        placeholder
-      }
+      label={getOptionFromList(items, defaultValue)?.label ?? placeholder}
       selectedValue={
-        items?.some(item => `${item?.optionId}` === defaultValue)
+        `${getOptionFromList(items, defaultValue)?.optionId}` === defaultValue
           ? defaultValue
           : ''
       }
@@ -35,7 +30,7 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
       onChange={option => {
         setChanges(+option.currentTarget.getAttribute('data-id')!);
       }}
-      optionList={items}
+      items={items}
     />
   );
 
@@ -52,7 +47,7 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
       {customSelect(
         'Default Color',
         setColour,
-        null,
+        [],
         'Select Paint Colour',
         false,
         'keyForCustomSelect',
