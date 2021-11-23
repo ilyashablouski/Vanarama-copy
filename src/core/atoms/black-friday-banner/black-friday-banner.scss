@@ -116,6 +116,7 @@
     }
 
     &.-after {
+
       @include mobile-tablet {
         font-size: $font-size-300;
       }
@@ -161,6 +162,18 @@
 
     &:after {
       bottom: 0;
+    }
+
+    &.-extensionBlackFriday {
+      &.-after {
+        color: hsla(43, 94%, 55%, 1);
+
+        @media (max-width: 984px) {
+          & span {
+            color: white;
+          }
+        }
+      }
     }
   }
 
