@@ -1,8 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import config from '../../InsurancePageContainer/config';
 import Skeleton from '../../../components/Skeleton';
-import HeroCurve from '../../../components/Hero/HeroCurve';
 import { GenericPageQuery_genericPage_sections_hero_image as IHeroImage } from '../../../../generated/GenericPageQuery';
 import { HeroHeading, HeroTitle } from '../../../components/Hero';
 
@@ -16,38 +14,23 @@ interface IProps {
   image: IHeroImage | null;
 }
 
-const DerangedHeroSection: React.FC<IProps> = ({ title, body, image }) => {
+const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
   return (
-    <section className="row:bg-hero">
-      <div className="row:hero">
-        <div className="hero--left">
+    <section className="row:bg-hero -deranged">
+      <div className="row:hero -clear-background row:hero--deranged-content">
+        <div className="-justify-content-row">
           <Image
+            width="105"
+            height="135"
             src="/Assets/images/deranged/deranged-logo.png"
-            size="small"
+            size="large"
             alt="Deranged icon"
             plain
           />
-          <div className="row:title">
-            <HeroHeading
-              text={title || ''}
-              color="black"
-              className="hero--deranged-text"
-            />
-            <HeroTitle text={body || ''} className="hero--deranged-text" />
+          <div>
+            <HeroHeading text={title || ''} />
+            <HeroTitle text={body || ''} className="-w-500"/>
           </div>
-        </div>
-        <div className="hero--right hero--deranged-null-order">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            alt="Hero Image"
-            size="expand"
-            src={image?.file?.url || config.heroImage.src}
-            plain
-            className="hero--image hero--deranged-image"
-          />
-        </div>
-        <div className="hero--decals">
-          <HeroCurve />
         </div>
       </div>
     </section>
