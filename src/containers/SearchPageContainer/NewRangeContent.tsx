@@ -58,7 +58,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
 
   const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
     if (isNewPage && isRangePage) {
-      return getSectionsData(treeGetData, pageDatas).map((item: any) => {
+      return getSectionsData(treeGetData, pageDatas)?.map((item: any) => {
         countListAccordion += 1;
         return {
           id: countListAccordion,
