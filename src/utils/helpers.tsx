@@ -8,12 +8,14 @@ import {
 import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { IErrorProps, Nullish } from '../types/common';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../generated/GetTrimAndColor';
+import { IErrorProps, Nullable, Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
+import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaAssets';
+import { IOption, IOptionsList } from '../types/detailsPage';
+import {
+  GetColourAndTrimGroupList_colourGroupList as ColorGroupList,
+  GetColourAndTrimGroupList_trimGroupList as TrimGroupList,
+} from '../../generated/GetColourAndTrimGroupList';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -62,8 +64,8 @@ export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours: (IColourList | null)[] | null;
-  trims: (ITrimList | null)[] | null;
+  colours: Nullable<IOptionsList[]>;
+  trims: Nullable<IOptionsList[]>;
   trim: number | null | undefined;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
@@ -80,6 +82,27 @@ export const createWarrantyText = (
     warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
   } Miles`;
 
+export function getOptionFromList(
+  array: Nullable<IOptionsList[]>,
+  value: Nullish<string>,
+): Nullish<IOption> {
+  return array?.reduce(
+    (acc: Nullish<IOption>, group: Nullish<IOptionsList>) => {
+      const foundValue = group?.options?.find(
+        item => `${item?.optionId}` === value,
+      );
+
+      if (foundValue) {
+        // eslint-disable-next-line no-param-reassign
+        acc = foundValue;
+      }
+
+      return acc;
+    },
+    null,
+  );
+}
+
 export const getOrderList = ({
   quoteByCapId,
   stateVAT,
@@ -91,14 +114,13 @@ export const getOrderList = ({
   roadsideAssistance,
   warrantyDetails,
 }: IOrderList) => {
-  const colourDescription = colours?.find(
-    item => item?.optionId?.toString() === quoteByCapId?.colour,
-  )?.label;
-  const trimDescription = trims?.find(
-    item =>
-      item?.optionId?.toString() === quoteByCapId?.trim ||
-      item?.optionId === trim,
-  )?.label;
+  const colourDescription =
+    getOptionFromList(colours, quoteByCapId?.colour)?.label ?? '';
+
+  const trimDescription =
+    getOptionFromList(trims, quoteByCapId?.trim)?.label ||
+    getOptionFromList(trims, String(trim))?.label ||
+    '';
 
   const orderList: IListItemProps[] = [
     {
@@ -296,6 +318,69 @@ export const convertErrorToProps = (
     message: error.message,
   };
 };
+
+export function addImacaHexToColourList(
+  colorsList: Nullable<Nullable<ColorGroupList>[]>,
+  imacaColors?: Nullable<GetImacaAssets_getImacaAssets_colours[]>,
+): Nullable<IOptionsList[]> {
+  return (
+    colorsList?.map(colorGroup => {
+      return {
+        leadTime: colorGroup?.leadTime || '',
+        options: colorGroup?.colours?.map(colorData => {
+          const imacaColor = imacaColors?.find(
+            item => item.capId === colorData?.optionId,
+          );
+
+          return {
+            ...colorData,
+            hex: imacaColor?.hex || null,
+          };
+        }),
+      };
+    }) || null
+  );
+}
+
+export function transformTrimList(
+  trimsList: Nullable<Nullable<TrimGroupList>[]>,
+): Nullable<IOptionsList[]> {
+  return (
+    trimsList?.map(trimGroup => {
+      return {
+        leadTime: trimGroup?.leadTime || '',
+        options: trimGroup?.trims?.map(trimData => {
+          return {
+            ...trimData,
+          };
+        }),
+      };
+    }) || null
+  );
+}
+
+export function sortByHotOffer(
+  optionsList: Nullable<IOptionsList[]>,
+): Nullable<IOptionsList[]> {
+  const hotOffer: IOptionsList[] = [];
+  const notHotOffer: IOptionsList[] = [];
+
+  (optionsList ?? []).forEach(optionList => {
+    hotOffer.push({
+      leadTime: optionList?.leadTime,
+      hotOffer: true,
+      options: optionList.options?.filter(option => option.hotOffer),
+    });
+
+    notHotOffer.push({
+      leadTime: optionList?.leadTime,
+      hotOffer: false,
+      options: optionList.options?.filter(option => !option.hotOffer),
+    });
+  });
+
+  return [...hotOffer, ...notHotOffer];
+}
 
 export enum FeatureFlags {
   DERANGED = 'DIG-7592',
