@@ -303,6 +303,7 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
+  EXTENSION_BLACK_FRIDAY = 'DIG-8044',
 }
 
 function isFeatureFlagEnabled(
@@ -360,4 +361,19 @@ export const isBlackFridayCampaignEnabled = () => {
   }
 
   return Cookies.get(FeatureFlags.BLACK_FRIDAY) === '1';
+};
+
+const startExtensionBlackFridayTime = Number(new Date(2021, 11, 26, 20, 0, 0));
+const endExtensionBlackFridayTime = Number(new Date(2021, 11, 29, 23, 59, 59));
+export const isExtensionBlackFridayCampaignEnabled = () => {
+  const currentTime = Date.now();
+
+  if (
+    currentTime >= startExtensionBlackFridayTime &&
+    currentTime <= endExtensionBlackFridayTime
+  ) {
+    return true;
+  }
+
+  return Cookies.get(FeatureFlags.EXTENSION_BLACK_FRIDAY) === '1';
 };
