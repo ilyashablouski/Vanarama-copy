@@ -29,9 +29,9 @@ import {
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import {
-  isBlackFridayCampaignEnabled,
-  toPriceFormat,
-} from '../../utils/helpers';
+  isBlackFridayCampaignEnabled, isExtensionBlackFridayCampaignEnabled,
+  toPriceFormat
+} from "../../utils/helpers";
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -611,7 +611,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isBlackFridayCampaignEnabled() ? (
           <BlackFridayBanner
             className="bf-banner--pdp"
-            rightText="Extended To 29th Nov"
+            rightText={
+              isExtensionBlackFridayCampaignEnabled()
+                ? 'Extended To 29th Nov'
+                : 'Ends 26th November'
+            }
           />
         ) : (
           isFreeInsurance && <FreeInsuranceBanner />

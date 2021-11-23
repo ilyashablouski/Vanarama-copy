@@ -116,7 +116,6 @@
     }
 
     &.-after {
-      color: hsla(43, 94%, 55%, 1);
 
       @include mobile-tablet {
         font-size: $font-size-300;
@@ -124,10 +123,6 @@
 
       @media (max-width: 984px) {
         line-height: 1;
-
-        & span {
-          color: white;
-        }
       }
 
       @media (max-width: 364px) {
@@ -167,6 +162,18 @@
 
     &:after {
       bottom: 0;
+    }
+
+    &.-extensionBlackFriday {
+      &.-after {
+        color: hsla(43, 94%, 55%, 1);
+
+        @media (max-width: 984px) {
+          & span {
+            color: white;
+          }
+        }
+      }
     }
   }
 
@@ -506,7 +513,7 @@
         font-weight: $font-weight-regular;
         font-family: $font-family-heading;
         text-align: center;
-        color: hsla(43, 94%, 55%, 1);
+        color: $white;
 
         @include mobile {
           font-size: $font-size-200;

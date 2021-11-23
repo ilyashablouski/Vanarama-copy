@@ -7,6 +7,8 @@ import Heading from 'core/atoms/heading';
 
 import ArrowForward from 'core/assets/icons/ArrowForward';
 import RouterLink from '../../../components/RouterLink';
+import { isExtensionBlackFridayCampaignEnabled } from "../../../utils/helpers";
+import cx from "classnames";
 
 const OFFERS_LINK = {
   label: 'See Our Hot Offers',
@@ -61,7 +63,15 @@ const BlackFridayHeroBanner: React.FC<IProps> = ({ vehicleImageName }) => (
         <Heading className="bf-hero__title" tag="span">
           On Every Vehicle
         </Heading>
-        <Text className="bf-hero__text">Extended To 29th Nov</Text>
+        <Text
+          className={cx('bf-hero__text', {
+            '-extensionBlackFriday': isExtensionBlackFridayCampaignEnabled(),
+          })}
+        >
+          {isExtensionBlackFridayCampaignEnabled()
+            ? 'Extended To 29th Nov'
+            : 'Ends 26th November'}
+        </Text>
         <RouterLink className="bf-hero__link" link={OFFERS_LINK}>
           See Our Hot Offers
           <Icon
