@@ -6,9 +6,9 @@ import Text from 'core/atoms/text/Text';
 import Heading from 'core/atoms/heading';
 
 import ArrowForward from 'core/assets/icons/ArrowForward';
+import cx from 'classnames';
 import RouterLink from '../../../components/RouterLink';
-import { isExtensionBlackFridayCampaignEnabled } from "../../../utils/helpers";
-import cx from "classnames";
+import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
 
 const OFFERS_LINK = {
   label: 'See Our Hot Offers',

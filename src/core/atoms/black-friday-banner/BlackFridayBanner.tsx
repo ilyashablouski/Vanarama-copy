@@ -9,7 +9,7 @@ import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 import { IBaseProps } from 'core/interfaces/base';
-import { isExtensionBlackFridayCampaignEnabled } from "../../../utils/helpers";
+import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
 
 interface IProps extends IBaseProps {
   rightText: string;
