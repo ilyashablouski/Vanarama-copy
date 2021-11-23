@@ -1,21 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
-import Radio from 'core/atoms/radio';
-import FormGroup from 'core/molecules/formgroup';
-import ChevronDown from 'core/assets/icons/ChevronDown';
 import Icon from 'core/atoms/icon';
-
-interface SelectOptionList {
-  optionId: number | null;
-  label: string | null;
-}
+import ChevronDown from 'core/assets/icons/ChevronDown';
+import ChevronUp from 'core/assets/icons/ChevronUp';
+import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
+import { IOptionsList } from '../../../types/detailsPage';
+import { Nullable } from '../../../types/common';
 
 interface CustomSelectInterface {
   label: string;
-  selectedValue: string;
+  selectedValue?: Nullable<string>;
   placeholder: string;
   isDisabled: boolean;
-  optionList: (SelectOptionList | null)[] | null | undefined;
+  items: Nullable<IOptionsList[]>;
   radioName: string;
   className: string;
   invalid?: boolean;
@@ -24,12 +21,12 @@ interface CustomSelectInterface {
   dataUiTestId?: string;
 }
 
-const CustomNewSelect: React.FC<CustomSelectInterface> = ({
+const CustomSelect: React.FC<CustomSelectInterface> = ({
   label,
   selectedValue,
   isDisabled,
   placeholder,
-  optionList,
+  items,
   className,
   radioName,
   onChange,
@@ -62,11 +59,6 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleOptionClick = (event: React.MouseEvent<HTMLElement>) => {
-    onChange((event as unknown) as React.ChangeEvent<HTMLSelectElement>);
-    setShowOptionList(false);
-  };
-
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -90,40 +82,23 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
       </div>
 
       {showOptionList && (
-        <ul className="select-options">
-          {!!optionList &&
-            optionList.map((option: SelectOptionList | null) => (
-              <li
-                data-name={option?.label ?? ''}
-                data-id={option?.optionId ?? 0}
-                key={option?.optionId ?? 0}
-                onClick={handleOptionClick}
-                data-uitestid={`${dataUiTestId}_${option?.label ?? ''}`}
-              >
-                <FormGroup>
-                  <Radio
-                    className="custom-select-option"
-                    name={`customSelect${radioName}`}
-                    id={`${option?.optionId ?? 0}`}
-                    label={option?.label ?? ''}
-                    value={`${option?.optionId ?? 0}`}
-                    onChange={() => {}}
-                    checked={
-                      option ? selectedValue === `${option.optionId}` : false
-                    }
-                    disabled={isDisabled}
-                    dataUiTestId={dataUiTestId}
-                  />
-                </FormGroup>
-              </li>
-            ))}
-        </ul>
+        <CustomColorsList
+          items={items}
+          setShowOptionList={setShowOptionList}
+          isDisabled={isDisabled}
+          selectedValue={selectedValue}
+          radioName={radioName}
+          onChange={onChange}
+        />
       )}
       <span className="icon select--chevron">
-        <Icon icon={<ChevronDown />} className="-stroke -dark" />
+        <Icon
+          icon={showOptionList ? <ChevronUp /> : <ChevronDown />}
+          className="-stroke -dark"
+        />
       </span>
     </div>
   );
 };
 
-export default React.memo(CustomNewSelect);
+export default React.memo(CustomSelect);

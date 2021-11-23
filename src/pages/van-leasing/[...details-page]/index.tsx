@@ -9,9 +9,9 @@ import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import {
   GET_CAR_DATA,
+  GET_COLOUR_AND_TRIM_GROUP_LIST,
   GET_IMACA_ASSETS,
   GET_PDP_CONTENT,
-  GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
 import {
   FinanceTypeEnum,
@@ -36,7 +36,12 @@ import {
   GetVehicleDetailsVariables,
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
-import { toPriceFormat } from '../../../utils/helpers';
+import {
+  addImacaHexToColourList,
+  sortByHotOffer,
+  toPriceFormat,
+  transformTrimList,
+} from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
   GenericPageHeadQuery,
@@ -48,10 +53,6 @@ import {
   genericPagesQueryVariables,
   genericPagesQuery_genericPages as IGenericPages,
 } from '../../../../generated/genericPagesQuery';
-import {
-  GetTrimAndColor,
-  GetTrimAndColorVariables,
-} from '../../../../generated/GetTrimAndColor';
 import {
   GetImacaAssets,
   GetImacaAssetsVariables,
@@ -70,7 +71,12 @@ import {
   GetPdpContent as IGetPdpContentQuery,
   GetPdpContentVariables as IGetPdpContentVariables,
 } from '../../../../generated/GetPdpContent';
-import { IStatusCode } from '../../../types/common';
+import { IStatusCode, Nullable } from '../../../types/common';
+import {
+  GetColourAndTrimGroupList,
+  GetColourAndTrimGroupListVariables,
+} from '../../../../generated/GetColourAndTrimGroupList';
+import { IOptionsList } from '../../../types/detailsPage';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -80,12 +86,12 @@ interface IProps {
   quote?: GetQuoteDetails;
   genericPageHead: GenericPageHeadQuery;
   genericPages: IGenericPages['items'];
-  trim: GetTrimAndColor['trimList'];
-  colour: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -95,12 +101,12 @@ const VanDetailsPage: NextPage<IProps> = ({
   quote,
   genericPageHead,
   genericPages,
-  trim,
-  colour,
   productCard: encodedData,
   pdpContent,
   imacaAssets,
   leaseTypeQuery,
+  colourData,
+  trimData,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -215,8 +221,8 @@ const VanDetailsPage: NextPage<IProps> = ({
         vans={!isPickup}
         pickups={isPickup}
         data={data}
-        trimList={trim}
-        colourList={colour}
+        colourData={colourData}
+        trimData={trimData}
         imacaAssets={imacaAssets}
         quote={quote}
         genericPageHead={genericPageHead}
@@ -328,22 +334,26 @@ export async function getServerSideProps(
       },
     });
 
-    const trimAndColorData = await client.query<
-      GetTrimAndColor,
-      GetTrimAndColorVariables
+    const colorAndTrimData = await client.query<
+      GetColourAndTrimGroupList,
+      GetColourAndTrimGroupListVariables
     >({
-      query: GET_TRIM_AND_COLOR_DATA,
+      query: GET_COLOUR_AND_TRIM_GROUP_LIST,
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
-        trimId:
-          parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10) ||
-          undefined,
-        colourId:
-          parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
-          undefined,
+        colourId: parseInt(
+          quoteDataQuery.data?.quoteByCapId?.colour || '0',
+          10,
+        ),
       },
     });
+
+    const colourData = addImacaHexToColourList(
+      colorAndTrimData?.data.colourGroupList,
+      imacaAssets.data.getImacaAssets?.colours,
+    );
+    const trimData = transformTrimList(colorAndTrimData.data.trimGroupList);
 
     const pageType = pdpVanType(getCarDataQuery.data);
     const { data: pdpContent } = await client.query<
@@ -354,6 +364,7 @@ export async function getServerSideProps(
       variables: {
         vehicleType: pageType,
         isPreview: context?.preview,
+        derivativeId: capId,
       },
     });
 
@@ -397,8 +408,8 @@ export async function getServerSideProps(
         pdpContent: pdpContent || null,
         quote: quoteDataQuery.data,
         query: context.query,
-        trim: trimAndColorData?.data?.trimList || null,
-        colour: trimAndColorData?.data?.colourList || null,
+        colourData: sortByHotOffer(colourData),
+        trimData: sortByHotOffer(trimData),
         imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,

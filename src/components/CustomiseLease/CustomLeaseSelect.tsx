@@ -1,22 +1,23 @@
-import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
-import Radio from 'core/atoms/radio';
-import CustomSelect from 'core/atoms/custom-select';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
-import { Nullish } from '../../types/common';
+import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
+import CustomSelect from 'core/atoms/custom-select/CustomSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { IOptionsList } from '../../types/detailsPage';
+import { Nullable } from '../../types/common';
 
 interface IProps {
   defaultValue: string;
   setChanges: Dispatch<SetStateAction<number | null>>;
-  items: Nullish<(ITrimList | IColourList | null)[]>;
+  items: Nullable<IOptionsList[]>;
   placeholder: string;
   isDisabled: boolean;
   modalElement: HTMLDivElement;
   dataTestId: string;
+  tempValue: Nullable<string>;
+  setTempValue: Dispatch<SetStateAction<Nullable<string>>>;
+  selectedValue?: Nullable<string>;
+  label: string;
   dataUiTestId?: string;
 }
 
@@ -28,23 +29,13 @@ const CustomLeaseSelect = ({
   isDisabled,
   modalElement,
   dataTestId,
+  tempValue,
+  setTempValue,
+  selectedValue,
+  label,
   dataUiTestId,
 }: IProps) => {
-  const [tempValue, setTempValue] = useState<string>(defaultValue);
   const isDesktop = !useMobileViewport();
-
-  const label = useMemo(
-    () =>
-      items?.find(item => `${item?.optionId}` === defaultValue)?.label ?? '',
-    [items, defaultValue],
-  );
-  const selectedValue = useMemo(
-    () =>
-      items?.find(item => `${item?.optionId}` === defaultValue)
-        ? defaultValue
-        : '',
-    [items, defaultValue],
-  );
 
   return (
     <>
@@ -61,7 +52,7 @@ const CustomLeaseSelect = ({
           onChange={option => {
             setChanges(+option.currentTarget.getAttribute('data-id')!);
           }}
-          optionList={items}
+          items={items}
         />
       ) : (
         <CustomSelectInput
@@ -73,24 +64,19 @@ const CustomLeaseSelect = ({
           modalElement={modalElement}
           onCloseModal={() => {
             if (tempValue !== defaultValue) {
-              setChanges(+tempValue);
+              setChanges(Number(tempValue));
             }
           }}
           listRender={
-            <>
-              {items?.map(item => (
-                <Radio
-                  key={item?.optionId || 0}
-                  checked={`${item?.optionId}` === tempValue}
-                  id={item?.label || ''}
-                  value={`${item?.optionId || 0}`}
-                  label={item?.label || ''}
-                  onChange={option => {
-                    setTempValue(option.currentTarget.value);
-                  }}
-                />
-              ))}
-            </>
+            <CustomColorsList
+              items={items}
+              isDisabled={isDisabled}
+              selectedValue={selectedValue}
+              tempValue={Number(tempValue)}
+              onChange={option => {
+                setTempValue(option.currentTarget.getAttribute('data-id')!);
+              }}
+            />
           }
         />
       )}

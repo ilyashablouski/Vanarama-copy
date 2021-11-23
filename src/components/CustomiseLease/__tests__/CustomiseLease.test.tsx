@@ -36,11 +36,34 @@ describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
       mileage: 6000,
-      colour: 13990,
-      trim: 112981,
+      colour: '13990',
+      trim: '112981',
       isStartScreen: true,
-      colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
-      trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
+      colourData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          options: [
+            {
+              hex: null,
+              optionId: 13990,
+              label: 'Solid - Polar white',
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
+      trimData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          options: [
+            {
+              optionId: 104562,
+              label: 'Leather - Cranberry red',
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
       term: 24,
       terms: ['24, 36', '77'],
       upfront: 1,
@@ -156,10 +179,33 @@ describe('<CustomiseLease />', () => {
 
   it('renders correctly', () => {
     const tree = getComponent({
-      trim: 112981,
-      colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
-      trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
-      colour: 13990,
+      trim: String(112981),
+      colour: String(13990),
+      colourData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          options: [
+            {
+              hex: null,
+              optionId: 13990,
+              label: 'Solid - Polar white',
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
+      trimData: [
+        {
+          leadTime: '14-21 Day Delivery',
+          options: [
+            {
+              optionId: 104562,
+              label: 'Leather - Cranberry red',
+              hotOffer: false,
+            },
+          ],
+        },
+      ],
       term: 24,
       terms: ['24, 36', '77'],
       upfront: 1,
@@ -299,8 +345,8 @@ describe('<CustomiseLease />', () => {
     render(
       <CustomiseLease
         {...mocks}
-        trim={112981}
-        colour={13990}
+        trim="112981"
+        colour="13990"
         isStartScreen
         isPlayingLeaseAnimation={false}
         term={24}
@@ -316,13 +362,41 @@ describe('<CustomiseLease />', () => {
         leaseType={LeaseTypeEnum.PERSONAL}
         isModalShowing={false}
         maintenance={false}
-        colourList={[
-          { optionId: 13990, label: 'Solid - Polar white' },
-          { optionId: 13991, label: 'Solid - Polar black' },
+        colourData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            options: [
+              {
+                hex: null,
+                optionId: 13990,
+                label: 'Solid - Polar black',
+                hotOffer: false,
+              },
+              {
+                hex: null,
+                optionId: 13991,
+                label: 'Solid - Polar white',
+                hotOffer: false,
+              },
+            ],
+          },
         ]}
-        trimList={[
-          { optionId: 104562, label: 'Leather - Cranberry red' },
-          { optionId: 104563, label: 'Leather - Cranberry black' },
+        trimData={[
+          {
+            leadTime: '14-21 Day Delivery',
+            options: [
+              {
+                optionId: 104562,
+                label: 'Leather - Cranberry red',
+                hotOffer: false,
+              },
+              {
+                optionId: 104563,
+                label: 'Leather - Cranberry black',
+                hotOffer: false,
+              },
+            ],
+          },
         ]}
         data={{
           quoteByCapId: {
@@ -433,7 +507,7 @@ describe('<CustomiseLease />', () => {
     expect(mocks.setLeaseType).toBeCalled();
 
     fireEvent.click(screen.getByTestId('colour-selector'));
-    fireEvent.click(screen.getByText('Solid - Polar black'));
+    fireEvent.click(screen.getByText('Solid - Polar white'));
     expect(mocks.setColour).toBeCalled();
 
     fireEvent.click(screen.getByTestId('trim-selector'));

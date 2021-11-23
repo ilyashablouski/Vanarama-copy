@@ -6,6 +6,7 @@ import Skeleton from '../../../components/Skeleton';
 import DerangedModal from './components/DerangedModal';
 import { ISelectedVehicle } from './interfaces';
 import { DERANGED_FORM_DEFAULT_VALUES } from './constants';
+import { Nullable } from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -29,13 +30,15 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
     imageSrc: string,
     title: string,
     description: string,
-    conversionId?: number | null,
+    conversionId: Nullable<number>,
+    capId: Nullable<string>,
   ) => {
     const selectedCar = {
       imageSrc,
       title,
       description,
       conversionId,
+      capId: Number(capId),
     };
     setSelectedVehicle(selectedCar);
     setIsShowDrawer(true);

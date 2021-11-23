@@ -29,6 +29,7 @@ import {
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import {
+  getOptionFromList,
   isBlackFridayCampaignEnabled,
   toPriceFormat,
 } from '../../utils/helpers';
@@ -52,7 +53,6 @@ import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
-import { GetTrimAndColor } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
@@ -68,6 +68,7 @@ import {
 import {
   buildAccordionItems,
   filterBannersBySlug,
+  parseQuoteParams,
   removeImacaColoursDuplications,
 } from './helpers';
 import { Nullable } from '../../types/common';
@@ -77,6 +78,7 @@ import { PdpBanners } from '../../models/enum/PdpBanners';
 import FreeInsuranceBanner from './FreeInsuranceBanner';
 import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
+import { IOptionsList } from '../../types/detailsPage';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -144,17 +146,14 @@ interface IDetailsPageProps {
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
   genericPages: IGenericPages['items'];
-  trimList: GetTrimAndColor['trimList'];
-  colourList: GetTrimAndColor['colourList'];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
   imacaAssets: IImacaAssets | null;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
   dataUiTestId?: string;
 }
-
-const parseQuoteParams = (param?: string | null) =>
-  parseInt(param || '', 10) || null;
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
@@ -167,8 +166,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   schema,
   genericPageHead,
   genericPages,
-  trimList,
-  colourList,
+  trimData,
+  colourData,
   productCard,
   leaseTypeQuery,
   pdpContent: pdpContentData,
@@ -479,6 +478,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const independentReview = data?.vehicleDetails?.independentReview;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
 
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
+  );
+
   const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
     text: review?.review ? replaceReview(review.review) : '',
     author: review?.name || '',
@@ -516,14 +519,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }
 
   const onSubmitClickMobile = () => {
-    const colourDescription = colourList?.find(
-      item =>
-        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.colour,
-    )?.label;
-    const trimDescription = trimList?.find(
-      item =>
-        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.trim,
-    )?.label;
+    const colourDescription =
+      getOptionFromList(colourData, leaseScannerData?.quoteByCapId?.colour)
+        ?.label ?? '';
+
+    const trimDescription =
+      getOptionFromList(trimData, leaseScannerData?.quoteByCapId?.trim)
+        ?.label ?? '';
+
     onSubmitClick({
       leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
       lineItems: [
@@ -595,10 +598,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleValue,
     });
   };
-
-  const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
 
   return (
     <>
@@ -776,8 +775,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
-            trimData={trimList}
-            colourData={colourList}
+            trimData={trimData}
+            colourData={colourData}
             setLeadTime={setLeadTime}
             isPlayingLeaseAnimation={isPlayingLeaseAnimation}
             setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
@@ -792,15 +791,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
+
         <LazyLoadComponent
           visibleByDefault={isServerRenderOrAppleDevice}
           placeholder={<span className="-d-block -h-400" />}
         >
           <WhyChooseLeasing warrantyDetails={warrantyDetails} />
-          <WhyChooseVanarama
-            accordionsData={accordionQAData}
-            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
-          />
+          {!!accordionQAData.length && (
+            <WhyChooseVanarama
+              accordionsData={accordionQAData}
+              title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
+            />
+          )}
         </LazyLoadComponent>
         <section className="pdp--reviews" id="reviews">
           <LazyLoadComponent
@@ -836,8 +838,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
-          trimData={trimList}
-          colourData={colourList}
+          trimData={trimData}
+          colourData={colourData}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
           isPlayingLeaseAnimation={isPlayingLeaseAnimation}

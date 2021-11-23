@@ -8,6 +8,10 @@ import {
   GetTrimAndColor,
   GetTrimAndColorVariables,
 } from '../../generated/GetTrimAndColor';
+import {
+  GetTrimGroupList,
+  GetTrimGroupListVariables,
+} from '../../generated/GetTrimGroupList';
 
 export const GET_CAR_DATA = gql`
   query GetVehicleDetails(
@@ -182,6 +186,56 @@ export const GET_TRIM_AND_COLOR_DATA = gql`
   }
 `;
 
+export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
+  query GetColourAndTrimGroupList(
+    $capId: ID!
+    $vehicleType: VehicleTypeEnum!
+    $colourId: Int!
+  ) {
+    colourGroupList(capId: $capId, vehicleType: $vehicleType) {
+      leadTime
+      colours {
+        label
+        optionId
+        hotOffer
+      }
+    }
+    trimGroupList(
+      capId: $capId
+      vehicleType: $vehicleType
+      colourId: $colourId
+    ) {
+      leadTime
+      trims {
+        label
+        optionId
+        hotOffer
+      }
+    }
+  }
+`;
+
+export const GET_TRIM_GROUP_LIST = gql`
+  query GetTrimGroupList(
+    $capId: ID!
+    $vehicleType: VehicleTypeEnum!
+    $colourId: Int!
+  ) {
+    trimGroupList(
+      capId: $capId
+      vehicleType: $vehicleType
+      colourId: $colourId
+    ) {
+      leadTime
+      trims {
+        label
+        optionId
+        hotOffer
+      }
+    }
+  }
+`;
+
 export function useTrimAndColour(
   capId: string,
   vehicleType: VehicleTypeEnum,
@@ -198,6 +252,15 @@ export function useTrimAndColour(
         trimId,
         vehicleType,
       },
+      onCompleted,
+    },
+  );
+}
+
+export function useTrim(onCompleted?: (data: GetTrimGroupList) => void) {
+  return useLazyQuery<GetTrimGroupList, GetTrimGroupListVariables>(
+    GET_TRIM_GROUP_LIST,
+    {
       onCompleted,
     },
   );
@@ -222,8 +285,16 @@ export const GET_IMACA_ASSETS = gql`
 `;
 
 export const GET_PDP_CONTENT = gql`
-  query GetPdpContent($vehicleType: PdpVehicleType!, $isPreview: Boolean) {
-    pdpContent(vehicleType: $vehicleType, isPreview: $isPreview) {
+  query GetPdpContent(
+    $vehicleType: PdpVehicleType!
+    $isPreview: Boolean
+    $derivativeId: Int
+  ) {
+    pdpContent(
+      vehicleType: $vehicleType
+      isPreview: $isPreview
+      derivativeId: $derivativeId
+    ) {
       title
       vehicleType
       content {

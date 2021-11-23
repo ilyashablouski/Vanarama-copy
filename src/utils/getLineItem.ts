@@ -2,19 +2,17 @@ import {
   VehicleTypeEnum,
   LineItemInputObject,
 } from '../../generated/globalTypes';
-import {
-  GetTrimAndColor_trimList as ITrimList,
-  GetTrimAndColor_colourList as IColourList,
-} from '../../generated/GetTrimAndColor';
 import { GetQuoteDetails } from '../../generated/GetQuoteDetails';
 import { Nullable, Nullish } from '../types/common';
 import { getPartnerSlug } from './partnerProperties';
+import { IOptionsList } from '../types/detailsPage';
+import { getOptionFromList } from './helpers';
 
 interface ILineItemParams {
   capId: number;
   quoteData: Nullish<GetQuoteDetails>;
-  colourList: Nullable<Nullable<IColourList>[]>;
-  trimList: Nullable<Nullable<ITrimList>[]>;
+  colourData: Nullable<IOptionsList[]>;
+  trimData: Nullable<IOptionsList[]>;
   vehicleTypeValue: VehicleTypeEnum;
   maintenanceValue: Nullish<boolean>;
   trimValue: Nullable<number>;
@@ -26,8 +24,8 @@ interface ILineItemParams {
 const getLineItem = ({
   capId,
   quoteData,
-  colourList,
-  trimList,
+  colourData,
+  trimData,
   vehicleTypeValue,
   maintenanceValue,
   termValue,
@@ -35,14 +33,14 @@ const getLineItem = ({
   mileageValue,
   upfrontValue,
 }: ILineItemParams): LineItemInputObject => {
-  const colourDescription = colourList?.find(
-    item => item?.optionId?.toString() === quoteData?.quoteByCapId?.colour,
+  const colourDescription = getOptionFromList(
+    colourData,
+    quoteData?.quoteByCapId?.colour,
   )?.label;
-  const trimDescription = trimList?.find(
-    item =>
-      item?.optionId?.toString() === quoteData?.quoteByCapId?.trim ||
-      item?.optionId === trimValue,
-  )?.label;
+
+  const trimDescription =
+    getOptionFromList(trimData, quoteData?.quoteByCapId?.trim)?.label ||
+    getOptionFromList(trimData, String(trimValue))?.label;
 
   const partnerSlug = getPartnerSlug();
 
