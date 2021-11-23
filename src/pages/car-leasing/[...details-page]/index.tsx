@@ -40,7 +40,6 @@ import {
   addImacaHexToColourList,
   sortByHotOffer,
   toPriceFormat,
-  transformTrimList,
 } from '../../../utils/helpers';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 import {
@@ -343,7 +342,6 @@ export async function getServerSideProps(
       colorAndTrimData?.data.colourGroupList,
       imacaAssets.data.getImacaAssets?.colours,
     );
-    const trimData = transformTrimList(colorAndTrimData.data.trimGroupList);
 
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
@@ -396,7 +394,7 @@ export async function getServerSideProps(
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
         colourData: sortByHotOffer(colourData),
-        trimData: sortByHotOffer(trimData),
+        trimData: sortByHotOffer(colorAndTrimData.data.trimGroupList),
       },
     };
   } catch (error) {

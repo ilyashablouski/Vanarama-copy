@@ -18,7 +18,7 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useTrim } from '../../gql/carpage';
 import { Nullable } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
-import { sortByHotOffer, transformTrimList } from '../../utils/helpers';
+import { sortByHotOffer } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -134,8 +134,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
 
   const [getTrim] = useTrim(result => {
-    const transformedTrimList = transformTrimList(result.trimGroupList || []);
-    setTrimList(sortByHotOffer(transformedTrimList));
+    setTrimList(sortByHotOffer(result.trimGroupList));
   });
 
   useEffect(() => {
