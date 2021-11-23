@@ -59,7 +59,8 @@ const DerangedForm: React.FC<IDerangedForm> = ({
         opportunityType: OpportunityTypeEnum.CALLBACK,
         opportunitySubtype: OpportunitySubtypeEnum.DERANGED,
         communicationsConsent: Boolean(values.consent),
-        capId: selectedVehicle.conversionId,
+        capId: selectedVehicle.capId,
+        conversionId: selectedVehicle.conversionId,
       },
     });
   };

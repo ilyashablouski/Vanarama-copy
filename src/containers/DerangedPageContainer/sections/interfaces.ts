@@ -1,6 +1,9 @@
+import { Nullable } from '../../../types/common';
+
 export interface ISelectedVehicle {
   title: string;
   description: string;
   imageSrc: string;
-  conversionId?: number | null;
+  conversionId: Nullable<number>;
+  capId: Nullable<number>;
 }

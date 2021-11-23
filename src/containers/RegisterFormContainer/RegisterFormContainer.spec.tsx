@@ -23,6 +23,8 @@ describe('<RegisterFormContainer />', () => {
     await preloadAll();
   });
 
+  window.scrollTo = jest.fn();
+
   it('should make a server request to register a user when the form is submitted', async () => {
     // ACT
     render(
