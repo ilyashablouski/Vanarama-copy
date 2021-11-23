@@ -6,12 +6,17 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import BlackFridayBanner from './BlackFridayBanner';
 import BlackFridayPlainBanner from './BlackFridayPlainBanner';
+import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
 
 storiesOf(`${atomicDir(base)}/BlackFridayBanner`, module)
   .add('PDP', () => (
     <BlackFridayBanner
       className="bf-banner--pdp"
-      rightText="Ends 26th November"
+      rightText={
+        isExtensionBlackFridayCampaignEnabled()
+          ? 'Extended To 29th Nov'
+          : 'Ends 26th November'
+      }
     />
   ))
   .add('HMC', () => (
