@@ -674,6 +674,16 @@
       );
       overflow: hidden;
 
+      &.-deranged {
+        background: url("/Assets/images/deranged/deranged-desktop.jpg") no-repeat center center;
+        background-size: cover;
+
+        @include mobile375 {
+          background: url("/Assets/images/deranged/deranged-mobile.jpg") no-repeat center center;
+          background-size: cover;
+        }
+      }
+
       // Fix layout shift.
       min-height: 778px;
       @media (min-width: 768px) {
