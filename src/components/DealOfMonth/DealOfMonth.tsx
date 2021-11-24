@@ -35,7 +35,7 @@ const Price = dynamic(() => import('core/atoms/price'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-const CarSharp = dynamic(() => import('core/assets/icons/CarSharp'), {
+const Scale = dynamic(() => import('core/assets/icons/Scale'), {
   ssr: false,
 });
 const HeartSharp = dynamic(() => import('core/assets/icons/HeartSharp'), {
@@ -154,7 +154,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
             iconPosition="before"
             label={
               <>
-                <Icon icon={<CarSharp />} color={compared ? 'teal' : 'dark'} />
+                <Icon icon={<Scale />} color={compared ? 'teal' : 'dark'} />
                 {compared ? 'Remove' : 'Compare'}
               </>
             }
