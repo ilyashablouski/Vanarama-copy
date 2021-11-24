@@ -28,7 +28,7 @@ const ImageV2: FC<IImageProps> = props => {
     e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
   };
 
-  const layout = !width || !height ? 'fill' : 'responsive';
+  const layout = width && height ? 'responsive' : 'fill';
 
   return (
     <div
