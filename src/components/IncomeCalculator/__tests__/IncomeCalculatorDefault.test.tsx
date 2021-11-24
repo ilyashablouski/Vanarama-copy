@@ -15,12 +15,15 @@ const mockOrder = {
   ],
 } as IOrderStorageData;
 
+const isSubmit = false;
+
 const renderComponent = () => {
   render(
     <IncomeCalculator
       expenditure={null}
       onSubmit={jest.fn()}
       order={mockOrder}
+      isSubmit={isSubmit}
     />,
   );
 };

@@ -18,4 +18,5 @@ export interface IBankDetailsProps {
   account?: BankDetailsAccount;
   data?: IBankDetails;
   onSubmit: (values: IBankDetails) => Promise<any>;
+  isSubmit: boolean;
 }

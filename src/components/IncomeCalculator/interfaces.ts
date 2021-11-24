@@ -24,7 +24,7 @@ export interface IIncomeCalculatorFormValues {
 export interface IIncomeCalculatorProps {
   expenditure: IncomeCalculatorExpenditure | null;
   onSubmit: (values: IIncomeCalculatorFormValues) => Promise<any>;
-  isSubmitting?: boolean;
+  isSubmit: boolean;
   order: IOrderStorageData;
 }
 

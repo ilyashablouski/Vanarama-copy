@@ -30,4 +30,5 @@ export interface IProps {
   isEmailDisabled?: boolean;
   onLogInClick?: () => void;
   onRegistrationClick?: () => void;
+  isSubmit: boolean;
 }

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useExpensesData, useUpdateExpenses } from './gql';
 import { IProps } from './interfaces';
@@ -22,6 +22,7 @@ const ExpensesFormContainer: React.FC<IProps> = ({
   onCompleted,
   order,
 }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const { loading, error, data } = useExpensesData(personUuid);
   const [expenses] = useUpdateExpenses(personUuid, onCompleted);
 
@@ -49,13 +50,15 @@ const ExpensesFormContainer: React.FC<IProps> = ({
     <IncomeCalculator
       order={order}
       expenditure={incomeAndExpense}
-      onSubmit={values =>
-        expenses({
+      isSubmit={isSubmit}
+      onSubmit={values => {
+        setIsSubmit(true);
+        return expenses({
           variables: {
             input: formValuesToInput(data.personByUuid!.partyId, values),
           },
-        })
-      }
+        });
+      }}
     />
   );
 };
