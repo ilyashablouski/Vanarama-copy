@@ -218,6 +218,25 @@
   &\:hero {
     background: radial-gradient(#fff, rgba(255, 255, 255, 0) 70%);
 
+    &.-clear-background {
+      background: none;
+    }
+
+    &--deranged-content {
+      margin-top: 100px;
+      margin-bottom: 200px;
+      max-width: 550px;
+
+      @include tablet-desktop {
+        margin-left: 100px;
+      }
+
+      @include mobile375 {
+        margin-top: 180px;
+        margin-bottom: 200px;
+      }
+    }
+
     //fleet page image
     .hero--image.hero--image-fleet {
       padding-top: 34.45%;
