@@ -5,10 +5,6 @@ import {
 } from '../../generated/GetVehicleDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import {
-  GetTrimAndColor,
-  GetTrimAndColorVariables,
-} from '../../generated/GetTrimAndColor';
-import {
   GetTrimGroupList,
   GetTrimGroupListVariables,
 } from '../../generated/GetTrimGroupList';
@@ -168,24 +164,6 @@ export function useCarData(capId: number, vehicleType: VehicleTypeEnum) {
   );
 }
 
-export const GET_TRIM_AND_COLOR_DATA = gql`
-  query GetTrimAndColor(
-    $capId: ID!
-    $colourId: Int
-    $trimId: Int
-    $vehicleType: VehicleTypeEnum!
-  ) {
-    colourList(capId: $capId, vehicleType: $vehicleType, trimId: $trimId) {
-      optionId
-      label
-    }
-    trimList(capId: $capId, vehicleType: $vehicleType, colourId: $colourId) {
-      optionId
-      label
-    }
-  }
-`;
-
 export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
   query GetColourAndTrimGroupList(
     $capId: ID!
@@ -235,27 +213,6 @@ export const GET_TRIM_GROUP_LIST = gql`
     }
   }
 `;
-
-export function useTrimAndColour(
-  capId: string,
-  vehicleType: VehicleTypeEnum,
-  colourId?: number,
-  trimId?: number,
-  onCompleted?: (data: GetTrimAndColor) => void,
-) {
-  return useLazyQuery<GetTrimAndColor, GetTrimAndColorVariables>(
-    GET_TRIM_AND_COLOR_DATA,
-    {
-      variables: {
-        capId,
-        colourId,
-        trimId,
-        vehicleType,
-      },
-      onCompleted,
-    },
-  );
-}
 
 export function useTrim(onCompleted?: (data: GetTrimGroupList) => void) {
   return useLazyQuery<GetTrimGroupList, GetTrimGroupListVariables>(

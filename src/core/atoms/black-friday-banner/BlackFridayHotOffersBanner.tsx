@@ -10,6 +10,7 @@ import EarRightIcon from 'core/assets/icons/black-friday/EarRightLarge';
 
 import { IBaseProps } from 'core/interfaces/base';
 import Image from 'core/atoms/image/Image';
+import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
 
 const BASE_IMAGE_URL = `${process.env.HOST_DOMAIN}/Assets/images/black-friday`;
 export const BANNER_VARIANTS = {
@@ -73,7 +74,9 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
               </Text>
             </div>
             <Text className="bf-banner__subtext" tag="span">
-              Ends 26th November
+              {isExtensionBlackFridayCampaignEnabled()
+                ? 'Extended To 29th Nov'
+                : 'Ends 26th November'}
             </Text>
           </div>
           <div className="bf-banner__group -second">
@@ -81,7 +84,9 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
               <span>£250</span>Cashback
             </Text>
             <Text className="bf-banner__subtext" tag="span">
-              Ends 26th November
+              {isExtensionBlackFridayCampaignEnabled()
+                ? 'Extended To 29th Nov'
+                : 'Ends 26th November'}
             </Text>
           </div>
         </div>
