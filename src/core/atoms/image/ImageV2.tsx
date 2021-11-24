@@ -39,7 +39,6 @@ const ImageV2: FC<IImageProps> = props => {
         '-plain': plain,
         '-inline': inline,
       })}
-      data-testid={dataTestId}
     >
       <Image
         alt={alt}
@@ -48,6 +47,7 @@ const ImageV2: FC<IImageProps> = props => {
         src={src}
         onError={onError}
         layout={layout}
+        data-testid={dataTestId}
       />
     </div>
   );
