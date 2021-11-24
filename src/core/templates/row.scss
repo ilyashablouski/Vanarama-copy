@@ -2014,6 +2014,11 @@
       @include mobile-tablet() {
         background-position: left center;
       }
+
+      &.-extensionBlackFriday {
+        background: url(Assets/images/black-friday/hotOfferExtendedBF.png) no-repeat center center;
+        background-size: cover;
+      }
     }
 
     .free-insurance-text-container {
