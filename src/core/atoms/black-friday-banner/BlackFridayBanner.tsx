@@ -9,10 +9,9 @@ import EarLeftIcon from 'core/assets/icons/black-friday/EarLeft';
 import EarRightIcon from 'core/assets/icons/black-friday/EarRight';
 
 import { IBaseProps } from 'core/interfaces/base';
-import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
 
 interface IProps extends IBaseProps {
-  rightText: string;
+  rightText: string | JSX.Element;
 }
 
 const BlackFridayBanner = ({ className, rightText }: IProps) => (
@@ -32,12 +31,7 @@ const BlackFridayBanner = ({ className, rightText }: IProps) => (
           Black Friday
         </Text>
       </div>
-      <Text
-        className={cx('bf-banner__text', ' -after', {
-          '-extensionBlackFriday ': isExtensionBlackFridayCampaignEnabled(),
-        })}
-        size="large"
-      >
+      <Text className="bf-banner__text -after" size="large">
         <span>£250 Cashback</span>
         {rightText}
       </Text>
