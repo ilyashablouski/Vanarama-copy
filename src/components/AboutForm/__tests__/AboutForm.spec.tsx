@@ -3,6 +3,8 @@ import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import AboutForm from '..';
 
+const isSubmit = false;
+
 describe('<AboutForm />', () => {
   const submit = jest.fn();
   const emailExistenceCheckMock = jest.fn(() => Promise.resolve(undefined));
@@ -15,6 +17,7 @@ describe('<AboutForm />', () => {
         onLogInClick={onLogInClickMock}
         emailValidator={emailExistenceCheckMock}
         submit={submit}
+        isSubmit={isSubmit}
         dropdownData={{
           __typename: 'DropDownType',
           titles: {

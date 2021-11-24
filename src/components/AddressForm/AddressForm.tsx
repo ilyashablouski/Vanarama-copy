@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
@@ -39,11 +39,15 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
   onSubmit,
 }) => {
   const context = useContext(OlafContext);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   return (
     <Formik<IFormValues>
       initialValues={responseToInitialFormValues(addresses)}
-      onSubmit={onSubmit}
+      onSubmit={values => {
+        setIsSubmit(true);
+        onSubmit(values);
+      }}
       validationSchema={validationSchema}
     >
       {formikProps => (
@@ -78,11 +82,11 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
           <Button
             color="primary"
             dataTestId="address-history-submit"
-            disabled={formikProps.isSubmitting}
+            disabled={isSubmit}
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={formikProps.isSubmitting ? 'Saving...' : 'Continue'}
+            label={isSubmit ? 'Saving...' : 'Continue'}
             type="submit"
           />
         </Form>

@@ -39,8 +39,9 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'));
 const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   account,
   onSubmit,
+  isSubmit,
 }) => {
-  const { handleSubmit, register, control, errors, formState, watch } = useForm<
+  const { handleSubmit, register, control, errors, watch } = useForm<
     IBankDetails
   >({
     mode: 'onBlur',
@@ -301,8 +302,8 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
-        disabled={formState.isSubmitting}
+        label={isSubmit ? 'Saving...' : 'Continue'}
+        disabled={isSubmit}
         color="primary"
         icon={<ChevronForwardSharp />}
         iconColor="white"
