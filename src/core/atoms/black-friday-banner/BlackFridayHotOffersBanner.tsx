@@ -38,6 +38,7 @@ interface IProps extends IBaseProps {
 
 const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
   const { classNameMod, vehicleImageName } = BANNER_VARIANTS[variant];
+  const isExtensionBlackFriday = isExtensionBlackFridayCampaignEnabled();
 
   return (
     <div className={cx('bf-banner bf-banner--hot-offers', classNameMod)}>
@@ -73,8 +74,13 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
                 Black Friday
               </Text>
             </div>
-            <Text className="bf-banner__subtext" tag="span">
-              {isExtensionBlackFridayCampaignEnabled()
+            <Text
+              className={cx('bf-banner__subtext', {
+                '-extensionBlackFriday': isExtensionBlackFriday,
+              })}
+              tag="span"
+            >
+              {isExtensionBlackFriday
                 ? 'Extended To 29th Nov'
                 : 'Ends 26th November'}
             </Text>
@@ -84,7 +90,7 @@ const BlackFridayHotOffersBanner = ({ variant }: IProps) => {
               <span>£250</span>Cashback
             </Text>
             <Text className="bf-banner__subtext" tag="span">
-              {isExtensionBlackFridayCampaignEnabled()
+              {isExtensionBlackFriday
                 ? 'Extended To 29th Nov'
                 : 'Ends 26th November'}
             </Text>
