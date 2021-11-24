@@ -6,7 +6,7 @@ export interface IOption {
 }
 
 export interface IOptionsList {
-  leadTime: string;
+  leadTime: Nullable<string>;
   hotOffer?: Nullable<boolean>;
-  options?: IOption[];
+  options?: Nullable<Nullable<IOption>[]>;
 }

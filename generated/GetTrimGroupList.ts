@@ -9,7 +9,7 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetTrimGroupList
 // ====================================================
 
-export interface GetTrimGroupList_trimGroupList_trims {
+export interface GetTrimGroupList_trimGroupList_options {
   label: string | null;
   optionId: number | null;
   hotOffer: boolean | null;
@@ -17,7 +17,7 @@ export interface GetTrimGroupList_trimGroupList_trims {
 
 export interface GetTrimGroupList_trimGroupList {
   leadTime: string | null;
-  trims: (GetTrimGroupList_trimGroupList_trims | null)[] | null;
+  options: (GetTrimGroupList_trimGroupList_options | null)[] | null;
 }
 
 export interface GetTrimGroupList {
