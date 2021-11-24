@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { useCreatePerson, useAboutYouData, useAboutPageDataQuery } from './gql';
@@ -32,6 +32,7 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const person = useMemo(() => {
     if (!isEdit && !isUserAuthenticated()) {
@@ -88,8 +89,10 @@ const AboutFormContainer: React.FC<IProps> = ({
       isEmailDisabled={!!aboutYouData.data?.personByUuid}
       onLogInClick={onLogInClick}
       onRegistrationClick={onRegistrationClick}
-      submit={values =>
-        handleTemporaryRegistrationIfGuest(
+      isSubmit={isSubmit}
+      submit={values => {
+        setIsSubmit(true);
+        return handleTemporaryRegistrationIfGuest(
           values.email,
           values.firstName,
           values.lastName,
@@ -100,8 +103,8 @@ const AboutFormContainer: React.FC<IProps> = ({
               query.data?.registerForTemporaryAccess,
             ),
           )
-          .then(operation => onCompleted?.(operation?.data))
-      }
+          .then(operation => onCompleted?.(operation?.data));
+      }}
     />
   );
 };
