@@ -4,6 +4,7 @@ import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import cx from 'classnames';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -24,6 +25,7 @@ import {
 import {
   convertErrorToProps,
   isBlackFridayCampaignEnabled,
+  isExtensionBlackFridayCampaignEnabled,
 } from '../../utils/helpers';
 import {
   IPageWithData,
@@ -174,7 +176,11 @@ export const OffersPage: NextPage<IProps> = ({
                   : '/car-leasing/free-car-insurance.html',
               }}
             >
-              <div className="free-insurance-background">
+              <div
+                className={cx('free-insurance-background', {
+                  '-extensionBlackFriday': isExtensionBlackFridayCampaignEnabled(),
+                })}
+              >
                 {!isBlackFridayCampaignEnabled() && (
                   <div className="free-insurance-text-container">
                     <Text color="dark" size="xsmall">
