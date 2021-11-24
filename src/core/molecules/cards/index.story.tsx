@@ -21,8 +21,10 @@ import ReviewCard from './ReviewCard/ReviewCard';
 import ProductCard from './ProductCard/ProductCard';
 import OlafCard from './OlafCard/OlafCard';
 import OrderCard from './OrderCard/OrderCard';
+import BlogCarouselCard from './BlogCarouselCard/BlogCarouselCard';
 
 import placeholderImage from '../../assets/images/vehicle_image_placeholder.png';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 const FEATURES = [
   {
@@ -580,7 +582,6 @@ storiesOf(`${atomicDir(base)}/Card`, module)
       />
     </div>
   ))
-
   .add('Optimised', () => (
     <div className="row:cards-3col">
       <Card
@@ -589,6 +590,22 @@ storiesOf(`${atomicDir(base)}/Card`, module)
         }}
         imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
         optimisedHost="https://dev.vanarama-nonprod.com"
+      />
+    </div>
+  ))
+  .add('Blog Carousel Card', () => (
+    <div className="row:cards-3col">
+      <BlogCarouselCard
+        imageSrc="https://images.autorama.co.uk/Photos/Vehicles/161658/teslamodel30519(3).jpg"
+        deliveryTime="4-8 WEEKS DELIVERY"
+        isHotOffer
+        capId="12345"
+        leaseType={LeaseTypeEnum.PERSONAL}
+        price={245.95}
+        href="some-url"
+        details="1.0 TSI 110 DESIGN 5 DR"
+        score={3.5}
+        carTitle="Volkswagen T-Roc Hatchback"
       />
     </div>
   ));
