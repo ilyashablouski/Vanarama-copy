@@ -316,10 +316,12 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       </section>
       {featured && <PartnershipFeatureSection featured={featured} />}
       {featured1 && <PartnershipFeatureSection featured={featured1} />}
-      <WhyLeaseWithVanaramaTiles
-        title="Why Lease With Vanarama"
-        tiles={tiles || []}
-      />
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          title="Why Lease With Vanarama"
+          tiles={tiles || []}
+        />
+      )}
     </>
   );
 };

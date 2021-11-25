@@ -28,6 +28,10 @@ const PartnershipFeatureSection = ({
   const RouterLink = dynamic(() => import('../../RouterLink/RouterLink'));
   const { title, titleTag, body, image, video, iconList } = featured;
 
+  if (!body || title) {
+    return null;
+  }
+
   return (
     <section className={`row:${getFeaturedClassPartial(featured)}`}>
       {video ? (
