@@ -22,7 +22,7 @@ interface IBlogCarouselCard {
   imageSrc: string;
 }
 
-const creatExtras = (deliveryTime: string, isHotOffer: boolean) => {
+const createExtras = (deliveryTime: string, isHotOffer: boolean) => {
   const extras = [];
 
   if (isHotOffer) {
@@ -31,7 +31,7 @@ const creatExtras = (deliveryTime: string, isHotOffer: boolean) => {
     );
   }
 
-  if (isHotOffer) {
+  if (deliveryTime) {
     extras.push(<CardLabel text={deliveryTime} className="transparent" />);
   }
 
@@ -51,16 +51,16 @@ const BlogCarouselCard: FC<IBlogCarouselCard> = props => {
     carTitle,
   } = props;
 
-  const extras = creatExtras(deliveryTime, isHotOffer);
+  const extras = createExtras(deliveryTime, isHotOffer);
   const title = {
     title: '',
     link: (
       <RouterLink
         link={{
-          href: '',
+          href,
           label: '',
         }}
-        onClick={() => {}}
+        onClick={() => sessionStorage.setItem('capId', capId || '')}
         className="heading"
         classNames={{ size: 'large', color: 'black' }}
       >
