@@ -21,8 +21,8 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
-  trimSlug,
   countOfUniqueQueries,
+  trimSlug,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import {
@@ -160,8 +160,7 @@ export async function getServerSideProps(
   try {
     const contextData = {
       req: {
-        url: context.req?.url || '',
-        resolvedUrl: trimSlug(context.resolvedUrl || ''),
+        url: context.resolvedUrl || '',
       },
       query: { ...context.query },
     };
@@ -170,7 +169,7 @@ export async function getServerSideProps(
       client,
       contextData,
       true,
-      NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
+      NEW_RANGE_SLUGS.includes(trimSlug(contextData.req?.url || ''))
         ? 'isNewRangePage'
         : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
@@ -312,7 +311,7 @@ export async function getServerSideProps(
           ?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
-        newRangePageSlug: contextData.req?.resolvedUrl || '',
+        newRangePageSlug: trimSlug(contextData.req?.url || ''),
       },
     };
   } catch (error) {
