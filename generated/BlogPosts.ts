@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: BlogPosts
 // ====================================================
-
 
 export interface BlogPosts_blogPosts_metaData {
   title: string | null;

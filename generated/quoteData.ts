@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL fragment: quoteData
 // ====================================================
-
 
 export interface quoteData_nextBestPrice {
   maintained: number | null;

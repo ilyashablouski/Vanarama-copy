@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: GetVatDetailsQuery
 // ====================================================
-
 
 export interface GetVatDetailsQuery_companyByUuid_turnoverPercentageOutsideUk {
   country: string;

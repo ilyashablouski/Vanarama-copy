@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { SoleTraderCompanyInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateSoleTraderBankDetailsMutation
 // ====================================================
-
 
 export interface UpdateSoleTraderBankDetailsMutation_createUpdateSoleTraderCompany_bankAccounts {
   __typename: "BankAccountType";

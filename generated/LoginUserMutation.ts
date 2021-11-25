@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL mutation operation: LoginUserMutation
 // ====================================================
-
 
 export interface LoginUserMutation_loginV2 {
   idToken: string | null;

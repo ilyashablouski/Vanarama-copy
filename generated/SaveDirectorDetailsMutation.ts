@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { CompanyDirectorInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveDirectorDetailsMutation
 // ====================================================
-
 
 export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates_addresses {
   city: string;

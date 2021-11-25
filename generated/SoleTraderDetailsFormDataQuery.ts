@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: SoleTraderDetailsFormDataQuery
 // ====================================================
-
 
 export interface SoleTraderDetailsFormDataQuery_allDropDowns_titles {
   __typename: "DropDownDataType";
