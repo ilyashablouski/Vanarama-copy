@@ -11,3 +11,8 @@ export interface IBlogCategory {
   data: BlogPosts | undefined;
   pageNumber?: Nullable<number>;
 }
+
+export enum CarouselPositionEnum {
+  aboveFooter = 'Above Footer',
+  withinBody = 'Within Body',
+}

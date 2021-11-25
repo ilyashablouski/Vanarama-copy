@@ -13,11 +13,11 @@ import Icon from 'core/atoms/icon';
 
 SwiperCore.use([Navigation, Pagination]);
 
-const navigationOptions: NavigationOptions = {
+const navigationDefaultOptions: NavigationOptions = {
   prevEl: `.swiper-prev`,
   nextEl: `.swiper-next`,
 };
-const paginationOptions: PaginationOptions = {
+const paginationDefaultOptions: PaginationOptions = {
   el: '.swiper-pagination',
   type: 'bullets',
   clickable: true,
@@ -33,6 +33,9 @@ function CarouselSwiper({
   className,
   children,
   onSlideChange,
+  paginationComponent,
+  navigationOptions = navigationDefaultOptions,
+  paginationOptions = paginationDefaultOptions,
 }: ICarouselProps) {
   return (
     <div className={cx('carousel', className)}>
@@ -47,21 +50,27 @@ function CarouselSwiper({
         onSlideChange={onSlideChange}
       >
         {children}
-        <div
-          className={cx('carousel--nav', {
-            '-disabled': disableNavigation,
-          })}
-        >
-          <button className="carousel--nav-arrow swiper-prev" type="button">
-            <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
-          </button>
+        {paginationComponent || (
+          <div
+            className={cx('carousel--nav', {
+              '-disabled': disableNavigation,
+            })}
+          >
+            <button className="carousel--nav-arrow swiper-prev" type="button">
+              <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
+            </button>
 
-          <div className="swiper-pagination" />
+            <div className="swiper-pagination" />
 
-          <button className="carousel--nav-arrow swiper-next" type="button">
-            <Icon icon={<ArrowForwardSharp />} color="darker" size="regular" />
-          </button>
-        </div>
+            <button className="carousel--nav-arrow swiper-next" type="button">
+              <Icon
+                icon={<ArrowForwardSharp />}
+                color="darker"
+                size="regular"
+              />
+            </button>
+          </div>
+        )}
       </Swiper>
     </div>
   );

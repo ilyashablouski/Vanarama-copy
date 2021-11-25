@@ -41,6 +41,9 @@
   :not([class*='row:bg-']) + .footer {
     margin-top: var(--page-gap);
   }
+  :not([class*='row:bg-']) + .blog-carousel-wrapper ~ .footer {
+    margin-top: 0;
+  }
 }
 
 .banner {
