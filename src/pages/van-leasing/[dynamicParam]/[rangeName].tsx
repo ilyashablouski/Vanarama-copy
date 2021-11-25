@@ -125,7 +125,7 @@ export async function getServerSideProps(
   try {
     const contextData = {
       req: {
-        url: context.req?.url || '',
+        url: context.resolvedUrl || '',
       },
       query: { ...context.query },
     };
