@@ -45,6 +45,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
   onSubmit,
   order,
+  isSubmit,
 }) => {
   const validationSchema = useMemo(
     () =>
@@ -59,7 +60,6 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
     watch,
     errors,
     setValue,
-    formState,
     triggerValidation,
   } = useForm<IFormValues>({
     mode: 'onBlur',
@@ -370,8 +370,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
       <FormGroup>
         <Button
           type="submit"
-          label={formState.isSubmitting ? 'Saving...' : 'Continue'}
-          disabled={formState.isSubmitting}
+          label={isSubmit ? 'Saving...' : 'Continue'}
+          disabled={isSubmit}
           color="teal"
           icon={<ChevronForwardSharp />}
           iconColor="white"

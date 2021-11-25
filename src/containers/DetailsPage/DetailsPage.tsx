@@ -612,9 +612,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <BlackFridayBanner
             className="bf-banner--pdp"
             rightText={
-              isExtensionBlackFridayCampaignEnabled()
-                ? 'Extended To 29th Nov'
-                : 'Ends 26th November'
+              isExtensionBlackFridayCampaignEnabled() ? (
+                <span className="-extensionBlackFriday">
+                  Extended To 29th Nov
+                </span>
+              ) : (
+                'Ends 26th November'
+              )
             }
           />
         ) : (

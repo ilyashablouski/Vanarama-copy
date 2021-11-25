@@ -231,7 +231,7 @@ export const NEW_RANGE_SLUGS = [
   'car-leasing/bmw/x1',
   'car-leasing/mini/countryman',
   'car-leasing/audi/q8',
-  'car-leasing/volkswagen/id-3',
+  'car-leasing/volkswagen/id3',
   'car-leasing/tesla/model-s',
   'car-leasing/skoda/octavia',
   'car-leasing/audi/a7',

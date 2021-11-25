@@ -41,6 +41,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   isEmailDisabled,
   onLogInClick,
   onRegistrationClick,
+  isSubmit,
 }) => {
   const defaultValues = useMemo(() => responseToInitialFormValues(person), [
     person,
@@ -60,7 +61,6 @@ const AboutForm: FCWithFragments<IProps> = ({
     register,
     triggerValidation,
     watch,
-    formState,
     reset,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
@@ -370,9 +370,9 @@ const AboutForm: FCWithFragments<IProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={isSubmit ? 'Saving...' : 'Continue'}
         color="primary"
-        disabled={formState.isSubmitting}
+        disabled={isSubmit}
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"

@@ -39,7 +39,10 @@ const CustomColorsList: React.FC<IProps> = ({
     }
   };
 
-  const renderOptions = (hotOffer: Nullish<boolean>, leadTime: string) => {
+  const renderOptions = (
+    hotOffer: Nullish<boolean>,
+    leadTime: Nullable<string>,
+  ) => {
     if (hotOffer) {
       return (
         <>
@@ -50,11 +53,11 @@ const CustomColorsList: React.FC<IProps> = ({
             className="option__icon"
           />
           <span className="option__title option__title-offer">HOT OFFER</span>
-          <span className="option__title">{leadTime}</span>
+          <span className="option__title">{leadTime ?? ''}</span>
         </>
       );
     }
-    if (leadTime.toLowerCase().includes('factory order')) {
+    if (leadTime?.toLowerCase().includes('factory order')) {
       return (
         <span className="option__title option__title-stock">FACTORY ORDER</span>
       );
@@ -62,7 +65,7 @@ const CustomColorsList: React.FC<IProps> = ({
     return (
       <>
         <span className="option__title option__title-stock">IN STOCK</span>
-        <span className="option__title">{leadTime}</span>
+        <span className="option__title">{leadTime ?? ''}</span>
       </>
     );
   };
@@ -77,12 +80,12 @@ const CustomColorsList: React.FC<IProps> = ({
             </div>
             {options?.map((option, index) => (
               <li
-                data-name={option.label ?? ''}
-                data-id={option.optionId ?? 0}
+                data-name={option?.label ?? ''}
+                data-id={option?.optionId ?? 0}
                 onClick={handleOptionClick}
-                key={option.optionId ?? index}
+                key={option?.optionId ?? index}
               >
-                {option.hex ? (
+                {option?.hex ? (
                   <CustomColorItem
                     option={option}
                     checked={checkValue(option.optionId)}
@@ -92,11 +95,11 @@ const CustomColorsList: React.FC<IProps> = ({
                     <Radio
                       className="custom-select-option"
                       name={`customSelect${radioName}`}
-                      id={`${option.optionId ?? 0}`}
-                      label={option.label ?? ''}
-                      value={`${option.optionId ?? 0}`}
+                      id={`${option?.optionId ?? 0}`}
+                      label={option?.label ?? ''}
+                      value={`${option?.optionId ?? 0}`}
                       onChange={() => {}}
-                      checked={checkValue(option.optionId)}
+                      checked={checkValue(option?.optionId)}
                       disabled={isDisabled}
                     />
                   </FormGroup>

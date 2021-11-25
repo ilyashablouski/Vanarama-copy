@@ -9,7 +9,7 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetColourAndTrimGroupList
 // ====================================================
 
-export interface GetColourAndTrimGroupList_colourGroupList_colours {
+export interface GetColourAndTrimGroupList_colourGroupList_options {
   label: string | null;
   optionId: number | null;
   hotOffer: boolean | null;
@@ -17,10 +17,10 @@ export interface GetColourAndTrimGroupList_colourGroupList_colours {
 
 export interface GetColourAndTrimGroupList_colourGroupList {
   leadTime: string | null;
-  colours: (GetColourAndTrimGroupList_colourGroupList_colours | null)[] | null;
+  options: (GetColourAndTrimGroupList_colourGroupList_options | null)[] | null;
 }
 
-export interface GetColourAndTrimGroupList_trimGroupList_trims {
+export interface GetColourAndTrimGroupList_trimGroupList_options {
   label: string | null;
   optionId: number | null;
   hotOffer: boolean | null;
@@ -28,7 +28,7 @@ export interface GetColourAndTrimGroupList_trimGroupList_trims {
 
 export interface GetColourAndTrimGroupList_trimGroupList {
   leadTime: string | null;
-  trims: (GetColourAndTrimGroupList_trimGroupList_trims | null)[] | null;
+  options: (GetColourAndTrimGroupList_trimGroupList_options | null)[] | null;
 }
 
 export interface GetColourAndTrimGroupList {

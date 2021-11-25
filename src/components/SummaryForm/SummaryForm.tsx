@@ -74,6 +74,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
   orderId,
   onComplete,
 }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
@@ -224,9 +225,10 @@ const SummaryForm: FCWithFragments<IProps> = ({
           color="teal"
           label="Submit"
           dataTestId="olaf_summary_continue_buttton"
-          disabled={isSubmitDisabled}
+          disabled={isSubmit || isSubmitDisabled}
           onClick={() => {
-            handleSubmit();
+            setIsSubmit(true);
+            return handleSubmit();
           }}
         />
       </Form>

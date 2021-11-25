@@ -172,7 +172,7 @@ export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
   ) {
     colourGroupList(capId: $capId, vehicleType: $vehicleType) {
       leadTime
-      colours {
+      options {
         label
         optionId
         hotOffer
@@ -184,7 +184,7 @@ export const GET_COLOUR_AND_TRIM_GROUP_LIST = gql`
       colourId: $colourId
     ) {
       leadTime
-      trims {
+      options {
         label
         optionId
         hotOffer
@@ -205,7 +205,7 @@ export const GET_TRIM_GROUP_LIST = gql`
       colourId: $colourId
     ) {
       leadTime
-      trims {
+      options {
         label
         optionId
         hotOffer

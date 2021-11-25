@@ -2,6 +2,11 @@
 .hero--left {
   position: relative;
   background: radial-gradient(#ffffff, transparent 50%);
+
+  &.-clear-background {
+    background: none;
+  }
+
   .hero--image {
     margin-top: 0 !important;
     position: relative;

@@ -9,6 +9,13 @@ const fetchRewritesList = require('../rewrites');
 module.exports = {
   // Next.
   next: {
+    images: {
+      domains: [
+        'images.ctfassets.net',
+        process.env.HOST_DOMAIN.replace('https://', ''),
+        'img.youtube.com',
+      ],
+    },
     // Env vars.
     env: {
       ENV: process.env.ENV,

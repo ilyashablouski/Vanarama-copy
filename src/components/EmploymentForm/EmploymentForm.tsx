@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import FCWithFragments from '../../utils/FCWithFragments';
 import EmploymentFormFieldArray from './EmploymentFormFieldArray';
@@ -39,10 +39,15 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   onSubmit,
 }) => {
   const context = useContext(OlafContext);
+  const [isSubmit, setIsSubmit] = useState(false);
+
   return (
     <Formik<IFormValues>
       initialValues={responseToInitialFormValues(employments)}
-      onSubmit={onSubmit}
+      onSubmit={values => {
+        setIsSubmit(true);
+        onSubmit(values);
+      }}
       validationSchema={validationSchema}
     >
       {formikProps => (
@@ -80,8 +85,8 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            disabled={formikProps.isSubmitting}
-            label={formikProps.isSubmitting ? 'Saving...' : 'Continue'}
+            disabled={isSubmit}
+            label={isSubmit ? 'Saving...' : 'Continue'}
             type="submit"
           />
         </Form>

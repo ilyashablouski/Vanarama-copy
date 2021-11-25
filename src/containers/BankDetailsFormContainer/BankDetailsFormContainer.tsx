@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useBankDetails, useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
@@ -26,6 +26,7 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
   personUuid,
   onCompleted,
 }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const { loading, error, data } = useBankDetails(personUuid);
   const [createUpdatePerson] = useCreatePerson();
   const [updateBankDetails] = useUpdateBankDetails(personUuid, onCompleted);
@@ -54,8 +55,10 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
     <BankDetails
       // `PersonType.bankAccount`s is an array, so just take the first one???
       account={firstAccount}
-      onSubmit={values =>
-        createUpdatePerson({
+      isSubmit={isSubmit}
+      onSubmit={values => {
+        setIsSubmit(true);
+        return createUpdatePerson({
           variables: {
             input: {
               emailAddress: deleteTypenameFromEmailAddress(data),
@@ -70,8 +73,8 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
               input: formValuesToInput(data.personByUuid!.partyId, values),
             },
           }),
-        )
-      }
+        );
+      }}
     />
   );
 };
