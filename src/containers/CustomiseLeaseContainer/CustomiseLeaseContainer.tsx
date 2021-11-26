@@ -18,7 +18,11 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useTrim } from '../../gql/carpage';
 import { Nullable } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
-import { sortByHotOffer } from '../../utils/helpers';
+import {
+  checkIsHotOffer,
+  isFactoryOrderSelect,
+  isHotOfferSelect,
+} from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -90,6 +94,12 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   warrantyDetails,
   dataUiTestId,
 }) => {
+  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean>(
+    isFactoryOrderSelect(colourData, String(colour)),
+  );
+  const [isHotOffer, setIsHotOffer] = useState<boolean>(
+    isHotOfferSelect(colourData, String(colour)),
+  );
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
   >(quote || null);
@@ -102,7 +112,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
-  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(trimData);
+  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(
+    checkIsHotOffer(trimData, isHotOffer, isFactoryOrder),
+  );
 
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -114,10 +126,22 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [isStartScreen, setIsStartScreen] = useState<boolean>(true);
   const isMobile = useMobileViewport();
+  const [getTrim] = useTrim(result => {
+    setTrimList(
+      checkIsHotOffer(result.trimGroupList, isHotOffer, isFactoryOrder),
+    );
+  });
   const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
     updatedQuote => {
       setIsRestoreLeaseSettings(false);
       setQuoteData(updatedQuote);
+      getTrim({
+        variables: {
+          capId: `${capId}`,
+          vehicleType,
+          colourId: colour as number,
+        },
+      });
     },
     () =>
       setQuoteData(
@@ -132,10 +156,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         ),
       ),
   );
-
-  const [getTrim] = useTrim(result => {
-    setTrimList(sortByHotOffer(result.trimGroupList));
-  });
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -174,12 +194,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     return () => window?.removeEventListener('scroll', scrollChange);
   }, [isMobile]);
 
-  useFirstRenderEffect(() => {
-    getTrim({
-      variables: { capId: `${capId}`, vehicleType, colourId: colour as number },
-    });
-  }, [colour]);
-
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;
   const currentQuoteColour = quoteData?.quoteByCapId?.colour;
 
@@ -204,13 +218,30 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     leaseType,
     upfront,
     mileage,
-    colour,
     term,
     trim,
     getQuoteData,
     vehicleType,
     capId,
   ]);
+
+  useFirstRenderEffect(() => {
+    getQuoteData({
+      variables: {
+        capId: `${capId}`,
+        vehicleType,
+        mileage,
+        term,
+        upfront,
+        leaseType,
+        colour: colour || parseQuoteParams(currentQuoteColour),
+      },
+    });
+
+    if (!isRestoreLeaseSettings) {
+      setIsPlayingLeaseAnimation(true);
+    }
+  }, [colour]);
 
   const lineItemData = getLineItem({
     vehicleTypeValue: vehicleType,
@@ -348,6 +379,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
         roadsideAssistance={roadsideAssistance}
         warrantyDetails={warrantyDetails}
+        quoteTrim={quoteData.quoteByCapId?.trim}
+        setIsHotOffer={setIsHotOffer}
+        setIsFactoryOrder={setIsFactoryOrder}
       />
       <Modal
         className="-mt-000 callBack"

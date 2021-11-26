@@ -19,6 +19,8 @@ interface IProps {
   selectedValue?: Nullable<string>;
   label: string;
   dataUiTestId?: string;
+  setIsHotOffer?: Dispatch<SetStateAction<boolean>>;
+  setIsFactoryOrder?: Dispatch<SetStateAction<boolean>>;
 }
 
 const CustomLeaseSelect = ({
@@ -34,8 +36,24 @@ const CustomLeaseSelect = ({
   selectedValue,
   label,
   dataUiTestId,
+  setIsHotOffer,
+  setIsFactoryOrder,
 }: IProps) => {
   const isDesktop = !useMobileViewport();
+
+  function handleOnChange(option: React.ChangeEvent<HTMLSelectElement>) {
+    setChanges(+option.currentTarget.getAttribute('data-id')!);
+    if (setIsHotOffer) {
+      setIsHotOffer(
+        Boolean(+option.currentTarget.getAttribute('data-onoffer')!),
+      );
+    }
+    if (setIsFactoryOrder) {
+      setIsFactoryOrder(
+        Boolean(+option.currentTarget.getAttribute('data-isfactory')!),
+      );
+    }
+  }
 
   return (
     <>
@@ -49,10 +67,8 @@ const CustomLeaseSelect = ({
           selectedValue={selectedValue}
           placeholder={placeholder}
           className="-fullwidth"
-          onChange={option => {
-            setChanges(+option.currentTarget.getAttribute('data-id')!);
-          }}
           items={items}
+          onChange={option => handleOnChange(option)}
         />
       ) : (
         <CustomSelectInput

@@ -149,6 +149,9 @@ const CustomiseLease = ({
   isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
+  setIsHotOffer,
+  setIsFactoryOrder,
+  quoteTrim,
 }: IProps) => {
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -219,18 +222,23 @@ const CustomiseLease = ({
   );
 
   const trimLabel = useMemo(
-    () => getOptionFromList(trimData, trim)?.label ?? '',
-    [trimData, trim],
+    () =>
+      getOptionFromList(trimData, trim)?.label ??
+      getOptionFromList(trimData, quoteTrim)?.label ??
+      '',
+    [trimData, trim, quoteTrim],
   );
 
   const selectedColorValue = useMemo(
-    () => `${getOptionFromList(colourData, colour)?.optionId}` ?? '',
+    () => getOptionFromList(colourData, colour)?.optionId ?? '',
     [colourData, colour],
   );
 
   const selectedTrimValue = useMemo(
-    () => `${getOptionFromList(trimData, trim)?.optionId}` ?? '',
-    [trimData, trim],
+    () =>
+      getOptionFromList(trimData, trim)?.optionId ??
+      getOptionFromList(trimData, quoteTrim)?.optionId,
+    [trimData, trim, quoteTrim],
   );
 
   const setSessionValues = () => {
@@ -336,26 +344,28 @@ const CustomiseLease = ({
       <CustomLeaseSelect
         tempValue={tempColorValue}
         setTempValue={setTempColorValue}
-        defaultValue={`${colour}`}
+        defaultValue={String(colour)}
         setChanges={setColour}
         items={colourData}
-        selectedValue={selectedColorValue}
-        label={colorLabel ?? ''}
+        selectedValue={String(selectedColorValue)}
+        label={colorLabel}
         dataTestId="colour-selector"
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
         dataUiTestId="details-page_custom-lease-select_colour"
+        setIsHotOffer={setIsHotOffer}
+        setIsFactoryOrder={setIsFactoryOrder}
       />
 
       <CustomLeaseSelect
         tempValue={tempTrimValue}
         setTempValue={setTempTrimValue}
-        defaultValue={`${trim}`}
+        defaultValue={String(trim)}
         setChanges={setTrim}
-        selectedValue={selectedTrimValue}
+        selectedValue={String(selectedTrimValue)}
         items={trimData}
-        label={trimLabel ?? ''}
+        label={trimLabel}
         dataTestId="trim-selector"
         placeholder="Select Interior:"
         isDisabled={isPlayingLeaseAnimation}

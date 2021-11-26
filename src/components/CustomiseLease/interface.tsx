@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo,
@@ -75,4 +75,7 @@ export interface IProps {
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
+  setIsHotOffer: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsFactoryOrder: React.Dispatch<React.SetStateAction<boolean>>;
+  quoteTrim?: Nullable<string>;
 }

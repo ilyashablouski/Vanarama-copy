@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import CustomColorItem from 'core/atoms/custom-select/components/CustomColorItem';
 import { IOptionsList } from '../../../../types/detailsPage';
 import { Nullable, Nullish } from '../../../../types/common';
+import { LeadTimeList } from '../../../../utils/helpers';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
@@ -43,6 +44,11 @@ const CustomColorsList: React.FC<IProps> = ({
     hotOffer: Nullish<boolean>,
     leadTime: Nullable<string>,
   ) => {
+    if (leadTime?.includes(LeadTimeList.FACTORY_ORDER)) {
+      return (
+        <span className="option__title option__title-stock">FACTORY ORDER</span>
+      );
+    }
     if (hotOffer) {
       return (
         <>
@@ -55,11 +61,6 @@ const CustomColorsList: React.FC<IProps> = ({
           <span className="option__title option__title-offer">HOT OFFER</span>
           <span className="option__title">{leadTime ?? ''}</span>
         </>
-      );
-    }
-    if (leadTime?.toLowerCase().includes('factory order')) {
-      return (
-        <span className="option__title option__title-stock">FACTORY ORDER</span>
       );
     }
     return (
@@ -82,6 +83,10 @@ const CustomColorsList: React.FC<IProps> = ({
               <li
                 data-name={option?.label ?? ''}
                 data-id={option?.optionId ?? 0}
+                data-onoffer={option?.hotOffer ? 1 : 0}
+                data-isfactory={
+                  leadTime?.includes(LeadTimeList.FACTORY_ORDER) ? 1 : 0
+                }
                 onClick={handleOptionClick}
                 key={option?.optionId ?? index}
               >
