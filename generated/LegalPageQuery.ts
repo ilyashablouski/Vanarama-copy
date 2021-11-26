@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: LegalPageQuery
 // ====================================================
-
 
 export interface LegalPageQuery_genericPage_metaData {
   title: string | null;

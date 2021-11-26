@@ -53,13 +53,14 @@ const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts: encodedData }) => {
   return (
     <>
       <BlogPostContainer
+        carouselPosition={data?.blogPost.carouselPosition}
+        carouselFilters={data?.blogPost.productFilter}
         articles={articles}
         body={body}
         name={name}
         image={image}
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
-        isShowCarousel
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />

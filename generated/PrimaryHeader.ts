@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: PrimaryHeader
 // ====================================================
-
 
 export interface PrimaryHeader_primaryHeader_links {
   text: string | null;

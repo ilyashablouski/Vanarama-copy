@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: MyAccount
 // ====================================================
-
 
 export interface MyAccount_myAccountDetailsByPersonUuid_address {
   lineOne: string;

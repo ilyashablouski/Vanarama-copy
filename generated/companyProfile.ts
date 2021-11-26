@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: companyProfile
 // ====================================================
-
 
 export interface companyProfile_companyProfile_sicData {
   sicCode: string;

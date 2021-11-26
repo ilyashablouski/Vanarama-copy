@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
-
 
 export enum ConversionTypeEnum {
   DERANGED = "DERANGED",
@@ -951,4 +949,3 @@ export interface VehicleToCompare {
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
-

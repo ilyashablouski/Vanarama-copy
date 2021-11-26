@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL fragment: GenericPageQueryTiles
 // ====================================================
-
 
 export interface GenericPageQueryTiles_tiles_link {
   text: string | null;

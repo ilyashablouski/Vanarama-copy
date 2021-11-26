@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: GetStoredPerson
 // ====================================================
-
 
 export interface GetStoredPerson_storedPerson_emailAddresses {
   value: string;

@@ -593,19 +593,28 @@ storiesOf(`${atomicDir(base)}/Card`, module)
       />
     </div>
   ))
-  .add('Blog Carousel Card', () => (
-    <div className="row:cards-3col">
-      <BlogCarouselCard
-        imageSrc="https://images.autorama.co.uk/Photos/Vehicles/161658/teslamodel30519(3).jpg"
-        deliveryTime="4-8 WEEKS DELIVERY"
-        isHotOffer
-        capId="12345"
-        leaseType={LeaseTypeEnum.PERSONAL}
-        price={245.95}
-        href="some-url"
-        details="1.0 TSI 110 DESIGN 5 DR"
-        score={3.5}
-        carTitle="Volkswagen T-Roc Hatchback"
-      />
-    </div>
-  ));
+  .add('Blog Carousel Card', () => {
+    const props = {
+      leaseType: LeaseTypeEnum.PERSONAL,
+      cardIndex: 1,
+      cardData: {
+        url: 'url',
+        onOffer: true,
+        capId: '12345',
+        availability: 5,
+        rental: 242.95,
+        manufacturerName: 'Audi',
+        modelName: 'A5',
+        averageRating: 4.5,
+        imageUrl:
+          'https://images.autorama.co.uk/Photos/Vehicles/161658/teslamodel30519(3).jpg',
+        derivativeName: 'Test Test',
+        fuelType: 'Electric',
+      },
+    };
+    return (
+      <div className="row:cards-3col">
+        <BlogCarouselCard {...props} />
+      </div>
+    );
+  });

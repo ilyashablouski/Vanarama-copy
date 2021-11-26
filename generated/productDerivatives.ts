@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { ProductDerivativeFilter, ProductDerivativeSort } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: productDerivatives
 // ====================================================
-
 
 export interface productDerivatives_productDerivatives_derivatives {
   alloys: boolean | null;

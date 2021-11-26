@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: fullCreditChecker
 // ====================================================
-
 
 export interface fullCreditChecker_fullCreditChecker_creditCheck_creditCheckLines {
   uuid: string | null;

@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL fragment: SoleTraderCompanyDetailsSummary
 // ====================================================
-
 
 export interface SoleTraderCompanyDetailsSummary_addresses {
   serviceId: string | null;
