@@ -23,7 +23,8 @@ import { VEHICLE_LIST_URL } from '../gql/vehicleList';
 import { Nullable } from '../types/common';
 import getCapIds from './getProductCarouselCapIds';
 import {
-  productDerivatives as IProductDerivativesQuery, productDerivatives_productDerivatives_derivatives,
+  productDerivatives as IProductDerivativesQuery,
+  productDerivatives_productDerivatives_derivatives,
   productDerivativesVariables,
 } from '../../generated/productDerivatives';
 import { DEFAULT_SORT } from '../containers/GlobalSearchPageContainer/helpers';
