@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: genericPagesQuery
 // ====================================================
-
 
 export interface genericPagesQuery_genericPages_items {
   slug: string | null;

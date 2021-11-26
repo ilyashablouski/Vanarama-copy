@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { MyAccountInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: UpdateMyAccountDetails
 // ====================================================
-
 
 export interface UpdateMyAccountDetails_updateMyAccountDetails_address {
   lineOne: string;

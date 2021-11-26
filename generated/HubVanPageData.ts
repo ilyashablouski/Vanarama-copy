@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: HubVanPageData
 // ====================================================
-
 
 export interface HubVanPageData_hubVanPage_metaData {
   title: string | null;

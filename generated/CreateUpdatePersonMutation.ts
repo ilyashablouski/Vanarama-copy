@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { PersonInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdatePersonMutation
 // ====================================================
-
 
 export interface CreateUpdatePersonMutation_createUpdatePerson_emailAddresses {
   __typename: "EmailAddressType";

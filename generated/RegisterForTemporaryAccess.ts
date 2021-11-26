@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL mutation operation: RegisterForTemporaryAccess
 // ====================================================
-
 
 export interface RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress {
   uuid: string | null;

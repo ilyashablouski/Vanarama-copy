@@ -97,9 +97,7 @@ const ComparatorContainer: React.FC = () => {
   ] = useVehiclesTotalCount(VehicleTypeEnum.LCV, ['Pickup']);
 
   useEffect(() => {
-    if (compareVehicles?.length) {
-      setVehicles(getVehiclesIds(compareVehicles));
-    }
+    setVehicles(getVehiclesIds(compareVehicles));
   }, [compareVehicles]);
 
   const { data, loading, error, refetch } = useVehicleData(

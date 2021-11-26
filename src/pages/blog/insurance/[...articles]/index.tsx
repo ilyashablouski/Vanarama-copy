@@ -37,6 +37,7 @@ const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
+  const bodyLower = getSectionsData(['bodyLower'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
   const image = getSectionsData(
     ['featuredImage', 'file', 'url'],
@@ -49,6 +50,9 @@ const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
   return (
     <>
       <BlogPostContainer
+        carouselPosition={data?.blogPost.carouselPosition}
+        carouselFilters={data?.blogPost.productFilter}
+        bodyLower={bodyLower}
         articles={articles}
         body={body}
         name={name}

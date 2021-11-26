@@ -4,7 +4,11 @@ import {
   ProductCardDataVariables,
 } from '../../generated/ProductCardData';
 import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
-import { VehicleTypeEnum } from '../../generated/globalTypes';
+import {
+  FinanceType,
+  ProductDerivativeFilter,
+  VehicleTypeEnum,
+} from '../../generated/globalTypes';
 import {
   GetDerivatives,
   GetDerivativesVariables,
@@ -18,6 +22,17 @@ import {
 import { VEHICLE_LIST_URL } from '../gql/vehicleList';
 import { Nullable } from '../types/common';
 import getCapIds from './getProductCarouselCapIds';
+import {
+  productDerivatives as IProductDerivativesQuery,
+  productDerivatives_productDerivatives_derivatives,
+  productDerivativesVariables,
+} from '../../generated/productDerivatives';
+import { DEFAULT_SORT } from '../containers/GlobalSearchPageContainer/helpers';
+import {
+  GET_PRODUCT_DERIVATIVES,
+  getVehiclesCardsData,
+} from '../containers/GlobalSearchContainer/gql';
+import { IBlogCarouselCard } from '../components/BlogCarousel/interface';
 
 export const getVehicleListUrlQuery = async (
   client: ApolloClient<any>,
@@ -383,6 +398,52 @@ export const specialOffersForBlogPageRequest = async (
     productsCar,
     vehicleListUrlData,
   };
+};
+
+export const vehicleCarouselForBlogPageRequest = async (
+  client: ApolloClient<any>,
+  productFilter: ProductDerivativeFilter,
+): Promise<IBlogCarouselCard[]> => {
+  const vehiclesList = await client
+    .query<IProductDerivativesQuery, productDerivativesVariables>({
+      query: GET_PRODUCT_DERIVATIVES,
+      variables: {
+        from: 0,
+        size: 15,
+        sort: DEFAULT_SORT,
+        filters: {
+          financeTypes: [FinanceType.PCH],
+          ...productFilter,
+        },
+      },
+    })
+    .then(({ data }) => data.productDerivatives?.derivatives);
+
+  const vehiclesCardsData = await getVehiclesCardsData(
+    client,
+    vehiclesList || [],
+  );
+  const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
+    return vehiclesCardsData[vehicleType].find(
+      vehicle => vehicle?.capId === capId,
+    );
+  };
+
+  return (
+    vehiclesList?.map(vehicleData => {
+      const vehicleCard = getProductCardData(
+        `${vehicleData?.capId}`,
+        (vehicleData?.vehicleType as VehicleTypeEnum) ?? VehicleTypeEnum.CAR,
+      );
+      return {
+        ...(vehicleData as productDerivatives_productDerivatives_derivatives),
+        rental: vehicleCard?.personalRate ?? null,
+        onOffer: vehicleCard?.isOnOffer ?? false,
+        imageUrl: vehicleCard?.imageUrl || '',
+        averageRating: vehicleCard?.averageRating || undefined,
+      };
+    }) || []
+  );
 };
 
 export const vansSpecialOffersRequest = async (

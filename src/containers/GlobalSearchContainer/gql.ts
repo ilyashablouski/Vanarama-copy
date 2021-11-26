@@ -1,4 +1,9 @@
-import { gql, useApolloClient, useLazyQuery } from '@apollo/client';
+import {
+  ApolloClient,
+  gql,
+  useApolloClient,
+  useLazyQuery,
+} from '@apollo/client';
 import { useEffect, useState } from 'react';
 import {
   suggestionList,
@@ -7,13 +12,14 @@ import {
 import {
   productDerivatives as IProductDerivativesQuery,
   productDerivatives,
+  productDerivatives_productDerivatives_derivatives as IVehiclesList,
   productDerivatives_productDerivatives_derivatives,
   productDerivativesVariables,
 } from '../../../generated/productDerivatives';
 import {
   GlobalSearchCardsData,
-  GlobalSearchCardsDataVariables,
   GlobalSearchCardsData_productCard as ICardsData,
+  GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import {
   FinanceType,
@@ -23,6 +29,7 @@ import {
 } from '../../../generated/globalTypes';
 import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
+import { Nullable } from '../../types/common';
 
 export interface IGSVehiclesCardsData<T> {
   LCV: T;
@@ -212,6 +219,48 @@ export interface IGlobalSearchData {
   vehiclesList: productDerivatives_productDerivatives_derivatives[];
 }
 
+export const fetchProductCardsData = async (
+  client: ApolloClient<any>,
+  capIds: string[],
+  vehicleType: VehicleTypeEnum,
+) => {
+  const { data: productCardsData } = await client.query<
+    GlobalSearchCardsData,
+    GlobalSearchCardsDataVariables
+  >({
+    query: GET_CARDS_DATA,
+    variables: {
+      capIds,
+      vehicleType,
+    },
+  });
+  return productCardsData.productCard;
+};
+
+export const getVehiclesCardsData = async (
+  client: ApolloClient<any>,
+  vehiclesList: Nullable<IVehiclesList>[],
+): Promise<IGSVehiclesCardsData<ICardsData[]>> => {
+  const responseCarsCapIds = vehiclesList
+    ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
+    .map(vehicle => `${vehicle?.derivativeId}`);
+  const responseVansCapIds = vehiclesList
+    ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
+    .map(vehicle => `${vehicle?.derivativeId}`);
+  const [carsProductCards, vansProductCards] = await Promise.all([
+    responseCarsCapIds?.length
+      ? fetchProductCardsData(client, responseCarsCapIds, VehicleTypeEnum.CAR)
+      : undefined,
+    responseVansCapIds?.length
+      ? fetchProductCardsData(client, responseVansCapIds, VehicleTypeEnum.LCV)
+      : undefined,
+  ]);
+  return {
+    LCV: (vansProductCards as ICardsData[]) ?? [],
+    CAR: (carsProductCards as ICardsData[]) ?? [],
+  };
+};
+
 export function useGlobalSearch(query?: string) {
   const apolloClient = useApolloClient();
   const [suggestions, setSuggestions] = useState<IGlobalSearchData>({
@@ -257,73 +306,40 @@ export function useGlobalSearch(query?: string) {
       };
     }
 
-    async function fetchProductCardsData(
-      capIds: string[],
-      vehicleType: VehicleTypeEnum,
-    ) {
-      const { data: productCardsData } = await apolloClient.query<
-        GlobalSearchCardsData,
-        GlobalSearchCardsDataVariables
-      >({
-        query: GET_CARDS_DATA,
-        variables: {
-          capIds,
-          vehicleType,
-        },
-      });
-      return productCardsData.productCard;
-    }
-
     if (query?.length) {
       fetchSuggestionsData(query)
-        .then(suggestionsData => {
-          const responseCarsCapIds = suggestionsData.vehiclesList
-            ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
-            .map(vehicle => `${vehicle?.derivativeId}`);
-          const responseVansCapIds = suggestionsData.vehiclesList
-            ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
-            .map(vehicle => `${vehicle?.derivativeId}`);
+        .then(async suggestionsData => {
+          const vehiclesCardsData = await getVehiclesCardsData(
+            apolloClient,
+            suggestionsData.vehiclesList || [],
+          );
 
-          Promise.all([
-            responseCarsCapIds.length
-              ? fetchProductCardsData(responseCarsCapIds, VehicleTypeEnum.CAR)
-              : undefined,
-            responseVansCapIds.length
-              ? fetchProductCardsData(responseVansCapIds, VehicleTypeEnum.LCV)
-              : undefined,
-          ]).then(([carsProductCards, vansProductCards]) => {
-            const vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]> = {
-              LCV: (vansProductCards as ICardsData[]) ?? [],
-              CAR: (carsProductCards as ICardsData[]) ?? [],
-            };
+          const getProductCardData = (
+            capId: string,
+            vehicleType: VehicleTypeEnum,
+          ) => {
+            return vehiclesCardsData[vehicleType].find(
+              vehicle => vehicle?.capId === capId,
+            );
+          };
 
-            const getProductCardData = (
-              capId: string,
-              vehicleType: VehicleTypeEnum,
-            ) => {
-              return vehiclesCardsData[vehicleType].find(
-                vehicle => vehicle?.capId === capId,
+          const resultSuggestions = {
+            ...suggestionsData,
+            vehiclesList: suggestionsData.vehiclesList.map(vehicleData => {
+              const vehicleCard = getProductCardData(
+                `${vehicleData.capId}`,
+                (vehicleData.vehicleType as VehicleTypeEnum) ??
+                  VehicleTypeEnum.CAR,
               );
-            };
+              return {
+                ...vehicleData,
+                rental: vehicleCard?.personalRate ?? null,
+                onOffer: vehicleCard?.isOnOffer ?? false,
+              };
+            }),
+          };
 
-            const resultSuggestions = {
-              ...suggestionsData,
-              vehiclesList: suggestionsData.vehiclesList.map(vehicleData => {
-                const vehicleCard = getProductCardData(
-                  `${vehicleData.capId}`,
-                  (vehicleData.vehicleType as VehicleTypeEnum) ??
-                    VehicleTypeEnum.CAR,
-                );
-                return {
-                  ...vehicleData,
-                  rental: vehicleCard?.personalRate ?? null,
-                  onOffer: vehicleCard?.isOnOffer ?? false,
-                };
-              }),
-            };
-
-            setSuggestions(resultSuggestions);
-          });
+          setSuggestions(resultSuggestions);
         })
         .catch(() => {
           setSuggestions({

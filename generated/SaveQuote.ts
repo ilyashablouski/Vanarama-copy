@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { QuoteInputObject, VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveQuote
 // ====================================================
-
 
 export interface SaveQuote_saveQuote_nextBestPrice {
   maintained: number | null;

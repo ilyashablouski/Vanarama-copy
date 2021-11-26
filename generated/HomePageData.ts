@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: HomePageData
 // ====================================================
-
 
 export interface HomePageData_homePage_featuredImage_file_details_image {
   width: number;
