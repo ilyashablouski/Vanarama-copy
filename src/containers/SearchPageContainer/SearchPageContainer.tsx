@@ -912,6 +912,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
+  const isNewRangeCarousel = useMemo(() => !!newCarousel?.cards?.length, [
+    newCarousel?.cards?.length,
+  ]);
 
   return (
     <>
@@ -1144,7 +1147,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               isNewPage={isNewPage}
               isRangePage={isRangePage}
               pageData={pageData}
-              isCarousel={isCarousel}
+              isNewRangeCarousel={isNewRangeCarousel}
             />
           ) : null}
 
