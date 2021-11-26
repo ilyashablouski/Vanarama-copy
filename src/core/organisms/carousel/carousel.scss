@@ -6,6 +6,16 @@ $carousel-arrow-size: 1.5rem;
   position: relative;
   width: 100%;
 
+  &.blog-carousel {
+    .swiper-pagination {
+      display: flex;
+      .swiper-pagination-bullet{
+        height: 8px;
+        width: 8px;
+      }
+    }
+  }
+
   @include presentation-styles {
     &--track-items {
       display: grid;
@@ -281,7 +291,6 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 }
-
 //TODO: Delete if unneсessary styles
 .-v-height {
   height: 100%;

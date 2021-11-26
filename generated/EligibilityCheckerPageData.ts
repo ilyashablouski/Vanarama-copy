@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: EligibilityCheckerPageData
 // ====================================================
-
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData {
   title: string | null;

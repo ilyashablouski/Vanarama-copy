@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { BankAccountInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateBankAccountMutation
 // ====================================================
-
 
 export interface CreateUpdateBankAccountMutation_createUpdateBankAccount {
   __typename: "BankAccountType";

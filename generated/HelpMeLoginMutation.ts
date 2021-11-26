@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL mutation operation: HelpMeLoginMutation
 // ====================================================
-
 
 export interface HelpMeLoginMutation_helpMeLogin {
   isSuccessful: boolean | null;

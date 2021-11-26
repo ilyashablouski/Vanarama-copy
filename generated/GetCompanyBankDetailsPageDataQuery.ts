@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: GetCompanyBankDetailsPageDataQuery
 // ====================================================
-
 
 export interface GetCompanyBankDetailsPageDataQuery_companyByUuid_bankAccounts {
   __typename: "BankAccountType";

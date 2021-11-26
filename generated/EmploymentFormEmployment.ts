@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL fragment: EmploymentFormEmployment
 // ====================================================
-
 
 export interface EmploymentFormEmployment {
   __typename: "EmploymentHistoryType";

@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL fragment: SummaryFormPerson
 // ====================================================
-
 
 export interface SummaryFormPerson_emailAddresses {
   __typename: "EmailAddressType";

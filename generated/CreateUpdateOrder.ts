@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { OrderInputObject, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateOrder
 // ====================================================
-
 
 export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct_freeInsurance {
   optIn: boolean | null;

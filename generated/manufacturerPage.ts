@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: manufacturerPage
 // ====================================================
-
 
 export interface manufacturerPage_manufacturerPage_metaData {
   title: string | null;

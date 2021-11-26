@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: GetInsuranceLandingPage
 // ====================================================
-
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_metaData {
   title: string | null;

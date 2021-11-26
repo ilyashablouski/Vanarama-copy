@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: GetExpensesPageDataQuery
 // ====================================================
-
 
 export interface GetExpensesPageDataQuery_personByUuid_incomeAndExpense {
   __typename: "IncomeAndExpenseType";

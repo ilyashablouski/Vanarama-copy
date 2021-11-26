@@ -3,11 +3,9 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL fragment: BusinessAboutFormDropDownData
 // ====================================================
-
 
 export interface BusinessAboutFormDropDownData_titles {
   __typename: "DropDownDataType";

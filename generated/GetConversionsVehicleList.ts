@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { VehicleTypeEnum, ConversionTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetConversionsVehicleList
 // ====================================================
-
 
 export interface GetConversionsVehicleList_conversions_keyInformation {
   name: string | null;

@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 import { OrderInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveOrder
 // ====================================================
-
 
 export interface SaveOrder_saveOrder {
   order: OrderInputObject | null;

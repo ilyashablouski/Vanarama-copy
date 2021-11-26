@@ -3,11 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-
 // ====================================================
 // GraphQL query operation: BlogPost
 // ====================================================
 
+export interface BlogPost_blogPost_productFilter {
+  title: string | null;
+  manufacturer: (string | null)[] | null;
+  range: (string | null)[] | null;
+  bodyType: (string | null)[] | null;
+  fuelType: (string | null)[] | null;
+  transmission: (string | null)[] | null;
+}
 
 export interface BlogPost_blogPost_metaData {
   title: string | null;
@@ -241,10 +248,13 @@ export interface BlogPost_blogPost_sections {
 }
 
 export interface BlogPost_blogPost {
+  carouselPosition: (string | null)[] | null;
+  productFilter: BlogPost_blogPost_productFilter | null;
   metaData: BlogPost_blogPost_metaData | null;
   featuredImage: BlogPost_blogPost_featuredImage | null;
   sections: BlogPost_blogPost_sections | null;
   body: string | null;
+  bodyLower: string | null;
   isFeatured: boolean | null;
   pinned: boolean | null;
   tags: (string | null)[] | null;
