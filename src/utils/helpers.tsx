@@ -417,9 +417,11 @@ export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
 
+// Integer value representing the month, beginning with 0 for January to 11 for December
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
 const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
-const startExtensionBlackFridayTime = Number(new Date(2021, 11, 26, 20, 0, 0));
-const endExtensionBlackFridayTime = Number(new Date(2021, 11, 29, 23, 59, 59));
+const startExtensionBlackFridayTime = Number(new Date(2021, 10, 26, 20, 0, 0));
+const endExtensionBlackFridayTime = Number(new Date(2021, 10, 29, 23, 59, 59));
 export const isBlackFridayCampaignEnabled = () => {
   const currentTime = Date.now();
 
