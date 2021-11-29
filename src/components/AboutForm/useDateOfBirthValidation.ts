@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { IAboutFormValues } from './interface';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 type AboutFormField = keyof IAboutFormValues;
 
@@ -11,7 +11,7 @@ export default function useDateOfBirthValidation(
   const mth = watch('monthOfBirth');
   const year = watch('yearOfBirth');
 
-  useEffect(() => {
+  useFirstRenderEffect(() => {
     if (day && mth && year) {
       triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
     }
