@@ -12,8 +12,9 @@ import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourite
 import { createValidationSchema } from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
-import useDateOfBirthValidation from './useDateOfBirthValidation';
 import { mapEmailErrorMessage } from './mapEmailErrorMessage';
+import useDateOfBirthValidation from './useDateOfBirthValidation';
+import useEmailValidation from './useEmailValidation';
 import Skeleton from '../Skeleton';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
@@ -65,21 +66,15 @@ const AboutForm: FCWithFragments<IProps> = ({
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
+    defaultValues,
   });
 
+  useEmailValidation(watch, triggerValidation);
   useDateOfBirthValidation(watch, triggerValidation);
   useEffect(() => {
     reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
-
-  const email = watch('email');
-  useEffect(() => {
-    if (email && defaultValues.email) {
-      triggerValidation('email');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, defaultValues]);
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
