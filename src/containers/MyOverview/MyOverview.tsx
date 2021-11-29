@@ -188,10 +188,8 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 
   useEffect(() => {
     const handleStart = (url: string) => {
-      if (url.includes('/account')) {
+      if (url.includes('/account') && router.asPath !== url) {
         setIsLoading(true);
-      } else if (isLoading) {
-        setIsLoading(false);
       }
     };
     router.events.on('routeChangeStart', handleStart);
