@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent } from 'react';
 import cx from 'classnames';
 import Image from 'next/image';
 
@@ -23,9 +23,9 @@ const ImageV2: FC<IImageProps> = props => {
     src = `https:${src}`;
   }
 
-  const onError = (e: any) => {
-    e.target.srcset = '';
-    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.srcset = '';
+    e.currentTarget.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
   };
 
   const layout = width && height ? 'responsive' : 'fill';
