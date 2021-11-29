@@ -8,13 +8,13 @@ export default function useDateOfBirthValidation(
   triggerValidation: (fields: AboutFormField[]) => void,
 ) {
   const day = watch('dayOfBirth');
-  const mth = watch('monthOfBirth');
+  const month = watch('monthOfBirth');
   const year = watch('yearOfBirth');
 
   useFirstRenderEffect(() => {
-    if (day && mth && year) {
+    if (day && month && year) {
       triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, mth, year]);
+  }, [day, month, year]);
 }
