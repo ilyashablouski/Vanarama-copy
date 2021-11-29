@@ -151,7 +151,6 @@ const CustomiseLease = ({
   warrantyDetails,
   setIsHotOffer,
   setIsFactoryOrder,
-  quoteTrim,
 }: IProps) => {
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -222,11 +221,8 @@ const CustomiseLease = ({
   );
 
   const trimLabel = useMemo(
-    () =>
-      getOptionFromList(trimData, trim)?.label ??
-      getOptionFromList(trimData, quoteTrim)?.label ??
-      '',
-    [trimData, trim, quoteTrim],
+    () => getOptionFromList(trimData, trim)?.label ?? '',
+    [trimData, trim],
   );
 
   const selectedColorValue = useMemo(
@@ -235,11 +231,13 @@ const CustomiseLease = ({
   );
 
   const selectedTrimValue = useMemo(
-    () =>
-      getOptionFromList(trimData, trim)?.optionId ??
-      getOptionFromList(trimData, quoteTrim)?.optionId,
-    [trimData, trim, quoteTrim],
+    () => getOptionFromList(trimData, trim)?.optionId ?? '',
+    [trimData, trim],
   );
+
+  useEffect(() => {
+    setTempTrimValue(trim);
+  }, [trim]);
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -344,7 +342,7 @@ const CustomiseLease = ({
       <CustomLeaseSelect
         tempValue={tempColorValue}
         setTempValue={setTempColorValue}
-        defaultValue={String(colour)}
+        defaultValue={colour || ''}
         setChanges={setColour}
         items={colourData}
         selectedValue={String(selectedColorValue)}
@@ -361,7 +359,7 @@ const CustomiseLease = ({
       <CustomLeaseSelect
         tempValue={tempTrimValue}
         setTempValue={setTempTrimValue}
-        defaultValue={String(trim)}
+        defaultValue={trim || ''}
         setChanges={setTrim}
         selectedValue={String(selectedTrimValue)}
         items={trimData}

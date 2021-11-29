@@ -16,7 +16,7 @@ import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useTrim } from '../../gql/carpage';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
 import {
   checkIsHotOffer,
@@ -94,10 +94,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   warrantyDetails,
   dataUiTestId,
 }) => {
-  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean>(
+  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
     isFactoryOrderSelect(colourData, String(colour)),
   );
-  const [isHotOffer, setIsHotOffer] = useState<boolean>(
+  const [isHotOffer, setIsHotOffer] = useState<Nullish<boolean>>(
     isHotOfferSelect(colourData, String(colour)),
   );
   const [quoteData, setQuoteData] = useState<
@@ -135,13 +135,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     updatedQuote => {
       setIsRestoreLeaseSettings(false);
       setQuoteData(updatedQuote);
-      getTrim({
-        variables: {
-          capId: `${capId}`,
-          vehicleType,
-          colourId: colour as number,
-        },
-      });
+      if (updatedQuote.quoteByCapId?.trim) {
+        setTrim(Number(updatedQuote.quoteByCapId?.trim));
+      }
     },
     () =>
       setQuoteData(
@@ -235,6 +231,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         upfront,
         leaseType,
         colour: colour || parseQuoteParams(currentQuoteColour),
+      },
+    });
+
+    getTrim({
+      variables: {
+        capId: `${capId}`,
+        vehicleType,
+        colourId: colour as number,
       },
     });
 
@@ -379,7 +383,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
         roadsideAssistance={roadsideAssistance}
         warrantyDetails={warrantyDetails}
-        quoteTrim={quoteData.quoteByCapId?.trim}
         setIsHotOffer={setIsHotOffer}
         setIsFactoryOrder={setIsFactoryOrder}
       />

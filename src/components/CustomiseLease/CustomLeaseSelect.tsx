@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
 import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
 import CustomSelect from 'core/atoms/custom-select/CustomSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { IOptionsList } from '../../types/detailsPage';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 
 interface IProps {
   defaultValue: string;
@@ -19,8 +19,8 @@ interface IProps {
   selectedValue?: Nullable<string>;
   label: string;
   dataUiTestId?: string;
-  setIsHotOffer?: Dispatch<SetStateAction<boolean>>;
-  setIsFactoryOrder?: Dispatch<SetStateAction<boolean>>;
+  setIsHotOffer?: Dispatch<SetStateAction<Nullish<boolean>>>;
+  setIsFactoryOrder?: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
 const CustomLeaseSelect = ({
@@ -41,19 +41,13 @@ const CustomLeaseSelect = ({
 }: IProps) => {
   const isDesktop = !useMobileViewport();
 
-  function handleOnChange(option: React.ChangeEvent<HTMLSelectElement>) {
-    setChanges(+option.currentTarget.getAttribute('data-id')!);
-    if (setIsHotOffer) {
-      setIsHotOffer(
-        Boolean(+option.currentTarget.getAttribute('data-onoffer')!),
-      );
-    }
-    if (setIsFactoryOrder) {
-      setIsFactoryOrder(
-        Boolean(+option.currentTarget.getAttribute('data-isfactory')!),
-      );
-    }
-  }
+  const handleChange = useCallback(
+    (isOffer: boolean, isFactoryOrder: boolean) => {
+      setIsHotOffer?.(isOffer);
+      setIsFactoryOrder?.(isFactoryOrder);
+    },
+    [setIsFactoryOrder, setIsHotOffer],
+  );
 
   return (
     <>
@@ -68,7 +62,10 @@ const CustomLeaseSelect = ({
           placeholder={placeholder}
           className="-fullwidth"
           items={items}
-          onChange={option => handleOnChange(option)}
+          handleChange={(optionId, isOffer, isFactoryOrder) => {
+            setChanges(optionId);
+            handleChange(isOffer, isFactoryOrder);
+          }}
         />
       ) : (
         <CustomSelectInput
@@ -89,8 +86,9 @@ const CustomLeaseSelect = ({
               isDisabled={isDisabled}
               selectedValue={selectedValue}
               tempValue={Number(tempValue)}
-              onChange={option => {
-                setTempValue(option.currentTarget.getAttribute('data-id')!);
+              handleChange={(optionId, isOffer, isFactoryOrder) => {
+                setTempValue(String(optionId));
+                handleChange(isOffer, isFactoryOrder);
               }}
             />
           }

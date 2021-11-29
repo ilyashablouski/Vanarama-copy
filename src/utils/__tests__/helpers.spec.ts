@@ -9,6 +9,8 @@ import {
   toDataAbTestIdFormat,
   convertErrorToProps,
   createWarrantyText,
+  moveFactoryOrderToEnd,
+  sortByHotOffer,
 } from '../helpers';
 
 describe('arraysAreEqual', () => {
@@ -366,5 +368,154 @@ describe('createWarrantyText', () => {
         mileage: 50000,
       }),
     ).toEqual('5 Years Manufacturer And 50000 Miles');
+  });
+});
+
+describe('moveFactoryOrderToEnd', () => {
+  it('moveFactoryOrderToEnd should return correct array', () => {
+    expect(
+      moveFactoryOrderToEnd([
+        {
+          leadTime: 'Factory Order',
+          hotOffer: false,
+          options: [
+            {
+              label: 'Metallic - Catalunya red',
+              optionId: 143084,
+              hotOffer: false,
+            },
+          ],
+        },
+        {
+          leadTime: '7-10 Days',
+          hotOffer: true,
+          options: [
+            {
+              label: 'Metallic - Galaxy blue',
+              optionId: 109275,
+              hotOffer: true,
+            },
+          ],
+        },
+        {
+          leadTime: '7-10 Weeks',
+          hotOffer: true,
+          options: [
+            {
+              label: 'Metallic - Siam Biege',
+              optionId: 116245,
+              hotOffer: true,
+            },
+          ],
+        },
+      ]),
+    ).toEqual([
+      {
+        leadTime: '7-10 Days',
+        hotOffer: true,
+        options: [
+          {
+            label: 'Metallic - Galaxy blue',
+            optionId: 109275,
+            hotOffer: true,
+          },
+        ],
+      },
+      {
+        leadTime: '7-10 Weeks',
+        hotOffer: true,
+        options: [
+          {
+            label: 'Metallic - Siam Biege',
+            optionId: 116245,
+            hotOffer: true,
+          },
+        ],
+      },
+      {
+        leadTime: 'Factory Order',
+        hotOffer: false,
+        options: [
+          {
+            label: 'Metallic - Catalunya red',
+            optionId: 143084,
+            hotOffer: false,
+          },
+        ],
+      },
+    ]);
+  });
+});
+
+describe('sortByHotOffer', () => {
+  it('sortByHotOffer should return correct array', () => {
+    expect(
+      sortByHotOffer([
+        {
+          leadTime: 'Factory Order',
+          options: [
+            {
+              label: 'Metallic - Catalunya red',
+              optionId: 143084,
+              hotOffer: false,
+            },
+          ],
+        },
+        {
+          leadTime: '7-10 Days',
+          options: [
+            {
+              label: 'Metallic - Galaxy blue',
+              optionId: 109275,
+              hotOffer: true,
+            },
+          ],
+        },
+        {
+          leadTime: '7-10 Weeks',
+          options: [
+            {
+              label: 'Metallic - Siam Biege',
+              optionId: 116245,
+              hotOffer: true,
+            },
+          ],
+        },
+      ]),
+    ).toEqual([
+      {
+        leadTime: '7-10 Days',
+        hotOffer: true,
+        options: [
+          {
+            label: 'Metallic - Galaxy blue',
+            optionId: 109275,
+            hotOffer: true,
+          },
+        ],
+      },
+      {
+        leadTime: '7-10 Weeks',
+        hotOffer: true,
+        options: [
+          {
+            label: 'Metallic - Siam Biege',
+            optionId: 116245,
+            hotOffer: true,
+          },
+        ],
+      },
+      {
+        leadTime: 'Factory Order',
+        hotOffer: false,
+        options: [
+          {
+            label: 'Metallic - Catalunya red',
+            optionId: 143084,
+            hotOffer: false,
+          },
+        ],
+      },
+    ]);
   });
 });

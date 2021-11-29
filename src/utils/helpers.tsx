@@ -86,16 +86,16 @@ export const createWarrantyText = (
 export function isHotOfferSelect(
   array: Nullable<IOptionsList[]>,
   value: Nullish<string>,
-) {
-  return Boolean(getOptionFromList(array, value)?.hotOffer);
+): boolean | undefined | null {
+  return getOptionFromList(array, value)?.hotOffer;
 }
 
 export function isFactoryOrderSelect(
   array: Nullable<IOptionsList[]>,
   value: Nullish<string>,
-) {
-  return Boolean(
-    getOptionList(array, value)?.leadTime?.includes(LeadTimeList.FACTORY_ORDER),
+): boolean | undefined {
+  return getOptionList(array, value)?.leadTime?.includes(
+    LeadTimeList.FACTORY_ORDER,
   );
 }
 
@@ -137,8 +137,8 @@ function removeFactoryOrderOptions(arr: Nullable<IOptionsList[]>) {
 
 export function checkIsHotOffer(
   result: Nullable<Nullable<IOptionsList>[]>,
-  isOnHotOffer: boolean,
-  isOptionIsFactoryOrder: boolean,
+  isOnHotOffer: Nullish<boolean>,
+  isOptionIsFactoryOrder: Nullish<boolean>,
 ) {
   const sortedByHotOffer = sortByHotOffer(result);
 
@@ -408,7 +408,10 @@ export function sortByHotOffer(
     });
   });
 
-  return [...hotOffer, ...notHotOffer];
+  return [
+    ...hotOffer.filter(options => options.options?.length),
+    ...notHotOffer.filter(options => options.options?.length),
+  ];
 }
 
 export function moveFactoryOrderToEnd(
