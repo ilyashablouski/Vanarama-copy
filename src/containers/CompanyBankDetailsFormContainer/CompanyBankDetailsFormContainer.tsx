@@ -86,7 +86,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleSubmit = async (values: ICompanyBankDetails) => {
     try {
       const res = await handleUpdateBankDetails(values);
-      saveStoredBankUuidMutation({
+      await saveStoredBankUuidMutation({
         variables: {
           bankUuid: pluckBankAccountData(res)?.[0]?.uuid,
         },
@@ -102,7 +102,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
           },
         },
       });
-      onCompleted();
+      await onCompleted();
     } catch (err) {
       onError(err);
     }
