@@ -1,6 +1,6 @@
 import React, { FC, SyntheticEvent } from 'react';
-import cx from 'classnames';
 import Image from 'next/image';
+import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
 
@@ -15,6 +15,8 @@ const ImageV2: FC<IImageProps> = props => {
     plain,
     inline,
     dataTestId,
+    objectFit,
+    objectPosition,
   } = props;
 
   let { src } = props;
@@ -48,6 +50,9 @@ const ImageV2: FC<IImageProps> = props => {
         onError={onError}
         layout={layout}
         data-testid={dataTestId}
+        className="image--native"
+        objectFit={objectFit}
+        objectPosition={objectPosition}
       />
     </div>
   );

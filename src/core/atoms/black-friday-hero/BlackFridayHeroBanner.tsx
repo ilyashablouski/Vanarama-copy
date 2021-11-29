@@ -1,14 +1,14 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
-import Image from 'core/atoms/image';
 import Text from 'core/atoms/text/Text';
 import Heading from 'core/atoms/heading';
+import ImageV2 from 'core/atoms/image/ImageV2';
 
 import ArrowForward from 'core/assets/icons/ArrowForward';
-import cx from 'classnames';
-import RouterLink from '../../../components/RouterLink';
 import { isExtensionBlackFridayCampaignEnabled } from '../../../utils/helpers';
+import RouterLink from '../../../components/RouterLink';
 
 const OFFERS_LINK = {
   label: 'See Our Hot Offers',
@@ -30,26 +30,23 @@ const BlackFridayHeroBanner: React.FC<IProps> = ({ vehicleImageName }) => (
     <div className="bf-hero__inner">
       <div className="bf-hero__group">
         <div className="bf-hero__car -vehicle">
-          <Image
-            className="image"
+          <ImageV2
             src={`${BASE_IMAGE_URL}/${vehicleImageName}`}
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             size="expand"
             plain
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           />
         </div>
         <div className="bf-hero__car -light">
-          <Image
-            className="image"
+          <ImageV2
             src={`${BASE_IMAGE_URL}/light.png`}
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             size="expand"
             plain
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           />
         </div>
         <div className="bf-hero__badge">
-          <Image
-            className="image"
+          <ImageV2
             src={`${BASE_IMAGE_URL}/main-badge.svg`}
             size="expand"
             plain
