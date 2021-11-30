@@ -110,7 +110,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
       setNatureOfBusiness={handleNatureSelect}
       natureOfBusiness={natureOfBusiness}
       companyDetails={mappedCompanyDetails}
-      onSubmit={async values => {
+      onSubmit={async values =>
         handleSoleTraderCompanyDetailsSave({
           ...values,
           nature: natureOfBusiness.join(NATURE_OF_BUSINESS_SEPARATOR),
@@ -129,8 +129,8 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
                 onCompleted(response.data!.createUpdateSoleTraderCompany!.uuid),
               ),
           )
-          .catch(onError);
-      }}
+          .catch(onError)
+      }
     />
   );
 };

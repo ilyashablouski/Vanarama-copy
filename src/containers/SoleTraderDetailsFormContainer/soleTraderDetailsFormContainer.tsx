@@ -99,7 +99,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       person={person}
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
-      onSubmit={async values => {
+      onSubmit={values =>
         handleSoleTraderDetailsSave(values)
           .then(({ data }) =>
             handleCreditApplicationUpdate(
@@ -108,8 +108,8 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
             ),
           )
           .then(onCompleted)
-          .catch(onError);
-      }}
+          .catch(onError)
+      }
     />
   );
 };
