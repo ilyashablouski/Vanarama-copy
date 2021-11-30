@@ -5,6 +5,7 @@ import {
   useLazyQuery,
 } from '@apollo/client';
 import { useEffect, useState } from 'react';
+import router from 'next/router';
 import {
   suggestionList,
   suggestionListVariables,
@@ -30,6 +31,7 @@ import {
 import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 import { Nullable } from '../../types/common';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 export interface IGSVehiclesCardsData<T> {
   LCV: T;
@@ -269,6 +271,20 @@ export function useGlobalSearch(query?: string) {
   });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
+    // if partnerships journey
+    const initialPartnershipsFilters = () => {
+      if (router.pathname.includes('partnerships')) {
+        const partnerDetails = getPartnerProperties();
+        return {
+          vehicleCategory: partnerDetails?.vehicleTypes?.map(element =>
+            element.slice(0, -1),
+          ),
+          fuelTypes: partnerDetails?.fuelTypes,
+        };
+      }
+      return null;
+    };
+
     async function fetchSuggestionsData(value: string) {
       const [suggestsList, vehiclesList] = await Promise.all([
         apolloClient.query<suggestionList, suggestionListVariables>({
@@ -288,6 +304,7 @@ export function useGlobalSearch(query?: string) {
             size: 6,
             sort: DEFAULT_SORT,
             filters: {
+              ...initialPartnershipsFilters(),
               financeTypes: [FinanceType.PCH],
             },
           },
