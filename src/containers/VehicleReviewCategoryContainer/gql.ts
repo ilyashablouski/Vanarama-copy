@@ -1,4 +1,10 @@
-import { ApolloClient, ApolloError, gql, useQuery } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloError,
+  gql,
+  NormalizedCacheObject,
+  useQuery,
+} from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import {
   ReviewsHubCategoryQuery,
@@ -92,7 +98,7 @@ export type IReviewHubPage = IPageWithData<{
 }>;
 
 export const getReviewsHubCategoryStaticProps = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   slug: string,
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> => {
@@ -141,7 +147,7 @@ export const getReviewsHubCategoryStaticProps = async (
 };
 
 export const getReviewsHubCategoryStaticPath = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   slug: string,
   context: GetStaticPropsContext,
 ) => {
