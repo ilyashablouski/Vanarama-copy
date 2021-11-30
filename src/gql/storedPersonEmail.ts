@@ -44,7 +44,7 @@ export function useSavePersonEmailMutation(
 }
 
 export function getStoredPersonEmail(
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ) {
   return client
     .query<GetStoredPersonEmail>({

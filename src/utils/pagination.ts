@@ -1,4 +1,9 @@
-import { ApolloClient, ApolloError, DocumentNode } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloError,
+  DocumentNode,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next';
 import {
   BlogPosts,
@@ -18,7 +23,7 @@ import { IBlogCategory } from '../models/IBlogsProps';
 export const ARTICLES_PER_PAGE = 9;
 
 export const getBlogPosts = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   query: DocumentNode,
   slug: string,
   context: GetStaticPropsContext,
