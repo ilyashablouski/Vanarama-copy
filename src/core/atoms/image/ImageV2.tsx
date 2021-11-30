@@ -4,6 +4,8 @@ import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
 
+const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+
 const ImageV2: FC<IImageProps> = props => {
   const {
     className,
@@ -21,13 +23,14 @@ const ImageV2: FC<IImageProps> = props => {
 
   let { src } = props;
 
+  src = src || PLACEHOLDER_URL;
   if (src.search(/^http[s]?:/) === -1) {
     src = `https:${src}`;
   }
 
   const onError = (e: SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.srcset = '';
-    e.currentTarget.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+    e.currentTarget.src = PLACEHOLDER_URL;
   };
 
   const layout = width && height ? 'responsive' : 'fill';

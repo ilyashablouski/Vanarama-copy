@@ -34,7 +34,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                 >
                   
                   <div
-                    class="image card-image -expand -plain"
+                    class="image card-image -expand"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"

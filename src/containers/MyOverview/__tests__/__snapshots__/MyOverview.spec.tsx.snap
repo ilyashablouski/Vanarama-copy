@@ -623,16 +623,91 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-cfasync="false"
-            data-testid="card-image"
-            loading="eager"
-            onError={[Function]}
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https:"
-            srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https: 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https: 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https: 1200w"
-          />
+          <div
+            className="image card-image -expand"
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "left": 0,
+                  "margin": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <img
+                className="image--native"
+                data-nimg="fill"
+                data-testid="card-image"
+                decoding="async"
+                onError={[Function]}
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": "cover",
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+              <noscript>
+                <img
+                  className="image--native"
+                  data-nimg="fill"
+                  data-testid="card-image"
+                  decoding="async"
+                  loading="lazy"
+                  onError={[Function]}
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75"
+                  srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75 3840w"
+                  style={
+                    Object {
+                      "border": "none",
+                      "bottom": 0,
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "height": 0,
+                      "left": 0,
+                      "margin": "auto",
+                      "maxHeight": "100%",
+                      "maxWidth": "100%",
+                      "minHeight": "100%",
+                      "minWidth": "100%",
+                      "objectFit": "cover",
+                      "objectPosition": undefined,
+                      "padding": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "width": 0,
+                    }
+                  }
+                />
+              </noscript>
+            </div>
+          </div>
           <div
             className="title"
           >
@@ -754,16 +829,91 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-cfasync="false"
-            data-testid="card-image"
-            loading="eager"
-            onError={[Function]}
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https:"
-            srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https: 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https: 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https: 1200w"
-          />
+          <div
+            className="image card-image -expand"
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "left": 0,
+                  "margin": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <img
+                className="image--native"
+                data-nimg="fill"
+                data-testid="card-image"
+                decoding="async"
+                onError={[Function]}
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": "cover",
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+              <noscript>
+                <img
+                  className="image--native"
+                  data-nimg="fill"
+                  data-testid="card-image"
+                  decoding="async"
+                  loading="lazy"
+                  onError={[Function]}
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75"
+                  srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75 3840w"
+                  style={
+                    Object {
+                      "border": "none",
+                      "bottom": 0,
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "height": 0,
+                      "left": 0,
+                      "margin": "auto",
+                      "maxHeight": "100%",
+                      "maxWidth": "100%",
+                      "minHeight": "100%",
+                      "minWidth": "100%",
+                      "objectFit": "cover",
+                      "objectPosition": undefined,
+                      "padding": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "width": 0,
+                    }
+                  }
+                />
+              </noscript>
+            </div>
+          </div>
           <div
             className="title"
           >
@@ -1124,16 +1274,91 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-cfasync="false"
-            data-testid="card-image"
-            loading="eager"
-            onError={[Function]}
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https:"
-            srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https: 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https: 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https: 1200w"
-          />
+          <div
+            className="image card-image -expand"
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "left": 0,
+                  "margin": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <img
+                className="image--native"
+                data-nimg="fill"
+                data-testid="card-image"
+                decoding="async"
+                onError={[Function]}
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": "cover",
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+              <noscript>
+                <img
+                  className="image--native"
+                  data-nimg="fill"
+                  data-testid="card-image"
+                  decoding="async"
+                  loading="lazy"
+                  onError={[Function]}
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75"
+                  srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75 3840w"
+                  style={
+                    Object {
+                      "border": "none",
+                      "bottom": 0,
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "height": 0,
+                      "left": 0,
+                      "margin": "auto",
+                      "maxHeight": "100%",
+                      "maxWidth": "100%",
+                      "minHeight": "100%",
+                      "minWidth": "100%",
+                      "objectFit": "cover",
+                      "objectPosition": undefined,
+                      "padding": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "width": 0,
+                    }
+                  }
+                />
+              </noscript>
+            </div>
+          </div>
           <div
             className="title"
           >
@@ -1255,16 +1480,91 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-cfasync="false"
-            data-testid="card-image"
-            loading="eager"
-            onError={[Function]}
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https:"
-            srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https: 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https: 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https: 1200w"
-          />
+          <div
+            className="image card-image -expand"
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "boxSizing": "border-box",
+                  "display": "block",
+                  "left": 0,
+                  "margin": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <img
+                className="image--native"
+                data-nimg="fill"
+                data-testid="card-image"
+                decoding="async"
+                onError={[Function]}
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style={
+                  Object {
+                    "border": "none",
+                    "bottom": 0,
+                    "boxSizing": "border-box",
+                    "display": "block",
+                    "height": 0,
+                    "left": 0,
+                    "margin": "auto",
+                    "maxHeight": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "minWidth": "100%",
+                    "objectFit": "cover",
+                    "objectPosition": undefined,
+                    "padding": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                    "width": 0,
+                  }
+                }
+              />
+              <noscript>
+                <img
+                  className="image--native"
+                  data-nimg="fill"
+                  data-testid="card-image"
+                  decoding="async"
+                  loading="lazy"
+                  onError={[Function]}
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75"
+                  srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=75 3840w"
+                  style={
+                    Object {
+                      "border": "none",
+                      "bottom": 0,
+                      "boxSizing": "border-box",
+                      "display": "block",
+                      "height": 0,
+                      "left": 0,
+                      "margin": "auto",
+                      "maxHeight": "100%",
+                      "maxWidth": "100%",
+                      "minHeight": "100%",
+                      "minWidth": "100%",
+                      "objectFit": "cover",
+                      "objectPosition": undefined,
+                      "padding": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                      "width": 0,
+                    }
+                  }
+                />
+              </noscript>
+            </div>
+          </div>
           <div
             className="title"
           >
