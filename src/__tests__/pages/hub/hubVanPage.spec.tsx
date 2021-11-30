@@ -4,6 +4,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
+import { ImageProps } from 'next/image';
 import { HubVanPageData } from '../../../../generated/HubVanPageData';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
@@ -21,6 +22,9 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 
+jest.mock('next/image', () => ({ src, alt, ...props }: ImageProps) => (
+  <img {...props} src={src.toString()} alt={alt} />
+));
 jest.mock('next/router', () => ({
   push: jest.fn(),
   useRouter() {
