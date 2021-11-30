@@ -27,7 +27,7 @@ import { GET_SSR_AUTH_STATUS } from './gql/session';
 import { isServer } from './utils/deviceType';
 
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
-let apolloClient: ApolloClient<NormalizedCacheObject>;
+let apolloClient: ApolloClient<NormalizedCacheObject | object>;
 
 export const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
@@ -419,7 +419,7 @@ interface IPropsWithApolloCache<T> {
 }
 
 export const addApolloState = <T>(
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   pageProps: IPageProps<T>,
 ): IPropsWithApolloCache<T> => {
   let pagePropsTemp;
