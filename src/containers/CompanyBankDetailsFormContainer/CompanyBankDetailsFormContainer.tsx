@@ -83,30 +83,29 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
       : res.data?.createUpdateLimitedCompany?.bankAccounts;
   };
 
-  const handleSubmit = async (values: ICompanyBankDetails) => {
-    try {
-      const res = await handleUpdateBankDetails(values);
+  const handleSubmit = async (values: ICompanyBankDetails) =>
+    handleUpdateBankDetails(values).then(res =>
       saveStoredBankUuidMutation({
         variables: {
           bankUuid: pluckBankAccountData(res)?.[0]?.uuid,
         },
-      });
-      await createUpdateApplication({
-        variables: {
-          input: {
-            bankAccounts: mapBankAccountsForCreditApplication(
-              values,
-              pluckBankAccountData(res),
-            ),
-            orderUuid,
-          },
-        },
-      });
-      onCompleted();
-    } catch (err) {
-      onError(err);
-    }
-  };
+      })
+        .then(() =>
+          createUpdateApplication({
+            variables: {
+              input: {
+                bankAccounts: mapBankAccountsForCreditApplication(
+                  values,
+                  pluckBankAccountData(res),
+                ),
+                orderUuid,
+              },
+            },
+          }),
+        )
+        .then(onCompleted)
+        .catch(onError),
+    );
 
   return (
     <CompanyBankDetails
