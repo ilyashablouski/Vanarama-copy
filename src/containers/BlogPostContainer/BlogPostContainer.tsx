@@ -144,7 +144,11 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
           {carouselPosition?.includes(CarouselPositionEnum.withinBody) &&
             carouselFilters && (
-              <BlogCarousel countItems={15} productFilters={carouselFilters} />
+              <BlogCarousel
+                countItems={15}
+                productFilters={carouselFilters}
+                className="carousel-two-column"
+              />
             )}
           <ReactMarkdown
             allowDangerousHtml
