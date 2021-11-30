@@ -1,4 +1,9 @@
-import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
+import {
+  ApolloClient,
+  DocumentNode,
+  NormalizedCacheObject,
+  QueryLazyOptions,
+} from '@apollo/client';
 import { ParsedUrlQuery } from 'querystring';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
@@ -338,7 +343,7 @@ export const sortValues = [
 ];
 
 const onCallQuery = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   query: DocumentNode,
   slug: string,
   pageType?: string,
@@ -355,7 +360,7 @@ const onCallQuery = async (
 
 // get content data for different search pages
 export const ssrCMSQueryExecutor = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   context: ISSRRequest,
   isCarSearch: boolean,
   pageType: string,

@@ -32,7 +32,7 @@ export const VatDetailsPage: NextPage = () => {
       ? `/b2b/olaf/director-details/[companyUuid]`
       : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]`;
     const url = redirect || detailsUrl;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
+    return router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (

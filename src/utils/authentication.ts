@@ -34,7 +34,7 @@ export const isUserAuthenticatedSSR = (cookie: string) =>
   cookie?.includes(`${IDENTITY_COOKIE_NAME}=1`);
 
 export const getAuthStatusFromCache = (
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ) =>
   client.readQuery<ISSRAuthStatus>({ query: GET_SSR_AUTH_STATUS })
     ?.isSSRAuthError;
