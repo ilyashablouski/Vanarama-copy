@@ -4,7 +4,6 @@ import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import cx from 'classnames';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -22,11 +21,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isBlackFridayCampaignEnabled,
-  isExtensionBlackFridayCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -171,27 +166,18 @@ export const OffersPage: NextPage<IProps> = ({
               classNames={{ color: 'teal', size: 'regular' }}
               link={{
                 label: '',
-                href: isBlackFridayCampaignEnabled()
-                  ? '/legal/terms-and-conditions/black-friday-2021-terms-and-conditions'
-                  : '/car-leasing/free-car-insurance.html',
+                href: '/car-leasing/free-car-insurance.html',
               }}
             >
-              <div
-                className={cx('free-insurance-background', {
-                  '-extensionBlackFriday': isExtensionBlackFridayCampaignEnabled(),
-                })}
-              >
-                {!isBlackFridayCampaignEnabled() && (
-                  <div className="free-insurance-text-container">
-                    <Text color="dark" size="xsmall">
-                      *
-                    </Text>
-                    <Text color="dark" size="xsmall">
-                      FREE on all Car Hot offers only and subjects to
-                      availability
-                    </Text>
-                  </div>
-                )}
+              <div className="free-insurance-background">
+                <div className="free-insurance-text-container">
+                  <Text color="dark" size="xsmall">
+                    *
+                  </Text>
+                  <Text color="dark" size="xsmall">
+                    FREE on all Car Hot offers only and subjects to availability
+                  </Text>
+                </div>
               </div>
             </RouterLink>
           </div>

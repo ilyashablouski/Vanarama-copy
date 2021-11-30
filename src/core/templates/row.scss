@@ -2002,9 +2002,7 @@
     }
 
     .free-insurance-background {
-      background: url(Assets/images/black-friday/hotOffersBF.jpg) no-repeat center center;
-      //TODO: revert when Black Friday will finish
-      //background: url(/freeInsuranceBanner.png) no-repeat center center;
+      background: url(/freeInsuranceBanner.png) no-repeat center center;
       background-size: cover;
       width: 100%;
       height: 194px;
@@ -2013,11 +2011,6 @@
 
       @include mobile-tablet() {
         background-position: left center;
-      }
-
-      &.-extensionBlackFriday {
-        background: url(Assets/images/black-friday/hotOfferExtendedBF.png) no-repeat center center;
-        background-size: cover;
       }
     }
 
