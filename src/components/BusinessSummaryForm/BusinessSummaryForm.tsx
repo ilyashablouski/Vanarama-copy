@@ -32,7 +32,7 @@ interface IProps {
   person: AboutFormPerson;
   creditApplication?: CreditApplication | null;
   onSubmit: () => void;
-  isSubmit: boolean;
+  isSubmitting: boolean;
 }
 
 const BusinessSummaryForm: FCWithFragments<IProps> = ({
@@ -40,7 +40,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   company,
   person,
   onSubmit,
-  isSubmit,
+  isSubmitting,
 }) => {
   const router = useRouter();
 
@@ -52,7 +52,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmit ? 'Saving...' : 'Submit';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
@@ -139,7 +139,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         )}
       </Form>
       <Button
-        disabled={isSubmit}
+        disabled={isSubmitting}
         size="large"
         className="-mt-400"
         type="button"

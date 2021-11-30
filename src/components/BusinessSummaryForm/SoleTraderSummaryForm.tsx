@@ -49,7 +49,7 @@ interface IProps {
   person: AboutFormPerson;
   creditApplication?: CreditApplication | null;
   onSubmit: () => void;
-  isSubmit: boolean;
+  isSubmitting: boolean;
 }
 
 const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
@@ -57,7 +57,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   company,
   person,
   onSubmit,
-  isSubmit,
+  isSubmitting,
 }) => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
@@ -70,7 +70,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmit ? 'Saving...' : 'Submit';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
 
   const handleEdit = (
     url: string,
@@ -152,7 +152,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             </Text>
           </div>
           <Button
-            disabled={isSubmit}
+            disabled={isSubmitting}
             style={{ width: '100%' }}
             size="large"
             className="-mt-400"

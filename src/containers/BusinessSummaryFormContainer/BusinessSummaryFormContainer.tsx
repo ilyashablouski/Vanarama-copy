@@ -52,7 +52,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   onError,
   isSoleTrader,
 }) => {
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
     GetCompanySummaryQueryVariables
@@ -109,34 +109,35 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
-  const handleSubmit = async () => {
-    setIsSubmit(true);
-    try {
-      const personByUuid = getDataSummaryQueryOptions?.data?.personByUuid;
-      const creditApplicationQuery = await handleCreditApplicationSubmit();
-      const query = await getPerson({ uuid: personUuid });
-      const partyQuery = await getParty({
-        uuid: query.data.personByUuid.partyUuid,
+  const handleSubmit = () => {
+    setIsSubmitting(true);
+    const personByUuid = getDataSummaryQueryOptions?.data?.personByUuid;
+    handleCreditApplicationSubmit()
+      .then(creditApplicationQuery =>
+        getPerson({ uuid: personUuid })
+          .then(query => getParty({ uuid: query.data.personByUuid.partyUuid }))
+          .then(partyQuery =>
+            handleCreditCheckerSubmit(
+              creditApplicationQuery.data?.createUpdateCreditApplication,
+              getCompanyPartyIdFromPerson(
+                companyUuid,
+                partyQuery.data?.partyByUuid?.person,
+              ),
+            ),
+          ),
+      )
+      .then(() => onComplete?.(personByUuid?.emailAddresses[0].value))
+      .catch(err => {
+        setIsSubmitting(false);
+        return onError?.(err);
       });
-      await handleCreditCheckerSubmit(
-        creditApplicationQuery.data?.createUpdateCreditApplication,
-        getCompanyPartyIdFromPerson(
-          companyUuid,
-          partyQuery.data?.partyByUuid?.person,
-        ),
-      );
-      await onComplete?.(personByUuid?.emailAddresses[0].value);
-    } catch (err) {
-      setIsSubmit(false);
-      onError?.(err);
-    }
   };
 
   return (
     <>
       {isSoleTrader ? (
         <SoleTraderSummaryForm
-          isSubmit={isSubmit}
+          isSubmitting={isSubmitting}
           onSubmit={handleSubmit}
           creditApplication={
             getCreditApplication.data?.creditApplicationByOrderUuid
@@ -148,7 +149,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
         />
       ) : (
         <BusinessSummaryForm
-          isSubmit={isSubmit}
+          isSubmitting={isSubmitting}
           onSubmit={handleSubmit}
           creditApplication={
             getCreditApplication.data?.creditApplicationByOrderUuid
