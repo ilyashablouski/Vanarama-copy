@@ -37,7 +37,7 @@ export function useSavePersonUuidMutation(
 }
 
 export function getStoredPersonUuid(
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ) {
   return client
     .query<GetStoredPersonUuid>({
