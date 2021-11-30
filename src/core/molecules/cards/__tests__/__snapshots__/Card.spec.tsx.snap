@@ -5,13 +5,11 @@ exports[`<Card /> Article Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
+  <Memo(ImageV2)
     className="card-image"
-    data-cfasync="false"
-    data-testid="card-image"
-    loading="eager"
-    onError={[Function]}
-    sizes="(min-width:320px) 800px, 1200px"
+    dataTestId="card-image"
+    objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
   <Memo()
@@ -48,13 +46,11 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
+  <Memo(ImageV2)
     className="card-image"
-    data-cfasync="false"
-    data-testid="card-image"
-    loading="eager"
-    onError={[Function]}
-    sizes="(min-width:320px) 800px, 1200px"
+    dataTestId="card-image"
+    objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
   <Memo()
@@ -83,13 +79,11 @@ exports[`<Card /> should render correctly only image 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
+  <Memo(ImageV2)
     className="card-image"
-    data-cfasync="false"
-    data-testid="card-image"
-    loading="eager"
-    onError={[Function]}
-    sizes="(min-width:320px) 800px, 1200px"
+    dataTestId="card-image"
+    objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
 </div>
