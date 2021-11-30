@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import { IAboutFormValues } from './interface';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 type AboutFormField = keyof IAboutFormValues;
 
@@ -8,13 +8,13 @@ export default function useDateOfBirthValidation(
   triggerValidation: (fields: AboutFormField[]) => void,
 ) {
   const day = watch('dayOfBirth');
-  const mth = watch('monthOfBirth');
+  const month = watch('monthOfBirth');
   const year = watch('yearOfBirth');
 
-  useEffect(() => {
-    if (day && mth && year) {
+  useFirstRenderEffect(() => {
+    if (day && month && year) {
       triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, mth, year]);
+  }, [day, month, year]);
 }
