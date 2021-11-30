@@ -95,10 +95,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   dataUiTestId,
 }) => {
   const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
-    isFactoryOrderSelect(colourData, String(colour)),
+    isFactoryOrderSelect(colourData, `${colour}`),
   );
   const [isHotOffer, setIsHotOffer] = useState<Nullish<boolean>>(
-    isHotOfferSelect(colourData, String(colour)),
+    isHotOfferSelect(colourData, `${colour}`),
   );
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined

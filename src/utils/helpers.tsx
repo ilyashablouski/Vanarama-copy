@@ -388,9 +388,7 @@ export function addImacaHexToColourList(
   );
 }
 
-export function sortByHotOffer(
-  optionsList?: Nullable<Nullable<IOptionsList>[]>,
-): Nullable<IOptionsList[]> {
+export function sortByHotOffer(optionsList: Nullish<Nullable<IOptionsList>[]>) {
   const hotOffer: IOptionsList[] = [];
   const notHotOffer: IOptionsList[] = [];
 

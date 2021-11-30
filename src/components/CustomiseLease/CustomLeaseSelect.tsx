@@ -87,7 +87,7 @@ const CustomLeaseSelect = ({
               selectedValue={selectedValue}
               tempValue={Number(tempValue)}
               handleChange={(optionId, isOffer, isFactoryOrder) => {
-                setTempValue(String(optionId));
+                setTempValue(`${optionId}`);
                 handleChange(isOffer, isFactoryOrder);
               }}
             />
