@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 import {
   ProductCardData,
   ProductCardDataVariables,
@@ -35,7 +35,7 @@ import {
 import { IBlogCarouselCard } from '../components/BlogCarousel/interface';
 
 export const getVehicleListUrlQuery = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   derivativeIds: string[],
 ) => {
   try {
@@ -94,7 +94,7 @@ export const getVehicleListUrlQuery = async (
 };
 
 export function getProductCardContent(
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   type: VehicleTypeEnum,
   bodyType?: string,
   excludeBodyType?: string,
@@ -127,7 +127,7 @@ export function getProductCardContent(
 }
 
 export function getCarDerivatives(
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   vehicleType: VehicleTypeEnum,
   ids: string[],
 ) {
@@ -152,7 +152,7 @@ export function getCarDerivatives(
 }
 
 export const evOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IEvOffersData> => {
   const [
     { products: productsEvVan, productsCapIds: productsEvVanCapIds },
@@ -208,7 +208,7 @@ export const evOffersRequest = async (
 };
 
 export const evCarHubOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IEvOffersData> => {
   const [
     {
@@ -252,7 +252,7 @@ export const evCarHubOffersRequest = async (
 };
 
 export const evVanHubOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IEvOffersData> => {
   const [
     {
@@ -294,7 +294,7 @@ export const evVanHubOffersRequest = async (
 };
 
 export const partnerOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   fuelTypes: string[],
 ): Promise<any> => {
   const [
@@ -335,7 +335,7 @@ export const partnerOffersRequest = async (
 };
 
 export const specialOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<ISpecialOffersData> => {
   const [
     { products: productsVan, productsCapIds: productsVanCapIds },
@@ -376,7 +376,7 @@ export const specialOffersRequest = async (
 };
 
 export const specialOffersForBlogPageRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   vehicleType: VehicleTypeEnum,
 ): Promise<ISpecialOffersBlogPostPageData> => {
   const {
@@ -401,7 +401,7 @@ export const specialOffersForBlogPageRequest = async (
 };
 
 export const vehicleCarouselForBlogPageRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   productFilter: ProductDerivativeFilter,
 ): Promise<IBlogCarouselCard[]> => {
   const vehiclesList = await client
@@ -447,7 +447,7 @@ export const vehicleCarouselForBlogPageRequest = async (
 };
 
 export const vansSpecialOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IVansSpecialOffersData> => {
   const [
     { products: productsSmallVan, productsCapIds: productsSmallVanCapIds },
@@ -513,7 +513,7 @@ export const vansSpecialOffersRequest = async (
 };
 
 export const vansPageOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IVansPageOffersData> => {
   const [
     { products: productsSmallVan, productsCapIds: productsSmallVanCapIds },
@@ -555,7 +555,7 @@ export const vansPageOffersRequest = async (
 };
 
 export const carsPageOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<ICarsPageOffersData> => {
   const {
     products: productsCar,
@@ -573,7 +573,7 @@ export const carsPageOffersRequest = async (
 };
 
 export const pickupsPageOffersRequest = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
 ): Promise<IPickupsPageOffersData> => {
   const {
     products: productsPickup,
