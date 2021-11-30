@@ -32,7 +32,7 @@ const BlogCarousel: FC<IProps> = ({
         Lease it now!
       </Heading>
       <CarouselSwiper
-        className="blog-carousel -mh-auto"
+        className="blog-carousel -mh-auto carousel-two-column"
         loop={false}
         countItems={countItems || 15}
         paginationComponent={vehiclesList.length > 3 ? <Pagination /> : <></>}

@@ -281,6 +281,14 @@ $carousel-arrow-size: 1.5rem;
       @include desktop {
         flex: 1 0 50%;
         max-width: 50%;
+
+        &.swiper-slide-active {
+          border-right: 1px solid #CDD6DE;
+        }
+      }
+      @include tablet {
+        flex: 1 0 100%;
+        max-width: 100%;
       }
     }
   }
