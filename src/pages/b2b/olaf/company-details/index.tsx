@@ -29,7 +29,7 @@ export const CompanyDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = (companyGuid: string) => {
     const url = redirect || `/b2b/olaf/vat-details/[companyUuid]`;
-    router.push(url, url.replace('[companyUuid]', companyGuid));
+    return router.push(url, url.replace('[companyUuid]', companyGuid));
   };
 
   return (

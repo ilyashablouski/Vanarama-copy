@@ -3,6 +3,7 @@ import CarouselSwiper from 'core/organisms/carousel';
 import { SwiperSlide } from 'swiper/react';
 import dynamic from 'next/dynamic';
 import BlogCarouselCard from 'core/molecules/cards/BlogCarouselCard/BlogCarouselCard';
+import cx from 'classnames';
 import Pagination from './Pagination';
 import useVehicleCarousel from '../../hooks/useVehicleCarousel';
 import { BlogPost_blogPost_productFilter } from '../../../generated/BlogPost';
@@ -18,12 +19,14 @@ interface IProps {
   countItems?: number;
   productFilters: BlogPost_blogPost_productFilter;
   dataUiTestIdAlias?: string;
+  className?: string;
 }
 
 const BlogCarousel: FC<IProps> = ({
   countItems,
   productFilters,
   dataUiTestIdAlias,
+  className,
 }) => {
   const vehiclesList = useVehicleCarousel(productFilterMapper(productFilters));
   return vehiclesList?.length > 0 ? (
@@ -32,7 +35,7 @@ const BlogCarousel: FC<IProps> = ({
         Lease it now!
       </Heading>
       <CarouselSwiper
-        className="blog-carousel -mh-auto"
+        className={cx('blog-carousel -mh-auto', className)}
         loop={false}
         countItems={countItems || 15}
         paginationComponent={vehiclesList.length > 3 ? <Pagination /> : <></>}
