@@ -27,7 +27,7 @@ export const DirectorDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const url = redirect || `/b2b/olaf/company-bank-details/[companyUuid]`;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
+    return router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (

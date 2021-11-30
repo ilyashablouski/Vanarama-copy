@@ -71,7 +71,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     try {
       await handleVatDetailsUpdate(values);
       await handleCreditApplicationUpdate(values);
-      onCompleted();
+      await onCompleted();
     } catch (err) {
       onError(err);
     }
