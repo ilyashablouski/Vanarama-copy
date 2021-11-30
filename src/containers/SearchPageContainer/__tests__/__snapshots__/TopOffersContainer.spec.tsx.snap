@@ -43,39 +43,6 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/vehiclePlaceholder.jpg 1200w"
                   />
                   <div
-                    class="bf-card-label"
-                  >
-                    <div
-                      class="bf-card-label__inner"
-                    >
-                      <span
-                        class="text bf-card-label__text -large -darker"
-                      >
-                        <span>
-                          £250
-                        </span>
-                        Cashback
-                      </span>
-                    </div>
-                    <i
-                      class="icon bf-card-label__ear -initial-size"
-                    >
-                      <svg
-                        height="32"
-                        preserveAspectRatio="none"
-                        viewBox="0 0 24 48"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.829,6.828A4,4,0,0,1,9.659,0h19.99V48H9.659a4,4,0,0,1-2.83-6.828L24.008,24Z"
-                          fill="currentColor"
-                          transform="translate(29.649 48) rotate(180)"
-                        />
-                      </svg>
-                    </i>
-                  </div>
-                  <div
                     class="title"
                   >
                     <a
