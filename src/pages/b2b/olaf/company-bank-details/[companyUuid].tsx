@@ -31,7 +31,10 @@ const CompanyBankDetailsPage: NextPage = () => {
     const summaryUrl = !isSoleTraderJourney
       ? '/b2b/olaf/summary/[companyUuid]'
       : '/b2b/olaf/sole-trader/summary/[companyUuid]';
-    router.push(summaryUrl, summaryUrl.replace('[companyUuid]', companyUuid));
+    return router.push(
+      summaryUrl,
+      summaryUrl.replace('[companyUuid]', companyUuid),
+    );
   };
 
   return (
