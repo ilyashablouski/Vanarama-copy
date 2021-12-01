@@ -657,14 +657,23 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <img
-                class="image--native"
-                data-cfasync="false"
-                loading="eager"
-                sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
-              />
+              <div
+                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              >
+                <div
+                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                />
+                <img
+                  class="image--native"
+                  data-nimg="responsive"
+                  decoding="async"
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75 3840w"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </div>
             </div>
           </div>
           <span
@@ -693,14 +702,23 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <img
-                class="image--native"
-                data-cfasync="false"
-                loading="eager"
-                sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
-              />
+              <div
+                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              >
+                <div
+                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                />
+                <img
+                  class="image--native"
+                  data-nimg="responsive"
+                  decoding="async"
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75 3840w"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </div>
             </div>
           </div>
           <span
@@ -729,14 +747,23 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <img
-                class="image--native"
-                data-cfasync="false"
-                loading="eager"
-                sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
-              />
+              <div
+                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              >
+                <div
+                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                />
+                <img
+                  class="image--native"
+                  data-nimg="responsive"
+                  decoding="async"
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75 3840w"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </div>
             </div>
           </div>
           <span
@@ -765,14 +792,23 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <img
-                class="image--native"
-                data-cfasync="false"
-                loading="eager"
-                sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://source.unsplash.com/collection/2102317/1000x650?sig=403411 1200w"
-              />
+              <div
+                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              >
+                <div
+                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                />
+                <img
+                  class="image--native"
+                  data-nimg="responsive"
+                  decoding="async"
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fsource.unsplash.com%2Fcollection%2F2102317%2F1000x650%3Fsig%3D403411&w=3840&q=75 3840w"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </div>
             </div>
           </div>
           <span

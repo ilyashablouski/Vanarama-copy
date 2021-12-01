@@ -1,8 +1,8 @@
 .image {
+  position: relative;
   display: block;
 
   &:not(.-plain) {
-    position: relative;
     filter: contrast(0.9) saturate(1.05);
 
     &:after {

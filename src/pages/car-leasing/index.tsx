@@ -9,7 +9,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image';
+import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
@@ -196,11 +197,13 @@ export const CarsPage: NextPage<IProps> = ({
       <section className="row:eligibility-checker-cta">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <div>
-            <Image
+            <ImageV2
+              width="800"
+              height="400"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
               size="expand"
               plain
-              src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
             />
             <Heading size="large" color="black">
               Check Your Eligibility For A New Car Lease
@@ -222,11 +225,13 @@ export const CarsPage: NextPage<IProps> = ({
             </Text>
           </div>
           <div>
-            <Image
+            <ImageV2
+              width="800"
+              height="400"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
-              plain
               size="expand"
+              plain
             />
             <Heading size="large" color="black">
               Not Sure Which Vehicle Is Best For You?
@@ -423,7 +428,10 @@ export const CarsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <Image
+          <ImageV2
+            width="576"
+            height="380"
+            objectFit="cover"
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
@@ -482,7 +490,10 @@ export const CarsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <Image
+          <ImageV2
+            width="576"
+            height="380"
+            objectFit="cover"
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(

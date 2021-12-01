@@ -219,6 +219,10 @@ export const formatToSlugFormat = (value: string) =>
     .join('-')
     .replace('.', '-');
 
+export function trimStartSlash(url: string) {
+  return url.startsWith('/') ? url.slice(1) : url;
+}
+
 export function trimEndSlash(url: string) {
   return url.endsWith('/') ? url.slice(0, -1) : url;
 }

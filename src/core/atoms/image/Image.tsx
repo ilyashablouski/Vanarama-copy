@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent } from 'react';
 import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
@@ -62,9 +62,9 @@ const Image: FC<IImageProps> = props => {
     srcset = `${src320} 320w, ${src800} 800w, ${src1200} 1200w`;
   }
 
-  const onError = (e: any) => {
-    e.target.srcset = '';
-    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.srcset = '';
+    e.currentTarget.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
   };
 
   return (
