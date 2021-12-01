@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
 import CustomColorsList from 'core/atoms/custom-select/components/CustomColorsList';
 import CustomSelect from 'core/atoms/custom-select/CustomSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { IOptionsList } from '../../types/detailsPage';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 
 interface IProps {
   defaultValue: string;
@@ -19,6 +19,8 @@ interface IProps {
   selectedValue?: Nullable<string>;
   label: string;
   dataUiTestId?: string;
+  setIsHotOffer?: Dispatch<SetStateAction<Nullish<boolean>>>;
+  setIsFactoryOrder?: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
 const CustomLeaseSelect = ({
@@ -34,8 +36,18 @@ const CustomLeaseSelect = ({
   selectedValue,
   label,
   dataUiTestId,
+  setIsHotOffer,
+  setIsFactoryOrder,
 }: IProps) => {
   const isDesktop = !useMobileViewport();
+
+  const handleChange = useCallback(
+    (isOffer: boolean, isFactoryOrder: boolean) => {
+      setIsHotOffer?.(isOffer);
+      setIsFactoryOrder?.(isFactoryOrder);
+    },
+    [setIsFactoryOrder, setIsHotOffer],
+  );
 
   return (
     <>
@@ -49,10 +61,11 @@ const CustomLeaseSelect = ({
           selectedValue={selectedValue}
           placeholder={placeholder}
           className="-fullwidth"
-          onChange={option => {
-            setChanges(+option.currentTarget.getAttribute('data-id')!);
-          }}
           items={items}
+          handleChange={(optionId, isOffer, isFactoryOrder) => {
+            setChanges(optionId);
+            handleChange(isOffer, isFactoryOrder);
+          }}
         />
       ) : (
         <CustomSelectInput
@@ -73,8 +86,9 @@ const CustomLeaseSelect = ({
               isDisabled={isDisabled}
               selectedValue={selectedValue}
               tempValue={Number(tempValue)}
-              onChange={option => {
-                setTempValue(option.currentTarget.getAttribute('data-id')!);
+              handleChange={(optionId, isOffer, isFactoryOrder) => {
+                setTempValue(`${optionId}`);
+                handleChange(isOffer, isFactoryOrder);
               }}
             />
           }

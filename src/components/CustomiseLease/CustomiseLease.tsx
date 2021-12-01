@@ -149,6 +149,8 @@ const CustomiseLease = ({
   isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
+  setIsHotOffer,
+  setIsFactoryOrder,
 }: IProps) => {
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -224,14 +226,18 @@ const CustomiseLease = ({
   );
 
   const selectedColorValue = useMemo(
-    () => `${getOptionFromList(colourData, colour)?.optionId}` ?? '',
+    () => getOptionFromList(colourData, colour)?.optionId ?? '',
     [colourData, colour],
   );
 
   const selectedTrimValue = useMemo(
-    () => `${getOptionFromList(trimData, trim)?.optionId}` ?? '',
+    () => getOptionFromList(trimData, trim)?.optionId ?? '',
     [trimData, trim],
   );
+
+  useEffect(() => {
+    setTempTrimValue(trim);
+  }, [trim]);
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -336,26 +342,28 @@ const CustomiseLease = ({
       <CustomLeaseSelect
         tempValue={tempColorValue}
         setTempValue={setTempColorValue}
-        defaultValue={`${colour}`}
+        defaultValue={colour || ''}
         setChanges={setColour}
         items={colourData}
-        selectedValue={selectedColorValue}
-        label={colorLabel ?? ''}
+        selectedValue={`${selectedColorValue}`}
+        label={colorLabel}
         dataTestId="colour-selector"
         placeholder="Select Paint Colour:"
         isDisabled={isPlayingLeaseAnimation}
         modalElement={sideBarRef.current as HTMLDivElement}
         dataUiTestId="details-page_custom-lease-select_colour"
+        setIsHotOffer={setIsHotOffer}
+        setIsFactoryOrder={setIsFactoryOrder}
       />
 
       <CustomLeaseSelect
         tempValue={tempTrimValue}
         setTempValue={setTempTrimValue}
-        defaultValue={`${trim}`}
+        defaultValue={trim || ''}
         setChanges={setTrim}
-        selectedValue={selectedTrimValue}
+        selectedValue={`${selectedTrimValue}`}
         items={trimData}
-        label={trimLabel ?? ''}
+        label={trimLabel}
         dataTestId="trim-selector"
         placeholder="Select Interior:"
         isDisabled={isPlayingLeaseAnimation}
