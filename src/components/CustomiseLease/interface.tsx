@@ -11,7 +11,7 @@ import {
   LineItemInputObject,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
 
 export interface IChoice {
@@ -63,9 +63,9 @@ export interface IProps {
   isPlayingLeaseAnimation: boolean;
   isShowFreeInsuranceMerch?: boolean;
   isShowFreeHomeChargerMerch?: boolean;
-  setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsRestoreLeaseSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInitialLoading: Dispatch<SetStateAction<boolean>>;
+  setIsPlayingLeaseAnimation: Dispatch<SetStateAction<boolean>>;
+  setIsRestoreLeaseSettings: Dispatch<SetStateAction<boolean>>;
   onSubmit: (values: OrderInputObject) => void;
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
@@ -75,4 +75,6 @@ export interface IProps {
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
+  setIsHotOffer?: Dispatch<SetStateAction<Nullish<boolean>>>;
+  setIsFactoryOrder?: Dispatch<SetStateAction<boolean | undefined>>;
 }

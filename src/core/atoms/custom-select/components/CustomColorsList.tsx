@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import CustomColorItem from 'core/atoms/custom-select/components/CustomColorItem';
 import { IOptionsList } from '../../../../types/detailsPage';
 import { Nullable, Nullish } from '../../../../types/common';
+import { LeadTimeList } from '../../../../utils/helpers';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
@@ -15,7 +16,11 @@ interface IProps {
   selectedValue?: Nullable<string>;
   radioName?: string;
   isDisabled: boolean;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange: (
+    optionId: number,
+    isOffer: boolean,
+    isFactoryOrder: boolean,
+  ) => void;
   tempValue?: number;
 }
 
@@ -25,24 +30,34 @@ const CustomColorsList: React.FC<IProps> = ({
   selectedValue,
   radioName = '',
   isDisabled,
-  onChange,
   tempValue,
+  handleChange,
 }) => {
   const checkValue = (value?: Nullable<number>) => {
     return tempValue ? value === tempValue : value === Number(selectedValue);
   };
 
-  const handleOptionClick = (event: React.MouseEvent<HTMLElement>) => {
-    onChange((event as unknown) as React.ChangeEvent<HTMLSelectElement>);
+  const handleOptionClick = (
+    optionId: number,
+    isOffer: boolean,
+    isFactoryOrder: boolean,
+  ) => {
     if (setShowOptionList) {
       setShowOptionList(false);
     }
+
+    handleChange(optionId, isOffer, isFactoryOrder);
   };
 
   const renderOptions = (
     hotOffer: Nullish<boolean>,
     leadTime: Nullable<string>,
   ) => {
+    if (leadTime?.includes(LeadTimeList.FACTORY_ORDER)) {
+      return (
+        <span className="option__title option__title-stock">FACTORY ORDER</span>
+      );
+    }
     if (hotOffer) {
       return (
         <>
@@ -57,11 +72,6 @@ const CustomColorsList: React.FC<IProps> = ({
         </>
       );
     }
-    if (leadTime?.toLowerCase().includes('factory order')) {
-      return (
-        <span className="option__title option__title-stock">FACTORY ORDER</span>
-      );
-    }
     return (
       <>
         <span className="option__title option__title-stock">IN STOCK</span>
@@ -72,43 +82,46 @@ const CustomColorsList: React.FC<IProps> = ({
 
   return (
     <ul className="select-options select-options__mobile">
-      {items?.map(({ options, leadTime, hotOffer }) =>
-        options?.length ? (
-          <div className="option__content" key={leadTime}>
-            <div className="option__title-content">
-              {renderOptions(hotOffer, leadTime)}
-            </div>
-            {options?.map((option, index) => (
-              <li
-                data-name={option?.label ?? ''}
-                data-id={option?.optionId ?? 0}
-                onClick={handleOptionClick}
-                key={option?.optionId ?? index}
-              >
-                {option?.hex ? (
-                  <CustomColorItem
-                    option={option}
-                    checked={checkValue(option.optionId)}
-                  />
-                ) : (
-                  <FormGroup>
-                    <Radio
-                      className="custom-select-option"
-                      name={`customSelect${radioName}`}
-                      id={`${option?.optionId ?? 0}`}
-                      label={option?.label ?? ''}
-                      value={`${option?.optionId ?? 0}`}
-                      onChange={() => {}}
-                      checked={checkValue(option?.optionId)}
-                      disabled={isDisabled}
-                    />
-                  </FormGroup>
-                )}
-              </li>
-            ))}
+      {items?.map(({ options, leadTime, hotOffer }) => (
+        <div className="option__content" key={leadTime}>
+          <div className="option__title-content">
+            {renderOptions(hotOffer, leadTime)}
           </div>
-        ) : null,
-      )}
+          {options?.map((option, index) => (
+            <li
+              data-name={option?.label ?? ''}
+              onClick={() =>
+                handleOptionClick(
+                  option?.optionId || 0,
+                  option?.hotOffer || false,
+                  leadTime?.includes(LeadTimeList.FACTORY_ORDER) || false,
+                )
+              }
+              key={option?.optionId ?? index}
+            >
+              {option?.hex ? (
+                <CustomColorItem
+                  option={option}
+                  checked={checkValue(option.optionId)}
+                />
+              ) : (
+                <FormGroup>
+                  <Radio
+                    className="custom-select-option"
+                    name={`customSelect${radioName}`}
+                    id={`${option?.optionId ?? 0}`}
+                    label={option?.label ?? ''}
+                    value={`${option?.optionId ?? 0}`}
+                    onChange={() => {}}
+                    checked={checkValue(option?.optionId)}
+                    disabled={isDisabled}
+                  />
+                </FormGroup>
+              )}
+            </li>
+          ))}
+        </div>
+      ))}
     </ul>
   );
 };

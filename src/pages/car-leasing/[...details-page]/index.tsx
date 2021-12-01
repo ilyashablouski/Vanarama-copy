@@ -38,6 +38,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import {
   addImacaHexToColourList,
+  moveFactoryOrderToEnd,
   sortByHotOffer,
   toPriceFormat,
 } from '../../../utils/helpers';
@@ -338,10 +339,11 @@ export async function getServerSideProps(
       },
     });
 
-    const colourData = addImacaHexToColourList(
+    const colourDataWithHex = addImacaHexToColourList(
       colorAndTrimData?.data.colourGroupList,
       imacaAssets.data.getImacaAssets?.colours,
     );
+    const colourData = moveFactoryOrderToEnd(colourDataWithHex);
 
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>

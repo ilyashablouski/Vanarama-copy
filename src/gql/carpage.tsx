@@ -219,6 +219,7 @@ export function useTrim(onCompleted?: (data: GetTrimGroupList) => void) {
     GET_TRIM_GROUP_LIST,
     {
       onCompleted,
+      fetchPolicy: 'network-only',
     },
   );
 }
