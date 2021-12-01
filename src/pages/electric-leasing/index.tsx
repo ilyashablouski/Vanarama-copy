@@ -6,7 +6,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image';
+import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import useLeaseType from '../../hooks/useLeaseType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
@@ -91,7 +92,10 @@ const FeaturedSection: FC<any> = ({
     {video ? (
       <Media src={video || ''} width="100%" height="360px" />
     ) : (
-      <Image
+      <ImageV2
+        width="576"
+        height="380"
+        objectFit="cover"
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={
           image?.file?.url ||

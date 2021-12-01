@@ -23,10 +23,8 @@ const optimiseImage = (
   confuguration: ICloudflareOptimisation,
 ): string => {
   const { fit, height, width, quality, sharpness, metadata } = confuguration;
-
   // Extract protocol from host.
   const protocol = host.split(':')[0];
-
   // Add protocol to url if not there.
   const imgSrc = setProtocol(src, protocol);
 

@@ -296,14 +296,23 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <img
-                  class="image--native"
-                  data-cfasync="false"
-                  loading="eager"
-                  sizes="(min-width:320px) 800px, 1200px"
-                  src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg"
-                  srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg 1200w"
-                />
+                <div
+                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                >
+                  <div
+                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  />
+                  <img
+                    class="image--native"
+                    data-nimg="responsive"
+                    decoding="async"
+                    sizes="100vw"
+                    src="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=3840&q=75"
+                    srcset="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3kTJFwdjcWkVHexxDcRSju%2Fd94c9af10e343bfc271e2ed3204b56e0%2Fredundancy.jpg&w=3840&q=75 3840w"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                  />
+                  <noscript />
+                </div>
               </div>
             </div>
             <span
@@ -332,14 +341,23 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <img
-                  class="image--native"
-                  data-cfasync="false"
-                  loading="eager"
-                  sizes="(min-width:320px) 800px, 1200px"
-                  src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
-                  srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 1200w"
-                />
+                <div
+                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                >
+                  <div
+                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  />
+                  <img
+                    class="image--native"
+                    data-nimg="responsive"
+                    decoding="async"
+                    sizes="100vw"
+                    src="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=3840&q=75"
+                    srcset="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F4v2ALClaL6YnE0NYRsd8uc%2F7e92f2b83eb9e594ced8269152961026%2FIcon-PricePromise-RGB.png&w=3840&q=75 3840w"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                  />
+                  <noscript />
+                </div>
               </div>
             </div>
             <span
@@ -368,14 +386,23 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <img
-                  class="image--native"
-                  data-cfasync="false"
-                  loading="eager"
-                  sizes="(min-width:320px) 800px, 1200px"
-                  src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
-                  srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 1200w"
-                />
+                <div
+                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                >
+                  <div
+                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  />
+                  <img
+                    class="image--native"
+                    data-nimg="responsive"
+                    decoding="async"
+                    sizes="100vw"
+                    src="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=3840&q=75"
+                    srcset="/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2F3xid768u5joa%2F3KhuHOZWIeppLEsCTcouiY%2Fa384211adc3f246728f3c5fd9d8cf637%2FInsurance-Icon.png&w=3840&q=75 3840w"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                  />
+                  <noscript />
+                </div>
               </div>
             </div>
             <span

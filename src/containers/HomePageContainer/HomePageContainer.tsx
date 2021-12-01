@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import Head from '../../components/Head/Head';
 import {
@@ -400,7 +400,10 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 height="360px"
               />
             ) : (
-              <Image
+              <ImageV2
+                width="100"
+                height="45"
+                objectFit="cover"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={
                   getSectionsData(
@@ -430,7 +433,10 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 height="360px"
               />
             ) : (
-              <Image
+              <ImageV2
+                width="100"
+                height="45"
+                objectFit="cover"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={
                   getSectionsData(
