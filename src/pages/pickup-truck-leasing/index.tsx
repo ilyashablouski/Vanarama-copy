@@ -5,6 +5,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import React, { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -60,6 +62,7 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import FeaturedOnSection from '../../components/FeaturedOnBanner';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -76,9 +79,6 @@ const ArrowForwardSharp = dynamic(
 const Price = dynamic(() => import('core/atoms/price'));
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -405,18 +405,19 @@ export const PickupsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                getSectionsData(
-                  ['featured1', 'image', 'file', 'url'],
-                  data?.hubPickupPage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <ImageV2
+            width="576"
+            height="380"
+            objectFit="cover"
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.hubPickupPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
         <div style={{ padding: '1rem' }}>
           <Heading
@@ -466,18 +467,19 @@ export const PickupsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                getSectionsData(
-                  ['featured2', 'image', 'file', 'url'],
-                  data?.hubPickupPage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <ImageV2
+            width="576"
+            height="380"
+            objectFit="cover"
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.hubPickupPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
         <div className="-inset -middle -col-400">
           <Heading
@@ -525,7 +527,10 @@ export const PickupsPage: NextPage<IProps> = ({
         {data?.hubPickupPage.sections?.tiles1?.tiles?.map(
           (acc: AccessoryData, index: number) => (
             <div key={acc.title || index}>
-              <Image
+              <ImageV2
+                width="100"
+                height="85"
+                objectFit="cover"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 src={
@@ -619,62 +624,7 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <NationalLeagueBanner />
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Heading tag="span" size="small" color="darker">
-            AS FEATURED ON
-          </Heading>
-          <div>
-            {[
-              {
-                label: 'bbc',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
-              },
-              {
-                label: 'btsport',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
-              },
-              {
-                label: 'dailymail',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
-              },
-              {
-                label: 'dailymirror',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
-              },
-              {
-                label: 'itv',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
-              },
-              {
-                label: 'metro',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
-              },
-              {
-                label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
-              },
-              {
-                label: 'sky',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
-              },
-              {
-                label: 'thetelegraph',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
-              },
-            ].map(({ href, label }) => (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={label}
-                src={href}
-                alt={label}
-                size="expand"
-                plain
-              />
-            ))}
-          </div>
-        </LazyLoadComponent>
-      </section>
+      <FeaturedOnSection />
 
       <section className="row:trustpilot">
         <TrustPilot />

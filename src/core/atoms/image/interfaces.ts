@@ -1,3 +1,5 @@
+import { ImageProps } from 'next/image';
+
 import { IBaseProps } from '../../interfaces/base';
 import { TSize } from '../../../types/size';
 
@@ -16,4 +18,6 @@ export interface IImageProps extends IBaseProps {
   height?: string;
   lazyLoad?: boolean;
   dataTestId?: string;
+  objectFit?: ImageProps['objectFit'];
+  objectPosition?: ImageProps['objectPosition'];
 }

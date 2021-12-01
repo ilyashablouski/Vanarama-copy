@@ -14,6 +14,10 @@ import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaA
 import { IOption, IOptionsList } from '../types/detailsPage';
 import { GetColourAndTrimGroupList_colourGroupList as ColorGroupList } from '../../generated/GetColourAndTrimGroupList';
 
+export enum LeadTimeList {
+  FACTORY_ORDER = 'Factory Order',
+}
+
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
 export const genMonths = () => [
@@ -79,6 +83,31 @@ export const createWarrantyText = (
     warrantyDetails?.mileage === -1 ? 'Unlimited' : warrantyDetails?.mileage
   } Miles`;
 
+export function isHotOfferSelect(
+  array: Nullable<IOptionsList[]>,
+  value: Nullish<string>,
+): boolean | undefined | null {
+  return getOptionFromList(array, value)?.hotOffer;
+}
+
+export function isFactoryOrderSelect(
+  array: Nullable<IOptionsList[]>,
+  value: Nullish<string>,
+): boolean | undefined {
+  return getOptionList(array, value)?.leadTime?.includes(
+    LeadTimeList.FACTORY_ORDER,
+  );
+}
+
+export function getOptionList(
+  array: Nullable<IOptionsList[]>,
+  value: Nullish<string>,
+) {
+  return array?.find(optionsList =>
+    optionsList?.options?.find(option => `${option?.optionId}` === value),
+  );
+}
+
 export function getOptionFromList(
   array: Nullable<IOptionsList[]>,
   value: Nullish<string>,
@@ -98,6 +127,26 @@ export function getOptionFromList(
     },
     null,
   );
+}
+
+function removeFactoryOrderOptions(arr: Nullable<IOptionsList[]>) {
+  return arr?.filter(
+    optionsList => optionsList.leadTime !== LeadTimeList.FACTORY_ORDER,
+  );
+}
+
+export function checkIsHotOffer(
+  result: Nullable<Nullable<IOptionsList>[]>,
+  isOnHotOffer: Nullish<boolean>,
+  isOptionIsFactoryOrder: Nullish<boolean>,
+) {
+  const sortedByHotOffer = sortByHotOffer(result);
+
+  if (isOnHotOffer && !isOptionIsFactoryOrder) {
+    return removeFactoryOrderOptions(sortedByHotOffer) || [];
+  }
+
+  return sortedByHotOffer;
 }
 
 export const getOrderList = ({
@@ -339,9 +388,7 @@ export function addImacaHexToColourList(
   );
 }
 
-export function sortByHotOffer(
-  optionsList: Nullable<Nullable<IOptionsList>[]>,
-): Nullable<IOptionsList[]> {
+export function sortByHotOffer(optionsList: Nullish<Nullable<IOptionsList>[]>) {
   const hotOffer: IOptionsList[] = [];
   const notHotOffer: IOptionsList[] = [];
 
@@ -359,7 +406,23 @@ export function sortByHotOffer(
     });
   });
 
-  return [...hotOffer, ...notHotOffer];
+  return [
+    ...hotOffer.filter(options => options.options?.length),
+    ...notHotOffer.filter(options => options.options?.length),
+  ];
+}
+
+export function moveFactoryOrderToEnd(
+  optionsList: Nullable<Nullable<IOptionsList>[]>,
+) {
+  const listWithFactoryOrder = (optionsList ?? []).filter(
+    optionList => optionList?.leadTime === LeadTimeList.FACTORY_ORDER,
+  );
+  const listWithoutFactoryOrder = (optionsList ?? [])?.filter(
+    optionList => optionList?.leadTime !== LeadTimeList.FACTORY_ORDER,
+  );
+
+  return [...listWithoutFactoryOrder, ...listWithFactoryOrder];
 }
 
 export enum FeatureFlags {

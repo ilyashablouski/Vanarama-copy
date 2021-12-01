@@ -225,7 +225,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       person={person}
       onLogInCLick={onLogInCLick}
       onRegistrationClick={onRegistrationClick}
-      onSubmit={values => {
+      onSubmit={values =>
         handleTemporaryRegistrationIfGuest(
           values.email,
           values.firstName,
@@ -248,7 +248,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                   businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
                   companyType: values.companyType,
                 } as SubmitResult;
-                onCompleted?.(result);
+                return onCompleted?.(result);
               })
               .then(() => {
                 addHeapUserIdentity(values.email);
@@ -258,8 +258,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                 });
               }),
           )
-          .catch(onError);
-      }}
+          .catch(onError)
+      }
     />
   );
 };

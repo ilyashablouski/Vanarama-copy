@@ -1,6 +1,7 @@
 import {
   ApolloClient,
   gql,
+  NormalizedCacheObject,
   useApolloClient,
   useLazyQuery,
 } from '@apollo/client';
@@ -149,6 +150,7 @@ export const GET_CARDS_DATA = gql`
       averageRating
       isOnOffer
       leadTime
+      freeInsurance
       capId
       imageUrl
       vehicleType
@@ -225,7 +227,7 @@ export interface IGlobalSearchData {
 }
 
 export const fetchProductCardsData = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   capIds: string[],
   vehicleType: VehicleTypeEnum,
 ) => {
@@ -243,7 +245,7 @@ export const fetchProductCardsData = async (
 };
 
 export const getVehiclesCardsData = async (
-  client: ApolloClient<any>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   vehiclesList: Nullable<IVehiclesList>[],
 ): Promise<IGSVehiclesCardsData<ICardsData[]>> => {
   const responseCarsCapIds = vehiclesList

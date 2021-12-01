@@ -12,6 +12,8 @@ module.exports = {
     images: {
       domains: [
         'images.ctfassets.net',
+        'images.autorama.co.uk',
+        'ellisdonovan.s3.eu-west-2.amazonaws.com',
         process.env.HOST_DOMAIN.replace('https://', ''),
         'img.youtube.com',
       ],

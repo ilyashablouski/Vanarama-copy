@@ -45,7 +45,9 @@ export function useSavePersonMutation() {
   return useMutation<SavePerson, SavePersonVariables>(SAVE_PERSON_MUTATION);
 }
 
-export function getStoredPerson(client: ApolloClient<NormalizedCacheObject>) {
+export function getStoredPerson(
+  client: ApolloClient<NormalizedCacheObject | object>,
+) {
   return client
     .query<GetStoredPerson>({
       query: GET_STORED_PERSON_QUERY,
@@ -55,7 +57,7 @@ export function getStoredPerson(client: ApolloClient<NormalizedCacheObject>) {
 }
 
 export function setStoredPerson(
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<NormalizedCacheObject | object>,
   person: SavePersonVariables['person'],
 ) {
   return client

@@ -2,6 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
+import { ImageProps } from 'next/image';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
@@ -31,6 +32,9 @@ jest.mock(
   },
 );
 
+jest.mock('next/image', () => ({ src, alt, ...props }: ImageProps) => (
+  <img {...props} src={src.toString()} alt={alt} />
+));
 jest.mock('next/router', () => ({
   push: jest.fn(),
   useRouter() {

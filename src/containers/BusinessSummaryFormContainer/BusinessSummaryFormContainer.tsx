@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useLazyQuery, ApolloError } from '@apollo/client';
 import {
@@ -52,26 +52,17 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   onError,
   isSoleTrader,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
     GetCompanySummaryQueryVariables
   >(GET_COMPANY_SUMMARY, { fetchPolicy: 'no-cache' });
   const getCreditApplication = useGetCreditApplicationByOrderUuid(orderId);
-  const [
-    createUpdateCA,
-    creditApplicationMutationOptions,
-  ] = useCreateUpdateCreditApplication();
-  const [
-    submitFullCreditChecker,
-    creditCheckerMutationOptions,
-  ] = useUseFullCreditCheckerB2BMutation();
+  const [createUpdateCA] = useCreateUpdateCreditApplication();
+  const [submitFullCreditChecker] = useUseFullCreditCheckerB2BMutation();
 
   const getParty = useImperativeQuery(GET_PARTY_BY_UUID);
   const getPerson = useImperativeQuery(GET_ABOUT_YOU_DATA);
-
-  const isSubmitting =
-    creditApplicationMutationOptions.loading ||
-    creditCheckerMutationOptions.loading;
 
   useEffect(() => {
     if (personUuid && companyUuid) {
@@ -119,6 +110,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     });
 
   const handleSubmit = () => {
+    setIsSubmitting(true);
     const personByUuid = getDataSummaryQueryOptions?.data?.personByUuid;
     handleCreditApplicationSubmit()
       .then(creditApplicationQuery =>
@@ -135,7 +127,10 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           ),
       )
       .then(() => onComplete?.(personByUuid?.emailAddresses[0].value))
-      .catch(onError);
+      .catch(err => {
+        setIsSubmitting(false);
+        return onError?.(err);
+      });
   };
 
   return (

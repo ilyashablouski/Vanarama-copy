@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
+
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
 import TileLink from '../TileLink/TileLink';
@@ -24,7 +25,7 @@ const WhyLeaseWithVanaramaTiles = ({
   const Tile = dynamic(() => import('core/molecules/tile'), {
     loading: () => <Skeleton count={3} />,
   });
-  const Image = dynamic(() => import('core/atoms/image'), {
+  const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
     loading: () => <Skeleton count={4} />,
   });
   const Text = dynamic(() => import('core/atoms/text'), {
@@ -43,7 +44,9 @@ const WhyLeaseWithVanaramaTiles = ({
         <div key={tile.title || index}>
           <Tile className="-plain -button -align-center" plain>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Image
+              <ImageV2
+                width="100"
+                height="100"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 inline
                 round
