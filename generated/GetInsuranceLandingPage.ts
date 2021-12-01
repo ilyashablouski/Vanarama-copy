@@ -39,9 +39,20 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1
   legacyUrl: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details {
+  size: number;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details_image;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image {
@@ -64,9 +75,20 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1
   link: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_link | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details {
+  size: number;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details_image;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image {
@@ -106,9 +128,20 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
   legacyUrl: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details {
+  size: number;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details_image;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image {
@@ -131,9 +164,20 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
   link: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_link | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details {
+  size: number;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details_image;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image {

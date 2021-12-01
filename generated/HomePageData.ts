@@ -13,6 +13,7 @@ export interface HomePageData_homePage_featuredImage_file_details_image {
 }
 
 export interface HomePageData_homePage_featuredImage_file_details {
+  size: number;
   image: HomePageData_homePage_featuredImage_file_details_image;
 }
 
@@ -39,8 +40,19 @@ export interface HomePageData_homePage_metaData {
   schema: CustomJSON | null;
 }
 
+export interface HomePageData_homePage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_hero_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_hero_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_hero_image_file {
   url: string;
+  details: HomePageData_homePage_sections_hero_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_hero_image {
@@ -74,8 +86,19 @@ export interface HomePageData_homePage_sections_leadText {
   description: string | null;
 }
 
+export interface HomePageData_homePage_sections_cards_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_cards_cards_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_cards_cards_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_cards_cards_image_file {
   url: string;
+  details: HomePageData_homePage_sections_cards_cards_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image {
@@ -111,9 +134,20 @@ export interface HomePageData_homePage_sections_featured1_link {
   legacyUrl: string | null;
 }
 
+export interface HomePageData_homePage_sections_featured1_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_featured1_cards_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_featured1_cards_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_featured1_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: HomePageData_homePage_sections_featured1_cards_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_featured1_cards_image {
@@ -136,9 +170,20 @@ export interface HomePageData_homePage_sections_featured1_cards {
   link: HomePageData_homePage_sections_featured1_cards_link | null;
 }
 
+export interface HomePageData_homePage_sections_featured1_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_featured1_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_featured1_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_featured1_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: HomePageData_homePage_sections_featured1_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_featured1_image {
@@ -178,9 +223,20 @@ export interface HomePageData_homePage_sections_featured2_link {
   legacyUrl: string | null;
 }
 
+export interface HomePageData_homePage_sections_featured2_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_featured2_cards_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_featured2_cards_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_featured2_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: HomePageData_homePage_sections_featured2_cards_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_featured2_cards_image {
@@ -203,9 +259,20 @@ export interface HomePageData_homePage_sections_featured2_cards {
   link: HomePageData_homePage_sections_featured2_cards_link | null;
 }
 
+export interface HomePageData_homePage_sections_featured2_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_featured2_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_featured2_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_featured2_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: HomePageData_homePage_sections_featured2_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_featured2_image {

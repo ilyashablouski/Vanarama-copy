@@ -49,7 +49,7 @@ export interface GetPdpContent_pdpContent {
 }
 
 export interface GetPdpContent {
-  pdpContent: GetPdpContent_pdpContent;
+  pdpContent: GetPdpContent_pdpContent[] | null;
 }
 
 export interface GetPdpContentVariables {

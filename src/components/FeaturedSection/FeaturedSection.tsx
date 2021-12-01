@@ -11,6 +11,7 @@ import { GenericPageQueryFeatured as IFeatured } from '../../../generated/Generi
 import getTitleTag from '../../utils/getTitleTag';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -143,6 +144,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
 
 FeaturedSection.fragments = {
   featured: gql`
+    ${IMAGE_FILE_FRAGMENT}
     fragment GenericPageQueryFeatured on Featured {
       layout
       body
@@ -167,8 +169,8 @@ FeaturedSection.fragments = {
           title
           description
           file {
-            url
             fileName
+            ...imageFile
           }
         }
         body
@@ -182,8 +184,8 @@ FeaturedSection.fragments = {
         title
         description
         file {
-          url
           fileName
+          ...imageFile
         }
       }
       testimonials {

@@ -624,7 +624,7 @@ Array [
           }
         >
           <div
-            className="image card-image -expand"
+            className="image card-image -expand -plain"
           >
             <div
               style={
@@ -830,7 +830,7 @@ Array [
           }
         >
           <div
-            className="image card-image -expand"
+            className="image card-image -expand -plain"
           >
             <div
               style={
@@ -1275,7 +1275,7 @@ Array [
           }
         >
           <div
-            className="image card-image -expand"
+            className="image card-image -expand -plain"
           >
             <div
               style={
@@ -1481,7 +1481,7 @@ Array [
           }
         >
           <div
-            className="image card-image -expand"
+            className="image card-image -expand -plain"
           >
             <div
               style={
