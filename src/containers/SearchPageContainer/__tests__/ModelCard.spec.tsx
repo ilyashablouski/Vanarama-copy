@@ -13,6 +13,7 @@ jest.mock('next/router', () => ({
     route: '/car-leasing/BMW',
   }),
 }));
+
 describe('<ModelCard />', () => {
   beforeEach(async () => {
     await preloadAll();

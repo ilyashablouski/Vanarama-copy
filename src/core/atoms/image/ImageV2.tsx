@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
-import cx from 'classnames';
+import React, { FC, SyntheticEvent } from 'react';
 import Image from 'next/image';
+import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
+
+const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
 const ImageV2: FC<IImageProps> = props => {
   const {
@@ -15,17 +17,20 @@ const ImageV2: FC<IImageProps> = props => {
     plain,
     inline,
     dataTestId,
+    objectFit,
+    objectPosition,
   } = props;
 
   let { src } = props;
 
+  src = src || PLACEHOLDER_URL;
   if (src.search(/^http[s]?:/) === -1) {
     src = `https:${src}`;
   }
 
-  const onError = (e: any) => {
-    e.target.srcset = '';
-    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.srcset = '';
+    e.currentTarget.src = PLACEHOLDER_URL;
   };
 
   const layout = width && height ? 'responsive' : 'fill';
@@ -48,6 +53,9 @@ const ImageV2: FC<IImageProps> = props => {
         onError={onError}
         layout={layout}
         data-testid={dataTestId}
+        className="image--native"
+        objectFit={objectFit}
+        objectPosition={objectPosition}
       />
     </div>
   );

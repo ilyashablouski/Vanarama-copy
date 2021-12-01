@@ -87,22 +87,22 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   onCompare,
 }) => (
   <>
-    <div>
-      <Card
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        header={{
-          accentIcon: <Icon icon={<Flame />} color="white" />,
-          accentText: 'Hot Offer',
-          text: flagText,
-        }}
-        imageSrc={imageSrc}
-      >
-        {isBlackFridayCampaignEnabled() && (
-          <BlackFridayCardLabel className="bf-card-label--deal" />
-        )}
-      </Card>
-    </div>
-    <div className="-col">
+    <Card
+      imageWidth="576"
+      imageHeight="384"
+      imageSrc={imageSrc}
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+      header={{
+        accentIcon: <Icon icon={<Flame />} color="white" />,
+        accentText: 'Hot Offer',
+        text: flagText,
+      }}
+    >
+      {isBlackFridayCampaignEnabled() && (
+        <BlackFridayCardLabel className="bf-card-label--deal" />
+      )}
+    </Card>
+    <article className="-col">
       <div>
         <Heading size="xlarge" color="black">
           {vehicle}
@@ -179,7 +179,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           />
         )}
       </div>
-    </div>
+    </article>
   </>
 );
 
