@@ -145,6 +145,7 @@ export const GET_CARDS_DATA = gql`
       averageRating
       isOnOffer
       leadTime
+      freeInsurance
       capId
       imageUrl
       vehicleType
