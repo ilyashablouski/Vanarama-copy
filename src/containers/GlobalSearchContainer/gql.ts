@@ -31,7 +31,10 @@ import {
 import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 import { Nullable } from '../../types/common';
-import { getPartnerProperties } from '../../utils/partnerProperties';
+import {
+  getPartnerProperties,
+  partnerSearchVehicleTypesMapper,
+} from '../../utils/partnerProperties';
 
 export interface IGSVehiclesCardsData<T> {
   LCV: T;
@@ -276,8 +279,8 @@ export function useGlobalSearch(query?: string) {
       if (router.pathname.includes('partnerships')) {
         const partnerDetails = getPartnerProperties();
         return {
-          vehicleCategory: partnerDetails?.vehicleTypes?.map(element =>
-            element.slice(0, -1),
+          vehicleCategory: partnerSearchVehicleTypesMapper(
+            partnerDetails?.vehicleTypes,
           ),
           fuelTypes: partnerDetails?.fuelTypes,
         };

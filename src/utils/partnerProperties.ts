@@ -117,4 +117,12 @@ export function clearInactiveSessionFuelTypes() {
   }
 }
 
+export function partnerSearchVehicleTypesMapper(
+  vehicleTypes: Nullish<string[]>,
+) {
+  return (
+    vehicleTypes && vehicleTypes.map(vehicleType => vehicleType.slice(0, -1))
+  );
+}
+
 export default getPartnerProperties;
