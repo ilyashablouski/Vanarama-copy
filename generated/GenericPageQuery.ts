@@ -81,9 +81,20 @@ export interface GenericPageQuery_genericPage_sections_faqs {
   questionSets: (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_cards_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_cards_cards_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sections_cards_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_cards_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_cards_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_cards_cards_image {
@@ -116,10 +127,21 @@ export interface GenericPageQuery_genericPage_sections_cards {
   cards: GenericPageQuery_genericPage_sections_cards_cards[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_hero_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sections_hero_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_hero_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_hero_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_hero_image {
@@ -646,10 +668,21 @@ export interface GenericPageQuery_genericPage_sections_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_tiles_tiles_image {
@@ -728,9 +761,20 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_accordion {
   accordionEntries: GenericPageQuery_genericPage_sectionsAsArray_accordion_accordionEntries[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image {
@@ -759,9 +803,20 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_carousel {
   cards: (GenericPageQuery_genericPage_sectionsAsArray_carousel_cards | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image {
@@ -899,10 +954,21 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_featured {
   testimonials: (GenericPageQuery_genericPage_sectionsAsArray_featured_testimonials | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image {
@@ -1001,10 +1067,21 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image {

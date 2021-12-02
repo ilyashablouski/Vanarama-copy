@@ -13,10 +13,21 @@ export interface GenericPageQueryTiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQueryTiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQueryTiles_tiles_image_file_details {
+  size: number;
+  image: GenericPageQueryTiles_tiles_image_file_details_image;
+}
+
 export interface GenericPageQueryTiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQueryTiles_tiles_image_file_details;
 }
 
 export interface GenericPageQueryTiles_tiles_image {

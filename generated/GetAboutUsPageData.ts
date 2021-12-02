@@ -21,8 +21,19 @@ export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   breadcrumbs: CustomJSON | null;
 }
 
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details {
+  size: number;
+  image: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details_image;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
   url: string;
+  details: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {

@@ -266,10 +266,21 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details {
+  size: number;
+  image: HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details_image;
+}
+
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image {
@@ -299,10 +310,21 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details {
+  size: number;
+  image: HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details_image;
+}
+
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image {

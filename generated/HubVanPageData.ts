@@ -295,10 +295,21 @@ export interface HubVanPageData_hubVanPage_sections_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details {
+  size: number;
+  image: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details_image;
+}
+
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image {

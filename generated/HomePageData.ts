@@ -308,10 +308,21 @@ export interface HomePageData_homePage_sections_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface HomePageData_homePage_sections_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_sections_tiles_tiles_image_file_details {
+  size: number;
+  image: HomePageData_homePage_sections_tiles_tiles_image_file_details_image;
+}
+
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: HomePageData_homePage_sections_tiles_tiles_image_file_details;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image {

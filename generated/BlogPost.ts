@@ -233,10 +233,21 @@ export interface BlogPost_blogPost_sections_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface BlogPost_blogPost_sections_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface BlogPost_blogPost_sections_tiles_tiles_image_file_details {
+  size: number;
+  image: BlogPost_blogPost_sections_tiles_tiles_image_file_details_image;
+}
+
 export interface BlogPost_blogPost_sections_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: BlogPost_blogPost_sections_tiles_tiles_image_file_details;
 }
 
 export interface BlogPost_blogPost_sections_tiles_tiles_image {

@@ -262,6 +262,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           {/* using this class for prevent major layout shifts */}
           <div className="blog-top-image">
             <ImageV2
+              lazyLoad={false}
               width={featured?.image?.file?.details.image.width}
               height={featured?.image?.file?.details.image.height}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
