@@ -23,7 +23,6 @@ export interface GenericPageQueryFeatured_cards_image_file_details_image {
 }
 
 export interface GenericPageQueryFeatured_cards_image_file_details {
-  size: number;
   image: GenericPageQueryFeatured_cards_image_file_details_image;
 }
 
@@ -59,7 +58,6 @@ export interface GenericPageQueryFeatured_image_file_details_image {
 }
 
 export interface GenericPageQueryFeatured_image_file_details {
-  size: number;
   image: GenericPageQueryFeatured_image_file_details_image;
 }
 

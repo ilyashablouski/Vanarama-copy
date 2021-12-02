@@ -5,7 +5,6 @@ export const IMAGE_FILE_FRAGMENT = gql`
   fragment imageFile on File {
     url
     details {
-      size
       image {
         width
         height

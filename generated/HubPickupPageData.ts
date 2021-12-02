@@ -80,7 +80,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1_cards_image_
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured1_cards_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_featured1_cards_image_file_details_image;
 }
 
@@ -116,7 +115,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1_image_file_d
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured1_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_featured1_image_file_details_image;
 }
 
@@ -169,7 +167,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2_cards_image_
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured2_cards_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_featured2_cards_image_file_details_image;
 }
 
@@ -205,7 +202,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2_image_file_d
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured2_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_featured2_image_file_details_image;
 }
 
@@ -272,7 +268,6 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_fil
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file_details_image;
 }
 
@@ -316,7 +311,6 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_fil
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details {
-  size: number;
   image: HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file_details_image;
 }
 

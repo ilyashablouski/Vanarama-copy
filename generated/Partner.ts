@@ -46,7 +46,6 @@ export interface Partner_partner_featured_cards_image_file_details_image {
 }
 
 export interface Partner_partner_featured_cards_image_file_details {
-  size: number;
   image: Partner_partner_featured_cards_image_file_details_image;
 }
 
@@ -82,7 +81,6 @@ export interface Partner_partner_featured_image_file_details_image {
 }
 
 export interface Partner_partner_featured_image_file_details {
-  size: number;
   image: Partner_partner_featured_image_file_details_image;
 }
 
@@ -135,7 +133,6 @@ export interface Partner_partner_featured1_cards_image_file_details_image {
 }
 
 export interface Partner_partner_featured1_cards_image_file_details {
-  size: number;
   image: Partner_partner_featured1_cards_image_file_details_image;
 }
 
@@ -171,7 +168,6 @@ export interface Partner_partner_featured1_image_file_details_image {
 }
 
 export interface Partner_partner_featured1_image_file_details {
-  size: number;
   image: Partner_partner_featured1_image_file_details_image;
 }
 

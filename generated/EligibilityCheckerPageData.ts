@@ -50,7 +50,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image_file_details {
-  size: number;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image_file_details_image;
 }
 
@@ -86,7 +85,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image_file_details {
-  size: number;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image_file_details_image;
 }
 
@@ -139,7 +137,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image_file_details {
-  size: number;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image_file_details_image;
 }
 
@@ -175,7 +172,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details {
-  size: number;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details_image;
 }
 

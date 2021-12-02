@@ -19,7 +19,6 @@ export interface GenericPageQueryTiles_tiles_image_file_details_image {
 }
 
 export interface GenericPageQueryTiles_tiles_image_file_details {
-  size: number;
   image: GenericPageQueryTiles_tiles_image_file_details_image;
 }
 

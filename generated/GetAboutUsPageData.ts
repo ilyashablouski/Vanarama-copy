@@ -27,7 +27,6 @@ export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_detail
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details {
-  size: number;
   image: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file_details_image;
 }
 

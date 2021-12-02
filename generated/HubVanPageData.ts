@@ -80,7 +80,6 @@ export interface HubVanPageData_hubVanPage_sections_featured1_cards_image_file_d
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured1_cards_image_file_details {
-  size: number;
   image: HubVanPageData_hubVanPage_sections_featured1_cards_image_file_details_image;
 }
 
@@ -116,7 +115,6 @@ export interface HubVanPageData_hubVanPage_sections_featured1_image_file_details
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured1_image_file_details {
-  size: number;
   image: HubVanPageData_hubVanPage_sections_featured1_image_file_details_image;
 }
 
@@ -169,7 +167,6 @@ export interface HubVanPageData_hubVanPage_sections_featured2_cards_image_file_d
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2_cards_image_file_details {
-  size: number;
   image: HubVanPageData_hubVanPage_sections_featured2_cards_image_file_details_image;
 }
 
@@ -205,7 +202,6 @@ export interface HubVanPageData_hubVanPage_sections_featured2_image_file_details
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2_image_file_details {
-  size: number;
   image: HubVanPageData_hubVanPage_sections_featured2_image_file_details_image;
 }
 
@@ -301,7 +297,6 @@ export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_detai
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details {
-  size: number;
   image: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file_details_image;
 }
 

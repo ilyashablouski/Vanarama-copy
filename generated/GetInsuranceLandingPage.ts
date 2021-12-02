@@ -45,7 +45,6 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details {
-  size: number;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_cards_image_file_details_image;
 }
 
@@ -81,7 +80,6 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details {
-  size: number;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file_details_image;
 }
 
@@ -134,7 +132,6 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details {
-  size: number;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_cards_image_file_details_image;
 }
 
@@ -170,7 +167,6 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details {
-  size: number;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file_details_image;
 }
 

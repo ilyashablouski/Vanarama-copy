@@ -123,7 +123,6 @@ export interface BlogPost_blogPost_sections_featured_cards_image_file_details_im
 }
 
 export interface BlogPost_blogPost_sections_featured_cards_image_file_details {
-  size: number;
   image: BlogPost_blogPost_sections_featured_cards_image_file_details_image;
 }
 
@@ -159,7 +158,6 @@ export interface BlogPost_blogPost_sections_featured_image_file_details_image {
 }
 
 export interface BlogPost_blogPost_sections_featured_image_file_details {
-  size: number;
   image: BlogPost_blogPost_sections_featured_image_file_details_image;
 }
 
@@ -239,7 +237,6 @@ export interface BlogPost_blogPost_sections_tiles_tiles_image_file_details_image
 }
 
 export interface BlogPost_blogPost_sections_tiles_tiles_image_file_details {
-  size: number;
   image: BlogPost_blogPost_sections_tiles_tiles_image_file_details_image;
 }
 

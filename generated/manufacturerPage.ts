@@ -37,7 +37,6 @@ export interface manufacturerPage_manufacturerPage_sections_featured_cards_image
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details {
-  size: number;
   image: manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details_image;
 }
 
@@ -73,7 +72,6 @@ export interface manufacturerPage_manufacturerPage_sections_featured_image_file_
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_image_file_details {
-  size: number;
   image: manufacturerPage_manufacturerPage_sections_featured_image_file_details_image;
 }
 

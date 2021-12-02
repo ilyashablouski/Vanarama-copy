@@ -45,7 +45,6 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details {
-  size: number;
   image: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details_image;
 }
 
@@ -89,7 +88,6 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details {
-  size: number;
   image: GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details_image;
 }
 
@@ -137,7 +135,6 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_card
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details {
-  size: number;
   image: GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details_image;
 }
 
@@ -173,7 +170,6 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_imag
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details {
-  size: number;
   image: GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details_image;
 }
 

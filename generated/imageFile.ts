@@ -13,7 +13,6 @@ export interface imageFile_details_image {
 }
 
 export interface imageFile_details {
-  size: number;
   image: imageFile_details_image;
 }
 
