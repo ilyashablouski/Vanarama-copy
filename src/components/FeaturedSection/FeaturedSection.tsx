@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { getFeaturedClassPartial } from '../../utils/layout';
 // import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
@@ -59,7 +59,9 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
       {video && <Media src={video || ''} width="100%" height="360px" />}
 
       {image && (
-        <Image
+        <ImageV2
+          width={image?.file?.details.image.width ?? 1000}
+          height={image?.file?.details.image.height ?? 650}
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={
             image?.file?.url ||
