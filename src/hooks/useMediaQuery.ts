@@ -22,10 +22,6 @@ export default function useMediaQuery(query: string) {
   return matches;
 }
 
-export function useMobile375Viewport() {
-  return useMediaQuery('(max-width: 375px)');
-}
-
 export function useMobileViewport() {
   return useMediaQuery('(max-width: 767px)');
 }
