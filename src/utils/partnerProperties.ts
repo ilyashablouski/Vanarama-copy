@@ -117,11 +117,17 @@ export function clearInactiveSessionFuelTypes() {
   }
 }
 
-export function partnerSearchVehicleTypesMapper(
-  vehicleTypes: Nullish<string[]>,
-) {
-  return (
-    vehicleTypes && vehicleTypes.map(vehicleType => vehicleType.slice(0, -1))
+const partnerVehicleTypesMapper = {
+  Cars: 'Car',
+  Vans: 'Van',
+  Pickups: 'Pickup',
+};
+export function mapPartnerVehicleTypes(vehicleTypes: Nullish<string[]>) {
+  return vehicleTypes?.map(
+    vehicleType =>
+      partnerVehicleTypesMapper[
+        vehicleType as keyof typeof partnerVehicleTypesMapper
+      ],
   );
 }
 

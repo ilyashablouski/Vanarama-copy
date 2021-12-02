@@ -34,7 +34,7 @@ import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 import { Nullable } from '../../types/common';
 import {
   getPartnerProperties,
-  partnerSearchVehicleTypesMapper,
+  mapPartnerVehicleTypes,
 } from '../../utils/partnerProperties';
 
 export interface IGSVehiclesCardsData<T> {
@@ -276,19 +276,18 @@ export function useGlobalSearch(query?: string) {
   });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
-    // if partnerships journey
-    const initialPartnershipsFilters = () => {
-      if (router.pathname.includes('partnerships')) {
-        const partnerDetails = getPartnerProperties();
-        return {
-          vehicleCategory: partnerSearchVehicleTypesMapper(
-            partnerDetails?.vehicleTypes,
-          ),
-          fuelTypes: partnerDetails?.fuelTypes,
-        };
-      }
-      return null;
+    let derivativesFilters: ProductDerivativeFilter = {
+      financeTypes: [FinanceType.PCH],
     };
+    // if partnerships journey
+    if (router.pathname.includes('partnerships')) {
+      const partnerDetails = getPartnerProperties();
+      derivativesFilters = {
+        ...derivativesFilters,
+        vehicleCategory: mapPartnerVehicleTypes(partnerDetails?.vehicleTypes),
+        fuelTypes: partnerDetails?.fuelTypes,
+      };
+    }
 
     async function fetchSuggestionsData(value: string) {
       const [suggestsList, vehiclesList] = await Promise.all([
@@ -308,10 +307,7 @@ export function useGlobalSearch(query?: string) {
             from: 0,
             size: 6,
             sort: DEFAULT_SORT,
-            filters: {
-              ...initialPartnershipsFilters(),
-              financeTypes: [FinanceType.PCH],
-            },
+            filters: derivativesFilters,
           },
         }),
       ]);
