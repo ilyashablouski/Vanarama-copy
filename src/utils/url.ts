@@ -11,6 +11,10 @@ import { isBrowser } from './deviceType';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
+export const rangeUrlSlugMapper = {
+  'e-tron': 'etron',
+};
+
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
@@ -102,7 +106,9 @@ export const getProductPageBreadCrumb = (
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
   const manufacturerSlug = slugArray[1];
-  const rangeSlug = slugArray[2];
+  const rangeSlug =
+    rangeUrlSlugMapper[slugArray[2] as keyof typeof rangeUrlSlugMapper] ??
+    slugArray[2];
   const bodyType = slugArray[3] || '';
 
   if (data) {
@@ -212,12 +218,19 @@ export const PAGES_WITHOUT_LEASE_RESET = [
   '/olaf',
 ];
 
-export const formatToSlugFormat = (value: string) =>
-  value
+export const formatToSlugFormat = (value: string) => {
+  let formattedSlug = value
     .toLowerCase()
     .split(' ')
     .join('-')
     .replace('.', '-');
+
+  if (formattedSlug.split('').reverse()[0] === '.') {
+    formattedSlug = formattedSlug.slice(0, formattedSlug.length - 1);
+  }
+
+  return formattedSlug;
+};
 
 export function trimStartSlash(url: string) {
   return url.startsWith('/') ? url.slice(1) : url;

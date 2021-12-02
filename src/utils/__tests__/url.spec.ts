@@ -267,7 +267,7 @@ describe('Url utils', () => {
 
   describe('formatToSlugFormat', () => {
     it('formatToSlugFormat should return valid slug value', () => {
-      const actual = formatToSlugFormat('test ID.3');
+      const actual = formatToSlugFormat('test ID.3.');
       expect(actual).toEqual('test-id-3');
     });
   });
