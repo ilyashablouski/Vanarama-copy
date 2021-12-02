@@ -216,10 +216,10 @@
         margin-left: 100px;
       }
 
-      @include mobile375 {
+      @include mobile {
         text-align: center;
-        margin-top: 180px;
-        margin-bottom: 200px;
+        margin-top: 50px;
+        margin-bottom: 330px;
       }
     }
 
