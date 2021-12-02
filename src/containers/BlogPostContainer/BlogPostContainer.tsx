@@ -145,7 +145,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           {carouselPosition?.includes(CarouselPositionEnum.withinBody) &&
             carouselFilters && (
               <BlogCarousel
-                countItems={15}
+                countItems={12}
                 productFilters={carouselFilters}
                 className="carousel-two-column"
               />
@@ -211,7 +211,7 @@ const BlogPostContainer: NextPage<IProps> = ({
         carouselFilters &&
         isBlogCarPagesCarouselFeatureFlagEnabled(Cookies) && (
           <div className="row:bg-lighter blog-carousel-wrapper">
-            <BlogCarousel countItems={15} productFilters={carouselFilters} />
+            <BlogCarousel countItems={12} productFilters={carouselFilters} />
           </div>
         )}
       {metaData && (
