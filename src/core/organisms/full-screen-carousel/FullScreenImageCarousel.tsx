@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import { IFullScreenCarouselProps } from 'core/organisms/full-screen-carousel/interface';
 import ModalV2 from 'core/molecules/modal-v2';
 import Icon from 'core/atoms/icon';
@@ -33,8 +33,10 @@ function FullScreenImageCarousel({
         >
           {images.map(imageUrl => (
             <SwiperSlide key={imageUrl}>
-              <Image
+              <ImageV2
                 plain
+                width={1920}
+                height={1080}
                 src={imageUrl}
                 alt={imageAltText}
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
