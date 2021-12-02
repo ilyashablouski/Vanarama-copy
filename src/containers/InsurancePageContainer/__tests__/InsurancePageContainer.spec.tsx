@@ -28,6 +28,12 @@ const DATA = {
         image: {
           title: 'Tesla-Test-6',
           file: {
+            details: {
+              image: {
+                width: 100,
+                height: 45,
+              },
+            },
             url:
               '//images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg',
           },
@@ -81,6 +87,12 @@ const DATA = {
             image: {
               title: 'placeholder',
               file: {
+                details: {
+                  image: {
+                    width: 100,
+                    height: 45,
+                  },
+                },
                 url:
                   '//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg',
               },
@@ -101,6 +113,12 @@ const DATA = {
             image: {
               title: 'placeholder',
               file: {
+                details: {
+                  image: {
+                    width: 100,
+                    height: 45,
+                  },
+                },
                 url:
                   '//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg',
               },
@@ -122,6 +140,12 @@ const DATA = {
             image: {
               title: 'placeholder',
               file: {
+                details: {
+                  image: {
+                    width: 100,
+                    height: 45,
+                  },
+                },
                 url:
                   '//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg',
               },
@@ -143,6 +167,12 @@ const DATA = {
             image: {
               title: 'placeholder',
               file: {
+                details: {
+                  image: {
+                    width: 100,
+                    height: 45,
+                  },
+                },
                 url:
                   '//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg',
               },
@@ -162,6 +192,12 @@ const DATA = {
             image: {
               title: 'placeholder',
               file: {
+                details: {
+                  image: {
+                    width: 100,
+                    height: 45,
+                  },
+                },
                 url:
                   '//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg',
               },
