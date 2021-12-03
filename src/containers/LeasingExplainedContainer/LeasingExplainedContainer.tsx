@@ -83,7 +83,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
             )}
           </div>
           <FeaturedMedia
-            featuredImageUrl={featured?.image?.file?.url}
+            featuredImage={featured?.image?.file}
             featuredVideoUrl={featured?.video}
           />
         </div>

@@ -1,7 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import { GetAboutUsPageData as Query } from '../../../generated/GetAboutUsPageData';
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
 
 export const GET_ABOUT_US_PAGE_DATA = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query GetAboutUsPageData($isPreview: Boolean) {
     aboutUsLandingPage(isPreview: $isPreview) {
       id
@@ -21,7 +23,7 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
       }
       featuredImage {
         file {
-          url
+          ...imageFile
         }
       }
       sections {

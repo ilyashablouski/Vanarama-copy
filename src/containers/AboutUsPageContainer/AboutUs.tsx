@@ -17,7 +17,7 @@ import getTitleTag from '../../utils/getTitleTag';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -132,7 +132,8 @@ const AboutUs: React.FC<IAboutPageProps> = ({ data }) => {
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
-            <Image
+            <ImageV2
+              lazyLoad={false}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featuredImage.file.url}
               alt="Featured image"

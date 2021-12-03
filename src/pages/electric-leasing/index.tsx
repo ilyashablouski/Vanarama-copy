@@ -93,17 +93,16 @@ const FeaturedSection: FC<any> = ({
       <Media src={video || ''} width="100%" height="360px" />
     ) : (
       <ImageV2
-        width="576"
-        height="380"
         objectFit="cover"
+        width={image?.file.details.image.width ?? 1000}
+        height={image?.file.details.image.height ?? 650}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={
-          image?.file?.url ||
+          image?.file.url ||
           'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
         }
       />
     )}
-
     <div className="-inset -middle -col-400">
       <Heading
         size="large"

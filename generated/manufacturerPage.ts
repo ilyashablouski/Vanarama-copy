@@ -31,9 +31,19 @@ export interface manufacturerPage_manufacturerPage_sections_featured_link {
   legacyUrl: string | null;
 }
 
+export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details {
+  image: manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details_image;
+}
+
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: manufacturerPage_manufacturerPage_sections_featured_cards_image_file_details;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_image {
@@ -56,9 +66,19 @@ export interface manufacturerPage_manufacturerPage_sections_featured_cards {
   link: manufacturerPage_manufacturerPage_sections_featured_cards_link | null;
 }
 
+export interface manufacturerPage_manufacturerPage_sections_featured_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface manufacturerPage_manufacturerPage_sections_featured_image_file_details {
+  image: manufacturerPage_manufacturerPage_sections_featured_image_file_details_image;
+}
+
 export interface manufacturerPage_manufacturerPage_sections_featured_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: manufacturerPage_manufacturerPage_sections_featured_image_file_details;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_image {

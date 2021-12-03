@@ -56,6 +56,7 @@ const Card: FC<ICardProps> = memo(props => {
             src={(imageSrc || placeholderImage) ?? ''}
             dataTestId="card-image"
             alt={alt}
+            plain
           />
           {isBlackFridayFlag && <BlackFridayCardLabel />}
         </>

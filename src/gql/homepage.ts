@@ -1,20 +1,16 @@
 import { gql } from '@apollo/client';
 import FeaturedSection from '../components/FeaturedSection';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
+import { IMAGE_FILE_FRAGMENT } from './image';
 
 const ALL_HOME_CONTENT = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query HomePageData($isPreview: Boolean) {
     homePage(isPreview: $isPreview) {
       id
       featuredImage {
         file {
-          url
-          details {
-            image {
-              width
-              height
-            }
-          }
+          ...imageFile
         }
       }
       metaData {
@@ -38,7 +34,7 @@ const ALL_HOME_CONTENT = gql`
           image {
             title
             file {
-              url
+              ...imageFile
             }
           }
           heroLabel {
@@ -64,7 +60,7 @@ const ALL_HOME_CONTENT = gql`
             body
             image {
               file {
-                url
+                ...imageFile
               }
             }
             link {

@@ -16,7 +16,7 @@ import Skeleton from '../../components/Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -260,10 +260,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       {featured && (
         <div className="row:featured-left">
           {/* using this class for prevent major layout shifts */}
-          <div className="imgPlaceholderWrapper blog-top-image">
-            <Image
-              width="100%"
-              height="auto"
+          <div className="blog-top-image">
+            <ImageV2
+              lazyLoad={false}
+              width={featured?.image?.file?.details.image.width}
+              height={featured?.image?.file?.details.image.height}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured?.image?.file?.url || ''}
             />
