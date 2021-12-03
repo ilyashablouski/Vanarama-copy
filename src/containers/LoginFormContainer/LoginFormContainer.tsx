@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ApolloQueryResult } from '@apollo/client';
+import {ApolloQueryResult, useApolloClient} from '@apollo/client';
 import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import { ILogInFormContainerProps } from './interfaces';
@@ -49,6 +49,7 @@ const LoginFormContainer = ({
   onCompleted,
   onError,
 }: ILogInFormContainerProps) => {
+  const client = useApolloClient();
   const router = useRouter();
   const { redirect } = router.query;
   const [isLoading, setIsLoading] = useState(false);
@@ -110,7 +111,7 @@ const LoginFormContainer = ({
             }),
             setPersonLoggedIn(personQuery.data?.getPerson),
             router.prefetch((redirect as string) || '/'),
-            getLocalWishlistState()
+            getLocalWishlistState(client)
               .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
               .then(() =>
                 requestWishlist(personQuery.data.getPerson?.partyUuid)
