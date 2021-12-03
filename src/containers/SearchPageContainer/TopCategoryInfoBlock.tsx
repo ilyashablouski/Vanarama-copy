@@ -83,6 +83,7 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
         </div>
       </div>
       <ImageV2
+        lazyLoad={false}
         className="card-image"
         width={imageFile?.details.image.width}
         height={imageFile?.details.image.height}

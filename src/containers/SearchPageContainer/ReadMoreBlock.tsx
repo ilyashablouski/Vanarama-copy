@@ -6,7 +6,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Button = dynamic(() => import('core/atoms/button'), {
@@ -26,24 +26,27 @@ const ReadMoreBlock = ({ featured }: IProps) => {
     () => featured?.layout?.includes('Read More'),
     [featured],
   );
-  const [readmore, setReadMore] = useState(isReadMoreIncluded);
+  const [readMore, setReadMore] = useState(isReadMoreIncluded);
+
   return (
     <div className={`row:${getFeaturedClassPartial(featured)}`}>
       {!featured?.layout?.includes('Full Width') && (
         <div>
-          <Image
+          <ImageV2
+            width={featured.image?.file?.details.image.width}
+            height={featured.image?.file?.details.image.height}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            size="expand"
             src={featured.image?.file?.url || ''}
+            size="expand"
           />
         </div>
       )}
       <div>
         <div
-          className={readmore ? '-truncate' : ''}
+          className={readMore ? '-truncate' : ''}
           style={{
             height:
-              featured?.layout?.includes('Read More') && readmore
+              featured?.layout?.includes('Read More') && readMore
                 ? featured?.defaultHeight || 100
                 : '',
           }}
@@ -78,8 +81,8 @@ const ReadMoreBlock = ({ featured }: IProps) => {
             size="small"
             color="teal"
             fill="clear"
-            label={readmore ? 'Read More' : 'Read Less'}
-            onClick={() => setReadMore(!readmore)}
+            label={readMore ? 'Read More' : 'Read Less'}
+            onClick={() => setReadMore(!readMore)}
           />
         )}
       </div>

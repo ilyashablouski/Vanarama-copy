@@ -1,6 +1,6 @@
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import ReactMarkdown from 'react-markdown/with-html';
 import Heading from 'core/atoms/heading';
 import dynamic from 'next/dynamic';
@@ -56,6 +56,23 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
     VehicleTypeEnum.CAR,
   );
 
+  const imageFeatured1 = getSectionsData(
+    ['sectionsAsArray', 'featured', '1', 'image', 'file'],
+    pageData?.genericPage,
+  );
+  const imageFeatured2 = getSectionsData(
+    ['sectionsAsArray', 'featured', '2', 'image', 'file'],
+    pageData?.genericPage,
+  );
+  const imageFeatured3 = getSectionsData(
+    ['sectionsAsArray', 'featured', '3', 'image', 'file'],
+    pageData?.genericPage,
+  );
+  const imageFeatured5 = getSectionsData(
+    ['sectionsAsArray', 'featured', '5', 'image', 'file'],
+    pageData?.genericPage,
+  );
+
   const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
     if (isNewPage && isRangePage) {
       return getSectionsData(treeGetData, pageDatas)?.map((item: any) => {
@@ -86,13 +103,12 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
 
         <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <Image
+            <ImageV2
               className="card-image media"
+              width={imageFeatured1?.details.image.width}
+              height={imageFeatured1?.details.image.height}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={getSectionsData(
-                ['sectionsAsArray', 'featured', '1', 'image', 'file', 'url'],
-                pageData?.genericPage,
-              )}
+              src={imageFeatured1?.url}
             />
             <div>
               <Heading
@@ -206,26 +222,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
               </div>
             </div>
 
-            <Image
+            <ImageV2
               className="card-image media"
+              width={imageFeatured2?.details.image.width}
+              height={imageFeatured2?.details.image.height}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={getSectionsData(
-                ['sectionsAsArray', 'featured', '2', 'image', 'file', 'url'],
-                pageData?.genericPage,
-              )}
+              src={imageFeatured2?.url}
             />
           </LazyLoadComponent>
         </section>
 
         <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <Image
+            <ImageV2
               className="card-image media"
+              width={imageFeatured3?.details.image.width}
+              height={imageFeatured3?.details.image.height}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={getSectionsData(
-                ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
-                pageData?.genericPage,
-              )}
+              src={imageFeatured3?.url}
             />
             <div>
               <Heading
@@ -347,13 +361,12 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
 
       <section className="row:featured-left page__range-page-description">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <Image
+          <ImageV2
             className="card-image media"
+            width={imageFeatured5?.details.image.width}
+            height={imageFeatured5?.details.image.height}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={getSectionsData(
-              ['sectionsAsArray', 'featured', '5', 'image', 'file', 'url'],
-              pageData?.genericPage,
-            )}
+            src={imageFeatured5?.url}
           />
           <div>
             <Heading
