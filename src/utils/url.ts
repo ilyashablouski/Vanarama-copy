@@ -11,8 +11,12 @@ import { isBrowser } from './deviceType';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
-export const rangeUrlSlugMapper = {
+const rangeTypesUrlSlugMapper = {
   'e-tron': 'etron',
+};
+
+const bodyTypesUrlSlugMapper = {
+  '4x4-suv': '4x4',
 };
 
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
@@ -105,11 +109,16 @@ export const getProductPageBreadCrumb = (
 ) => {
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
-  const manufacturerSlug = slugArray[1];
+  const manufacturerSlug = slugArray[1].replace('-', '');
   const rangeSlug =
-    rangeUrlSlugMapper[slugArray[2] as keyof typeof rangeUrlSlugMapper] ??
-    slugArray[2];
-  const bodyType = slugArray[3] || '';
+    rangeTypesUrlSlugMapper[
+      slugArray[2] as keyof typeof rangeTypesUrlSlugMapper
+    ] ?? slugArray[2];
+  const bodyType =
+    bodyTypesUrlSlugMapper[
+      slugArray[3] as keyof typeof bodyTypesUrlSlugMapper
+    ] ??
+    (slugArray[3] || '');
 
   if (data) {
     const { manufacturer, range, name } = data;

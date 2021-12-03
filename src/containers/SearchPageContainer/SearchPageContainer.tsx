@@ -1122,7 +1122,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       {isDynamicFilterPage && tiles?.tiles?.length && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles.tiles}
-          title=""
+          title={tiles.tilesTitle || ''}
           titleTag={tiles.titleTag}
         />
       )}
@@ -1146,7 +1146,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               tiles?.tiles?.length && (
                 <WhyLeaseWithVanaramaTiles
                   tiles={tiles.tiles}
-                  title=""
+                  title={tiles.tilesTitle || ''}
                   titleTag={tiles.titleTag}
                 />
               )}
