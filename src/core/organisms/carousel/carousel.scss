@@ -187,7 +187,6 @@ $carousel-arrow-size: 1.5rem;
 
   &.-product {
     .card {
-      grid-template-rows: auto;
       max-height: unset !important;
 
       > div {
