@@ -48,6 +48,7 @@ function CarouselSwiper({
         noSwipingSelector={noSwipingSelector}
         touchEventsTarget="wrapper"
         onSlideChange={onSlideChange}
+        simulateTouch={false}
       >
         {children}
         {paginationComponent || (
