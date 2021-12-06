@@ -7,6 +7,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { GenericPageQueryTiles } from '../../../generated/GenericPageQueryTiles';
 import Skeleton from '../../components/Skeleton';
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -100,6 +101,7 @@ const TilesContainer: FCWithFragments<IProps> = ({ tiles, leasingOffers }) => {
 
 TilesContainer.fragments = {
   tiles: gql`
+    ${IMAGE_FILE_FRAGMENT}
     fragment GenericPageQueryTiles on Tiles {
       position
       name
@@ -117,9 +119,9 @@ TilesContainer.fragments = {
           title
           description
           file {
-            url
             fileName
             contentType
+            ...imageFile
           }
         }
       }

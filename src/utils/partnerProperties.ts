@@ -117,4 +117,18 @@ export function clearInactiveSessionFuelTypes() {
   }
 }
 
+const partnerVehicleTypesMapper = {
+  Cars: 'Car',
+  Vans: 'Van',
+  Pickups: 'Pickup',
+};
+export function mapPartnerVehicleTypes(vehicleTypes: Nullish<string[]>) {
+  return vehicleTypes?.map(
+    vehicleType =>
+      partnerVehicleTypesMapper[
+        vehicleType as keyof typeof partnerVehicleTypesMapper
+      ],
+  );
+}
+
 export default getPartnerProperties;

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../../components/Skeleton';
 import { GenericPageQuery_genericPage_sections_hero_image as IHeroImage } from '../../../../generated/GenericPageQuery';
 import { HeroHeading, HeroTitle } from '../../../components/Hero';
-import { useMobile375Viewport } from '../../../hooks/useMediaQuery';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={2} />,
@@ -17,11 +17,11 @@ interface IProps {
 }
 
 const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
-  const isMobile375Viewport = useMobile375Viewport();
+  const isMobileViewport = useMobileViewport();
   const wrapperDynamicClassNames = useMemo(
     () =>
-      isMobile375Viewport ? '-justify-content-column' : '-justify-content-row',
-    [isMobile375Viewport],
+      isMobileViewport ? '-justify-content-column' : '-justify-content-row',
+    [isMobileViewport],
   );
 
   return (
@@ -40,7 +40,7 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
             <HeroTitle
               text={body || ''}
               className={cx('-w-500', {
-                '-mt-200': isMobile375Viewport,
+                '-mt-200': isMobileViewport,
               })}
             />
           </div>

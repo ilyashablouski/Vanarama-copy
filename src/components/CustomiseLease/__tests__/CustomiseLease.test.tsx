@@ -80,6 +80,8 @@ describe('<CustomiseLease />', () => {
       setColour: jest.fn(),
       setTerm: jest.fn(),
       setTrim: jest.fn(),
+      setIsHotOffer: jest.fn(),
+      setIsFactoryOrder: jest.fn(),
       data: {
         quoteByCapId: {
           colour: '13990',
@@ -235,6 +237,8 @@ describe('<CustomiseLease />', () => {
       setIsPlayingLeaseAnimation: jest.fn(),
       setIsRestoreLeaseSettings: jest.fn(),
       isStartScreen: true,
+      setIsHotOffer: jest.fn(),
+      setIsFactoryOrder: jest.fn(),
       data: {
         quoteByCapId: {
           colour: '13990',
@@ -490,6 +494,8 @@ describe('<CustomiseLease />', () => {
         setIsInitPayModalShowing={jest.fn()}
         setIsPlayingLeaseAnimation={jest.fn()}
         setIsRestoreLeaseSettings={jest.fn()}
+        setIsHotOffer={jest.fn()}
+        setIsFactoryOrder={jest.fn()}
       />,
     );
 

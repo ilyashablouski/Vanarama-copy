@@ -16,7 +16,11 @@ interface CustomSelectInterface {
   radioName: string;
   className: string;
   invalid?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChange: (
+    optionId: number,
+    isOffer: boolean,
+    isFactoryOrder: boolean,
+  ) => void;
   dataTestId?: string;
   dataUiTestId?: string;
 }
@@ -29,7 +33,7 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
   items,
   className,
   radioName,
-  onChange,
+  handleChange,
   invalid,
   dataTestId,
   dataUiTestId,
@@ -88,7 +92,7 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
           isDisabled={isDisabled}
           selectedValue={selectedValue}
           radioName={radioName}
-          onChange={onChange}
+          handleChange={handleChange}
         />
       )}
       <span className="icon select--chevron">

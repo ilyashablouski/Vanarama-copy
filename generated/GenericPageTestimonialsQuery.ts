@@ -39,10 +39,20 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_
   legacyUrl: string | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details {
+  image: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details_image;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file_details;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image {
@@ -72,10 +82,20 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_
   legacyUrl: string | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details {
+  image: GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details_image;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file_details;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image {
@@ -109,9 +129,19 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_link
   legacyUrl: string | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details {
+  image: GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details_image;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file_details;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image {
@@ -134,9 +164,19 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_card
   link: GenericPageTestimonialsQuery_genericPage_sections_featured_cards_link | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details {
+  image: GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details_image;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageTestimonialsQuery_genericPage_sections_featured_image_file_details;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_image {

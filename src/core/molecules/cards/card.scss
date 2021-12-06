@@ -136,7 +136,7 @@ $small: 0.875rem;
       grid-template-rows:
         minmax(0, auto)
         minmax(0, auto)
-        [content] minmax(0, 1fr)
+        minmax(0, auto) minmax(0, 1fr)
         [content] repeat(auto-fit, minmax(1rem, auto))
         minmax(0, auto);
 
@@ -510,6 +510,7 @@ $small: 0.875rem;
     grid-auto-flow: column;
     grid-column: 1 / -1;
     color: $dark;
+    margin-top: auto;
 
     .icon {
       font-size: 2.5rem;

@@ -21,10 +21,20 @@ export interface GenericPageQuery_genericPage_metaData {
   breadcrumbs: CustomJSON | null;
 }
 
+export interface GenericPageQuery_genericPage_featuredImage_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_featuredImage_file_details {
+  image: GenericPageQuery_genericPage_featuredImage_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_featuredImage_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_featuredImage_file_details;
 }
 
 export interface GenericPageQuery_genericPage_featuredImage {
@@ -81,9 +91,19 @@ export interface GenericPageQuery_genericPage_sections_faqs {
   questionSets: (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_cards_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_cards_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_cards_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_cards_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_cards_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_cards_cards_image {
@@ -116,10 +136,20 @@ export interface GenericPageQuery_genericPage_sections_cards {
   cards: GenericPageQuery_genericPage_sections_cards_cards[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_hero_image_file_details {
+  image: GenericPageQuery_genericPage_sections_hero_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_hero_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_hero_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_hero_image {
@@ -174,9 +204,19 @@ export interface GenericPageQuery_genericPage_sections_featured_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured_cards_image {
@@ -199,9 +239,19 @@ export interface GenericPageQuery_genericPage_sections_featured_cards {
   link: GenericPageQuery_genericPage_sections_featured_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured_image {
@@ -241,9 +291,19 @@ export interface GenericPageQuery_genericPage_sections_featured1_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured1_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured1_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured1_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured1_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured1_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured1_cards_image {
@@ -266,9 +326,19 @@ export interface GenericPageQuery_genericPage_sections_featured1_cards {
   link: GenericPageQuery_genericPage_sections_featured1_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured1_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured1_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured1_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured1_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured1_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured1_image {
@@ -308,9 +378,19 @@ export interface GenericPageQuery_genericPage_sections_featured2_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured2_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured2_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured2_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured2_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured2_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured2_cards_image {
@@ -333,9 +413,19 @@ export interface GenericPageQuery_genericPage_sections_featured2_cards {
   link: GenericPageQuery_genericPage_sections_featured2_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured2_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured2_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured2_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured2_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured2_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured2_image {
@@ -375,9 +465,19 @@ export interface GenericPageQuery_genericPage_sections_featured3_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured3_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured3_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured3_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured3_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured3_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured3_cards_image {
@@ -400,9 +500,19 @@ export interface GenericPageQuery_genericPage_sections_featured3_cards {
   link: GenericPageQuery_genericPage_sections_featured3_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured3_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured3_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured3_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured3_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured3_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured3_image {
@@ -442,9 +552,19 @@ export interface GenericPageQuery_genericPage_sections_featured4_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured4_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured4_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured4_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured4_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured4_cards_image {
@@ -467,9 +587,19 @@ export interface GenericPageQuery_genericPage_sections_featured4_cards {
   link: GenericPageQuery_genericPage_sections_featured4_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_featured4_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured4_image_file_details {
+  image: GenericPageQuery_genericPage_sections_featured4_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_featured4_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_featured4_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_featured4_image {
@@ -536,10 +666,20 @@ export interface GenericPageQuery_genericPage_sections_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details {
+  image: GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sections_tiles_tiles_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sections_tiles_tiles_image {
@@ -618,9 +758,19 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_accordion {
   accordionEntries: GenericPageQuery_genericPage_sectionsAsArray_accordion_accordionEntries[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image {
@@ -649,9 +799,19 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_carousel {
   cards: (GenericPageQuery_genericPage_sectionsAsArray_carousel_cards | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image {
@@ -710,9 +870,19 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_featured_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image {
@@ -735,9 +905,19 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards {
   link: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_featured_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_featured_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image {
@@ -767,10 +947,20 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_featured {
   testimonials: (GenericPageQuery_genericPage_sectionsAsArray_featured_testimonials | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image {
@@ -869,10 +1059,20 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_link {
   legacyUrl: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details_image;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file_details;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image {

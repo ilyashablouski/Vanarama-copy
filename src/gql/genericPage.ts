@@ -19,6 +19,7 @@ import {
   SearchPageSlugVariables,
 } from '../../generated/SearchPageSlug';
 import { IErrorProps, IPageWithData, IPageWithError } from '../types/common';
+import { IMAGE_FILE_FRAGMENT } from './image';
 
 export interface IGenericPage {
   data: GenericPageQuery;
@@ -29,6 +30,7 @@ export interface IGenericPage {
 export type IGenericPageProps = IPageWithData<IGenericPage> | IPageWithError;
 
 export const GENERIC_PAGE = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query GenericPageQuery(
     $slug: String!
     $sectionsAsArray: Boolean
@@ -60,9 +62,9 @@ export const GENERIC_PAGE = gql`
         title
         description
         file {
-          url
           fileName
           contentType
+          ...imageFile
         }
       }
       sections {
@@ -113,8 +115,8 @@ export const GENERIC_PAGE = gql`
               title
               description
               file {
-                url
                 fileName
+                ...imageFile
               }
             }
             body
@@ -136,9 +138,9 @@ export const GENERIC_PAGE = gql`
             title
             description
             file {
-              url
               fileName
               contentType
+              ...imageFile
             }
           }
           heroCard {
@@ -242,8 +244,8 @@ export const GENERIC_PAGE = gql`
               title
               description
               file {
-                url
                 fileName
+                ...imageFile
               }
             }
             body
@@ -267,8 +269,8 @@ export const GENERIC_PAGE = gql`
               title
               description
               file {
-                url
                 fileName
+                ...imageFile
               }
             }
             body
@@ -304,9 +306,9 @@ export const GENERIC_PAGE = gql`
             title
             description
             file {
-              url
               fileName
               contentType
+              ...imageFile
             }
           }
           heroCard {

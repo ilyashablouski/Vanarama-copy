@@ -19,6 +19,7 @@ const ImageV2: FC<IImageProps> = props => {
     dataTestId,
     objectFit,
     objectPosition,
+    lazyLoad,
   } = props;
 
   let { src } = props;
@@ -50,12 +51,13 @@ const ImageV2: FC<IImageProps> = props => {
         width={width}
         height={height}
         src={src}
-        onError={onError}
         layout={layout}
         data-testid={dataTestId}
         className="image--native"
         objectFit={objectFit}
         objectPosition={objectPosition}
+        priority={lazyLoad === false}
+        onError={onError}
       />
     </div>
   );

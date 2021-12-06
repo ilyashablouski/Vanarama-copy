@@ -8,7 +8,7 @@ import Skeleton from '../../components/Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 
@@ -51,7 +51,8 @@ const LegalArticleContainer: NextPage<IProps> = ({
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
           {image && (
-            <Image
+            <ImageV2
+              lazyLoad={false}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"

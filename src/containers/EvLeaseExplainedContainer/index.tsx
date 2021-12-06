@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import LeadText from 'components/LeadText/LeadText';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -154,7 +155,9 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
                 >
                   {tile.title}
                 </Heading>
-                <Image
+                <ImageV2
+                  width={tile.image?.file?.details.image.width}
+                  height={tile.image?.file?.details.image.height}
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   src={tile.image?.file?.url || ''}
                 />
