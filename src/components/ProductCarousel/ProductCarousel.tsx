@@ -1,6 +1,7 @@
 import React from 'react';
 import CarouselSwiper from 'core/organisms/carousel';
 import { SwiperSlide } from 'swiper/react';
+import cx from 'classnames';
 import { IProductCarouselProps } from './interface';
 import ProductCarouselCard from './ProductCarouselCard';
 
@@ -12,11 +13,12 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   productType,
   customCTABackground,
   dataUiTestIdMask,
+  className,
 }) => {
   if (data.productCard?.length && data.productCard?.length > 1) {
     return (
       <CarouselSwiper
-        className="-product -mh-auto"
+        className={cx('-product -mh-auto', className)}
         countItems={countItems || 6}
       >
         {data.productCard?.map(
