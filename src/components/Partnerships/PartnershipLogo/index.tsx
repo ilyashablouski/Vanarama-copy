@@ -1,3 +1,1 @@
-import PartnershipLogo from './PartnershipLogo';
-
-export default PartnershipLogo;
+export { default } from './PartnershipLogo';

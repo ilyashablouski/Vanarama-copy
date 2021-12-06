@@ -6,6 +6,7 @@ import PartnershipLogo from '../PartnershipLogo/PartnershipLogo';
 describe('PartnershipLogo', () => {
   beforeEach(async () => {
     await preloadAll();
+
     render(
       <PartnershipLogo
         title="In partnership with"
@@ -13,9 +14,11 @@ describe('PartnershipLogo', () => {
       />,
     );
   });
+
   test('Renders the title', async () => {
     expect(screen.getByText(/In partnership with/i)).toBeInTheDocument();
   });
+
   test('Renders the logo', async () => {
     expect(screen.getByTestId('partnership_hero-logo')).toBeInTheDocument();
   });
