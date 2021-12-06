@@ -4,12 +4,13 @@ import dynamic from 'next/dynamic';
 import React, { ReactNode, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import ToggleV2 from 'core/atoms/toggleV2';
+import cx from 'classnames';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
-import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import FeaturedSection from '../../../components/FeaturedSection';
+import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import Head from '../../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
@@ -34,18 +35,23 @@ import {
   Nullable,
   PageTypeEnum,
 } from '../../../types/common';
-import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
-import ProductCarousel from '../../../components/ProductCarousel';
 import { ProductCardData_productCarousel } from '../../../../generated/ProductCardData';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
 const RouterLink = dynamic(() =>
   import('../../../components/RouterLink/RouterLink'),
+);
+const ProductCarousel = dynamic(
+  () => import('../../../components/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 type IProps = IPageWithData<
@@ -75,6 +81,9 @@ const ECarsPage: NextPage<IProps> = ({
   const tiles = data?.genericPage.sections?.tiles?.tiles;
   const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
   const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
+
+  const [isPersonal, setIsPersonal] = useState<boolean>(true);
+  const isMobile = useMobileViewport();
 
   useEffect(() => {
     const newFeaturesArray = getFeaturedSectionsAsArray(sections);
@@ -127,20 +136,34 @@ const ECarsPage: NextPage<IProps> = ({
     vehicleList,
     children,
   }: ICardsSection) => (
-    <section className="row:bg-lighter">
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <ProductCarousel
-          leaseType={LeaseTypeEnum.PERSONAL}
-          data={{
-            derivatives: derivatives || null,
-            productCard: productCard || null,
-            vehicleList,
-          }}
-          countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
-          dataTestIdBtn="van-view-offer"
-          dataUiTestIdMask="ui-electric_leasing-van"
+    <section className="row:bg-lighter -p-relative">
+      <div className="toggle-wrapper">
+        <ToggleV2
+          leftLabel="Personal"
+          checked={isPersonal}
+          leftValue={LeaseTypeEnum.PERSONAL}
+          rightValue={LeaseTypeEnum.BUSINESS}
+          rightLabel="Business"
+          leftId="r1"
+          rightId="r2"
+          leftDataTestId="personal"
+          rightDataTestId="business"
+          onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
         />
-      </LazyLoadComponent>
+      </div>
+
+      <ProductCarousel
+        className={cx({ '-mt-400': isMobile })}
+        leaseType={isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS}
+        data={{
+          derivatives: derivatives || null,
+          productCard: productCard || null,
+          vehicleList,
+        }}
+        countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
+        dataTestIdBtn="van-view-offer"
+        dataUiTestIdMask="ui-electric_leasing-van"
+      />
       {children}
     </section>
   );
@@ -186,6 +209,11 @@ const ECarsPage: NextPage<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
       <CardsSection
         derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
         productCard={productsHybridOnlyCar?.productCarousel || null}

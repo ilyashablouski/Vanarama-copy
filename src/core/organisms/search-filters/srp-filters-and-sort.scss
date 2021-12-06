@@ -326,7 +326,7 @@ button {
     width: 100%;
     position: relative;
     z-index: 1;
-    background: transparent;
+    background: white;
     cursor: pointer;
     color: #758ba1;
     transition: color 0.3s ease;
@@ -356,6 +356,7 @@ button {
   #r1:checked {
     + label {
       color: white;
+      background: transparent;
     }
     ~ .state {
       transform: translate(0, 0);
@@ -366,6 +367,7 @@ button {
   #r2:checked {
     + label {
       color: white;
+      background: transparent;
     }
     ~ .state {
       transform: translate(100%, 0);
