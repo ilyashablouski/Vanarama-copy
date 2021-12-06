@@ -1,9 +1,10 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
@@ -15,15 +16,12 @@ import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHe
 import Skeleton from '../../../components/Skeleton';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import { GenericPageQueryFeatured as IFeatured } from '../../../../generated/GenericPageQueryFeatured';
-import { evOffersRequest, IEvOffersData } from '../../../utils/offers';
+import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import { getFeaturedSectionsAsArray } from '../../../utils/sections';
-import truncateString from '../../../utils/truncateString';
-import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../../generated/GenericPageQuery';
-import VehicleCard from '../../../components/VehicleCard';
 import HeadingSection from '../../../components/HeadingSection';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
@@ -33,8 +31,15 @@ import { convertErrorToProps } from '../../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
+  Nullable,
   PageTypeEnum,
 } from '../../../types/common';
+import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import ProductCarousel from '../../../components/ProductCarousel';
+import { ProductCardData_productCarousel } from '../../../../generated/ProductCardData';
+import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
@@ -52,6 +57,9 @@ type IProps = IPageWithData<
 const ECarsPage: NextPage<IProps> = ({
   data,
   productsElectricOnlyCar,
+  productsElectricOnlyCarDerivatives,
+  productsHybridOnlyCar,
+  productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
 }) => {
   const [featuresArray, setFeaturesArray] = useState<IFeatured[]>([]);
@@ -106,59 +114,34 @@ const ECarsPage: NextPage<IProps> = ({
     </Hero>
   );
 
-  const CardsSection = () => (
+  interface ICardsSection {
+    derivatives: Nullable<GetDerivatives_derivatives[]>;
+    productCard: Nullable<(ProductCardData_productCarousel | null)[]>;
+    vehicleList: IVehicleList;
+    children: ReactNode;
+  }
+
+  const CardsSection = ({
+    derivatives,
+    productCard,
+    vehicleList,
+    children,
+  }: ICardsSection) => (
     <section className="row:bg-lighter">
-      <div className="row:cards-3col">
-        {productsElectricOnlyCar?.productCarousel
-          ?.slice(0, 6)
-          .map((item, index) => {
-            const productUrl = formatProductPageUrl(
-              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
-              item?.capId,
-            );
-            return item ? (
-              <VehicleCard
-                data={item}
-                key={item?.capId || index}
-                isPersonalPrice={false}
-                url={productUrl?.url}
-                title={{
-                  title: truncateString(
-                    `${item?.manufacturerName} ${item?.modelName}`,
-                  ),
-                  description: item?.derivativeName || '',
-                }}
-              />
-            ) : null;
-          })}
-      </div>
-      <div className="-justify-content-row -pt-500">
-        <RouterLink
-          className="button"
-          classNames={{
-            color: 'teal',
-            solid: true,
-            size: 'regular',
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <ProductCarousel
+          leaseType={LeaseTypeEnum.PERSONAL}
+          data={{
+            derivatives: derivatives || null,
+            productCard: productCard || null,
+            vehicleList,
           }}
-          link={{
-            label: 'View Latest Electric Car Deals',
-            href: '/car-leasing/search',
-            query: {
-              fuelTypes: [
-                'petrol/electric hybrid',
-                'petrol/plugin elec hybrid',
-                'Electric',
-                'diesel/plugin elec hybrid',
-                'hydrogen fuel cell',
-              ],
-            },
-          }}
-          withoutDefaultClassName
-          dataTestId="view-all-electric-cars"
-        >
-          <div className="button--inner">View Latest Electric Car Deals</div>
-        </RouterLink>
-      </div>
+          countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
+          dataTestIdBtn="van-view-offer"
+          dataUiTestIdMask="ui-electric_leasing-van"
+        />
+      </LazyLoadComponent>
+      {children}
     </section>
   );
 
@@ -176,7 +159,65 @@ const ECarsPage: NextPage<IProps> = ({
         header={headerText}
         description={descriptionText}
       />
-      <CardsSection />
+      <CardsSection
+        derivatives={productsElectricOnlyCarDerivatives?.derivatives || null}
+        productCard={productsElectricOnlyCar?.productCarousel || null}
+        vehicleList={vehicleListUrlData}
+      >
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{
+              color: 'teal',
+              solid: true,
+              size: 'regular',
+            }}
+            link={{
+              label: 'View Latest Electric Car Deals',
+              href: '/car-leasing/search',
+              query: {
+                fuelTypes: ['Electric'],
+              },
+            }}
+            withoutDefaultClassName
+            dataTestId="view-all-electric-cars"
+          >
+            <div className="button--inner">View Latest Electric Car Deals</div>
+          </RouterLink>
+        </div>
+      </CardsSection>
+      <CardsSection
+        derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
+        productCard={productsHybridOnlyCar?.productCarousel || null}
+        vehicleList={vehicleListUrlData}
+      >
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{
+              color: 'teal',
+              solid: true,
+              size: 'regular',
+            }}
+            link={{
+              label: 'View Latest Hybrid Car Deals',
+              href: '/car-leasing/search',
+              query: {
+                fuelTypes: [
+                  'petrol/electric hybrid',
+                  'petrol/plugin elec hybrid',
+                  'diesel/plugin elec hybrid',
+                  'hydrogen fuel cell',
+                ],
+              },
+            }}
+            withoutDefaultClassName
+            dataTestId="view-all-electric-cars"
+          >
+            <div className="button--inner">View Latest Electric Car Deals</div>
+          </RouterLink>
+        </div>
+      </CardsSection>
       {featuresArray.map(section => (
         <React.Fragment key={section.targetId}>
           <FeaturedSection featured={section} />
@@ -225,8 +266,11 @@ export async function getStaticProps(
 
     const {
       productsElectricOnlyCar,
+      productsHybridOnlyCar,
+      productsElectricOnlyCarDerivatives,
+      productsHybridOnlyCarDerivatives,
       vehicleListUrlData,
-    } = await evOffersRequest(client);
+    } = await evCarHubOffersRequest(client);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
@@ -234,6 +278,11 @@ export async function getStaticProps(
         pageType: PageTypeEnum.DEFAULT,
         data,
         productsElectricOnlyCar: productsElectricOnlyCar || null,
+        productsElectricOnlyCarDerivatives:
+          productsElectricOnlyCarDerivatives || null,
+        productsHybridOnlyCar: productsHybridOnlyCar || null,
+        productsHybridOnlyCarDerivatives:
+          productsHybridOnlyCarDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
       },
     };
