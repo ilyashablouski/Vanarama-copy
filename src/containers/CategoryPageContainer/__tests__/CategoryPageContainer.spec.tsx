@@ -96,6 +96,12 @@ const TILES = {
           url:
             '//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg',
           __typename: 'File',
+          details: {
+            image: {
+              width: 100,
+              height: 45,
+            },
+          },
         },
         title: 'boxer4',
         __typename: 'Image',

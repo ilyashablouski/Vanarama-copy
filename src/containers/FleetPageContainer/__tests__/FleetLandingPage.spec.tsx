@@ -50,6 +50,12 @@ const DATA = {
         image: {
           title: 'AudiQ30718 4 k5ojqt',
           file: {
+            details: {
+              image: {
+                width: 100,
+                height: 45,
+              },
+            },
             url:
               '//images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg',
           },

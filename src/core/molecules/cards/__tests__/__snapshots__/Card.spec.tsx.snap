@@ -9,6 +9,7 @@ exports[`<Card /> Article Card should render correctly 1`] = `
     className="card-image"
     dataTestId="card-image"
     objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
   <Memo()
@@ -49,6 +50,7 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
     className="card-image"
     dataTestId="card-image"
     objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
   <Memo()
@@ -81,6 +83,7 @@ exports[`<Card /> should render correctly only image 1`] = `
     className="card-image"
     dataTestId="card-image"
     objectFit="cover"
+    plain={true}
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
   />
 </div>

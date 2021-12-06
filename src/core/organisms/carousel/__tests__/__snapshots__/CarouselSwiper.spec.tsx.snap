@@ -20,6 +20,7 @@ exports[`<CarouselSwiper /> should render correctly with children 1`] = `
         "type": "bullets",
       }
     }
+    simulateTouch={false}
     slidesPerView="auto"
     touchEventsTarget="wrapper"
   >
@@ -95,6 +96,7 @@ exports[`<CarouselSwiper /> should render correctly with two children 1`] = `
         "type": "bullets",
       }
     }
+    simulateTouch={false}
     slidesPerView="auto"
     touchEventsTarget="wrapper"
   >

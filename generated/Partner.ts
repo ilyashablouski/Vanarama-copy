@@ -40,9 +40,19 @@ export interface Partner_partner_featured_link {
   legacyUrl: string | null;
 }
 
+export interface Partner_partner_featured_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_featured_cards_image_file_details {
+  image: Partner_partner_featured_cards_image_file_details_image;
+}
+
 export interface Partner_partner_featured_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: Partner_partner_featured_cards_image_file_details;
 }
 
 export interface Partner_partner_featured_cards_image {
@@ -65,9 +75,19 @@ export interface Partner_partner_featured_cards {
   link: Partner_partner_featured_cards_link | null;
 }
 
+export interface Partner_partner_featured_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_featured_image_file_details {
+  image: Partner_partner_featured_image_file_details_image;
+}
+
 export interface Partner_partner_featured_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: Partner_partner_featured_image_file_details;
 }
 
 export interface Partner_partner_featured_image {
@@ -107,9 +127,19 @@ export interface Partner_partner_featured1_link {
   legacyUrl: string | null;
 }
 
+export interface Partner_partner_featured1_cards_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_featured1_cards_image_file_details {
+  image: Partner_partner_featured1_cards_image_file_details_image;
+}
+
 export interface Partner_partner_featured1_cards_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: Partner_partner_featured1_cards_image_file_details;
 }
 
 export interface Partner_partner_featured1_cards_image {
@@ -132,9 +162,19 @@ export interface Partner_partner_featured1_cards {
   link: Partner_partner_featured1_cards_link | null;
 }
 
+export interface Partner_partner_featured1_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_featured1_image_file_details {
+  image: Partner_partner_featured1_image_file_details_image;
+}
+
 export interface Partner_partner_featured1_image_file {
-  url: string;
   fileName: string;
+  url: string;
+  details: Partner_partner_featured1_image_file_details;
 }
 
 export interface Partner_partner_featured1_image {
