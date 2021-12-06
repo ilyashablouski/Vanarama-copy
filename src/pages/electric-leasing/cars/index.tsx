@@ -2,8 +2,6 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import React, { ReactNode, useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown/with-html';
-import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import ToggleV2 from 'core/atoms/toggleV2';
@@ -11,14 +9,14 @@ import cx from 'classnames';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
+import FeaturedSection from '../../../components/FeaturedSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import Head from '../../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
 import Skeleton from '../../../components/Skeleton';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
-import getTitleTag from '../../../utils/getTitleTag';
-import { getFeaturedClassPartial } from '../../../utils/layout';
+import { GenericPageQueryFeatured as IFeatured } from '../../../../generated/GenericPageQueryFeatured';
 import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import { getFeaturedSectionsAsArray } from '../../../utils/sections';
 import {
@@ -43,18 +41,12 @@ import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
 const RouterLink = dynamic(() =>
   import('../../../components/RouterLink/RouterLink'),
 );
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 const ProductCarousel = dynamic(
   () => import('../../../components/ProductCarousel'),
   {
@@ -76,7 +68,7 @@ const ECarsPage: NextPage<IProps> = ({
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
 }) => {
-  const [featuresArray, setFeaturesArray] = useState([]);
+  const [featuresArray, setFeaturesArray] = useState<IFeatured[]>([]);
   const optimisationOptions = {
     height: 620,
     width: 620,
@@ -176,68 +168,6 @@ const ECarsPage: NextPage<IProps> = ({
     </section>
   );
 
-  interface ISection {
-    body: string;
-    title: string;
-    titleTag: string;
-    image?: {
-      file: {
-        url: string;
-      };
-    };
-    video?: string;
-    index: number;
-  }
-
-  const Section = ({
-    title,
-    titleTag,
-    body,
-    image,
-    video,
-    index,
-  }: ISection) => (
-    <section className={`row:${getFeaturedClassPartial(featuresArray[index])}`}>
-      {video ? (
-        <Media src={video || ''} width="100%" height="360px" />
-      ) : (
-        <Image
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          src={
-            image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
-      )}
-
-      <div>
-        <Heading
-          size="large"
-          color="black"
-          tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
-        >
-          {title}
-        </Heading>
-        <div className="markdown">
-          <ReactMarkdown
-            allowDangerousHtml
-            source={body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-              heading: props => (
-                <Text {...props} size="lead" color="darker" tag="h3" />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
-        </div>
-      </div>
-    </section>
-  );
-
   const TrustPilotBanner = () => (
     <section className="row:trustpilot">
       <TrustPilot />
@@ -316,16 +246,10 @@ const ECarsPage: NextPage<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
-      {featuresArray.map(({ title, body, image, titleTag, video }, index) => (
-        <Section
-          index={index}
-          body={body}
-          title={title}
-          titleTag={titleTag}
-          image={image}
-          key={title}
-          video={video}
-        />
+      {featuresArray.map(section => (
+        <React.Fragment key={section.targetId}>
+          <FeaturedSection featured={section} />
+        </React.Fragment>
       ))}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
