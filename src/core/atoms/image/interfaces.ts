@@ -14,8 +14,8 @@ export interface IImageProps extends IBaseProps {
   round?: boolean;
   plain?: boolean;
   inline?: boolean;
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
   lazyLoad?: boolean;
   dataTestId?: string;
   objectFit?: ImageProps['objectFit'];

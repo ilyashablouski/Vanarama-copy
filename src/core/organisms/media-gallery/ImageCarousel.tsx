@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react';
 import SwiperCore, { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import Icon from 'core/atoms/icon';
 import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import FullScreenImageCarousel from 'core/organisms/full-screen-carousel';
@@ -60,7 +60,7 @@ function ImageCarousel({
               data-uitestid={`details-page_image-carousel_${index}`}
             >
               {renderImageDecoration?.(imageUrl, index)}
-              <Image
+              <ImageV2
                 plain
                 src={imageUrl}
                 lazyLoad={index !== 0}
@@ -99,7 +99,7 @@ function ImageCarousel({
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
-                <Image
+                <ImageV2
                   plain
                   src={imageUrl}
                   alt={imageAltText}

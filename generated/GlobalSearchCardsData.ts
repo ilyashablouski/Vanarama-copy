@@ -18,6 +18,7 @@ export interface GlobalSearchCardsData_productCard {
   averageRating: number | null;
   isOnOffer: boolean | null;
   leadTime: string | null;
+  freeInsurance: boolean | null;
   capId: string | null;
   imageUrl: string | null;
   vehicleType: VehicleTypeEnum | null;

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
 import { GenericPageQuery_genericPage_sections_tiles as ITiles } from '../../../generated/GenericPageQuery';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
@@ -29,7 +29,9 @@ const TilesBlock = ({ tiles }: IProps) => {
           key={`${tile.title}_${index.toString()}`}
         >
           <span>
-            <Image
+            <ImageV2
+              width={100}
+              height={100}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={tile.image?.file?.url || ''}
               inline

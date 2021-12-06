@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import dynamic from 'next/dynamic';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -39,8 +39,8 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
     pageData?.genericPage,
   );
 
-  const imageUrl = getSectionsData(
-    ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+  const imageFile = getSectionsData(
+    ['sectionsAsArray', 'featured', '0', 'image', 'file'],
     pageData?.genericPage,
   );
 
@@ -82,10 +82,13 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
           />
         </div>
       </div>
-      <Image
-        className="card-image range__featured-image"
+      <ImageV2
+        lazyLoad={false}
+        className="card-image"
+        width={imageFile?.details.image.width}
+        height={imageFile?.details.image.height}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        src={imageUrl}
+        src={imageFile?.url}
       />
     </section>
   );

@@ -151,6 +151,15 @@ export const PickupsPage: NextPage<IProps> = ({
     quality: 59,
   };
 
+  const imageFeatured1 = getSectionsData(
+    ['featured1', 'image', 'file'],
+    data?.hubPickupPage.sections,
+  );
+  const imageFeatured2 = getSectionsData(
+    ['featured2', 'image', 'file'],
+    data?.hubPickupPage.sections,
+  );
+
   return (
     <>
       {isBlackFridayCampaignEnabled() ? (
@@ -406,15 +415,12 @@ export const PickupsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
-            width="576"
-            height="380"
             objectFit="cover"
+            width={imageFeatured1?.details.image.width ?? 1000}
+            height={imageFeatured1?.details.image.height ?? 650}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
-              getSectionsData(
-                ['featured1', 'image', 'file', 'url'],
-                data?.hubPickupPage.sections,
-              ) ||
+              imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
           />
@@ -468,15 +474,12 @@ export const PickupsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
-            width="576"
-            height="380"
             objectFit="cover"
+            width={imageFeatured2?.details.image.width ?? 1000}
+            height={imageFeatured2?.details.image.height ?? 650}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
-              getSectionsData(
-                ['featured2', 'image', 'file', 'url'],
-                data?.hubPickupPage.sections,
-              ) ||
+              imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
           />

@@ -23,7 +23,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -93,11 +93,12 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
       {featuredImageUrl && (
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
-            <Image
+            <ImageV2
+              lazyLoad={false}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={featuredImageUrl}
               className="-white"
               size="expand"
-              src={featuredImageUrl}
             />
           </div>
         </div>

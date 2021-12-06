@@ -24,6 +24,12 @@ const CARDS = [
         fileName: 'renaulttrafic0917(2).jpg',
         url:
           '//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg',
+        details: {
+          image: {
+            width: 100,
+            height: 45,
+          },
+        },
       },
       title: 'Renaulttrafic0917(2)-full',
     },
@@ -45,6 +51,12 @@ const CARDS = [
         fileName: 'renaulttrafic0917(2).jpg',
         url:
           '//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg',
+        details: {
+          image: {
+            width: 100,
+            height: 45,
+          },
+        },
       },
       title: 'Renaulttrafic0917(2)-full',
     },
@@ -70,6 +82,12 @@ const FEATURED = {
       fileName: 'shutterstock_773667343.jpg',
       url:
         '//images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg',
+      details: {
+        image: {
+          width: 100,
+          height: 45,
+        },
+      },
     },
     title: 'shutterstock 773667343',
   },

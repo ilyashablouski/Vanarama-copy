@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image } from '../../../generated/GenericPageQuery';
 
@@ -31,16 +31,15 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
 
         <div className="row:cards-3col -a-center -mb-500">
           {cards?.map((item: CardItem, index: number) => {
+            const imageFile = getSectionsData(['image', 'file'], item);
+
             return (
               <React.Fragment key={index.toString()}>
                 <div key={index.toString()}>
-                  <Image
-                    src={
-                      getSectionsData(['image', 'file', 'url'], item) ||
-                      defaultImage
-                    }
-                    width="100%"
-                    height="100%"
+                  <ImageV2
+                    width={imageFile?.details.image.width ?? 800}
+                    height={imageFile?.details.image.height ?? 425}
+                    src={imageFile?.url || defaultImage}
                   />
                   <p className="heading -lead -black -pv-300">{item.body}</p>
                 </div>

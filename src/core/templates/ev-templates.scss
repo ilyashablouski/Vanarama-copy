@@ -22,21 +22,6 @@
   &\:featured-left {
     .blog-top-image {
       width: 100%;
-
-      .image {
-        position: relative;
-        padding-top: 68.05%;
-
-        img {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 100%;
-          object-fit: cover;
-        }
-      }
     }
   }
 }
@@ -231,10 +216,10 @@
         margin-left: 100px;
       }
 
-      @include mobile375 {
+      @include mobile {
         text-align: center;
-        margin-top: 180px;
-        margin-bottom: 200px;
+        margin-top: 50px;
+        margin-bottom: 330px;
       }
     }
 

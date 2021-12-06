@@ -28,7 +28,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -90,7 +90,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -213,7 +213,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -275,7 +275,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -398,7 +398,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -460,7 +460,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                   data-testid="card"
                 >
                   <div
-                    class="image card-image -expand"
+                    class="image card-image -expand -plain"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
