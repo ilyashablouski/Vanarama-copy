@@ -7,6 +7,8 @@ import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import ToggleV2 from 'core/atoms/toggleV2';
+import cx from 'classnames';
 import createApolloClient from '../../../apolloClient';
 import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
@@ -42,6 +44,7 @@ import ProductCarousel from '../../../components/ProductCarousel';
 import { ProductCardData_productCarousel } from '../../../../generated/ProductCardData';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -83,6 +86,9 @@ const ECarsPage: NextPage<IProps> = ({
   const tiles = data?.genericPage.sections?.tiles?.tiles;
   const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
   const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
+
+  const [isPersonal, setIsPersonal] = useState<boolean>(true);
+  const isMobile = useMobileViewport();
 
   useEffect(() => {
     const newFeaturesArray = getFeaturedSectionsAsArray(sections);
@@ -135,10 +141,28 @@ const ECarsPage: NextPage<IProps> = ({
     vehicleList,
     children,
   }: ICardsSection) => (
-    <section className="row:bg-lighter">
+    <section className="row:bg-lighter -p-relative">
+      <div className="toggle-wrapper">
+        <ToggleV2
+          leftLabel="Personal"
+          checked={isPersonal}
+          leftValue={LeaseTypeEnum.PERSONAL}
+          rightValue={LeaseTypeEnum.BUSINESS}
+          rightLabel="Business"
+          leftId="r1"
+          rightId="r2"
+          leftDataTestId="personal"
+          rightDataTestId="business"
+          onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
+        />
+      </div>
+
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <ProductCarousel
-          leaseType={LeaseTypeEnum.PERSONAL}
+          className={cx({ '-mt-400': isMobile })}
+          leaseType={
+            isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+          }
           data={{
             derivatives: derivatives || null,
             productCard: productCard || null,
@@ -256,6 +280,11 @@ const ECarsPage: NextPage<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
+      <HeadingSection
+        titleTag={titleTagText}
+        header={headerText}
+        description={descriptionText}
+      />
       <CardsSection
         derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
         productCard={productsHybridOnlyCar?.productCarousel || null}
