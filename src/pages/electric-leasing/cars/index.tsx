@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ToggleV2 from 'core/atoms/toggleV2';
 import cx from 'classnames';
 import createApolloClient from '../../../apolloClient';
@@ -38,9 +37,7 @@ import {
   Nullable,
   PageTypeEnum,
 } from '../../../types/common';
-import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
-import ProductCarousel from '../../../components/ProductCarousel';
 import { ProductCardData_productCarousel } from '../../../../generated/ProductCardData';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
@@ -58,6 +55,12 @@ const RouterLink = dynamic(() =>
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+const ProductCarousel = dynamic(
+  () => import('../../../components/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 type IProps = IPageWithData<
   IEvOffersData & {
@@ -157,22 +160,18 @@ const ECarsPage: NextPage<IProps> = ({
         />
       </div>
 
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <ProductCarousel
-          className={cx({ '-mt-400': isMobile })}
-          leaseType={
-            isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-          }
-          data={{
-            derivatives: derivatives || null,
-            productCard: productCard || null,
-            vehicleList,
-          }}
-          countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
-          dataTestIdBtn="van-view-offer"
-          dataUiTestIdMask="ui-electric_leasing-van"
-        />
-      </LazyLoadComponent>
+      <ProductCarousel
+        className={cx({ '-mt-400': isMobile })}
+        leaseType={isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS}
+        data={{
+          derivatives: derivatives || null,
+          productCard: productCard || null,
+          vehicleList,
+        }}
+        countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
+        dataTestIdBtn="van-view-offer"
+        dataUiTestIdMask="ui-electric_leasing-van"
+      />
       {children}
     </section>
   );
