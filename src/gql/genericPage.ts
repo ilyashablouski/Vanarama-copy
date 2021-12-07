@@ -181,6 +181,7 @@ export const GENERIC_PAGE = gql`
         }
         carousel {
           title
+          subtitle
           name
           cards {
             name
@@ -235,6 +236,7 @@ export const GENERIC_PAGE = gql`
           }
         }
         carousel {
+          subtitle
           title
           name
           cards {

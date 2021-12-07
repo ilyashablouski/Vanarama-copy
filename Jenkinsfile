@@ -168,6 +168,16 @@ pipeline {
         }
 
         stage("2: Unit testing & Image Build"){
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'master'
+                  branch 'release/*'
+                  changeRequest target: 'master'
+                }
+            }
+
             failFast true
          parallel{
             stage("Unit testing") {
@@ -233,7 +243,6 @@ pipeline {
                   branch 'master'
                   branch 'release/*'
                   changeRequest target: 'master'
-                  changeRequest target: 'develop'
                 }
             }
                  steps {
@@ -308,7 +317,6 @@ pipeline {
                   branch 'master'
                   branch 'release/*'
                   changeRequest target: 'master'
-                  changeRequest target: 'develop'
                 }
             }
             steps {
