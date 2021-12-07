@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import ToggleV2 from 'core/atoms/toggleV2';
@@ -16,9 +16,7 @@ import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
 import Skeleton from '../../../components/Skeleton';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
-import { GenericPageQueryFeatured as IFeatured } from '../../../../generated/GenericPageQueryFeatured';
 import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
-import { getFeaturedSectionsAsArray } from '../../../utils/sections';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
@@ -68,41 +66,35 @@ const ECarsPage: NextPage<IProps> = ({
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
 }) => {
-  const [featuresArray, setFeaturesArray] = useState<IFeatured[]>([]);
   const optimisationOptions = {
     height: 620,
     width: 620,
     quality: 59,
   };
-  const { sections } = data?.genericPage;
-  const titleTagText = sections?.leadText?.titleTag;
-  const headerText = sections?.leadText?.heading;
-  const descriptionText = sections?.leadText?.description;
-  const tiles = data?.genericPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
+  const { sectionsAsArray } = data?.genericPage;
+  const featuresArray = sectionsAsArray?.featured || [];
+  const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
+  const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
+  const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
 
   const [isPersonal, setIsPersonal] = useState<boolean>(true);
   const isMobile = useMobileViewport();
-
-  useEffect(() => {
-    const newFeaturesArray = getFeaturedSectionsAsArray(sections);
-    setFeaturesArray(newFeaturesArray);
-  }, [sections]);
 
   const HeroSection = () => (
     <Hero>
       <div className="hero--left">
         <NewLeaseOfLifePriceHeader
-          title={sections?.hero?.title}
-          body={sections?.hero?.body}
+          title={sectionsAsArray?.hero?.[0]?.title}
+          body={sectionsAsArray?.hero?.[0]?.body}
         />
-        {sections?.hero?.heroLabel?.[0]?.visible && (
+        {sectionsAsArray?.hero?.[0]?.heroLabel?.[0]?.visible && (
           <HeroPrompt
-            label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
-            url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-            text={sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+            label={sectionsAsArray?.hero?.[0]?.heroLabel?.[0]?.link?.text || ''}
+            url={sectionsAsArray?.hero?.[0]?.heroLabel?.[0]?.link?.url || ''}
+            text={sectionsAsArray?.hero?.[0]?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              sectionsAsArray?.hero?.[0]?.heroLabel?.[0]?.link?.visible
+            }
           />
         )}
       </div>
@@ -115,7 +107,7 @@ const ECarsPage: NextPage<IProps> = ({
           plain
           size="expand"
           src={
-            sections?.hero?.image?.file?.url ||
+            sectionsAsArray?.hero?.[0]?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />
@@ -178,9 +170,9 @@ const ECarsPage: NextPage<IProps> = ({
     <>
       <HeroSection />
       <HeadingSection
-        titleTag={titleTagText}
-        header={headerText}
-        description={descriptionText}
+        titleTag="h1"
+        header={sectionsAsArray?.carousel?.[0]?.title}
+        description={sectionsAsArray?.carousel?.[0]?.subtitle}
       />
       <CardsSection
         derivatives={productsElectricOnlyCarDerivatives?.derivatives || null}
@@ -196,23 +188,21 @@ const ECarsPage: NextPage<IProps> = ({
               size: 'regular',
             }}
             link={{
-              label: 'View Latest Electric Car Deals',
-              href: '/car-leasing/search',
-              query: {
-                fuelTypes: ['Electric'],
-              },
+              label: 'Browse Electric Car Deals',
+              href: '/car-leasing/electric',
             }}
             withoutDefaultClassName
             dataTestId="view-all-electric-cars"
+            dataUiTestId="electric-leasing-cars-view_electric_car-button"
           >
             <div className="button--inner">View Latest Electric Car Deals</div>
           </RouterLink>
         </div>
       </CardsSection>
       <HeadingSection
-        titleTag={titleTagText}
-        header={headerText}
-        description={descriptionText}
+        titleTag="h1"
+        header={sectionsAsArray?.carousel?.[1]?.title}
+        description={sectionsAsArray?.carousel?.[1]?.subtitle}
       />
       <CardsSection
         derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
@@ -228,26 +218,19 @@ const ECarsPage: NextPage<IProps> = ({
               size: 'regular',
             }}
             link={{
-              label: 'View Latest Hybrid Car Deals',
-              href: '/car-leasing/search',
-              query: {
-                fuelTypes: [
-                  'petrol/electric hybrid',
-                  'petrol/plugin elec hybrid',
-                  'diesel/plugin elec hybrid',
-                  'hydrogen fuel cell',
-                ],
-              },
+              label: 'Browse Hybrid Car Deals',
+              href: '/car-leasing/hybrid',
             }}
             withoutDefaultClassName
-            dataTestId="view-all-electric-cars"
+            dataTestId="view-all-hybrid-cars"
+            dataUiTestId="electric-leasing-cars-view_hybrid_car-button"
           >
             <div className="button--inner">View Latest Electric Car Deals</div>
           </RouterLink>
         </div>
       </CardsSection>
       {featuresArray.map(section => (
-        <React.Fragment key={section.targetId}>
+        <React.Fragment key={section?.targetId}>
           <FeaturedSection featured={section} />
         </React.Fragment>
       ))}
@@ -288,6 +271,7 @@ export async function getStaticProps(
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing/cars',
+        sectionsAsArray: true,
         isPreview: !!context?.preview,
       },
     });

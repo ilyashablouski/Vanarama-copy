@@ -1,4 +1,3 @@
-import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
 import {
@@ -25,18 +24,26 @@ import {
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
 import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
-import { initialWishlistState, personVar, wishlistVar } from '../cache';
+import { initialWishlistState, wishlistVar } from '../cache';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { Nullish } from '../types/common';
+import { isUserAuthenticated } from './authentication';
+import { getStoredPerson } from '../gql/storedPerson';
+import {
+  getStoredWishlistVehiclesIds,
+  setStoredWishlistVehiclesIds,
+} from '../gql/storedWishlistVehicleIds';
 
-export const getLocalWishlistState = async () => {
-  const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
-  return (wishlistVehicleIds ?? []) as Array<string>;
-};
+export const getLocalWishlistState = async (client: ApolloClient<object>) =>
+  getStoredWishlistVehiclesIds(client).then(
+    ids => (ids || []).filter(item => item !== null) as string[],
+  );
 
-export const setLocalWishlistState = (state: IWishlistState) =>
-  localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
+export const setLocalWishlistState = (
+  client: ApolloClient<object>,
+  state: IWishlistState,
+) => setStoredWishlistVehiclesIds(client, state.wishlistVehicleIds);
 
 export const isWished = (
   wishlistVehicleIds: Array<string>,
@@ -47,19 +54,19 @@ export const isWished = (
   });
 
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
-  const { person } = personVar();
   let wishlistVehicleIds: Array<string>;
 
-  if (!person?.partyUuid) {
-    wishlistVehicleIds = await getLocalWishlistState();
+  if (!isUserAuthenticated()) {
+    wishlistVehicleIds = await getLocalWishlistState(client);
   } else {
+    const person = await getStoredPerson(client);
     const savedWishlistVehicleIds = await client.query<
       GetWishlistVehicleIds,
       GetWishlistVehicleIdsVariables
     >({
       query: GET_WISHLIST_VEHICLE_IDS,
       variables: {
-        partyUuid: person.partyUuid,
+        partyUuid: person?.partyUuid || '',
       },
     });
 
@@ -95,6 +102,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   );
 
   return setLocalWishlistState(
+    client,
     wishlistVar({
       ...wishlistVar(),
       wishlistNoLongerAvailable:

@@ -1,7 +1,11 @@
-import localForage from 'localforage';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_productCard as ICard } from '../../generated/GetProductCard';
 import { ProductCardData_productCarousel as ICardCarousel } from '../../generated/ProductCardData';
+import createApolloClient from '../apolloClient';
+import {
+  getStoredItemsToCompare,
+  saveItemsToCompare,
+} from '../gql/storedItemToCompare';
 
 export interface ICompareVehicle {
   capId: string | null;
@@ -20,60 +24,54 @@ export interface IVehicleCarousel extends ICardCarousel {
   pageUrl?: IProductPageUrl;
 }
 
-export interface ICapId {
-  capId: string | number;
-}
-
 export interface IProductPageUrl {
   url: string;
   href: string;
   capId: string;
 }
 
+const client = createApolloClient({});
+
 export const changeCompares = async (
   vehicle: IVehicle | IVehicleCarousel | null,
   capId?: string | number,
 ) => {
-  const arrayCompares = (await localForage.getItem('compares')) as
-    | IVehicle[]
-    | IVehicleCarousel[]
-    | null;
+  const arrayCompares = await getStoredItemsToCompare(client);
 
   // if compares already exist
   if ((arrayCompares && vehicle) || capId) {
     if (
       capId ||
       arrayCompares?.some(
-        (compare: IVehicle | IVehicleCarousel) =>
-          `${compare.capId}` === `${vehicle?.capId}`,
+        compare => `${compare?.capId}` === `${vehicle?.capId}`,
       )
     ) {
       // delete vehicle from compare
       const deletedVehicle = arrayCompares?.find(
-        (compare: IVehicle | ICompareVehicle | IVehicleCarousel) =>
-          `${compare.capId}` === `${vehicle?.capId}` ||
-          `${compare.capId}` === `${capId}`,
+        compare =>
+          `${compare?.capId}` === `${vehicle?.capId}` ||
+          `${compare?.capId}` === `${capId}`,
       );
       if (deletedVehicle) {
         const index = arrayCompares?.indexOf(deletedVehicle);
         if (index !== undefined && index > -1) {
           arrayCompares?.splice(index, 1);
         }
-        await localForage.setItem('compares', arrayCompares);
+        await saveItemsToCompare(client, arrayCompares);
       }
       return arrayCompares;
     }
 
     if (arrayCompares && arrayCompares?.length < 3) {
       // add vehicle to compare
-      await localForage.setItem('compares', [...arrayCompares, vehicle]);
+      await saveItemsToCompare(client, [...arrayCompares, vehicle]);
 
       return [...arrayCompares, vehicle];
     }
     return arrayCompares;
   }
 
-  await localForage.setItem('compares', vehicle ? [vehicle] : []);
+  await saveItemsToCompare(client, vehicle ? [vehicle] : []);
   return vehicle ? [vehicle] : [];
 };
 
@@ -110,34 +108,28 @@ export const isCorrectCompareType = (
 };
 
 export const deleteCompare = async (vehicle: ICompareVehicle) => {
-  const arrayCompares = (await localForage.getItem('compares')) as
-    | IVehicle[]
-    | IVehicleCarousel[]
-    | null;
+  const arrayCompares = await getStoredItemsToCompare(client);
+
   // if compares already exist
   if (arrayCompares) {
     // delete vehicle from compare
     const deletedVehicle = arrayCompares.find(
-      (compare: IVehicle | ICompareVehicle | IVehicleCarousel) =>
-        `${compare.capId}` === `${vehicle?.capId}`,
+      compare => `${compare?.capId}` === `${vehicle?.capId}`,
     );
     if (deletedVehicle) {
       const index = arrayCompares.indexOf(deletedVehicle);
       if (index > -1) {
         arrayCompares.splice(index, 1);
       }
-      await localForage.setItem('compares', arrayCompares);
+      await saveItemsToCompare(client, arrayCompares);
     }
-    return arrayCompares;
+    return arrayCompares as IVehicle[] | IVehicleCarousel[];
   }
 
   return [];
 };
 
-export const getCompares = () => {
-  const compares = localForage.getItem('compares');
-  return compares || [];
-};
+export const getCompares = () => getStoredItemsToCompare(client);
 
 export const getVehiclesForComparator = (
   vehicles: IVehicle[] | IVehicleCarousel[],

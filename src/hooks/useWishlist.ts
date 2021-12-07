@@ -10,8 +10,10 @@ import {
   useAddVehicleToWishlistMutation,
   useRemoveVehicleFromWishlistMutation,
 } from '../gql/wishlist';
+import createApolloClient from '../apolloClient';
 
 export default function useWishlist() {
+  const client = createApolloClient({});
   const {
     wishlistVehicleIds,
     wishlistVehicleMap,
@@ -83,7 +85,7 @@ export default function useWishlist() {
       ? removeFromWishlist(product)
       : addToWishlist(product);
 
-    setLocalWishlistState(newState);
+    setLocalWishlistState(client, newState);
   }
 
   return {
