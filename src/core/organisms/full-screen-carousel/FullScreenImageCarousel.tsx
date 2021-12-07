@@ -32,7 +32,7 @@ function FullScreenImageCarousel({
             swiper.slideToLoop(activeSlideIndex || 0);
           }}
           onSlideChange={swiper => {
-            onSlideChange(swiper.activeIndex);
+            onSlideChange?.(swiper.activeIndex);
           }}
         >
           {images.map(imageUrl => (
