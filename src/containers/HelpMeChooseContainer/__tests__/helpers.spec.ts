@@ -1,6 +1,7 @@
 import preloadAll from 'jest-next-dynamic';
 import { NextRouter } from 'next/router';
 import {
+  buildAnObjectFromAQuery,
   getBuckets,
   getMainImageUrl,
   getNextProgressStep,
@@ -378,5 +379,165 @@ describe('<helpers />', () => {
       '/help-me-choose/?financeTypes=PCH',
       { shallow: true },
     );
+  });
+  describe('should buildAnObjectFromAQuery works correctly', () => {
+    it('when no steps', () => {
+      const steps = {
+        financeTypes: {
+          active: true,
+          value: [],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: false,
+          value: [],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: [],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: [],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: [],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: [],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: [],
+          title: 'Availability',
+        },
+        rental: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: false,
+          value: '',
+          title: 'Results',
+        },
+      };
+      const result = {
+        filter: {
+          financeTypes: [],
+          vehicleTypes: ['CAR'],
+        },
+        pagination: {
+          size: 12,
+          from: 0,
+        },
+        sort: [
+          {
+            field: 'offerRanking',
+            direction: 'ASC',
+          },
+          {
+            field: 'availability',
+            direction: 'ASC',
+          },
+          {
+            field: 'rental',
+            direction: 'ASC',
+          },
+        ],
+      };
+      expect(buildAnObjectFromAQuery(steps)).toMatchObject(result);
+    });
+    it('with all steps and showResults count', () => {
+      const steps = {
+        financeTypes: {
+          active: false,
+          value: ['PCH'],
+          title: 'About You',
+        },
+        bodyStyles: {
+          active: false,
+          value: ['Small Car'],
+          title: 'Style',
+        },
+        fuelTypes: {
+          active: false,
+          value: ['Petrol'],
+          title: 'Fuel Types',
+        },
+        transmissions: {
+          active: false,
+          value: ['Manual'],
+          title: 'Gearbox',
+        },
+        terms: {
+          active: false,
+          value: ['36'],
+          title: 'Lease Length',
+        },
+        mileages: {
+          active: false,
+          value: ['10000'],
+          title: 'Mileage',
+        },
+        availability: {
+          active: false,
+          value: ['28'],
+          title: 'Availability',
+        },
+        rental: {
+          active: true,
+          value: '450',
+          title: 'Results',
+        },
+        initialPeriods: {
+          active: true,
+          value: '9',
+          title: 'Results',
+        },
+      };
+      const result = {
+        filter: {
+          lqBodyStyles: ['Small Car'],
+          fuelTypes: ['Petrol'],
+          initialPeriods: [9],
+          transmissions: ['Manual'],
+          terms: [36],
+          mileages: [10000],
+          rental: {
+            max: 450,
+          },
+          availability: 28,
+          financeTypes: ['PCH'],
+          vehicleTypes: ['CAR'],
+        },
+        pagination: {
+          size: 12,
+          from: 5,
+        },
+        sort: [
+          {
+            field: 'offerRanking',
+            direction: 'ASC',
+          },
+          {
+            field: 'availability',
+            direction: 'ASC',
+          },
+          {
+            field: 'rental',
+            direction: 'ASC',
+          },
+        ],
+      };
+      expect(buildAnObjectFromAQuery(steps, { size: 5 })).toMatchObject(result);
+    });
   });
 });
