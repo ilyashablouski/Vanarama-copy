@@ -188,14 +188,12 @@ const ECarsPage: NextPage<IProps> = ({
               size: 'regular',
             }}
             link={{
-              label: 'View Latest Electric Car Deals',
-              href: '/car-leasing/search',
-              query: {
-                fuelTypes: ['Electric'],
-              },
+              label: 'Browse Electric Car Deals',
+              href: '/car-leasing/electric',
             }}
             withoutDefaultClassName
             dataTestId="view-all-electric-cars"
+            dataUiTestId="electric-leasing-cars-view_electric_car-button"
           >
             <div className="button--inner">View Latest Electric Car Deals</div>
           </RouterLink>
@@ -220,19 +218,12 @@ const ECarsPage: NextPage<IProps> = ({
               size: 'regular',
             }}
             link={{
-              label: 'View Latest Hybrid Car Deals',
-              href: '/car-leasing/search',
-              query: {
-                fuelTypes: [
-                  'petrol/electric hybrid',
-                  'petrol/plugin elec hybrid',
-                  'diesel/plugin elec hybrid',
-                  'hydrogen fuel cell',
-                ],
-              },
+              label: 'Browse Hybrid Car Deals',
+              href: '/car-leasing/hybrid',
             }}
             withoutDefaultClassName
-            dataTestId="view-all-electric-cars"
+            dataTestId="view-all-hybrid-cars"
+            dataUiTestId="electric-leasing-cars-view_hybrid_car-button"
           >
             <div className="button--inner">View Latest Electric Car Deals</div>
           </RouterLink>

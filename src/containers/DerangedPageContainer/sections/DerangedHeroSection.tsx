@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../../components/Skeleton';
@@ -18,17 +18,14 @@ interface IProps {
 
 const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
   const isMobileViewport = useMobileViewport();
-  const wrapperDynamicClassNames = useMemo(
-    () =>
-      isMobileViewport ? '-justify-content-column' : '-justify-content-row',
-    [isMobileViewport],
-  );
 
   return (
     <section className="row:bg-hero -deranged">
       <div className="row:hero -clear-background row:hero--deranged-content">
-        <div className={wrapperDynamicClassNames}>
+        <div className="-deranged-content--wrapper">
           <Image
+            width="119"
+            height="96"
             src="/Assets/images/deranged/deranged-logo.png"
             size="large"
             alt="Deranged icon"
