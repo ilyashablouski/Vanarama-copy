@@ -316,6 +316,27 @@
   }
 }
 
+//deranged page
+.-deranged-content--wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 768px;
+  margin: auto;
+  padding: 0 0.5rem;
+
+  @include mobile {
+    display: block;
+  }
+
+  & > * {
+    margin: 0 0.5rem;
+    @include mobile {
+      margin: 0;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .row {
     // Hero
