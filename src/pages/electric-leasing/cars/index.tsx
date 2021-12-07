@@ -1,5 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import dynamic from 'next/dynamic';
 import React, { ReactNode, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
@@ -23,10 +27,9 @@ import {
 } from '../../../../generated/GenericPageQuery';
 import HeadingSection from '../../../components/HeadingSection';
 import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../../utils/env';
-import { convertErrorToProps } from '../../../utils/helpers';
+  convertErrorToProps,
+  isEVCarHubCarouselFeatureFlagEnabled,
+} from '../../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -38,6 +41,9 @@ import { ProductCardData_productCarousel } from '../../../../generated/ProductCa
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 import { useMobileViewport } from '../../../hooks/useMediaQuery';
+import VehicleCard from '../../../components/VehicleCard';
+import truncateString from '../../../utils/truncateString';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
@@ -55,6 +61,7 @@ const ProductCarousel = dynamic(
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    isEvCarCarouselFeatureFlag: boolean;
   }
 >;
 
@@ -65,6 +72,7 @@ const ECarsPage: NextPage<IProps> = ({
   productsHybridOnlyCar,
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
+  isEvCarCarouselFeatureFlag,
 }) => {
   const optimisationOptions = {
     height: 620,
@@ -129,33 +137,65 @@ const ECarsPage: NextPage<IProps> = ({
     children,
   }: ICardsSection) => (
     <section className="row:bg-lighter -p-relative">
-      <div className="toggle-wrapper">
-        <ToggleV2
-          leftLabel="Personal"
-          checked={isPersonal}
-          leftValue={LeaseTypeEnum.PERSONAL}
-          rightValue={LeaseTypeEnum.BUSINESS}
-          rightLabel="Business"
-          leftId="r1"
-          rightId="r2"
-          leftDataTestId="personal"
-          rightDataTestId="business"
-          onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
-        />
-      </div>
+      {isEvCarCarouselFeatureFlag && (
+        <div className="toggle-wrapper">
+          <ToggleV2
+            leftLabel="Personal"
+            checked={isPersonal}
+            leftValue={LeaseTypeEnum.PERSONAL}
+            rightValue={LeaseTypeEnum.BUSINESS}
+            rightLabel="Business"
+            leftId="r1"
+            rightId="r2"
+            leftDataTestId="personal"
+            rightDataTestId="business"
+            onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
+          />
+        </div>
+      )}
 
-      <ProductCarousel
-        className={cx({ '-mt-400': isMobile })}
-        leaseType={isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS}
-        data={{
-          derivatives: derivatives || null,
-          productCard: productCard || null,
-          vehicleList,
-        }}
-        countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
-        dataTestIdBtn="van-view-offer"
-        dataUiTestIdMask="ui-electric_leasing-van"
-      />
+      {isEvCarCarouselFeatureFlag && (
+        <ProductCarousel
+          className={cx({ '-mt-400': isMobile })}
+          leaseType={
+            isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+          }
+          data={{
+            derivatives: derivatives || null,
+            productCard: productCard || null,
+            vehicleList,
+          }}
+          countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
+          dataTestIdBtn="van-view-offer"
+          dataUiTestIdMask="ui-electric_leasing-van"
+        />
+      )}
+      {!isEvCarCarouselFeatureFlag && (
+        <div className="row:cards-3col">
+          {productsElectricOnlyCar?.productCarousel
+            ?.slice(0, 6)
+            .map((item, index) => {
+              const productUrl = formatProductPageUrl(
+                getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+                item?.capId,
+              );
+              return item ? (
+                <VehicleCard
+                  data={item}
+                  key={item?.capId || index}
+                  isPersonalPrice={false}
+                  url={productUrl?.url}
+                  title={{
+                    title: truncateString(
+                      `${item?.manufacturerName} ${item?.modelName}`,
+                    ),
+                    description: item?.derivativeName || '',
+                  }}
+                />
+              ) : null;
+            })}
+        </div>
+      )}
       {children}
     </section>
   );
@@ -171,8 +211,16 @@ const ECarsPage: NextPage<IProps> = ({
       <HeroSection />
       <HeadingSection
         titleTag="h1"
-        header={sectionsAsArray?.carousel?.[0]?.title}
-        description={sectionsAsArray?.carousel?.[0]?.subtitle}
+        header={
+          isEvCarCarouselFeatureFlag
+            ? sectionsAsArray?.carousel?.[0]?.title
+            : sectionsAsArray?.leadText?.[0]?.heading
+        }
+        description={
+          isEvCarCarouselFeatureFlag
+            ? sectionsAsArray?.carousel?.[0]?.subtitle
+            : sectionsAsArray?.leadText?.[0]?.description
+        }
       />
       <CardsSection
         derivatives={productsElectricOnlyCarDerivatives?.derivatives || null}
@@ -188,47 +236,74 @@ const ECarsPage: NextPage<IProps> = ({
               size: 'regular',
             }}
             link={{
-              label: 'Browse Electric Car Deals',
-              href: '/car-leasing/electric',
+              label: `${
+                isEvCarCarouselFeatureFlag
+                  ? 'Browse Electric Car Deals'
+                  : 'View Latest Electric Car Deals'
+              }`,
+              href: `${
+                isEvCarCarouselFeatureFlag
+                  ? '/car-leasing/electric'
+                  : '/car-leasing/search'
+              }`,
+              query: isEvCarCarouselFeatureFlag
+                ? {}
+                : {
+                    fuelTypes: [
+                      'petrol/electric hybrid',
+                      'petrol/plugin elec hybrid',
+                      'Electric',
+                      'diesel/plugin elec hybrid',
+                      'hydrogen fuel cell',
+                    ],
+                  },
             }}
             withoutDefaultClassName
             dataTestId="view-all-electric-cars"
             dataUiTestId="electric-leasing-cars-view_electric_car-button"
           >
-            <div className="button--inner">View Latest Electric Car Deals</div>
+            <div className="button--inner">
+              {isEvCarCarouselFeatureFlag
+                ? 'Browse Electric Car Deals'
+                : 'View Latest Electric Car Deals'}
+            </div>
           </RouterLink>
         </div>
       </CardsSection>
-      <HeadingSection
-        titleTag="h1"
-        header={sectionsAsArray?.carousel?.[1]?.title}
-        description={sectionsAsArray?.carousel?.[1]?.subtitle}
-      />
-      <CardsSection
-        derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
-        productCard={productsHybridOnlyCar?.productCarousel || null}
-        vehicleList={vehicleListUrlData}
-      >
-        <div className="-justify-content-row -pt-500">
-          <RouterLink
-            className="button"
-            classNames={{
-              color: 'teal',
-              solid: true,
-              size: 'regular',
-            }}
-            link={{
-              label: 'Browse Hybrid Car Deals',
-              href: '/car-leasing/hybrid',
-            }}
-            withoutDefaultClassName
-            dataTestId="view-all-hybrid-cars"
-            dataUiTestId="electric-leasing-cars-view_hybrid_car-button"
+      {isEvCarCarouselFeatureFlag && (
+        <>
+          <HeadingSection
+            titleTag="h1"
+            header={sectionsAsArray?.carousel?.[1]?.title}
+            description={sectionsAsArray?.carousel?.[1]?.subtitle}
+          />
+          <CardsSection
+            derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
+            productCard={productsHybridOnlyCar?.productCarousel || null}
+            vehicleList={vehicleListUrlData}
           >
-            <div className="button--inner">View Latest Electric Car Deals</div>
-          </RouterLink>
-        </div>
-      </CardsSection>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{
+                  color: 'teal',
+                  solid: true,
+                  size: 'regular',
+                }}
+                link={{
+                  label: 'Browse Hybrid Car Deals',
+                  href: '/car-leasing/hybrid',
+                }}
+                withoutDefaultClassName
+                dataTestId="view-all-hybrid-cars"
+                dataUiTestId="electric-leasing-cars-view_hybrid_car-button"
+              >
+                <div className="button--inner">Browse Hybrid Car Deals</div>
+              </RouterLink>
+            </div>
+          </CardsSection>
+        </>
+      )}
       {featuresArray.map(section => (
         <React.Fragment key={section?.targetId}>
           <FeaturedSection featured={section} />
@@ -259,11 +334,14 @@ const ECarsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
+    const isEvCarCarouselFeatureFlag = isEVCarHubCarouselFeatureFlagEnabled(
+      context.req.headers.cookie,
+    );
     const { data } = await client.query<
       GenericPageQuery,
       GenericPageQueryVariables
@@ -285,8 +363,8 @@ export async function getStaticProps(
     } = await evCarHubOffersRequest(client);
 
     return {
-      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
+        isEvCarCarouselFeatureFlag,
         pageType: PageTypeEnum.DEFAULT,
         data,
         productsElectricOnlyCar: productsElectricOnlyCar || null,
@@ -300,19 +378,16 @@ export async function getStaticProps(
     };
   } catch (error) {
     const apolloError = error as ApolloError;
-    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
       return {
         notFound: true,
-        revalidate,
       };
     }
 
     return {
-      revalidate,
       props: {
         pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),
