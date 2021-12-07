@@ -6,4 +6,5 @@ export interface IFullScreenCarouselProps extends IBaseProps {
   imageAltText?: string;
   isOpenModal: boolean;
   setOpenModal: () => void;
+  onSlideChange: (index: number) => void;
 }
