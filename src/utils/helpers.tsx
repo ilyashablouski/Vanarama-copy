@@ -432,6 +432,7 @@ export enum FeatureFlags {
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
   EXTENSION_BLACK_FRIDAY = 'DIG-8044',
+  EV_CAR_HUB_CAROUSEL = 'DIG-8175',
 }
 
 function isFeatureFlagEnabled(
@@ -456,6 +457,12 @@ export function isAccountSectionFeatureFlagEnabled(
     cookies,
     FeatureFlags.ACCOUNT_SECTION_MAINTENANCE,
   );
+}
+
+export function isEVCarHubCarouselFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
 }
 
 export function isDerangedFeatureFlagEnabled(
