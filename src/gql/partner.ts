@@ -9,6 +9,7 @@ export const PARTNER = gql`
       customerSovereignty
       uuid
       slug
+      showPartnerLogo
       logo {
         title
         file {
