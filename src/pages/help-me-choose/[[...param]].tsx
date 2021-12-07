@@ -96,10 +96,7 @@ const HelpMeChoose: NextPage = () => {
         setSteps(copyInitialSteps);
 
         const variables = {
-          ...buildAnObjectFromAQuery(
-            new URLSearchParams(searchParams),
-            copyInitialSteps,
-          ),
+          ...buildAnObjectFromAQuery(copyInitialSteps),
         };
         getHelpMeChoose({
           variables,

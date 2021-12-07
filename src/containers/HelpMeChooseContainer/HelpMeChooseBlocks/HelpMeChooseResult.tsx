@@ -206,9 +206,8 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const loadMoreResults = () => {
     setCounterState(counterState + 1);
-    const searchParams = new URLSearchParams();
     getProducts({
-      ...buildAnObjectFromAQuery(searchParams, steps, {
+      ...buildAnObjectFromAQuery(steps, {
         size: 12 * counterState,
       }),
     }).then(result =>

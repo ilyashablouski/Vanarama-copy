@@ -129,7 +129,6 @@ export const onReplace = (
 };
 
 export const buildAnObjectFromAQuery = (
-  query: URLSearchParams,
   steps: IInitStep,
   showResults?: {
     size: number;
