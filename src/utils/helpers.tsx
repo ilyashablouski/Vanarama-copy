@@ -426,7 +426,6 @@ export function moveFactoryOrderToEnd(
 }
 
 export enum FeatureFlags {
-  DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
@@ -463,12 +462,6 @@ export function isEVCarHubCarouselFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
-}
-
-export function isDerangedFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
 }
 
 export function isUpdatedServicePlanFeatureFlagEnabled(

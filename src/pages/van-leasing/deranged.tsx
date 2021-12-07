@@ -25,7 +25,6 @@ import {
   GetConversionsVehicleList_conversions as ConversionsVehicleList,
   GetConversionsVehicleListVariables,
 } from '../../../generated/GetConversionsVehicleList';
-import { isDerangedFeatureFlagEnabled } from '../../utils/helpers';
 
 interface IDerangedPage {
   data: IGenericPage;
@@ -45,16 +44,6 @@ const DerangedPage: NextPage<IDerangedPage> = ({
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IDerangedPage>> {
-  const isDerangedFeatureEnabled = isDerangedFeatureFlagEnabled(
-    context.req?.headers?.cookie,
-  );
-
-  if (!isDerangedFeatureEnabled) {
-    return {
-      notFound: true,
-    };
-  }
-
   try {
     const client = createApolloClient({}, context);
 
