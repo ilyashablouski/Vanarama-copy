@@ -656,6 +656,7 @@ export interface GenericPageQuery_genericPage_sections_carousel_cards {
 
 export interface GenericPageQuery_genericPage_sections_carousel {
   title: string | null;
+  subtitle: string | null;
   name: string | null;
   cards: (GenericPageQuery_genericPage_sections_carousel_cards | null)[] | null;
 }
@@ -794,6 +795,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards {
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_carousel {
+  subtitle: string | null;
   title: string | null;
   name: string | null;
   cards: (GenericPageQuery_genericPage_sectionsAsArray_carousel_cards | null)[] | null;
