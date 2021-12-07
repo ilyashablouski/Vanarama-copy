@@ -39,7 +39,7 @@ export default function useVehicleCarousel(articleUrl?: string) {
       };
       getDataForCarousel();
     }
-  }, [blogPostCarouselData, carouselData, client]);
+  }, [articleUrl, blogPostCarouselData, carouselData, client]);
 
   return { carouselData, vehiclesList };
 }
