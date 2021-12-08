@@ -32,43 +32,12 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
         }
       }
     >
-      <img
-        className="image--native"
-        data-nimg="fill"
-        data-testid="card-image"
-        decoding="async"
-        onError={[Function]}
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        style={
-          Object {
-            "border": "none",
-            "bottom": 0,
-            "boxSizing": "border-box",
-            "display": "block",
-            "height": 0,
-            "left": 0,
-            "margin": "auto",
-            "maxHeight": "100%",
-            "maxWidth": "100%",
-            "minHeight": "100%",
-            "minWidth": "100%",
-            "objectFit": "cover",
-            "objectPosition": undefined,
-            "padding": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "width": 0,
-          }
-        }
-      />
       <noscript>
         <img
           className="image--native"
-          data-nimg="fill"
+          data-nimg={true}
           data-testid="card-image"
           decoding="async"
-          loading="lazy"
           onError={[Function]}
           sizes="100vw"
           src="/_next/image?url=https%3A%2F%2Fimages.autorama.co.uk%2FPhotos%2FCap%2FVehicles%2F157703%2Fcap-86343-157703.jpg&w=3840&q=75"
@@ -97,6 +66,36 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
           }
         />
       </noscript>
+      <img
+        className="image--native"
+        data-nimg={true}
+        data-testid="card-image"
+        decoding="async"
+        onError={[Function]}
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": "cover",
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
     </div>
   </div>
   <div
@@ -369,43 +368,12 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         }
       }
     >
-      <img
-        className="image--native"
-        data-nimg="fill"
-        data-testid="card-image"
-        decoding="async"
-        onError={[Function]}
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        style={
-          Object {
-            "border": "none",
-            "bottom": 0,
-            "boxSizing": "border-box",
-            "display": "block",
-            "height": 0,
-            "left": 0,
-            "margin": "auto",
-            "maxHeight": "100%",
-            "maxWidth": "100%",
-            "minHeight": "100%",
-            "minWidth": "100%",
-            "objectFit": "cover",
-            "objectPosition": undefined,
-            "padding": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "width": 0,
-          }
-        }
-      />
       <noscript>
         <img
           className="image--native"
-          data-nimg="fill"
+          data-nimg={true}
           data-testid="card-image"
           decoding="async"
-          loading="lazy"
           onError={[Function]}
           sizes="100vw"
           src="/_next/image?url=https%3A%2F%2Fimages.autorama.co.uk%2FPhotos%2FCap%2FVehicles%2F157703%2Fcap-86343-157703.jpg&w=3840&q=75"
@@ -434,6 +402,36 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
           }
         />
       </noscript>
+      <img
+        className="image--native"
+        data-nimg={true}
+        data-testid="card-image"
+        decoding="async"
+        onError={[Function]}
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": "cover",
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
     </div>
   </div>
   <div
@@ -706,43 +704,12 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         }
       }
     >
-      <img
-        className="image--native"
-        data-nimg="fill"
-        data-testid="card-image"
-        decoding="async"
-        onError={[Function]}
-        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        style={
-          Object {
-            "border": "none",
-            "bottom": 0,
-            "boxSizing": "border-box",
-            "display": "block",
-            "height": 0,
-            "left": 0,
-            "margin": "auto",
-            "maxHeight": "100%",
-            "maxWidth": "100%",
-            "minHeight": "100%",
-            "minWidth": "100%",
-            "objectFit": "cover",
-            "objectPosition": undefined,
-            "padding": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "width": 0,
-          }
-        }
-      />
       <noscript>
         <img
           className="image--native"
-          data-nimg="fill"
+          data-nimg={true}
           data-testid="card-image"
           decoding="async"
-          loading="lazy"
           onError={[Function]}
           sizes="100vw"
           src="/_next/image?url=https%3A%2F%2Fimages.autorama.co.uk%2FPhotos%2FCap%2FVehicles%2F157703%2Fcap-86343-157703.jpg&w=3840&q=75"
@@ -771,6 +738,36 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
           }
         />
       </noscript>
+      <img
+        className="image--native"
+        data-nimg={true}
+        data-testid="card-image"
+        decoding="async"
+        onError={[Function]}
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": "cover",
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
     </div>
   </div>
   <div
