@@ -17,7 +17,16 @@ const rangeTypesUrlSlugMapper = {
 
 const bodyTypesUrlSlugMapper = {
   '4x4-suv': '4x4',
+  'c-convertible': 'convertible',
 };
+
+const getMappedRangeType = (rangeType: string) =>
+  rangeTypesUrlSlugMapper[rangeType as keyof typeof rangeTypesUrlSlugMapper] ??
+  rangeType;
+
+const getMappedBodyType = (bodyType: string) =>
+  bodyTypesUrlSlugMapper[bodyType as keyof typeof bodyTypesUrlSlugMapper] ??
+  (bodyType || '');
 
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
 
@@ -82,14 +91,9 @@ export const generateUrlForBreadcrumb = (
   pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
 ) => {
+  // workaround only for Abarth 595C Convertible
   if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
-    return (
-      pageData?.slug ||
-      slugArray
-        // workaround only for Abarth 595C Convertible
-        .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
-        .join('/')
-    );
+    return pageData?.slug || slugArray.join('/');
   }
 
   if (pageData?.legacyUrl?.charAt(0) === '/') {
@@ -110,15 +114,8 @@ export const getProductPageBreadCrumb = (
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
   const manufacturerSlug = slugArray[1].replace('-', '');
-  const rangeSlug =
-    rangeTypesUrlSlugMapper[
-      slugArray[2] as keyof typeof rangeTypesUrlSlugMapper
-    ] ?? slugArray[2];
-  const bodyType =
-    bodyTypesUrlSlugMapper[
-      slugArray[3] as keyof typeof bodyTypesUrlSlugMapper
-    ] ??
-    (slugArray[3] || '');
+  const rangeSlug = getMappedRangeType(slugArray[2]);
+  const bodyType = getMappedBodyType(slugArray[3]);
 
   if (data) {
     const { manufacturer, range, name } = data;
