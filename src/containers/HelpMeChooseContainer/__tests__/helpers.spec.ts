@@ -381,81 +381,85 @@ describe('<helpers />', () => {
     );
   });
   describe('should buildAnObjectFromAQuery works correctly', () => {
-    it('when no steps', () => {
-      const steps = {
-        financeTypes: {
-          active: true,
-          value: [],
-          title: 'About You',
-        },
-        bodyStyles: {
-          active: false,
-          value: [],
-          title: 'Style',
-        },
-        fuelTypes: {
-          active: false,
-          value: [],
-          title: 'Fuel Types',
-        },
-        transmissions: {
-          active: false,
-          value: [],
-          title: 'Gearbox',
-        },
-        terms: {
-          active: false,
-          value: [],
-          title: 'Lease Length',
-        },
-        mileages: {
-          active: false,
-          value: [],
-          title: 'Mileage',
-        },
-        availability: {
-          active: false,
-          value: [],
-          title: 'Availability',
-        },
-        rental: {
-          active: false,
-          value: '',
-          title: 'Results',
-        },
-        initialPeriods: {
-          active: false,
-          value: '',
-          title: 'Results',
-        },
-      };
-      const result = {
-        filter: {
-          financeTypes: [],
-          vehicleTypes: ['CAR'],
-        },
-        pagination: {
-          size: 12,
-          from: 0,
-        },
-        sort: [
-          {
-            field: 'offerRanking',
-            direction: 'ASC',
+    const sort = [
+      {
+        field: 'offerRanking',
+        direction: 'ASC',
+      },
+      {
+        field: 'availability',
+        direction: 'ASC',
+      },
+      {
+        field: 'rental',
+        direction: 'ASC',
+      },
+    ];
+    describe('when there is no steps', () => {
+      it('should return object with only vehicleTypes key', () => {
+        const steps = {
+          financeTypes: {
+            active: true,
+            value: [],
+            title: 'About You',
           },
-          {
-            field: 'availability',
-            direction: 'ASC',
+          bodyStyles: {
+            active: false,
+            value: [],
+            title: 'Style',
           },
-          {
-            field: 'rental',
-            direction: 'ASC',
+          fuelTypes: {
+            active: false,
+            value: [],
+            title: 'Fuel Types',
           },
-        ],
-      };
-      expect(buildAnObjectFromAQuery(steps)).toMatchObject(result);
+          transmissions: {
+            active: false,
+            value: [],
+            title: 'Gearbox',
+          },
+          terms: {
+            active: false,
+            value: [],
+            title: 'Lease Length',
+          },
+          mileages: {
+            active: false,
+            value: [],
+            title: 'Mileage',
+          },
+          availability: {
+            active: false,
+            value: [],
+            title: 'Availability',
+          },
+          rental: {
+            active: false,
+            value: '',
+            title: 'Results',
+          },
+          initialPeriods: {
+            active: false,
+            value: '',
+            title: 'Results',
+          },
+        };
+        const result = {
+          filter: {
+            financeTypes: [],
+            vehicleTypes: ['CAR'],
+          },
+          pagination: {
+            size: 12,
+            from: 0,
+          },
+          sort,
+        };
+        expect(buildAnObjectFromAQuery(steps)).toMatchObject(result);
+      });
     });
-    it('with all steps and showResults count', () => {
+    describe('when there is all steps and showResults count', () => {
+      it('should return object with all keys and "from" pagination param', () => {});
       const steps = {
         financeTypes: {
           active: false,
@@ -522,20 +526,7 @@ describe('<helpers />', () => {
           size: 12,
           from: 5,
         },
-        sort: [
-          {
-            field: 'offerRanking',
-            direction: 'ASC',
-          },
-          {
-            field: 'availability',
-            direction: 'ASC',
-          },
-          {
-            field: 'rental',
-            direction: 'ASC',
-          },
-        ],
+        sort,
       };
       expect(buildAnObjectFromAQuery(steps, { size: 5 })).toMatchObject(result);
     });
