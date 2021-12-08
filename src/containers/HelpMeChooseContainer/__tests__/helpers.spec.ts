@@ -380,7 +380,7 @@ describe('<helpers />', () => {
       { shallow: true },
     );
   });
-  describe('should buildAnObjectFromAQuery works correctly', () => {
+  describe('buildAnObjectFromAQuery', () => {
     const sort = [
       {
         field: 'offerRanking',
