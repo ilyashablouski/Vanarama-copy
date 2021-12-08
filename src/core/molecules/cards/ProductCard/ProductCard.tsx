@@ -6,7 +6,6 @@ import Button from '../../../atoms/button';
 import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 import Heart from '../../../assets/icons/Heart';
-import { isBlackFridayCampaignEnabled } from '../../../../utils/helpers';
 
 export interface IProductCardProps extends ICardProps {
   features?: TIcon[];
@@ -31,14 +30,11 @@ const ProductCard: FC<IProductCardProps> = props => {
     compared,
     wished,
     features,
-    isBlackFridayLabel,
     dataUiTestId,
   } = props;
-  const isBlackFridayFlag =
-    isBlackFridayCampaignEnabled() && isBlackFridayLabel;
 
   return (
-    <Card {...props} isBlackFridayFlag={isBlackFridayFlag}>
+    <Card {...props}>
       {!!features?.length && <CardIcons icons={features} />}
       {children}
       <div className="card-footer">
