@@ -19,7 +19,6 @@ export interface IProductCardProps extends ICardProps {
   onWishlist?: (e: React.MouseEvent<Element, MouseEvent>) => void;
   compared?: boolean;
   wished?: boolean;
-  isBlackFridayLabel?: boolean;
 }
 
 const ProductCard: FC<IProductCardProps> = props => {

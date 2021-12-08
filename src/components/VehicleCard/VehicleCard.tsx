@@ -114,7 +114,6 @@ const VehicleCard = React.memo(
     return (
       <ProductCard
         dataUiTestId={dataUiTestId}
-        isBlackFridayLabel
         loadImage={loadImage}
         className="product"
         lazyLoad={lazyLoad}
