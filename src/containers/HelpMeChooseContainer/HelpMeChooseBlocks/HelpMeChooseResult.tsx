@@ -299,7 +299,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     }
                     className="-compact"
                     inline
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    // optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     imageSrc={mainImageUrl}
                     wished={isWished(
                       wishlistVehicleIds,
