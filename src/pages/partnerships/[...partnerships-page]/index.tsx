@@ -22,8 +22,6 @@ import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { decodeData, encodeData } from '../../../utils/data';
 import {
-  getPartnerProperties,
-  removePartnerProperties,
   setPartnerFooter,
   setPartnerProperties,
   setSessionFuelTypes,
@@ -94,6 +92,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const {
     colourPrimary,
     logo,
+    showPartnerLogo,
     fuelTypes,
     vehicleTypes,
     featured,
@@ -125,6 +124,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     vehicleTypes,
     telephone,
     logo,
+    showPartnerLogo,
     fuelTypes,
     searchPageDescription,
     searchPageTitle,
@@ -132,10 +132,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const sovereignty = customerSovereignty || 7;
 
   useEffect(() => {
-    // check if partnership cookie has been set
-    if (!getPartnerProperties()) {
-      setPartnerProperties(partnershipData, sovereignty);
-    }
+    setPartnerProperties(partnershipData, sovereignty);
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
     setSessionFuelTypes(fuelTypes || []);
@@ -143,21 +140,14 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   }, []);
 
   useEffect(() => {
-    if (getPartnerProperties()) {
-      const partnerDetails = getPartnerProperties();
-      const isRightPartnership = partnerDetails?.slug === slug?.toUpperCase();
-      if (!isRightPartnership) {
-        removePartnerProperties();
-        setPartnerProperties(partnershipData, sovereignty);
-      }
-      // check if exclusive vehicle type
-      const types = partnerDetails?.vehicleTypes;
-      if (types?.length === 1) {
-        if (types[0] === VehicleSearchTypeEnum.CARS) {
-          setSearchType(VehicleTypeEnum.CAR);
-        } else {
-          setSearchType(VehicleTypeEnum.LCV);
-        }
+    // check if exclusive vehicle type
+    const types = partnershipData.vehicleTypes;
+
+    if (types?.length === 1) {
+      if (types[0] === VehicleSearchTypeEnum.CARS) {
+        setSearchType(VehicleTypeEnum.CAR);
+      } else {
+        setSearchType(VehicleTypeEnum.LCV);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -191,7 +181,9 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     <>
       <Hero
         topHeader={
-          <PartnershipLogo logo={url || ''} imageAlt={title || undefined} />
+          showPartnerLogo && (
+            <PartnershipLogo logo={url || ''} imageAlt={title || undefined} />
+          )
         }
         customCTAColor={colourPrimary || ''}
         searchPodVansData={decodeData(searchPodVansData)}
@@ -337,7 +329,7 @@ export async function getServerSideProps(
       query: PARTNER,
       variables: {
         slug: path.split('/').pop() || '',
-        ...(context?.preview && { isPreview: context?.preview }),
+        isPreview: !!context?.preview,
       },
     });
 

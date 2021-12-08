@@ -426,12 +426,12 @@ export function moveFactoryOrderToEnd(
 }
 
 export enum FeatureFlags {
-  DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
   EXTENSION_BLACK_FRIDAY = 'DIG-8044',
+  EV_CAR_HUB_CAROUSEL = 'DIG-8175',
 }
 
 function isFeatureFlagEnabled(
@@ -458,10 +458,10 @@ export function isAccountSectionFeatureFlagEnabled(
   );
 }
 
-export function isDerangedFeatureFlagEnabled(
+export function isEVCarHubCarouselFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
+  return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
 }
 
 export function isUpdatedServicePlanFeatureFlagEnabled(

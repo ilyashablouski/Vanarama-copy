@@ -1,9 +1,17 @@
-import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloError,
+  gql,
+  NormalizedCacheObject,
+  useMutation,
+  useQuery,
+} from '@apollo/client';
 import { GetStoredWishlistVehiclesIds } from '../../generated/GetStoredWishlistVehiclesIds';
 import {
   SaveWishlistVehiclesIds,
   SaveWishlistVehiclesIdsVariables,
 } from '../../generated/SaveWishlistVehiclesIds';
+import { Nullable } from '../types/common';
 
 const STORED_WISHLIST_VEHICLES_IDS_QUERY = gql`
   query GetStoredWishlistVehiclesIds {
@@ -43,4 +51,30 @@ export function useSaveStoredWishlistVehicleIdsMutation(
       onError,
     },
   );
+}
+
+export function getStoredWishlistVehiclesIds(
+  client: ApolloClient<NormalizedCacheObject | object>,
+) {
+  return client
+    .query<GetStoredWishlistVehiclesIds>({
+      query: STORED_WISHLIST_VEHICLES_IDS_QUERY,
+    })
+    .then(operation => operation.data?.storedWishlistVehicleIds)
+    .catch(() => null);
+}
+
+export function setStoredWishlistVehiclesIds(
+  client: ApolloClient<NormalizedCacheObject | object>,
+  ids: Nullable<string>[],
+) {
+  return client
+    .mutate<SaveWishlistVehiclesIds, SaveWishlistVehiclesIdsVariables>({
+      mutation: STORED_WISHLIST_VEHICLES_IDS_QUERY,
+      variables: {
+        ids,
+      },
+    })
+    .then(operation => operation.data?.saveWishlistVehicleIds)
+    .catch(() => null);
 }

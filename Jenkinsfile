@@ -168,6 +168,16 @@ pipeline {
         }
 
         stage("2: Unit testing & Image Build"){
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'master'
+                  branch 'release/*'
+                  changeRequest target: 'master'
+                }
+            }
+
             failFast true
          parallel{
             stage("Unit testing") {
@@ -188,7 +198,7 @@ pipeline {
                     sh "yarn install"
                     // sh "yarn pack --filename next-storefront.tar.gz"
                     sh "yarn typecheck"
-                    sh "yarn test --coverage"
+                    sh "yarn test --coverage --maxWorkers=2"
                     sh "du -sh  *"    
                     // sh "yarn build"
                     // stash includes: 'next-storefront.tar.gz', name: 'package'
@@ -233,7 +243,6 @@ pipeline {
                   branch 'master'
                   branch 'release/*'
                   changeRequest target: 'master'
-                  changeRequest target: 'develop'
                 }
             }
                  steps {
@@ -308,7 +317,6 @@ pipeline {
                   branch 'master'
                   branch 'release/*'
                   changeRequest target: 'master'
-                  changeRequest target: 'develop'
                 }
             }
             steps {

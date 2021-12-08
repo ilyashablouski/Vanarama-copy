@@ -1,4 +1,11 @@
-import { ApolloError, gql, useMutation, useQuery } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloError,
+  gql,
+  NormalizedCacheObject,
+  useMutation,
+  useQuery,
+} from '@apollo/client';
 import { GetStoredItemsToCompareQuery } from '../../generated/GetStoredItemsToCompareQuery';
 import {
   SaveItemsToCompareMutation,
@@ -47,4 +54,34 @@ export function useSaveItemsToCompareMutation(
     onCompleted,
     onError,
   });
+}
+
+export function getStoredItemsToCompare(
+  client: ApolloClient<NormalizedCacheObject | object>,
+) {
+  return client
+    .query<GetStoredItemsToCompareQuery>({
+      query: GET_STORED_ITEMS_TO_COMPARE_QUERY,
+      fetchPolicy: 'no-cache',
+    })
+    .then(operation => operation.data?.storedItemsToCompare)
+    .then(items => (items || []).filter(Boolean))
+    .catch(() => null);
+}
+
+export function saveItemsToCompare(
+  client: ApolloClient<NormalizedCacheObject | object>,
+  items: SaveItemsToCompareMutationVariables['items'],
+) {
+  return client
+    .mutate<SaveItemsToCompareMutation, SaveItemsToCompareMutationVariables>({
+      mutation: SAVE_ITEMS_TO_COMPARE_MUTATION,
+      fetchPolicy: 'no-cache',
+      variables: {
+        items,
+      },
+    })
+    .then(operation => operation.data?.saveItemsToCompare)
+    .then(savedItems => (savedItems || []).filter(Boolean))
+    .catch(() => null);
 }
