@@ -236,6 +236,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       clearTimeout(timerId);
       window.removeEventListener('scroll', scrollChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   const accordionQAData = useMemo(

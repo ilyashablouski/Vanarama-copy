@@ -95,6 +95,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
         },
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleLoginComplete = useCallback(() => {
     // Redirect to the user's previous route or homepage.

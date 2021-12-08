@@ -238,6 +238,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
 
   useEffect(() => {
     scrollIntoPreviousView(pageOffset, prevPosition, setPrevPosition);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageOffset]);
 
   useEffect(() => {
