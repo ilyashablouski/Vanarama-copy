@@ -24,7 +24,7 @@ module.exports = withPlugins(
       withCustomBabelConfig,
       { babelConfigFile: path.resolve('./babel.config.js') },
     ],
-    [withImages, { images: { domains: ['dev.vanarama-nonprod.com', 'images.autorama.co.uk'] } }],
+    withImages,
   ],
   config.next,
 );
