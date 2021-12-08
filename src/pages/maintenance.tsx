@@ -8,7 +8,7 @@ const Heading = dynamic(() => import('core/atoms/heading'));
 export const TempPage: NextPage = () => {
   return (
     <>
-      <NextHead key="buildVersion">
+      <NextHead>
         <meta name="robots" content="noindex, nofollow" />
       </NextHead>
 
