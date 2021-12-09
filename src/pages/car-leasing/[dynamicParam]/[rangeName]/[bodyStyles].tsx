@@ -9,6 +9,7 @@ import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../../apolloClient';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
+  bodyUrlsSlugMapper,
   countOfUniqueQueries,
   getCapsIds,
   RESULTS_PER_REQUEST,
@@ -142,7 +143,12 @@ export async function getServerSideProps(
         vehicleTypes: [VehicleTypeEnum.CAR],
         manufacturerSlug: (query?.dynamicParam as string).toLowerCase(),
         rangeSlug: (query?.rangeName as string).toLowerCase(),
-        bodyStyles: [(context?.query?.bodyStyles as string).replace('-', ' ')],
+        bodyStyles: [
+          bodyUrlsSlugMapper[
+            (context?.query
+              ?.bodyStyles as string) as keyof typeof bodyUrlsSlugMapper
+          ] ?? (context?.query?.bodyStyles as string).replace('-', ' '),
+        ],
       },
     });
     defaultSort = sortObjectGenerator([
@@ -169,7 +175,10 @@ export async function getServerSideProps(
               ?.dynamicParam as string).toLowerCase(),
             rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
             bodyStyles: [
-              (context?.query?.bodyStyles as string).replace('-', ' '),
+              bodyUrlsSlugMapper[
+                (context?.query
+                  ?.bodyStyles as string) as keyof typeof bodyUrlsSlugMapper
+              ] ?? (context?.query?.bodyStyles as string).replace('-', ' '),
             ],
           },
         })
