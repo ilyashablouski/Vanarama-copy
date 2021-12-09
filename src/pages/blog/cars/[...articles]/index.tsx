@@ -16,7 +16,7 @@ import {
 import { decodeData, encodeData } from '../../../../utils/data';
 import {
   convertSlugToBreadcrumbsSchema,
-  getBreadCrumbsItems,
+  getBlogBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
 import {
   BlogPost as BlogPostData,
@@ -47,7 +47,7 @@ const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts: encodedData }) => {
     data?.blogPost,
   );
   const metaData = getSectionsData(['metaData'], data?.blogPost);
-  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsItems = getBlogBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (

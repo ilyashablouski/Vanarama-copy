@@ -23,7 +23,6 @@ import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
-import { GET_SSR_AUTH_STATUS } from './gql/session';
 import { isServer } from './utils/deviceType';
 
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
@@ -169,25 +168,15 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   localforage.clear().finally(() => {
     const currentPath = Router.router?.asPath || '/';
     const isOlaf = currentPath.includes('/olaf/');
-    const ssrAuthStatus = operation
-      .getContext()
-      .cache.readQuery({ query: GET_SSR_AUTH_STATUS });
+    const isLogin = currentPath.includes('/account/login-register');
+
     // don't make client redirect if ssr unauthorised error happened
-    if (!isOlaf && !ssrAuthStatus?.isSSRAuthError) {
+    if (!isOlaf && !isLogin) {
       // redirect to login-register from private pages except olaf
       Router.replace(
         `/account/login-register?redirect=${currentPath}`,
         '/account/login-register',
       );
-    }
-    // clear SSR authentication variable
-    if (ssrAuthStatus?.isSSRAuthError) {
-      operation.getContext().cache.writeQuery({
-        query: GET_SSR_AUTH_STATUS,
-        data: {
-          isSSRAuthError: false,
-        },
-      });
     }
 
     isSessionFinishedCache(true);

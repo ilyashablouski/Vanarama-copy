@@ -30,6 +30,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
+import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
@@ -50,9 +51,7 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
     ['sections', 'featured1'],
     data?.genericPage,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   const isIconBullets = !!sections?.iconBullets1 || !!sections?.iconBullets2;
 

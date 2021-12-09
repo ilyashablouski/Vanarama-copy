@@ -32,6 +32,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -57,9 +58,7 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data }) => {
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
   const metaData = data?.genericPage?.metaData;
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>
