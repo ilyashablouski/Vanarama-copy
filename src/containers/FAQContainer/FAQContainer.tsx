@@ -9,6 +9,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import { IBreadcrumb } from '../../types/breadcrumbs';
 
 const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
   loading: () => <Skeleton count={1} />,
@@ -24,7 +25,7 @@ interface IProps {
   sections: Section | null | undefined;
   title: string | null | undefined;
   intro: string | null | undefined;
-  breadcrumbsData: any;
+  breadcrumbsData: IBreadcrumb[];
 }
 
 const getAccordionItemsInside = (
