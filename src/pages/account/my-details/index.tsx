@@ -23,7 +23,7 @@ import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
-import useRouteChangeStart from '../../../hooks/useRouteChangeStart';
+import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -81,7 +81,7 @@ const metaData = {
 const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
-  const isLoading = useRouteChangeStart(router);
+  const isLoading = useAccountRouteChangeStart(router);
 
   const client = useApolloClient();
   useEffect(

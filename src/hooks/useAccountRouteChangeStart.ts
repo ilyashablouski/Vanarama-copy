@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NextRouter } from 'next/router';
 
-export default function useRouteChangeStart(router: NextRouter) {
+export default function useAccountRouteChangeStart(router: NextRouter) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
