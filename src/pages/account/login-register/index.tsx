@@ -12,12 +12,13 @@ import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import { addApolloState, initializeApollo } from '../../../apolloClient';
 import {
-  getAuthStatusFromCache,
   isUserAuthenticatedSSR,
+  removeAuthenticationCookies,
 } from '../../../utils/authentication';
-import { GET_SSR_AUTH_STATUS } from '../../../gql/session';
 import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
+import { useAuthReset } from '../../../containers/LoginFormContainer/gql';
+import { isBrowser } from '../../../utils/deviceType';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -75,12 +76,22 @@ const handleRegisterError = () =>
 
 interface IQueryParams {
   redirect?: string;
+  isUnauthorised?: boolean;
 }
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const { query } = props;
   const router = useRouter();
-  const { redirect } = router.query as IQueryParams;
+  const { redirect, isUnauthorised } = router.query as IQueryParams;
+
+  const [resetAuth] = useAuthReset();
+
+  useEffect(() => {
+    if (isUnauthorised && isBrowser()) {
+      resetAuth();
+      removeAuthenticationCookies();
+    }
+  }, [isUnauthorised, resetAuth]);
 
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -176,18 +187,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const client = initializeApollo(undefined, context);
-  if (context.query?.isUnauthorised === 'true') {
-    await client.writeQuery({
-      query: GET_SSR_AUTH_STATUS,
-      data: {
-        isSSRAuthError: true,
-      },
-    });
-  }
   // If user has authenticated already make redirect to details page
   if (
     isUserAuthenticatedSSR(context?.req?.headers.cookie || '') &&
-    !getAuthStatusFromCache(client)
+    context.query?.isUnauthorised !== 'true'
   ) {
     return {
       redirect: {
