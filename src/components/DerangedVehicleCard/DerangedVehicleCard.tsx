@@ -57,7 +57,6 @@ const DerangedVehicleCard = React.memo(
       <ProductCard
         loadImage={loadImage}
         lazyLoad={lazyLoad}
-        // optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
           accentIcon: data.isOnOffer ? (

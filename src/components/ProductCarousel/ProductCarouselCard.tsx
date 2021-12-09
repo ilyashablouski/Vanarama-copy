@@ -65,7 +65,6 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
       style={{ maxHeight: 600 }}
       alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
       lazyLoad={cardIndex !== 0}
-      // optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       header={
         product.leadTime || product.isOnOffer
           ? {

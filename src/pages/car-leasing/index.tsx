@@ -276,7 +276,6 @@ export const CarsPage: NextPage<IProps> = ({
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
-                  // optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || index}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
