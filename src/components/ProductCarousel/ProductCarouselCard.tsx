@@ -59,7 +59,6 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
   return (
     <ProductCard
       // loadImage
-      isBlackFridayLabel
       dataUiTestId={
         dataUiTestIdMask ? `${dataUiTestIdMask}-card_${cardIndex}` : undefined
       }

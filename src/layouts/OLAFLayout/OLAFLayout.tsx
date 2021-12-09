@@ -4,7 +4,6 @@ import { useStoredOrderQuery } from 'gql/storedOrder';
 
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
-import BlackFridayPlainBanner from 'core/atoms/black-friday-banner/BlackFridayPlainBanner';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
@@ -40,7 +39,6 @@ import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
 
 import { isSessionFinishedCache } from '../../cache';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -278,9 +276,6 @@ const OLAFLayout: React.FC<IProps> = ({
                 derivativeData?.data?.vehicleDetails?.warrantyDetails
               }
             />
-            {isBlackFridayCampaignEnabled() && (
-              <BlackFridayPlainBanner className="bf-banner--summary -mt-400" />
-            )}
             {isBenefitsVisible && (
               <>
                 <Card className="-mt-400">
