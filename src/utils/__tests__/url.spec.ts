@@ -143,48 +143,87 @@ describe('Url utils', () => {
     it('getProductPageBreadCrumb should return breadcrumb', () => {
       const actual = getProductPageBreadCrumb(
         {
+          name: '40 TFSI 204 S Line 2 Doors S Tronic',
           manufacturer: { name: 'Audi', slug: 'audi' },
-          name: '30 TFSI Technik 5 Doors [Comfort+Sound]',
-          range: { name: 'A3', slug: 'a3' },
+          range: { name: 'A5', slug: 'a5' },
+          fuelType: { name: 'Petrol' },
+          transmission: {
+            name: 'Automatic',
+          },
+          bodyStyle: {
+            name: 'Coupe',
+          },
+          bodyType: {
+            name: 'Coupe',
+            slug: 'coupe',
+          },
+          model: {
+            name: 'A5 Coupe',
+            slug: 'a5-coupe',
+          },
+          technicals: [
+            {
+              categoryDescription: 'Weight and Capacities',
+              derivativeId: '94216',
+              effectiveFrom: '2020-08-10T00:00:00.000Z',
+              effectiveTo: null,
+              id: '3',
+              technicalDescription: 'Minimum Kerbweight',
+              technicalLongDescription: 'Minimum Kerbweight',
+              unit: 'kg',
+              value: '1485',
+            },
+          ],
+          colours: [
+            { id: '143084', optionDescription: 'Audi Exclusive - Custom' },
+          ],
+          trims: [
+            {
+              id: '152549',
+              optionDescription:
+                'Fine nappa leather - Black with Rock Grey stitching and black dashboard + front sport seats with S embossed logo',
+            },
+          ],
         },
         [
           {
-            slug: 'car-leasing/audi/a3/hatchback',
-            legacyUrl: 'audi-car-leasing/a3/sport-back.html',
+            slug: 'car-leasing/audi/a5/coupe',
+            legacyUrl: 'audi-car-leasing/a5/sport-back.html',
           },
           {
-            slug: 'car-leasing/audi/a3',
-            legacyUrl: 'audi-car-leasing/a3.html',
+            slug: 'car-leasing/audi/a5',
+            legacyUrl: 'audi-car-leasing/a5.html',
           },
           {
             slug: 'car-leasing/audi',
             legacyUrl: 'audi-car-leasing.html',
           },
           {
-            slug: 'car-leasing/audi/a3/hatchback/a200-amg-line-5-doors-auto',
+            slug:
+              'car-leasing/audi/a5/coupe/40-tfsi-204-s-line-2-doors-s-tronic-2020',
             legacyUrl:
-              'audi-car-leasing/a3/sport-back/a200-amg-line-5dr-auto-155072.html',
+              'audi-car-leasing/a5/coupe/40-tfsi-204-s-line-2dr-s-tronic-168623.html',
           },
           {
             slug: 'car-leasing',
             legacyUrl: 'car-leasing.html',
           },
         ],
-        'car-leasing/audi/a3/hatchback/30-tfsi-technik-5dr-comfort-sound-167549',
+        'car-leasing/audi/a5/coupe/40-tfsi-204-s-line-2-doors-s-tronic-2020',
         true,
       );
 
       expect(actual).toEqual([
         { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
-        { link: { href: '/audi-car-leasing/a3.html', label: 'A3' } },
+        { link: { href: '/audi-car-leasing/a5.html', label: 'A5' } },
         {
           link: {
-            href: '/audi-car-leasing/a3/sport-back.html',
-            label: 'Hatchback',
+            href: '/audi-car-leasing/a5/sport-back.html',
+            label: 'Coupe',
           },
         },
         {
-          link: { href: '', label: '30 TFSI Technik 5 Doors [Comfort+Sound]' },
+          link: { href: '', label: '40 TFSI 204 S Line 2 Doors S Tronic' },
         },
       ]);
     });
@@ -192,26 +231,67 @@ describe('Url utils', () => {
     it('getProductPageBreadCrumb should return breadcrumb from slug', () => {
       const actual = getProductPageBreadCrumb(
         {
+          name: '40 TFSI 204 S Line 2 Doors S Tronic',
           manufacturer: { name: 'Audi', slug: 'audi' },
-          name: '30 TFSI Technik 5 Doors [Comfort+Sound]',
-          range: { name: 'A3', slug: 'a3' },
+          range: { name: 'A5', slug: 'a5' },
+          fuelType: { name: 'Petrol' },
+          transmission: {
+            name: 'Automatic',
+          },
+          bodyStyle: {
+            name: 'Coupe',
+          },
+          bodyType: {
+            name: 'Coupe',
+            slug: 'coupe',
+          },
+          model: {
+            name: 'A5 Coupe',
+            slug: 'a5-coupe',
+          },
+          technicals: [
+            {
+              categoryDescription: 'Weight and Capacities',
+              derivativeId: '94216',
+              effectiveFrom: '2020-08-10T00:00:00.000Z',
+              effectiveTo: null,
+              id: '3',
+              technicalDescription: 'Minimum Kerbweight',
+              technicalLongDescription: 'Minimum Kerbweight',
+              unit: 'kg',
+              value: '1485',
+            },
+          ],
+          colours: [
+            { id: '143084', optionDescription: 'Audi Exclusive - Custom' },
+          ],
+          trims: [
+            {
+              id: '152549',
+              optionDescription:
+                'Fine nappa leather - Black with Rock Grey stitching and black dashboard + front sport seats with S embossed logo',
+            },
+          ],
         },
         null,
-        'car-leasing/audi/a3/hatchback/30-tfsi-technik-5dr-comfort-sound-167549',
+        'car-leasing/audi/a5/coupe/40-tfsi-204-s-line-2-doors-s-tronic-2020',
         true,
       );
 
       expect(actual).toEqual([
         { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
-        { link: { href: '/audi-car-leasing/a3.html', label: 'A3' } },
+        { link: { href: '/audi-car-leasing/a5.html', label: 'A5' } },
         {
           link: {
-            href: '/audi-car-leasing/a3/hatchback.html',
-            label: 'Hatchback',
+            href: '/audi-car-leasing/a5/coupe.html',
+            label: 'Coupe',
           },
         },
         {
-          link: { href: '', label: '30 TFSI Technik 5 Doors [Comfort+Sound]' },
+          link: {
+            href: '',
+            label: '40 TFSI 204 S Line 2 Doors S Tronic',
+          },
         },
       ]);
     });
@@ -219,28 +299,63 @@ describe('Url utils', () => {
     it('getProductPageBreadCrumb should return breadcrumb', () => {
       const actual = getProductPageBreadCrumb(
         {
-          manufacturer: { name: 'Mercedes-Benz', slug: 'mercedes-benz' },
-          name: '109CDI Van',
+          name: '109CDI Pure Van',
+          manufacturer: { name: 'Mercedes-Benz', slug: 'mercedes-Benz' },
           range: { name: 'Citan', slug: 'citan' },
+          fuelType: { name: 'Petrol' },
+          transmission: {
+            name: 'Diesel',
+          },
+          bodyStyle: {
+            name: null,
+          },
+          bodyType: {
+            name: 'Van',
+            slug: 'van',
+          },
+          model: {
+            name: 'Citan L3',
+            slug: 'citan-L3',
+          },
+          technicals: [
+            {
+              categoryDescription: 'Tyres',
+              derivativeId: '45588',
+              effectiveFrom: '2019-07-01T00:00:00.000Z',
+              effectiveTo: null,
+              id: '69',
+              technicalDescription: 'Wheel Style',
+              technicalLongDescription: 'Wheel Style',
+              unit: null,
+              value: 'N',
+            },
+          ],
+          colours: [
+            { id: '11309', optionDescription: 'Metallic - Bornite red' },
+          ],
+          trims: [
+            {
+              id: '9787',
+              optionDescription: 'Lima cloth - Black',
+            },
+          ],
         },
         [
           {
-            slug: 'van-leasing/mercedes-benz/citan',
-            legacyUrl: 'mercedesbenz-van-leasing/citan.html',
-          },
-          {
-            slug: 'van-leasing/mercedes-benz',
-            legacyUrl: 'mercedesbenz-van-leasing.html',
-          },
-          {
-            slug:
-              'van-leasing/mercedes-benz/citan/hatchback/a200-amg-line-5-doors-auto',
-            legacyUrl:
-              'mercedesbenz-van-leasing/citan/hatchback/a200-amg-line-5dr-auto-155072.html',
+            slug: 'van-leasing/mercedes-benz/citan/l3-109cdi-pure-van-2019',
+            legacyUrl: null,
           },
           {
             slug: 'van-leasing',
             legacyUrl: 'van-leasing.html',
+          },
+          {
+            slug: 'van-leasing/mercedes-benz/citan',
+            legacyUrl: 'mercedes-benz-van-leasing/citan.html',
+          },
+          {
+            slug: 'van-leasing/mercedes-benz',
+            legacyUrl: 'mercedes-benz-van-leasing.html',
           },
         ],
         'mercedesbenz-van-leasing/citan/109cdi-van-7247.html',
@@ -250,24 +365,24 @@ describe('Url utils', () => {
       expect(actual).toEqual([
         {
           link: {
-            href: '/mercedesbenz-van-leasing.html',
+            href: '/mercedes-benz-van-leasing.html',
             label: 'Mercedes-Benz',
           },
         },
         {
           link: {
-            href: '/mercedesbenz-van-leasing/citan.html',
+            href: '/mercedes-benz-van-leasing/citan.html',
             label: 'Citan',
           },
         },
-        { link: { href: '', label: '109CDI Van' } },
+        { link: { href: '', label: '109CDI Pure Van' } },
       ]);
     });
   });
 
   describe('formatToSlugFormat', () => {
     it('formatToSlugFormat should return valid slug value', () => {
-      const actual = formatToSlugFormat('test ID.3');
+      const actual = formatToSlugFormat('test ID.3.');
       expect(actual).toEqual('test-id-3');
     });
   });

@@ -25,16 +25,14 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
+import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
   const intro = getSectionsData(['intro'], data?.genericPage);
-  const breadcrumbsItems = getSectionsData(
-    ['metaData', 'breadcrumbs'],
-    data?.genericPage,
-  );
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   if (metaData.title?.includes('Thank You')) {
     return (
@@ -57,7 +55,7 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
           title={metaData.name}
           sections={sections}
           intro={intro}
-          breadcrumbsData={breadcrumbsItems}
+          breadcrumbsItems={breadcrumbsItems}
         />
         {metaData && (
           <>
@@ -73,7 +71,7 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
     <>
       <FinanceGapInsuranceContainer
         sections={sections}
-        breadcrumbsData={breadcrumbsItems}
+        breadcrumbsItems={breadcrumbsItems}
       />
       {metaData && (
         <>

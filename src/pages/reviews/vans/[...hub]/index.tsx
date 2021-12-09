@@ -34,6 +34,7 @@ import {
   PageTypeEnum,
 } from '../../../../types/common';
 import { convertErrorToProps } from '../../../../utils/helpers';
+import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
 type IProps = IPageWithData<{
   data: ReviewsHubCategoryQuery | ReviewsPageQuery;
@@ -48,9 +49,7 @@ const ReviewHub: NextPage<IProps> = ({ data: encodedData }) => {
     const sections = getSectionsData(['sections'], data?.reviewsPage);
     const metaData = getSectionsData(['metaData'], data.reviewsPage);
     const featuredImage = getSectionsData(['featuredImage'], data?.reviewsPage);
-    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-      link: { href: el.href || '', label: el.label },
-    }));
+    const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
     return (
       <>

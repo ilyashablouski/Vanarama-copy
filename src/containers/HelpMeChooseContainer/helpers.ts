@@ -129,203 +129,87 @@ export const onReplace = (
 };
 
 export const buildAnObjectFromAQuery = (
-  query: URLSearchParams,
   steps: IInitStep,
-  editStep?: number,
   showResults?: {
     size: number;
   },
 ): HelpMeChooseVariables => {
   const object = {} as any;
-  if (editStep) {
-    query.forEach((value: string, key: string) => {
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
-          steps.bodyStyles?.value?.length &&
-          steps.bodyStyles?.value[0].length &&
-          !steps.bodyStyles.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
-          steps.bodyStyles?.value?.length &&
-          steps.bodyStyles?.value[0].length &&
-          editStep &&
-          editStep > 2)
-      ) {
-        object.bodyStyles = steps.bodyStyles.value;
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
-          steps.fuelTypes?.value?.length &&
-          steps.fuelTypes?.value[0].length &&
-          !steps.fuelTypes.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
-          steps.fuelTypes?.value?.length &&
-          steps.fuelTypes?.value[0].length &&
-          editStep &&
-          editStep > 3)
-      ) {
-        object.fuelTypes = steps.fuelTypes.value;
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
-          steps.transmissions?.value?.length &&
-          steps.transmissions?.value[0].length &&
-          !steps.transmissions.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
-          steps.transmissions?.value?.length &&
-          steps.transmissions?.value[0].length &&
-          editStep &&
-          editStep > 4)
-      ) {
-        object.transmissions = steps.transmissions.value;
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.TERMS &&
-          steps.terms?.value?.length &&
-          steps.terms?.value[0].length &&
-          !steps.terms.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.TERMS &&
-          steps.terms?.value?.length &&
-          steps.terms?.value[0].length &&
-          editStep &&
-          editStep > 5)
-      ) {
-        object.terms = [parseInt(steps.terms.value[0], 10)];
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
-          steps.mileages?.value?.length &&
-          steps.mileages?.value[0].length &&
-          !steps.mileages.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
-          steps.mileages?.value?.length &&
-          steps.mileages?.value[0].length &&
-          editStep &&
-          editStep > 6)
-      ) {
-        object.mileages = [parseInt(steps.mileages.value[0] || '', 10)];
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
-          steps.availability?.value?.length &&
-          steps.availability?.value[0].length &&
-          !steps.availability.active &&
-          !editStep) ||
-        (key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
-          steps.availability?.value?.length &&
-          steps.availability?.value[0].length &&
-          editStep &&
-          editStep > 7)
-      ) {
-        object.availability = parseInt(steps.availability.value[0] || '', 10);
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
-          value?.length &&
-          !editStep &&
-          steps.rental.active) ||
-        steps.rental.active
-      ) {
-        object.rental =
-          parseFloat(steps.rental.value as any) === 0
-            ? {
-                min: 0,
-              }
-            : {
-                max: parseFloat(steps.rental.value as any),
-              };
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
-          value?.length &&
-          !editStep &&
-          steps.initialPeriods.active) ||
-        steps.initialPeriods.active
-      ) {
-        object.initialPeriods = [
-          parseInt(steps.initialPeriods.value as any, 10),
-        ];
-      }
-    });
-  } else {
-    Object.entries(steps).forEach(([key, val]) => {
-      if (
-        key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
+  Object.entries(steps).forEach(([key, val]) => {
+    if (
+      key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
+      val.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.lqBodyStyles = val.value.map((item: string) =>
+        item.replace('+', ' '),
+      );
+    }
+    if (
+      key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
+      val.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.fuelTypes = val.value;
+    }
+    if (
+      key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
+      val?.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.transmissions = val.value;
+    }
+    if (
+      key === HELP_ME_CHOOSE_STEPS.TERMS &&
+      val?.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.terms = [parseInt(val.value[0], 10)];
+    }
+    if (
+      key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
+      val?.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.mileages = [parseInt(val.value[0] || '', 10)];
+    }
+    if (
+      key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
+      val?.value?.length &&
+      val.value[0].length &&
+      !val.active
+    ) {
+      object.availability = parseInt(val.value[0] || '', 10);
+    }
+    if (
+      (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
         val.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.bodyStyles = val.value;
-      }
-      if (
-        key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
+        val.active) ||
+      (key === HELP_ME_CHOOSE_STEPS.RENTAL && val.active)
+    ) {
+      object.rental =
+        parseFloat(val.value as any) === 0
+          ? {
+              min: 0,
+            }
+          : {
+              max: parseFloat(val.value as any),
+            };
+    }
+    if (
+      (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
         val.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.fuelTypes = val.value;
-      }
-      if (
-        key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
-        val?.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.transmissions = val.value;
-      }
-      if (
-        key === HELP_ME_CHOOSE_STEPS.TERMS &&
-        val?.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.terms = [parseInt(val.value[0], 10)];
-      }
-      if (
-        key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
-        val?.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.mileages = [parseInt(val.value[0] || '', 10)];
-      }
-      if (
-        key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
-        val?.value?.length &&
-        val.value[0].length &&
-        !val.active
-      ) {
-        object.availability = parseInt(val.value[0] || '', 10);
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
-          val.value?.length &&
-          val.active) ||
-        (key === HELP_ME_CHOOSE_STEPS.RENTAL && val.active)
-      ) {
-        object.rental =
-          parseFloat(val.value as any) === 0
-            ? {
-                min: 0,
-              }
-            : {
-                max: parseFloat(val.value as any),
-              };
-      }
-      if (
-        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
-          val.value?.length &&
-          val.active) ||
-        (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS && val.active)
-      ) {
-        object.initialPeriods = [parseInt(val.value as any, 10)];
-      }
-    });
-  }
+        val.active) ||
+      (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS && val.active)
+    ) {
+      object.initialPeriods = [parseInt(val.value as any, 10)];
+    }
+  });
   object.financeTypes = steps.financeTypes.value;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   const variables = {

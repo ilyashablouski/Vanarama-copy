@@ -22,7 +22,9 @@ import {
   IMarkdownParagraph,
 } from '../../types/markdown';
 import BlogCarousel from '../../components/BlogCarousel';
+import { Nullish } from '../../types/common';
 import { CarouselPositionEnum } from '../../models/IBlogsProps';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
 import useVehicleCarousel from '../../hooks/useVehicleCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -89,7 +91,7 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
-  breadcrumbsItems?: any;
+  breadcrumbsItems?: Nullish<IBreadcrumbLink[]>;
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
   articleUrl?: string;

@@ -17,12 +17,17 @@ function ImageCarousel({
   imageAltText,
   renderImageDecoration,
 }: IImageCarouselProps) {
+  const [slider, setSlider] = useState<SwiperCore>();
   const [thumbsSlider, setThumbsSlider] = useState<SwiperCore>();
   const [isFullScreen, setFullScreen] = useState(false);
 
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
   const isDesktop = useDesktopViewport();
+
+  function handleFullScreenSliderChange(activeIndex: number) {
+    slider?.slideToLoop(activeIndex);
+  }
 
   function handleFullScreenClick() {
     setFullScreen(!isFullScreen);
@@ -41,6 +46,7 @@ function ImageCarousel({
           thumbs={{
             swiper: thumbsSlider,
           }}
+          onSwiper={setSlider}
           onSlideChange={swiper => {
             setActiveSlideIndex(swiper.activeIndex);
             thumbsSlider?.update();
@@ -123,6 +129,7 @@ function ImageCarousel({
           imageAltText={imageAltText}
           isOpenModal={isFullScreen}
           setOpenModal={() => setFullScreen(false)}
+          onSlideChange={handleFullScreenSliderChange}
         />
       )}
     </>

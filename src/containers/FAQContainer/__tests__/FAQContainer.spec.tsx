@@ -3,6 +3,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FAQContainer from '../FAQContainer';
+import { IBreadcrumbLink } from '../../../types/breadcrumbs';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -72,10 +73,10 @@ const SECTIONS = {
   __typename: 'Sections',
 } as any;
 
-const BREADCRUMBS = [
-  { href: '/', label: 'Home' },
-  { href: '/van-insurance.html', label: 'Van Insurance' },
-  { label: 'FAQ' },
+const BREADCRUMBS: IBreadcrumbLink[] = [
+  { link: { href: '/', label: 'Home' } },
+  { link: { href: '/van-insurance.html', label: 'Van Insurance' } },
+  { link: { href: '', label: 'FAQ' } },
 ];
 
 describe('<FinanceExplainedContainer />', () => {
@@ -90,7 +91,7 @@ describe('<FinanceExplainedContainer />', () => {
           sections={SECTIONS}
           title={METADATA.title}
           intro={INTRO}
-          breadcrumbsData={BREADCRUMBS}
+          breadcrumbsItems={BREADCRUMBS}
         />
       </MockedProvider>,
     );

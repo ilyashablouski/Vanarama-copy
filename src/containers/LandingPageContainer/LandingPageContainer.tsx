@@ -17,6 +17,7 @@ import JumpMenu from '../../components/JumpMenu/JumpMenu';
 import FeaturedSection from '../../components/FeaturedSection';
 import Head from '../../components/Head/Head';
 import LeadTextComponent from './LeadTextComponent';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 interface IProps {
   data?: GenericPageQuery;
@@ -41,13 +42,10 @@ const LandingPageContainer = ({ data, title }: IProps) => {
     () => getSectionsData(['metaData'], data?.genericPage),
     [data],
   );
-  const breadcrumbsItems = useMemo(
-    () =>
-      metaData?.breadcrumbs?.map((el: any) => ({
-        link: { href: el.href || '', label: el.label },
-      })),
-    [metaData?.breadcrumbs],
-  );
+  const breadcrumbsItems = useMemo(() => getBreadCrumbsItems(metaData), [
+    metaData,
+  ]);
+
   return (
     <>
       <div className="row:title">

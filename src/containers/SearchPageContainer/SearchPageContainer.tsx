@@ -41,6 +41,7 @@ import {
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   scrollIntoPreviousView,
+  bodyUrlsSlugMapper,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
@@ -59,7 +60,6 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import useMediaQuery from '../../hooks/useMediaQuery';
-import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import SortOrder from '../../components/SortOrder';
@@ -73,13 +73,13 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 import NewRangeContent from './NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageTitle from './SearchPageTitle';
 import SearchPageMarkdown from './SearchPageMarkdown';
 import RelatedCarousel from './RelatedCarousel';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -94,9 +94,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const BlackFridayHotOffersBanner = dynamic(() =>
-  import('core/atoms/black-friday-banner/BlackFridayHotOffersBanner'),
-);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
@@ -316,8 +313,13 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       return ['Pickup'];
     }
     if (isModelPage) {
-      return [router.query?.bodyStyles as string];
+      return [
+        bodyUrlsSlugMapper[
+          router.query.bodyStyles as keyof typeof bodyUrlsSlugMapper
+        ] ?? router.query.bodyStyles,
+      ];
     }
+
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
         .replace('-leasing', '')
@@ -905,10 +907,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     ],
   );
 
-  const shouldBlackFridayBannerRender =
-    (isSpecialOfferPage || isEvPage) && isBlackFridayCampaignEnabled();
-  const blackFridayBannerLcvType = isPickups ? 'pickups' : 'vans';
-
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
@@ -919,36 +917,17 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   return (
     <>
       <PartnershipLogoHeader />
-      {shouldBlackFridayBannerRender ? (
-        <section className="row:featured-bf">
-          <SearchPageTitle
-            dataUiTestId={`${dataUiTestId}_page-title`}
-            breadcrumbsItems={breadcrumbsItems}
-            pageTitle={pageTitle}
-            titleWithBreaks={titleWithBreaks}
-            pageData={pageData}
-            partnershipDescription={partnershipDescription}
-            isDesktopOrTablet={isDesktopOrTablet}
-            isPartnershipActive={isPartnershipActive}
-            isNewPage={isNewPage}
-          />
-          <BlackFridayHotOffersBanner
-            variant={isCarSearch ? 'cars' : blackFridayBannerLcvType}
-          />
-        </section>
-      ) : (
-        <SearchPageTitle
-          dataUiTestId={`${dataUiTestId}_page-title`}
-          breadcrumbsItems={breadcrumbsItems}
-          pageTitle={pageTitle}
-          titleWithBreaks={titleWithBreaks}
-          pageData={pageData}
-          partnershipDescription={partnershipDescription}
-          isDesktopOrTablet={isDesktopOrTablet}
-          isPartnershipActive={isPartnershipActive}
-          isNewPage={isNewPage}
-        />
-      )}
+      <SearchPageTitle
+        dataUiTestId={`${dataUiTestId}_page-title`}
+        breadcrumbsItems={breadcrumbsItems}
+        pageTitle={pageTitle}
+        titleWithBreaks={titleWithBreaks}
+        pageData={pageData}
+        partnershipDescription={partnershipDescription}
+        isDesktopOrTablet={isDesktopOrTablet}
+        isPartnershipActive={isPartnershipActive}
+        isNewPage={isNewPage}
+      />
       {pageData && isModelPage && (
         <div className="row:text -columns">
           <div>
@@ -1114,7 +1093,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         </div>
       )}
       {isDynamicFilterPage && tiles?.tiles?.length && (
-        <TilesBlock tiles={tiles} />
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles.tiles}
+          title={tiles.tilesTitle || ''}
+          titleTag={tiles.titleTag}
+        />
       )}
       {pageData && (
         <>
@@ -1134,11 +1117,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             ? null
             : !isDynamicFilterPage &&
               tiles?.tiles?.length && (
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <TilesBlock tiles={tiles} />
-                </LazyLoadComponent>
+                <WhyLeaseWithVanaramaTiles
+                  tiles={tiles.tiles}
+                  title={tiles.tilesTitle || ''}
+                  titleTag={tiles.titleTag}
+                />
               )}
 
           {isNewPage && isRangePage ? (

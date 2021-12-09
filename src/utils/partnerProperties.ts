@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import router from 'next/router';
 import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
-import { Nullish } from '../types/common';
+import { Nullable, Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
 import { isBrowser } from './deviceType';
 
@@ -27,6 +27,7 @@ export interface IPartnerProperties {
   telephone: Nullish<string>;
   fuelTypes?: string[] | undefined;
   logo: IPartnerPropertiesLogo | null;
+  showPartnerLogo: Nullable<boolean>;
   searchPageDescription: string;
   searchPageTitle: string;
 }

@@ -52,10 +52,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isBlackFridayCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -81,9 +78,6 @@ const Step = dynamic(() => import('core/molecules/step'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
 });
-const HeroBlackFriday = dynamic(() =>
-  import('../../components/Hero/HeroBlackFriday'),
-);
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
@@ -160,48 +154,43 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      {isBlackFridayCampaignEnabled() ? (
-        <HeroBlackFriday searchPodVansData={searchPodVansData} variant="vans" />
-      ) : (
-        <Hero searchPodVansData={searchPodVansData}>
-          <div className="nlol">
-            <p>Find Your</p>
-            <h2>New Lease Of Life</h2>
-            <p>With Vanarama</p>
-          </div>
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
-              plain
-              size="expand"
-              src={
-                getSectionsData(
-                  ['hero', 'image', 'file', 'url'],
-                  data?.hubVanPage.sections,
-                ) ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-              }
-            />
-          </div>
-          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
-            <HeroPrompt
-              label={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-                ''
-              }
-              url={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-              }
-              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-              }
-            />
-          )}
-        </Hero>
-      )}
+      <Hero searchPodVansData={searchPodVansData}>
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
+        <div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.hubVanPage.sections,
+              ) ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+        {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}
