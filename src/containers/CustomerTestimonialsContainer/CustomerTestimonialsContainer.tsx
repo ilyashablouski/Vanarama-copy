@@ -12,6 +12,8 @@ import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import Skeleton from '../../components/Skeleton';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import { Nullish } from '../../types/common';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -39,7 +41,7 @@ interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
-  breadcrumbsItems: any;
+  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   initialTestimonials: TestimonialsData['testimonials'] | undefined;
 }
 

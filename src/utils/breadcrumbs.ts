@@ -72,7 +72,7 @@ export function getBreadCrumbsItems(
   metaData: IMetaDataSection,
 ): IBreadcrumbLink[] | null {
   return metaData?.breadcrumbs
-    ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+    ? metaData.breadcrumbs.map((el: IBreadcrumb) => ({
         link: { href: el.href || '', label: el.label },
       }))
     : getBlogBreadCrumbsFromSlug(metaData.slug);
