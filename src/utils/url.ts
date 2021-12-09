@@ -11,24 +11,8 @@ import { isBrowser } from './deviceType';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
-const rangeTypesUrlSlugMapper = {
-  'e-tron': 'etron',
-};
-
-const bodyTypesUrlSlugMapper = {
-  '4x4-suv': '4x4',
-  'c-convertible': 'convertible',
-};
-
-const getMappedRangeType = (rangeType: string) =>
-  rangeTypesUrlSlugMapper[rangeType as keyof typeof rangeTypesUrlSlugMapper] ??
-  rangeType;
-
-const getMappedBodyType = (bodyType: string) =>
-  bodyTypesUrlSlugMapper[bodyType as keyof typeof bodyTypesUrlSlugMapper] ??
-  (bodyType || '');
-
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
+const RANGES_WITH_LEGACY_URL = ['e-tron'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -90,10 +74,25 @@ export const generateUrlForBreadcrumb = (
   manufacturer: string,
   pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
+  rangeSlug?: string,
+  leasing?: string,
 ) => {
   // workaround only for Abarth 595C Convertible
   if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
-    return pageData?.slug || slugArray.join('/');
+    return (
+      pageData?.slug ||
+      slugArray
+        // workaround only for Abarth 595C Convertible
+        .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
+        .join('/')
+    );
+  }
+
+  // workaround only for Audi e-tron
+  if (rangeSlug && RANGES_WITH_LEGACY_URL.includes(rangeSlug) && leasing) {
+    return (
+      pageData?.slug || `${manufacturer}-${leasing}/etron/${slugArray[3]}.html`
+    );
   }
 
   if (pageData?.legacyUrl?.charAt(0) === '/') {
@@ -113,9 +112,9 @@ export const getProductPageBreadCrumb = (
 ) => {
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
-  const manufacturerSlug = slugArray[1].replace('-', '');
-  const rangeSlug = getMappedRangeType(slugArray[2]);
-  const bodyType = getMappedBodyType(slugArray[3]);
+  const manufacturerSlug = slugArray[1];
+  const rangeSlug = slugArray[2];
+  const bodyType = slugArray[3] || '';
 
   if (data) {
     const { manufacturer, range, name } = data;
@@ -153,12 +152,13 @@ export const getProductPageBreadCrumb = (
         label: bodyType
           .replace(/-/g, ' ')
           .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: `/${generateUrlForBreadcrumb(manufacturerSlug, modelPage, [
-          leasing,
+        href: `/${generateUrlForBreadcrumb(
           manufacturerSlug,
+          modelPage,
+          [leasing, manufacturerSlug, rangeSlug, bodyType],
           rangeSlug,
-          bodyType,
-        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
+          leasing,
+        ) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
       },
     };
     const derivativeLink = {
