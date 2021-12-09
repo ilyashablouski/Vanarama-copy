@@ -219,15 +219,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -288,15 +288,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -357,15 +357,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -426,15 +426,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -495,15 +495,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -564,15 +564,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <div
               style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
             >
-              <noscript />
               <img
                 class="image--native"
-                data-nimg="true"
+                data-nimg="fill"
                 data-testid="card-image"
                 decoding="async"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
+              <noscript />
             </div>
           </div>
           <div
@@ -669,15 +669,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <div
             style="display: block; box-sizing: border-box; padding-top: 45%;"
           />
-          <noscript />
           <img
             alt="Tesla-Test-6"
             class="image--native"
-            data-nimg="true"
+            data-nimg="responsive"
             decoding="async"
             src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
+          <noscript />
         </div>
       </div>
     </div>
@@ -749,15 +749,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
                     >
-                      <noscript />
                       <img
                         class="image--native"
-                        data-nimg="true"
+                        data-nimg="fill"
                         data-testid="card-image"
                         decoding="async"
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
                       />
+                      <noscript />
                     </div>
                   </div>
                   <div
@@ -800,15 +800,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
                     >
-                      <noscript />
                       <img
                         class="image--native"
-                        data-nimg="true"
+                        data-nimg="fill"
                         data-testid="card-image"
                         decoding="async"
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
                       />
+                      <noscript />
                     </div>
                   </div>
                   <div
@@ -851,15 +851,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
                     >
-                      <noscript />
                       <img
                         class="image--native"
-                        data-nimg="true"
+                        data-nimg="fill"
                         data-testid="card-image"
                         decoding="async"
                         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
                       />
+                      <noscript />
                     </div>
                   </div>
                   <div
