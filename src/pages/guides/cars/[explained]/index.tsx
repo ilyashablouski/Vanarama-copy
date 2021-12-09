@@ -24,6 +24,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
 import { convertErrorToProps } from '../../../../utils/helpers';
+import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
 const GuidesCarsExplained: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
@@ -38,10 +39,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({ data: encodedData }) => {
     data?.genericPage,
   );
   const breadcrumbsItems =
-    Array.isArray(metaData?.breadcrumbs) &&
-    metaData?.breadcrumbs.map((el: any) => ({
-      link: { href: el.href || '', label: el.label },
-    }));
+    Array.isArray(metaData?.breadcrumbs) && getBreadCrumbsItems(metaData);
 
   return (
     <>

@@ -27,6 +27,7 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -102,9 +103,7 @@ const EligibilityChecker: NextPage<IProps> = ({ data }) => {
     data?.eligibilityCheckerLandingPage,
   );
   const questions = (faqs?.questionSets as QuestionSets[])[0]?.questionAnswers;
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>

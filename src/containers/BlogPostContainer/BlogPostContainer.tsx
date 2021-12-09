@@ -27,6 +27,7 @@ import { BlogPost_blogPost_productFilter } from '../../../generated/BlogPost';
 import { Nullish } from '../../types/common';
 import { CarouselPositionEnum } from '../../models/IBlogsProps';
 import { isBlogCarPagesCarouselFeatureFlagEnabled } from '../../utils/helpers';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -92,7 +93,7 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
-  breadcrumbsItems?: any;
+  breadcrumbsItems?: Nullish<IBreadcrumbLink[]>;
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
   carouselPosition?: Nullish<string>[] | null;

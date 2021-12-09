@@ -44,6 +44,7 @@ import {
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import ErrorMessages from '../../models/enum/ErrorMessages';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -100,9 +101,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
   const tiles = data?.genericPage.sections?.tiles?.tiles;
   const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
   const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;

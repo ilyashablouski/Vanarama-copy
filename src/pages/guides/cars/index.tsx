@@ -22,6 +22,7 @@ import {
 } from '../../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../../utils/helpers';
 import { PageTypeEnum } from '../../../types/common';
+import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 
 const GuidesCars: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
@@ -32,10 +33,7 @@ const GuidesCars: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const sections = getSectionsData(['sections'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const breadcrumbsItems =
-    Array.isArray(metaData?.breadcrumbs) &&
-    metaData?.breadcrumbs.map((el: any) => ({
-      link: { href: el.href || '', label: el.label },
-    }));
+    Array.isArray(metaData?.breadcrumbs) && getBreadCrumbsItems(metaData);
 
   return (
     <>
