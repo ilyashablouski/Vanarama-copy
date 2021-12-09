@@ -1,17 +1,53 @@
-import Cookies from 'js-cookie';
 import {
   convertSlugToBreadcrumbsSchema,
   getBlogBreadCrumbsFromSlug,
+  getBlogBreadCrumbsItems,
   getBreadCrumbsItems,
 } from '../breadcrumbs';
 
 describe('getBreadCrumbsItems', () => {
-  // Delete then feature flag will remove
-  beforeEach(() => {
-    Cookies.set('DIG-6993', '1');
-  });
-
   it('getBreadCrumbsItems should return correct result', () => {
+    const metaData = {
+      breadcrumbs: [
+        { href: '/', label: 'Home' },
+        { href: '/blog', label: 'blog' },
+        { href: '/blog/vans', label: 'Vans' },
+        {
+          href: '/blog/vans/mitsubishi-outlander-commercial-review',
+          label: 'Mitsubishi Outlander Commercial Review',
+        },
+      ],
+      canonicalUrl:
+        'https://www.vanarama.com/latest-news/mitsubishi-outlander-commercial-review.html',
+      legacyUrl: 'latest-news/mitsubishi-outlander-commercial-review.html',
+      metaDescription:
+        'Vanarama Van Expert Tom Roberts reviews a Mitsubishi Outlander Commercial',
+      metaRobots: null,
+      name: 'Mitsubishi Outlander Commercial',
+      pageType: 'Blog Article',
+      publishedOn: '2021-07-22',
+      schema: null,
+      slug: 'blog/vans/mitsubishi-outlander-commercial-review',
+      title: 'Mitsubishi Outlander Commercial',
+    };
+    const expected = [
+      { link: { href: '/', label: 'Home' } },
+      { link: { href: '/blog', label: 'blog' } },
+      { link: { href: '/blog/vans', label: 'Vans' } },
+      {
+        link: {
+          href: '/blog/vans/mitsubishi-outlander-commercial-review',
+          label: 'Mitsubishi Outlander Commercial Review',
+        },
+      },
+    ];
+
+    expect(getBreadCrumbsItems(metaData)).toStrictEqual(expected);
+  });
+});
+
+describe('getBlogBreadCrumbsItems', () => {
+  it('getBlogBreadCrumbsItems should return correct result', () => {
     const metaData = {
       breadcrumbs: null,
       canonicalUrl:
@@ -39,7 +75,7 @@ describe('getBreadCrumbsItems', () => {
       },
     ];
 
-    expect(getBreadCrumbsItems(metaData)).toStrictEqual(expected);
+    expect(getBlogBreadCrumbsItems(metaData)).toStrictEqual(expected);
   });
 });
 

@@ -8,14 +8,13 @@ import {
 } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import { decodeData } from '../../../utils/data';
 import { IPageWithError } from '../../../types/common';
+import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 
 const ElectricGuides: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <VehicleReviewCategoryContainer

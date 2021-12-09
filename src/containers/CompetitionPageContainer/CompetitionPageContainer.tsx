@@ -5,25 +5,23 @@ import { GenericPageQuery_genericPage_sections as Section } from '../../../gener
 import CompetitionTypeSection from './sections/CompetitionTypeSection';
 import CompetitionFormSection from './sections/CompetitionFormSection';
 import ErrorMessages from '../../models/enum/ErrorMessages';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import { Nullish } from '../../types/common';
 
 interface IProps {
-  sections: Section | null | undefined;
-  breadcrumbsData: any;
+  sections: Nullish<Section>;
+  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
 }
 
 export const handleNetworkError = () =>
   toast.error(ErrorMessages.requestIssue, '');
 
-const CompetitionPageContainer = ({ sections, breadcrumbsData }: IProps) => {
+const CompetitionPageContainer = ({ sections, breadcrumbsItems }: IProps) => {
   const hero = sections?.hero;
   const leadText = sections?.leadText;
   const featured1 = sections?.featured1;
   const featured2 = sections?.featured2;
   const rowText = sections?.rowText;
-
-  const breadcrumbsItems = breadcrumbsData?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
 
   return (
     <>
