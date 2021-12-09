@@ -48,7 +48,11 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         <SoleTraderCompanyDetailsForm
           natureOfBusiness={['orange man']}
           setNatureOfBusiness={handleNatureMock}
-          companyDetails={{ monthlyAmountBeingReplaced: '' } as ISoleTraderCompanyDetailsFormValues}
+          companyDetails={
+            {
+              monthlyAmountBeingReplaced: '',
+            } as ISoleTraderCompanyDetailsFormValues
+          }
           onSubmit={onSubmitMock}
         />
       </MockedProvider>,
