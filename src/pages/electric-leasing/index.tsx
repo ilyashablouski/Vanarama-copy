@@ -32,10 +32,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isBlackFridayCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -69,9 +66,6 @@ const ProductCarousel = dynamic(
   {
     loading: () => <Skeleton count={4} />,
   },
-);
-const HeroBlackFriday = dynamic(() =>
-  import('../../components/Hero/HeroBlackFriday'),
 );
 
 type IProps = IPageWithData<
@@ -160,40 +154,36 @@ export const EVHubPage: NextPage<IProps> = ({
 
   return (
     <>
-      {isBlackFridayCampaignEnabled() ? (
-        <HeroBlackFriday variant="electric" withoutSearchPod />
-      ) : (
-        <Hero>
-          <div className="hero--left">
-            <div className="nlol" style={{ left: 'auto' }}>
-              <p>Find Your</p>
-              <h2>New Lease Of Life</h2>
-              <p>With Vanarama</p>
-            </div>
-            {sections?.hero?.heroLabel?.[0]?.visible && (
-              <HeroPrompt
-                label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
-                url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-                text={sections?.hero?.heroLabel?.[0]?.text || ''}
-                btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
-              />
-            )}
+      <Hero>
+        <div className="hero--left">
+          <div className="nlol" style={{ left: 'auto' }}>
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
           </div>
-          <div className="hero--right">
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
-              plain
-              size="expand"
-              src={
-                sections?.hero?.image?.file?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-              }
+          {sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+              url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+              text={sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
             />
-          </div>
-        </Hero>
-      )}
+          )}
+        </div>
+        <div className="hero--right">
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}

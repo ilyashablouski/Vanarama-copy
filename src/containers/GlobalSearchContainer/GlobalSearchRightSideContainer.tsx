@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'core/atoms/button';
 import { useRouter } from 'next/router';
-import BlackFridayPlainBanner from 'core/atoms/black-friday-banner/BlackFridayPlainBanner';
 import GlobalSearchCard from './GlobalSearchCard';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -9,7 +8,6 @@ import { IGSVehiclesCardsData, useGSCardsData } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import DropdownNoResults from './DropdownNoResults';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 interface IProps {
   suggestions: ISuggestion[];
@@ -126,10 +124,6 @@ const GlobalSearchRightSideContainer = ({
           </RouterLink>
 
           <div className="header-search-results__bottom">
-            {isBlackFridayCampaignEnabled() && (
-              <BlackFridayPlainBanner className="bf-banner--global-search" />
-            )}
-
             <div className="hmc-promo">
               <p>Not Sure Which Car Is Best For You?</p>
               <Button

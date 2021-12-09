@@ -8,7 +8,6 @@ import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
-import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
 import MediaGallery from 'core/organisms/media-gallery';
 // @ts-ignore
 import decode from 'decode-html';
@@ -28,12 +27,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import {
-  isBlackFridayCampaignEnabled,
-  isExtensionBlackFridayCampaignEnabled,
-  toPriceFormat,
-  getOptionFromList,
-} from '../../utils/helpers';
+import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -608,22 +602,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </NextHead>
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isBlackFridayCampaignEnabled() ? (
-          <BlackFridayBanner
-            className="bf-banner--pdp"
-            rightText={
-              isExtensionBlackFridayCampaignEnabled() ? (
-                <span className="-extensionBlackFriday">
-                  Extended To 29th Nov
-                </span>
-              ) : (
-                'Ends 26th November'
-              )
-            }
-          />
-        ) : (
-          isFreeInsurance && <FreeInsuranceBanner />
-        )}
+        {isFreeInsurance && <FreeInsuranceBanner />}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
