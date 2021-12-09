@@ -40,7 +40,7 @@ import { getUrlParam } from '../../utils/url';
 import { useGetPartyByUuidLazyQuery } from '../../components/SummaryForm/gql';
 import { GetPartyByUuid } from '../../../generated/GetPartyByUuid';
 import { useSavePersonUuidMutation } from '../../gql/storedPersonUuid';
-import useRouterHandleStart from '../../hooks/useRouterHandleStart';
+import useRouteChangeStart from '../../hooks/useRouteChangeStart';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -184,7 +184,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   const router = useRouter();
   const [data, setData] = useState(dataForFirstRender);
   const client = useApolloClient();
-  const isLoading = useRouterHandleStart(router);
+  const isLoading = useRouteChangeStart(router);
 
   useEffect(
     () => client.onResetStore(() => router.push('/account/login-register')),
