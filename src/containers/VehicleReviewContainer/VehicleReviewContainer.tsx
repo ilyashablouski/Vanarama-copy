@@ -8,6 +8,8 @@ import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import { Nullish } from '../../types/common';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -42,7 +44,7 @@ interface IProps {
   sections: Sections | null;
   title: string | null;
   body: string | null;
-  breadcrumbsItems: any;
+  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
 }
 
 const VehicleReviewContainer: FC<IProps> = ({

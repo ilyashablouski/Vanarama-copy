@@ -23,6 +23,7 @@ import {
   LegalPageQueryVariables,
 } from '../../../generated/LegalPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 type IProps = IPageWithData<{
   data: LegalPageQuery;
@@ -37,9 +38,7 @@ const BlogPost: NextPage<IProps> = ({ data }) => {
     data?.genericPage,
   );
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>

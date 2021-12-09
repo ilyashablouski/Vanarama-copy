@@ -16,7 +16,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertSlugToBreadcrumbsSchema } from '../../utils/breadcrumbs';
+import {
+  convertSlugToBreadcrumbsSchema,
+  getBreadCrumbsItems,
+} from '../../utils/breadcrumbs';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
@@ -30,9 +33,7 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
   const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (

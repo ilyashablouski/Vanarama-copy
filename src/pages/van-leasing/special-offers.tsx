@@ -29,7 +29,6 @@ import {
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -50,9 +49,6 @@ const ProductCarousel = dynamic(
   {
     loading: () => <Skeleton count={4} />,
   },
-);
-const BlackFridayHotOffersBanner = dynamic(() =>
-  import('core/atoms/black-friday-banner/BlackFridayHotOffersBanner'),
 );
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -108,9 +104,6 @@ export const VanOffers: NextPage<IProps> = ({
             {data?.vanOffersPage.intro}
           </Text>
         </div>
-        {isBlackFridayCampaignEnabled() && (
-          <BlackFridayHotOffersBanner variant="vans" />
-        )}
       </section>
 
       {productsSmallVan?.productCarousel &&

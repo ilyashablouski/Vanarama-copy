@@ -1,6 +1,4 @@
 import Cookies from 'js-cookie';
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
-import { GET_SSR_AUTH_STATUS, ISSRAuthStatus } from '../gql/session';
 import { LoginUserMutation } from '../../generated/LoginUserMutation';
 import { Nullish } from '../types/common';
 
@@ -32,11 +30,5 @@ export const setLocalCookies = (data: Nullish<LoginUserMutation>) => {
 
 export const isUserAuthenticatedSSR = (cookie: string) =>
   cookie?.includes(`${IDENTITY_COOKIE_NAME}=1`);
-
-export const getAuthStatusFromCache = (
-  client: ApolloClient<NormalizedCacheObject | object>,
-) =>
-  client.readQuery<ISSRAuthStatus>({ query: GET_SSR_AUTH_STATUS })
-    ?.isSSRAuthError;
 
 export default isUserAuthenticated;

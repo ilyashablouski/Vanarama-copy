@@ -27,6 +27,7 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -82,9 +83,7 @@ export const OffersPage: NextPage<IProps> = ({
     ['featuredImage'],
     genericPageCMS?.genericPage,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>
