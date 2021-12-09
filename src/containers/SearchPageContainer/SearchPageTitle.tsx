@@ -6,9 +6,11 @@ import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 import CommonDescriptionContainer from './CommonDescriptionContainer';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import { Nullish } from '../../types/common';
 
 interface IProps {
-  breadcrumbsItems: any;
+  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   pageTitle: string;
   titleWithBreaks: string[];
   pageData?: GenericPageQuery;

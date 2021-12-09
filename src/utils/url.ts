@@ -8,6 +8,7 @@ import {
 } from '../../generated/genericPagesQuery';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
+import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -105,7 +106,7 @@ export const generateUrlForBreadcrumb = (
 };
 
 export const getProductPageBreadCrumb = (
-  data: any,
+  data: Nullish<IDerivativeInfo>,
   genericPagesData: IGenericPages['items'],
   slug: string,
   cars: boolean | undefined,

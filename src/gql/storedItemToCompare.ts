@@ -62,6 +62,7 @@ export function getStoredItemsToCompare(
   return client
     .query<GetStoredItemsToCompareQuery>({
       query: GET_STORED_ITEMS_TO_COMPARE_QUERY,
+      fetchPolicy: 'no-cache',
     })
     .then(operation => operation.data?.storedItemsToCompare)
     .then(items => (items || []).filter(Boolean))
@@ -73,8 +74,9 @@ export function saveItemsToCompare(
   items: SaveItemsToCompareMutationVariables['items'],
 ) {
   return client
-    .query<SaveItemsToCompareMutation, SaveItemsToCompareMutationVariables>({
-      query: SAVE_ITEMS_TO_COMPARE_MUTATION,
+    .mutate<SaveItemsToCompareMutation, SaveItemsToCompareMutationVariables>({
+      mutation: SAVE_ITEMS_TO_COMPARE_MUTATION,
+      fetchPolicy: 'no-cache',
       variables: {
         items,
       },

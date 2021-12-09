@@ -17,6 +17,7 @@ function FullScreenImageCarousel({
   imageAltText,
   isOpenModal,
   setOpenModal,
+  onSlideChange,
 }: IFullScreenCarouselProps) {
   return (
     <ModalV2 open={isOpenModal} onClose={setOpenModal} color="secondary">
@@ -29,6 +30,9 @@ function FullScreenImageCarousel({
           }}
           onSwiper={swiper => {
             swiper.slideToLoop(activeSlideIndex || 0);
+          }}
+          onSlideChange={swiper => {
+            onSlideChange?.(swiper.activeIndex);
           }}
         >
           {images.map(imageUrl => (

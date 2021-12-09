@@ -198,7 +198,7 @@ pipeline {
                     sh "yarn install"
                     // sh "yarn pack --filename next-storefront.tar.gz"
                     sh "yarn typecheck"
-                    sh "yarn test --coverage"
+                    sh "yarn test --coverage --maxWorkers=2"
                     sh "du -sh  *"    
                     // sh "yarn build"
                     // stash includes: 'next-storefront.tar.gz', name: 'package'

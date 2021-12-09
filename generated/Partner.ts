@@ -255,6 +255,7 @@ export interface Partner_partner {
   customerSovereignty: number | null;
   uuid: string | null;
   slug: string | null;
+  showPartnerLogo: boolean | null;
   logo: Partner_partner_logo | null;
   fuelTypes: string[] | null;
   vehicleTypes: string[] | null;

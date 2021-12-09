@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import Text from 'core/atoms/text';
 import ImageV2 from 'core/atoms/image/ImageV2';
-import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
 
 import { ICardProps } from './interfaces';
 import CardHeader from './CardHeader';
@@ -25,7 +24,6 @@ const Card: FC<ICardProps> = memo(props => {
     optimisedHost,
     optimisationOptions,
     extrasRender,
-    isBlackFridayFlag,
     dataUiTestId,
     imageWidth,
     imageHeight,
@@ -44,25 +42,20 @@ const Card: FC<ICardProps> = memo(props => {
     >
       {header?.text && <CardHeader {...header} />}
       {imageSrc !== undefined ? (
-        <>
-          <ImageV2
-            className="card-image"
-            width={imageWidth}
-            height={imageHeight}
-            objectFit="cover"
-            optimisedHost={optimisedHost}
-            optimisationOptions={optimisationOptions}
-            lazyLoad={lazyLoad}
-            src={(imageSrc || placeholderImage) ?? ''}
-            dataTestId="card-image"
-            alt={alt}
-            plain
-          />
-          {isBlackFridayFlag && <BlackFridayCardLabel />}
-        </>
-      ) : (
-        isBlackFridayFlag && <BlackFridayCardLabel className="-relative" />
-      )}
+        <ImageV2
+          className="card-image"
+          width={imageWidth}
+          height={imageHeight}
+          objectFit="cover"
+          optimisedHost={optimisedHost}
+          optimisationOptions={optimisationOptions}
+          lazyLoad={lazyLoad}
+          src={(imageSrc || placeholderImage) ?? ''}
+          dataTestId="card-image"
+          alt={alt}
+          plain
+        />
+      ) : null}
       {extrasRender && <div className="extras">{extrasRender}</div>}
       {(title?.title || title?.link) && <CardTitle {...title} />}
       {description && (

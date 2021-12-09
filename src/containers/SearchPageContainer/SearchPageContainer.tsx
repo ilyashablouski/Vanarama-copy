@@ -73,7 +73,6 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 import NewRangeContent from './NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
@@ -95,9 +94,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const BlackFridayHotOffersBanner = dynamic(() =>
-  import('core/atoms/black-friday-banner/BlackFridayHotOffersBanner'),
-);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
@@ -911,10 +907,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     ],
   );
 
-  const shouldBlackFridayBannerRender =
-    (isSpecialOfferPage || isEvPage) && isBlackFridayCampaignEnabled();
-  const blackFridayBannerLcvType = isPickups ? 'pickups' : 'vans';
-
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
@@ -925,36 +917,17 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   return (
     <>
       <PartnershipLogoHeader />
-      {shouldBlackFridayBannerRender ? (
-        <section className="row:featured-bf">
-          <SearchPageTitle
-            dataUiTestId={`${dataUiTestId}_page-title`}
-            breadcrumbsItems={breadcrumbsItems}
-            pageTitle={pageTitle}
-            titleWithBreaks={titleWithBreaks}
-            pageData={pageData}
-            partnershipDescription={partnershipDescription}
-            isDesktopOrTablet={isDesktopOrTablet}
-            isPartnershipActive={isPartnershipActive}
-            isNewPage={isNewPage}
-          />
-          <BlackFridayHotOffersBanner
-            variant={isCarSearch ? 'cars' : blackFridayBannerLcvType}
-          />
-        </section>
-      ) : (
-        <SearchPageTitle
-          dataUiTestId={`${dataUiTestId}_page-title`}
-          breadcrumbsItems={breadcrumbsItems}
-          pageTitle={pageTitle}
-          titleWithBreaks={titleWithBreaks}
-          pageData={pageData}
-          partnershipDescription={partnershipDescription}
-          isDesktopOrTablet={isDesktopOrTablet}
-          isPartnershipActive={isPartnershipActive}
-          isNewPage={isNewPage}
-        />
-      )}
+      <SearchPageTitle
+        dataUiTestId={`${dataUiTestId}_page-title`}
+        breadcrumbsItems={breadcrumbsItems}
+        pageTitle={pageTitle}
+        titleWithBreaks={titleWithBreaks}
+        pageData={pageData}
+        partnershipDescription={partnershipDescription}
+        isDesktopOrTablet={isDesktopOrTablet}
+        isPartnershipActive={isPartnershipActive}
+        isNewPage={isNewPage}
+      />
       {pageData && isModelPage && (
         <div className="row:text -columns">
           <div>
