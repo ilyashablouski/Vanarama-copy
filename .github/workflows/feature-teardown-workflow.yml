@@ -1,0 +1,35 @@
+name: feature-teardown-workflow
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop    
+jobs:
+  tear-down:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Search deployments
+        id: deployments
+        uses: docker://techamigos/last-deployment-action:latest
+        with: 
+          github-token: ${{ secrets.GRID_GIT_TOKEN }}
+          ref: ${{ github.head_ref }}
+          repo: ${{ github.repository }}
+
+      - name: Trigger harness workflow
+        if: ${{ steps.deployments.outputs.last_status == 'success' || 
+                steps.deployments.outputs.last_status == 'pending' }}
+        run: |
+          echo "Deployment id ${{ steps.deployments.outputs.last_deployment_id }}"
+          curl -X POST -H 'content-type: application/json' \
+          --url https://app.harness.io/gateway/api/webhooks/T6XR4OLotVmSEkZvPi2uKbKHE9fV5hqWgkuTlEHV?accountId=EXo9ax1NTw2-KO2kOVqDIQ \
+          -d '{ 
+          "application":"KXsbP_C3S4K5Py29GoHJyg", 
+          "parameters":{
+            "github_sha":"${{ github.event.pull_request.head.sha }}", 
+            "deployment_id":"${{ steps.deployments.outputs.last_deployment_id }}", 
+            "pr_number":"${{ github.event.pull_request.number }}"
+           }}'
+
+
+
