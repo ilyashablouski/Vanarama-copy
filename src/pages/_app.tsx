@@ -40,10 +40,7 @@ import {
   initializePersonState,
   resetPersonState,
 } from '../utils/personHelpers';
-import { useSSRAuthStatus } from '../gql/session';
-import { useAuthReset } from '../containers/LoginFormContainer/gql';
 import { ICustomAppProps, PageTypeEnum } from '../types/common';
-import { isBrowser } from '../utils/deviceType';
 import ErrorPage from './_error';
 
 // Dynamic component loading.
@@ -78,15 +75,6 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   >(false);
 
   const client = useApolloClient();
-
-  const { data: authStatus } = useSSRAuthStatus();
-  const [resetAuth] = useAuthReset();
-
-  useEffect(() => {
-    if (authStatus?.isSSRAuthError && isBrowser()) {
-      resetAuth();
-    }
-  }, [authStatus, resetAuth]);
 
   useEffect(() => {
     const initializeGlobalVars = async () => {

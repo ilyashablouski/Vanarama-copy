@@ -1,6 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
+import { IPageWithError, PageTypeEnum } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -8,7 +8,7 @@ import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPost
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
-import { IBlogPost } from '../../../../models/IBlogsProps';
+import { IBlogPostProps } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import {
@@ -22,7 +22,7 @@ import {
 } from '../../../../utils/env';
 import {
   convertSlugToBreadcrumbsSchema,
-  getBreadCrumbsItems,
+  getBlogBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
 import {
   BlogPost as BlogPostData,
@@ -30,9 +30,11 @@ import {
 } from '../../../../../generated/BlogPost';
 import { convertErrorToProps } from '../../../../utils/helpers';
 
-type IProps = IPageWithData<IBlogPost>;
-
-const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
+const BlogPost: NextPage<IBlogPostProps> = ({
+  data,
+  blogPosts: encodedData,
+  articleUrl,
+}) => {
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -44,14 +46,12 @@ const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
     data?.blogPost,
   );
   const metaData = getSectionsData(['metaData'], data?.blogPost);
-  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsItems = getBlogBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
     <>
       <BlogPostContainer
-        carouselPosition={data?.blogPost.carouselPosition}
-        carouselFilters={data?.blogPost.productFilter}
         articles={articles}
         body={body}
         bodyLower={bodyLower}
@@ -59,6 +59,7 @@ const BlogPost: NextPage<IProps> = ({ data, blogPosts: encodedData }) => {
         image={image}
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
+        articleUrl={articleUrl}
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
@@ -96,13 +97,14 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+): Promise<GetStaticPropsResult<IBlogPostProps | IPageWithError>> {
   try {
+    const articleUrl = `blog/van-heroes/${context?.params?.articles}`;
     const client = createApolloClient({});
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
-        slug: `blog/van-heroes/${context?.params?.articles}`,
+        slug: articleUrl,
         isPreview: !!context?.preview,
       },
     });
@@ -121,7 +123,7 @@ export async function getStaticProps(
     };
     newBlogPosts.blogPosts.articles = getArticles(
       getSectionsData(['blogPosts', 'articles'], blogPosts),
-      `/blog/van-heroes/${context?.params?.articles}`,
+      `/${articleUrl}`,
     );
 
     // Obfuscate data from Googlebot
@@ -133,6 +135,7 @@ export async function getStaticProps(
         pageType: PageTypeEnum.DEFAULT,
         data,
         blogPosts: newBlogPostsData,
+        articleUrl,
       },
     };
   } catch (error) {

@@ -15,6 +15,9 @@ on:
     types: [opened, reopened, labeled, synchronize]
     branches:
       - develop    
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true      
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -152,14 +155,13 @@ jobs:
         run: |
           echo "Deployment id is ${{ steps.deployment.outputs.deployment_id}}"
           curl -X POST -H 'content-type: application/json' \
-          --url https://app.harness.io/gateway/api/webhooks/Fa4FhoFDJNgL5zck9nAMLWMSz5d8YTRlku6bqvyr?accountId=EXo9ax1NTw2-KO2kOVqDIQ \
+          --url https://app.harness.io/gateway/api/webhooks/L1Oc4FuQT9NyorwwHhyBVnReKRI00noR8XTWhaZJ?accountId=EXo9ax1NTw2-KO2kOVqDIQ \
           -d '{ 
-          "application":"i0JvQd4dSGyyzl223O79kw", 
+          "application":"KXsbP_C3S4K5Py29GoHJyg", 
           "parameters":{
             "github_sha":"${{ github.event.pull_request.head.sha }}", 
             "deployment_id":"${{ steps.deployment.outputs.deployment_id }}", 
-            "pr_number":"${{ github.event.pull_request.number }}",
-            "feature_prefix":"PR-${{ github.event.pull_request.number }}-"
+            "pr_number":"${{ github.event.pull_request.number }}"
            }, 
           "artifacts":[{ 
             "artifactSourceName":"next-storefront", 

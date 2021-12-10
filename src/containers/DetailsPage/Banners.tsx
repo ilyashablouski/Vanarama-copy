@@ -26,7 +26,7 @@ const Banners = ({ cards }: IProps) => {
     <div className="two-col">
       {cards.map(card => (
         <div key={card.title} className="option-icon-left -white">
-          <Image src={card?.image?.file?.url || ''} size="initial-size" plain />
+          <Image src={card?.image?.file?.url || ''} plain size="regular" />
           <div className="copy">
             <Text tag="p">
               <span>{card.title}</span>

@@ -19,6 +19,7 @@ import { GENERIC_PAGE } from '../../../../gql/genericPage';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { IPageWithData, PageTypeEnum } from '../../../../types/common';
+import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
@@ -39,9 +40,7 @@ export const EVHubPage: NextPage<IProps> = ({
     ['featuredImage', 'file', 'url'],
     data?.genericPage,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   if (isContentHubPage) {
     return <ContentHubContainer data={data} />;

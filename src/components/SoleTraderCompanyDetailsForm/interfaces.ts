@@ -18,7 +18,7 @@ export interface ISoleTraderCompanyDetailsFormValues {
 }
 
 export interface ISoleTraderCompanyDetailsFormProps {
-  companyDetails?: any;
+  companyDetails?: ISoleTraderCompanyDetailsFormValues;
   onSubmit: (values: ISoleTraderCompanyDetailsFormValues) => void;
   natureOfBusiness: string[];
   setNatureOfBusiness: (values: string[]) => void;
