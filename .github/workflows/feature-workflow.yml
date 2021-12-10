@@ -15,6 +15,9 @@ on:
     types: [opened, reopened, labeled, synchronize]
     branches:
       - develop    
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true      
 jobs:
   init:
     runs-on: ubuntu-latest
