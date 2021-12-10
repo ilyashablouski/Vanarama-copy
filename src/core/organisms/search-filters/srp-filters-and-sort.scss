@@ -353,7 +353,7 @@ button {
     background: #ed640d;
     transition: transform 0.3s ease;
   }
-  #r1:checked {
+  input[id*='r1']:checked {
     + label {
       color: white;
       background: transparent;
@@ -364,7 +364,7 @@ button {
       border-bottom-left-radius: 3px;
     }
   }
-  #r2:checked {
+  input[id*='r2']:checked {
     + label {
       color: white;
       background: transparent;
