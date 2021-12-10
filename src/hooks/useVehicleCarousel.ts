@@ -24,7 +24,7 @@ export default function useVehicleCarousel(
       };
       getDataForCarousel();
     }
-  }, [client]);
+  }, [client, productFilter]);
 
   return vehiclesList;
 }
