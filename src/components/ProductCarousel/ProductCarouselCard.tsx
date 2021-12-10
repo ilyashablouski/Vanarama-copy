@@ -2,7 +2,7 @@ import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import ProductCard from 'core/molecules/cards/ProductCard';
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, memo } from 'react';
 import dynamic from 'next/dynamic';
 import { features } from './helpers';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
@@ -198,4 +198,4 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
   );
 };
 
-export default ProductCarouselCard;
+export default memo(ProductCarouselCard);
