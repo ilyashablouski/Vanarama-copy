@@ -78,8 +78,8 @@ import { ISearchPageContainerProps } from './interfaces';
 import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageTitle from './SearchPageTitle';
 import SearchPageMarkdown from './SearchPageMarkdown';
-import RelatedCarousel from './RelatedCarousel';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import RelatedCarousel from '../../components/RelatedCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,

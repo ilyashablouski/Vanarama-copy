@@ -11,15 +11,15 @@ import {
   GenericPageQuery_genericPage_sections_carousel,
 } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
-import ThreeColumnSection from '../../components/ThreeColumnSection/ThreeColumnSection';
+import ThreeColumnSection from '../../components/ThreeColumnSection';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink';
-import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
+import ReviewsTwoColumn from '../../components/ReviewsTwoColumn';
 import Skeleton from '../../components/Skeleton';
 import { getRangeReviews } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import RelatedCarousel from './RelatedCarousel';
+import RelatedCarousel from '../../components/RelatedCarousel';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
