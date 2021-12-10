@@ -5,8 +5,8 @@ import decode from 'decode-html';
 import css from '!!raw-loader!../../../public/styles/base.css';
 
 const Inline = () => (
-  // eslint-disable-next-line react/no-danger
   <style
+    // eslint-disable-next-line react/no-danger
     dangerouslySetInnerHTML={{
       __html: decode(css),
     }}
