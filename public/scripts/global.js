@@ -2,6 +2,7 @@ function addAdditionalData(data) {
   try {
     JSON.parse(data);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(`additionalData doesn't contain JSON\n${e}`);
     return;
   }
