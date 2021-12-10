@@ -78,6 +78,9 @@ const NAME = 'Top 5 Electric Vans Sort Of';
 const IMAGE =
   '//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg';
 
+const ARTICLE_URL =
+  'blog/cars/tesla-opens-up-supercharger-network-to-drivers-of-other-evs';
+
 describe('<FinanceExplainedContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
@@ -93,6 +96,7 @@ describe('<FinanceExplainedContainer />', () => {
           body={BODY}
           breadcrumbsItems={null}
           metaData={METADATA}
+          articleUrl={ARTICLE_URL}
         />
       </MockedProvider>,
     );

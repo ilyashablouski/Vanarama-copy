@@ -43,18 +43,25 @@ const createExtras = (
 
   if (isHotOffer) {
     extras.push(
-      <CardLabel text="HOT OFFER" icon={<Flame />} className="hotOffer" />,
+      <CardLabel
+        text="HOT OFFER"
+        icon={<Flame />}
+        className="hotOffer"
+        key={0}
+      />,
     );
   }
 
   if (fuelType === FuelTypeEnum.ELECTRIC) {
     extras.push(
-      <CardLabel text="Free Home charger" icon={<FreeHomeCharger />} />,
+      <CardLabel text="Free Home charger" icon={<FreeHomeCharger />} key={1} />,
     );
   }
 
   if (deliveryTime) {
-    extras.push(<CardLabel text={deliveryTime} className="transparent" />);
+    extras.push(
+      <CardLabel text={deliveryTime} className="transparent" key={2} />,
+    );
   }
 
   return extras;

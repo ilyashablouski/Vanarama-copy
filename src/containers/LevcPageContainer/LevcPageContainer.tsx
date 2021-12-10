@@ -11,9 +11,11 @@ import LevcHeroSection from './sections/LevcHeroSection';
 
 const WhyLeaseWithVanaramaTiles = dynamic(
   () => import('../../components/WhyLeaseWithVanaramaTiles'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
+  { loading: () => <Skeleton count={1} /> },
+);
+const RelatedCarousel = dynamic(
+  () => import('../../components/RelatedCarousel'),
+  { loading: () => <Skeleton count={1} /> },
 );
 
 interface ILevcPageContainer {
@@ -22,16 +24,19 @@ interface ILevcPageContainer {
 
 const LevcPageContainer: React.FC<ILevcPageContainer> = ({ genericPage }) => {
   const { metaData } = genericPage;
-  const { tiles } = genericPage.sections || {};
+  const { tiles, carousel } = genericPage.sections || {};
 
   return (
     <>
       <LevcHeroSection />
-      {tiles && tiles.tiles && (
+      {tiles?.tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tiles.tilesTitle}
           tiles={tiles.tiles}
         />
+      )}
+      {carousel && (
+        <RelatedCarousel cards={carousel.cards} title={carousel.title} />
       )}
       {metaData && (
         <>
