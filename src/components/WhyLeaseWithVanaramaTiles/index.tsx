@@ -1,3 +1,1 @@
-import WhyLeaseWithVanaramaTiles from './WhyLeaseWithVanaramaTiles';
-
-export default WhyLeaseWithVanaramaTiles;
+export { default } from './WhyLeaseWithVanaramaTiles';
