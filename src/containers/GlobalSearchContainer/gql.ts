@@ -7,6 +7,7 @@ import {
 } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import router from 'next/router';
+import Cookies from 'js-cookie';
 import {
   suggestionList,
   suggestionListVariables,
@@ -35,6 +36,7 @@ import { Nullable } from '../../types/common';
 import {
   getPartnerProperties,
   mapPartnerVehicleTypes,
+  PARTNER_COOKIE_NAME,
 } from '../../utils/partnerProperties';
 
 export interface IGSVehiclesCardsData<T> {
@@ -280,7 +282,10 @@ export function useGlobalSearch(query?: string) {
       financeTypes: [FinanceType.PCH],
     };
     // if partnerships journey
-    if (router.pathname.includes('partnerships')) {
+    if (
+      router.pathname.includes('partnerships') ||
+      !!Cookies.get(PARTNER_COOKIE_NAME)
+    ) {
       const partnerDetails = getPartnerProperties();
       derivativesFilters = {
         ...derivativesFilters,
