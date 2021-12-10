@@ -41,6 +41,7 @@ import {
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   scrollIntoPreviousView,
+  bodyUrlsSlugMapper,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
@@ -59,7 +60,6 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import useMediaQuery from '../../hooks/useMediaQuery';
-import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import SortOrder from '../../components/SortOrder';
@@ -79,6 +79,7 @@ import TopCategoryInfoBlock from './TopCategoryInfoBlock';
 import SearchPageTitle from './SearchPageTitle';
 import SearchPageMarkdown from './SearchPageMarkdown';
 import RelatedCarousel from './RelatedCarousel';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -312,8 +313,13 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       return ['Pickup'];
     }
     if (isModelPage) {
-      return [router.query?.bodyStyles as string];
+      return [
+        bodyUrlsSlugMapper[
+          router.query.bodyStyles as keyof typeof bodyUrlsSlugMapper
+        ] ?? router.query.bodyStyles,
+      ];
     }
+
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
         .replace('-leasing', '')
@@ -1087,7 +1093,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         </div>
       )}
       {isDynamicFilterPage && tiles?.tiles?.length && (
-        <TilesBlock tiles={tiles} />
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles.tiles}
+          title={tiles.tilesTitle || ''}
+          titleTag={tiles.titleTag}
+        />
       )}
       {pageData && (
         <>
@@ -1107,11 +1117,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             ? null
             : !isDynamicFilterPage &&
               tiles?.tiles?.length && (
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <TilesBlock tiles={tiles} />
-                </LazyLoadComponent>
+                <WhyLeaseWithVanaramaTiles
+                  tiles={tiles.tiles}
+                  title={tiles.tilesTitle || ''}
+                  titleTag={tiles.titleTag}
+                />
               )}
 
           {isNewPage && isRangePage ? (

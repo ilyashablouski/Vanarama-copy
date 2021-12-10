@@ -13,6 +13,7 @@ import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../gener
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
+const RANGES_WITH_LEGACY_URL = ['e-tron'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -74,7 +75,10 @@ export const generateUrlForBreadcrumb = (
   manufacturer: string,
   pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
+  rangeSlug?: string,
+  leasing?: string,
 ) => {
+  // workaround only for Abarth 595C Convertible
   if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
     return (
       pageData?.slug ||
@@ -82,6 +86,13 @@ export const generateUrlForBreadcrumb = (
         // workaround only for Abarth 595C Convertible
         .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
         .join('/')
+    );
+  }
+
+  // workaround only for Audi e-tron
+  if (rangeSlug && RANGES_WITH_LEGACY_URL.includes(rangeSlug) && leasing) {
+    return (
+      pageData?.slug || `${manufacturer}-${leasing}/etron/${slugArray[3]}.html`
     );
   }
 
@@ -142,12 +153,13 @@ export const getProductPageBreadCrumb = (
         label: bodyType
           .replace(/-/g, ' ')
           .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: `/${generateUrlForBreadcrumb(manufacturerSlug, modelPage, [
-          leasing,
+        href: `/${generateUrlForBreadcrumb(
           manufacturerSlug,
+          modelPage,
+          [leasing, manufacturerSlug, rangeSlug, bodyType],
           rangeSlug,
-          bodyType,
-        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
+          leasing,
+        ) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
       },
     };
     const derivativeLink = {
@@ -213,12 +225,19 @@ export const PAGES_WITHOUT_LEASE_RESET = [
   '/olaf',
 ];
 
-export const formatToSlugFormat = (value: string) =>
-  value
+export const formatToSlugFormat = (value: string) => {
+  let formattedSlug = value
     .toLowerCase()
     .split(' ')
     .join('-')
     .replace('.', '-');
+
+  if (formattedSlug.split('').reverse()[0] === '.') {
+    formattedSlug = formattedSlug.slice(0, formattedSlug.length - 1);
+  }
+
+  return formattedSlug;
+};
 
 export function trimStartSlash(url: string) {
   return url.startsWith('/') ? url.slice(1) : url;
