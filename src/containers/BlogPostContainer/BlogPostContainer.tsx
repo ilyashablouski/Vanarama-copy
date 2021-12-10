@@ -5,7 +5,6 @@ import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import Cookies from 'js-cookie';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
@@ -23,11 +22,10 @@ import {
   IMarkdownParagraph,
 } from '../../types/markdown';
 import BlogCarousel from '../../components/BlogCarousel';
-import { BlogPost_blogPost_productFilter } from '../../../generated/BlogPost';
 import { Nullish } from '../../types/common';
 import { CarouselPositionEnum } from '../../models/IBlogsProps';
-import { isBlogCarPagesCarouselFeatureFlagEnabled } from '../../utils/helpers';
 import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import useVehicleCarousel from '../../hooks/useVehicleCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -96,8 +94,7 @@ interface IProps {
   breadcrumbsItems?: Nullish<IBreadcrumbLink[]>;
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
-  carouselPosition?: Nullish<string>[] | null;
-  carouselFilters?: BlogPost_blogPost_productFilter | null;
+  articleUrl?: string;
 }
 
 const BlogPostContainer: NextPage<IProps> = ({
@@ -108,9 +105,10 @@ const BlogPostContainer: NextPage<IProps> = ({
   breadcrumbsItems,
   metaData,
   articles,
-  carouselFilters,
-  carouselPosition,
+  articleUrl,
 }) => {
+  const { carouselData, vehiclesList } = useVehicleCarousel(articleUrl);
+
   return (
     <>
       <div className="row:title">
@@ -144,14 +142,15 @@ const BlogPostContainer: NextPage<IProps> = ({
               image: renderImage,
             }}
           />
-          {carouselPosition?.includes(CarouselPositionEnum.withinBody) &&
-            carouselFilters && (
-              <BlogCarousel
-                countItems={12}
-                productFilters={carouselFilters}
-                className="carousel-two-column"
-              />
-            )}
+          {carouselData?.blogPost.carouselPosition?.includes(
+            CarouselPositionEnum.withinBody,
+          ) && (
+            <BlogCarousel
+              countItems={12}
+              vehiclesList={vehiclesList}
+              className="carousel-two-column"
+            />
+          )}
           <ReactMarkdown
             allowDangerousHtml
             source={bodyLower || ''}
@@ -209,13 +208,13 @@ const BlogPostContainer: NextPage<IProps> = ({
           </LazyLoadComponent>
         </div>
       </div>
-      {carouselPosition?.includes(CarouselPositionEnum.aboveFooter) &&
-        carouselFilters &&
-        isBlogCarPagesCarouselFeatureFlagEnabled(Cookies) && (
-          <div className="row:bg-lighter blog-carousel-wrapper">
-            <BlogCarousel countItems={12} productFilters={carouselFilters} />
-          </div>
-        )}
+      {carouselData?.blogPost.carouselPosition?.includes(
+        CarouselPositionEnum.aboveFooter,
+      ) && (
+        <div className="row:bg-lighter blog-carousel-wrapper">
+          <BlogCarousel countItems={12} vehiclesList={vehiclesList} />
+        </div>
+      )}
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />

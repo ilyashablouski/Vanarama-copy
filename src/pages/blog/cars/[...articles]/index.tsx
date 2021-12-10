@@ -8,7 +8,7 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
-import { IBlogPost } from '../../../../models/IBlogsProps';
+import { IBlogPostProps } from '../../../../models/IBlogsProps';
 import {
   BlogPosts,
   BlogPostsVariables,
@@ -23,24 +23,23 @@ import {
   BlogPostVariables,
 } from '../../../../../generated/BlogPost';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
-import {
-  IPageWithData,
-  IPageWithError,
-  PageTypeEnum,
-} from '../../../../types/common';
+import { IPageWithError, PageTypeEnum } from '../../../../types/common';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
 import { convertErrorToProps } from '../../../../utils/helpers';
 
-type IProps = IPageWithData<IBlogPost>;
-
-const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts: encodedData }) => {
+const BlogPost: NextPage<IBlogPostProps> = ({
+  data,
+  blogPosts: encodedData,
+  articleUrl,
+}) => {
   const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
+  const bodyLower = getSectionsData(['bodyLower'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
   const image = getSectionsData(
     ['featuredImage', 'file', 'url'],
@@ -53,14 +52,14 @@ const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts: encodedData }) => {
   return (
     <>
       <BlogPostContainer
-        carouselPosition={data?.blogPost.carouselPosition}
-        carouselFilters={data?.blogPost.productFilter}
         articles={articles}
         body={body}
+        bodyLower={bodyLower}
         name={name}
         image={image}
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
+        articleUrl={articleUrl}
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
@@ -98,13 +97,14 @@ export async function getStaticPaths(context: GetStaticPropsContext) {
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+): Promise<GetStaticPropsResult<IBlogPostProps | IPageWithError>> {
   try {
+    const articleUrl = `blog/cars/${context?.params?.articles}`;
     const client = createApolloClient({});
     const { data } = await client.query<BlogPostData, BlogPostVariables>({
       query: BLOG_POST_PAGE,
       variables: {
-        slug: `blog/cars/${context?.params?.articles}`,
+        slug: articleUrl,
         isPreview: !!context?.preview,
       },
     });
@@ -124,7 +124,7 @@ export async function getStaticProps(
     };
     newBlogPosts.blogPosts.articles = getArticles(
       getSectionsData(['blogPosts', 'articles'], blogPosts),
-      `/blog/cars/${context?.params?.articles}`,
+      `/${articleUrl}`,
     );
 
     // Obfuscate data from Googlebot
@@ -136,6 +136,7 @@ export async function getStaticProps(
         pageType: PageTypeEnum.DEFAULT,
         data,
         blogPosts: newBlogPostsData,
+        articleUrl,
       },
     };
   } catch (error) {
