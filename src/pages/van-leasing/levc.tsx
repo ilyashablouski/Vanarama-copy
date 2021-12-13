@@ -7,10 +7,32 @@ import {
 import { ApolloError } from '@apollo/client';
 
 import {
+  SortField,
+  LeaseTypeEnum,
+  SortDirection,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
+import {
+  vehicleList,
+  vehicleListVariables,
+} from '../../../generated/vehicleList';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../generated/GetProductCard';
+import {
   GenericPageQuery,
   GenericPageQueryVariables,
   GenericPageQuery_genericPage as IGenericPage,
 } from '../../../generated/GenericPageQuery';
+import { Nullable } from '../../types/common';
+
+import {
+  getCapsIds,
+  RESULTS_PER_REQUEST,
+} from '../../containers/SearchPageContainer/helpers';
+import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
+import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedContainer/gql';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { decodeData, encodeData } from '../../utils/data';
@@ -18,11 +40,21 @@ import { decodeData, encodeData } from '../../utils/data';
 import LevcPageContainer from '../../containers/LevcPageContainer';
 
 interface ILevcPage {
-  data: IGenericPage;
+  vehiclesData: Nullable<vehicleList>;
+  productCardsData: Nullable<GetProductCard>;
+  genericPage: IGenericPage;
 }
 
-const LevcPage: NextPage<ILevcPage> = ({ data }) => (
-  <LevcPageContainer genericPage={decodeData(data)} />
+const LevcPage: NextPage<ILevcPage> = ({
+  genericPage,
+  vehiclesData,
+  productCardsData,
+}) => (
+  <LevcPageContainer
+    vehiclesData={decodeData(vehiclesData)}
+    productCardsData={decodeData(productCardsData)}
+    genericPage={decodeData(genericPage)}
+  />
 );
 
 export async function getServerSideProps(
@@ -41,9 +73,46 @@ export async function getServerSideProps(
       },
     });
 
+    const vehiclesData = await client
+      .query<vehicleList, vehicleListVariables>({
+        query: GET_VEHICLE_LIST,
+        variables: {
+          manufacturerSlug: 'levc',
+          vehicleTypes: [VehicleTypeEnum.LCV],
+          leaseType: LeaseTypeEnum.BUSINESS,
+          first: RESULTS_PER_REQUEST,
+          sort: [
+            {
+              field: SortField.offerRanking,
+              direction: SortDirection.ASC,
+            },
+          ],
+        },
+      })
+      .then(resp => resp.data);
+
+    let productCardsData: GetProductCard | undefined;
+    const responseCapIds = getCapsIds(vehiclesData.vehicleList?.edges || []);
+
+    if (responseCapIds.length) {
+      productCardsData = await client
+        .query<GetProductCard, GetProductCardVariables>({
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: responseCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        })
+        .then(resp => resp.data);
+    }
+
     return {
       props: {
-        data: encodeData(genericPage),
+        genericPage: encodeData(genericPage),
+        vehiclesData: vehiclesData ? encodeData(vehiclesData) : null,
+        productCardsData: productCardsData
+          ? encodeData(productCardsData)
+          : null,
       },
     };
   } catch (error) {
