@@ -1,6 +1,6 @@
 const FreeHomeCharger = () => {
   return (
-    <svg width="22" height="13" viewBox="0 0 22 13">
+    <svg width="auto" height="auto" viewBox="0 0 22 13">
       <g id="a">
         <g transform="translate(2 0.5)">
           <g transform="translate(0 1.8)">

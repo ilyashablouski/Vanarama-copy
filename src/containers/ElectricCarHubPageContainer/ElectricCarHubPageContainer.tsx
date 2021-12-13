@@ -14,6 +14,7 @@ import { IPageWithData } from '../../types/common';
 import { IEvOffersData } from '../../utils/offers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import HeroSection from './HeroSection';
+import BenefitsComponent from './BenefitsComponent';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -109,6 +110,7 @@ const ECarsPage: FC<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
+      <BenefitsComponent />
       {featuresArray.map(section => (
         <React.Fragment key={section?.targetId || section?.title}>
           <FeaturedSection featured={section} />
