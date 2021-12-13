@@ -980,6 +980,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               onSaveSpecialOffersStatus(e.target.checked);
               setIsSpecialOffersOrder(e.target.checked);
             }}
+            dataUiTestId={dataUiTestId}
           />
         </div>
       )}
@@ -991,6 +992,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             tagArrayBuilderHelper={tagArrayBuilder}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
+            dataUiTestId={dataUiTestId}
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
@@ -1010,6 +1012,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 preLoadFilters={preLoadFiltersData}
+                dataUiTestId={dataUiTestId}
                 isSpecialOffers={
                   (isSpecialOffers &&
                     !(isRangePage || isModelPage || isDynamicFilterPage)) ||
@@ -1024,7 +1027,12 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       </div>
       <div className="row:bg-lighter -thin">
         <div className="row:results">
-          <Text color="darker" size="regular" tag="span">
+          <Text
+            color="darker"
+            size="regular"
+            tag="span"
+            dataUiTestId={`${dataUiTestId}_text_results-count`}
+          >
             {`Showing ${totalCount} Results`}
           </Text>
           {!(isAllManufacturersPage || isManufacturerPage) && (
@@ -1033,6 +1041,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               sortOrder={(sortOrder as SortObject[])[0]}
               isSpecialOffersOrder={isSpecialOffersOrder}
               onChangeSortOrder={onChangeSortOrder}
+              dataUiTestId={dataUiTestId}
             />
           )}
           <div className="row:cards-3col">
@@ -1063,6 +1072,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
                   size="regular"
                   dataTestId="LoadMore"
                   customCTAColor={customCTAColor}
+                  dataUiTestId={`${dataUiTestId}_button_load-more`}
                 />
               )}
             </div>

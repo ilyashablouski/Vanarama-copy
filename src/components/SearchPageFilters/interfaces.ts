@@ -26,4 +26,5 @@ export interface ISearchPageFiltersProps
   preLoadFilters?: Nullable<IFilterList>;
   isPreloadList: boolean;
   setSearchFilters: (filters: IFilters) => void;
+  dataUiTestId?: string;
 }

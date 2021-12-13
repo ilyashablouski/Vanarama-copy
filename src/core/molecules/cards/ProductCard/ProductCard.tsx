@@ -62,7 +62,7 @@ const ProductCard: FC<IProductCardProps> = props => {
             fill="clear"
             iconPosition="before"
             dataUiTestId={
-              dataUiTestId ? `${dataUiTestId}_wishlist-button` : undefined
+              dataUiTestId ? `${dataUiTestId}-${wished ? 'remove' : 'wishlist'}-button` : undefined
             }
             label={
               <>

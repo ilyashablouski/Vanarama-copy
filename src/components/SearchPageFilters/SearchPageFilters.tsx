@@ -83,6 +83,7 @@ const SearchPageFilters = ({
   clearFilter,
   isInvalidBudget,
   selectedFilterTags,
+  dataUiTestId,
 }: ISearchPageFiltersProps) => {
   const router = useRouter();
 
@@ -424,6 +425,7 @@ const SearchPageFilters = ({
           className="search-filters--dropdown"
           key={filter.label}
           renderProps
+          dataUiTestId={dataUiTestId}
         >
           {toggle => (
             <>
@@ -431,6 +433,7 @@ const SearchPageFilters = ({
                 filter.dropdowns?.map(dropdown => (
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
+                      dataUiTestId={dataUiTestId}
                       disabled={
                         (isManufacturerPage &&
                           dropdown.accessor === FilterFields.manufacturer) ||
@@ -494,7 +497,10 @@ const SearchPageFilters = ({
                     ) && (
                       <div className="dropdown--header">
                         <div className="dropdown--header-text">
-                          <span className="dropdown--header-count">{`${
+                          <span
+                            className="dropdown--header-count"
+                            data-uitestid={`${dataUiTestId}_dropdown_span_selected-count`}
+                          >{`${
                             selectedFiltersState?.[
                               filter.accessor as keyof typeof filtersMapper
                             ]?.length
@@ -515,6 +521,7 @@ const SearchPageFilters = ({
                           onClick={() =>
                             clearFilter?.(filter.accessor as FilterFields)
                           }
+                          dataUiTestId={`${dataUiTestId}_dropdown_button_clear`}
                         />
                       </div>
                     )}
@@ -522,6 +529,7 @@ const SearchPageFilters = ({
                   <FormGroup label={filter.label} dataTestId={filter.label}>
                     {choiceBoxesData?.[filter.accessor]?.length > 0 && (
                       <Choiceboxes
+                        dataUiTestId={dataUiTestId}
                         onSubmit={value =>
                           handleChecked?.(value, filter.accessor as any)
                         }
@@ -575,6 +583,7 @@ const SearchPageFilters = ({
                 className="-fullwidth"
                 label={`View ${preSearchVehicleCount} Results`}
                 dataTestId={`${filter.label}btn`}
+                dataUiTestId={`${dataUiTestId}_button_${filter.label}`}
                 onClick={toggle}
               />
             </>
