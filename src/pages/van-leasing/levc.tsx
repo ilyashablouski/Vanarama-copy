@@ -69,6 +69,7 @@ export async function getServerSideProps(
       query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/levc',
+        pageType: 'levcManufacturer',
         isPreview: !!context?.preview,
       },
     });
