@@ -32,12 +32,15 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
         '-outline': outline,
         '-invalid': invalid,
       })}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_div_${id}` : undefined}
     >
       <input
         checked={checked}
         className="checkbox--native visually-hidden"
         data-testid={dataTestId}
-        data-uitestid={dataUiTestId}
+        data-uitestid={
+          dataUiTestId ? `${dataUiTestId}_checkbox_${id}` : undefined
+        }
         defaultChecked={defaultChecked}
         disabled={disabled}
         id={id}
