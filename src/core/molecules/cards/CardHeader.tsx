@@ -22,6 +22,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
     text,
     accentIcon,
     accentText,
+    dataUiTestId,
   } = props;
   return (
     <div
@@ -31,7 +32,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
         '-orange': incomplete,
       })}
     >
-      <div>{text}</div>
+      <div data-uitestid={`${dataUiTestId}_availability`}>{text}</div>
       {(accentIcon || accentText) && (
         <div>
           {accentIcon ?? null}
