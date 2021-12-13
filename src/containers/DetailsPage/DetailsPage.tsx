@@ -9,6 +9,7 @@ import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 import MediaGallery from 'core/organisms/media-gallery';
+import Text from 'core/atoms/text';
 // @ts-ignore
 import decode from 'decode-html';
 
@@ -618,9 +619,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           }
         >
           <span className="-black">{pageTitle}</span>
-          <span className="text -lead -darker">
+          <Text size="lead">
             {vehicleConfigurationByCapId?.capDerivativeDescription}
-          </span>
+          </Text>
         </h1>
         <div className="pdp--content-details">
           <div className="pdp--wishlist">
