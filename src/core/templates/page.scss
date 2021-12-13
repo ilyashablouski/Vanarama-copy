@@ -41,6 +41,7 @@
   :not([class*='row:bg-']) + .footer {
     margin-top: var(--page-gap);
   }
+
   :not([class*='row:bg-']) + .blog-carousel-wrapper {
     @include mobile {
       background: none;
@@ -649,19 +650,13 @@
           }
         }
 
-        > .heading {
-          margin: 0;
-          margin-top: 0.25rem;
-          margin-bottom: -1rem;
+        &__heading {
           @include mobile {
             text-align: center;
           }
 
-          & + .text {
-            margin-bottom: 0.75rem;
-            @include mobile {
-              text-align: center;
-            }
+          .text {
+            font-weight: $font-weight-regular;
           }
         }
 
