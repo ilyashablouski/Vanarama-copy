@@ -18,6 +18,10 @@ import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
 import LevcHeroBanner from './components/LevcHeroBanner';
 
+const FeaturedSection = dynamic(
+  () => import('../../components/FeaturedSection'),
+  { loading: () => <Skeleton count={1} /> },
+);
 const LevcVehicleList = dynamic(() => import('./components/LevcVehicleList'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -46,7 +50,13 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   productCardsData,
 }) => {
   const { metaData } = genericPage;
-  const { tiles, carousel } = genericPage.sections ?? {};
+  const { tiles, carousel, featured: featuredSectionList } =
+    genericPage.sectionsAsArray ?? {};
+
+  const tilesSection = tiles?.[0];
+  const carouselSection = carousel?.[0];
+
+  const featuredSection0 = featuredSectionList?.[0];
 
   const vehicleList = useMemo(
     () =>
@@ -64,6 +74,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   return (
     <>
       <LevcHeroBanner />
+      {featuredSection0 && <FeaturedSection featured={featuredSection0} />}
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
@@ -72,14 +83,17 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           vehicleList={vehicleList}
         />
       ) : null}
-      {tiles?.tiles && (
+      {tilesSection?.tiles && (
         <WhyLeaseWithVanaramaTiles
-          title={tiles.tilesTitle}
-          tiles={tiles.tiles}
+          title={tilesSection.tilesTitle}
+          tiles={tilesSection.tiles}
         />
       )}
-      {carousel && (
-        <RelatedCarousel cards={carousel.cards} title={carousel.title} />
+      {carouselSection && (
+        <RelatedCarousel
+          cards={carouselSection.cards}
+          title={carouselSection.title}
+        />
       )}
       {metaData && (
         <>
