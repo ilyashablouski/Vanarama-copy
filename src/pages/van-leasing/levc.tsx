@@ -71,6 +71,7 @@ export async function getServerSideProps(
         slug: 'van-leasing/levc',
         pageType: 'levcManufacturer',
         isPreview: !!context?.preview,
+        sectionsAsArray: true,
       },
     });
 
