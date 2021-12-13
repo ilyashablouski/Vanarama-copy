@@ -7,6 +7,7 @@ import { GenericPageQuery_genericPage as IGenericPage } from '../../../generated
 
 import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
+import LevcHeroSection from './sections/LevcHeroSection';
 
 const WhyLeaseWithVanaramaTiles = dynamic(
   () => import('../../components/WhyLeaseWithVanaramaTiles'),
@@ -27,6 +28,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({ genericPage }) => {
 
   return (
     <>
+      <LevcHeroSection />
       {tiles?.tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tiles.tilesTitle}
