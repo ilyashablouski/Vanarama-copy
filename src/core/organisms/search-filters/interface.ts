@@ -2,6 +2,7 @@ import { IBaseProps } from '../../interfaces/base';
 
 export interface ISearchFiltersProps extends IBaseProps {
   isOpen?: boolean;
+  dataUiTestId?: string;
 }
 
 export interface ISearchFiltersContentProps extends IBaseProps {}

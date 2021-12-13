@@ -9,6 +9,7 @@ interface IProps {
   sortValues: Array<{ text: string; value: string }>;
   isSpecialOffersOrder: boolean;
   onChangeSortOrder: (value: string) => void;
+  dataUiTestId?: string;
 }
 
 const SortOrder = ({
@@ -16,6 +17,7 @@ const SortOrder = ({
   sortValues,
   isSpecialOffersOrder,
   onChangeSortOrder,
+  dataUiTestId,
 }: IProps) => {
   return (
     <Select
@@ -28,9 +30,14 @@ const SortOrder = ({
           : `${sortOrder.field}_${sortOrder.direction}`
       }
       onChange={e => onChangeSortOrder(e.target.value)}
+      dataUiTestId={dataUiTestId}
     >
       {sortValues.map(option => (
-        <option key={option.value} value={option.value}>
+        <option
+          key={option.value}
+          value={option.value}
+          data-uitestid={`${dataUiTestId}_${option.value}`}
+        >
           {option.text}
         </option>
       ))}

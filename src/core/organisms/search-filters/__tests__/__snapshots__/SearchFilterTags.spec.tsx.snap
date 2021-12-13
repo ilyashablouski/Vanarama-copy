@@ -6,6 +6,7 @@ exports[`<SearchFilterTags /> should render correctly with a custom class name 1
 >
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters-tag_button_Audi"
     fill="outline"
     icon={<Memo />}
     iconPosition="after"
@@ -17,6 +18,7 @@ exports[`<SearchFilterTags /> should render correctly with a custom class name 1
   />
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters-tag_button_Coupe"
     fill="outline"
     icon={<Memo />}
     iconPosition="after"
@@ -28,6 +30,7 @@ exports[`<SearchFilterTags /> should render correctly with a custom class name 1
   />
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters_button_clear-all"
     fill="solid"
     id="clearAllButton"
     label="Clear All"
@@ -43,6 +46,7 @@ exports[`<SearchFilterTags /> should render correctly with children & default pr
 >
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters-tag_button_Audi"
     fill="outline"
     icon={<Memo />}
     iconPosition="after"
@@ -54,6 +58,7 @@ exports[`<SearchFilterTags /> should render correctly with children & default pr
   />
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters-tag_button_Coupe"
     fill="outline"
     icon={<Memo />}
     iconPosition="after"
@@ -65,6 +70,7 @@ exports[`<SearchFilterTags /> should render correctly with children & default pr
   />
   <Memo(ForwardRef(Button))
     color="teal"
+    dataUiTestId="cars-search-page_selected-filters_button_clear-all"
     fill="solid"
     id="clearAllButton"
     label="Clear All"

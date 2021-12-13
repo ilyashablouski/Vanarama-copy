@@ -30,6 +30,7 @@ const Choiceboxes = forwardRef(
       boxClassName,
       labelClassName,
       preventUnselectAllValues = false,
+      dataUiTestId,
     }: IChoiceBoxesProps,
     ref,
   ) => {
@@ -129,7 +130,14 @@ const Choiceboxes = forwardRef(
               clearMultiSelectActive && setClearMultiSelectActive(false);
             }}
           >
-            <span className={cx('choice-label', labelClassName)}>
+            <span
+              className={cx('choice-label', labelClassName)}
+              data-uitestid={
+                dataUiTestId
+                  ? `${dataUiTestId}_span_${choice.label}`
+                  : undefined
+              }
+            >
               {choice.label}
             </span>
             {withIcons && (
