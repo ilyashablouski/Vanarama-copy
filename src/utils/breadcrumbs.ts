@@ -68,14 +68,20 @@ export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
   return null;
 }
 
+export function getBlogBreadCrumbsItems(
+  metaData: IMetaDataSection,
+): Nullish<IBreadcrumbLink[]> {
+  return metaData?.breadcrumbs
+    ? getBreadCrumbsItems(metaData)
+    : getBlogBreadCrumbsFromSlug(metaData.slug);
+}
+
 export function getBreadCrumbsItems(
   metaData: IMetaDataSection,
-): IBreadcrumbLink[] | null {
-  return metaData?.breadcrumbs
-    ? metaData.breadcrumbs.map((el: IBreadcrumb) => ({
-        link: { href: el.href || '', label: el.label },
-      }))
-    : getBlogBreadCrumbsFromSlug(metaData.slug);
+): Nullish<IBreadcrumbLink[]> {
+  return metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 }
 
 export function convertSlugToBreadcrumbsSchema(

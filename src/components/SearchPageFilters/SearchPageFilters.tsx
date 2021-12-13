@@ -30,7 +30,10 @@ import {
   IChoiceBoxesData,
   ISelectedFiltersState,
 } from '../../containers/FiltersContainer/interfaces';
-import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
+import {
+  bodyUrlsSlugMapper,
+  dynamicQueryTypeCheck,
+} from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { ISearchPageFiltersProps } from './interfaces';
@@ -217,10 +220,17 @@ const SearchPageFilters = ({
         );
       } else {
         routerQuery.forEach(([queryKey, queryValues]) => {
-          const [key, values] = [
+          // eslint-disable-next-line prefer-const
+          let [key, values] = [
             queryParameterKeyMapper[queryKey] ?? queryKey,
             queryValues,
           ];
+
+          if (key === 'bodyStyles') {
+            values =
+              bodyUrlsSlugMapper[values as keyof typeof bodyUrlsSlugMapper] ??
+              values;
+          }
 
           if (key === 'rangeName') {
             const isExist = filtersData?.groupedRangesWithSlug?.some(

@@ -9,6 +9,8 @@ import {
 } from '../../../generated/GenericPageQuery';
 import Skeleton from '../../components/Skeleton';
 import SectionCards from '../../components/SectionCards';
+import { Nullish } from '../../types/common';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -26,7 +28,7 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
-  breadcrumbsItems?: any;
+  breadcrumbsItems?: Nullish<IBreadcrumbLink[]>;
   featured?: GenericPageQuery_genericPage_sections_featured | null | undefined;
 }
 

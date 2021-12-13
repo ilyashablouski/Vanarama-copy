@@ -117,7 +117,6 @@ const VehicleCard = React.memo(
         loadImage={loadImage}
         className="product"
         lazyLoad={lazyLoad}
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
           accentIcon: data?.isOnOffer ? (

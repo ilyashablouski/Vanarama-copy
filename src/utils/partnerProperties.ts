@@ -6,7 +6,7 @@ import { Nullable, Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
 import { isBrowser } from './deviceType';
 
-const PARTNER_COOKIE_NAME = 'activePartnership';
+export const PARTNER_COOKIE_NAME = 'activePartnership';
 const PARTNER_SESSION_ACTIVE = 'partnershipSessionActive';
 const CUSTOM_SESSION_FUEL_TYPES = 'customSessionFuelTypes';
 const PARTNER_FOOTER = 'partnerFooter';

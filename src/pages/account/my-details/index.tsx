@@ -23,6 +23,7 @@ import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
+import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -80,24 +81,13 @@ const metaData = {
 const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useAccountRouteChangeStart(router);
+
   const client = useApolloClient();
   useEffect(
     () => client.onResetStore(() => router.push('/account/login-register')),
     [client, router],
   );
-
-  useEffect(() => {
-    const handleStart = (url: string) => {
-      if (url.includes('/account') && router.asPath !== url) {
-        setIsLoading(true);
-      }
-    };
-    router.events.on('routeChangeStart', handleStart);
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-    };
-  }, []);
 
   return (
     <>

@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { SwiperSlide } from 'swiper/react';
+import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import RouterLink from '../../components/RouterLink';
 
 import { GenericPageQuery_genericPage_sections_carousel_cards as ICarouselCard } from '../../../generated/GenericPageQuery';
-import Skeleton from '../../components/Skeleton';
-import SearchPageMarkdown from './SearchPageMarkdown';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+
+import RouterLink from '../RouterLink';
+import Skeleton from '../Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -55,7 +56,11 @@ const renderCarouselSlide = (card: ICarouselCard) => (
         ),
       }}
     >
-      <SearchPageMarkdown markdown={card.body} withoutImage />
+      <ReactMarkdown
+        className="markdown"
+        source={card.body ?? ''}
+        allowDangerousHtml
+      />
       <RouterLink
         link={{
           href: card.link?.legacyUrl || card.link?.url || '',

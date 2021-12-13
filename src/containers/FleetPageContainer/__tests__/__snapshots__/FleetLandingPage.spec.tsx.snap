@@ -653,9 +653,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
     <section
       class="row:features-4col"
     >
-      <p
-        class="heading -black -large"
-      />
+      
       <div>
         <div
           class="tile -plain -button -align-center -plain"
