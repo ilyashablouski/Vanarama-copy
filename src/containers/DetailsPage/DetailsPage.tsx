@@ -612,16 +612,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           </div>
         )}
         <h1
-          className="heading -pt-100 -black -xlarge"
+          className="heading -pt-100 -xlarge"
           data-uitestid={
             dataUiTestId ? `${dataUiTestId}_page-title` : undefined
           }
         >
-          {pageTitle}
+          <span className="-black">{pageTitle}</span>
+          <span className="text -lead -darker">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </span>
         </h1>
-        <span className="text -lead -darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </span>
         <div className="pdp--content-details">
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
