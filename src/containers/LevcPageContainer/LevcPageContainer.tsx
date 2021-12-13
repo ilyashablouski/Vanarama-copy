@@ -16,6 +16,7 @@ import { Nullable } from '../../types/common';
 
 import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
+import LevcHeroBanner from './components/LevcHeroBanner';
 
 const LevcVehicleList = dynamic(() => import('./components/LevcVehicleList'), {
   loading: () => <Skeleton count={1} />,
@@ -62,6 +63,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
 
   return (
     <>
+      <LevcHeroBanner />
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
