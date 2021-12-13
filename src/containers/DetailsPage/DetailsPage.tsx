@@ -613,10 +613,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumbs items={breadcrumbItems} />
           </div>
         )}
-        <Heading
-          tag="h1"
-          className="-pt-100"
-          size="xlarge"
+        <h1
+          className="pdp--content__heading -mt-200"
           data-uitestid={
             dataUiTestId ? `${dataUiTestId}_page-title` : undefined
           }
@@ -624,11 +622,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <Heading tag="span" size="xlarge" color="black">
             {pageTitle}
           </Heading>
-          <Text size="lead">
+          <Text size="lead" className="-regular">
             {vehicleConfigurationByCapId?.capDerivativeDescription}
           </Text>
-        </Heading>
-        <div className="pdp--content-details">
+        </h1>
+        <div className="pdp--content-details -mt-300">
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
           </div>
