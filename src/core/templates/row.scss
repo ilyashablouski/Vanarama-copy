@@ -708,21 +708,28 @@
       }
 
       &.colored-section {
-        background-image: none;
+        place-content: center;
+        height: 100px;
         margin: 0 !important;
         padding: 0 !important;
-        height: 100px;
+        background-image: none;
 
         @include mobile {
           height: 70px;
         }
 
-        .levc-logo {
-          height: 100px;
+        .icon {
+          display: inline-flex;
+          height: auto;
+        }
+
+        .levc-logo svg {
+          width: 312px;
+          height: 51px;
 
           @include mobile {
-            height: 70px;
             width: 160px;
+            height: 70px;
           }
         }
       }
