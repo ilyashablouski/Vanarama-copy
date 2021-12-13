@@ -18,6 +18,10 @@ import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
 import LevcHeroBanner from './components/LevcHeroBanner';
 
+const FeaturedSection = dynamic(
+  () => import('../../components/FeaturedSection'),
+  { loading: () => <Skeleton count={1} /> },
+);
 const LevcVehicleList = dynamic(() => import('./components/LevcVehicleList'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -46,7 +50,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   productCardsData,
 }) => {
   const { metaData } = genericPage;
-  const { tiles, carousel } = genericPage.sections ?? {};
+  const { tiles, carousel, featured1 } = genericPage.sections ?? {};
 
   const vehicleList = useMemo(
     () =>
@@ -64,6 +68,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   return (
     <>
       <LevcHeroBanner />
+      {featured1 && <FeaturedSection featured={featured1} />}
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
