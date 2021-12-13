@@ -80,7 +80,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeVans"
-                  data-uitestid="searchPod-typeVans-select"
+                  data-uitestid="searchPod-typeVans-select_select_typeVans"
                   defaultValue=""
                   name="typeVans"
                 >
@@ -150,7 +150,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="manufacturerVans"
-                  data-uitestid="searchPod-manufacturerVans-select"
+                  data-uitestid="searchPod-manufacturerVans-select_select_manufacturerVans"
                   defaultValue=""
                   name="manufacturerVans"
                 >
@@ -225,7 +225,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelVans"
-                  data-uitestid="searchPod-modelVans-select"
+                  data-uitestid="searchPod-modelVans-select_select_modelVans"
                   defaultValue=""
                   name="modelVans"
                 >
@@ -327,7 +327,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetVans"
-                  data-uitestid="searchPod-budgetVans-select"
+                  data-uitestid="searchPod-budgetVans-select_select_budgetVans"
                   defaultValue=""
                   name="budgetVans"
                 >
@@ -447,7 +447,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="manufacturerCars"
-                  data-uitestid="searchPod-manufacturerCars-select"
+                  data-uitestid="searchPod-manufacturerCars-select_select_manufacturerCars"
                   defaultValue=""
                   name="manufacturerCars"
                 >
@@ -507,7 +507,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelCars"
-                  data-uitestid="searchPod-modelCars-select"
+                  data-uitestid="searchPod-modelCars-select_select_modelCars"
                   defaultValue=""
                   name="modelCars"
                 >
@@ -562,7 +562,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeCars"
-                  data-uitestid="searchPod-typeCars-select"
+                  data-uitestid="searchPod-typeCars-select_select_typeCars"
                   defaultValue=""
                   name="typeCars"
                 >
@@ -622,7 +622,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetCars"
-                  data-uitestid="searchPod-budgetCars-select"
+                  data-uitestid="searchPod-budgetCars-select_select_budgetCars"
                   defaultValue=""
                   name="budgetCars"
                 >

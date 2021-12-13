@@ -33,7 +33,11 @@ const SortOrder = ({
       dataUiTestId={dataUiTestId}
     >
       {sortValues.map(option => (
-        <option key={option.value} value={option.value} data-uitestid={`${dataUiTestId}_${option.value}`}>
+        <option
+          key={option.value}
+          value={option.value}
+          data-uitestid={`${dataUiTestId}_${option.value}`}
+        >
           {option.text}
         </option>
       ))}

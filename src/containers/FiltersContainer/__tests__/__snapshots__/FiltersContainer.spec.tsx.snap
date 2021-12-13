@@ -5,6 +5,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
   <div>
     <div
       class="search-filters"
+      data-uitestid="cars-search-page_div_search-filters"
     >
       <div
         aria-level="3"
@@ -30,7 +31,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             />
           </svg>
         </i>
-        <span>
+        <span
+          data-uitestid="cars-search-page_span_filters"
+        >
           Filters
         </span>
         <i
@@ -55,6 +58,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           autocomplete="off"
           checked=""
           class="toggle toggle--input"
+          data-uitestid="cars-search-page_input_contractType"
           id="contractType"
           type="checkbox"
         />
@@ -67,11 +71,13 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           >
             <span
               class="toggle--on"
+              data-uitestid="cars-search-page_toggle-on"
             >
               Personal
             </span>
             <span
               class="toggle--off"
+              data-uitestid="cars-search-page_toggle-off"
             >
               Business
             </span>
@@ -85,7 +91,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           class="dropdown--toggle"
           type="button"
         >
-          <span>
+          <span
+            data-uitestid="cars-search-page_span_Make & Model"
+          >
             Make & Model
           </span>
           <i
@@ -122,6 +130,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               >
                 <select
                   class="select--native"
+                  data-uitestid="cars-search-page_select_manufacturer"
                   name="manufacturer"
                 >
                   <option
@@ -183,6 +192,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               >
                 <select
                   class="select--native"
+                  data-uitestid="cars-search-page_select_model"
                   name="model"
                 >
                   <option
@@ -216,6 +226,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           <button
             class="button -fullwidth -teal -small -solid"
             data-testid="Make & Modelbtn"
+            data-uitestid="cars-search-page_button_Make & Model"
           >
             <div
               class="button--inner"
@@ -232,7 +243,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           class="dropdown--toggle"
           type="button"
         >
-          <span>
+          <span
+            data-uitestid="cars-search-page_span_Budget"
+          >
             Budget
           </span>
           <i
@@ -269,6 +282,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               >
                 <select
                   class="select--native"
+                  data-uitestid="cars-search-page_select_from"
                   name="from"
                 >
                   <option
@@ -345,6 +359,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               >
                 <select
                   class="select--native"
+                  data-uitestid="cars-search-page_select_to"
                   name="to"
                 >
                   <option
@@ -408,6 +423,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           <button
             class="button -fullwidth -teal -small -solid"
             data-testid="Budgetbtn"
+            data-uitestid="cars-search-page_button_Budget"
           >
             <div
               class="button--inner"
@@ -424,7 +440,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           class="dropdown--toggle"
           type="button"
         >
-          <span>
+          <span
+            data-uitestid="cars-search-page_span_Body Type"
+          >
             Body Type
           </span>
           <i
@@ -466,6 +484,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_Dropside Tipper"
                   >
                     Dropside Tipper
                   </span>
@@ -476,6 +495,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_Large Van"
                   >
                     Large Van
                   </span>
@@ -486,6 +506,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           <button
             class="button -fullwidth -teal -small -solid"
             data-testid="Body Typebtn"
+            data-uitestid="cars-search-page_button_Body Type"
           >
             <div
               class="button--inner"
@@ -502,7 +523,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           class="dropdown--toggle"
           type="button"
         >
-          <span>
+          <span
+            data-uitestid="cars-search-page_span_Transmission"
+          >
             Transmission
           </span>
           <i
@@ -544,6 +567,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_Automatic"
                   >
                     Automatic
                   </span>
@@ -554,6 +578,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_Manual"
                   >
                     Manual
                   </span>
@@ -564,6 +589,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           <button
             class="button -fullwidth -teal -small -solid"
             data-testid="Transmissionbtn"
+            data-uitestid="cars-search-page_button_Transmission"
           >
             <div
               class="button--inner"
@@ -580,7 +606,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           class="dropdown--toggle"
           type="button"
         >
-          <span>
+          <span
+            data-uitestid="cars-search-page_span_Fuel Type"
+          >
             Fuel Type
           </span>
           <i
@@ -622,6 +650,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_diesel"
                   >
                     diesel
                   </span>
@@ -632,8 +661,9 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <span
                     class="choice-label"
+                    data-uitestid="cars-search-page_span_petrol"
                   >
-                    iii
+                    petrol
                   </span>
                 </button>
               </div>
@@ -642,6 +672,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           <button
             class="button -fullwidth -teal -small -solid"
             data-testid="Fuel Typebtn"
+            data-uitestid="cars-search-page_button_Fuel Type"
           >
             <div
               class="button--inner"

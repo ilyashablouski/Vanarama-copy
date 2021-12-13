@@ -32,9 +32,7 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
         '-outline': outline,
         '-invalid': invalid,
       })}
-      data-uitestid={
-        dataUiTestId ? `${dataUiTestId}_div_${id}` : undefined
-      }
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_div_${id}` : undefined}
     >
       <input
         checked={checked}
