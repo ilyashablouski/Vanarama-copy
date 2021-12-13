@@ -1,4 +1,4 @@
-FROM node:12.13.0
+FROM node:12.22.7
 
 ARG API_KEY
 ARG API_URL
@@ -18,12 +18,15 @@ ARG HEAP_ID
 WORKDIR /usr/src/app
 
 # Installing dependencies
+RUN yarn set version berry
 
 RUN npm install pm2 -g
 
 COPY yarn.lock .
 COPY package.json .
-RUN yarn install --force
+COPY .yarnrc.yml .
+## --frozen-lockfile has been deprecated for --immutable in yarn2+
+RUN yarn install --immutable
 
 # Copying source files
 COPY . .
