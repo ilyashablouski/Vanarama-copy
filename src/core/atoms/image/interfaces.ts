@@ -21,3 +21,18 @@ export interface IImageProps extends IBaseProps {
   objectFit?: ImageProps['objectFit'];
   objectPosition?: ImageProps['objectPosition'];
 }
+
+export interface IImagePropsV2 extends IBaseProps {
+  width?: string | number;
+  height?: string | number;
+  optimisedHost?: string;
+  optimisationOptions?: ICloudflareOptimisation;
+  src: string;
+  alt?: string;
+  size?: TSize;
+  round?: boolean;
+  inline?: boolean;
+  lazyLoad?: boolean;
+  objectFit?: ImageProps['objectFit'];
+  plain?: boolean;
+}
