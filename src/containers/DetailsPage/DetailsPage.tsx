@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 import MediaGallery from 'core/organisms/media-gallery';
 import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
 // @ts-ignore
 import decode from 'decode-html';
 
@@ -612,17 +613,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumbs items={breadcrumbItems} />
           </div>
         )}
-        <h1
-          className="heading -pt-100 -xlarge"
+        <Heading
+          tag="h1"
+          className="-pt-100"
+          size="xlarge"
           data-uitestid={
             dataUiTestId ? `${dataUiTestId}_page-title` : undefined
           }
         >
-          <span className="-black">{pageTitle}</span>
+          <Heading tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
           <Text size="lead">
             {vehicleConfigurationByCapId?.capDerivativeDescription}
           </Text>
-        </h1>
+        </Heading>
         <div className="pdp--content-details">
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
