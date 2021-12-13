@@ -11,6 +11,7 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
   onClearAll,
   onRemove,
   dataTestId,
+  dataUiTestId,
 }) => {
   return (
     <div className={cx('search-filters--tags', className)}>
@@ -35,6 +36,7 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
                   onRemove(e);
                 }
               }}
+              dataUiTestId={`${dataUiTestId}_selected-filters-tag_button_${selected.value}`}
             />
           );
         })}
@@ -50,6 +52,7 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
           fill="solid"
           label="Clear All"
           id="clearAllButton"
+          dataUiTestId={`${dataUiTestId}_selected-filters_button_clear-all`}
         />
       )}
     </div>

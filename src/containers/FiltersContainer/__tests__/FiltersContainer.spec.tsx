@@ -23,6 +23,7 @@ const resetMocks = () => {
       from: [],
       to: [],
     },
+    dataUiTestId: 'cars-search-page',
   };
 };
 
@@ -36,6 +37,7 @@ const resetChildrenMocks = () => {
     setIsSpecialOffers: jest.fn(),
     isPreloadList: false,
     setSearchFilters: jest.fn(),
+    dataUiTestId: 'cars-search-page',
   };
 };
 
@@ -90,7 +92,7 @@ const mocksResponse: MockedResponse[] = [
             ],
             bodyStyles: ['Dropside Tipper', 'Large Van'],
             transmissions: ['Automatic', 'Manual'],
-            fuelTypes: ['diesel', 'iii'],
+            fuelTypes: ['diesel', 'petrol'],
           },
         },
       };

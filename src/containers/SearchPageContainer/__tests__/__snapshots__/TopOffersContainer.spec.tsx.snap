@@ -62,6 +62,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     >
                       <span
                         class="heading -pb-100 -primary -large"
+                        data-uitestid="top-offers_product-card-0_span_heading"
                       >
                         Citroen Berlingo M
                       </span>
@@ -216,11 +217,13 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         </span>
                         <span
                           class="price--pounds"
+                          data-uitestid="top-offers_product-card-0_span_pounds"
                         >
                           55
                         </span>
                         <span
                           class="price--sub"
+                          data-uitestid="top-offers_product-card-0_span_sub"
                         >
                           .
                           00
@@ -287,7 +290,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     </button>
                     <button
                       class="-dark -xsmall -clear"
-                      data-uitestid="top-offers_product-card-0_wishlist-button"
+                      data-uitestid="top-offers_product-card-0-wishlist-button"
                     >
                       <div
                         class="button--inner"

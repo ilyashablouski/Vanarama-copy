@@ -6,6 +6,7 @@ exports[`<RangeCard /> should be render correctly 1`] = `
     <div
       class="card"
       data-testid="card"
+      data-uitestid="range-card"
     >
       <div
         class="image card-image -expand -plain"
@@ -32,6 +33,7 @@ exports[`<RangeCard /> should be render correctly 1`] = `
         <a
           class="heading link -black -large"
           data-testid="link"
+          data-uitestid="range-card"
           href="/bmw-car-leasing/2-series.html"
         >
           2 Series
@@ -98,6 +100,7 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
     <div
       class="card"
       data-testid="card"
+      data-uitestid="range-card"
     >
       <div
         class="image card-image -expand -plain"
@@ -124,6 +127,7 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         <a
           class="heading link -black -large"
           data-testid="link"
+          data-uitestid="range-card"
           href="/bmw-car-leasing.html"
         >
           bmw
