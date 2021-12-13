@@ -29,6 +29,10 @@ const RelatedCarousel = dynamic(
   { loading: () => <Skeleton count={1} /> },
 );
 
+// TODO: Remove when we get this data from CMS
+const accentColor = '#FFEC00';
+const accentTextColor = '#000000';
+
 interface ILevcPageContainer {
   vehiclesData: Nullable<IVehicleList>;
   productCardsData: Nullable<IProductCardList>;
@@ -60,6 +64,8 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
     <>
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
+          accentColor={accentColor}
+          accentTextColor={accentTextColor}
           productCardList={productCardList}
           vehicleList={vehicleList}
         />

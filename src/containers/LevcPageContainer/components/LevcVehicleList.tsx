@@ -1,18 +1,35 @@
 import React from 'react';
 
+import Icon from 'core/atoms/icon';
 import Heading from 'core/atoms/heading';
+import LevcLogoIcon from 'core/assets/icons/LogoLevc';
 
 import { vehicleList_vehicleList_edges as IVehicle } from '../../../../generated/vehicleList';
 import { GetProductCard_productCard as IProductCard } from '../../../../generated/GetProductCard';
 
 import VehicleCard from '../../../components/VehicleCard';
 
+const cardHeaderProps = {
+  accentIcon: (
+    <Icon
+      className="sm hydrated"
+      icon={<LevcLogoIcon />}
+      color="black"
+      size="small"
+    />
+  ),
+};
+
 interface IProps {
   vehicleList: IVehicle[];
   productCardList: IProductCard[];
+  accentTextColor: string;
+  accentColor: string;
 }
 
 const LevcVehicleList: React.FC<IProps> = ({
+  accentColor,
+  accentTextColor,
   vehicleList,
   productCardList,
 }) => {
@@ -37,6 +54,10 @@ const LevcVehicleList: React.FC<IProps> = ({
                 description: vehicle.node?.derivativeName ?? '',
               }}
               isPersonalPrice={false}
+              customCTAColor={accentColor}
+              customCTATextColor={accentTextColor}
+              customHeaderProps={cardHeaderProps}
+              isStyledHeader
               index={index}
             />
           ))}

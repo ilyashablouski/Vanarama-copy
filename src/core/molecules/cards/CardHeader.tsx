@@ -7,6 +7,7 @@ interface ICardHeader {
   text: string;
   accentText?: string;
   accentIcon?: React.ReactNode;
+  accentStyles?: React.CSSProperties;
 }
 
 export interface ICardHeaderProps extends IBaseProps, ICardHeader {
@@ -22,6 +23,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
     text,
     accentIcon,
     accentText,
+    accentStyles,
   } = props;
   return (
     <div
@@ -31,9 +33,9 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
         '-orange': incomplete,
       })}
     >
-      <div>{text}</div>
+      <div style={accentStyles}>{text}</div>
       {(accentIcon || accentText) && (
-        <div>
+        <div style={accentStyles}>
           {accentIcon ?? null}
           <span>{accentText ?? null}</span>
         </div>
