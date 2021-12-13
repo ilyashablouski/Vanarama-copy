@@ -38,7 +38,11 @@ const Select: React.FC<ISelectProps> = React.forwardRef<
         id={id}
         className="select--native"
         data-testid={dataTestId}
-        data-uitestid={dataUiTestId}
+        data-uitestid={
+          dataUiTestId
+            ? `${dataUiTestId}_select${name ? `_${name}` : ''}`
+            : undefined
+        }
         defaultValue={
           showPlaceholder && !isControlledMode
             ? PLACEHOLDER_VALUE

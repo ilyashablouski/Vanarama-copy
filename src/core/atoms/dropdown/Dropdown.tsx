@@ -11,6 +11,7 @@ const Dropdown = ({
   defaultOpen = false,
   label,
   renderProps,
+  dataUiTestId,
 }: IDropdownProps) => {
   const [open, setOpen] = useState(defaultOpen);
   const toggle = () => setOpen(prev => !prev);
@@ -39,7 +40,13 @@ const Dropdown = ({
       ref={dropdownRef}
     >
       <button className="dropdown--toggle" onClick={toggle} type="button">
-        <span>{label}</span>
+        <span
+          data-uitestid={
+            dataUiTestId ? `${dataUiTestId}_span_${label}` : undefined
+          }
+        >
+          {label}
+        </span>
         <Icon icon={<ChevronDownSharp />} color="dark" />
       </button>
       <div className="dropdown--content">

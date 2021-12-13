@@ -40,7 +40,7 @@ const Card: FC<ICardProps> = memo(props => {
       style={style}
       data-uitestid={dataUiTestId}
     >
-      {header?.text && <CardHeader {...header} />}
+      {header?.text && <CardHeader {...header} dataUiTestId={dataUiTestId} />}
       {imageSrc !== undefined ? (
         <ImageV2
           className="card-image"

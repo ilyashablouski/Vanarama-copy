@@ -149,7 +149,14 @@ const VehicleCard = React.memo(
               classNames={{ size: 'large', color: 'black' }}
               dataTestId="heading-link"
             >
-              <Heading tag="span" size="large" className="-pb-100">
+              <Heading
+                tag="span"
+                size="large"
+                className="-pb-100"
+                dataUiTestId={
+                  dataUiTestId ? `${dataUiTestId}_span_heading` : undefined
+                }
+              >
                 {title?.title || ''}
               </Heading>
               <Heading tag="span" size="small" color="dark">
@@ -185,6 +192,7 @@ const VehicleCard = React.memo(
             priceDescription={`Per Month ${
               isPersonalPrice ? 'Inc' : 'Exc'
             }.VAT`}
+            dataUitestId={dataUiTestId}
           />
           <RouterLink
             link={{
