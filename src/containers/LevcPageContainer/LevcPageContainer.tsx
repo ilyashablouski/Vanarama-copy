@@ -22,6 +22,10 @@ const FeaturedSection = dynamic(
   () => import('../../components/FeaturedSection'),
   { loading: () => <Skeleton count={1} /> },
 );
+const LeadText = dynamic(
+  () => import('../LandingPageContainer/LeadTextComponent'),
+  { loading: () => <Skeleton count={1} /> },
+);
 const LevcVehicleList = dynamic(() => import('./components/LevcVehicleList'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -49,11 +53,12 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   vehiclesData,
   productCardsData,
 }) => {
-  const { tiles, carousel, featured: featuredSections } =
+  const { leadText, tiles, carousel, featured: featuredSections } =
     genericPage.sectionsAsArray ?? {};
 
   const tilesSection = tiles?.[0];
   const carouselSection = carousel?.[0];
+  const leadTextSection = leadText?.[0];
   const aboutSection = featuredSections?.[0];
 
   const vehicleList = useMemo(
@@ -87,9 +92,14 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           vehicleList={vehicleList}
         />
       ) : null}
-      {featuredSectionList?.map((featuredSection, index) => (
-        <React.Fragment key={featuredSection.targetId ?? index}>
-          <FeaturedSection featured={featuredSection} />
+      {leadTextSection && <LeadText leadText={leadTextSection} />}
+      {featuredSectionList?.map(featuredSection => (
+        <React.Fragment key={featuredSection.targetId ?? featuredSection.title}>
+          <FeaturedSection
+            featured={featuredSection}
+            videoClassName="aspect-16-9"
+            videoHeight="100%"
+          />
         </React.Fragment>
       ))}
       {tilesSection?.tiles && (
