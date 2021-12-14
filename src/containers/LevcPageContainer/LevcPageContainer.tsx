@@ -92,9 +92,15 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           vehicleList={vehicleList}
         />
       ) : null}
-      {leadTextSection && <LeadText leadText={leadTextSection} />}
+      {leadTextSection && (
+        <LeadText
+          className="-a-center"
+          leadText={leadTextSection}
+          withSeparator={false}
+        />
+      )}
       {featuredSectionList?.map(featuredSection => (
-        <React.Fragment key={featuredSection.targetId ?? featuredSection.title}>
+        <React.Fragment key={featuredSection.title}>
           <FeaturedSection
             featured={featuredSection}
             videoClassName="aspect-16-9"
