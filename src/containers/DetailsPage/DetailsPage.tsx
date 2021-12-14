@@ -9,6 +9,8 @@ import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 import MediaGallery from 'core/organisms/media-gallery';
+import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
 // @ts-ignore
 import decode from 'decode-html';
 
@@ -612,17 +614,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           </div>
         )}
         <h1
-          className="heading -pt-100 -black -xlarge"
+          className="pdp--content__heading -mt-200"
           data-uitestid={
             dataUiTestId ? `${dataUiTestId}_page-title` : undefined
           }
         >
-          {pageTitle}
+          <Heading tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
+          <Text size="lead" className="-regular">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </h1>
-        <span className="text -lead -darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </span>
-        <div className="pdp--content-details">
+        <div className="pdp--content-details -mt-300">
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
           </div>

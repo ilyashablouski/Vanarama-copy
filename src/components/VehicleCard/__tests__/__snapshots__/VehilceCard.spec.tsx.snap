@@ -246,15 +246,16 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
@@ -588,15 +589,16 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
@@ -930,15 +932,16 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
