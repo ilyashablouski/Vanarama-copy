@@ -41,6 +41,15 @@ import {
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   scrollIntoPreviousView,
+  createInitialFiltersState,
+  getValueFromStorage,
+  createProductCacheVariables,
+  createProductCardVariables,
+  createManufacturerListVariables,
+  createRangesVariables,
+  createVehiclesVariables,
+  createInitialVehiclesVariables,
+  getNumberOfVehiclesFromSessionStorage,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
@@ -146,16 +155,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [isPartnershipActive] = useState<boolean>(!!getPartnerProperties());
   const applyColumns = !isEvPage ? '-columns' : '';
   const initialFiltersState = useMemo(
-    () => ({
-      bodyStyles: [],
-      transmissions: [],
-      fuelTypes:
+    () =>
+      createInitialFiltersState(
         (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
-      manufacturer: [],
-      model: [],
-      from: [],
-      to: [],
-    }),
+      ),
     [isPartnershipActive],
   );
 
@@ -168,17 +171,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
 
-  /** we storing the last value of special offers checkbox in Session storage */
-  const getValueFromStorage = (isServerCheck = false): boolean | undefined => {
-    // should check for server rendering, because it haven't Session storage
-    const value = isServerCheck
-      ? undefined
-      : sessionStorage?.getItem(isCarSearch ? 'Car' : 'Vans');
-    return value ? JSON.parse(value) : undefined;
-  };
-
   const [isSpecialOffers, setIsSpecialOffers] = useState(
-    isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? false,
+    isSpecialOfferPage
+      ? true
+      : getValueFromStorage(isServer, isCarSearch) ?? false,
   );
 
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
@@ -238,6 +234,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
 
   useEffect(() => {
     scrollIntoPreviousView(pageOffset, prevPosition, setPrevPosition);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageOffset]);
 
   useEffect(() => {
@@ -430,14 +427,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           if (!isManufacturerPage && !isAllManufacturersPage) {
             setTotalCount(vehicles.vehicleList.totalCount);
           }
-          getProductCardData({
-            variables: {
-              capIds: responseCapIds,
-              vehicleType: isCarSearch
-                ? VehicleTypeEnum.CAR
-                : VehicleTypeEnum.LCV,
-            },
-          });
+          getProductCardData(
+            createProductCacheVariables(responseCapIds, isCarSearch),
+          );
           setLastCard(vehicles.vehicleList.pageInfo.endCursor || '');
           setShouldUpdateCache(
             vehicles.vehicleList.pageInfo.hasNextPage || false,
@@ -461,7 +453,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     // if it's simple search page with presave special offers param made new request for actual params
     if (
       !queryLength &&
-      getValueFromStorage() &&
+      getValueFromStorage(false, isCarSearch) &&
       !isAllManufacturersPage &&
       !isSpecialOfferPage &&
       !isDynamicFilterPage &&
@@ -485,12 +477,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
-      getProductCardData({
-        variables: {
-          capIds: getCapsIds(data.vehicleList.edges || []),
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        },
-      });
+      getProductCardData(
+        createProductCardVariables(data.vehicleList.edges, isCarSearch),
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -499,31 +488,18 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const onSearch = (filtersObject?: IFilters) => {
     const filters = filtersObject || filtersData;
     if (isManufacturerPage) {
-      const filtersForRanges = { ...filters, manufacturerSlug: undefined };
-      getRanges({
-        variables: {
-          vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-          leaseType: isPersonal
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
-          ...filtersForRanges,
-          manufacturerSlug: router.query?.dynamicParam as string,
-        },
-      });
+      const filtersForRanges = {
+        ...filters,
+        manufacturerSlug: router.query?.dynamicParam as string,
+      };
+      getRanges(
+        createRangesVariables(filtersForRanges, isCarSearch, isPersonal),
+      );
       // call only manufacturer list query call after select new filter
     } else if (isAllManufacturersPage) {
-      getManufacturerList({
-        variables: {
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-          leaseType: isPersonal
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
-          rate: filters.rate,
-          bodyStyles: filters.bodyStyles,
-          transmissions: filters.transmissions,
-          fuelTypes: filters.fuelTypes,
-        },
-      });
+      getManufacturerList(
+        createManufacturerListVariables(isCarSearch, isPersonal, filters),
+      );
     } else {
       let onOffer;
       // set onOffer value to actual depend on page type
@@ -542,38 +518,21 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       } else {
         fuelTypes = getPartnerProperties()?.fuelTypes;
       }
-      getVehicles({
-        variables: {
-          vehicleTypes: isCarSearch
-            ? [VehicleTypeEnum.CAR]
-            : [VehicleTypeEnum.LCV],
-          leaseType: isPersonal
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
-          onOffer,
-          ...filters,
-          first: isPreviousPage(router.query)
-            ? getNumberOfVehicles(
-                getObjectFromSessionStorage('searchPageScrollData')
-                  .offerPosition + 1,
-              )
-            : RESULTS_PER_REQUEST,
-          sort: isSpecialOffersOrder
-            ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-            : (sortOrder as SortObject[]),
-          ...{
-            bodyStyles:
-              isPickups || isModelPage || isBodyStylePage
-                ? (filters.bodyStyles?.[0] && filters.bodyStyles) ||
-                  manualBodyStyle
-                : filters.bodyStyles,
-            transmissions: isTransmissionPage
-              ? [(router.query.dynamicParam as string).replace('-', ' ')]
-              : filters.transmissions,
-            fuelTypes,
-          },
-        },
-      });
+      getVehicles(
+        createVehiclesVariables({
+          isCarSearch,
+          isPersonal,
+          isSpecialOffersOrder,
+          isManualBodyStyle: isPickups || isModelPage || isBodyStylePage,
+          isTransmissionPage,
+          onOffer: onOffer || false,
+          filters,
+          query: router.query,
+          sortOrder: sortOrder as SortObject[],
+          manualBodyStyle,
+          fuelTypes,
+        }),
+      );
     }
     if (filtersObject) {
       let pathname = router.route
@@ -733,14 +692,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
           // add cache variable
-          return getProductCacheCardData({
-            variables: {
-              capIds: responseCapIds,
-              vehicleType: isCarSearch
-                ? VehicleTypeEnum.CAR
-                : VehicleTypeEnum.LCV,
-            },
-          });
+          return getProductCacheCardData(
+            createProductCacheVariables(responseCapIds, isCarSearch),
+          );
         }
         return false;
       } catch {
@@ -767,57 +721,39 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         isSimpleSearchPage)
     ) {
       setShouldUpdateCache(false);
+      const isOnOffer = !(isRangePage || isModelPage || isDynamicFilterPage)
+        ? isSpecialOffers || null
+        : null;
+
       if (isPreviousPage(router.query) && window && !called) {
-        getVehicles({
-          variables: {
-            vehicleTypes: isCarSearch
-              ? [VehicleTypeEnum.CAR]
-              : [VehicleTypeEnum.LCV],
-            leaseType: isPersonal
-              ? LeaseTypeEnum.PERSONAL
-              : LeaseTypeEnum.BUSINESS,
-            onOffer: !(isRangePage || isModelPage || isDynamicFilterPage)
-              ? isSpecialOffers || null
-              : null,
-            first: getNumberOfVehicles(
-              getObjectFromSessionStorage('searchPageScrollData')
-                .offerPosition + 1,
-            ),
-            ...filtersData,
-            sort: isSpecialOffersOrder
-              ? [
-                  {
-                    field: SortField.offerRanking,
-                    direction: SortDirection.ASC,
-                  },
-                ]
-              : (sortOrder as SortObject[]),
-          },
-        });
+        getVehicles(
+          createInitialVehiclesVariables({
+            isCarSearch,
+            isPersonal,
+            isSpecialOffersOrder,
+            onOffer: isOnOffer || false,
+            first: getNumberOfVehiclesFromSessionStorage(),
+            filters: filtersData,
+            sortOrder: sortOrder as SortObject[],
+          }),
+        );
         return;
       }
-      getVehiclesCache({
-        variables: {
-          vehicleTypes: isCarSearch
-            ? [VehicleTypeEnum.CAR]
-            : [VehicleTypeEnum.LCV],
-          leaseType: isPersonal
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
-          onOffer: !(isRangePage || isModelPage || isDynamicFilterPage)
-            ? isSpecialOffers || null
-            : null,
+      getVehiclesCache(
+        createInitialVehiclesVariables({
+          isCarSearch,
+          isPersonal,
+          isSpecialOffersOrder,
+          onOffer: isOnOffer || false,
           after: lastCard,
-          ...filtersData,
-          sort: isSpecialOffersOrder
-            ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-            : (sortOrder as SortObject[]),
+          filters: filtersData,
+          sortOrder: sortOrder as SortObject[],
           fuelTypes:
             filtersData?.fuelTypes?.length > 0
               ? filtersData?.fuelTypes
               : getPartnerProperties()?.fuelTypes,
-        },
-      });
+        }),
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

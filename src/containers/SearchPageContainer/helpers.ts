@@ -12,12 +12,17 @@ import { IFilters } from '../FiltersContainer/interfaces';
 import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 import {
+  LeaseTypeEnum,
   SortDirection,
   SortField,
   SortObject,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { GET_ALL_MANUFACTURERS_PAGE } from './gql';
-import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import {
+  vehicleList_vehicleList,
+  vehicleList_vehicleList_edges as IVehicles,
+} from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arraysAreEqual } from '../../utils/helpers';
 
@@ -26,6 +31,23 @@ export const RESULTS_PER_REQUEST = 12;
 interface ISSRRequest {
   req: { url: string; resolvedUrl?: string };
   query: { [x: string]: string | string[] };
+}
+
+interface IVehiclesVariables {
+  isCarSearch: boolean;
+  isPersonal: boolean;
+  isSpecialOffersOrder?: boolean;
+  isManualBodyStyle?: boolean;
+  isTransmissionPage?: boolean;
+  onOffer?: boolean;
+  filters?: IFilters;
+  query?: ParsedUrlQuery;
+  sortOrder?: SortObject[];
+  manualBodyStyle?: string[];
+  fuelTypes?: string[];
+  after?: string;
+  first?: number | null;
+  sort?: SortObject[] | null;
 }
 
 export const buildRewriteRoute = ({
@@ -522,3 +544,131 @@ export const scrollIntoPreviousView = (
 
 export const countOfUniqueQueries = (queries: ParsedUrlQuery) =>
   [...new Set(Object.values(queries))].length;
+
+export const getNumberOfVehiclesFromSessionStorage = () =>
+  getNumberOfVehicles(
+    getObjectFromSessionStorage('searchPageScrollData').offerPosition + 1,
+  );
+
+export const createInitialFiltersState = (fuelTypes?: string[]) => ({
+  fuelTypes: fuelTypes || [],
+  bodyStyles: [],
+  transmissions: [],
+  manufacturer: [],
+  model: [],
+  from: [],
+  to: [],
+});
+
+export const createProductCacheVariables = (
+  capIds: string[],
+  isCarSearch: boolean,
+) => ({
+  variables: {
+    capIds,
+    vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+  },
+});
+
+export const createProductCardVariables = (
+  edges: vehicleList_vehicleList['edges'],
+  isCarSearch: boolean,
+) => createProductCacheVariables(getCapsIds(edges || []), isCarSearch);
+
+export const createRangesVariables = (
+  filters: IFilters,
+  isCarSearch: boolean,
+  isPersonal: boolean,
+) => ({
+  variables: {
+    vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    leaseType: isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    ...filters,
+  },
+});
+
+export const createManufacturerListVariables = (
+  isCarSearch: boolean,
+  isPersonal: boolean,
+  filters: IFilters,
+) => ({
+  variables: {
+    vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    leaseType: isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    rate: filters.rate,
+    bodyStyles: filters.bodyStyles,
+    transmissions: filters.transmissions,
+    fuelTypes: filters.fuelTypes,
+  },
+});
+
+export const createVehiclesVariables = ({
+  isCarSearch,
+  isPersonal,
+  isSpecialOffersOrder,
+  isManualBodyStyle = false,
+  isTransmissionPage = false,
+  onOffer = false,
+  filters,
+  query,
+  sortOrder,
+  manualBodyStyle,
+  fuelTypes,
+}: IVehiclesVariables) => ({
+  variables: {
+    vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    leaseType: isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    onOffer,
+    ...filters,
+    first: isPreviousPage(query!)
+      ? getNumberOfVehiclesFromSessionStorage()
+      : RESULTS_PER_REQUEST,
+    sort: isSpecialOffersOrder
+      ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+      : sortOrder,
+    bodyStyles: isManualBodyStyle
+      ? (filters?.bodyStyles?.[0] && filters?.bodyStyles) || manualBodyStyle
+      : filters?.bodyStyles,
+    transmissions: isTransmissionPage
+      ? [(query?.dynamicParam as string).replace('-', ' ')]
+      : filters?.transmissions,
+    fuelTypes,
+  },
+});
+
+export const createInitialVehiclesVariables = ({
+  isCarSearch,
+  isPersonal,
+  isSpecialOffersOrder,
+  onOffer,
+  filters,
+  sortOrder,
+  first,
+  after,
+  fuelTypes,
+}: IVehiclesVariables) => ({
+  variables: {
+    vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    leaseType: isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    onOffer,
+    first,
+    ...filters,
+    sort: isSpecialOffersOrder
+      ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+      : sortOrder,
+    after,
+    fuelTypes,
+  },
+});
+
+/** we storing the last value of special offers checkbox in Session storage */
+export const getValueFromStorage = (
+  isServerCheck = false,
+  isCarSearch: boolean,
+): boolean | undefined => {
+  // should check for server rendering, because it haven't Session storage
+  const value = isServerCheck
+    ? undefined
+    : sessionStorage?.getItem(isCarSearch ? 'Car' : 'Vans');
+  return value ? JSON.parse(value) : undefined;
+};
