@@ -14,10 +14,13 @@ function HeaderWishlistLink() {
     <RouterLink
       className="header-wishlist"
       link={{ href: '/wishlist', label: '' }}
+      dataUiTestId="header-wishlist_link"
     >
       <Icon icon={<Heart />} size="large" />
       {wishlistVehicleIds.length > 0 && (
-        <span className="badge">{wishlistVehicleIds.length}</span>
+        <span className="badge" data-uitestid="header-wishlist_icon">
+          {wishlistVehicleIds.length}
+        </span>
       )}
     </RouterLink>
   );

@@ -47,6 +47,7 @@ const FiltersContainer = ({
   tagArrayBuilderHelper,
   renderFilters,
   initialState,
+  dataUiTestId,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState(
     preLoadFilters || ({} as IFilterList),
@@ -324,10 +325,16 @@ const FiltersContainer = ({
   };
 
   return (
-    <SearchFilters isOpen={isOpenFilter}>
+    <SearchFilters isOpen={isOpenFilter} dataUiTestId={dataUiTestId}>
       <SearchFiltersHead onClick={handleFilterExpand}>
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
-        <span>Filters</span>
+        <span
+          data-uitestid={
+            dataUiTestId ? `${dataUiTestId}_span_filters` : undefined
+          }
+        >
+          Filters
+        </span>
         <Icon
           icon={isOpenFilter ? <ChevronUp /> : <ChevronDown />}
           className="search-filters--title-icon"
@@ -342,6 +349,7 @@ const FiltersContainer = ({
         checked={isPersonal}
         className="search-filters--toggle"
         customCTAColor={customCTAColor}
+        dataUiTestId={dataUiTestId}
       />
       {renderFilters({
         setSelectedFiltersState,
@@ -362,6 +370,7 @@ const FiltersContainer = ({
         selectedFilters={selectedFilterTags}
         onClearAll={handleClearAll}
         onRemove={e => handleRemoveTag(e.currentTarget.id)}
+        dataUiTestId={dataUiTestId}
       />
     </SearchFilters>
   );

@@ -330,10 +330,13 @@ pipeline {
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-                    sh """
-                      docker tag $dockerRepoName:${getDockerTagName()} $dockerRepoName:${getDockerTagName()}
+                    sh """                      
                       docker push $dockerRepoName:${getDockerTagName()}
+                      docker tag $dockerRepoName:${getDockerTagName()} $dockerRepoName:latest
+                      docker push $dockerRepoName:latest
+
                       docker rmi $dockerRepoName:${getDockerTagName()}
+                      docker rmi $dockerRepoName:latest
                     """
                   }
                 }

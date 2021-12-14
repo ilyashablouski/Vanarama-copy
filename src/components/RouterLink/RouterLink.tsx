@@ -27,6 +27,7 @@ interface IAppLinkProps extends IBaseProps {
   onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
   customBackground?: string;
   withoutSilentReplacements?: boolean;
+  style?: React.CSSProperties;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -47,6 +48,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     onMouseOver,
     onFocus,
     withoutSilentReplacements,
+    style,
   } = props;
   const router = useRouter();
   const linkClassName = cx(className, {
@@ -64,6 +66,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   if (withoutLink || link.href === '') {
     return (
       <span
+        style={style}
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'withoutLink'}
@@ -95,8 +98,9 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
 
     return (
       <a
-        href={link.href}
+        style={style}
         className={linkClassName}
+        href={link.href}
         target={link.target}
         rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
@@ -133,6 +137,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       shallow={!!as}
     >
       <a
+        style={style}
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'router-link'}

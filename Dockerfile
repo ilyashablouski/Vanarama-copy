@@ -1,4 +1,4 @@
-FROM node:12.13.0
+FROM node:12.22.7-alpine
 
 ARG API_KEY
 ARG API_URL
@@ -18,12 +18,13 @@ ARG HEAP_ID
 WORKDIR /usr/src/app
 
 # Installing dependencies
-
-RUN npm install pm2 -g
+RUN yarn set version berry
 
 COPY yarn.lock .
 COPY package.json .
-RUN yarn install --force
+COPY .yarnrc.yml .
+## --frozen-lockfile has been deprecated for --immutable in yarn2+
+RUN yarn install --immutable
 
 # Copying source files
 COPY . .
@@ -31,7 +32,9 @@ COPY . .
 RUN npm rebuild node-sass
 
 RUN yarn build
-
+RUN apk add --no-cache bash
+#for running GO binary on alpine image
+RUN apk add --no-cache libc6-compat 
 EXPOSE 8080
 
 # Running the app

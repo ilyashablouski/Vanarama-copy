@@ -21,6 +21,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
     onFocus,
     onLabel,
     customCTAColor,
+    dataUiTestId,
   } = props;
 
   const customStyles = {
@@ -44,6 +45,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
         autoComplete="off"
         ref={ref}
         type="checkbox"
+        data-uitestid={dataUiTestId ? `${dataUiTestId}_input_${id}` : undefined}
       />
       <label
         htmlFor={id}
@@ -55,12 +57,18 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
           <span
             className="toggle--on"
             style={checked ? customStyles : undefined}
+            data-uitestid={
+              dataUiTestId ? `${dataUiTestId}_toggle-on` : undefined
+            }
           >
             {onLabel}
           </span>
           <span
             className="toggle--off"
             style={!checked ? customStyles : undefined}
+            data-uitestid={
+              dataUiTestId ? `${dataUiTestId}_toggle-off` : undefined
+            }
           >
             {offLabel}
           </span>

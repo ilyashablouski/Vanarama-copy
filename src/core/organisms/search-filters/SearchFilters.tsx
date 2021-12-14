@@ -3,9 +3,14 @@ import cx from 'classnames';
 import { ISearchFiltersProps } from './interface';
 
 const SearchFilters: FC<ISearchFiltersProps> = React.memo(
-  ({ children, className, isOpen = true }) => {
+  ({ children, className, isOpen = true, dataUiTestId }) => {
     return (
-      <div className={cx('search-filters', { '-open': isOpen }, className)}>
+      <div
+        className={cx('search-filters', { '-open': isOpen }, className)}
+        data-uitestid={
+          dataUiTestId ? `${dataUiTestId}_div_search-filters` : undefined
+        }
+      >
         {children}
       </div>
     );

@@ -10,6 +10,7 @@ describe('<SearchFilterTags />', () => {
           { order: 1, value: 'Audi' },
           { order: 5, value: 'Coupe' },
         ]}
+        dataUiTestId="cars-search-page"
       >
         <div>
           <span>child element</span>
@@ -29,6 +30,7 @@ describe('<SearchFilterTags />', () => {
           { order: 5, value: 'Coupe' },
         ]}
         className="some-custom-class-name"
+        dataUiTestId="cars-search-page"
       >
         <p>child element</p>
       </SearchFilterTags>,
