@@ -426,7 +426,6 @@ export function moveFactoryOrderToEnd(
 }
 
 export enum FeatureFlags {
-  DERANGED = 'DIG-7592',
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
@@ -465,12 +464,6 @@ export function isEVCarHubCarouselFeatureFlagEnabled(
   return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
 }
 
-export function isDerangedFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.DERANGED);
-}
-
 export function isUpdatedServicePlanFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
@@ -485,35 +478,4 @@ export function isBlogCarPagesCarouselFeatureFlagEnabled(
 
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
-};
-
-// Integer value representing the month, beginning with 0 for January to 11 for December
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
-const blackFridayTime = Number(new Date(2021, 9, 31, 23, 59, 59));
-const startExtensionBlackFridayTime = Number(new Date(2021, 10, 26, 20, 0, 0));
-const endExtensionBlackFridayTime = Number(new Date(2021, 10, 29, 23, 59, 59));
-export const isBlackFridayCampaignEnabled = () => {
-  const currentTime = Date.now();
-
-  if (
-    currentTime >= blackFridayTime &&
-    currentTime <= endExtensionBlackFridayTime
-  ) {
-    return true;
-  }
-
-  return Cookies.get(FeatureFlags.BLACK_FRIDAY) === '1';
-};
-
-export const isExtensionBlackFridayCampaignEnabled = () => {
-  const currentTime = Date.now();
-
-  if (
-    currentTime >= startExtensionBlackFridayTime &&
-    currentTime <= endExtensionBlackFridayTime
-  ) {
-    return true;
-  }
-
-  return Cookies.get(FeatureFlags.EXTENSION_BLACK_FRIDAY) === '1';
 };

@@ -9,7 +9,9 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   <div
     className="card-header"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_availability"
+    >
       Factory Order
     </div>
     
@@ -114,6 +116,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     >
       <span
         className="heading -pb-100 -primary -large"
+        data-uitestid="vehicle-card_span_heading"
       >
         
       </span>
@@ -215,11 +218,13 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
         </span>
         <span
           className="price--pounds"
+          data-uitestid="vehicle-card_span_pounds"
         >
           138
         </span>
         <span
           className="price--sub"
+          data-uitestid="vehicle-card_span_sub"
         >
           .
           91
@@ -241,15 +246,16 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
@@ -310,7 +316,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
-      data-uitestid="vehicle-card_wishlist-button"
+      data-uitestid="vehicle-card-wishlist-button"
       onClick={[Function]}
     >
       <div
@@ -346,7 +352,9 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   <div
     className="card-header"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_availability"
+    >
       Factory Order
     </div>
     
@@ -451,6 +459,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     >
       <span
         className="heading -pb-100 -primary -large"
+        data-uitestid="vehicle-card_span_heading"
       >
         
       </span>
@@ -552,11 +561,13 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         </span>
         <span
           className="price--pounds"
+          data-uitestid="vehicle-card_span_pounds"
         >
           189
         </span>
         <span
           className="price--sub"
+          data-uitestid="vehicle-card_span_sub"
         >
           .
           97
@@ -578,15 +589,16 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
@@ -647,7 +659,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
-      data-uitestid="vehicle-card_wishlist-button"
+      data-uitestid="vehicle-card-wishlist-button"
       onClick={[Function]}
     >
       <div
@@ -683,7 +695,9 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   <div
     className="card-header"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_availability"
+    >
       Factory Order
     </div>
     
@@ -788,6 +802,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     >
       <span
         className="heading -pb-100 -primary -large"
+        data-uitestid="vehicle-card_span_heading"
       >
         
       </span>
@@ -889,11 +904,13 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         </span>
         <span
           className="price--pounds"
+          data-uitestid="vehicle-card_span_pounds"
         >
           189
         </span>
         <span
           className="price--sub"
+          data-uitestid="vehicle-card_span_sub"
         >
           .
           97
@@ -915,15 +932,16 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseOver={[Function]}
+      style={
+        Object {
+          "background": undefined,
+          "borderColor": undefined,
+          "color": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
-        style={
-          Object {
-            "background": undefined,
-            "borderColor": undefined,
-          }
-        }
       >
         View Offer
       </div>
@@ -984,7 +1002,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     </button>
     <button
       className="-dark -xsmall -clear"
-      data-uitestid="vehicle-card_wishlist-button"
+      data-uitestid="vehicle-card-wishlist-button"
       onClick={[Function]}
     >
       <div

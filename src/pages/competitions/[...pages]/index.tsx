@@ -23,21 +23,19 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
+import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 
 const CompetitionPage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
-  const breadcrumbsItems = getSectionsData(
-    ['metaData', 'breadcrumbs'],
-    data?.genericPage,
-  );
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>
       <CompetitionPageContainer
         sections={sections}
-        breadcrumbsData={breadcrumbsItems}
+        breadcrumbsItems={breadcrumbsItems}
       />
       {metaData && (
         <>

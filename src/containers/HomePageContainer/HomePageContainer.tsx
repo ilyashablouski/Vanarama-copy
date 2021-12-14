@@ -22,7 +22,6 @@ import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -63,9 +62,6 @@ const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 const HomePageHero = dynamic(() => import('./HomePageHero'));
-const HeroBlackFriday = dynamic(() =>
-  import('../../components/Hero/HeroBlackFriday'),
-);
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -118,20 +114,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      {isBlackFridayCampaignEnabled() ? (
-        <HeroBlackFriday
-          searchPodCarsData={searchPodCarsData}
-          searchPodVansData={searchPodVansData}
-          activeSearchIndex={2}
-          variant="cars"
-        />
-      ) : (
-        <HomePageHero
-          searchPodCarsData={searchPodCarsData}
-          searchPodVansData={searchPodVansData}
-          data={data}
-        />
-      )}
+      <HomePageHero
+        searchPodCarsData={searchPodCarsData}
+        searchPodVansData={searchPodVansData}
+        data={data}
+      />
       {data?.homePage && (
         <section className="row:lead-text">
           <Heading

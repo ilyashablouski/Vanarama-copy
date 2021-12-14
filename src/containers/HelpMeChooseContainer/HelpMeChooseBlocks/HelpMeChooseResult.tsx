@@ -206,9 +206,8 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const loadMoreResults = () => {
     setCounterState(counterState + 1);
-    const searchParams = new URLSearchParams();
     getProducts({
-      ...buildAnObjectFromAQuery(searchParams, steps, undefined, {
+      ...buildAnObjectFromAQuery(steps, {
         size: 12 * counterState,
       }),
     }).then(result =>
@@ -299,7 +298,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     }
                     className="-compact"
                     inline
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     imageSrc={mainImageUrl}
                     wished={isWished(
                       wishlistVehicleIds,

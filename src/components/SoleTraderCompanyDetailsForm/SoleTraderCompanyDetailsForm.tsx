@@ -269,7 +269,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           name="existingVehicle"
           label="Will this replace vehicle finance you have currently?"
           ref={register}
-          defaultChecked={defaultValues?.monthlyAmountBeingReplaced}
+          defaultChecked={!!defaultValues?.monthlyAmountBeingReplaced}
         />
       </Formgroup>
 

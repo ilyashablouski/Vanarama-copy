@@ -489,3 +489,44 @@
   left: 0;
   right: 0;
 }
+
+.electric-benefits {
+  border: 2px solid #EC6407;
+  border-radius: 4px;
+  opacity: 1;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  min-height: 190px;
+  padding: 15px 40px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  .benefit-wrapper:first-of-type {
+    @include mobile {
+     padding-bottom: 30px;
+    }
+  }
+  .benefit-wrapper {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    @include mobile {
+      width: 100%;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    .text {
+      font-weight: bold;
+    }
+    .icon {
+      height: 60px;
+      max-width: 50px;
+      width: 100%;
+      margin-right: 30px;
+      @include mobile {
+        margin-right: 0;
+      }
+    }
+  }
+}

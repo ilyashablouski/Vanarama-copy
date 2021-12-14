@@ -4,6 +4,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import CompetitionPageContainer from '../CompetitionPageContainer';
+import { IBreadcrumbLink } from '../../../types/breadcrumbs';
 
 jest.mock('../../../hooks/useMediaQuery');
 
@@ -63,10 +64,10 @@ const SECTIONS = {
   cards: null,
 } as any;
 
-const BREADCRUMBS = [
-  { href: '/', label: 'Home' },
-  { href: '/van-insurance.html', label: 'Van Insurance' },
-  { label: 'Multi-Year Van Insurance' },
+const BREADCRUMBS: IBreadcrumbLink[] = [
+  { link: { href: '/', label: 'Home' } },
+  { link: { href: '/van-insurance.html', label: 'Van Insurance' } },
+  { link: { href: '', label: 'Multi-Year Van Insurance' } },
 ];
 
 describe('<CompetitionPageContainer />', () => {
@@ -79,7 +80,7 @@ describe('<CompetitionPageContainer />', () => {
       <MockedProvider addTypename={false}>
         <CompetitionPageContainer
           sections={SECTIONS}
-          breadcrumbsData={BREADCRUMBS}
+          breadcrumbsItems={BREADCRUMBS}
         />
       </MockedProvider>,
     );
@@ -99,7 +100,7 @@ describe('<CompetitionPageContainer />', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(BREADCRUMBS[2].label)).toBeInTheDocument();
+      expect(screen.getByText(BREADCRUMBS[2].link.label)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

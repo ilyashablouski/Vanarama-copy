@@ -1,12 +1,10 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-import BlackFridayCardLabel from 'core/molecules/cards/BlackFridayCardLabel';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
 import { features } from '../ProductCarousel/helpers';
-import { isBlackFridayCampaignEnabled } from '../../utils/helpers';
 
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
@@ -97,11 +95,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         accentText: 'Hot Offer',
         text: flagText,
       }}
-    >
-      {isBlackFridayCampaignEnabled() && (
-        <BlackFridayCardLabel className="bf-card-label--deal" />
-      )}
-    </Card>
+    />
     <article className="-col">
       <div>
         <Heading size="xlarge" color="black">

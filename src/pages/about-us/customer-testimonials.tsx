@@ -25,6 +25,7 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 
 type IProps = IPageWithData<{
   data: GenericPageTestimonialsQuery;
@@ -40,9 +41,7 @@ const CustomerTestimonialPage: NextPage<IProps> = ({
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <>

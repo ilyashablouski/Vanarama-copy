@@ -188,6 +188,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       window?.addEventListener('scroll', scrollChange);
     }
     return () => window?.removeEventListener('scroll', scrollChange);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;

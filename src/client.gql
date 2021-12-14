@@ -61,7 +61,6 @@ extend type Query {
   storedQuote: Quote
   storedWishlistVehicleIds: [String]
   storedItemsToCompare: [ItemToCompare]
-  isSSRAuthError: Boolean
 }
 
 extend type Mutation {

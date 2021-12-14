@@ -2,7 +2,7 @@ import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import ProductCard from 'core/molecules/cards/ProductCard';
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, memo } from 'react';
 import dynamic from 'next/dynamic';
 import { features } from './helpers';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
@@ -59,14 +59,12 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
   return (
     <ProductCard
       // loadImage
-      isBlackFridayLabel
       dataUiTestId={
         dataUiTestIdMask ? `${dataUiTestIdMask}-card_${cardIndex}` : undefined
       }
       style={{ maxHeight: 600 }}
       alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
       lazyLoad={cardIndex !== 0}
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       header={
         product.leadTime || product.isOnOffer
           ? {
@@ -199,4 +197,4 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
   );
 };
 
-export default ProductCarouselCard;
+export default memo(ProductCarouselCard);

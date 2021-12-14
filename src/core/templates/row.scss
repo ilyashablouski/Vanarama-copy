@@ -684,6 +684,56 @@
         }
       }
 
+      &.-levc-hero {
+        background: url("/Assets/images/levc/levc-desktop.png") no-repeat center center;
+        background-size: cover;
+        padding-top: 30%;
+        position: relative;
+        bottom: 110px;
+        margin-bottom: -110px;
+
+        @media (max-width: 1216px) {
+          bottom: 50px;
+          margin-bottom: -50px;
+        }
+
+        @include mobile {
+          background: url("/Assets/images/levc/levc-mobile.png") no-repeat center center;
+          background-size: cover;
+          min-height: unset !important;
+          bottom: 0;
+          margin-bottom: 0;
+          padding-top: 112%;
+        }
+      }
+
+      &.colored-section {
+        place-content: center;
+        height: 100px;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-image: none;
+
+        @include mobile {
+          height: 70px;
+        }
+
+        .icon {
+          display: inline-flex;
+          height: auto;
+        }
+
+        .levc-logo svg {
+          width: 312px;
+          height: 51px;
+
+          @include mobile {
+            width: 160px;
+            height: 70px;
+          }
+        }
+      }
+
       // Fix layout shift.
       min-height: 778px;
       @media (min-width: 768px) {

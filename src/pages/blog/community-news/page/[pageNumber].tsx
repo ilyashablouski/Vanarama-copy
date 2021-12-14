@@ -11,7 +11,7 @@ import { getMetadataForPagination } from '../../../../utils/url';
 import { decodeData } from '../../../../utils/data';
 import {
   convertSlugToBreadcrumbsSchema,
-  getBreadCrumbsItems,
+  getBlogBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
 import {
   BlogPosts,
@@ -29,7 +29,7 @@ const CategoryPage: NextPage<IProps> = ({ data: encodedData, pageNumber }) => {
     getSectionsData(['metaData'], data?.blogPosts),
     pageNumber ?? 1,
   );
-  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsItems = getBlogBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (

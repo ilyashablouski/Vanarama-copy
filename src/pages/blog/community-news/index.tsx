@@ -14,7 +14,7 @@ import {
 } from '../../../utils/env';
 import {
   convertSlugToBreadcrumbsSchema,
-  getBreadCrumbsItems,
+  getBlogBreadCrumbsItems,
 } from '../../../utils/breadcrumbs';
 import { BlogPosts, BlogPostsVariables } from '../../../../generated/BlogPosts';
 import { convertErrorToProps } from '../../../utils/helpers';
@@ -32,7 +32,7 @@ const CategoryPage: NextPage<IProps> = ({ data: encodedData }) => {
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getSectionsData(['metaData'], data?.blogPosts);
-  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsItems = getBlogBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (

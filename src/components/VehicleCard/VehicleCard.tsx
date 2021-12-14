@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
+import { ICardHeaderProps } from 'core/molecules/cards/CardHeader';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -45,6 +46,9 @@ interface IVehicleCardProps {
   derivativeId?: string | null;
   index?: number;
   customCTAColor?: string;
+  customCTATextColor?: string;
+  customHeaderProps?: Partial<ICardHeaderProps>;
+  isStyledHeader?: boolean;
   dataUiTestId?: string;
 }
 
@@ -60,6 +64,9 @@ const VehicleCard = React.memo(
     bodyStyle,
     isModelPage,
     customCTAColor,
+    customCTATextColor,
+    customHeaderProps,
+    isStyledHeader,
     index,
     dataUiTestId,
   }: IVehicleCardProps) => {
@@ -93,6 +100,13 @@ const VehicleCard = React.memo(
       [data?.freeInsurance, data?.vehicleType],
     );
 
+    const headerProps = {
+      accentText: data?.isOnOffer ? 'Hot Offer' : '',
+      accentIcon: data?.isOnOffer ? (
+        <Icon icon={<Flame />} color="white" className="sm hydrated" />
+      ) : null,
+    };
+
     const imageProps = !isModelPage
       ? {
           imageSrc:
@@ -100,9 +114,11 @@ const VehicleCard = React.memo(
             `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : {};
+
     const extraStyles = {
       background: customCTAColor,
       borderColor: customCTAColor,
+      color: customCTATextColor,
     };
 
     const extendedProductData = {
@@ -114,18 +130,14 @@ const VehicleCard = React.memo(
     return (
       <ProductCard
         dataUiTestId={dataUiTestId}
-        isBlackFridayLabel
         loadImage={loadImage}
         className="product"
         lazyLoad={lazyLoad}
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
-          accentIcon: data?.isOnOffer ? (
-            <Icon icon={<Flame />} color="white" className="sm hydrated" />
-          ) : null,
-          accentText: data?.isOnOffer ? 'Hot Offer' : '',
-          text: data?.leadTime || '',
+          ...(customHeaderProps ?? headerProps),
+          accentStyles: isStyledHeader ? extraStyles : undefined,
+          text: data?.leadTime ?? '',
         }}
         wished={isWished(wishlistVehicleIds, data)}
         compared={isCompared(compareVehicles, data)}
@@ -151,7 +163,14 @@ const VehicleCard = React.memo(
               classNames={{ size: 'large', color: 'black' }}
               dataTestId="heading-link"
             >
-              <Heading tag="span" size="large" className="-pb-100">
+              <Heading
+                tag="span"
+                size="large"
+                className="-pb-100"
+                dataUiTestId={
+                  dataUiTestId ? `${dataUiTestId}_span_heading` : undefined
+                }
+              >
                 {title?.title || ''}
               </Heading>
               <Heading tag="span" size="small" color="dark">
@@ -187,6 +206,7 @@ const VehicleCard = React.memo(
             priceDescription={`Per Month ${
               isPersonalPrice ? 'Inc' : 'Exc'
             }.VAT`}
+            dataUitestId={dataUiTestId}
           />
           <RouterLink
             link={{
@@ -199,14 +219,13 @@ const VehicleCard = React.memo(
               }
               sessionStorage.setItem('capId', data.capId || '');
             }}
+            style={extraStyles}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
             dataTestId="view-offer"
             dataUiTestId={`${dataUiTestId}_view-offer-button`}
           >
-            <div className="button--inner" style={extraStyles}>
-              View Offer
-            </div>
+            <div className="button--inner">View Offer</div>
           </RouterLink>
         </div>
       </ProductCard>

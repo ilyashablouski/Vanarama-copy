@@ -16,12 +16,14 @@ import {
 } from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
 import ErrorMessages from '../../models/enum/ErrorMessages';
+import { IBreadcrumbLink } from '../../types/breadcrumbs';
+import { Nullish } from '../../types/common';
 
 const Modal = dynamic(() => import('core/molecules/modal'));
 
 interface IProps {
   sections: Section | null | undefined;
-  breadcrumbsData: any;
+  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
 }
 
 export const handleNetworkError = () =>
@@ -38,7 +40,7 @@ const toThankYouPage = () => {
 
 const FinanceGapInsurancePageContainer = ({
   sections,
-  breadcrumbsData,
+  breadcrumbsItems,
 }: IProps) => {
   const hero = sections?.hero;
   const leadText = sections?.leadText;
@@ -56,10 +58,6 @@ const FinanceGapInsurancePageContainer = ({
       }
     },
   );
-
-  const breadcrumbsItems = breadcrumbsData?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
 
   const getOpportunitySubtype = () => {
     switch (Router.asPath) {

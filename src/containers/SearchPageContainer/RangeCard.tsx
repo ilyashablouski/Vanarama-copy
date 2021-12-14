@@ -112,9 +112,11 @@ const RangeCard = memo(
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
+              dataUiTestId={dataUiTestId}
             />
           ),
         }}
+        dataUiTestId={dataUiTestId}
       >
         <div className="-flex-h">
           <Price

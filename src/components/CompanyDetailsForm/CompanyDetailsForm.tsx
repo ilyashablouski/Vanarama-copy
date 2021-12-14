@@ -127,7 +127,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     methods.reset({
       companySearchResult: selectedCompanyData,
       registeredAddress: {
-        id: companySearchResult?.companyNumber || '',
+        id: '',
         label: companySearchResult?.addressSnippet || '',
       },
     });

@@ -8,8 +8,9 @@ import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
-import BlackFridayBanner from 'core/atoms/black-friday-banner/BlackFridayBanner';
 import MediaGallery from 'core/organisms/media-gallery';
+import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
 // @ts-ignore
 import decode from 'decode-html';
 
@@ -28,12 +29,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import {
-  isBlackFridayCampaignEnabled,
-  isExtensionBlackFridayCampaignEnabled,
-  toPriceFormat,
-  getOptionFromList,
-} from '../../utils/helpers';
+import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -236,6 +232,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       clearTimeout(timerId);
       window.removeEventListener('scroll', scrollChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   const accordionQAData = useMemo(
@@ -608,22 +605,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </NextHead>
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isBlackFridayCampaignEnabled() ? (
-          <BlackFridayBanner
-            className="bf-banner--pdp"
-            rightText={
-              isExtensionBlackFridayCampaignEnabled() ? (
-                <span className="-extensionBlackFriday">
-                  Extended To 29th Nov
-                </span>
-              ) : (
-                'Ends 26th November'
-              )
-            }
-          />
-        ) : (
-          isFreeInsurance && <FreeInsuranceBanner />
-        )}
+        {isFreeInsurance && <FreeInsuranceBanner />}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
@@ -632,17 +614,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           </div>
         )}
         <h1
-          className="heading -pt-100 -black -xlarge"
+          className="pdp--content__heading -mt-200"
           data-uitestid={
             dataUiTestId ? `${dataUiTestId}_page-title` : undefined
           }
         >
-          {pageTitle}
+          <Heading tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
+          <Text size="lead" className="-regular">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </h1>
-        <span className="text -lead -darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </span>
-        <div className="pdp--content-details">
+        <div className="pdp--content-details -mt-300">
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
           </div>

@@ -35,6 +35,7 @@ const ErrorPage = ({
   errorData,
 }: IErrorPageProps) => {
   if (errorData) {
+    // eslint-disable-next-line no-console
     console.error('An error occurred:\n', errorData);
   }
 

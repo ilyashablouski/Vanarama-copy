@@ -30,7 +30,10 @@ import {
   IChoiceBoxesData,
   ISelectedFiltersState,
 } from '../../containers/FiltersContainer/interfaces';
-import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
+import {
+  bodyUrlsSlugMapper,
+  dynamicQueryTypeCheck,
+} from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { ISearchPageFiltersProps } from './interfaces';
@@ -83,6 +86,7 @@ const SearchPageFilters = ({
   clearFilter,
   isInvalidBudget,
   selectedFilterTags,
+  dataUiTestId,
 }: ISearchPageFiltersProps) => {
   const router = useRouter();
 
@@ -216,10 +220,17 @@ const SearchPageFilters = ({
         );
       } else {
         routerQuery.forEach(([queryKey, queryValues]) => {
-          const [key, values] = [
+          // eslint-disable-next-line prefer-const
+          let [key, values] = [
             queryParameterKeyMapper[queryKey] ?? queryKey,
             queryValues,
           ];
+
+          if (key === 'bodyStyles') {
+            values =
+              bodyUrlsSlugMapper[values as keyof typeof bodyUrlsSlugMapper] ??
+              values;
+          }
 
           if (key === 'rangeName') {
             const isExist = filtersData?.groupedRangesWithSlug?.some(
@@ -424,6 +435,7 @@ const SearchPageFilters = ({
           className="search-filters--dropdown"
           key={filter.label}
           renderProps
+          dataUiTestId={dataUiTestId}
         >
           {toggle => (
             <>
@@ -431,6 +443,7 @@ const SearchPageFilters = ({
                 filter.dropdowns?.map(dropdown => (
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
+                      dataUiTestId={dataUiTestId}
                       disabled={
                         (isManufacturerPage &&
                           dropdown.accessor === FilterFields.manufacturer) ||
@@ -494,7 +507,10 @@ const SearchPageFilters = ({
                     ) && (
                       <div className="dropdown--header">
                         <div className="dropdown--header-text">
-                          <span className="dropdown--header-count">{`${
+                          <span
+                            className="dropdown--header-count"
+                            data-uitestid={`${dataUiTestId}_dropdown_span_selected-count`}
+                          >{`${
                             selectedFiltersState?.[
                               filter.accessor as keyof typeof filtersMapper
                             ]?.length
@@ -515,6 +531,7 @@ const SearchPageFilters = ({
                           onClick={() =>
                             clearFilter?.(filter.accessor as FilterFields)
                           }
+                          dataUiTestId={`${dataUiTestId}_dropdown_button_clear`}
                         />
                       </div>
                     )}
@@ -522,6 +539,7 @@ const SearchPageFilters = ({
                   <FormGroup label={filter.label} dataTestId={filter.label}>
                     {choiceBoxesData?.[filter.accessor]?.length > 0 && (
                       <Choiceboxes
+                        dataUiTestId={dataUiTestId}
                         onSubmit={value =>
                           handleChecked?.(value, filter.accessor as any)
                         }
@@ -575,6 +593,7 @@ const SearchPageFilters = ({
                 className="-fullwidth"
                 label={`View ${preSearchVehicleCount} Results`}
                 dataTestId={`${filter.label}btn`}
+                dataUiTestId={`${dataUiTestId}_button_${filter.label}`}
                 onClick={toggle}
               />
             </>

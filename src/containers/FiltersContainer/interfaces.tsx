@@ -51,6 +51,7 @@ export interface IFilterContainerProps {
   ) => ISelectedWithOrder | ISelectedWithOrder[];
   renderFilters: FiltersRenderCallback;
   initialState: ISelectedFiltersState;
+  dataUiTestId?: string;
 }
 
 export interface IFilters {
