@@ -18,8 +18,6 @@ export interface IImageProps extends IBaseProps {
   height?: string | number;
   lazyLoad?: boolean;
   dataTestId?: string;
-  objectFit?: ImageProps['objectFit'];
-  objectPosition?: ImageProps['objectPosition'];
 }
 
 export interface IImageV2Props extends IBaseProps {
