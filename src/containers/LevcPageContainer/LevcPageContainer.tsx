@@ -11,7 +11,10 @@ import {
   GetProductCard as IProductCardList,
   GetProductCard_productCard as IProductCard,
 } from '../../../generated/GetProductCard';
-import { GenericPageQuery_genericPage as IGenericPage } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage as IGenericPage,
+  GenericPageQuery_genericPage_sectionsAsArray_featured as IFeatured,
+} from '../../../generated/GenericPageQuery';
 import { Nullable } from '../../types/common';
 
 import Head from '../../components/Head';
@@ -50,13 +53,12 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   productCardsData,
 }) => {
   const { metaData } = genericPage;
-  const { tiles, carousel, featured: featuredSectionList } =
+  const { tiles, carousel, featured: featuredSections } =
     genericPage.sectionsAsArray ?? {};
 
   const tilesSection = tiles?.[0];
   const carouselSection = carousel?.[0];
-
-  const featuredSection0 = featuredSectionList?.[0];
+  const aboutSection = featuredSections?.[0];
 
   const vehicleList = useMemo(
     () =>
@@ -70,11 +72,17 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
       (productCardsData.productCard.filter(Boolean) as IProductCard[]),
     [productCardsData],
   );
+  const featuredSectionList = useMemo(
+    () =>
+      featuredSections &&
+      (featuredSections.slice(1).filter(Boolean) as IFeatured[]),
+    [featuredSections],
+  );
 
   return (
     <>
       <LevcHeroBanner />
-      {featuredSection0 && <FeaturedSection featured={featuredSection0} />}
+      {aboutSection && <FeaturedSection featured={aboutSection} />}
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
@@ -83,6 +91,11 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           vehicleList={vehicleList}
         />
       ) : null}
+      {featuredSectionList?.map((featuredSection, index) => (
+        <React.Fragment key={featuredSection.targetId ?? index}>
+          <FeaturedSection featured={featuredSection} />
+        </React.Fragment>
+      ))}
       {tilesSection?.tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tilesSection.tilesTitle}
