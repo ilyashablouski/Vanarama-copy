@@ -71,12 +71,6 @@ function ImageCarousel({
                 src={imageUrl}
                 lazyLoad={index !== 0}
                 alt={imageAltText}
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                optimisationOptions={{
-                  width: 709,
-                  height: 399,
-                  fit: 'cover',
-                }}
               />
             </SwiperSlide>
           ))}
@@ -105,17 +99,7 @@ function ImageCarousel({
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
-                <ImageV2
-                  plain
-                  src={imageUrl}
-                  alt={imageAltText}
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  optimisationOptions={{
-                    width: 150,
-                    height: 80,
-                    fit: 'cover',
-                  }}
-                />
+                <ImageV2 plain src={imageUrl} alt={imageAltText} />
               </SwiperSlide>
             ))}
           </Swiper>

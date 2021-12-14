@@ -51,7 +51,6 @@ const WhyLeaseWithVanaramaTiles = ({
             <ImageV2
               width="100"
               height="100"
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               inline
               round
               size="large"

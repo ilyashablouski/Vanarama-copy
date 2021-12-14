@@ -23,8 +23,6 @@ export interface IImageProps extends IBaseProps {
 export interface IImageV2Props extends IBaseProps {
   width?: string | number;
   height?: string | number;
-  optimisedHost?: string;
-  optimisationOptions?: ICloudflareOptimisation;
   src: string;
   alt?: string;
   size?: TSize;

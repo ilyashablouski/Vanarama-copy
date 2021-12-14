@@ -35,7 +35,6 @@ const ReadMoreBlock = ({ featured }: IProps) => {
           <ImageV2
             width={featured.image?.file?.details.image.width}
             height={featured.image?.file?.details.image.height}
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={featured.image?.file?.url || ''}
             size="expand"
           />
