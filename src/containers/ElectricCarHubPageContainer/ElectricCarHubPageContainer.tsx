@@ -1,8 +1,11 @@
-import React, { useState, memo, FC } from 'react';
+import React, { useState, memo, FC, useMemo } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 
+import Heading from 'core/atoms/heading';
+import Accordion from 'core/molecules/accordion';
+import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
 import HeadingSection from '../../components/HeadingSection';
 import FeaturedSection from '../../components/FeaturedSection';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
@@ -14,6 +17,8 @@ import { IPageWithData } from '../../types/common';
 import { IEvOffersData } from '../../utils/offers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import HeroSection from './HeroSection';
+import { getSectionsData } from '../../utils/getSectionsData';
+import BenefitsComponent from './BenefitsComponent';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -38,6 +43,29 @@ const ECarsPage: FC<IProps> = ({
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
+  const accordionTitle = useMemo(
+    () =>
+      getSectionsData(
+        ['sectionsAsArray', 'accordion', '0', 'title'],
+        data.genericPage,
+      ),
+    [data.genericPage],
+  );
+
+  const accordionItems = useMemo(
+    () =>
+      getSectionsData(
+        ['sectionsAsArray', 'accordion', '0', 'accordionEntries'],
+        data.genericPage,
+      )?.map((item: any, index: number) => {
+        return {
+          id: index,
+          title: item.name,
+          children: item.entryBody,
+        } as IAccordionItem;
+      }) || [],
+    [data.genericPage],
+  );
 
   const [isPersonal, setIsPersonal] = useState<boolean>(true);
 
@@ -109,11 +137,23 @@ const ECarsPage: FC<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
+      <BenefitsComponent />
       {featuresArray.map(section => (
         <React.Fragment key={section?.targetId || section?.title}>
           <FeaturedSection featured={section} />
         </React.Fragment>
       ))}
+      {accordionItems?.length && (
+        <div className="row:bg-white">
+          <div className="tile--accordion">
+            <Heading size="large" color="black">
+              {accordionTitle}
+            </Heading>
+            <Accordion items={accordionItems} />
+          </div>
+        </div>
+      )}
+
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}
