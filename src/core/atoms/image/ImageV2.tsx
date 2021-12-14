@@ -2,11 +2,11 @@ import React, { FC, SyntheticEvent } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 
-import { IImagePropsV2 } from './interfaces';
+import { IImageV2Props } from './interfaces';
 
 const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
-const ImageV2: FC<IImagePropsV2> = props => {
+const ImageV2: FC<IImageV2Props> = props => {
   const {
     className,
     size = 'expand',

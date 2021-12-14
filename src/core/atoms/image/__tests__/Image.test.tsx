@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import ImageV2 from 'core/atoms/image/ImageV2';
 import Image from '..';
-import { IImageProps, IImagePropsV2 } from '../interfaces';
+import { IImageProps, IImageV2Props } from '../interfaces';
 
 const optionalProps = {
   id: 'component',
@@ -22,7 +22,7 @@ function getComponentImage(props?: Partial<IImageProps>) {
     .toJSON();
 }
 
-function getComponentImageV2(props?: Partial<IImagePropsV2>) {
+function getComponentImageV2(props?: Partial<IImageV2Props>) {
   return renderer
     .create(<ImageV2 src={mandatoryProps.src} {...props} />)
     .toJSON();

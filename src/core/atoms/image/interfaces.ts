@@ -22,7 +22,7 @@ export interface IImageProps extends IBaseProps {
   objectPosition?: ImageProps['objectPosition'];
 }
 
-export interface IImagePropsV2 extends IBaseProps {
+export interface IImageV2Props extends IBaseProps {
   width?: string | number;
   height?: string | number;
   optimisedHost?: string;
