@@ -140,7 +140,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
                 href: featured.link.url || '',
                 label: featured.link.text || '',
               }}
-              className="button -teal -regular -solid -mt-500"
+              className="button -teal -regular -outline -mt-500"
               withoutDefaultClassName
             >
               <div className="button--inner">{featured.link.text}</div>
