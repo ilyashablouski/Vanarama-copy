@@ -1,4 +1,4 @@
-FROM node:12.22.7
+FROM node:12.22.7-alpine
 
 ARG API_KEY
 ARG API_URL
@@ -20,8 +20,6 @@ WORKDIR /usr/src/app
 # Installing dependencies
 RUN yarn set version berry
 
-RUN npm install pm2 -g
-
 COPY yarn.lock .
 COPY package.json .
 COPY .yarnrc.yml .
@@ -34,7 +32,9 @@ COPY . .
 RUN npm rebuild node-sass
 
 RUN yarn build
-
+RUN apk add --no-cache bash
+#for running GO binary on alpine image
+RUN apk add --no-cache libc6-compat 
 EXPOSE 8080
 
 # Running the app
