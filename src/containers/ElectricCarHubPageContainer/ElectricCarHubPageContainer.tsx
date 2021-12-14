@@ -2,7 +2,8 @@ import React, { useState, memo, FC } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
-
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import CardLabel from 'core/molecules/cards/CardLabel';
 import HeadingSection from '../../components/HeadingSection';
 import FeaturedSection from '../../components/FeaturedSection';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
@@ -13,15 +14,23 @@ import CardsSection from './CardSection';
 import { IPageWithData } from '../../types/common';
 import { IEvOffersData } from '../../utils/offers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import HeroSection from './HeroSection';
+import Hero from '../../components/Hero';
+import { filterList as IFilterList } from '../../../generated/filterList';
+import Skeleton from '../../components/Skeleton';
+import { getLegacyUrl } from '../../utils/url';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={4} />,
+});
+const Price = dynamic(() => import('core/atoms/price'));
 
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -32,6 +41,7 @@ const ECarsPage: FC<IProps> = ({
   productsHybridOnlyCar,
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
+  searchPodCarsData,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
   const featuresArray = sectionsAsArray?.featured || [];
@@ -41,9 +51,59 @@ const ECarsPage: FC<IProps> = ({
 
   const [isPersonal, setIsPersonal] = useState<boolean>(true);
 
+  const heroBody = sectionsAsArray?.hero?.[0]?.body;
+  const heroBodyArr = heroBody?.split(' ');
+  const priceLabel = heroBody?.slice(0, heroBody.indexOf('£'));
+  const price = heroBodyArr?.find(phrase => phrase.includes('£'));
+  const priceDescription = heroBody?.replace(`${priceLabel}${price}`, '');
+
   return (
     <>
-      <HeroSection sectionsAsArray={sectionsAsArray} />
+      <Hero
+        searchPodCarsData={searchPodCarsData}
+        isCustomSearchButtonLabel
+        className="electric-hero"
+      >
+        <div className="electric-hero--card">
+          <h2 className="electric-hero--title">
+            {sectionsAsArray?.hero?.[0]?.title}
+          </h2>
+          <CardLabel
+            className="electric-hero--extras"
+            text="Free Home charger"
+            icon={<FreeHomeCharger />}
+          />
+          <Image
+            lazyLoad
+            className="electric-hero--image"
+            plain
+            size="expand"
+            src={
+              sectionsAsArray?.hero?.[0]?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+          <section className="electric-hero--description ">
+            <Price
+              price={Number(price?.slice(1))}
+              size="large"
+              separator="."
+              priceDescription={priceDescription}
+              priceLabel={priceLabel}
+            />
+            <RouterLink
+              link={{
+                href: getLegacyUrl(sectionsAsArray?.hero?.[0]?.heroLabel?.link),
+                label: 'View Deal',
+              }}
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              className="button"
+            >
+              <div className="button--inner">View Deal</div>
+            </RouterLink>
+          </section>
+        </div>
+      </Hero>
       <HeadingSection
         titleTag="h1"
         header={sectionsAsArray?.carousel?.[0]?.title}
