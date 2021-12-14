@@ -203,7 +203,9 @@ export async function getServerSideProps(
     >({
       query: GENERIC_PAGE,
       variables: {
-        slug: 'electric-leasing/cars',
+        slug: isEvCarCarouselFeatureFlag
+          ? 'electric-leasing/cars-temp'
+          : 'electric-leasing/cars',
         sectionsAsArray: true,
         isPreview: !!context?.preview,
       },

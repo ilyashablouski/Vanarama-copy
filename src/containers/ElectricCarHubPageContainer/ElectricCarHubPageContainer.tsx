@@ -19,6 +19,7 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import HeroSection from './HeroSection';
 import { getSectionsData } from '../../utils/getSectionsData';
 import BenefitsComponent from './BenefitsComponent';
+import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -39,10 +40,16 @@ const ECarsPage: FC<IProps> = ({
   vehicleListUrlData,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
-  const featuresArray = sectionsAsArray?.featured || [];
+  const featuresArrayWithLink = (sectionsAsArray?.featured || []).filter(
+    featured => featured?.link,
+  );
+  const featuresArrayWithoutLink = (sectionsAsArray?.featured || []).filter(
+    featured => !featured?.link,
+  );
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
+  const leadTexts = sectionsAsArray?.leadText || [];
   const accordionTitle = useMemo(
     () =>
       getSectionsData(
@@ -72,6 +79,11 @@ const ECarsPage: FC<IProps> = ({
   return (
     <>
       <HeroSection sectionsAsArray={sectionsAsArray} />
+      <LeadTextComponent
+        leadText={leadTexts[0]}
+        withSeparator={false}
+        className="-a-center"
+      />
       <HeadingSection
         titleTag="h1"
         header={sectionsAsArray?.carousel?.[0]?.title}
@@ -138,7 +150,22 @@ const ECarsPage: FC<IProps> = ({
         </div>
       </CardsSection>
       <BenefitsComponent />
-      {featuresArray.map(section => (
+      <LeadTextComponent
+        leadText={leadTexts[1]}
+        withSeparator={false}
+        className="-a-center"
+      />
+      {featuresArrayWithoutLink.map(section => (
+        <React.Fragment key={section?.targetId || section?.title}>
+          <FeaturedSection featured={section} />
+        </React.Fragment>
+      ))}
+      <LeadTextComponent
+        leadText={leadTexts[2]}
+        withSeparator={false}
+        className="-a-center"
+      />
+      {featuresArrayWithLink.map(section => (
         <React.Fragment key={section?.targetId || section?.title}>
           <FeaturedSection featured={section} />
         </React.Fragment>
