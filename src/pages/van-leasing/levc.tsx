@@ -6,6 +6,8 @@ import {
 } from 'next';
 import { ApolloError } from '@apollo/client';
 
+import SchemaJSON from 'core/atoms/schema-json';
+
 import {
   SortField,
   LeaseTypeEnum,
@@ -37,6 +39,7 @@ import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { decodeData, encodeData } from '../../utils/data';
 
+import Head from '../../components/Head/Head';
 import LevcPageContainer from '../../containers/LevcPageContainer';
 
 interface ILevcPage {
@@ -49,13 +52,25 @@ const LevcPage: NextPage<ILevcPage> = ({
   genericPage,
   vehiclesData,
   productCardsData,
-}) => (
-  <LevcPageContainer
-    vehiclesData={decodeData(vehiclesData)}
-    productCardsData={decodeData(productCardsData)}
-    genericPage={decodeData(genericPage)}
-  />
-);
+}) => {
+  const { metaData } = genericPage;
+
+  return (
+    <>
+      <LevcPageContainer
+        vehiclesData={decodeData(vehiclesData)}
+        productCardsData={decodeData(productCardsData)}
+        genericPage={decodeData(genericPage)}
+      />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
+    </>
+  );
+};
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,

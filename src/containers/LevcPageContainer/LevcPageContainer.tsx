@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
-import SchemaJSON from 'core/atoms/schema-json';
-
 import {
   vehicleList as IVehicleList,
   vehicleList_vehicleList_edges as IVehicle,
@@ -17,7 +15,6 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { Nullable } from '../../types/common';
 
-import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
 import LevcHeroBanner from './components/LevcHeroBanner';
 
@@ -52,7 +49,6 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   vehiclesData,
   productCardsData,
 }) => {
-  const { metaData } = genericPage;
   const { tiles, carousel, featured: featuredSections } =
     genericPage.sectionsAsArray ?? {};
 
@@ -107,12 +103,6 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           cards={carouselSection.cards}
           title={carouselSection.title}
         />
-      )}
-      {metaData && (
-        <>
-          <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-        </>
       )}
     </>
   );
