@@ -305,3 +305,119 @@
     }
   }
 }
+
+.electric-hero {
+
+  &--card {
+    text-align: left!important;
+    box-shadow: none!important;
+
+    & .button {
+      min-width: 139px;
+      min-height: 48px;
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  & .heading {
+    color: #678098;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+   &--title {
+     font-size: 39px;
+     color: black;
+     font-family: VA Heading, -apple-system, system-ui, sans-serif;
+     line-height: 50px;
+     text-align: left;
+     margin-bottom: 12px;
+     font-weight: 500;
+   }
+
+  &--extras {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 24px;
+    color: #3BBD75;
+    text-align: left;
+    display: flex;
+    align-items: center;
+
+    & i {
+      margin-right: 4px;
+    }
+
+    & i,
+    & svg {
+      height: 31px;
+      width: auto;
+    }
+  }
+
+  &--image {
+    max-width: 32rem;
+  }
+
+  &--description {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+  }
+
+  & .price--label {
+    font-size: 12px;
+    line-height: 16px;
+    color: #44576A;
+  }
+
+  & .button {
+    font-size: 16px;
+  }
+
+  @include mobile {
+
+    &.row\:bg-hero {
+      padding-bottom: calc(var(--layout-gap) * 3) !important;
+    }
+
+    & .row\:hero .hero--right {
+      order: 0;
+    }
+
+    &--card {
+      margin-bottom: 58px!important;
+    }
+
+    &--title {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    &--extras {
+      font-size: 18px;
+
+      & span {
+        margin-right: 4px;
+      }
+
+      & i,
+      & svg {
+        height: 13px;
+        width: auto;
+        line-height: 13px;
+      }
+    }
+
+    &--description {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

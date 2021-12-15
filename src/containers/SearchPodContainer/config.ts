@@ -56,11 +56,15 @@ const CARS_TAB = {
   type: 'Cars',
 };
 
+const ELECTRIC_TAB = { ...CARS_TAB, buttonText: 'Search Electric Vehicles' };
+
 export const tabsFields = [VANS_TAB, CARS_TAB];
 
 export const carPageTabFields = [CARS_TAB];
 
 export const vanPageTabFields = [VANS_TAB];
+
+export const electricPageTabFields = [ELECTRIC_TAB];
 
 export const budget = [
   '£0-£150',
