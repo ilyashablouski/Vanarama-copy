@@ -7,7 +7,7 @@ const BenefitsComponent = () => {
   return (
     <div className="electric-benefits">
       <div className="benefit-wrapper">
-        <Icon icon={<FreeHomeCharger />} />
+        <Icon icon={<FreeHomeCharger autoSize />} />
         <div>
           <Text tag="p" size="large" color="black">
             <Text color="success" size="large">
