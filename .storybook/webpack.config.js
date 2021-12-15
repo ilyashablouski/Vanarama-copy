@@ -6,7 +6,7 @@ const rules = [
     test: /\.(tsx|ts)$/,
     use: [
       {
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve('swc-loader'),
         options: {
           presets: [['react-app', { flow: false, typescript: true }]],
           plugins: [
@@ -22,11 +22,7 @@ const rules = [
   {
     test: /\.scss$/,
     exclude: [/node_modules/],
-    use: [
-      'style-loader',
-      'css-loader',
-      'sass-loader',
-    ],
+    use: ['style-loader', 'css-loader', 'sass-loader'],
     include: path.resolve(__dirname, '../'),
   },
   {
@@ -38,10 +34,20 @@ const rules = [
 
 module.exports = async ({ config }) => {
   config.module.rules.push(...rules);
-  config.resolve.extensions.push('.tsx', '.ts', '.js', 'scss', '.scss', '.css', 'css', '.png', 'png');
+  config.resolve.extensions.push(
+    '.tsx',
+    '.ts',
+    '.js',
+    'scss',
+    '.scss',
+    '.css',
+    'css',
+    '.png',
+    'png',
+  );
   config.resolve.alias = {
-    'core': path.resolve(__dirname, '../src/core/')
-  }
+    core: path.resolve(__dirname, '../src/core/'),
+  };
   config.resolve.roots = [path.resolve(__dirname, '../public/')];
 
   return config;
