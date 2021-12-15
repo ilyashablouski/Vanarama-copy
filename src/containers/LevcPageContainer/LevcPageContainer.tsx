@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
-import SchemaJSON from 'core/atoms/schema-json';
-
 import {
   vehicleList as IVehicleList,
   vehicleList_vehicleList_edges as IVehicle,
@@ -11,15 +9,21 @@ import {
   GetProductCard as IProductCardList,
   GetProductCard_productCard as IProductCard,
 } from '../../../generated/GetProductCard';
-import { GenericPageQuery_genericPage as IGenericPage } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage as IGenericPage,
+  GenericPageQuery_genericPage_sectionsAsArray_featured as IFeatured,
+} from '../../../generated/GenericPageQuery';
 import { Nullable } from '../../types/common';
 
-import Head from '../../components/Head';
 import Skeleton from '../../components/Skeleton';
 import LevcHeroBanner from './components/LevcHeroBanner';
 
 const FeaturedSection = dynamic(
   () => import('../../components/FeaturedSection'),
+  { loading: () => <Skeleton count={1} /> },
+);
+const LeadText = dynamic(
+  () => import('../LandingPageContainer/LeadTextComponent'),
   { loading: () => <Skeleton count={1} /> },
 );
 const LevcVehicleList = dynamic(() => import('./components/LevcVehicleList'), {
@@ -49,14 +53,13 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   vehiclesData,
   productCardsData,
 }) => {
-  const { metaData } = genericPage;
-  const { tiles, carousel, featured: featuredSectionList } =
+  const { leadText, tiles, carousel, featured: featuredSections } =
     genericPage.sectionsAsArray ?? {};
 
   const tilesSection = tiles?.[0];
   const carouselSection = carousel?.[0];
-
-  const featuredSection0 = featuredSectionList?.[0];
+  const leadTextSection = leadText?.[0];
+  const aboutSection = featuredSections?.[0];
 
   const vehicleList = useMemo(
     () =>
@@ -70,11 +73,17 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
       (productCardsData.productCard.filter(Boolean) as IProductCard[]),
     [productCardsData],
   );
+  const featuredSectionList = useMemo(
+    () =>
+      featuredSections &&
+      (featuredSections.slice(1).filter(Boolean) as IFeatured[]),
+    [featuredSections],
+  );
 
   return (
     <>
       <LevcHeroBanner />
-      {featuredSection0 && <FeaturedSection featured={featuredSection0} />}
+      {aboutSection && <FeaturedSection featured={aboutSection} />}
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
@@ -83,6 +92,22 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           vehicleList={vehicleList}
         />
       ) : null}
+      {leadTextSection && (
+        <LeadText
+          className="-a-center"
+          leadText={leadTextSection}
+          withSeparator={false}
+        />
+      )}
+      {featuredSectionList?.map(featuredSection => (
+        <React.Fragment key={featuredSection.title}>
+          <FeaturedSection
+            featured={featuredSection}
+            videoClassName="aspect-16-9"
+            videoHeight="100%"
+          />
+        </React.Fragment>
+      ))}
       {tilesSection?.tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tilesSection.tilesTitle}
@@ -94,12 +119,6 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           cards={carouselSection.cards}
           title={carouselSection.title}
         />
-      )}
-      {metaData && (
-        <>
-          <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-        </>
       )}
     </>
   );

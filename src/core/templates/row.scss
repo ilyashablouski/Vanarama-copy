@@ -553,19 +553,9 @@
 
     &-fullwidth {
       margin-top: 62px;
+
       > :first-child {
-        grid-row-start: 1;
-        grid-column: 1 / 11;
-      }
-      @include mobile {
-        > :first-child {
-          grid-column: 1 / 13;
-        }
-      }
-      @include tablet {
-        > :first-child {
-          grid-column: 1 / 13;
-        }
+        grid-column: 1 / 13;
       }
     }
 
