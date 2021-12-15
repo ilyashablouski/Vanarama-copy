@@ -30,8 +30,6 @@ function FeaturedMedia({ featuredImage, featuredVideoUrl }: IProps) {
         objectFit="cover"
         width={featuredImage.details.image.width}
         height={450}
-        optimisationOptions={{ fit: 'cover', height: 450 }}
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={featuredImage.url}
       />
     );

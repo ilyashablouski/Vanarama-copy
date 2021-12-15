@@ -87,7 +87,6 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
         className="card-image"
         width={imageFile?.details.image.width}
         height={imageFile?.details.image.height}
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={imageFile?.url}
       />
     </section>
