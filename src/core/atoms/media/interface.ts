@@ -13,8 +13,8 @@ export interface IMediaProps extends IBaseProps {
   noLazy?: boolean;
   player?: boolean;
   playing?: boolean;
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
   loop?: boolean;
   controls?: boolean;
   preload?: boolean;

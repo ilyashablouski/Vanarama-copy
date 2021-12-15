@@ -12,6 +12,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
 import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
+import { Nullish } from '../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -32,10 +33,19 @@ const IconListItem = dynamic(() =>
 
 interface IFeaturedEx {
   id?: string;
-  featured: IFeatured | null | undefined;
+  featured: Nullish<IFeatured>;
+  videoWidth?: string | number;
+  videoHeight?: string | number;
+  videoClassName?: string;
 }
 
-const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
+const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
+  featured,
+  videoClassName,
+  videoWidth,
+  videoHeight,
+  id,
+}) => {
   const {
     video,
     image,
@@ -56,7 +66,14 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
       className={`row:${getFeaturedClassPartial({ layout })}`}
       id={targetId || id}
     >
-      {video && <Media src={video || ''} width="100%" height="360px" />}
+      {video && (
+        <Media
+          className={videoClassName}
+          width={videoWidth ?? '100%'}
+          height={videoHeight ?? '360px'}
+          src={video || ''}
+        />
+      )}
 
       {image && (
         <ImageV2
