@@ -1,3 +1,5 @@
+import { FuelTypeEnum } from '../../../entities/global';
+
 const VANS_TAB = {
   dropdowns: [
     {
@@ -25,6 +27,7 @@ const VANS_TAB = {
   buttonText: 'Search Vans & Trucks',
   tabName: 'Vans & Trucks',
   type: 'Vans',
+  defaultFilters: null,
 };
 
 const CARS_TAB = {
@@ -54,9 +57,16 @@ const CARS_TAB = {
   buttonText: 'Search Cars',
   tabName: 'Cars',
   type: 'Cars',
+  defaultFilters: null,
 };
 
-const ELECTRIC_TAB = { ...CARS_TAB, buttonText: 'Search Electric Vehicles' };
+const ELECTRIC_TAB = {
+  ...CARS_TAB,
+  buttonText: 'Search Electric Vehicles',
+  defaultFilters: {
+    fuelType: [FuelTypeEnum.ELECTRIC],
+  },
+};
 
 export const tabsFields = [VANS_TAB, CARS_TAB];
 
