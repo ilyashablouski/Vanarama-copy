@@ -61,7 +61,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (activeSearchIndex === 2) {
       return CARS_TAB_HEADING;
     }
-    if (router.pathname.indexOf('electric') > -1) {
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
       return ELECTRIC_TAB_HEADING;
     }
     if (router.pathname.indexOf('car') > -1) {
@@ -74,7 +74,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   }, [router.pathname, activeSearchIndex]);
 
   const setConfigInit = () => {
-    if (router.pathname.indexOf('electric') > -1) {
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
       return electricPageTabFields;
     }
     if (router.pathname.indexOf('car') > -1) {
