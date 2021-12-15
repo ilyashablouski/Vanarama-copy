@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, FC } from 'react';
 import { IBaseProps } from '../../interfaces/base';
 import { ICardHeaderProps } from './CardHeader';
 import { ICardTitleProps } from './CardTitle';
@@ -19,6 +19,10 @@ export interface ICardProps extends IBaseProps {
    * Card header
    */
   header?: ICardHeaderProps;
+  /**
+   * Custom card header component
+   */
+  customHeader?: FC<ICardHeaderProps>;
   /**
    * Card image
    */

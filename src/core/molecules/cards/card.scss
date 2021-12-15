@@ -33,7 +33,7 @@ $small: 0.875rem;
         width: auto;
         padding: 6px 8px;
         margin-bottom: 3px;
-        margin-top: 0!important;
+        margin-top: 0 !important;
 
         &.transparent {
           background: transparent;
@@ -231,9 +231,6 @@ $small: 0.875rem;
 
   // Predefined areas -> header
   &-header {
-    @include mobile {
-      font-size: 0.6rem;
-    }
     @include card-flag;
     overflow: hidden;
     white-space: nowrap;
@@ -241,6 +238,13 @@ $small: 0.875rem;
     max-height: $header-height;
     background-color: $darker;
     align-items: stretch;
+
+    @include tablet {
+      font-size: 0.7rem;
+    }
+    @include mobile {
+      font-size: 0.6rem;
+    }
 
     &.rounded {
       border-radius: $border-radius-small;
@@ -896,6 +900,41 @@ $small: 0.875rem;
 
     .card-footer {
       bottom: 0;
+    }
+
+    .card-header.-brand {
+      display: flex;
+
+      > .text {
+        padding-right: 0;
+        flex-grow: 1;
+        white-space: nowrap;
+      }
+
+      > :last-child {
+        padding-left: 0;
+      }
+
+      @include mobile-tablet {
+        > * {
+          padding-left: 1.1ch;
+          padding-right: 1.1ch;
+        }
+
+        > :last-child {
+          .icon svg {
+            width: 86px;
+          }
+        }
+      }
+
+      @include mobile {
+        > :last-child {
+          .icon svg {
+            width: 74px;
+          }
+        }
+      }
     }
   }
 
