@@ -889,6 +889,10 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+.-w-min_content {
+  width: min-content;
+}
+
 .aspect-16-9 {
   background-color: #44576a;
   position: relative;
