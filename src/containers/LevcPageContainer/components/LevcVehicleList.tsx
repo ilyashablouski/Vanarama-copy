@@ -33,7 +33,7 @@ const LevcVehicleList: React.FC<IProps> = ({
           </Heading>
           {vehicleList.map((vehicle, index) => (
             <VehicleCard
-              key={vehicle.node?.derivativeId ?? ''}
+              key={vehicle.node?.derivativeId ?? index}
               derivativeId={vehicle.node?.derivativeId}
               data={getCardData(vehicle.node?.derivativeId ?? '')}
               url={(vehicle.node?.legacyUrl || vehicle.node?.url) ?? ''}
