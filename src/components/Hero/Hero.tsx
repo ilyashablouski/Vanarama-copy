@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Icon from 'core/atoms/icon';
 import * as toast from 'core/atoms/toast/Toast';
+import cx from 'classnames';
 import { IHeroProps } from './interface';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
@@ -42,6 +43,8 @@ const Hero: React.FC<IHeroProps> = ({
   customCTALink,
   activeSearchIndex,
   searchType,
+  isCustomSearchButtonLabel,
+  className,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -94,12 +97,13 @@ const Hero: React.FC<IHeroProps> = ({
         customCTAColor={customCTAColor}
         activeSearchIndex={activeSearchIndex}
         searchType={searchType}
+        isCustomSearchButtonLabel={isCustomSearchButtonLabel}
       />
     );
   };
 
   return (
-    <div className="row:bg-hero">
+    <div className={cx('row:bg-hero', className)}>
       {topHeader && <div className="hero--top-header">{topHeader}</div>}
       <div className="row:hero">
         <div className="hero--left">{children}</div>

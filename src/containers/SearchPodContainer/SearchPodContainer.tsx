@@ -5,6 +5,7 @@ import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   budget,
   carPageTabFields,
+  electricPageTabFields,
   tabsFields,
   vanPageTabFields,
 } from './config';
@@ -31,6 +32,7 @@ interface ISearchPodContainerProps {
   customCTAColor?: string;
   activeSearchIndex?: number;
   searchType?: VehicleTypeEnum;
+  isCustomSearchButtonLabel?: boolean;
 }
 
 enum Tabs {
@@ -40,6 +42,7 @@ enum Tabs {
 const VANS_TAB_HEADING = 'Search Van Leasing';
 const CARS_TAB_HEADING = 'Search Car Leasing';
 const PICKUPS_TAB_HEADING = 'Search Pickup Leasing';
+const ELECTRIC_TAB_HEADING = 'Search Electric Cars Leasing';
 
 const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
@@ -47,6 +50,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   customCTAColor,
   activeSearchIndex,
   searchType,
+  isCustomSearchButtonLabel,
 }) => {
   const router = useRouter();
 
@@ -56,6 +60,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
     if (activeSearchIndex === 2) {
       return CARS_TAB_HEADING;
+    }
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
+      return ELECTRIC_TAB_HEADING;
     }
     if (router.pathname.indexOf('car') > -1) {
       return CARS_TAB_HEADING;
@@ -67,6 +74,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   }, [router.pathname, activeSearchIndex]);
 
   const setConfigInit = () => {
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
+      return electricPageTabFields;
+    }
     if (router.pathname.indexOf('car') > -1) {
       return carPageTabFields;
     }
@@ -372,6 +382,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       isHomePage={config.length > 1}
       headingText={headingText}
       customCTAColor={customCTAColor}
+      isCustomSearchButtonLabel={isCustomSearchButtonLabel}
     />
   );
 };

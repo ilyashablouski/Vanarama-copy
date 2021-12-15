@@ -44,8 +44,8 @@ const LeadTextComponent: FC<IProps> = ({
       </div>
     )}
 
-    <div className="-a-center">
-      {leadText?.link && (
+    {leadText?.link && (
+      <div className="-a-center">
         <RouterLink
           link={{
             href: leadText.link.url || '',
@@ -56,8 +56,8 @@ const LeadTextComponent: FC<IProps> = ({
         >
           <div className="button--inner">{leadText.link.text}</div>
         </RouterLink>
-      )}
-    </div>
+      </div>
+    )}
   </section>
 );
 

@@ -6,6 +6,8 @@ import {
 } from 'next';
 import { ApolloError } from '@apollo/client';
 
+import SchemaJSON from 'core/atoms/schema-json';
+
 import {
   SortField,
   LeaseTypeEnum,
@@ -36,7 +38,9 @@ import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedConta
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { decodeData, encodeData } from '../../utils/data';
+import { isLevcPageFeatureFlagEnabled } from '../../utils/helpers';
 
+import Head from '../../components/Head/Head';
 import LevcPageContainer from '../../containers/LevcPageContainer';
 
 interface ILevcPage {
@@ -49,19 +53,40 @@ const LevcPage: NextPage<ILevcPage> = ({
   genericPage,
   vehiclesData,
   productCardsData,
-}) => (
-  <LevcPageContainer
-    vehiclesData={decodeData(vehiclesData)}
-    productCardsData={decodeData(productCardsData)}
-    genericPage={decodeData(genericPage)}
-  />
-);
+}) => {
+  const { metaData } = genericPage;
+
+  return (
+    <>
+      <LevcPageContainer
+        vehiclesData={decodeData(vehiclesData)}
+        productCardsData={decodeData(productCardsData)}
+        genericPage={decodeData(genericPage)}
+      />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
+    </>
+  );
+};
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ILevcPage>> {
   try {
     const client = createApolloClient({}, context);
+    const isLevcPageEnabled = isLevcPageFeatureFlagEnabled(
+      context.req.headers.cookie,
+    );
+
+    if (!isLevcPageEnabled) {
+      return {
+        notFound: true,
+      };
+    }
 
     const {
       data: { genericPage },

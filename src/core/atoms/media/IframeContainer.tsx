@@ -4,8 +4,8 @@ import Image from 'core/atoms/image';
 import { getYouTubeThumbnail } from 'core/atoms/media/helpers';
 
 interface IIframeContainer {
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
   responsive?: boolean;
   src: string;
 }

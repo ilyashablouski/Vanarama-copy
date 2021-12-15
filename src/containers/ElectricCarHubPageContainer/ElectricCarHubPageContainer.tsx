@@ -2,7 +2,6 @@ import React, { useState, memo, FC, useMemo } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
-
 import Heading from 'core/atoms/heading';
 import Accordion from 'core/molecules/accordion';
 import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
@@ -16,12 +15,13 @@ import CardsSection from './CardSection';
 import { IPageWithData } from '../../types/common';
 import { IEvOffersData } from '../../utils/offers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import HeroSection from './HeroSection';
+import { filterList as IFilterList } from '../../../generated/filterList';
 import { getSectionsData } from '../../utils/getSectionsData';
 import BenefitsComponent from './BenefitsComponent';
 import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
 import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
+import EvHeroSection from './EvHeroSection';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -30,6 +30,7 @@ const RouterLink = dynamic(() =>
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -40,6 +41,7 @@ const ECarsPage: FC<IProps> = ({
   productsHybridOnlyCar,
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
+  searchPodCarsData,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
   const featuresArrayWithLink = (sectionsAsArray?.featured || []).filter(
@@ -81,7 +83,10 @@ const ECarsPage: FC<IProps> = ({
 
   return (
     <>
-      <HeroSection sectionsAsArray={sectionsAsArray} />
+      <EvHeroSection
+        sectionsAsArray={sectionsAsArray}
+        searchPodCarsData={searchPodCarsData}
+      />
       <LeadTextComponent
         leadText={leadTexts[0]}
         withSeparator={false}

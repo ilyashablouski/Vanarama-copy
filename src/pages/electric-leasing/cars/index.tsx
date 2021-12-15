@@ -35,6 +35,14 @@ import truncateString from '../../../utils/truncateString';
 import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import ElectricCarHubPageContainer from '../../../containers/ElectricCarHubPageContainer';
 import HeroSection from '../../../containers/ElectricCarHubPageContainer/HeroSection';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { decodeData, encodeData } from '../../../utils/data';
+import { FuelTypeEnum } from '../../../../entities/global';
 
 const RouterLink = dynamic(() =>
   import('../../../components/RouterLink/RouterLink'),
@@ -44,6 +52,7 @@ type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
     isEvCarCarouselFeatureFlag: boolean;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -55,12 +64,14 @@ const ECarsPage: NextPage<IProps> = ({
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
   isEvCarCarouselFeatureFlag,
+  searchPodCarsData: searchPodCarsDataEncoded,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
   const featuresArray = sectionsAsArray?.featured || [];
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
+  const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
 
   interface ICardsSection {
     children: ReactNode;
@@ -117,6 +128,7 @@ const ECarsPage: NextPage<IProps> = ({
           productsHybridOnlyCarDerivatives || null
         }
         vehicleListUrlData={vehicleListUrlData || null}
+        searchPodCarsData={searchPodCarsData}
       />
     );
   }
@@ -211,6 +223,17 @@ export async function getServerSideProps(
       },
     });
 
+    const { data: searchPodCarsData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        fuelTypes: [FuelTypeEnum.ELECTRIC],
+      },
+    });
+
     const {
       productsElectricOnlyCar,
       productsHybridOnlyCar,
@@ -231,6 +254,7 @@ export async function getServerSideProps(
         productsHybridOnlyCarDerivatives:
           productsHybridOnlyCarDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
+        searchPodCarsData: encodeData(searchPodCarsData),
       },
     };
   } catch (error) {

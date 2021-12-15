@@ -12,9 +12,9 @@
   "scripts": {
     "analyze-build": "cross-env NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename --excludes=*/graphQlTests/* --passthroughCustomScalars --customScalarsPrefix=Custom",
-    "build": "next build",
+    "build": "yarn build:scss && next build",
     "build:scss": "rimraf public/styles && node-sass --source-map true src/core/styles -o public/styles --output-style compressed",
-    "dev": "cross-env NODE_ENV=development node express.js",
+    "dev": "yarn build:scss && cross-env NODE_ENV=development node express.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "start": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 node express-cluster.js",
     "start:win": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 node express-cluster.js",

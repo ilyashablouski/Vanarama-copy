@@ -24,6 +24,7 @@ export interface IHeroProps extends IBaseProps {
   searchType?: VehicleTypeEnum;
   expand?: boolean;
   terms?: string | null;
+  isCustomSearchButtonLabel?: boolean;
 }
 
 export interface IHeroTitleProps extends IBaseProps {
