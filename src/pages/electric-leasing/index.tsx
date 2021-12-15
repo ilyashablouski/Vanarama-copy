@@ -90,7 +90,6 @@ const FeaturedSection: FC<any> = ({
         objectFit="cover"
         width={image?.file.details.image.width ?? 1000}
         height={image?.file.details.image.height ?? 650}
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={
           image?.file.url ||
           'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'

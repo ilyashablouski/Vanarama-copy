@@ -265,7 +265,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
               lazyLoad={false}
               width={featured?.image?.file?.details.image.width}
               height={featured?.image?.file?.details.image.height}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured?.image?.file?.url || ''}
             />
           </div>

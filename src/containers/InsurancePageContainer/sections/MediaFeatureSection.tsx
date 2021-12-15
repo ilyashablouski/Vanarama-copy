@@ -55,7 +55,6 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
         <ImageV2
           width={image.file.details.image.width}
           height={image.file.details.image.height}
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={image.file.url}
           alt={image.title || ''}
         />
@@ -97,7 +96,6 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
         <ImageV2
           width={image.file.details.image.width}
           height={image.file.details.image.height}
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={image.file.url}
           alt={image.title || ''}
         />

@@ -52,7 +52,6 @@ const LeasingArticleContainer: FC<IProps> = ({
           {image && (
             <ImageV2
               lazyLoad={false}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"
               src={image}
