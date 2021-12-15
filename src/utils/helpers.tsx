@@ -432,6 +432,7 @@ export enum FeatureFlags {
   BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
   EXTENSION_BLACK_FRIDAY = 'DIG-8044',
   EV_CAR_HUB_CAROUSEL = 'DIG-8175',
+  LEVC_PAGE = 'DIG-8222',
 }
 
 function isFeatureFlagEnabled(
@@ -462,6 +463,12 @@ export function isEVCarHubCarouselFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
+}
+
+export function isLevcPageFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.LEVC_PAGE);
 }
 
 export function isUpdatedServicePlanFeatureFlagEnabled(
