@@ -1,26 +1,31 @@
 import React, { useContext, useMemo } from 'react';
-import dynamic from 'next/dynamic';
-import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
+
+import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import { ICardHeaderProps } from 'core/molecules/cards/CardHeader';
-import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
-import RouterLink from '../RouterLink/RouterLink';
-import { formatProductPageUrl } from '../../utils/url';
-import { isCompared } from '../../utils/comparatorHelpers';
-import { CompareContext } from '../../utils/comparatorTool';
-import { features } from '../ProductCarousel/helpers';
-import Skeleton from '../Skeleton';
-import { onSavePagePosition } from './helpers';
-import useWishlist from '../../hooks/useWishlist';
-import { isWished } from '../../utils/wishlistHelpers';
-import { FuelTypeEnum } from '../../../entities/global';
+
 import {
   FinanceTypeEnum,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
+import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
+import { FuelTypeEnum } from '../../../entities/global';
+
+import { formatProductPageUrl } from '../../utils/url';
+import { isWished } from '../../utils/wishlistHelpers';
+import { isCompared } from '../../utils/comparatorHelpers';
+import { CompareContext } from '../../utils/comparatorTool';
+import { features } from '../ProductCarousel/helpers';
+import { onSavePagePosition } from './helpers';
+import useWishlist from '../../hooks/useWishlist';
+
+import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -47,8 +52,8 @@ interface IVehicleCardProps {
   index?: number;
   customCTAColor?: string;
   customCTATextColor?: string;
-  customHeaderProps?: Partial<ICardHeaderProps>;
-  isStyledHeader?: boolean;
+  customHeader?: React.FC<ICardHeaderProps>;
+  isAccentHeader?: boolean;
   dataUiTestId?: string;
 }
 
@@ -65,8 +70,8 @@ const VehicleCard = React.memo(
     isModelPage,
     customCTAColor,
     customCTATextColor,
-    customHeaderProps,
-    isStyledHeader,
+    customHeader,
+    isAccentHeader,
     index,
     dataUiTestId,
   }: IVehicleCardProps) => {
@@ -100,13 +105,6 @@ const VehicleCard = React.memo(
       [data?.freeInsurance, data?.vehicleType],
     );
 
-    const headerProps = {
-      accentText: data?.isOnOffer ? 'Hot Offer' : '',
-      accentIcon: data?.isOnOffer ? (
-        <Icon icon={<Flame />} color="white" className="sm hydrated" />
-      ) : null,
-    };
-
     const imageProps = !isModelPage
       ? {
           imageSrc:
@@ -134,10 +132,14 @@ const VehicleCard = React.memo(
         className="product"
         lazyLoad={lazyLoad}
         {...imageProps}
+        customHeader={customHeader}
         header={{
-          ...(customHeaderProps ?? headerProps),
-          accentStyles: isStyledHeader ? extraStyles : undefined,
           text: data?.leadTime ?? '',
+          accentText: data?.isOnOffer ? 'Hot Offer' : '',
+          accentStyles: isAccentHeader ? extraStyles : undefined,
+          accentIcon: data?.isOnOffer ? (
+            <Icon icon={<Flame />} color="white" className="sm hydrated" />
+          ) : null,
         }}
         wished={isWished(wishlistVehicleIds, data)}
         compared={isCompared(compareVehicles, data)}
