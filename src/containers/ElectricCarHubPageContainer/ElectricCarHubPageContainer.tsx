@@ -20,6 +20,8 @@ import HeroSection from './HeroSection';
 import { getSectionsData } from '../../utils/getSectionsData';
 import BenefitsComponent from './BenefitsComponent';
 import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
+import getTitleTag from '../../utils/getTitleTag';
+import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -50,6 +52,7 @@ const ECarsPage: FC<IProps> = ({
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
   const leadTexts = sectionsAsArray?.leadText || [];
+  const cards = sectionsAsArray?.cards?.[0];
   const accordionTitle = useMemo(
     () =>
       getSectionsData(
@@ -160,6 +163,23 @@ const ECarsPage: FC<IProps> = ({
           <FeaturedSection featured={section} />
         </React.Fragment>
       ))}
+      {cards?.cards?.length && (
+        <div className="row:bg-lighter">
+          <Heading
+            color="black"
+            size="large"
+            className="-a-center -mb-300"
+            tag={
+              getTitleTag(
+                cards?.titleTag || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {cards?.name}
+          </Heading>
+          <CardsSectionCarousel cards={cards?.cards || []} />
+        </div>
+      )}
       <LeadTextComponent
         leadText={leadTexts[2]}
         withSeparator={false}
