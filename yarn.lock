@@ -20909,13 +20909,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-plugin-custom-babel-config@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "next-plugin-custom-babel-config@npm:1.0.5"
-  checksum: 957e8bdad352fde6e0132e2b48e92ae8841e84c25a6d1b1a880108078055563d16c43c5ab3abe7bbb5b408149ca77a77bb60f35e9ec450a0f1a34c7942e079e4
-  languageName: node
-  linkType: hard
-
 "next-storefront@workspace:.":
   version: 0.0.0-use.local
   resolution: "next-storefront@workspace:."
@@ -21039,7 +21032,6 @@ __metadata:
     next: ^12.0.7
     next-compose-plugins: 2.2.1
     next-images: 1.8.1
-    next-plugin-custom-babel-config: ^1.0.5
     next-with-apollo: 5.2.1
     node-fetch: ^2.6.1
     node-sass: ^4.14.1
