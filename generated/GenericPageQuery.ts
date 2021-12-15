@@ -988,8 +988,36 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel {
   link: GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details {
+  size: number;
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details_image;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta {
   url: string | null;
+  text: string | null;
+  legacyUrl: string | null;
+  image: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image | null)[] | null;
+  label: string | null;
+  visible: boolean | null;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero {

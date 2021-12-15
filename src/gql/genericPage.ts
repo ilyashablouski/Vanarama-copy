@@ -329,6 +329,26 @@ export const GENERIC_PAGE = gql`
           heroTerms
           heroCta {
             url
+            text
+            legacyUrl
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+                contentType
+                details {
+                  size
+                  image {
+                    width
+                    height
+                  }
+                }
+              }
+            }
+            label
+            visible
           }
         }
         iconBullets {

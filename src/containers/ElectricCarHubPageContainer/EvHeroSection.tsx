@@ -68,7 +68,9 @@ const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
           >
-            <div className="button--inner">View Deal</div>
+            <div className="button--inner">
+              {sectionsAsArray?.hero?.[0]?.heroCta?.[0]?.text}
+            </div>
           </RouterLink>
         </section>
       </div>
