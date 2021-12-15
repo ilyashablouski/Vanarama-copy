@@ -1,3 +1,4 @@
+import React from 'react';
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';

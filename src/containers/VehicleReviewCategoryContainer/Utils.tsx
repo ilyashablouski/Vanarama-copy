@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ReviewsHubCategoryQuery } from '../../../generated/ReviewsHubCategoryQuery';

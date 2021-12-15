@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { MutableRefObject, useRef } from 'react';
+import React, { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';

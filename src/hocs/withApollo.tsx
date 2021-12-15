@@ -1,6 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import withApollo from 'next-with-apollo';
-import { ComponentType } from 'react';
+import React, { ComponentType } from 'react';
 import createApolloClient, {
   APOLLO_STATE_PROP_NAME,
   useApollo,

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import Choiceboxes from 'core/atoms/choiceboxes';

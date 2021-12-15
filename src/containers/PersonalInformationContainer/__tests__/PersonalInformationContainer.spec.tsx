@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, waitFor, screen } from '@testing-library/react';
 import PersonalInformation from '../PersonalInformation';
 import { useCreatePerson } from '../gql';

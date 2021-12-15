@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import React, { ComponentType } from 'react';
 
 import { TIcon } from 'core/molecules/cards/CardIcons';
 import { IIconProps } from 'core/atoms/icon/interfaces';

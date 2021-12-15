@@ -20,7 +20,7 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
       Personal Information
     </p>
     <section
-      className="structured-list  -styled-headers"
+      className="structured-list -styled-headers"
     >
       <div
         className="structured-list-tbody"

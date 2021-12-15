@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useMemo, FC } from 'react';
+import React, { useMemo, FC } from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { GetMyOrders_myOrders } from '../../../generated/GetMyOrders';

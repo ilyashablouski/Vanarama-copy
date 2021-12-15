@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import {
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList as IconListType,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image as ImageType,

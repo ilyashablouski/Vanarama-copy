@@ -1,3 +1,4 @@
+import React from 'react';
 import AirCondition from '../core/assets/icons/AirConditioning';
 import Alloys from '../core/assets/icons/Alloys';
 import Bluetooth from '../core/assets/icons/Bluetooth';
