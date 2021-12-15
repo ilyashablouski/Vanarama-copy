@@ -2,11 +2,11 @@ import React, { FC, SyntheticEvent } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 
-import { IImageProps } from './interfaces';
+import { IImageV2Props } from './interfaces';
 
 const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
-const ImageV2: FC<IImageProps> = props => {
+const ImageV2: FC<IImageV2Props> = props => {
   const {
     className,
     size = 'expand',
@@ -18,7 +18,6 @@ const ImageV2: FC<IImageProps> = props => {
     inline,
     dataTestId,
     objectFit,
-    objectPosition,
     lazyLoad,
   } = props;
 
@@ -55,7 +54,6 @@ const ImageV2: FC<IImageProps> = props => {
         data-testid={dataTestId}
         className="image--native"
         objectFit={objectFit}
-        objectPosition={objectPosition}
         priority={lazyLoad === false}
         onError={onError}
       />

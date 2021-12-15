@@ -43,12 +43,6 @@ function FullScreenImageCarousel({
                 height={1080}
                 src={imageUrl}
                 alt={imageAltText}
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                optimisationOptions={{
-                  width: 1920,
-                  height: 1080,
-                  fit: 'cover',
-                }}
               />
             </SwiperSlide>
           ))}

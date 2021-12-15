@@ -22,8 +22,6 @@ const Card: FC<ICardProps> = memo(props => {
     description,
     style,
     placeholderImage,
-    optimisedHost,
-    optimisationOptions,
     extrasRender,
     dataUiTestId,
     imageWidth,
@@ -52,8 +50,6 @@ const Card: FC<ICardProps> = memo(props => {
           width={imageWidth}
           height={imageHeight}
           objectFit="cover"
-          optimisedHost={optimisedHost}
-          optimisationOptions={optimisationOptions}
           lazyLoad={lazyLoad}
           src={(imageSrc || placeholderImage) ?? ''}
           dataTestId="card-image"

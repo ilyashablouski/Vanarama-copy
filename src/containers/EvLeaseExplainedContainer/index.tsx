@@ -158,7 +158,6 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
                 <ImageV2
                   width={tile.image?.file?.details.image.width}
                   height={tile.image?.file?.details.image.height}
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   src={tile.image?.file?.url || ''}
                 />
                 <Heading
