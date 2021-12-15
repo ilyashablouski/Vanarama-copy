@@ -327,6 +327,9 @@ export const GENERIC_PAGE = gql`
             }
           }
           heroTerms
+          heroCta {
+            url
+          }
         }
         iconBullets {
           title

@@ -988,6 +988,10 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel {
   link: GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta {
+  url: string | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero {
   position: number | null;
   flag: string | null;
@@ -998,6 +1002,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero {
   heroCard: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard | null)[] | null;
   heroLabel: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel | null)[] | null;
   heroTerms: string | null;
+  heroCta: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta | null)[] | null;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets_iconBullets {

@@ -21,7 +21,6 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import Hero from '../../components/Hero';
 import { filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
-import { getLegacyUrl } from '../../utils/url';
 import { getSectionsData } from '../../utils/getSectionsData';
 import BenefitsComponent from './BenefitsComponent';
 import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
@@ -129,7 +128,7 @@ const ECarsPage: FC<IProps> = ({
             />
             <RouterLink
               link={{
-                href: getLegacyUrl(sectionsAsArray?.hero?.[0]?.heroLabel?.link),
+                href: sectionsAsArray?.hero?.[0]?.heroCta?.[0]?.url || '',
                 label: 'View Deal',
               }}
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
