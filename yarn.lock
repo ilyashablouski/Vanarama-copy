@@ -20788,6 +20788,7 @@ __metadata:
     react: ^17.0.2
     react-addons-test-utils: ^15.6.2
     react-autosuggest: ^10.1.0
+    react-confetti: ^6.0.1
     react-device-detect: ^1.17.0
     react-dom: ^17.0.2
     react-hook-form: ^5.7.2
@@ -23687,6 +23688,17 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: a085a42fba3644d1ea1c48f0b1d30dfd5d2bf30deb509edc9507e866f78b71e3c18a86b93a1f8094144c06154c011403b55099a5ab77894a91a7f26f9ccf28e4
+  languageName: node
+  linkType: hard
+
+"react-confetti@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "react-confetti@npm:6.0.1"
+  dependencies:
+    tween-functions: ^1.2.0
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.1
+  checksum: 4dd6bef9ad297145051cbe3c53a01851071a31f03b8606cc56f808112341cd2225dac7e0559f5e7a33ffd7dd764cd64fcc31cf37d3c57e7738fcf1e15defdf37
   languageName: node
   linkType: hard
 
@@ -27577,6 +27589,13 @@ __metadata:
   dependencies:
     safe-buffer: ^5.0.1
   checksum: 05f6510358f8afc62a057b8b692f05d70c1782b70db86d6a1e0d5e28a32389e52fa6e7707b6c5ecccacc031462e4bc35af85ecfe4bbc341767917b7cf6965711
+  languageName: node
+  linkType: hard
+
+"tween-functions@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tween-functions@npm:1.2.0"
+  checksum: 880708d680eff5c347ddcb9f922ad121703a91c78ce308ed309073e73a794b633eb0b80589a839365803f150515ad34c9646809ae8a0e90f09e62686eefb1ab6
   languageName: node
   linkType: hard
 
