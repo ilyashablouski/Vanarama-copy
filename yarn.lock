@@ -11760,7 +11760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:~1.1.4":
+"color-name@npm:^1.1.4, color-name@npm:~1.1.4":
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: b0445859521eb4021cd0fb0cc1a75cecf67fceecae89b63f62b201cca8d345baf8b952c966862a9d9a2632987d4f6581f0ec8d957dfacece86f0a7919316f610
@@ -12510,6 +12510,13 @@ __metadata:
   bin:
     cssesc: bin/cssesc
   checksum: f8c4ababffbc5e2ddf2fa9957dda1ee4af6048e22aeda1869d0d00843223c1b13ad3f5d88b51caa46c994225eacb636b764eb807a8883e2fb6f99b4f4e8c48b2
+  languageName: node
+  linkType: hard
+
+"cssfontparser@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "cssfontparser@npm:1.2.1"
+  checksum: 952d487cddab591fb944f2a4c326a7736bc963784a6d92b6ad4051f3bf5ee49a732eff62e29a52ff085197cb07f5bd66525a2245ded7fd356113ac81be9238b9
   languageName: node
   linkType: hard
 
@@ -17940,6 +17947,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-canvas-mock@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "jest-canvas-mock@npm:2.3.1"
+  dependencies:
+    cssfontparser: ^1.2.1
+    moo-color: ^1.0.2
+  checksum: 82606d348cf4f671af098dcebac19c98643fc5896c6e1af24b572b8e477e7bee18e4c65e0aee8d72d3af88511eba265e12001c6fb72c319d7efe15a6ba23b58b
+  languageName: node
+  linkType: hard
+
 "jest-changed-files@npm:^26.6.2":
   version: 26.6.2
   resolution: "jest-changed-files@npm:26.6.2"
@@ -20445,6 +20462,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"moo-color@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "moo-color@npm:1.0.2"
+  dependencies:
+    color-name: ^1.1.4
+  checksum: 9425438cf14314ff8847fa911b3c6936cbe8550644c380733c4803719c3980a0de9324c70c3bc21c36b4aab3c181745774cc0efc4d3f5bfce009382eeeb89572
+  languageName: node
+  linkType: hard
+
 "moo@npm:^0.5.0":
   version: 0.5.1
   resolution: "moo@npm:0.5.1"
@@ -20760,6 +20786,7 @@ __metadata:
     isomorphic-dompurify: ^0.9.0
     isomorphic-unfetch: ^3.1.0
     jest: ^26.6.3
+    jest-canvas-mock: ^2.3.1
     jest-next-dynamic: ^1.0.1
     jest-sonar-reporter: ^2.0.0
     js-cookie: ^2.2.1
@@ -20788,6 +20815,7 @@ __metadata:
     react: ^17.0.2
     react-addons-test-utils: ^15.6.2
     react-autosuggest: ^10.1.0
+    react-confetti: ^6.0.1
     react-device-detect: ^1.17.0
     react-dom: ^17.0.2
     react-hook-form: ^5.7.2
@@ -23687,6 +23715,17 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: a085a42fba3644d1ea1c48f0b1d30dfd5d2bf30deb509edc9507e866f78b71e3c18a86b93a1f8094144c06154c011403b55099a5ab77894a91a7f26f9ccf28e4
+  languageName: node
+  linkType: hard
+
+"react-confetti@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "react-confetti@npm:6.0.1"
+  dependencies:
+    tween-functions: ^1.2.0
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.1
+  checksum: 4dd6bef9ad297145051cbe3c53a01851071a31f03b8606cc56f808112341cd2225dac7e0559f5e7a33ffd7dd764cd64fcc31cf37d3c57e7738fcf1e15defdf37
   languageName: node
   linkType: hard
 
@@ -27577,6 +27616,13 @@ __metadata:
   dependencies:
     safe-buffer: ^5.0.1
   checksum: 05f6510358f8afc62a057b8b692f05d70c1782b70db86d6a1e0d5e28a32389e52fa6e7707b6c5ecccacc031462e4bc35af85ecfe4bbc341767917b7cf6965711
+  languageName: node
+  linkType: hard
+
+"tween-functions@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tween-functions@npm:1.2.0"
+  checksum: 880708d680eff5c347ddcb9f922ad121703a91c78ce308ed309073e73a794b633eb0b80589a839365803f150515ad34c9646809ae8a0e90f09e62686eefb1ab6
   languageName: node
   linkType: hard
 
