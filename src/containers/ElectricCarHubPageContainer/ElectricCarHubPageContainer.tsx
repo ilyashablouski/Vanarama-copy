@@ -89,13 +89,15 @@ const ECarsPage: FC<IProps> = ({
       />
       <LeadTextComponent
         leadText={leadTexts[0]}
+        xlargeText
         withSeparator={false}
         className="-a-center"
       />
       <HeadingSection
-        titleTag="h1"
+        titleTag="h2"
         header={sectionsAsArray?.carousel?.[0]?.title}
         description={sectionsAsArray?.carousel?.[0]?.subtitle}
+        largeText
       />
       <CardsSection
         derivatives={productsElectricOnlyCarDerivatives?.derivatives || null}
@@ -125,9 +127,10 @@ const ECarsPage: FC<IProps> = ({
         </div>
       </CardsSection>
       <HeadingSection
-        titleTag="h1"
+        titleTag="h2"
         header={sectionsAsArray?.carousel?.[1]?.title}
         description={sectionsAsArray?.carousel?.[1]?.subtitle}
+        largeText
       />
       <CardsSection
         derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
