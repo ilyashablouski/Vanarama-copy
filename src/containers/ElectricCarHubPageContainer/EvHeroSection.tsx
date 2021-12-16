@@ -43,7 +43,7 @@ const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
           icon={<FreeHomeCharger />}
         />
         <Image
-          lazyLoad
+          lazyLoad={false}
           className="electric-hero--image"
           plain
           size="expand"
@@ -51,6 +51,8 @@ const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
             sectionsAsArray?.hero?.[0]?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
+          height={sectionsAsArray?.hero?.[0]?.image?.file?.details.image.height}
+          width={sectionsAsArray?.hero?.[0]?.image?.file?.details.image.width}
         />
         <section className="electric-hero--description ">
           <Price
