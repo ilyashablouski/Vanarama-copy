@@ -6,6 +6,7 @@ import Confetti from 'react-confetti';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import Skeleton from '../../../components/Skeleton';
 import ThankYouOrderContainer from '../../../containers/ThankYouOrderContainer';
+import { isBrowser } from '../../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -32,7 +33,7 @@ const ThankYouPage: NextPage = () => {
   const { isB2b } = router.query;
 
   useEffect(() => {
-    if (window) {
+    if (isBrowser()) {
       setWindowWidth(window.innerWidth);
       setWindowHeight(document.body.scrollHeight);
     }
