@@ -5,6 +5,7 @@ import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   budget,
   carPageTabFields,
+  electricPageTabFields,
   tabsFields,
   vanPageTabFields,
 } from './config';
@@ -31,6 +32,7 @@ interface ISearchPodContainerProps {
   customCTAColor?: string;
   activeSearchIndex?: number;
   searchType?: VehicleTypeEnum;
+  isCustomSearchButtonLabel?: boolean;
 }
 
 enum Tabs {
@@ -40,6 +42,7 @@ enum Tabs {
 const VANS_TAB_HEADING = 'Search Van Leasing';
 const CARS_TAB_HEADING = 'Search Car Leasing';
 const PICKUPS_TAB_HEADING = 'Search Pickup Leasing';
+const ELECTRIC_TAB_HEADING = 'Search Electric Cars Leasing';
 
 const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
@@ -47,6 +50,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   customCTAColor,
   activeSearchIndex,
   searchType,
+  isCustomSearchButtonLabel,
 }) => {
   const router = useRouter();
 
@@ -56,6 +60,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
     if (activeSearchIndex === 2) {
       return CARS_TAB_HEADING;
+    }
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
+      return ELECTRIC_TAB_HEADING;
     }
     if (router.pathname.indexOf('car') > -1) {
       return CARS_TAB_HEADING;
@@ -67,6 +74,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   }, [router.pathname, activeSearchIndex]);
 
   const setConfigInit = () => {
+    if (router.pathname.indexOf('electric-leasing/cars') > -1) {
+      return electricPageTabFields;
+    }
     if (router.pathname.indexOf('car') > -1) {
       return carPageTabFields;
     }
@@ -164,7 +174,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     activeIndex === 1 ? selectModelVans : selectModelCars,
     activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
     // add custom fuel types for partnership journeys
-    getPartnerProperties()?.fuelTypes,
+    getPartnerProperties()?.fuelTypes || config?.[0]?.defaultFilters?.fuelType,
   );
 
   // set actual models value for a specific manufacturer
@@ -296,7 +306,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         setActiveIndex(1);
         setHeadingText(VANS_TAB_HEADING);
         setConfig(
-          config.filter(
+          (config as typeof tabsFields).filter(
             vehicles => vehicles.type !== VehicleSearchTypeEnum.CARS,
           ),
         );
@@ -304,7 +314,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         setActiveIndex(2);
         setHeadingText(CARS_TAB_HEADING);
         setConfig(
-          config.filter(
+          (config as typeof tabsFields).filter(
             vehicles => vehicles.type !== VehicleSearchTypeEnum.VANS,
           ),
         );
@@ -341,6 +351,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (getPartnerProperties()?.fuelTypes) {
       query.fuelTypes = getPartnerProperties()?.fuelTypes;
     }
+    if (config?.[0]?.defaultFilters?.fuelType) {
+      query.fuelTypes = config?.[0]?.defaultFilters?.fuelType;
+    }
     router.push({
       pathname: routerUrl,
       query,
@@ -372,6 +385,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       isHomePage={config.length > 1}
       headingText={headingText}
       customCTAColor={customCTAColor}
+      isCustomSearchButtonLabel={isCustomSearchButtonLabel}
     />
   );
 };

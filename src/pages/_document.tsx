@@ -8,7 +8,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
-// import { VWOScript } from '../components/VWOScript';
+import { VWOScript } from '../components/VWOScript';
 import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
@@ -64,7 +64,7 @@ class MyDocument extends Document {
           <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           <NextScript />
-          {/* {scriptEnvs.vwo.includes(env) && <VWOScript />} */}
+          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMScript />

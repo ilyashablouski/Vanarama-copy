@@ -402,7 +402,6 @@ export const PickupsPage: NextPage<IProps> = ({
             objectFit="cover"
             width={imageFeatured1?.details.image.width ?? 1000}
             height={imageFeatured1?.details.image.height ?? 650}
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
@@ -461,7 +460,6 @@ export const PickupsPage: NextPage<IProps> = ({
             objectFit="cover"
             width={imageFeatured2?.details.image.width ?? 1000}
             height={imageFeatured2?.details.image.height ?? 650}
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
@@ -518,7 +516,6 @@ export const PickupsPage: NextPage<IProps> = ({
                 width="100"
                 height="85"
                 objectFit="cover"
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 src={
                   acc.image?.file?.url ||

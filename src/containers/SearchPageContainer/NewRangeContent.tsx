@@ -107,7 +107,6 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
               className="card-image media"
               width={imageFeatured1?.details.image.width}
               height={imageFeatured1?.details.image.height}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={imageFeatured1?.url}
             />
             <div>
@@ -226,7 +225,6 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
               className="card-image media"
               width={imageFeatured2?.details.image.width}
               height={imageFeatured2?.details.image.height}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={imageFeatured2?.url}
             />
           </LazyLoadComponent>
@@ -238,7 +236,6 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
               className="card-image media"
               width={imageFeatured3?.details.image.width}
               height={imageFeatured3?.details.image.height}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={imageFeatured3?.url}
             />
             <div>
@@ -365,7 +362,6 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             className="card-image media"
             width={imageFeatured5?.details.image.width}
             height={imageFeatured5?.details.image.height}
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={imageFeatured5?.url}
           />
           <div>

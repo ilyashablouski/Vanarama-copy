@@ -95,7 +95,6 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
           <div className="row:featured-image">
             <ImageV2
               lazyLoad={false}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featuredImageUrl}
               className="-white"
               size="expand"

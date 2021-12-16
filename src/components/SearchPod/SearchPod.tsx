@@ -51,6 +51,7 @@ const SearchPod = ({
   isHomePage,
   headingText,
   customCTAColor,
+  isCustomSearchButtonLabel,
 }: ISearchPodProps) => {
   return (
     <Card className="hero-card">
@@ -173,7 +174,11 @@ const SearchPod = ({
                 fill="solid"
                 className="-fullwidth"
                 customCTAColor={customCTAColor}
-                label={isHomePage ? tab.buttonText : 'Search Vehicles'}
+                label={
+                  isCustomSearchButtonLabel || isHomePage
+                    ? tab.buttonText
+                    : 'Search Vehicles'
+                }
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
                 dataUiTestId={`searchPod-${tab.type}Search-button`}

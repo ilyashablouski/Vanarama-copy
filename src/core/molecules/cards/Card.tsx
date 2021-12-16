@@ -16,19 +16,20 @@ const Card: FC<ICardProps> = memo(props => {
     children,
     inline,
     overflow,
-    header,
+    header: headerProps,
+    customHeader: CustomHeader,
     title,
     description,
     style,
     placeholderImage,
-    optimisedHost,
-    optimisationOptions,
     extrasRender,
     dataUiTestId,
     imageWidth,
     imageHeight,
     imageSrc,
   } = props;
+
+  const CardHeaderComponent = CustomHeader ?? CardHeader;
 
   return (
     <div
@@ -40,15 +41,15 @@ const Card: FC<ICardProps> = memo(props => {
       style={style}
       data-uitestid={dataUiTestId}
     >
-      {header?.text && <CardHeader {...header} dataUiTestId={dataUiTestId} />}
+      {headerProps?.text && (
+        <CardHeaderComponent {...headerProps} dataUiTestId={dataUiTestId} />
+      )}
       {imageSrc !== undefined ? (
         <ImageV2
           className="card-image"
           width={imageWidth}
           height={imageHeight}
           objectFit="cover"
-          optimisedHost={optimisedHost}
-          optimisationOptions={optimisationOptions}
           lazyLoad={lazyLoad}
           src={(imageSrc || placeholderImage) ?? ''}
           dataTestId="card-image"

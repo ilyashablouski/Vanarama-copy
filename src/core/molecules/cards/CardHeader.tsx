@@ -40,7 +40,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
       {(accentIcon || accentText) && (
         <div style={accentStyles}>
           {accentIcon ?? null}
-          <span>{accentText ?? null}</span>
+          {accentText && <span>{accentText}</span>}
         </div>
       )}
     </div>

@@ -1,17 +1,24 @@
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import Heading from 'core/atoms/heading';
+import { IBaseProps } from 'core/interfaces/base';
+import cx from 'classnames';
 import { GenericPageQuery_genericPage_sections_leadText as ILead } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink';
 
-interface IProps {
+interface IProps extends IBaseProps {
   leadText: ILead | null | undefined;
+  withSeparator?: boolean;
 }
 
-const LeadTextComponent: FC<IProps> = ({ leadText }) => (
-  <section className="row:lead-text">
-    <hr className="-fullwidth" />
+const LeadTextComponent: FC<IProps> = ({
+  leadText,
+  withSeparator = true,
+  className,
+}) => (
+  <section className={cx('row:lead-text', className)}>
+    {withSeparator && <hr className="-fullwidth" />}
     <Heading
       size="large"
       color="black"
@@ -37,8 +44,8 @@ const LeadTextComponent: FC<IProps> = ({ leadText }) => (
       </div>
     )}
 
-    <div className="-a-center">
-      {leadText?.link && (
+    {leadText?.link && (
+      <div className="-a-center">
         <RouterLink
           link={{
             href: leadText.link.url || '',
@@ -49,8 +56,8 @@ const LeadTextComponent: FC<IProps> = ({ leadText }) => (
         >
           <div className="button--inner">{leadText.link.text}</div>
         </RouterLink>
-      )}
-    </div>
+      </div>
+    )}
   </section>
 );
 

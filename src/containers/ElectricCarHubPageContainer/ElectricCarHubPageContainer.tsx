@@ -2,7 +2,6 @@ import React, { useState, memo, FC, useMemo } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
-
 import Heading from 'core/atoms/heading';
 import Accordion from 'core/molecules/accordion';
 import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
@@ -16,9 +15,13 @@ import CardsSection from './CardSection';
 import { IPageWithData } from '../../types/common';
 import { IEvOffersData } from '../../utils/offers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import HeroSection from './HeroSection';
+import { filterList as IFilterList } from '../../../generated/filterList';
 import { getSectionsData } from '../../utils/getSectionsData';
 import BenefitsComponent from './BenefitsComponent';
+import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
+import getTitleTag from '../../utils/getTitleTag';
+import CardsSectionCarousel from '../../components/CardsSectionCarousel';
+import EvHeroSection from './EvHeroSection';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -27,6 +30,7 @@ const RouterLink = dynamic(() =>
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -37,12 +41,20 @@ const ECarsPage: FC<IProps> = ({
   productsHybridOnlyCar,
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
+  searchPodCarsData,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
-  const featuresArray = sectionsAsArray?.featured || [];
+  const featuresArrayWithLink = (sectionsAsArray?.featured || []).filter(
+    featured => featured?.link,
+  );
+  const featuresArrayWithoutLink = (sectionsAsArray?.featured || []).filter(
+    featured => !featured?.link,
+  );
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
+  const leadTexts = sectionsAsArray?.leadText || [];
+  const cards = sectionsAsArray?.cards?.[0];
   const accordionTitle = useMemo(
     () =>
       getSectionsData(
@@ -71,7 +83,15 @@ const ECarsPage: FC<IProps> = ({
 
   return (
     <>
-      <HeroSection sectionsAsArray={sectionsAsArray} />
+      <EvHeroSection
+        sectionsAsArray={sectionsAsArray}
+        searchPodCarsData={searchPodCarsData}
+      />
+      <LeadTextComponent
+        leadText={leadTexts[0]}
+        withSeparator={false}
+        className="-a-center"
+      />
       <HeadingSection
         titleTag="h1"
         header={sectionsAsArray?.carousel?.[0]?.title}
@@ -138,7 +158,39 @@ const ECarsPage: FC<IProps> = ({
         </div>
       </CardsSection>
       <BenefitsComponent />
-      {featuresArray.map(section => (
+      <LeadTextComponent
+        leadText={leadTexts[1]}
+        withSeparator={false}
+        className="-a-center"
+      />
+      {featuresArrayWithoutLink.map(section => (
+        <React.Fragment key={section?.targetId || section?.title}>
+          <FeaturedSection featured={section} />
+        </React.Fragment>
+      ))}
+      {cards?.cards?.length && (
+        <div className="row:bg-lighter">
+          <Heading
+            color="black"
+            size="large"
+            className="-a-center -mb-300"
+            tag={
+              getTitleTag(
+                cards?.titleTag || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {cards?.name}
+          </Heading>
+          <CardsSectionCarousel cards={cards?.cards || []} />
+        </div>
+      )}
+      <LeadTextComponent
+        leadText={leadTexts[2]}
+        withSeparator={false}
+        className="-a-center"
+      />
+      {featuresArrayWithLink.map(section => (
         <React.Fragment key={section?.targetId || section?.title}>
           <FeaturedSection featured={section} />
         </React.Fragment>
