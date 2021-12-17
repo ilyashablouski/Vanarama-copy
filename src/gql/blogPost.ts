@@ -137,6 +137,7 @@ export const BLOG_POST_CAROUSEL_DATA = gql`
       productFilter {
         title
         manufacturer
+        vehicleType
         range
         bodyType
         fuelType
