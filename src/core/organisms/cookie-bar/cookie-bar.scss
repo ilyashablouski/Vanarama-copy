@@ -1,3 +1,15 @@
+@keyframes cookieBarFadeIn {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes cookieBarFadeOut {
+  100% {
+    opacity: 0;
+  }
+}
+
 .cookie-dialog {
   position: fixed;
   left: 30px;
@@ -9,10 +21,11 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
+  animation: cookieBarFadeIn .45s ease-out 1.45s backwards;
   z-index: 999;
 
   &.-hide {
-    display: none;
+    animation: cookieBarFadeOut .45s ease-out forwards;
   }
 
   @include mobile {
