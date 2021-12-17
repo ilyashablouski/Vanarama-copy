@@ -5,6 +5,7 @@ import {
   ApolloClient,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { QueryOptions } from '@apollo/client/core/watchQueryOptions';
 import { GetStoredPersonUuid } from '../../generated/GetStoredPersonUuid';
 import {
   SavePersonUuid,
@@ -38,10 +39,12 @@ export function useSavePersonUuidMutation(
 
 export function getStoredPersonUuid(
   client: ApolloClient<NormalizedCacheObject | object>,
+  fetchPolicy?: QueryOptions['fetchPolicy'],
 ) {
   return client
     .query<GetStoredPersonUuid>({
       query: GET_STORED_PERSON_UUID_QUERY,
+      fetchPolicy,
     })
     .then(operation => operation.data?.storedPersonUuid)
     .catch(() => null);
