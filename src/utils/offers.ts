@@ -409,7 +409,7 @@ export const vehicleCarouselForBlogPageRequest = async (
       query: GET_PRODUCT_DERIVATIVES,
       variables: {
         from: 0,
-        size: 12,
+        size: 9,
         sort: DEFAULT_SORT,
         filters: {
           financeTypes: [FinanceType.PCH],
