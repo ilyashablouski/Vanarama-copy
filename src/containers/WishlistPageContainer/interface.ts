@@ -1,5 +1,5 @@
 import { IBaseProps } from 'core/interfaces/base';
-import { IBreadcrumbLink } from '../../core/atoms/breadcrumbs-v2/helpers';
+import { IBreadcrumbLink } from 'core/atoms/breadcrumbs-v2/helpers';
 
 import { TSize } from '../../types/size';
 
@@ -21,4 +21,6 @@ export interface IWishlistOffer extends IBaseProps {
   iconSize?: TSize;
   textSize?: TSize;
   onClick: () => void;
+  imageWidth?: string;
+  imageHeight?: string;
 }

@@ -795,6 +795,10 @@ $small: 0.875rem;
     display: flex;
     align-items: flex-end;
 
+    &.-wishlist-card-container {
+      align-items: center;
+    }
+
     .copy {
       width: 100%;
       margin: 0;
