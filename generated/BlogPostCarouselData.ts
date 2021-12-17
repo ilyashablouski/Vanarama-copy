@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { vType } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: BlogPostCarouselData
 // ====================================================
@@ -10,6 +12,7 @@
 export interface BlogPostCarouselData_blogPost_productFilter {
   title: string | null;
   manufacturer: (string | null)[] | null;
+  vehicleType: (vType | null)[] | null;
   range: (string | null)[] | null;
   bodyType: (string | null)[] | null;
   fuelType: (string | null)[] | null;

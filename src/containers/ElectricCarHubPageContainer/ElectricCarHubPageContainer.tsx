@@ -22,6 +22,7 @@ import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
 import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 import EvHeroSection from './EvHeroSection';
+import RelatedCarousel from '../../components/RelatedCarousel';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -208,7 +209,14 @@ const ECarsPage: FC<IProps> = ({
           </div>
         </div>
       )}
-
+      {sectionsAsArray?.carousel?.[2]?.cards?.length && (
+        <RelatedCarousel
+          cards={sectionsAsArray?.carousel?.[2]?.cards || []}
+          title={sectionsAsArray?.carousel?.[2]?.title || ''}
+          className="blog-carousel"
+          renderNewPagination
+        />
+      )}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}
