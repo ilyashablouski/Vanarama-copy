@@ -33,6 +33,7 @@ const ThankYouPage: NextPage = () => {
   const { isB2b } = router.query;
 
   // if it will have empty list of dependencies, confetti will render wrong when user restart the page
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (isBrowser()) {
       setWindowWidth(window.innerWidth);
