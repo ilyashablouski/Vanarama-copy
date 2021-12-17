@@ -43,11 +43,6 @@ const ThankYouPage: NextPage = () => {
 
   return (
     <>
-      <Confetti
-        width={windowWidth}
-        height={windowHeight}
-        {...confettiSettings}
-      />
       <OLAFLayout>
         <ThankYouOrderContainer isB2b={!!isB2b} />
       </OLAFLayout>
@@ -119,6 +114,11 @@ const ThankYouPage: NextPage = () => {
           </Tile>
         </div>
       )}
+      <Confetti
+        width={windowWidth}
+        height={windowHeight}
+        {...confettiSettings}
+      />
     </>
   );
 };
