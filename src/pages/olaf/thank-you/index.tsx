@@ -32,12 +32,13 @@ const ThankYouPage: NextPage = () => {
   const [windowHeight, setWindowHeight] = useState(0);
   const { isB2b } = router.query;
 
+  // if it will have empty list of dependencies, confetti will render wrong when user restart the page
   useEffect(() => {
     if (isBrowser()) {
       setWindowWidth(window.innerWidth);
       setWindowHeight(document.body.scrollHeight);
     }
-  }, []);
+  });
 
   return (
     <>
