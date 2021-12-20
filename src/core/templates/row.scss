@@ -687,6 +687,11 @@
           margin-bottom: -50px;
         }
 
+        @include tablet {
+          padding-top: 52%;
+          background-position: 60% center;
+        }
+
         @include mobile {
           background: url("/Assets/images/levc/levc-mobile.png") no-repeat center center;
           background-size: cover;
