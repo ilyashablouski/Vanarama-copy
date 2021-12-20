@@ -10,17 +10,19 @@ import RouterLink from '../../components/RouterLink';
 interface IProps extends IBaseProps {
   leadText: ILead | null | undefined;
   withSeparator?: boolean;
+  xlargeText?: boolean;
 }
 
 const LeadTextComponent: FC<IProps> = ({
   leadText,
   withSeparator = true,
   className,
+  xlargeText,
 }) => (
   <section className={cx('row:lead-text', className)}>
     {withSeparator && <hr className="-fullwidth" />}
     <Heading
-      size="large"
+      size={`${xlargeText ? 'xlarge' : 'large'}`}
       color="black"
       className="-a-center"
       tag={

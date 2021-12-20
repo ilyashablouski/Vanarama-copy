@@ -3,6 +3,7 @@ import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ThankYouPage from '../../../pages/olaf/thank-you';
+import 'jest-canvas-mock';
 
 const mockPush = jest.fn();
 jest.mock('../../../layouts/OLAFLayout/OLAFLayout');

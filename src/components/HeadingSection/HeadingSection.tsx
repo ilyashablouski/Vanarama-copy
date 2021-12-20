@@ -15,18 +15,20 @@ interface IPageHeadingSection {
   titleTag?: Nullable<string>;
   header: Nullish<string>;
   description?: Nullable<string>;
+  largeText?: boolean;
 }
 
 const HeadingSection = ({
   titleTag,
   header,
   description,
+  largeText,
 }: IPageHeadingSection) =>
   header || description ? (
     <section className="row:lead-text">
       {header && (
         <Heading
-          size="xlarge"
+          size={`${largeText ? 'large' : 'xlarge'}`}
           color="black"
           tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
         >

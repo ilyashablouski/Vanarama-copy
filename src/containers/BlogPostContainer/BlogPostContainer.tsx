@@ -145,7 +145,7 @@ const BlogPostContainer: NextPage<IProps> = ({
             CarouselPositionEnum.withinBody,
           ) && (
             <BlogCarousel
-              countItems={12}
+              countItems={9}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
             />
@@ -211,7 +211,7 @@ const BlogPostContainer: NextPage<IProps> = ({
         CarouselPositionEnum.aboveFooter,
       ) && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={12} vehiclesList={vehiclesList} />
+          <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
         </div>
       )}
       {metaData && (
