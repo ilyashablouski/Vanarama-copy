@@ -722,6 +722,11 @@
           width: 312px;
           height: 51px;
 
+          @include tablet {
+            width: 260px;
+            height: 43px;
+          }
+
           @include mobile {
             width: 160px;
             height: 70px;
