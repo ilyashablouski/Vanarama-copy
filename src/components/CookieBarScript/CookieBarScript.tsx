@@ -2,6 +2,7 @@ import React, { FC, memo } from 'react';
 
 const CookieBarScript: FC = () => {
   const code = `
+  (function() {
     document.addEventListener('animationstart', ({ 
       animationName 
     }) => {
@@ -27,6 +28,7 @@ const CookieBarScript: FC = () => {
         cookieBarElement.remove();
       }
     }
+  })();
   `;
 
   return (
