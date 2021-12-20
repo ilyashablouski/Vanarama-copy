@@ -235,9 +235,9 @@ export const pushPageData = async ({
   }
   // setDataLayer();
   const [person, personUuid, email] = await Promise.all([
-    getStoredPerson(client),
-    getStoredPersonUuid(client),
-    getStoredPersonEmail(client),
+    getStoredPerson(client, 'no-cache'),
+    getStoredPersonUuid(client, 'no-cache'),
+    getStoredPersonEmail(client, 'no-cache'),
   ]);
   const personEmail = person?.emailAddresses?.[0]?.value || email;
 
