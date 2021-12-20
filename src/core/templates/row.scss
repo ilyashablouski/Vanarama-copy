@@ -709,6 +709,10 @@
         padding: 0 !important;
         background-image: none;
 
+        @include tablet {
+          height: 80px;
+        }
+
         @include mobile {
           height: 70px;
         }
@@ -723,8 +727,8 @@
           height: 51px;
 
           @include tablet {
-            width: 260px;
-            height: 43px;
+            width: 230px;
+            height: 38px;
           }
 
           @include mobile {
