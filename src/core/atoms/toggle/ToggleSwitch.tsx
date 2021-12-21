@@ -17,6 +17,7 @@ const ToggleSwitch: React.FC<IToggleSwitchProps> = React.forwardRef<
     className,
     dataTestId,
     defaultChecked,
+    dataUiTestId,
   } = props;
 
   return (
@@ -33,6 +34,7 @@ const ToggleSwitch: React.FC<IToggleSwitchProps> = React.forwardRef<
         data-testid={dataTestId}
         defaultChecked={defaultChecked}
         type="checkbox"
+        data-uitestid={dataUiTestId}
       />
       <span />
     </div>

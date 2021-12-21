@@ -33,6 +33,7 @@ const GlobalSearchPageSort = ({
       values={labels}
       onChange={value => onGetValue(value[0] as string)}
       selectedValues={activeSort}
+      dataUiTestId="global-search-page-container"
     />
   );
 };

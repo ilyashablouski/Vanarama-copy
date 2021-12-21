@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const SelectedBox = forwardRef<HTMLDivElement, IProps>(
-  ({ selected, onClearFilterBlock, renderFunction }, ref) => {
+  ({ selected, onClearFilterBlock, renderFunction, dataUiTestId }, ref) => {
     return (
       <div
         className="selection-summary"
@@ -17,7 +17,11 @@ const SelectedBox = forwardRef<HTMLDivElement, IProps>(
         }}
       >
         <div className="overview">
-          <span>{selected.length} Selected</span>
+          <span
+            data-uitestid={`${dataUiTestId}_selected-box_${selected.length}`}
+          >
+            {selected.length} Selected
+          </span>
           <span>
             {renderFunction
               ? renderFunction(selected).join(', ')

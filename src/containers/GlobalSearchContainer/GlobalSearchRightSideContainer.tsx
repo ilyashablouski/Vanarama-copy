@@ -125,13 +125,16 @@ const GlobalSearchRightSideContainer = ({
 
           <div className="header-search-results__bottom">
             <div className="hmc-promo">
-              <p>Not Sure Which Car Is Best For You?</p>
+              <p data-uitestid={`${dataUiTestId}_text_not-sure-which-car-best`}>
+                Not Sure Which Car Is Best For You?
+              </p>
               <Button
                 color="teal"
                 fill="solid"
                 size="regular"
                 label="Help Me Choose"
                 onClick={() => router.push('/help-me-choose')}
+                dataUiTestId={`${dataUiTestId}_button_help-me-choose`}
               />
             </div>
           </div>

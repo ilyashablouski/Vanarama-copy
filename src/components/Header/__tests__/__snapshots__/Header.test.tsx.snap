@@ -225,6 +225,7 @@ exports[`<Header /> renders correctly 1`] = `
     </a>
     <div
       className="header-account"
+      data-uitestid="header_account"
     >
       <button
         className="header-account--toggle -secondary -regular -clear"
@@ -3181,6 +3182,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
     </a>
     <div
       className="header-account"
+      data-uitestid="header_account"
     >
       <button
         className="header-account--toggle -secondary -regular -clear"
