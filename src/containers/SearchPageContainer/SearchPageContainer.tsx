@@ -527,7 +527,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups || isModelPage || isBodyStylePage,
           isTransmissionPage,
-          onOffer: onOffer || false,
+          onOffer: onOffer ?? null,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -580,14 +580,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       setFiltersData(filters);
     }
   };
-
-  // if on partnership render new search results with custom variables
-  useEffect(() => {
-    if (getPartnerProperties()?.fuelTypes) {
-      onSearch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useFirstRenderEffect(() => {
     onSearch();
@@ -733,7 +725,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
-            onOffer: isOnOffer || false,
+            onOffer: isOnOffer ?? null,
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
@@ -746,7 +738,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          onOffer: isOnOffer || false,
+          onOffer: isOnOffer ?? null,
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],

@@ -39,7 +39,7 @@ interface IVehiclesVariables {
   isSpecialOffersOrder?: boolean;
   isManualBodyStyle?: boolean;
   isTransmissionPage?: boolean;
-  onOffer?: boolean;
+  onOffer?: boolean | null;
   filters?: IFilters;
   query?: ParsedUrlQuery;
   sortOrder?: SortObject[];
@@ -611,7 +611,7 @@ export const createVehiclesVariables = ({
   isSpecialOffersOrder,
   isManualBodyStyle = false,
   isTransmissionPage = false,
-  onOffer = false,
+  onOffer = null,
   filters,
   query,
   sortOrder,

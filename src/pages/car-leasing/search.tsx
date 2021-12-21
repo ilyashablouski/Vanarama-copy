@@ -83,7 +83,11 @@ export async function getServerSideProps(
       '',
     )) as ApolloQueryResult<GenericPageQuery>;
     const cookieString = context?.req?.headers?.cookie || '';
-    if (!Object.keys(context.query).length) {
+    if (
+      !Object.keys(context.query).length ||
+      (getCustomFuelTypesFromCookies(cookieString, 'customSessionFuelTypes') &&
+        Object.keys(context.query).length === 1)
+    ) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,

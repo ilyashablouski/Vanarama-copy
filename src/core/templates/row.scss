@@ -687,6 +687,11 @@
           margin-bottom: -50px;
         }
 
+        @include tablet {
+          padding-top: 52%;
+          background-position: 60% center;
+        }
+
         @include mobile {
           background: url("/Assets/images/levc/levc-mobile.png") no-repeat center center;
           background-size: cover;
@@ -704,6 +709,10 @@
         padding: 0 !important;
         background-image: none;
 
+        @include tablet {
+          height: 80px;
+        }
+
         @include mobile {
           height: 70px;
         }
@@ -716,6 +725,11 @@
         .levc-logo svg {
           width: 312px;
           height: 51px;
+
+          @include tablet {
+            width: 230px;
+            height: 38px;
+          }
 
           @include mobile {
             width: 160px;
