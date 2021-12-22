@@ -435,6 +435,7 @@ const GlobalSearchPageContainer = memo(
             type="button"
             className="filters"
             onClick={() => tabsHandler(ITabs.Filter)}
+            data-uitestid="global-search-page-container_button_filters"
           >
             <OptionsSharp />
             Filter
@@ -447,6 +448,7 @@ const GlobalSearchPageContainer = memo(
             className="sort -darker"
             type="button"
             onClick={() => tabsHandler(ITabs.Sort)}
+            data-uitestid="global-search-page-container_button_sort"
           >
             <SwapVerticalSharp />
             Sort
@@ -481,6 +483,7 @@ const GlobalSearchPageContainer = memo(
                     description: vehicle?.derivativeName || '',
                   }}
                   isPersonalPrice={isPersonal}
+                  dataUiTestId="global-search-page-container"
                 />
               ))}
             </div>
@@ -495,6 +498,7 @@ const GlobalSearchPageContainer = memo(
               onClick={onLoadMore}
               size="regular"
               dataTestId="LoadMore"
+              dataUiTestId="global-search-page-container_button_load-more"
             />
           </div>
         )}
@@ -512,6 +516,9 @@ const GlobalSearchPageContainer = memo(
                 filters: activeTab === ITabs.Filter,
                 sort: activeTab !== ITabs.Filter,
               })}
+              data-uitestid={`global-search-page-container_div_${
+                activeTab === ITabs.Filter ? 'filter' : 'sort'
+              }`}
             >
               {activeTab === ITabs.Filter ? (
                 <GlobalSearchPageFilters
@@ -544,11 +551,13 @@ const GlobalSearchPageContainer = memo(
                 totalResults={totalResults}
                 onResetFilters={() => setActiveFilters({} as IFiltersData)}
                 onCloseDrawer={() => setIsShowDrawer(false)}
+                dataUiTestId="global-search-page-container"
               />
             ) : (
               <></>
             )
           }
+          dataUiTestId="global-search-page-container"
         />
       </>
     );

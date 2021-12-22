@@ -370,7 +370,8 @@ const SearchPageFilters = ({
           (isPartnershipActive &&
             (initialState?.fuelTypes.length !==
               selectedFiltersState?.fuelTypes.length ||
-              Object.keys(router.query).length !== 0)) ||
+              Object.keys(router.query).filter(value => value !== 'fuelTypes')
+                .length !== 0)) ||
           (isRangePage &&
             selectedFiltersState?.model[0] &&
             searchWithParams(2)))) ||

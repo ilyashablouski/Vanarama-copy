@@ -39,6 +39,7 @@ interface IProps {
     type: string,
     filterKey: string,
   ) => boolean;
+  dataUiTestId?: string;
 }
 
 const DropdownsBlockComponent = ({
@@ -68,6 +69,7 @@ const DropdownsBlockComponent = ({
   isInvalidRangeValue,
   onHandleNativeMultiSelect,
   onClickAddMultipleSelect,
+  dataUiTestId,
 }: IProps) => {
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -108,6 +110,7 @@ const DropdownsBlockComponent = ({
   return type === 'drop-down' ? (
     <DropdownV2
       key={key}
+      dataUiTestId={dataUiTestId}
       onLabelClick={event => onHandleFilterStatus(event, key)}
       label={
         selectedLabel
@@ -127,12 +130,14 @@ const DropdownsBlockComponent = ({
           }
           onClearFilterBlock={() => clearFilterBlock(key)}
           renderFunction={renderSelectedFunction as () => string[]}
+          dataUiTestId={dataUiTestId}
         />
       )}
-      selected={
+      options={filtersMapper[key as keyof IFiltersData]}
+      selectedOptions={
         selectedTags.filter(
           selectedBlocks => selectedBlocks.filterKey === key,
-        )?.[0]?.tags || []
+        )?.[0]?.tags
       }
     >
       <ChoiceBoxesV2
@@ -149,11 +154,13 @@ const DropdownsBlockComponent = ({
         disabled={
           !multiselect && filtersMapper[key as keyof IFiltersData]?.length === 1
         }
+        dataUiTestId={dataUiTestId}
       />
     </DropdownV2>
   ) : (
     <DropdownV2
       type="drop-select"
+      dataUiTestId={dataUiTestId}
       key={key}
       label={label}
       multiselect={multiselect}
@@ -168,9 +175,11 @@ const DropdownsBlockComponent = ({
             onClearDropdown(innerSelects as IInnerSelect[]);
           }}
           renderFunction={renderSelectedFunction as () => string}
+          dataUiTestId={dataUiTestId}
         />
       )}
-      selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
+      options={innerSelects}
+      selectedOptions={getSelectedValues(innerSelects, activeFilters)}
     >
       <form ref={formRef}>
         {(innerSelects as IInnerSelect[])?.map(
@@ -191,6 +200,7 @@ const DropdownsBlockComponent = ({
                           | string
                           | number[])?.[0]
                   }
+                  data-uitestid={`${dataUiTestId}_select_${selectKey}`}
                 >
                   <option
                     disabled

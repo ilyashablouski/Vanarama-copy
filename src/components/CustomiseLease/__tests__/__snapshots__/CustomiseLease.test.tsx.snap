@@ -31,10 +31,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_Personal"
       htmlFor="Personal"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_Personal"
       >
         Personal
       </span>
@@ -52,10 +54,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_Business"
       htmlFor="Business"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_Business"
       >
         Business
       </span>
@@ -156,10 +160,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_24, 36"
       htmlFor="24, 36"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_24, 36"
       >
         24, 36
       </span>
@@ -177,10 +183,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_77"
       htmlFor="77"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_77"
       >
         77
       </span>
@@ -227,6 +235,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box -active"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_1"
       htmlFor="1"
       style={
         Object {
@@ -236,6 +245,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_1"
       >
         1
       </span>
@@ -253,10 +263,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_3"
       htmlFor="3"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_3"
       >
         3
       </span>
@@ -846,10 +858,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_Personal"
       htmlFor="Personal"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_Personal"
       >
         Personal
       </span>
@@ -867,10 +881,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_Business"
       htmlFor="Business"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_Business"
       >
         Business
       </span>
@@ -971,10 +987,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_24, 36"
       htmlFor="24, 36"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_24, 36"
       >
         24, 36
       </span>
@@ -992,10 +1010,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_77"
       htmlFor="77"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_77"
       >
         77
       </span>
@@ -1042,6 +1062,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box -active"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_1"
       htmlFor="1"
       style={
         Object {
@@ -1051,6 +1072,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_1"
       >
         1
       </span>
@@ -1068,10 +1090,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-uitestid="details-page_choice-boxes-v2_choice-box_3"
       htmlFor="3"
     >
       <span
         className="choice-label"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_span_3"
       >
         3
       </span>

@@ -42,7 +42,7 @@ enum Tabs {
 const VANS_TAB_HEADING = 'Search Van Leasing';
 const CARS_TAB_HEADING = 'Search Car Leasing';
 const PICKUPS_TAB_HEADING = 'Search Pickup Leasing';
-const ELECTRIC_TAB_HEADING = 'Search Electric Cars Leasing';
+const ELECTRIC_TAB_HEADING = 'Search Electric Car Leasing';
 
 const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,

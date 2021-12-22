@@ -117,7 +117,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
         <HeaderWishlistLink />
-        <div className="header-account">
+        <div className="header-account" data-uitestid="header_account">
           {isUserAuthenticated() ? (
             <>
               <Button
