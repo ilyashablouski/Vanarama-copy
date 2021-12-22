@@ -13,6 +13,7 @@ function DropdownV2({
   renderSummary,
   multiselect,
   selected,
+  dataUiTestId,
 }: IDropdownV2Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
@@ -64,8 +65,11 @@ function DropdownV2({
         className="label"
         ref={labelRef}
         onClick={onLabelClick}
+        data-uitestid={`${dataUiTestId}_span_selects-wrapper`}
       >
-        <span>{label}</span>
+        <span data-uitestid={`${dataUiTestId}_dropdown_span_${label}`}>
+          {label}
+        </span>
         <ChevronDownSharp />
       </span>
       <div ref={optionsRef} className="options">
