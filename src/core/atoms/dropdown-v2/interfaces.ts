@@ -1,3 +1,5 @@
+import { Nullish } from '../../../types/common';
+
 export interface IDropdownV2Props {
   type: 'drop-down' | 'drop-select';
   open: boolean;
@@ -6,6 +8,7 @@ export interface IDropdownV2Props {
   onLabelClick: (event: React.MouseEvent<HTMLSpanElement>) => void;
   multiselect: boolean;
   renderSummary?: (ref: React.Ref<HTMLDivElement>) => React.ReactNode;
-  selected: unknown[];
+  selectedOptions: Nullish<unknown[]>;
+  options: Nullish<unknown[]>;
   dataUiTestId?: string;
 }
