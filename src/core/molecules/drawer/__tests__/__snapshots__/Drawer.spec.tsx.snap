@@ -14,6 +14,7 @@ exports[`<Drawer /> should render correctly 1`] = `
       </span>
       <Icon
         className="close-filter"
+        data-uitestid="global-search-page-container_icon_close-filter"
         icon={<Memo />}
         onClick={[MockFunction]}
       />
@@ -21,6 +22,7 @@ exports[`<Drawer /> should render correctly 1`] = `
   </div>
   <div
     className="srp-f-mask open"
+    data-uitestid="global-search-page-container_div_shadow-overlay"
     onClick={[MockFunction]}
     role="presentation"
   >

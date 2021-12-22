@@ -45,7 +45,10 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
   return (
     <div className="card-mini" data-uitestid={dataUiTestId}>
       {isSpecialOffer && (
-        <span className="hot-offer">
+        <span
+          className="hot-offer"
+          data-uitestid="global-search_results_span_hot-offer"
+        >
           <Icon icon={<Flame />} className="flame" />
           HOT OFFER
         </span>
@@ -55,14 +58,20 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
       </div>
       <div className="copy">
         {isElectric && (
-          <span className="extras-gs">
+          <span
+            className="extras-gs"
+            data-uitestid="global-search_results_span_free-home-charger"
+          >
             <FreeHomeCharger />
             FREE HOME CHARGER
           </span>
         )}
         {isSpecialOffer && !(!isCar || isElectric) && (
           <>
-            <span className="extras-gs">
+            <span
+              className="extras-gs"
+              data-uitestid="global-search_results_span_free-insurance"
+            >
               {' '}
               <FreeInsuranceCardLabelIcon />
               FREE INSURANCE
