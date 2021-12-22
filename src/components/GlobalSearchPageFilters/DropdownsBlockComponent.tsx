@@ -133,10 +133,11 @@ const DropdownsBlockComponent = ({
           dataUiTestId={dataUiTestId}
         />
       )}
-      selected={
+      options={filtersMapper[key as keyof IFiltersData]}
+      selectedOptions={
         selectedTags.filter(
           selectedBlocks => selectedBlocks.filterKey === key,
-        )?.[0]?.tags || []
+        )?.[0]?.tags
       }
     >
       <ChoiceBoxesV2
@@ -177,7 +178,8 @@ const DropdownsBlockComponent = ({
           dataUiTestId={dataUiTestId}
         />
       )}
-      selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
+      options={innerSelects}
+      selectedOptions={getSelectedValues(innerSelects, activeFilters)}
     >
       <form ref={formRef}>
         {(innerSelects as IInnerSelect[])?.map(
