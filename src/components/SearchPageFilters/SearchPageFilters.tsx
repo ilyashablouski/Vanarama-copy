@@ -340,7 +340,7 @@ const SearchPageFilters = ({
     }
   }, [isSpecialOffers]);
 
-  useEffect(() => {
+  useFirstRenderEffect(() => {
     // don't call onSearch already after render
     if (!isInitialLoad || router.query.isChangePage === 'true') {
       onViewResults();
