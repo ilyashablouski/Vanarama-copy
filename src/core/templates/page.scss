@@ -150,6 +150,10 @@
           grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 0.5rem;
         }
       }
+
+      @include mobile-tablet {
+        padding-top: 89px;
+      }
     }
   }
 
