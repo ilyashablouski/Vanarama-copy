@@ -527,7 +527,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups || isModelPage || isBodyStylePage,
           isTransmissionPage,
-          onOffer: onOffer || false,
+          onOffer: onOffer ?? null,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],

@@ -39,7 +39,7 @@ interface IVehiclesVariables {
   isSpecialOffersOrder?: boolean;
   isManualBodyStyle?: boolean;
   isTransmissionPage?: boolean;
-  onOffer?: boolean;
+  onOffer?: boolean | null;
   filters?: IFilters;
   query?: ParsedUrlQuery;
   sortOrder?: SortObject[];
