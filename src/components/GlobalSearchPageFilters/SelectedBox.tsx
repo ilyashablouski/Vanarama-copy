@@ -4,6 +4,7 @@ interface IProps {
   selected: string[];
   onClearFilterBlock: () => void;
   renderFunction?: (values: string[]) => string[];
+  dataUiTestId?: string;
 }
 
 const SelectedBox = forwardRef<HTMLDivElement, IProps>(
