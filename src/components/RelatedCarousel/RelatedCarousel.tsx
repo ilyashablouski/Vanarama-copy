@@ -4,11 +4,13 @@ import { SwiperSlide } from 'swiper/react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
 
+import cx from 'classnames';
 import { GenericPageQuery_genericPage_sections_carousel_cards as ICarouselCard } from '../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 import RouterLink from '../RouterLink';
 import Skeleton from '../Skeleton';
+import Pagination from '../BlogCarousel/Pagination';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -28,6 +30,8 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 interface IProps {
   cards: (ICarouselCard | null)[] | null;
   title: Nullable<string>;
+  renderNewPagination?: boolean;
+  className?: string;
 }
 
 const renderCarouselSlide = (card: ICarouselCard) => (
@@ -72,7 +76,12 @@ const renderCarouselSlide = (card: ICarouselCard) => (
   </SwiperSlide>
 );
 
-const RelatedCarousel = ({ cards, title }: IProps) => {
+const RelatedCarousel = ({
+  cards,
+  title,
+  renderNewPagination,
+  className,
+}: IProps) => {
   const resultCards = useMemo(
     () => cards?.filter(item => !!item) as ICarouselCard[],
     [cards],
@@ -87,7 +96,13 @@ const RelatedCarousel = ({ cards, title }: IProps) => {
               {title}
             </Heading>
           )}
-          <CarouselSwiper countItems={resultCards.length} className="-col3">
+          <CarouselSwiper
+            countItems={resultCards.length}
+            className={cx('-col3', className)}
+            paginationComponent={
+              renderNewPagination ? <Pagination /> : undefined
+            }
+          >
             {resultCards.map(renderCarouselSlide)}
           </CarouselSwiper>
         </div>

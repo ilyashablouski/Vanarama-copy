@@ -13,6 +13,7 @@ interface IProps {
   onCloseDrawer: () => void;
   isShowDrawer: boolean;
   title: string;
+  dataUiTestId?: string;
 }
 const Drawer = ({
   onCloseDrawer,
@@ -21,6 +22,7 @@ const Drawer = ({
   title,
   renderActions,
   isLoading,
+  dataUiTestId,
 }: IProps) => {
   return (
     <>
@@ -35,6 +37,7 @@ const Drawer = ({
             icon={<Close />}
             onClick={onCloseDrawer}
             className="close-filter"
+            data-uitestid={`${dataUiTestId}_icon_close-filter`}
           />
         </Text>
         {renderContent || null}
@@ -47,6 +50,7 @@ const Drawer = ({
           open: isShowDrawer,
           updating: isLoading,
         })}
+        data-uitestid={`${dataUiTestId}_div_shadow-overlay`}
       >
         <Spinner />
       </div>

@@ -611,7 +611,7 @@ export const createVehiclesVariables = ({
   isSpecialOffersOrder,
   isManualBodyStyle = false,
   isTransmissionPage = false,
-  onOffer = false,
+  onOffer = null,
   filters,
   query,
   sortOrder,

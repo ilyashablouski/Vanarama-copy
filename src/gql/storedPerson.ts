@@ -6,6 +6,7 @@ import {
   ApolloClient,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { QueryOptions } from '@apollo/client/core/watchQueryOptions';
 import { GetStoredPerson } from '../../generated/GetStoredPerson';
 import { SavePerson, SavePersonVariables } from '../../generated/SavePerson';
 import { PERSON_DATA_FRAGMENT } from '../containers/LoginFormContainer/gql';
@@ -47,10 +48,12 @@ export function useSavePersonMutation() {
 
 export function getStoredPerson(
   client: ApolloClient<NormalizedCacheObject | object>,
+  fetchPolicy?: QueryOptions['fetchPolicy'],
 ) {
   return client
     .query<GetStoredPerson>({
       query: GET_STORED_PERSON_QUERY,
+      fetchPolicy,
     })
     .then(operation => operation.data?.storedPerson)
     .catch(() => null);

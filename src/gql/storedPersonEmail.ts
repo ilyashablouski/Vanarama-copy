@@ -5,6 +5,7 @@ import {
   ApolloClient,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { QueryOptions } from '@apollo/client/core/watchQueryOptions';
 import { GetStoredPersonEmail } from '../../generated/GetStoredPersonEmail';
 import {
   SavePersonEmail,
@@ -45,10 +46,12 @@ export function useSavePersonEmailMutation(
 
 export function getStoredPersonEmail(
   client: ApolloClient<NormalizedCacheObject | object>,
+  fetchPolicy?: QueryOptions['fetchPolicy'],
 ) {
   return client
     .query<GetStoredPersonEmail>({
       query: GET_STORED_PERSON_EMAIL_QUERY,
+      fetchPolicy,
     })
     .then(operation => operation.data?.storedPersonEmail)
     .catch(() => null);

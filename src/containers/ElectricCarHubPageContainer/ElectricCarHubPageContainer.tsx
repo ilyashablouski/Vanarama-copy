@@ -22,6 +22,7 @@ import LeadTextComponent from '../LandingPageContainer/LeadTextComponent';
 import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 import EvHeroSection from './EvHeroSection';
+import RelatedCarousel from '../../components/RelatedCarousel';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -89,13 +90,15 @@ const ECarsPage: FC<IProps> = ({
       />
       <LeadTextComponent
         leadText={leadTexts[0]}
+        xlargeText
         withSeparator={false}
         className="-a-center"
       />
       <HeadingSection
-        titleTag="h1"
+        titleTag="h2"
         header={sectionsAsArray?.carousel?.[0]?.title}
         description={sectionsAsArray?.carousel?.[0]?.subtitle}
+        largeText
       />
       <CardsSection
         derivatives={productsElectricOnlyCarDerivatives?.derivatives || null}
@@ -125,9 +128,10 @@ const ECarsPage: FC<IProps> = ({
         </div>
       </CardsSection>
       <HeadingSection
-        titleTag="h1"
+        titleTag="h2"
         header={sectionsAsArray?.carousel?.[1]?.title}
         description={sectionsAsArray?.carousel?.[1]?.subtitle}
+        largeText
       />
       <CardsSection
         derivatives={productsHybridOnlyCarDerivatives?.derivatives || null}
@@ -205,7 +209,14 @@ const ECarsPage: FC<IProps> = ({
           </div>
         </div>
       )}
-
+      {sectionsAsArray?.carousel?.[2]?.cards?.length && (
+        <RelatedCarousel
+          cards={sectionsAsArray?.carousel?.[2]?.cards || []}
+          title={sectionsAsArray?.carousel?.[2]?.title || ''}
+          className="blog-carousel"
+          renderNewPagination
+        />
+      )}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}

@@ -9,22 +9,27 @@ function DropdownV2({
   label,
   open,
   children,
+  options,
+  selectedOptions,
   onLabelClick,
   renderSummary,
   multiselect,
-  selected,
+  dataUiTestId,
 }: IDropdownV2Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
-  const labelHeight = labelRef.current?.offsetHeight || 45;
-  const optionsHeight = optionsRef.current?.offsetHeight || 0;
-  const summaryHeight = summaryRef.current?.offsetHeight || 0;
+  const getElementsHeight = () => ({
+    optionsHeight: optionsRef.current?.offsetHeight || 0,
+    summaryHeight: summaryRef.current?.offsetHeight || 0,
+    labelHeight: labelRef.current?.offsetHeight || 45,
+  });
 
   useEffect(() => {
     if (open) {
+      const { optionsHeight, labelHeight } = getElementsHeight();
       containerRef.current!.style.height = `${labelHeight + optionsHeight}px`;
       setTimeout(() => {
         containerRef.current!.scrollIntoView({
@@ -39,14 +44,15 @@ function DropdownV2({
   }, [open]);
 
   useEffect(() => {
-    const currentLabelHeight = selected.length > 0 ? 0 : labelHeight;
+    const { summaryHeight, optionsHeight, labelHeight } = getElementsHeight();
+    const currentLabelHeight = !selectedOptions?.length ? labelHeight : 0;
     const currentOptionsHeight = open ? optionsHeight : 0;
 
     containerRef.current!.style.height = `${currentLabelHeight +
       currentOptionsHeight +
       summaryHeight}px`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected.length, summaryHeight, optionsHeight, labelHeight]);
+  }, [options?.length, selectedOptions?.length]);
 
   return (
     <div
@@ -64,8 +70,11 @@ function DropdownV2({
         className="label"
         ref={labelRef}
         onClick={onLabelClick}
+        data-uitestid={`${dataUiTestId}_span_selects-wrapper`}
       >
-        <span>{label}</span>
+        <span data-uitestid={`${dataUiTestId}_dropdown_span_${label}`}>
+          {label}
+        </span>
         <ChevronDownSharp />
       </span>
       <div ref={optionsRef} className="options">

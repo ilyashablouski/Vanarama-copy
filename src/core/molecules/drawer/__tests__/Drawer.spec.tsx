@@ -6,7 +6,12 @@ describe('<Drawer />', () => {
   it('should render correctly', () => {
     // ACT
     const wrapper = shallow(
-      <Drawer title="Test" isShowDrawer onCloseDrawer={jest.fn()} />,
+      <Drawer
+        title="Test"
+        isShowDrawer
+        onCloseDrawer={jest.fn()}
+        dataUiTestId="global-search-page-container"
+      />,
     );
 
     // ASSERT

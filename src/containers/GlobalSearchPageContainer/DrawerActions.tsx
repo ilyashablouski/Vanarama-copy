@@ -5,12 +5,14 @@ interface IProps {
   totalResults: number;
   onResetFilters: () => void;
   onCloseDrawer: () => void;
+  dataUiTestId?: string;
 }
 
 const DrawerActions = ({
   totalResults,
   onResetFilters,
   onCloseDrawer,
+  dataUiTestId,
 }: IProps) => {
   return (
     <div className="actions">
@@ -19,6 +21,7 @@ const DrawerActions = ({
         fill="outline"
         onClick={onResetFilters}
         size="initial-size"
+        dataUiTestId={`${dataUiTestId}_button_reset`}
       />
       <Button
         onClick={onCloseDrawer}
@@ -30,6 +33,7 @@ const DrawerActions = ({
           one: 'Result',
           many: 'Results',
         })}`}
+        dataUiTestId={`${dataUiTestId}_button_results`}
       />
     </div>
   );

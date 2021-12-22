@@ -20,9 +20,16 @@ function WishlistOfferCard({
   iconSize,
   className,
   onClick,
+  imageWidth,
+  imageHeight,
 }: IWishlistOffer) {
   return (
-    <ProductCard className={cx('-vehicle-type', className)} imageSrc={imageUrl}>
+    <ProductCard
+      className={cx('-vehicle-type', className)}
+      imageSrc={imageUrl}
+      imageHeight={imageHeight}
+      imageWidth={imageWidth}
+    >
       <div className="copy">
         <Heading tag="span" size="large" color="black">
           {label}

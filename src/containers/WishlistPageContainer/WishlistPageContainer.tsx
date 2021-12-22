@@ -242,6 +242,9 @@ function WishlistPageContainer({
                       onClick={() => Router.push(card.redirect)}
                       textSize="regular"
                       iconSize="large"
+                      className="-wishlist-card-container"
+                      imageWidth="95"
+                      imageHeight="70"
                     />
                   ))}
                 </section>
@@ -267,13 +270,15 @@ function WishlistPageContainer({
           {cardList.map(card => (
             <WishlistOfferCard
               key={card.header}
-              className="-mt-400"
+              className="-mt-400 -wishlist-card-container"
               label={card.header}
               imageUrl={card.imageSrc}
               totalCount={card.totalCount}
               onClick={() => Router.push(card.redirect)}
               textSize="small"
               iconSize="lead"
+              imageWidth="95"
+              imageHeight="70"
             />
           ))}
         </Modal>
