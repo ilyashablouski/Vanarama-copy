@@ -54,6 +54,7 @@ class MyDocument extends Document {
             />
           )}
           {scriptEnvs.blueconic.includes(env) && <CookieBarScript />}
+          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
@@ -64,7 +65,6 @@ class MyDocument extends Document {
           <script async data-cfasync="false" src="/scripts/global.js" />
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           <NextScript />
-          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMScript />
