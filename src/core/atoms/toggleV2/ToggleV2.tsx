@@ -20,6 +20,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
     rightLabel,
     onChange,
     checked,
+    dataUiTestId,
   } = props;
 
   const handleInputChange = (
@@ -37,8 +38,14 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         name={leftName}
         checked={checked}
         onChange={e => handleInputChange(e)}
+        data-uitestid={`${dataUiTestId}_input_${leftLabel}`}
       />
-      <label htmlFor={leftId}>{leftLabel}</label>
+      <label
+        htmlFor={leftId}
+        data-uitestid={`${dataUiTestId}_label_${leftLabel}`}
+      >
+        {leftLabel}
+      </label>
       <input
         value={rightValue}
         type="radio"
@@ -47,8 +54,14 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         name={rightName}
         checked={!checked}
         onChange={e => handleInputChange(e)}
+        data-uitestid={`${dataUiTestId}_input_${rightLabel}`}
       />
-      <label htmlFor={rightId}>{rightLabel}</label>
+      <label
+        htmlFor={rightId}
+        data-uitestid={`${dataUiTestId}_label_${rightLabel}`}
+      >
+        {rightLabel}
+      </label>
       <span className="state" />
     </div>
   );

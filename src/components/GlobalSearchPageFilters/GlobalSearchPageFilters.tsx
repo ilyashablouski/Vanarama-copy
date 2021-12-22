@@ -327,6 +327,7 @@ const GlobalSearchPageFilters = ({
           dataTestId="srp-f-hot-deals-togl"
           checked={isSpecialOffer}
           onChange={() => setIsSpecialOffer(!isSpecialOffer)}
+          dataUiTestId="global-search-page_filters_toggle_show-only-hot-offers"
         />
         &nbsp;Show only&nbsp;
         <Flame />
@@ -343,6 +344,7 @@ const GlobalSearchPageFilters = ({
         leftDataTestId="personal"
         rightDataTestId="business"
         onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
+        dataUiTestId="global-search-page_filters"
       />
       {generalFiltersConfig.map(filterConfig => (
         <DropdownsBlockComponent
@@ -363,6 +365,7 @@ const GlobalSearchPageFilters = ({
           onClickAddMultipleSelect={onClickAddMultipleSelect}
           openedFilters={openedFilters}
           selectedTags={selectedTags}
+          dataUiTestId="global-search-page_filters"
         />
       ))}
       {advancedFiltersConfig?.length > 0 && (
@@ -375,6 +378,7 @@ const GlobalSearchPageFilters = ({
             aria-expanded={isOpenAdvancedFilters}
             id="expand-filters"
             onClick={() => setIsOpenAdvancedFilters(prevState => !prevState)}
+            data-uitestid="global-search-page_filters_div_expand-filters"
           >
             <ChevronDown />
             <span>
@@ -402,6 +406,7 @@ const GlobalSearchPageFilters = ({
                   onClickAddMultipleSelect={onClickAddMultipleSelect}
                   openedFilters={openedFilters}
                   selectedTags={selectedTags}
+                  dataUiTestId="global-search-page_filters"
                 />
               ))}
             </div>

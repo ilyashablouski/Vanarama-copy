@@ -10,4 +10,5 @@ export interface IDropdownV2Props {
   renderSummary?: (ref: React.Ref<HTMLDivElement>) => React.ReactNode;
   selectedOptions: Nullish<unknown[]>;
   options: Nullish<unknown[]>;
+  dataUiTestId?: string;
 }
