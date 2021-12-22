@@ -7,4 +7,5 @@ export interface IDropdownV2Props {
   multiselect: boolean;
   renderSummary?: (ref: React.Ref<HTMLDivElement>) => React.ReactNode;
   selected: unknown[];
+  dataUiTestId?: string;
 }

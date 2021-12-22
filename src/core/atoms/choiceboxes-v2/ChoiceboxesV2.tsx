@@ -86,8 +86,12 @@ function ChoiceBoxesV2({
                   ? toDataAbTestIdFormat(dataAbTestId, value)
                   : undefined
               }
+              data-uitestid={`${dataUiTestId}_choice-box_${value}`}
             >
-              <span className={cx('choice-label', labelClassName)}>
+              <span
+                className={cx('choice-label', labelClassName)}
+                data-uitestid={`${dataUiTestId}_choice-box_span_${value}`}
+              >
                 {renderValuesFunction ? renderValuesFunction(value) : value}
               </span>
             </label>
