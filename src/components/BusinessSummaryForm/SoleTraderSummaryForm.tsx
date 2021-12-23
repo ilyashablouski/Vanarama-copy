@@ -98,7 +98,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           dataTestId="summary-heading"
           tag="h1"
         >
-          Summary
+          Review Your Order
         </Heading>
         <br />
         <Form className="olaf--summary">
