@@ -39,7 +39,7 @@ export const VansSearch = [
   }, */
   { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
   { label: 'Mercedes-Benz', href: '/mercedes-benz-van-leasing.html' },
-  { label: 'Mitsubishi', href: '/mitsubishi-van-leasing.html' },
+  { label: 'Maxus', href: '/maxus-van-leasing.html' },
   { label: 'Nissan', href: '/nissan-van-leasing.html' },
   { label: 'Peugeot', href: '/peugeot-van-leasing.html' },
   { label: 'Renault', href: '/renault-van-leasing.html' },
