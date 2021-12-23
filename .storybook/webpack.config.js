@@ -6,7 +6,7 @@ const rules = [
     test: /\.(tsx|ts)$/,
     use: [
       {
-        loader: require.resolve('swc-loader'),
+        loader: require.resolve('babel-loader'),
         options: {
           presets: [['react-app', { flow: false, typescript: true }]],
           plugins: [
