@@ -177,12 +177,12 @@ const SummaryForm: FCWithFragments<IProps> = ({
           dataTestId="summary-heading"
           tag="h1"
         >
-          Summary
+          Review Your Order
         </Heading>
         <Text color="darker" size="lead" dataTestId="olaf_summary_text">
-          Here’s a summary of all the details you’ve entered. Have a look below
-          to check everything is correct. If you do spot a mistake, simply edit
-          to make a change.
+          You&apos;re nearly there! Just check everything is correct and
+          complete your order. We&apos;ll have you in the driving seat in no
+          time
         </Text>
         <SummaryFormDetailsSection
           person={person}
