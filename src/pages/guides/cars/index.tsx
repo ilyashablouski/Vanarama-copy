@@ -12,7 +12,7 @@ import {
 } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer';
 
-const GuidesCars: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
+const CarsGuides: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -33,4 +33,4 @@ export async function getStaticProps(
   return getReviewsHubCategoryStaticProps(client, 'guides/cars', context);
 }
 
-export default GuidesCars;
+export default CarsGuides;
