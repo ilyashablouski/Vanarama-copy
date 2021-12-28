@@ -53,7 +53,7 @@ class MyDocument extends Document {
               src="https://g562.vanarama.com/script.js"
             />
           )}
-          {scriptEnvs.blueconic.includes(env) && <CookieBarScript />}
+          <CookieBarScript />
           {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
