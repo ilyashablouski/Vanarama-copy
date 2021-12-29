@@ -8,7 +8,7 @@ import {
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/ReviewsHubCategoryQuery';
 import { Nullable } from '../../types/common';
-import { getMarkdownRenderers } from './Utils';
+import { getMarkdownRenderers } from './helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
@@ -108,14 +108,13 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           {title}
         </Heading>
       </div>
-      <div className="row:text -columns">
-        <div>
-          <ReactMarkdown
-            source={body || ''}
-            renderers={getMarkdownRenderers()}
-          />
+      {body && (
+        <div className="row:text -columns">
+          <div>
+            <ReactMarkdown source={body} renderers={getMarkdownRenderers()} />
+          </div>
         </div>
-      </div>
+      )}
       {cards?.length && (
         <>
           <div className="row:cards-3col -pt-300">{renderCards()}</div>
