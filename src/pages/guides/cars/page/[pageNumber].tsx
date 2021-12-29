@@ -13,7 +13,7 @@ import {
 } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer';
 
-const ElectricGuidesPage: NextPage<IReviewHubPage> = ({
+const CarsGuidesPage: NextPage<IReviewHubPage> = ({
   data: encodedData,
   pageNumber,
 }) => {
@@ -33,14 +33,14 @@ const ElectricGuidesPage: NextPage<IReviewHubPage> = ({
 
 export async function getStaticPaths(context: GetStaticPropsContext) {
   const client = createApolloClient({});
-  return getReviewsHubCategoryStaticPath(client, 'guides/electric', context);
+  return getReviewsHubCategoryStaticPath(client, 'guides/cars', context);
 }
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IReviewHubPage | IPageWithError>> {
   const client = createApolloClient({});
-  return getReviewsHubCategoryStaticProps(client, 'guides/electric', context);
+  return getReviewsHubCategoryStaticProps(client, 'guides/cars', context);
 }
 
-export default ElectricGuidesPage;
+export default CarsGuidesPage;
