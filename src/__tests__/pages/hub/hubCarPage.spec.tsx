@@ -32,8 +32,8 @@ jest.mock(
   },
 );
 
-jest.mock('next/image', () => ({ src, alt, ...props }: ImageProps) => (
-  <img {...props} src={src.toString()} alt={alt} />
+jest.mock('next/image', () => ({ src, alt }: ImageProps) => (
+  <img src={src.toString()} alt={alt} />
 ));
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -307,11 +307,7 @@ describe('<CarPage />', () => {
     );
   });
 
-  it('should trigger route push when clicking Here', async () => {
-    await screen.findByText('View All Cars');
-    fireEvent.click(screen.getByText('Here'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
-    );
+  it('should have correct link in Here path', async () => {
+    expect(screen.getByText('Here')).toHaveAttribute('href', '/fan-hub.html');
   });
 });

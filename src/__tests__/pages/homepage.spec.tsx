@@ -26,8 +26,8 @@ jest.mock('../../containers/SearchPodContainer', () => () => {
 jest.mock('../../containers/OrdersInformation/gql');
 jest.mock('../../gql/vehicleList');
 
-jest.mock('next/image', () => ({ src, alt, ...props }: ImageProps) => (
-  <img {...props} src={src.toString()} alt={alt} />
+jest.mock('next/image', () => ({ src, alt}: ImageProps) => (
+  <img src={src.toString()} alt={alt} />
 ));
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -800,12 +800,8 @@ describe('<HomePage />', () => {
     );
   });
 
-  it('should trigger route push when clicking Here', async () => {
-    await screen.findByTestId('view-all-pickups');
-    fireEvent.click(screen.getByText('Here'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
-    );
+  it('should have correct link in Here path', async () => {
+    expect(screen.getByText('Here')).toHaveAttribute('href', '/fan-hub.html');
   });
 
   it('should have correct link in car details path  ', async () => {

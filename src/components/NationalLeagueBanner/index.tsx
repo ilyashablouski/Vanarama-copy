@@ -12,11 +12,7 @@ const League = dynamic(() => import('core/organisms/league'), {
 const NationalLeagueBanner = () => (
   <section className="row:league">
     <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-      <League
-        clickReadMore={() => Router.push('/fan-hub.html')}
-        altText="vanarama national league"
-        link="/fan-hub.html"
-      />
+      <League altText="vanarama national league" link="/fan-hub.html" />
     </LazyLoadComponent>
   </section>
 );
