@@ -111,6 +111,7 @@ const DATA = {
     featuredImage: null,
     intro: '',
     sectionsAsArray: null,
+    colourPrimary: '#000000',
   },
 } as GenericPageQuery;
 

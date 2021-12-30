@@ -94,7 +94,7 @@ export async function getServerSideProps(
       query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/levc',
-        pageType: 'levcManufacturer',
+        pageType: 'manufacturer',
         isPreview: !!context?.preview,
         sectionsAsArray: true,
       },
