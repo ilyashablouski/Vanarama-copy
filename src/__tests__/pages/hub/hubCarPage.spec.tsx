@@ -1,10 +1,9 @@
 import React from 'react';
-import Router from 'next/router';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { ImageProps } from 'next/image';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';

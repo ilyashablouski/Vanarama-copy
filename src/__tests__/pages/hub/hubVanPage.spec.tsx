@@ -2,8 +2,7 @@ import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import Router from 'next/router';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ImageProps } from 'next/image';
 import { HubVanPageData } from '../../../../generated/HubVanPageData';
 import { ProductCardData } from '../../../../generated/ProductCardData';
@@ -22,7 +21,7 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 
-jest.mock('next/image', () => ({ src, alt}: ImageProps) => (
+jest.mock('next/image', () => ({ src, alt }: ImageProps) => (
   <img src={src.toString()} alt={alt} />
 ));
 jest.mock('next/router', () => ({

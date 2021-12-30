@@ -27,10 +27,7 @@ const League: FC<ILeagueProps> = memo(props => {
         </Heading>
         <Text color="darker" size="lead" tag="span">
           Read About Our Sponsorship{' '}
-          <Link
-            color="teal"
-            href={link}
-          >
+          <Link color="teal" href={link}>
             Here
           </Link>
         </Text>

@@ -1,4 +1,3 @@
-import Router from 'next/router';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
