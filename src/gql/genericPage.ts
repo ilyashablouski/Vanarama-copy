@@ -58,6 +58,7 @@ export const GENERIC_PAGE = gql`
         publishedOn
         breadcrumbs
       }
+      colourPrimary
       featuredImage {
         title
         description
@@ -305,6 +306,24 @@ export const GENERIC_PAGE = gql`
           titleTag
           body
           image {
+            title
+            description
+            file {
+              fileName
+              contentType
+              ...imageFile
+            }
+          }
+          mobileImage {
+            title
+            description
+            file {
+              fileName
+              contentType
+              ...imageFile
+            }
+          }
+          logo {
             title
             description
             file {

@@ -345,11 +345,9 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
-export const convertErrorToProps = (
-  error: Error | ApolloError,
-): IErrorProps => {
+export const convertErrorToProps = (error: unknown): IErrorProps => {
   if (
-    'networkError' in error &&
+    error instanceof ApolloError &&
     error.networkError &&
     'statusCode' in error.networkError
   ) {
@@ -359,9 +357,12 @@ export const convertErrorToProps = (
     };
   }
 
+  const errorMessage =
+    error instanceof Error ? error.message : 'Server-side error occurred';
+
   return {
     statusCode: 500,
-    message: error.message,
+    message: errorMessage,
   };
 };
 
