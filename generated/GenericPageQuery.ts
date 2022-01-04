@@ -971,6 +971,50 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image {
   file: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file_details_image;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file {
+  fileName: string;
+  contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file_details;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file_details {
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file_details_image;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file {
+  fileName: string;
+  contentType: string;
+  url: string;
+  details: GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file_details;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_logo {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_hero_logo_file | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard {
   title: string | null;
   body: string | null;
@@ -1027,6 +1071,8 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero {
   titleTag: string | null;
   body: string | null;
   image: GenericPageQuery_genericPage_sectionsAsArray_hero_image | null;
+  mobileImage: GenericPageQuery_genericPage_sectionsAsArray_hero_mobileImage | null;
+  logo: GenericPageQuery_genericPage_sectionsAsArray_hero_logo | null;
   heroCard: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard | null)[] | null;
   heroLabel: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel | null)[] | null;
   heroTerms: string | null;
@@ -1162,6 +1208,7 @@ export interface GenericPageQuery_genericPage {
   id: string;
   intro: string | null;
   metaData: GenericPageQuery_genericPage_metaData;
+  colourPrimary: string | null;
   featuredImage: GenericPageQuery_genericPage_featuredImage | null;
   sections: GenericPageQuery_genericPage_sections | null;
   sectionsAsArray: GenericPageQuery_genericPage_sectionsAsArray | null;

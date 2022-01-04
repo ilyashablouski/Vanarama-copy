@@ -13,7 +13,7 @@ const HeroBackground: React.FC<IHeroProps> = ({
 }) => {
   return (
     <div
-      style={{ '--hero-bg': `url(${backgroundUrl})` } as any}
+      style={{ '--hero-bg': `url(${backgroundUrl})` }}
       className={cx('row:bg-hero', {
         '-expand': expand,
       })}

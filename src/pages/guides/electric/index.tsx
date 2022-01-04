@@ -1,14 +1,16 @@
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
-import createApolloClient from '../../../apolloClient';
-import { getSectionsData } from '../../../utils/getSectionsData';
-import {
-  getReviewsHubCategoryStaticProps,
-  IReviewHubPage,
-} from '../../../containers/VehicleReviewCategoryContainer/gql';
+
 import { decodeData } from '../../../utils/data';
 import { IPageWithError } from '../../../types/common';
+import createApolloClient from '../../../apolloClient';
+import { getSectionsData } from '../../../utils/getSectionsData';
 import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
+
+import {
+  IReviewHubPage,
+  getReviewsHubCategoryStaticProps,
+} from '../../../containers/VehicleReviewCategoryContainer/gql';
+import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer';
 
 const ElectricGuides: NextPage<IReviewHubPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
