@@ -664,6 +664,29 @@
       );
       overflow: hidden;
 
+      &[style*='--hero-bg:'] {
+        background-image: var(--hero-bg),
+        linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+        // background-image: var(--hero-bg), $promo-gradient;
+        background-size: cover;
+        background-position: center center;
+        place-content: center stretch;
+        background-blend-mode: color-burn;
+
+        &.-expand {
+          padding-top: calc(var(--page-gap) * 3);
+          padding-bottom: calc(var(--page-gap) * 4) !important;
+        }
+
+        & + [class*='row\:bg-'] {
+          --page-gap: calc(var(--layout-gap) * 1)
+        }
+
+        .row\:hero {
+          background: none;
+        }
+      }
+
       &.-deranged {
         background: url("/Assets/images/deranged/deranged-desktop.jpg") no-repeat center center;
         background-size: cover;
@@ -675,12 +698,14 @@
       }
 
       &.-levc-hero {
-        background: url("/Assets/images/levc/levc-desktop.png") no-repeat center center;
-        background-size: cover;
-        padding-top: 30%;
         position: relative;
         bottom: 110px;
+        padding-top: 30%;
         margin-bottom: -110px;
+        background-image: var(--hero-bg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
 
         @media (max-width: 1216px) {
           bottom: 50px;
@@ -693,12 +718,11 @@
         }
 
         @include mobile {
-          background: url("/Assets/images/levc/levc-mobile.png") no-repeat center center;
-          background-size: cover;
-          min-height: unset !important;
           bottom: 0;
+          min-height: unset !important;
           margin-bottom: 0;
           padding-top: 112%;
+          background-image: var(--hero-bg-mobile);
         }
       }
 
@@ -717,12 +741,7 @@
           height: 70px;
         }
 
-        .icon {
-          display: inline-flex;
-          height: auto;
-        }
-
-        .levc-logo svg {
+        .levc-logo {
           width: 312px;
           height: 51px;
 
@@ -748,29 +767,6 @@
       }
       @media (min-width: 1217px) {
         min-height: 677px;
-      }
-
-      &[style*='--hero-bg:'] {
-        background-image: var(--hero-bg),
-          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
-        // background-image: var(--hero-bg), $promo-gradient;
-        background-size: cover;
-        background-position: center center;
-        place-content: center stretch;
-        background-blend-mode: color-burn;
-
-        &.-expand {
-          padding-top: calc(var(--page-gap) * 3);
-          padding-bottom: calc(var(--page-gap) * 4) !important;
-        }
-
-        & + [class*='row\:bg-'] {
-          --page-gap: calc(var(--layout-gap) * 1)
-        }
-
-        .row\:hero {
-          background: none;
-        }
       }
     }
   }

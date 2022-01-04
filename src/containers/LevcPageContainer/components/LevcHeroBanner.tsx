@@ -1,16 +1,34 @@
 import React from 'react';
 
-import Icon from 'core/atoms/icon';
-import LevcLogoIcon from 'core/assets/icons/LogoLevc';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import ColoredSection from 'core/atoms/colored-section/ColoredSection';
 
-const LevcHeroBanner = () => (
-  <>
-    <section className="row:bg-hero -levc-hero" />
-    <ColoredSection backgroundColor="#ffec00" className="colored-section">
-      <Icon icon={<LevcLogoIcon />} className="levc-logo" color="black" />
-    </ColoredSection>
-  </>
-);
+interface IProps {
+  backgroundUrl: string;
+  backgroundUrlMobile: string;
+  logoUrl: string;
+  accentColor: string;
+}
+
+const LevcHeroBanner: React.FC<IProps> = ({
+  backgroundUrl,
+  backgroundUrlMobile,
+  logoUrl,
+  accentColor,
+}) => {
+  const backgroundCustomProps = {
+    '--hero-bg': `url(${backgroundUrl})`,
+    '--hero-bg-mobile': `url(${backgroundUrlMobile})`,
+  };
+
+  return (
+    <>
+      <div className="row:bg-hero -levc-hero" style={backgroundCustomProps} />
+      <ColoredSection className="colored-section" backgroundColor={accentColor}>
+        <ImageV2 className="levc-logo" src={logoUrl} plain />
+      </ColoredSection>
+    </>
+  );
+};
 
 export default LevcHeroBanner;

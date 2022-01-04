@@ -38,9 +38,8 @@ const RelatedCarousel = dynamic(
   { loading: () => <Skeleton count={1} /> },
 );
 
-// TODO: Remove when we get this data from CMS
-const accentColor = '#FFEC00';
-const accentTextColor = '#000000';
+const defaultTextColor = '#000000';
+const defaultAccentColor = '#FFEC00';
 
 interface ILevcPageContainer {
   vehiclesData: Nullable<IVehicleList>;
@@ -53,9 +52,11 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
   vehiclesData,
   productCardsData,
 }) => {
-  const { leadText, tiles, carousel, featured: featuredSections } =
+  const accentColor = genericPage.colourPrimary ?? defaultAccentColor;
+  const { hero, leadText, tiles, carousel, featured: featuredSections } =
     genericPage.sectionsAsArray ?? {};
 
+  const heroSection = hero?.[0];
   const tilesSection = tiles?.[0];
   const carouselSection = carousel?.[0];
   const leadTextSection = leadText?.[0];
@@ -82,12 +83,17 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
 
   return (
     <>
-      <LevcHeroBanner />
+      <LevcHeroBanner
+        backgroundUrl={heroSection?.image?.file?.url ?? ''}
+        backgroundUrlMobile={heroSection?.mobileImage?.file?.url ?? ''}
+        logoUrl={heroSection?.logo?.file?.url ?? ''}
+        accentColor={accentColor}
+      />
       {aboutSection && <FeaturedSection featured={aboutSection} />}
       {productCardList?.length && vehicleList?.length ? (
         <LevcVehicleList
           accentColor={accentColor}
-          accentTextColor={accentTextColor}
+          accentTextColor={defaultTextColor}
           productCardList={productCardList}
           vehicleList={vehicleList}
         />
