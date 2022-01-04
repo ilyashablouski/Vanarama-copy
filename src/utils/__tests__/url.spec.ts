@@ -217,12 +217,6 @@ describe('Url utils', () => {
         { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
         { link: { href: '/audi-car-leasing/a5.html', label: 'A5' } },
         {
-          link: {
-            href: '/audi-car-leasing/a5/sport-back.html',
-            label: 'Coupe',
-          },
-        },
-        {
           link: { href: '', label: '40 TFSI 204 S Line 2 Doors S Tronic' },
         },
       ]);
@@ -281,12 +275,6 @@ describe('Url utils', () => {
       expect(actual).toEqual([
         { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
         { link: { href: '/audi-car-leasing/a5.html', label: 'A5' } },
-        {
-          link: {
-            href: '/audi-car-leasing/a5/coupe.html',
-            label: 'Coupe',
-          },
-        },
         {
           link: {
             href: '',
