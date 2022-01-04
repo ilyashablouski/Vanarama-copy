@@ -91,7 +91,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
 
   return (
     <>
-      <div className="full-width">
+      <div className="full-width olaf-summary">
         <Heading
           color="black"
           size="xlarge"
@@ -100,7 +100,11 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         >
           Review Your Order
         </Heading>
-        <br />
+        <Text color="darker" size="lead" dataTestId="olaf_summary_text">
+          You&apos;re nearly there! Just check everything is correct and
+          complete your order. We&apos;ll have you in the driving seat in no
+          time
+        </Text>
         <Form className="olaf--summary">
           <BusinessSummaryFormAboutSection
             soletrader

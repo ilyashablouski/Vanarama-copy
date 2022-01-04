@@ -1804,6 +1804,9 @@
       }
     }
     .olaf-summary {
+      display: grid;
+      gap: 1rem;
+
       .structured-list-th {
         .text {
           &.-regular {
