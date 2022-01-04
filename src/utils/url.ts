@@ -152,9 +152,7 @@ export const getProductPageBreadCrumb = (
       },
     };
 
-    return cars
-      ? [manufacturerLink, rangeLink, derivativeLink]
-      : [manufacturerLink, rangeLink, derivativeLink];
+    return [manufacturerLink, rangeLink, derivativeLink];
   }
 
   return null;
