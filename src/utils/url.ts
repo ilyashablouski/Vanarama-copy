@@ -115,7 +115,6 @@ export const getProductPageBreadCrumb = (
   const slugArray = slug.split('/');
   const manufacturerSlug = slugArray[1];
   const rangeSlug = slugArray[2];
-  const bodyType = slugArray[3] || '';
 
   if (data) {
     const { manufacturer, range, name } = data;
@@ -124,9 +123,6 @@ export const getProductPageBreadCrumb = (
     );
     const rangePage = genericPagesData?.find(
       el => el?.slug?.split('/').length === 3,
-    );
-    const modelPage = genericPagesData?.find(
-      el => el?.slug?.split('/').length === 4,
     );
 
     const manufacturerLink = {
@@ -148,20 +144,7 @@ export const getProductPageBreadCrumb = (
         ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
       },
     };
-    const modelLink = {
-      link: {
-        label: bodyType
-          .replace(/-/g, ' ')
-          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: `/${generateUrlForBreadcrumb(
-          manufacturerSlug,
-          modelPage,
-          [leasing, manufacturerSlug, rangeSlug, bodyType],
-          rangeSlug,
-          leasing,
-        ) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
-      },
-    };
+
     const derivativeLink = {
       link: {
         label: name,
@@ -170,7 +153,7 @@ export const getProductPageBreadCrumb = (
     };
 
     return cars
-      ? [manufacturerLink, rangeLink, modelLink, derivativeLink]
+      ? [manufacturerLink, rangeLink, derivativeLink]
       : [manufacturerLink, rangeLink, derivativeLink];
   }
 
