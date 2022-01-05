@@ -1,6 +1,7 @@
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
-import BreakdownCar from 'core/assets/icons/BreakdownCar';
+// import BreakdownCar from 'core/assets/icons/BreakdownCar';
+import PoundCircle from 'core/assets/icons/PoundCircle';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -22,9 +23,13 @@ export const BENEFIT_LIST = [
       />
     ),
   },
+  // {
+  //   title: 'Road Tax & Roadside Assistance Included',
+  //   icon: <BreakdownCar />,
+  // },
   {
-    title: 'Road Tax & Roadside Assistance Included',
-    icon: <BreakdownCar />,
+    title: '£250 Cashback On Every Vehicle',
+    icon: <PoundCircle />,
   },
   {
     title: 'FREE & Fast Delivery',
