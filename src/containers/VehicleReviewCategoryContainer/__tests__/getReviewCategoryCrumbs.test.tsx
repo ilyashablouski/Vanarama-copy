@@ -1,4 +1,4 @@
-import { getReviewCategoryCrumbs } from '../Utils';
+import { getReviewCategoryCrumbs } from '../helpers';
 
 describe('getReviewCategoryCrumbs', () => {
   it('should have correct actual label', () => {

@@ -345,11 +345,9 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
-export const convertErrorToProps = (
-  error: Error | ApolloError,
-): IErrorProps => {
+export const convertErrorToProps = (error: unknown): IErrorProps => {
   if (
-    'networkError' in error &&
+    error instanceof ApolloError &&
     error.networkError &&
     'statusCode' in error.networkError
   ) {
@@ -359,9 +357,12 @@ export const convertErrorToProps = (
     };
   }
 
+  const errorMessage =
+    error instanceof Error ? error.message : 'Server-side error occurred';
+
   return {
     statusCode: 500,
-    message: error.message,
+    message: errorMessage,
   };
 };
 
@@ -430,9 +431,6 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
-  EXTENSION_BLACK_FRIDAY = 'DIG-8044',
-  EV_CAR_HUB_CAROUSEL = 'DIG-8175',
-  LEVC_PAGE = 'DIG-8222',
 }
 
 function isFeatureFlagEnabled(
@@ -457,18 +455,6 @@ export function isAccountSectionFeatureFlagEnabled(
     cookies,
     FeatureFlags.ACCOUNT_SECTION_MAINTENANCE,
   );
-}
-
-export function isEVCarHubCarouselFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.EV_CAR_HUB_CAROUSEL);
-}
-
-export function isLevcPageFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.LEVC_PAGE);
 }
 
 export function isUpdatedServicePlanFeatureFlagEnabled(

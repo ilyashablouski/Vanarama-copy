@@ -38,7 +38,6 @@ import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedConta
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { decodeData, encodeData } from '../../utils/data';
-import { isLevcPageFeatureFlagEnabled } from '../../utils/helpers';
 
 import Head from '../../components/Head/Head';
 import LevcPageContainer from '../../containers/LevcPageContainer';
@@ -78,15 +77,6 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<ILevcPage>> {
   try {
     const client = createApolloClient({}, context);
-    const isLevcPageEnabled = isLevcPageFeatureFlagEnabled(
-      context.req.headers.cookie,
-    );
-
-    if (!isLevcPageEnabled) {
-      return {
-        notFound: true,
-      };
-    }
 
     const {
       data: { genericPage },
@@ -94,7 +84,7 @@ export async function getServerSideProps(
       query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/levc',
-        pageType: 'levcManufacturer',
+        pageType: 'manufacturer',
         isPreview: !!context?.preview,
         sectionsAsArray: true,
       },

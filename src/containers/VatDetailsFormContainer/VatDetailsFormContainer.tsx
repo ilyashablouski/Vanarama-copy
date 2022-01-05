@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
+import { ApolloError } from '@apollo/client';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import {
@@ -73,7 +74,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
       await handleCreditApplicationUpdate(values);
       await onCompleted();
     } catch (err) {
-      onError(err);
+      onError(err as ApolloError);
     }
   };
 
