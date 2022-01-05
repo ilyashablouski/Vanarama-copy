@@ -26,6 +26,9 @@ const Form = dynamic(() => import('core/organisms/form'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   company: SummaryFormCompany;
@@ -92,16 +95,19 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   }, [handleEdit, creditApplication]);
 
   return (
-    <div className="full-width">
+    <div className="full-width olaf-summary">
       <Heading
         color="black"
         size="xlarge"
         dataTestId="summary-heading"
         tag="h1"
       >
-        Summary
+        Review Your Order
       </Heading>
-      <br />
+      <Text color="darker" size="lead" dataTestId="olaf_summary_text">
+        You&apos;re nearly there! Just check everything is correct and complete
+        your order. We&apos;ll have you in the driving seat in no time
+      </Text>
       <Form className="olaf--summary">
         <BusinessSummaryFormAboutSection
           person={person}
