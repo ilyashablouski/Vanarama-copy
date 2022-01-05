@@ -268,37 +268,37 @@ const PartnershipsHomePage: NextPage<IProps> = ({
                         customCTABackground={colourPrimary || undefined}
                         dataTestIdBtn="van-view-offer"
                       />
-                    </LazyLoadComponent>
 
-                    <div className="-justify-content-row -pt-500">
-                      <RouterLink
-                        className="button"
-                        classNames={{
-                          color: 'teal',
-                          solid: true,
-                          size: 'regular',
-                        }}
-                        link={{
-                          label: 'View More',
-                          href: vehicleType?.href || '',
-                          query: {
-                            fuelTypes,
-                          },
-                        }}
-                        withoutDefaultClassName
-                        dataTestId={vehicleType?.dataTestId}
-                      >
-                        <div
-                          className="button--inner"
-                          style={{
-                            backgroundColor: colourPrimary || undefined,
-                            borderColor: colourPrimary || undefined,
+                      <div className="-justify-content-row -pt-500">
+                        <RouterLink
+                          className="button"
+                          classNames={{
+                            color: 'teal',
+                            solid: true,
+                            size: 'regular',
                           }}
+                          link={{
+                            label: 'View More',
+                            href: vehicleType?.href || '',
+                            query: {
+                              fuelTypes,
+                            },
+                          }}
+                          withoutDefaultClassName
+                          dataTestId={vehicleType?.dataTestId}
                         >
-                          View More
-                        </div>
-                      </RouterLink>
-                    </div>
+                          <div
+                            className="button--inner"
+                            style={{
+                              backgroundColor: colourPrimary || undefined,
+                              borderColor: colourPrimary || undefined,
+                            }}
+                          >
+                            View More
+                          </div>
+                        </RouterLink>
+                      </div>
+                    </LazyLoadComponent>
                   </div>
                 </TabPanel>
               );
