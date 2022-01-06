@@ -1,244 +1,1234 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = `
-<div
-  className="pdp--sidebar"
->
+exports[`<CustomiseLeaseContainer /> should render correctly 1`] = `
+Array [
   <div
-    style={
-      Object {
-        "display": "flex",
-        "justifyContent": "space-between",
+    className="pdp--sidebar"
+    data-uitestid="details-page_customise-lease-container_sidebar"
+  >
+    <h2
+      className="heading -black -xlarge"
+    >
+      Customise Your Lease
+    </h2>
+    <span
+      className="heading -black -regular"
+    >
+      Is this for you, or for your business?
+    </span>
+    <div
+      className="choice-boxes-v2 button-group -solid -teal"
+    >
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-PERSONAL"
+        disabled={false}
+        id="PERSONAL"
+        name="leaseType"
+        onChange={[Function]}
+        type="radio"
+        value="PERSONAL"
+      />
+      <label
+        className="choice-box"
+        data-abtestid="product-page_choice-box-v2_personal"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_PERSONAL"
+        htmlFor="PERSONAL"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_PERSONAL"
+        >
+          PERSONAL
+        </span>
+      </label>
+      <input
+        checked={true}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-BUSINESS"
+        disabled={false}
+        id="BUSINESS"
+        name="leaseType"
+        onChange={[Function]}
+        type="radio"
+        value="BUSINESS"
+      />
+      <label
+        className="choice-box -active"
+        data-abtestid="product-page_choice-box-v2_business"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_BUSINESS"
+        htmlFor="BUSINESS"
+        style={
+          Object {
+            "backgroundColor": "null",
+          }
+        }
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_BUSINESS"
+        >
+          BUSINESS
+        </span>
+      </label>
+    </div>
+    <span
+      className="heading -black -regular"
+    >
+      How many miles will you be driving a year?
+      <br />
+      <span
+        className="text -b -regular -orange"
+      >
+        12000
+         Miles
+      </span>
+    </span>
+    <label
+      className="sliding-input"
+      data-uitestid="details-page_sliding-input_mileage-slider"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      style={
+        Object {
+          "--length": 8,
+          "--value": 1,
+        }
       }
-    }
-  >
-    <div>
-      <span
-        className="heading -black -small"
-      >
-        FACTORY ORDER
-      </span>
-      <span
-        className="text -small -darker"
-      >
-        Availability: 12 Weeks (Avg)
-      </span>
-    </div>
-    <div>
+    >
+      <input
+        className="sliding-input-control visually-hidden"
+        disabled={false}
+        max={8}
+        min={1}
+        onChange={[Function]}
+        step={1}
+        type="range"
+        value={1}
+      />
       <div
-        className="price -xlarge -black"
+        className="sliding-input-fill"
       >
         <div
-          className="price--inner"
-        >
-          <span
-            className="price--sub"
-          >
-            £
-          </span>
-          <span
-            className="price--pounds"
-          >
-            POA
-          </span>
-        </div>
+          className="sliding-input-value"
+        />
       </div>
-    </div>
-  </div>
-  <form
-    className="form"
-    data-testid="goldrush-form"
-    onSubmit={[Function]}
-  >
+      <div
+        className="sliding-input-handle"
+      />
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_6K"
+      >
+        6K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_8K"
+      >
+        8K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_10K"
+      >
+        10K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_12K"
+      >
+        12K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_15K"
+      >
+        15K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_20K"
+      >
+        20K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_25K"
+      >
+        25K
+      </div>
+      <div
+        className="sliding-input-step"
+        data-uitestid="details-page_sliding-input_div_30K"
+      >
+        30K
+      </div>
+    </label>
     <span
-      className="heading -black -lead"
-      data-uitestid="customise-lease_goldrush-form_heading"
+      className="heading -black -regular"
     >
-      Get Your Quote Now
+      How long do you want your vehicle for?
+      <br />
+      <span
+        className="text -b -regular -orange"
+      >
+        24 Months - 2 Years
+      </span>
     </span>
+    <div
+      className="choice-boxes-v2 button-group -solid -teal"
+    >
+      <input
+        checked={true}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-24"
+        disabled={false}
+        id="24"
+        name="terms"
+        onChange={[Function]}
+        type="radio"
+        value="24"
+      />
+      <label
+        className="choice-box -active"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_24"
+        htmlFor="24"
+        style={
+          Object {
+            "backgroundColor": "null",
+          }
+        }
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_24"
+        >
+          24
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-36"
+        disabled={false}
+        id="36"
+        name="terms"
+        onChange={[Function]}
+        type="radio"
+        value="36"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_36"
+        htmlFor="36"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_36"
+        >
+          36
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-48"
+        disabled={false}
+        id="48"
+        name="terms"
+        onChange={[Function]}
+        type="radio"
+        value="48"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_48"
+        htmlFor="48"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_48"
+        >
+          48
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-60"
+        disabled={false}
+        id="60"
+        name="terms"
+        onChange={[Function]}
+        type="radio"
+        value="60"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_60"
+        htmlFor="60"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_60"
+        >
+          60
+        </span>
+      </label>
+    </div>
     <span
-      className="text -mb-400 -regular -darker"
-      data-uitestid="customise-lease_goldrush-form_text"
+      className="heading -black -regular"
     >
-      We’ll be in touch within 1-2 business hours
+      How much do you want to pay upfront?
+      <i
+        className="icon md hydrated -ml-100 -info-modal -teal"
+        onClick={[Function]}
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <path
+            d="M256,56C145.72,56,56,145.72,56,256s89.72,200,200,200,200-89.72,200-200S366.28,56,256,56Zm0,82a26,26,0,1,1-26,26A26,26,0,0,1,256,138Zm48,226H216a16,16,0,0,1,0-32h28V244H228a16,16,0,0,1,0-32h32a16,16,0,0,1,16,16V332h28a16,16,0,0,1,0,32Z"
+          />
+        </svg>
+      </i>
+      <br />
+      <span
+        className="text -b -regular -orange"
+      >
+        1 Months - £2339.64 exc. VAT
+      </span>
     </span>
     <div
-      className="formgroup"
+      className="choice-boxes-v2 button-group -solid -teal"
     >
+      <input
+        checked={true}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-1"
+        disabled={false}
+        id="1"
+        name="upfront"
+        onChange={[Function]}
+        type="radio"
+        value="1"
+      />
       <label
-        className="formgroup--legend"
-        htmlFor="goldrush-form_full-name"
+        className="choice-box -active"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_1"
+        htmlFor="1"
+        style={
+          Object {
+            "backgroundColor": "null",
+          }
+        }
       >
-        Full Name
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_1"
+        >
+          1
+        </span>
       </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-3"
+        disabled={false}
+        id="3"
+        name="upfront"
+        onChange={[Function]}
+        type="radio"
+        value="3"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_3"
+        htmlFor="3"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_3"
+        >
+          3
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-6"
+        disabled={false}
+        id="6"
+        name="upfront"
+        onChange={[Function]}
+        type="radio"
+        value="6"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_6"
+        htmlFor="6"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_6"
+        >
+          6
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-9"
+        disabled={false}
+        id="9"
+        name="upfront"
+        onChange={[Function]}
+        type="radio"
+        value="9"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_9"
+        htmlFor="9"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_9"
+        >
+          9
+        </span>
+      </label>
+      <input
+        checked={false}
+        className="choice-input visually-hidden"
+        data-uitestid="details-page_choice-boxes-v2_input-12"
+        disabled={false}
+        id="12"
+        name="upfront"
+        onChange={[Function]}
+        type="radio"
+        value="12"
+      />
+      <label
+        className="choice-box"
+        data-uitestid="details-page_choice-boxes-v2_choice-box_12"
+        htmlFor="12"
+      >
+        <span
+          className="choice-label"
+          data-uitestid="details-page_choice-boxes-v2_choice-box_span_12"
+        >
+          12
+        </span>
+      </label>
+    </div>
+    <span
+      className="heading -flex-h -black -regular"
+    >
+      Vehicle Options
+      <span
+        className="text -b -regular -orange"
+      >
+        14-21 Day Delivery
+      </span>
+    </span>
+    <div
+      className="custom-select-container -fullwidth"
+      data-testid="colour-selector"
+      data-uitestid="details-page_custom-lease-select_colour"
+      onClick={[Function]}
+    >
       <div
-        className="formgroup--content"
+        className="selected-text"
       >
         <div
-          className="textinput regular"
+          className="placeholder-top"
         >
-          <input
-            className="textinput--native regular"
-            data-testid="goldrush-form_full-name"
-            id="goldrush-form_full-name"
-            name="fullName"
-            placeholder=""
-            type="text"
-          />
+          Select Paint Colour:
         </div>
+        
       </div>
+      <span
+        className="icon select--chevron"
+      >
+        <i
+          className="icon -stroke -dark"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="112 184 256 328 400 184"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </span>
     </div>
+    <div
+      className="custom-select-container -fullwidth"
+      data-testid="trim-selector"
+      data-uitestid="details-page_custom-lease-select_trim"
+      onClick={[Function]}
+    >
+      <div
+        className="selected-text"
+      >
+        <div
+          className="placeholder-top"
+        >
+          Select Interior:
+        </div>
+        
+      </div>
+      <span
+        className="icon select--chevron"
+      >
+        <i
+          className="icon -stroke -dark"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="112 184 256 328 400 184"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </span>
+    </div>
+    <span
+      className="heading -black -regular"
+    >
+      Add Vanarama Service Plan (Our Maintenance Package):
+      <span
+        className="text -b -ml-100 -regular -orange"
+      >
+        £45.87 Per Month exc. VAT
+      </span>
+    </span>
+    <a
+      className="link -primary -small -plain"
+      data-uitestid="details-page_customise-lease_what-included"
+      onClick={[Function]}
+    >
+      See What's Included
+    </a>
     <div
       className="formgroup"
     >
-      <label
-        className="formgroup--legend"
-        htmlFor="goldrush-form_email"
-      >
-        Email Address
-      </label>
       <div
         className="formgroup--content"
       >
         <div
-          className="textinput regular"
+          className="radio"
         >
           <input
-            className="textinput--native regular"
-            data-testid="goldrush-form_email"
-            id="goldrush-form_email"
-            name="email"
-            placeholder=""
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="formgroup"
-    >
-      <label
-        className="formgroup--legend"
-        htmlFor="goldrush-form_phone-number"
-      >
-        Phone Number
-      </label>
-      <div
-        className="formgroup--content"
-      >
-        <div
-          className="textinput regular"
-        >
-          <input
-            className="textinput--native regular"
-            data-testid="goldrush-form_phone-number"
-            id="goldrush-form_phone-number"
-            name="phoneNumber"
-            placeholder=""
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="formgroup"
-    >
-      <label
-        className="formgroup--legend"
-      >
-        Please Confirm
-      </label>
-      <div
-        className="formgroup--content"
-      >
-        <div
-          className="checkbox -teal"
-        >
-          <input
-            className="checkbox--native visually-hidden"
-            data-testid="aboutConsent"
-            id="consent"
-            name="consent"
-            type="checkbox"
+            className="radio--native visually-hidden"
+            defaultChecked={false}
+            disabled={false}
+            id="maintenanceCost"
+            name="maintenance"
+            onChange={[Function]}
+            type="radio"
           />
           <label
-            className="checkbox--label"
-            htmlFor="consent"
+            className="radio--label"
+            htmlFor="maintenanceCost"
           >
             <span
               className="text -regular -darker"
             >
-              Keep me updated on the latest deals & offers
+              YES, I want peace of mind and to keep things hassle-free
             </span>
           </label>
         </div>
         <div
-          className="checkbox -teal"
+          className="radio"
         >
           <input
-            className="checkbox--native visually-hidden"
-            data-testid="aboutTermsAndCons"
-            id="termsAndCons"
-            name="termsAndCons"
-            type="checkbox"
+            className="radio--native visually-hidden"
+            defaultChecked={false}
+            disabled={false}
+            id="leaseCost"
+            name="maintenance"
+            onChange={[Function]}
+            type="radio"
           />
           <label
-            className="checkbox--label"
-            htmlFor="termsAndCons"
+            className="radio--label"
+            htmlFor="leaseCost"
           >
             <span
               className="text -regular -darker"
             >
-              I agree to the 
-              <a
-                className="link -teal"
-                href="/legal/terms-and-conditions"
-                target="_blank"
+              NO, I want to worry about sorting the maintenance costs myself
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="button-wrapper"
+    >
+      <button
+        className="button -reset -teal -regular -clear"
+        onClick={[Function]}
+      >
+        <div
+          className="button--inner"
+        >
+          <i
+            className="icon -teal"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M320,146s24.36-12-64-12A160,160,0,1,0,416,294"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 32,
+                  }
+                }
+              />
+              <polyline
+                points="256 58 336 138 256 218"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 32,
+                  }
+                }
+              />
+            </svg>
+          </i>
+          Reset Best Price
+        </div>
+      </button>
+    </div>
+    <div
+      className="pdp--order-summary"
+    >
+      <p
+        className="heading -inherit -primary -small"
+      >
+        ORDER SUMMARY
+      </p>
+      <section
+        className="structured-list -compact"
+      >
+        <div
+          className="structured-list-tbody"
+        >
+          <div
+            className="structured-list-row orange"
+            data-abtestid="product-page_structured-list_processing-fee"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-abtestid="product-page_structured-list_processing-fee-label"
+              data-testid="data_id-0-Processing Fee:"
+              data-uitestid="details-page_order-summary_Processing Fee:"
+            >
+              Processing Fee:
+            </div>
+            <div
+              className="structured-list-td"
+              data-abtestid="product-page_structured-list_processing-fee-value"
+              data-testid="processingFee"
+            >
+              FREE
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Initial Payment:"
+              data-uitestid="details-page_order-summary_Initial Payment:"
+            >
+              Initial Payment:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="initialPayment"
+            >
+              £2339.64 (exc. VAT)
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Contract Length:"
+              data-uitestid="details-page_order-summary_Contract Length:"
+            >
+              Contract Length:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="contractLengthile"
+            >
+              24 months
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-3-Annual Mileage:"
+              data-uitestid="details-page_order-summary_Annual Mileage:"
+            >
+              Annual Mileage:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="annualMileage"
+            >
+              12000 miles
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-4-Vanarama Service Plan:"
+              data-uitestid="details-page_order-summary_Vanarama Service Plan:"
+            >
+              Vanarama Service Plan:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="maintenance"
+            >
+              No
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-5-Colour:"
+              data-uitestid="details-page_order-summary_Colour:"
+            >
+              Colour:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="colour"
+            >
+              Solid - Polar white
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-7-Stock:"
+              data-uitestid="details-page_order-summary_Stock:"
+            >
+              Stock:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="stock"
+            >
+              14-21 Day Delivery
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-8-Warranty:"
+              data-uitestid="details-page_order-summary_Warranty:"
+            >
+              Warranty:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="warranty"
+            >
+              undefined Years Manufacturer And undefined Miles
+            </div>
+          </div>
+          <div
+            className="structured-list-row orange"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-9-Road Tax:"
+              data-uitestid="details-page_order-summary_Road Tax:"
+            >
+              Road Tax:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="roadTax"
+            >
+              INCLUDED
+            </div>
+          </div>
+          <div
+            className="structured-list-row orange"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-10-Redundancy & Life Event Cover:"
+              data-uitestid="details-page_order-summary_Redundancy & Life Event Cover:"
+            >
+              Redundancy & Life Event Cover:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="lifeEventCover"
+            >
+              FREE
+            </div>
+          </div>
+          <div
+            className="structured-list-row orange"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-11-Delivery:"
+              data-uitestid="details-page_order-summary_Delivery:"
+            >
+              Delivery:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="delivery"
+            >
+              FREE
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div
+      className="lease-scanner--sticky-wrap start-screen"
+      style={
+        Object {
+          "opacity": "1",
+        }
+      }
+    >
+      <div
+        className="lease-scanner"
+        style={
+          Object {
+            "--lease-scanner-height": "6.75rem",
+          }
+        }
+      >
+        <div
+          className="content-wrapper"
+        >
+          <div
+            className="price -xlarge -black"
+          >
+            <div
+              className="price--inner"
+            >
+              <span
+                className="price--sub"
               >
-                Terms and Conditions
-              </a>
+                £
+              </span>
+              <span
+                className="price--pounds"
+              >
+                POA
+              </span>
+            </div>
+          </div>
+          <div
+            className="heading headingText -pt-100 -darker -small"
+            data-uitestid="details-page_button_PM exc. VAT"
+          >
+            PM exc. VAT
+          </div>
+        </div>
+        <div
+          className="button-wrapper"
+        >
+          <button
+            className="button -fullwidth -teal -regular -solid"
+            data-uitestid="details-page_button_order-now"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "null",
+              }
+            }
+          >
+            <div
+              className="button--inner"
+            >
+              Order Now
+            </div>
+          </button>
+          <div
+            className="-eta"
+          >
+            <i
+              className="icon -orange -small"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 17.02 15.75"
+                width="1em"
+              >
+                <path
+                  d="M14.68,4.26c-1.1-1.11-2.57-1.78-4.13-1.89V1.32h0.78c0.26,0,0.48-0.22,0.48-0.48    c0-0.26-0.21-0.48-0.48-0.48H8.81c-0.26,0-0.48,0.22-0.48,0.48c0,0.26,0.21,0.48,0.48,0.48h0.78v1.05    C8.3,2.46,7.07,2.94,6.06,3.74C5.73,4,5.42,4.28,5.15,4.6C4.98,4.8,5.01,5.11,5.22,5.27c0.2,0.16,0.49,0.14,0.66-0.05    c0.23-0.27,0.49-0.52,0.78-0.74c0.97-0.77,2.18-1.19,3.42-1.18c3.07,0,5.56,2.49,5.56,5.56c0,3.07-2.49,5.56-5.56,5.56    c-2.26,0-4.29-1.37-5.14-3.45c-0.1-0.24-0.38-0.36-0.62-0.26s-0.36,0.38-0.26,0.62c1.36,3.33,5.17,4.93,8.5,3.56    c3.33-1.36,4.93-5.17,3.56-8.5C15.77,5.6,15.29,4.87,14.68,4.26L14.68,4.26z"
+                />
+                <path
+                  d="M6.98,6.07c0-0.26-0.21-0.48-0.48-0.48c0,0,0,0,0,0H0.89c-0.26,0-0.48,0.21-0.48,0.48    s0.21,0.48,0.48,0.48H6.5C6.76,6.55,6.98,6.33,6.98,6.07L6.98,6.07z"
+                />
+                <path
+                  d="M6.98,8.02c0-0.26-0.21-0.48-0.48-0.48c0,0,0,0,0,0H1.65c-0.26,0-0.48,0.21-0.48,0.48    c0,0.26,0.21,0.48,0.48,0.48H6.5C6.76,8.5,6.98,8.28,6.98,8.02L6.98,8.02z"
+                />
+                <path
+                  d="M6.98,9.97c0-0.26-0.21-0.48-0.48-0.48c0,0,0,0,0,0H2.59c-0.26,0-0.48,0.21-0.48,0.48    s0.21,0.48,0.48,0.48H6.5C6.76,10.45,6.98,10.24,6.98,9.97L6.98,9.97z"
+                />
+                <path
+                  d="M13.47,6.86c0.22-0.2,0.24-0.54,0.05-0.76s-0.54-0.24-0.76-0.05c-0.01,0.01-0.02,0.02-0.03,0.02    L9.82,8.81l-0.86-0.9C8.75,7.7,8.41,7.7,8.2,7.91c-0.21,0.2-0.21,0.54-0.01,0.75l1.6,1.67L13.47,6.86z"
+                />
+              </svg>
+            </i>
+            <span
+              className="text -small -orange"
+            >
+              In Under 3 Minutes
             </span>
-          </label>
+          </div>
+        </div>
+        <div />
+        <div
+          style={
+            Object {
+              "height": "1rem",
+            }
+          }
+        >
+          <div
+            className="text -small -darker"
+          >
+            <a
+              className="link InfinityNumber clickable -primary -small -plain"
+              href="tel:+441442838195"
+            >
+              Call 01442 838 195
+            </a>
+             
+            |
+             
+            <a
+              className="link -primary -small -plain"
+              onClick={[Function]}
+            >
+              Request a Call Back
+            </a>
+          </div>
         </div>
       </div>
     </div>
-    <p
-      className="text -xsmall -darker"
-    >
-      Vanarama collects the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
-    </p>
+  </div>,
+  <div
+    className="modal-wrap :target -mt-000 callBack"
+    role="dialog"
+  >
     <button
-      className="button -teal -lead -solid"
-      data-testid="goldrush-form_submit"
-      disabled={false}
-      type="submit"
+      className="button modal-close -secondary -regular -clear"
+      data-testid="close"
+      name="close"
+      onClick={[Function]}
     >
       <div
         className="button--inner"
       >
-        Get Quote Now
+        Close
+        <i
+          className="icon"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polygon
+              points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+            />
+          </svg>
+        </i>
       </div>
     </button>
-  </form>
-  <div
-    className="pdp--sidebar-promise"
-  >
-    <span
-      className="text -regular -black"
+    <div
+      className="modal modal-container-base"
     >
-      We’ll beat any lease quote or we'll give you £100. 
-    </span>
-    <a
-      className="link -success -small -plain"
-      href="#"
-    >
-      Terms and Conditions apply.
-    </a>
-  </div>
-</div>
+      <div>
+        <div
+          className="-pt-000"
+        >
+          <div>
+            <form
+              className="form"
+              data-testid="goldrush-form"
+              onSubmit={[Function]}
+            >
+              <span
+                className="heading -black -large"
+                data-uitestid="customise-lease_goldrush-form_heading"
+              >
+                Please Fill In Your Details
+              </span>
+              <span
+                className="text -mb-400 -regular -darker"
+                data-uitestid="customise-lease_goldrush-form_text"
+              >
+                We’ll be in touch within 1-2 business hours
+              </span>
+              <div
+                className="formgroup"
+              >
+                <label
+                  className="formgroup--legend"
+                  htmlFor="goldrush-form_full-name"
+                >
+                  Full Name
+                </label>
+                <div
+                  className="formgroup--content"
+                >
+                  <div
+                    className="textinput regular"
+                  >
+                    <input
+                      className="textinput--native regular"
+                      data-testid="goldrush-form_full-name"
+                      id="goldrush-form_full-name"
+                      name="fullName"
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className="formgroup"
+              >
+                <label
+                  className="formgroup--legend"
+                  htmlFor="goldrush-form_email"
+                >
+                  Email Address
+                </label>
+                <div
+                  className="formgroup--content"
+                >
+                  <div
+                    className="textinput regular"
+                  >
+                    <input
+                      className="textinput--native regular"
+                      data-testid="goldrush-form_email"
+                      id="goldrush-form_email"
+                      name="email"
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className="formgroup"
+              >
+                <label
+                  className="formgroup--legend"
+                  htmlFor="goldrush-form_phone-number"
+                >
+                  Phone Number
+                </label>
+                <div
+                  className="formgroup--content"
+                >
+                  <div
+                    className="textinput regular"
+                  >
+                    <input
+                      className="textinput--native regular"
+                      data-testid="goldrush-form_phone-number"
+                      id="goldrush-form_phone-number"
+                      name="phoneNumber"
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className="formgroup"
+              >
+                <div
+                  className="formgroup--content"
+                >
+                  <div
+                    className="checkbox -teal"
+                  >
+                    <input
+                      className="checkbox--native visually-hidden"
+                      data-testid="aboutTermsAndCons"
+                      id="termsAndCons"
+                      name="termsAndCons"
+                      type="checkbox"
+                    />
+                    <label
+                      className="checkbox--label"
+                      htmlFor="termsAndCons"
+                    >
+                      <span
+                        className="text -regular -darker"
+                      >
+                        I agree to the 
+                        <a
+                          className="link -teal"
+                          href="/legal/terms-and-conditions"
+                          target="_blank"
+                        >
+                          Terms and Conditions
+                        </a>
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    className="checkbox -teal"
+                  >
+                    <input
+                      className="checkbox--native visually-hidden"
+                      data-testid="aboutPrivacyPolicy"
+                      id="privacyPolicy"
+                      name="privacyPolicy"
+                      type="checkbox"
+                    />
+                    <label
+                      className="checkbox--label"
+                      htmlFor="privacyPolicy"
+                    >
+                      <span
+                        className="text -regular -darker"
+                      >
+                        I have read and understood the 
+                        <a
+                          className="link -teal"
+                          data-testid="link"
+                          href="/legal/privacy-policy"
+                          onClick={[Function]}
+                          target="_blank"
+                        >
+                          Privacy Policy
+                        </a>
+                      </span>
+                    </label>
+                  </div>
+                  <div
+                    className="checkbox -teal"
+                  >
+                    <input
+                      className="checkbox--native visually-hidden"
+                      data-testid="aboutConsent"
+                      id="consent"
+                      name="consent"
+                      type="checkbox"
+                    />
+                    <label
+                      className="checkbox--label"
+                      htmlFor="consent"
+                    >
+                      <span
+                        className="text -regular -darker"
+                      >
+                        Keep me updated on the latest deals & offers
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <p
+                className="text -xsmall -dark"
+              >
+                Vanarama collects the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
+              </p>
+              <button
+                className="button -teal -lead -solid"
+                data-testid="goldrush-form_submit"
+                disabled={false}
+                type="submit"
+              >
+                <div
+                  className="button--inner"
+                >
+                  Call Me Back
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;
 
-exports[`<CustomiseLeaseContainer /> should show data correctly with data 2`] = `
+exports[`<CustomiseLeaseContainer /> should render loading 1`] = `
 <div
   className="pdp--sidebar"
   style={

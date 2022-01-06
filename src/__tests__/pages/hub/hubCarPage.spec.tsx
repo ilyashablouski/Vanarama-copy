@@ -1,10 +1,9 @@
 import React from 'react';
-import Router from 'next/router';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { ImageProps } from 'next/image';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
@@ -32,8 +31,8 @@ jest.mock(
   },
 );
 
-jest.mock('next/image', () => ({ src, alt, ...props }: ImageProps) => (
-  <img {...props} src={src.toString()} alt={alt} />
+jest.mock('next/image', () => ({ src, alt }: ImageProps) => (
+  <img src={src.toString()} alt={alt} />
 ));
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -307,11 +306,7 @@ describe('<CarPage />', () => {
     );
   });
 
-  it('should trigger route push when clicking Here', async () => {
-    await screen.findByText('View All Cars');
-    fireEvent.click(screen.getByText('Here'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
-    );
+  it('should have correct link in Here path', async () => {
+    expect(screen.getByText('Here')).toHaveAttribute('href', '/fan-hub.html');
   });
 });
