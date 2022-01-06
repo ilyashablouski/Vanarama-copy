@@ -591,11 +591,9 @@ export async function getServerSideProps(
       client,
     );
 
-    const data = encodeData(hubCarPage);
-
     return {
       props: {
-        data,
+        data: encodeData(hubCarPage),
         searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),

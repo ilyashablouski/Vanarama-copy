@@ -105,12 +105,14 @@ type IProps = IPageWithData<
 
 export const PickupsPage: NextPage<IProps> = ({
   data: encodedData,
-  searchPodVansData,
+  searchPodVansData: searchPodVansDataEncoded,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
+
   const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
   const headerText = data?.hubPickupPage.sections?.leadText?.heading;
   const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
@@ -676,7 +678,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        searchPodVansData,
+        searchPodVansData: encodeData(searchPodVansData),
         productsPickup: productsPickup || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },

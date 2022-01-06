@@ -99,7 +99,7 @@ type IProps = IPageWithData<
 
 export const VansPage: NextPage<IProps> = ({
   data: encodedData,
-  searchPodVansData,
+  searchPodVansData: searchPodVansDataEncoded,
   productsSmallVan,
   productsMediumVan,
   productsLargeVan,
@@ -114,7 +114,9 @@ export const VansPage: NextPage<IProps> = ({
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const data = decodeData(encodedData);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
+
   const titleTagText = getSectionsData(
     ['leadText', 'titleTag'],
     data?.hubVanPage.sections,
@@ -779,7 +781,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        searchPodVansData,
+        searchPodVansData: encodeData(searchPodVansData),
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,
         productsLargeVan: productsLargeVan || null,

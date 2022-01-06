@@ -41,6 +41,12 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import { decodeData, encodeData } from '../../utils/data';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -74,6 +80,7 @@ const ProductCarousel = dynamic(
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -128,7 +135,8 @@ const FeaturedSection: FC<any> = ({
 );
 
 export const EVHubPage: NextPage<IProps> = ({
-  data,
+  data: encodedDate,
+  searchPodCarsData: searchPodCarsDataEncoded,
   productsEvCar,
   productsEvVan,
   productsEvVanDerivatives,
@@ -143,6 +151,9 @@ export const EVHubPage: NextPage<IProps> = ({
     width: 620,
     quality: 59,
   };
+
+  const data = decodeData(encodedDate);
+  const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
 
   const sections = data?.genericPage.sections;
   const titleTagText = sections?.leadText?.titleTag;
@@ -159,7 +170,7 @@ export const EVHubPage: NextPage<IProps> = ({
     <>
       {isJanSaleCampaignEnabled() ? (
         <HeroJanSale
-          searchPodCarsData={{}}
+          searchPodCarsData={searchPodCarsData}
           searchType={VehicleTypeEnum.CAR}
           variant="electric"
         />
@@ -372,6 +383,16 @@ export async function getStaticProps(
       },
     });
 
+    const { data: searchPodCarsData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+      },
+    });
+
     const {
       productsEvVan,
       productsEvCar,
@@ -384,7 +405,8 @@ export async function getStaticProps(
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
-        data,
+        data: encodeData(data),
+        searchPodCarsData: encodeData(searchPodCarsData),
         productsEvCar: productsEvCar || null,
         productsEvVan: productsEvVan || null,
         productsEvVanDerivatives: productsEvVanDerivatives || null,
