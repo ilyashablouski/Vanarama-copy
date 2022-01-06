@@ -288,12 +288,21 @@
         left: 18%;
 
         @include mobile-tablet {
+          top: 10%;
           left: 15%;
         }
       }
 
       .image {
-        width: 625px;
+        width: 635px;
+
+        @include tablet {
+          width: 556px;
+        }
+
+        @include mobile {
+          width: 363px;
+        }
       }
 
       .text.-extra-offer {
