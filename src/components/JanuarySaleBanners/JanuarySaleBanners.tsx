@@ -1,43 +1,31 @@
 import React from 'react';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { IBaseProps } from 'core/interfaces/base';
 
-const ColoredCircles = () => (
-  <>
-    <div className="common-circle orange-circle" />
-    <div className="common-circle blue-circle" />
-    <div className="common-circle yellow-circle" />
-    <div className="common-circle white-circle" />
-  </>
+const JanuarySaleBanners: React.FC<IBaseProps> = ({ className }) => (
+  <div className={`sale-banner colored-section -orange-wrapper ${className}`}>
+    <div className="colored-section -blue-wrapper">
+      <div className="colored-section -yellow-wrapper">
+        <div className="colored-section -inner-wrapper">
+          <div className="sale-banner__inner">
+            <span className="sale-banner__aside-text -desktop">
+              £250 CASHBACK
+            </span>
+            <div className="sale-banner__sticker">
+              <span className="sale-banner__sale-text">JANUARY SALE</span>
+            </div>
+            <div className="sale-banner__group">
+              <span className="sale-banner__aside-text -mobile">
+                £250 CASHBACK
+              </span>
+              <span className="sale-banner__aside-text -january">
+                End 31st January
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );
-
-const JanuarySaleBanners = () => {
-  const isMobile = useMobileViewport();
-
-  return isMobile ? (
-    <div className="jan-sale__container">
-      <div className="text-container">
-        <div className="sale-text-container">
-          <span className="sale-text">JANUARY SALE</span>
-        </div>
-        <div className="mobile-text__container">
-          <span className="aside-text">£250 CASHBACK</span>
-          <span className="aside-text january-text">End 31st January</span>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className="jan-sale__container">
-      <div className="colored-section left-section">{ColoredCircles()}</div>
-      <div className="text-container">
-        <span className="aside-text">£250 CASHBACK</span>
-        <div className="sale-text-container">
-          <span className="sale-text">JANUARY SALE</span>
-        </div>
-        <span className="aside-text january-text">End 31st January</span>
-      </div>
-      <div className="colored-section right-section">{ColoredCircles()}</div>
-    </div>
-  );
-};
 
 export default JanuarySaleBanners;

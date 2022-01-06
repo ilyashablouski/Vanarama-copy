@@ -155,7 +155,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {isJanSaleCampaignEnabled() && <JanuarySaleBanners />}
+      {isJanSaleCampaignEnabled() && <JanuarySaleBanners className="-mb-500" />}
       {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (

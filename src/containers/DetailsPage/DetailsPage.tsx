@@ -29,7 +29,11 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
+import {
+  toPriceFormat,
+  getOptionFromList,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -131,6 +135,12 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
+const JanuarySaleBanners = dynamic(
+  () => import('../../components/JanuarySaleBanners/JanuarySaleBanners'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IDetailsPageProps {
   capId: number;
@@ -603,9 +613,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
+
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isFreeInsurance && <FreeInsuranceBanner />}
+        {isJanSaleCampaignEnabled() ? (
+          <JanuarySaleBanners className="pdp-page-wrapper" />
+        ) : (
+          isFreeInsurance && <FreeInsuranceBanner />
+        )}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
