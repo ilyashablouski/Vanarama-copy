@@ -110,6 +110,7 @@ $include-presentation-styles: false !default;
 @import '../organisms/icon-list/icon-list.scss';
 //TODO:Delete when fix storybook styles import path
 @import '../organisms/full-screen-carousel/full-screen-carousel.scss';
+@import '../organisms/jan-sale-hero/jan-sale-hero.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';
