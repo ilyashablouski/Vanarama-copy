@@ -164,3 +164,40 @@
     }
   }
 }
+
+.sale-banner-v2 {
+  @include mobile {
+    padding: 3px;
+  }
+  .colored-section {
+    padding: 0 15px;
+
+    @include mobile {
+      padding: 0 1px;
+    }
+
+    &.-inner-wrapper {
+      padding: 0 5px;
+    }
+  }
+
+  .sale-banner {
+    &__sticker {
+      width: 200px;
+      height: calc(100% - 5px);
+    }
+
+    &__inner {
+      justify-content: space-evenly;
+
+      @include mobile {
+        height: 54px;
+        justify-content: center;
+      }
+    }
+
+    &__aside-text {
+      padding: 0 5px;
+    }
+  }
+}
