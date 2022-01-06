@@ -34,8 +34,8 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const JanuarySaleBanners = dynamic(
-  () => import('../../components/JanuarySaleBanners/JanuarySaleBanners'),
+const JanuarySaleBanner = dynamic(
+  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -155,7 +155,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {isJanSaleCampaignEnabled() && <JanuarySaleBanners />}
+      {isJanSaleCampaignEnabled() && <JanuarySaleBanner className="-mb-500" />}
       {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (
