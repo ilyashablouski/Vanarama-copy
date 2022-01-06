@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Button from 'core/atoms/button';
 import { useRouter } from 'next/router';
 import GlobalSearchCard from './GlobalSearchCard';
@@ -8,6 +9,16 @@ import { IGSVehiclesCardsData, useGSCardsData } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import DropdownNoResults from './DropdownNoResults';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
+import Skeleton from '../../components/Skeleton';
+import { useDesktopViewport } from '../../hooks/useMediaQuery';
+
+const JanuarySaleBannerV2 = dynamic(
+  () => import('core/atoms/january-sale-banner/JanuarySaleBannerV2'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   suggestions: ISuggestion[];
@@ -20,6 +31,7 @@ const GlobalSearchRightSideContainer = ({
   searchQuery,
   dataUiTestId,
 }: IProps) => {
+  const isDesktop = useDesktopViewport();
   const router = useRouter();
 
   const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>([]);
@@ -123,8 +135,15 @@ const GlobalSearchRightSideContainer = ({
             View All
           </RouterLink>
 
+          {isJanSaleCampaignEnabled() && !isDesktop && (
+            <JanuarySaleBannerV2 className="sale-banner-v2 -mt-500" />
+          )}
+
           <div className="header-search-results__bottom">
             <div className="hmc-promo">
+              {isJanSaleCampaignEnabled() && isDesktop && (
+                <JanuarySaleBannerV2 className="sale-banner-v2 -mr-400" />
+              )}
               <p data-uitestid={`${dataUiTestId}_text_not-sure-which-car-best`}>
                 Not Sure Which Car Is Best For You?
               </p>

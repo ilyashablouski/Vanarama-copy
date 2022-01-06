@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useStoredOrderQuery } from 'gql/storedOrder';
+import dynamic from 'next/dynamic';
 
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
@@ -37,6 +38,8 @@ import Card from '../../core/molecules/cards/Card';
 import List from '../../core/atoms/list';
 import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
+import Skeleton from '../../components/Skeleton';
 
 import { isSessionFinishedCache } from '../../cache';
 
@@ -108,6 +111,13 @@ const LEASING_ADVANTAGES = [
     key: '3',
   },
 ];
+
+const JanuarySaleBannerV2 = dynamic(
+  () => import('core/atoms/january-sale-banner/JanuarySaleBannerV2'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const OLAFLayout: React.FC<IProps> = ({
   children,
@@ -278,6 +288,9 @@ const OLAFLayout: React.FC<IProps> = ({
             />
             {isBenefitsVisible && (
               <>
+                {isJanSaleCampaignEnabled() && (
+                  <JanuarySaleBannerV2 className="sale-banner-v2 -mt-400 -mb-200" />
+                )}
                 <Card className="-mt-400">
                   <Heading size="lead" color="black">
                     You Will Need:
