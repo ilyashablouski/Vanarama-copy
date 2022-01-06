@@ -122,6 +122,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           searchPodCarsData={searchPodCarsData}
           searchPodVansData={searchPodVansData}
           activeSearchIndex={2}
+          variant="cars"
         />
       ) : (
         <HomePageHero

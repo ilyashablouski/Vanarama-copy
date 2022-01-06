@@ -21,7 +21,7 @@ import {
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
-import Hero, { HeroPrompt } from '../../components/Hero';
+import Hero, { HeroJanSale, HeroPrompt } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -53,7 +53,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -156,44 +159,53 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              data?.hubPickupPage.sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-            }
-          />
-        </div>
-        {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-              ''
-            }
-            url={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
-              ''
-            }
-            text={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
-            }
-            btnVisible={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale
+          searchPodVansData={searchPodVansData}
+          searchType={VehicleTypeEnum.LCV}
+          variant="pickups"
+        />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+              }
+            />
+          </div>
+          {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.text || ''
+              }
+              url={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
+                ''
+              }
+              text={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
+              }
+              btnVisible={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}

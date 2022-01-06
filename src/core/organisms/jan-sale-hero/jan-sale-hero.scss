@@ -182,7 +182,7 @@
         }
       }
 
-      &.-insurance {
+      &.-extra-offer {
         width: 100%;
         margin-top: 10px;
         padding: 5px 5px 7px;
@@ -252,6 +252,53 @@
 
     @include mobile {
       padding: 0 20px;
+    }
+  }
+
+  &.-vans-hub {
+    .js-hero {
+      &__inner {
+        top: 9%;
+        left: 22%;
+
+        @include mobile-tablet {
+          left: 19%;
+        }
+      }
+    }
+  }
+
+  &.-pickups-hub {
+    .js-hero {
+      &__inner {
+        top: 11%;
+        left: 22%;
+
+        @include mobile-tablet {
+          left: 19%;
+        }
+      }
+    }
+  }
+
+  &.-electric-hub {
+    .js-hero {
+      &__inner {
+        top: 9%;
+        left: 18%;
+
+        @include mobile-tablet {
+          left: 15%;
+        }
+      }
+
+      .image {
+        width: 625px;
+      }
+
+      .text.-extra-offer {
+        background: #45B3D3;
+      }
     }
   }
 }
