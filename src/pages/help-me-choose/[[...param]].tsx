@@ -28,10 +28,18 @@ import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeCho
 import Skeleton from '../../components/Skeleton';
 import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
 import Head from '../../components/Head/Head';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
+
+const JanuarySaleBanners = dynamic(
+  () => import('../../components/JanuarySaleBanners/JanuarySaleBanners'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
@@ -147,6 +155,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
+      {isJanSaleCampaignEnabled() && <JanuarySaleBanners />}
       {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (
