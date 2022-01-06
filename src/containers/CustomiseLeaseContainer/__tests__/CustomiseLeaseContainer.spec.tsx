@@ -10,12 +10,134 @@ import {
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import { useOpportunityCreation } from '../../GoldrushFormContainer/gql';
+import { GetQuoteDetails } from '../../../../generated/GetQuoteDetails';
 
 jest.mock('../gql');
 jest.mock('../../GoldrushFormContainer/gql');
 
 const getComponent = (props: IProps) => {
   return renderer.create(<CustomiseLeaseContainer {...props} />).toJSON();
+};
+
+const data = {
+  quoteByCapId: {
+    colour: '13990',
+    leadTime: '14-21 Day Delivery',
+    leaseType: LeaseTypeEnum.PERSONAL,
+    mileage: 12000,
+    leaseCost: {
+      monthlyRental: 123,
+      initialRental: 2339.64,
+      excessMileage: 0,
+    },
+    processingFee: 0,
+    stock: 'Brand New - ',
+    term: 24,
+    trim: '112981',
+    upfront: 1,
+    vehicleType: VehicleTypeEnum.CAR,
+    funderId: 8,
+    stockBatchId: 5411,
+    nextBestPrice: {
+      maintained: 315.67,
+      nonMaintained: 243.67,
+    },
+    maintenanceCost: {
+      excessMileage: 3.76,
+      initialRental: 287.65,
+      monthlyRental: 45.87,
+    },
+    freeInsurance: true,
+  },
+} as GetQuoteDetails;
+const props = {
+  capId: 84429,
+  colourData: [
+    {
+      leadTime: '14-21 Day Delivery',
+      options: [
+        {
+          hex: null,
+          label: 'Solid - Polar white',
+          optionId: 13990,
+          hotOffer: false,
+        },
+      ],
+    },
+  ],
+  trimData: [
+    {
+      leadTime: '14-21 Day Delivery',
+      options: [
+        {
+          label: 'Leather - Cranberry red',
+          optionId: 104562,
+          hotOffer: false,
+        },
+      ],
+    },
+  ],
+  vehicleType: VehicleTypeEnum.CAR,
+  onCompletedCallBack: jest.fn(),
+  setLeadTime: jest.fn(),
+  isPlayingLeaseAnimation: false,
+  setIsPlayingLeaseAnimation: jest.fn(),
+  dataUiTestId: 'customise-lease',
+  leaseAdjustParams: {
+    mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
+    terms: [24, 36, 48, 60],
+    upfronts: [1, 3, 6, 9, 12],
+  },
+  derivativeInfo: {
+    name: '',
+    manufacturer: {
+      name: '',
+      slug: '',
+    },
+    model: {
+      name: '',
+      slug: '',
+    },
+    range: {
+      name: '',
+      slug: '',
+    },
+    transmission: {
+      name: 'Manual',
+    },
+    bodyStyle: {
+      name: 'Hatchback',
+    },
+    bodyType: {
+      name: 'Hatchback',
+      slug: 'hatchback',
+    },
+    fuelType: {
+      name: 'Diesel',
+    },
+    colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
+    technicals: [
+      {
+        categoryDescription: 'Weight and Capacities',
+        derivativeId: '84429',
+        effectiveFrom: '2019-07-01T00:00:00.000Z',
+        effectiveTo: null,
+        id: '3',
+        technicalDescription: 'Minimum Kerbweight',
+        technicalLongDescription: 'Minimum Kerbweight',
+        value: '1515',
+        unit: 'kg',
+      },
+    ],
+    trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
+  },
+  leaseType: LeaseTypeEnum.BUSINESS,
+  setLeaseType: jest.fn(),
+  onCompleted: jest.fn(),
+  mileage: 6000,
+  setMileage: jest.fn(),
+  colour: 1234,
+  setColour: jest.fn(),
 };
 
 describe('<CustomiseLeaseContainer />', () => {
@@ -41,140 +163,16 @@ describe('<CustomiseLeaseContainer />', () => {
     })),
   });
 
-  it('should show data correctly', async () => {
-    const data = {
-      quoteByCapId: {
-        colour: '13990',
-        leadTime: '14-21 Day Delivery',
-        leaseType: 'PERSONAL',
-        maintained: {
-          monthlyRental: 61.75,
-          initialRental: 61.75,
-          excessMileage: 0,
-        },
-        mileage: 12000,
-        nonMaintained: {
-          monthlyRental: 605.95,
-          initialRental: 605.95,
-          excessMileage: 14.76,
-        },
-        leaseCost: {
-          monthlyRental: 123,
-        },
-        processingFee: 0,
-        stock: 'Brand New - ',
-        term: 24,
-        trim: '112981',
-        upfront: 1,
-        vehicleType: 'CAR',
-      },
-    } as any;
+  it('should have some elements', async () => {
     (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
       () => {},
       {
         loading: false,
         data,
-        error: undefined,
-        refetch: jest.fn(),
-        leaseType: 'Personal',
-        setLeaseType: jest.fn(),
       },
     ]);
 
-    render(
-      <CustomiseLeaseContainer
-        quote={data}
-        capId={84429}
-        colourData={[
-          {
-            leadTime: '14-21 Day Delivery',
-            options: [
-              {
-                hex: null,
-                label: 'Solid - Polar white',
-                optionId: 13990,
-                hotOffer: false,
-              },
-            ],
-          },
-        ]}
-        trimData={[
-          {
-            leadTime: '14-21 Day Delivery',
-            options: [
-              {
-                label: 'Leather - Cranberry red',
-                optionId: 104562,
-                hotOffer: false,
-              },
-            ],
-          },
-        ]}
-        vehicleType={VehicleTypeEnum.CAR}
-        onCompletedCallBack={jest.fn()}
-        setLeadTime={jest.fn()}
-        isPlayingLeaseAnimation={false}
-        setIsPlayingLeaseAnimation={jest.fn()}
-        dataUiTestId="customise-lease"
-        leaseAdjustParams={{
-          mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-          terms: [24, 36, 48, 60],
-          upfronts: [1, 3, 6, 9, 12],
-        }}
-        derivativeInfo={{
-          name: '',
-          manufacturer: {
-            name: '',
-            slug: '',
-          },
-          model: {
-            name: '',
-            slug: '',
-          },
-          range: {
-            name: '',
-            slug: '',
-          },
-          transmission: {
-            name: 'Manual',
-          },
-          bodyStyle: {
-            name: 'Hatchback',
-          },
-          bodyType: {
-            name: 'Hatchback',
-            slug: 'hatchback',
-          },
-          fuelType: {
-            name: 'Diesel',
-          },
-          colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-          technicals: [
-            {
-              categoryDescription: 'Weight and Capacities',
-              derivativeId: '84429',
-              effectiveFrom: '2019-07-01T00:00:00.000Z',
-              effectiveTo: null,
-              id: '3',
-              technicalDescription: 'Minimum Kerbweight',
-              technicalLongDescription: 'Minimum Kerbweight',
-              value: '1515',
-              unit: 'kg',
-            },
-          ],
-          trims: [
-            { id: '104562', optionDescription: 'Leather - Cranberry red' },
-          ],
-        }}
-        leaseType={LeaseTypeEnum.BUSINESS}
-        setLeaseType={jest.fn()}
-        onCompleted={jest.fn()}
-        mileage={6000}
-        setMileage={jest.fn()}
-        colour={1234}
-        setColour={jest.fn()}
-      />,
-    );
+    render(<CustomiseLeaseContainer {...props} quote={data} />);
 
     expect(screen.getByText('12000 Miles'));
 
@@ -197,378 +195,37 @@ describe('<CustomiseLeaseContainer />', () => {
     await waitFor(() => {
       expect(screen.getByText('PM exc. VAT'));
     });
-  });
-
-  it('should show data correctly with data', async () => {
-    const data = {
-      quoteByCapId: {
-        colour: '13990',
-        leadTime: '14-21 Day Delivery',
-        leaseType: 'BUSINESS',
-        maintained: {
-          monthlyRental: 61.75,
-          initialRental: 61.75,
-          excessMileage: 0,
-        },
-        mileage: 12000,
-        nonMaintained: {
-          monthlyRental: 605.95,
-          initialRental: 605.95,
-          excessMileage: 14.76,
-        },
-        processingFee: 0,
-        stock: 'Brand New - ',
-        term: 24,
-        trim: '112981',
-        upfront: 1,
-        vehicleType: 'CAR',
-      },
-    } as any;
-    (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
-      () => {},
-      {
-        loading: false,
-        data,
-        error: undefined,
-        refetch: jest.fn(),
-      },
-    ]);
-
-    const tree = getComponent({
-      quote: data,
-      capId: 84429,
-      colourData: [
-        {
-          leadTime: '14-21 Day Delivery',
-          options: [
-            {
-              hex: null,
-              label: 'Solid - Polar white',
-              optionId: 13990,
-              hotOffer: false,
-            },
-          ],
-        },
-      ],
-      trimData: [
-        {
-          leadTime: '14-21 Day Delivery',
-          options: [
-            {
-              label: 'Leather - Cranberry red',
-              optionId: 104562,
-              hotOffer: false,
-            },
-          ],
-        },
-      ],
-      vehicleType: VehicleTypeEnum.CAR,
-      setLeadTime: jest.fn(),
-      isPlayingLeaseAnimation: false,
-      setIsPlayingLeaseAnimation: jest.fn(),
-      dataUiTestId: 'customise-lease',
-      leaseAdjustParams: {
-        mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-        terms: [24, 36, 48, 60],
-        upfronts: [1, 3, 6, 9, 12],
-      },
-      derivativeInfo: {
-        name: '',
-        manufacturer: {
-          name: '',
-          slug: '',
-        },
-        model: {
-          name: '',
-          slug: '',
-        },
-        range: {
-          name: '',
-          slug: '',
-        },
-        transmission: {
-          name: 'Manual',
-        },
-        bodyStyle: {
-          name: 'Hatchback',
-        },
-        bodyType: {
-          name: 'Hatchback',
-          slug: 'hatchback',
-        },
-        fuelType: {
-          name: 'Diesel',
-        },
-        colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-        technicals: [
-          {
-            categoryDescription: 'Weight and Capacities',
-            derivativeId: '84429',
-            effectiveFrom: '2019-07-01T00:00:00.000Z',
-            effectiveTo: null,
-            id: '3',
-            technicalDescription: 'Minimum Kerbweight',
-            technicalLongDescription: 'Minimum Kerbweight',
-            value: '1515',
-            unit: 'kg',
-          },
-        ],
-        trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
-      },
-      leaseType: LeaseTypeEnum.PERSONAL,
-      setLeaseType: jest.fn(),
-      onCompleted: jest.fn(),
-      onCompletedCallBack: jest.fn(),
-      mileage: 6000,
-      setMileage: jest.fn(),
-      colour: 1234,
-      setColour: jest.fn(),
-    });
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should show data correctly with data', async () => {
-    (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
-      () => {},
-      {
-        loading: true,
-        data: undefined,
-        error: undefined,
-        refetch: jest.fn(),
-      },
-    ]);
-
-    const tree = getComponent({
-      capId: 84429,
-      vehicleType: VehicleTypeEnum.CAR,
-      colourData: [
-        {
-          leadTime: '14-21 Day Delivery',
-          options: [
-            {
-              hex: null,
-              label: 'Solid - Polar white',
-              optionId: 13990,
-              hotOffer: false,
-            },
-          ],
-        },
-      ],
-      trimData: [
-        {
-          leadTime: '14-21 Day Delivery',
-          options: [
-            {
-              label: 'Leather - Cranberry red',
-              optionId: 104562,
-              hotOffer: false,
-            },
-          ],
-        },
-      ],
-      isPlayingLeaseAnimation: false,
-      setIsPlayingLeaseAnimation: jest.fn(),
-      onCompletedCallBack: jest.fn(),
-      setLeadTime: jest.fn(),
-      leaseAdjustParams: {
-        mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-        terms: [24, 36, 48, 60],
-        upfronts: [1, 3, 6, 9, 12],
-      },
-      derivativeInfo: {
-        name: '',
-        model: {
-          name: '',
-          slug: '',
-        },
-        manufacturer: {
-          name: '',
-          slug: '',
-        },
-        range: {
-          name: '',
-          slug: '',
-        },
-        transmission: {
-          name: 'Manual',
-        },
-        bodyStyle: {
-          name: 'Hatchback',
-        },
-        bodyType: {
-          name: 'Hatchback',
-          slug: 'hatchback',
-        },
-        fuelType: {
-          name: 'Diesel',
-        },
-        colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-        technicals: [
-          {
-            categoryDescription: 'Weight and Capacities',
-            derivativeId: '84429',
-            effectiveFrom: '2019-07-01T00:00:00.000Z',
-            effectiveTo: null,
-            id: '3',
-            technicalDescription: 'Minimum Kerbweight',
-            technicalLongDescription: 'Minimum Kerbweight',
-            value: '1515',
-            unit: 'kg',
-          },
-        ],
-        trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
-      },
-      leaseType: LeaseTypeEnum.PERSONAL,
-      setLeaseType: jest.fn(),
-      onCompleted: jest.fn(),
-      mileage: 6000,
-      setMileage: jest.fn(),
-      colour: 1234,
-      setColour: jest.fn(),
-    });
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should show data correctly', async () => {
-    const data = {
-      quoteByCapId: {
-        colour: '13990',
-        leadTime: '14-21 Day Delivery',
-        leaseType: 'PERSONAL',
-        maintained: {
-          monthlyRental: 61.75,
-          initialRental: 61.75,
-          excessMileage: 0,
-        },
-        mileage: 12000,
-        nonMaintained: {
-          monthlyRental: 605.95,
-          initialRental: 605.95,
-          excessMileage: 14.76,
-        },
-        leaseCost: {
-          monthlyRental: 123,
-        },
-        processingFee: 0,
-        stock: 'Brand New - ',
-        term: 24,
-        trim: '112981',
-        upfront: 1,
-        vehicleType: 'CAR',
-      },
-    } as any;
-    (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
-      () => {},
-      {
-        loading: false,
-        data,
-        onCompleted: () => data,
-        error: undefined,
-        refetch: jest.fn(),
-        leaseType: 'Personal',
-        setLeaseType: jest.fn(),
-      },
-    ]);
-
-    render(
-      <CustomiseLeaseContainer
-        quote={data}
-        capId={84429}
-        colourData={[
-          {
-            leadTime: '14-21 Day Delivery',
-            options: [
-              {
-                hex: null,
-                label: 'Solid - Polar white',
-                optionId: 13990,
-                hotOffer: false,
-              },
-            ],
-          },
-        ]}
-        trimData={[
-          {
-            leadTime: '14-21 Day Delivery',
-            options: [
-              {
-                label: 'Leather - Cranberry red',
-                optionId: 104562,
-                hotOffer: false,
-              },
-            ],
-          },
-        ]}
-        onCompletedCallBack={jest.fn()}
-        vehicleType={VehicleTypeEnum.CAR}
-        setLeadTime={jest.fn()}
-        isPlayingLeaseAnimation={false}
-        setIsPlayingLeaseAnimation={jest.fn()}
-        dataUiTestId="customise-lease"
-        leaseAdjustParams={{
-          mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-          terms: [24, 36, 48, 60],
-          upfronts: [1, 3, 6, 9, 12],
-        }}
-        derivativeInfo={{
-          name: '',
-          manufacturer: {
-            name: '',
-            slug: '',
-          },
-          model: {
-            name: '',
-            slug: '',
-          },
-          range: {
-            name: '',
-            slug: '',
-          },
-          transmission: {
-            name: 'Manual',
-          },
-          bodyStyle: {
-            name: 'Hatchback',
-          },
-          bodyType: {
-            name: 'Hatchback',
-            slug: 'hatchback',
-          },
-          fuelType: {
-            name: 'Diesel',
-          },
-          colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-          technicals: [
-            {
-              categoryDescription: 'Weight and Capacities',
-              derivativeId: '84429',
-              effectiveFrom: '2019-07-01T00:00:00.000Z',
-              effectiveTo: null,
-              id: '3',
-              technicalDescription: 'Minimum Kerbweight',
-              technicalLongDescription: 'Minimum Kerbweight',
-              value: '1515',
-              unit: 'kg',
-            },
-          ],
-          trims: [
-            { id: '104562', optionDescription: 'Leather - Cranberry red' },
-          ],
-        }}
-        leaseType={LeaseTypeEnum.BUSINESS}
-        setLeaseType={jest.fn()}
-        onCompleted={jest.fn()}
-        mileage={6000}
-        setMileage={jest.fn()}
-        colour={1234}
-        setColour={jest.fn()}
-      />,
-    );
 
     fireEvent.click(screen.getByText('Request a Call Back'));
 
     await waitFor(() => {
       expect(screen.getByText('Please Fill In Your Details'));
     });
+  });
+
+  it('should render correctly', async () => {
+    (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
+      () => {},
+      {
+        loading: false,
+        data,
+      },
+    ]);
+
+    const tree = getComponent({ ...props, quote: data });
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should render loading', async () => {
+    (useQuoteDataLazyQuery as jest.Mock).mockReturnValue([
+      () => {},
+      {
+        loading: false,
+        data: undefined,
+      },
+    ]);
+
+    const tree = getComponent({ ...props });
+    expect(tree).toMatchSnapshot();
   });
 });
