@@ -1,7 +1,7 @@
 import React from 'react';
 import { IBaseProps } from 'core/interfaces/base';
 
-const JanuarySaleBanners: React.FC<IBaseProps> = ({ className }) => (
+const JanuarySaleBanner: React.FC<IBaseProps> = ({ className }) => (
   <div className={`sale-banner colored-section -orange-wrapper ${className}`}>
     <div className="colored-section -blue-wrapper">
       <div className="colored-section -yellow-wrapper">
@@ -28,4 +28,4 @@ const JanuarySaleBanners: React.FC<IBaseProps> = ({ className }) => (
   </div>
 );
 
-export default JanuarySaleBanners;
+export default JanuarySaleBanner;

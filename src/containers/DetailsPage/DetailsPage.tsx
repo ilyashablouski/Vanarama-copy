@@ -136,7 +136,7 @@ const CustomerAlsoViewedContainer = dynamic(() =>
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
 const JanuarySaleBanners = dynamic(
-  () => import('../../components/JanuarySaleBanners/JanuarySaleBanners'),
+  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
   {
     loading: () => <Skeleton count={1} />,
   },
