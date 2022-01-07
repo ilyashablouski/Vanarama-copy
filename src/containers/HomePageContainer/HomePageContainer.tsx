@@ -22,6 +22,8 @@ import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
+import { HeroJanSale } from '../../components/Hero';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -91,11 +93,12 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   //   return <Loading size="large" />;
   // }
 
-  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
-  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const tiles = data?.homePage.sections?.tiles?.tiles;
   const tilesTitle = data?.homePage.sections?.tiles?.tilesTitle;
   const tilesTitleTag = data?.homePage.sections?.tiles?.titleTag;
+
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
 
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
@@ -114,11 +117,20 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      <HomePageHero
-        searchPodCarsData={searchPodCarsData}
-        searchPodVansData={searchPodVansData}
-        data={data}
-      />
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale
+          searchPodCarsData={searchPodCarsData}
+          searchPodVansData={searchPodVansData}
+          activeSearchIndex={2}
+          variant="cars"
+        />
+      ) : (
+        <HomePageHero
+          searchPodCarsData={searchPodCarsData}
+          searchPodVansData={searchPodVansData}
+          data={data}
+        />
+      )}
       {data?.homePage && (
         <section className="row:lead-text">
           <Heading

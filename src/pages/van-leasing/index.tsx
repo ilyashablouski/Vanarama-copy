@@ -20,7 +20,7 @@ import {
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
-import Hero, { HeroPrompt } from '../../components/Hero';
+import Hero, { HeroJanSale, HeroPrompt } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -52,7 +52,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -96,7 +99,7 @@ type IProps = IPageWithData<
 
 export const VansPage: NextPage<IProps> = ({
   data: encodedData,
-  searchPodVansData,
+  searchPodVansData: searchPodVansDataEncoded,
   productsSmallVan,
   productsMediumVan,
   productsLargeVan,
@@ -111,7 +114,9 @@ export const VansPage: NextPage<IProps> = ({
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const data = decodeData(encodedData);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
+
   const titleTagText = getSectionsData(
     ['leadText', 'titleTag'],
     data?.hubVanPage.sections,
@@ -154,43 +159,52 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.hubVanPage.sections,
-              ) ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-            }
-          />
-        </div>
-        {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-            }
-            text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale
+          searchPodVansData={searchPodVansData}
+          searchType={VehicleTypeEnum.LCV}
+          variant="vans"
+        />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                getSectionsData(
+                  ['hero', 'image', 'file', 'url'],
+                  data?.hubVanPage.sections,
+                ) ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+              }
+            />
+          </div>
+          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
+                ''
+              }
+              url={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+              }
+              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -767,7 +781,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        searchPodVansData,
+        searchPodVansData: encodeData(searchPodVansData),
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,
         productsLargeVan: productsLargeVan || null,

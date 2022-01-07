@@ -16,13 +16,13 @@ import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTile
 import { evOffersRequest, IEvOffersData } from '../../utils/offers';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../gql/genericPage';
-import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
+import { HeroEv as Hero, HeroJanSale, HeroPrompt } from '../../components/Hero';
 import getTitleTag from '../../utils/getTitleTag';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -32,12 +32,21 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import { decodeData, encodeData } from '../../utils/data';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -71,6 +80,7 @@ const ProductCarousel = dynamic(
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    searchPodCarsData: IFilterList;
   }
 >;
 
@@ -125,7 +135,8 @@ const FeaturedSection: FC<any> = ({
 );
 
 export const EVHubPage: NextPage<IProps> = ({
-  data,
+  data: encodedDate,
+  searchPodCarsData: searchPodCarsDataEncoded,
   productsEvCar,
   productsEvVan,
   productsEvVanDerivatives,
@@ -141,8 +152,9 @@ export const EVHubPage: NextPage<IProps> = ({
     quality: 59,
   };
 
-  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
-  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
+  const data = decodeData(encodedDate);
+  const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
+
   const sections = data?.genericPage.sections;
   const titleTagText = sections?.leadText?.titleTag;
   const headerText = sections?.leadText?.heading;
@@ -151,38 +163,49 @@ export const EVHubPage: NextPage<IProps> = ({
   const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
   const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
 
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
+
   return (
     <>
-      <Hero>
-        <div className="hero--left">
-          <div className="nlol" style={{ left: 'auto' }}>
-            <p>Find Your</p>
-            <h2>New Lease Of Life</h2>
-            <p>With Vanarama</p>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale
+          searchPodCarsData={searchPodCarsData}
+          searchType={VehicleTypeEnum.CAR}
+          variant="electric"
+        />
+      ) : (
+        <Hero>
+          <div className="hero--left">
+            <div className="nlol" style={{ left: 'auto' }}>
+              <p>Find Your</p>
+              <h2>New Lease Of Life</h2>
+              <p>With Vanarama</p>
+            </div>
+            {sections?.hero?.heroLabel?.[0]?.visible && (
+              <HeroPrompt
+                label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+                url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+                text={sections?.hero?.heroLabel?.[0]?.text || ''}
+                btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+              />
+            )}
           </div>
-          {sections?.hero?.heroLabel?.[0]?.visible && (
-            <HeroPrompt
-              label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
-              url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-              text={sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+          <div className="hero--right">
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                sections?.hero?.image?.file?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+              }
             />
-          )}
-        </div>
-        <div className="hero--right">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-            }
-          />
-        </div>
-      </Hero>
+          </div>
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -360,6 +383,16 @@ export async function getStaticProps(
       },
     });
 
+    const { data: searchPodCarsData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+      },
+    });
+
     const {
       productsEvVan,
       productsEvCar,
@@ -372,7 +405,8 @@ export async function getStaticProps(
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
-        data,
+        data: encodeData(data),
+        searchPodCarsData: encodeData(searchPodCarsData),
         productsEvCar: productsEvCar || null,
         productsEvVan: productsEvVan || null,
         productsEvVanDerivatives: productsEvVanDerivatives || null,
