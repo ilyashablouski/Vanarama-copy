@@ -20,7 +20,7 @@ import {
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
-import Hero, { HeroJanSale, HeroPrompt } from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -84,6 +84,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
@@ -160,11 +161,7 @@ export const VansPage: NextPage<IProps> = ({
   return (
     <>
       {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          searchPodVansData={searchPodVansData}
-          searchType={VehicleTypeEnum.LCV}
-          variant="vans"
-        />
+        <HeroJanSale searchPodVansData={searchPodVansData} variant="vans" />
       ) : (
         <Hero searchPodVansData={searchPodVansData}>
           <div className="nlol">

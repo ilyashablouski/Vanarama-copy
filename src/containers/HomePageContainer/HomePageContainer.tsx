@@ -23,7 +23,6 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { isJanSaleCampaignEnabled } from '../../utils/helpers';
-import { HeroJanSale } from '../../components/Hero';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,6 +63,7 @@ const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 const HomePageHero = dynamic(() => import('./HomePageHero'));
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
 });
