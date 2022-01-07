@@ -22,7 +22,7 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../gql/genericPage';
-import { HeroEv as Hero, HeroJanSale, HeroPrompt } from '../../components/Hero';
+import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
 import getTitleTag from '../../utils/getTitleTag';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -76,11 +76,13 @@ const ProductCarousel = dynamic(
     loading: () => <Skeleton count={4} />,
   },
 );
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
     searchPodCarsData: IFilterList;
+    searchPodVansData: IFilterList;
   }
 >;
 
@@ -137,6 +139,7 @@ const FeaturedSection: FC<any> = ({
 export const EVHubPage: NextPage<IProps> = ({
   data: encodedDate,
   searchPodCarsData: searchPodCarsDataEncoded,
+  searchPodVansData: searchPodVansDataEncoded,
   productsEvCar,
   productsEvVan,
   productsEvVanDerivatives,
@@ -154,6 +157,7 @@ export const EVHubPage: NextPage<IProps> = ({
 
   const data = decodeData(encodedDate);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
 
   const sections = data?.genericPage.sections;
   const titleTagText = sections?.leadText?.titleTag;
@@ -171,7 +175,8 @@ export const EVHubPage: NextPage<IProps> = ({
       {isJanSaleCampaignEnabled() ? (
         <HeroJanSale
           searchPodCarsData={searchPodCarsData}
-          searchType={VehicleTypeEnum.CAR}
+          searchPodVansData={searchPodVansData}
+          activeSearchIndex={2}
           variant="electric"
         />
       ) : (
@@ -383,15 +388,23 @@ export async function getStaticProps(
       },
     });
 
-    const { data: searchPodCarsData } = await client.query<
-      IFilterList,
-      IFilterListVariables
-    >({
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-      },
-    });
+    const [
+      { data: searchPodVansData },
+      { data: searchPodCarsData },
+    ] = await Promise.all([
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.LCV],
+        },
+      }),
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.CAR],
+        },
+      }),
+    ]);
 
     const {
       productsEvVan,
@@ -407,6 +420,7 @@ export async function getStaticProps(
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
         searchPodCarsData: encodeData(searchPodCarsData),
+        searchPodVansData: encodeData(searchPodVansData),
         productsEvCar: productsEvCar || null,
         productsEvVan: productsEvVan || null,
         productsEvVanDerivatives: productsEvVanDerivatives || null,

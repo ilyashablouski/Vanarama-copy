@@ -21,7 +21,7 @@ import {
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
-import Hero, { HeroJanSale, HeroPrompt } from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -95,6 +95,7 @@ const ProductCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 type IProps = IPageWithData<
   IPickupsPageOffersData & {
@@ -162,11 +163,7 @@ export const PickupsPage: NextPage<IProps> = ({
   return (
     <>
       {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          searchPodVansData={searchPodVansData}
-          searchType={VehicleTypeEnum.LCV}
-          variant="pickups"
-        />
+        <HeroJanSale searchPodVansData={searchPodVansData} variant="pickups" />
       ) : (
         <Hero searchPodVansData={searchPodVansData}>
           <div className="nlol">

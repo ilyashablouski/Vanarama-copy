@@ -35,7 +35,7 @@ import {
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
-import Hero, { HeroJanSale, HeroPrompt } from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
@@ -83,6 +83,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 const getFuelType = (product: IProduct | null) =>
   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
@@ -150,11 +151,7 @@ export const CarsPage: NextPage<IProps> = ({
       </NextHead>
 
       {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          searchPodCarsData={searchPodCarsData}
-          searchType={VehicleTypeEnum.CAR}
-          variant="cars"
-        />
+        <HeroJanSale searchPodCarsData={searchPodCarsData} variant="cars" />
       ) : (
         <Hero
           searchPodCarsData={searchPodCarsData}
