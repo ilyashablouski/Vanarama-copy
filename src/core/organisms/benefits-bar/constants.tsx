@@ -1,10 +1,13 @@
+import dynamic from 'next/dynamic';
+
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';
-import PoundCircle from 'core/assets/icons/PoundCircle';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
 
 import { isJanSaleCampaignEnabled } from '../../../utils/helpers';
+
+const PoundCircle = dynamic(() => import('core/assets/icons/PoundCircle'));
 
 // eslint-disable-next-line import/prefer-default-export
 export const BENEFIT_LIST = [

@@ -8,26 +8,36 @@ import SearchPodContainer from '../../containers/SearchPodContainer';
 
 import { IHeroProps } from './interface';
 
+const TERM_TEXT_VARIANTS = {
+  full:
+    'Terms and conditions apply. Free insurance available on selected car hot offers only & subject to availability.',
+  short: 'Terms & conditions apply.',
+};
+
 const HERO_BANNER_VARIANTS = {
   cars: {
     vehicleImageName: `car`,
     classNameMod: '-cars-hub',
     extraOfferText: '+1 Year’s FREE Insurance',
+    termsText: TERM_TEXT_VARIANTS.full,
   },
   vans: {
     vehicleImageName: `van`,
     classNameMod: '-vans-hub',
     extraOfferText: '+FREE 30 Day Returns',
+    termsText: TERM_TEXT_VARIANTS.short,
   },
   pickups: {
     vehicleImageName: `pickup`,
     classNameMod: '-pickups-hub',
     extraOfferText: '+FREE 30 Day Returns',
+    termsText: TERM_TEXT_VARIANTS.short,
   },
   electric: {
     vehicleImageName: `electric`,
     classNameMod: '-electric-hub',
     extraOfferText: '+FREE Home Charger',
+    termsText: TERM_TEXT_VARIANTS.short,
   },
 };
 
@@ -46,6 +56,7 @@ const HeroJanSale: React.FC<IProps> = ({
     classNameMod,
     vehicleImageName,
     extraOfferText,
+    termsText,
   } = HERO_BANNER_VARIANTS[variant];
 
   return (
@@ -74,10 +85,7 @@ const HeroJanSale: React.FC<IProps> = ({
               <Text className="-date">Ends 31st January</Text>
             </div>
           </div>
-          <Text className="terms-and-conditions">
-            * T&Cs apply. Free insurance available on selected car hot offers
-            only.
-          </Text>
+          <Text className="terms-and-conditions">* {termsText}</Text>
         </div>
         <div className="hero--right">
           <SearchPodContainer
