@@ -5,8 +5,14 @@ import Text from 'core/atoms/text';
 import Image from 'core/atoms/image';
 
 import SearchPodContainer from '../../containers/SearchPodContainer';
+import RouterLink from '../RouterLink';
 
 import { IHeroProps } from './interface';
+
+const TERMS_LINK = {
+  label: 'Terms and conditions apply',
+  href: '/legal/terms-and-conditions/january-sale-2022-terms-and-conditions',
+};
 
 const TERM_TEXT_VARIANTS = {
   full:
@@ -85,7 +91,9 @@ const HeroJanSale: React.FC<IProps> = ({
               <Text className="-date">Ends 31st January</Text>
             </div>
           </div>
-          <Text className="terms-and-conditions">* {termsText}</Text>
+          <RouterLink className="terms-link" link={TERMS_LINK}>
+            * {termsText}
+          </RouterLink>
         </div>
         <div className="hero--right">
           <SearchPodContainer
