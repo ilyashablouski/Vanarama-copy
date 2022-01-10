@@ -53,7 +53,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -92,6 +95,7 @@ const ProductCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 type IProps = IPageWithData<
   IPickupsPageOffersData & {
@@ -102,12 +106,14 @@ type IProps = IPageWithData<
 
 export const PickupsPage: NextPage<IProps> = ({
   data: encodedData,
-  searchPodVansData,
+  searchPodVansData: searchPodVansDataEncoded,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
+
   const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
   const headerText = data?.hubPickupPage.sections?.leadText?.heading;
   const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
@@ -156,44 +162,49 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              data?.hubPickupPage.sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-            }
-          />
-        </div>
-        {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-              ''
-            }
-            url={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
-              ''
-            }
-            text={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
-            }
-            btnVisible={
-              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale searchPodVansData={searchPodVansData} variant="pickups" />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+              }
+            />
+          </div>
+          {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.text || ''
+              }
+              url={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
+                ''
+              }
+              text={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
+              }
+              btnVisible={
+                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
+                  ?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -664,7 +675,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        searchPodVansData,
+        searchPodVansData: encodeData(searchPodVansData),
         productsPickup: productsPickup || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
       },

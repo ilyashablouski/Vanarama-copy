@@ -1,0 +1,207 @@
+.colored-section {
+  border-radius: 30px;
+  padding: 0 18px;
+}
+
+.-orange-wrapper {
+  padding: 2px 18px;
+  background-color: $orange;
+
+  @include mobile {
+    padding: 2px 3px;
+  }
+
+  .-blue-wrapper {
+    background-color: #53C0D8;
+
+    @include mobile {
+      background-color: initial;
+      padding: 0;
+    }
+
+    .-yellow-wrapper {
+      background-color: #FFCB00;
+
+      @include mobile {
+        background-color: initial;
+        padding: 0;
+      }
+
+      .-inner-wrapper {
+        background-color: $white;
+
+        @include mobile {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.sale-banner {
+  width: 100%;
+  text-align: center;
+
+  @include mobile {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 10px;
+    grid-column: full;
+    text-align: center;
+  }
+
+  .-desktop {
+    @include mobile {
+      display: none;
+    }
+  }
+
+  .-mobile {
+    display: none;
+
+    @include mobile {
+      display: unset;
+    }
+  }
+
+  &__group {
+    @include mobile {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      padding: 0 10px;
+    }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    font-family: $font-family-heading;
+    font-weight: $font-weight-medium;
+    z-index: 1;
+    height: 50px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
+
+    @include mobile {
+      justify-content: center;
+      padding: 0 3px;
+      height: 55px;
+    }
+
+    .mobile-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+      align-items: center;
+    }
+  }
+
+  &__aside-text {
+    font-size: $font-size-500;
+    color: $orange;
+
+    @media (max-width: 470px) {
+      font-size: $font-size-400;
+    }
+  }
+
+  .-january {
+    font-family: $font-family-body;
+  }
+
+  &__sale-text {
+    color: $white;
+    font-size: 1.5rem;
+
+    @media (max-width: 470px) {
+      font-size: $font-size-500;
+    }
+  }
+
+  &__sticker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    background-color: $orange;
+    border-radius: 30px;
+    height: 100%;
+
+    @media (max-width: 1000px) {
+      width: 250px;
+      margin: 0 20px;
+    }
+
+    @include mobile {
+      margin: 0;
+      flex-shrink: 2;
+      height: calc(100% - 5px);
+    }
+  }
+}
+
+.pdp-page-wrapper {
+  &.sale-banner {
+    margin: 0;
+  }
+
+  .sale-banner {
+    &__sticker {
+      width: 220px;
+    }
+
+    &__aside-text {
+      @media (max-width: 1200px) {
+        font-size: $font-size-400;
+      }
+    }
+
+    &__sale-text {
+      @media (max-width: 1200px) {
+        font-size: $font-size-500;
+      }
+    }
+  }
+}
+
+.sale-banner-v2 {
+  @include mobile {
+    padding: 3px;
+  }
+  .colored-section {
+    padding: 0 15px;
+
+    @include mobile {
+      padding: 0 1px;
+    }
+
+    &.-inner-wrapper {
+      padding: 0 5px;
+    }
+  }
+
+  .sale-banner {
+    &__sticker {
+      width: 200px;
+      height: calc(100% - 5px);
+    }
+
+    &__inner {
+      justify-content: space-evenly;
+
+      @include mobile {
+        height: 54px;
+        justify-content: center;
+      }
+    }
+
+    &__aside-text {
+      padding: 0 5px;
+    }
+  }
+}
