@@ -190,6 +190,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseType, setLeaseType] = useState<LeaseTypeEnum>(
     leaseTypeQuery ?? cachedLeaseType,
   );
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
+  );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
@@ -486,10 +489,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const independentReview = data?.vehicleDetails?.independentReview;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
 
-  const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
-
   const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
     text: review?.review ? replaceReview(review.review) : '',
     author: review?.name || '',
@@ -614,12 +613,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
+      {isJanSaleCampaignEnabled() && isMobile && (
+        <JanuarySaleBanners className="pdp-page-wrapper" />
+      )}
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isJanSaleCampaignEnabled() ? (
+        {isJanSaleCampaignEnabled() && !isMobile && (
           <JanuarySaleBanners className="pdp-page-wrapper" />
-        ) : (
-          isFreeInsurance && <FreeInsuranceBanner />
+        )}
+        {!isJanSaleCampaignEnabled() && isFreeInsurance && (
+          <FreeInsuranceBanner />
         )}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>

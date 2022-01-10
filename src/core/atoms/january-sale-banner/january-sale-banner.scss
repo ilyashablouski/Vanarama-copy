@@ -8,7 +8,7 @@
   background-color: $orange;
 
   @include mobile {
-    padding: 1px 3px;
+    padding: 2px 3px;
   }
 
   .-blue-wrapper {
@@ -90,7 +90,7 @@
     @include mobile {
       justify-content: center;
       padding: 0 3px;
-      height: 56px;
+      height: 55px;
     }
 
     .mobile-text-container {
@@ -146,6 +146,10 @@
 }
 
 .pdp-page-wrapper {
+  &.sale-banner {
+    margin: 0;
+  }
+
   .sale-banner {
     &__sticker {
       width: 220px;
@@ -161,6 +165,43 @@
       @media (max-width: 1200px) {
         font-size: $font-size-500;
       }
+    }
+  }
+}
+
+.sale-banner-v2 {
+  @include mobile {
+    padding: 3px;
+  }
+  .colored-section {
+    padding: 0 15px;
+
+    @include mobile {
+      padding: 0 1px;
+    }
+
+    &.-inner-wrapper {
+      padding: 0 5px;
+    }
+  }
+
+  .sale-banner {
+    &__sticker {
+      width: 200px;
+      height: calc(100% - 5px);
+    }
+
+    &__inner {
+      justify-content: space-evenly;
+
+      @include mobile {
+        height: 54px;
+        justify-content: center;
+      }
+    }
+
+    &__aside-text {
+      padding: 0 5px;
     }
   }
 }
