@@ -251,6 +251,15 @@ export interface Partner_partner_footer {
   linkGroups: (Partner_partner_footer_linkGroups | null)[] | null;
 }
 
+export interface Partner_partner_searchPageText {
+  carsTitle: string | null;
+  carsDescription: string | null;
+  vansTitle: string | null;
+  vansDescription: string | null;
+  pickupsTitle: string | null;
+  pickupsDescription: string | null;
+}
+
 export interface Partner_partner {
   customerSovereignty: number | null;
   uuid: string | null;
@@ -269,6 +278,7 @@ export interface Partner_partner {
   featured1: Partner_partner_featured1 | null;
   tiles: Partner_partner_tiles[] | null;
   footer: Partner_partner_footer | null;
+  searchPageText: Partner_partner_searchPageText | null;
 }
 
 export interface Partner {
