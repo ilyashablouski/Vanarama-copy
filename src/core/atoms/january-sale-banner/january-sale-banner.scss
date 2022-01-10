@@ -191,6 +191,12 @@
       height: calc(100% - 5px);
     }
 
+    &__sale-text {
+      @media (max-width: 330px) {
+        font-size: $font-size-400;
+      }
+    }
+
     &__inner {
       justify-content: space-evenly;
 
