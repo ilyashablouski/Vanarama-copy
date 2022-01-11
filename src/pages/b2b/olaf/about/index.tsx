@@ -21,6 +21,8 @@ import { isUserAuthenticated } from '../../../../utils/authentication';
 import { GetPerson } from '../../../../../generated/GetPerson';
 import { useStoredOLAFDataQuery } from '../../../../gql/storedOLAFData';
 import ErrorMessages from '../../../../models/enum/ErrorMessages';
+import useProgressHistory from '../../../../hooks/useProgressHistory';
+import { useCreateUpdateCreditApplication } from '../../../../gql/creditApplication';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -46,6 +48,8 @@ type QueryParams = OLAFQueryParams & {
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
   const { companyUuid, redirect } = router.query as QueryParams;
+  const { setCachedLastStep } = useProgressHistory();
+  const [createUpdateApplication] = useCreateUpdateCreditApplication();
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
@@ -109,13 +113,40 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = useCallback<
     (result: SubmitResult) => Promise<boolean>
   >(
-    result => {
+    async result => {
       const slug =
         result.companyType === CompanyTypes.limited ||
         result.companyType === CompanyTypes.partnership
           ? ''
           : 'sole-trader/';
-      const url = redirect || `/b2b/olaf/${slug}company-details`;
+      let url;
+      // do user change company type
+      if (
+        (router.query.isSoleTraderJourney &&
+          result.companyType === CompanyTypes.soleTrader) ||
+        (!router.query.isSoleTraderJourney &&
+          (result.companyType === CompanyTypes.limited ||
+            result.companyType === CompanyTypes.partnership))
+      ) {
+        url = redirect || `/b2b/olaf/${slug}company-details`;
+      } else {
+        setCachedLastStep(0);
+        if (result.orderUuid) {
+          await createUpdateApplication({
+            variables: {
+              input: {
+                companyDetails: null,
+                bankAccounts: null,
+                vatDetails: null,
+                soleTraderDetails: null,
+                directorsDetails: null,
+                orderUuid: result.orderUuid,
+              },
+            },
+          });
+        }
+        url = `/b2b/olaf/${slug}company-details`;
+      }
 
       return router
         .push(url, url.replace('[companyUuid]', companyUuid || ''))

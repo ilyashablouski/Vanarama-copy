@@ -247,6 +247,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                 const result = {
                   businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
                   companyType: values.companyType,
+                  orderUuid: order?.uuid,
                 } as SubmitResult;
                 return onCompleted?.(result);
               })
