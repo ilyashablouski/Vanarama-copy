@@ -127,7 +127,7 @@ const OLAFLayout: React.FC<IProps> = ({
   const router = useRouter();
   const { data } = useStoredOrderQuery();
   const order = data?.storedOrder?.order || null;
-  const rating = data?.storedOrder?.rating || undefined;
+  const rating = data?.storedOrder?.rating ?? undefined;
 
   const [
     getLeaseData,
