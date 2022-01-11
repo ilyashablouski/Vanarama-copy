@@ -208,12 +208,13 @@ const OLAFLayout: React.FC<IProps> = ({
   }, [router.pathname]);
 
   // get saved url of order's pdp page and delete error
-  const handleNewSessionStart = () =>
-    router
-      .replace(
-        `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
-      )
-      .then(() => isSessionFinishedCache(undefined));
+  const handleNewSessionStart = () => {
+    isSessionFinishedCache(false);
+
+    router.replace(
+      `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
+    );
+  };
 
   const isCar = derivative?.vehicleType === VehicleTypeEnum.CAR;
   const isVan =
