@@ -136,6 +136,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           <Head
             metaData={data?.genericPage.metaData}
             featuredImage={data?.genericPage.featuredImage}
+            paginatedPageNumber={activePage}
           />
           <SchemaJSON
             json={JSON.stringify(data?.genericPage.metaData.schema)}
