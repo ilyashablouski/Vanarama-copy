@@ -4,8 +4,6 @@ import BreakdownCar from 'core/assets/icons/BreakdownCar';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
 import Image from 'core/atoms/image/Image';
 
-// import tpLogo from '../../../../public/Assets/images/benefits-bar/trust-pilot-logo.png';
-
 // eslint-disable-next-line import/prefer-default-export
 export const BENEFIT_LIST = [
   {
