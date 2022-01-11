@@ -3,6 +3,7 @@ import { ApolloError } from '@apollo/client';
 export type SubmitResult = {
   companyType: string;
   businessPersonUuid?: string;
+  orderUuid?: string;
 };
 
 export interface IBusinessAboutFormContainerProps {
