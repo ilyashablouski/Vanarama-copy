@@ -666,7 +666,7 @@
 
       &[style*='--hero-bg:'] {
         background-image: var(--hero-bg),
-        linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
         // background-image: var(--hero-bg), $promo-gradient;
         background-size: cover;
         background-position: center center;
@@ -679,7 +679,7 @@
         }
 
         & + [class*='row\:bg-'] {
-          --page-gap: calc(var(--layout-gap) * 1)
+          --page-gap: calc(var(--layout-gap) * 1);
         }
 
         .row\:hero {
@@ -688,11 +688,13 @@
       }
 
       &.-deranged {
-        background: url("/Assets/images/deranged/deranged-desktop.jpg") no-repeat center center;
+        background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,width=1440,quality=45,sharpness=0,metadata=none/Assets/images/deranged/deranged-desktop.jpg')
+          no-repeat center center;
         background-size: cover;
 
         @include mobile375 {
-          background: url("/Assets/images/deranged/deranged-mobile.jpg") no-repeat center center;
+          background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,width=375,quality=45,sharpness=0,metadata=none/Assets/images/deranged/deranged-mobile.jpg')
+            no-repeat center center;
           background-size: cover;
         }
       }
@@ -1183,7 +1185,7 @@
   &featured-bf {
     grid-template-columns: minmax(0, 590px) 1fr;
 
-    + [class*="row\:bg-"] {
+    + [class*='row\:bg-'] {
       --page-gap: calc(var(--layout-gap) / 3);
     }
 
@@ -1210,7 +1212,7 @@
     }
 
     @include mobile {
-      + [class*="row\:bg-"] {
+      + [class*='row\:bg-'] {
         margin-top: 0;
       }
 
@@ -2055,7 +2057,9 @@
     }
 
     .free-insurance-background {
-      background: url(/freeInsuranceBanner.png) no-repeat center center;
+      // background: url(/freeInsuranceBanner.png) no-repeat center center;
+      background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,height=194,width=384,quality=45,sharpness=0,metadata=none/freeInsuranceBanner.png')
+        no-repeat center center;
       background-size: cover;
       width: 100%;
       height: 194px;

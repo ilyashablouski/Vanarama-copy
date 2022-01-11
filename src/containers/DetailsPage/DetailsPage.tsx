@@ -29,7 +29,11 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
+import {
+  toPriceFormat,
+  getOptionFromList,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -131,6 +135,12 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
+const JanuarySaleBanners = dynamic(
+  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IDetailsPageProps {
   capId: number;
@@ -179,6 +189,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<LeaseTypeEnum>(
     leaseTypeQuery ?? cachedLeaseType,
+  );
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
   );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -476,10 +489,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const independentReview = data?.vehicleDetails?.independentReview;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
 
-  const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
-
   const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
     text: review?.review ? replaceReview(review.review) : '',
     author: review?.name || '',
@@ -603,9 +612,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
+
+      {isJanSaleCampaignEnabled() && isMobile && (
+        <JanuarySaleBanners className="pdp-page-wrapper" />
+      )}
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isFreeInsurance && <FreeInsuranceBanner />}
+        {isJanSaleCampaignEnabled() && !isMobile && (
+          <JanuarySaleBanners className="pdp-page-wrapper" />
+        )}
+        {!isJanSaleCampaignEnabled() && isFreeInsurance && (
+          <FreeInsuranceBanner />
+        )}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (

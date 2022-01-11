@@ -105,6 +105,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     slug,
     searchPageDescription,
     searchPageTitle,
+    searchPageText,
   } = data?.partner || {};
   const { flag, body, image } = data?.partner?.hero || {};
   const { titleTag } = data?.partner?.featured || {};
@@ -128,6 +129,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     fuelTypes,
     searchPageDescription,
     searchPageTitle,
+    searchPageText,
   };
   const sovereignty = customerSovereignty || 7;
 

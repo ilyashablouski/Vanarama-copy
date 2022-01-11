@@ -69,6 +69,14 @@ export const PARTNER = gql`
           name
         }
       }
+      searchPageText {
+        carsTitle
+        carsDescription
+        vansTitle
+        vansDescription
+        pickupsTitle
+        pickupsDescription
+      }
     }
   }
   ${FeaturedSection.fragments.featured}

@@ -52,7 +52,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import { convertErrorToProps } from '../../utils/helpers';
+import {
+  convertErrorToProps,
+  isJanSaleCampaignEnabled,
+} from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -81,6 +84,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
@@ -96,7 +100,7 @@ type IProps = IPageWithData<
 
 export const VansPage: NextPage<IProps> = ({
   data: encodedData,
-  searchPodVansData,
+  searchPodVansData: searchPodVansDataEncoded,
   productsSmallVan,
   productsMediumVan,
   productsLargeVan,
@@ -111,7 +115,9 @@ export const VansPage: NextPage<IProps> = ({
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const data = decodeData(encodedData);
+  const searchPodVansData = decodeData(searchPodVansDataEncoded);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
+
   const titleTagText = getSectionsData(
     ['leadText', 'titleTag'],
     data?.hubVanPage.sections,
@@ -154,43 +160,48 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodVansData={searchPodVansData}>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.hubVanPage.sections,
-              ) ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-            }
-          />
-        </div>
-        {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-            }
-            text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale searchPodVansData={searchPodVansData} variant="vans" />
+      ) : (
+        <Hero searchPodVansData={searchPodVansData}>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={optimisationOptions}
+              className="hero--image"
+              plain
+              size="expand"
+              src={
+                getSectionsData(
+                  ['hero', 'image', 'file', 'url'],
+                  data?.hubVanPage.sections,
+                ) ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+              }
+            />
+          </div>
+          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
+                ''
+              }
+              url={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+              }
+              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={
+                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -767,7 +778,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
-        searchPodVansData,
+        searchPodVansData: encodeData(searchPodVansData),
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,
         productsLargeVan: productsLargeVan || null,

@@ -51,6 +51,8 @@ import {
   createInitialVehiclesVariables,
   getNumberOfVehiclesFromSessionStorage,
   bodyUrlsSlugMapper,
+  getPartnershipDescription,
+  getPartnershipTitle,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
@@ -246,10 +248,12 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     if (partnerActive) {
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
-      setPartnershipDescription(partnerActive.searchPageDescription);
-      setTitle(partnerActive.searchPageTitle);
+      setPartnershipDescription(
+        getPartnershipDescription(partnerActive, isCarSearch, isPickups),
+      );
+      setTitle(getPartnershipTitle(partnerActive, isCarSearch, isPickups));
     }
-  }, []);
+  }, [isCarSearch, isPickups]);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
   // Next doesn't call a ssr requests, this workaround should call request for page data on client side
