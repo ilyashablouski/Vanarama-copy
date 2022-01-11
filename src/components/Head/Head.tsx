@@ -23,6 +23,7 @@ const Head: FC<IHeadProps> = props => {
 
   const {
     metaData: { metaDescription, legacyUrl, canonicalUrl },
+    paginatedPageNumber,
   } = props;
 
   let {
@@ -33,6 +34,12 @@ const Head: FC<IHeadProps> = props => {
   if (process.env.ENV && process.env.ENV !== 'prod') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
+  }
+
+  // Paginated override.
+  if (title && paginatedPageNumber && paginatedPageNumber > 1) {
+    const [pageName, siteName] = title.split('|');
+    title = `${pageName} | Page ${paginatedPageNumber} | ${siteName}`;
   }
 
   return (
