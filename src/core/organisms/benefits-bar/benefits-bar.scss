@@ -2,7 +2,7 @@
   grid-column: full;
   display: block;
   align-items: center;
-  background: #F26500;
+  background: #f26500;
   padding: 0 0.75rem;
   min-height: 41px;
 
@@ -121,11 +121,11 @@
       --class-color: white;
     }
 
+    .image--native,
     img {
       height: 25px;
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
   }
-
 }
