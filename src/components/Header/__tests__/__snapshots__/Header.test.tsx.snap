@@ -2377,10 +2377,19 @@ exports[`<Header /> renders correctly 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
@@ -2580,10 +2589,19 @@ exports[`<Header /> renders correctly 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
@@ -2783,10 +2801,19 @@ exports[`<Header /> renders correctly 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
@@ -5334,10 +5361,19 @@ exports[`<Header /> renders correctly with login user 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
@@ -5537,10 +5573,19 @@ exports[`<Header /> renders correctly with login user 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
@@ -5740,10 +5785,19 @@ exports[`<Header /> renders correctly with login user 1`] = `
               <i
                 className="icon benefits-bar__icon -lead"
               >
-                <img
-                  alt="Trust pilot logo"
-                  src="/Assets/images/benefits-bar/trust-pilot-logo.png"
-                />
+                <div
+                  className="image -expand -plain"
+                >
+                  <img
+                    className="image--native"
+                    data-cfasync="false"
+                    loading="eager"
+                    onError={[Function]}
+                    sizes="(min-width:320px) 800px, 1200px"
+                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
+                  />
+                </div>
               </i>
               <span
                 data-uitestid="benefits-bar_benefits-item-2_label"
