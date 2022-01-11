@@ -130,12 +130,13 @@ export function calculateUnorderedEntries(entries: THistoryEntry[]) {
 
   // Don't actually sort the array, just maintain a list of indices we need to swap
   const swapIndices: [number, number][] = [];
-  dates.sort((a, b) => {
-    const diff = b.getTime() - a.getTime();
-    if (diff < 0) {
-      swapIndices.push([dates.indexOf(a), dates.indexOf(b)]);
+  dates.map((_, i: number) => {
+    if (dates[i - 1]) {
+      const diff = dates[i - 1].getTime() - dates[i].getTime();
+      if (diff < 0) {
+        swapIndices.push([i, i - 1]);
+      }
     }
-
     return 0;
   });
 
