@@ -129,11 +129,11 @@ export function calculateUnorderedEntries(entries: THistoryEntry[]) {
   const dates = entries.filter(x => x.month && x.year).map(historyToDate);
 
   // Don't actually sort the array, just maintain a list of indices we need to swap
-  return dates.reduce((acc: [number, number][], _, i) => {
+  return dates.reduce((acc: Array<Array<number>>, _, i) => {
     if (dates[i - 1]) {
       const diff = dates[i - 1].getTime() - dates[i].getTime();
       if (diff < 0) {
-        acc.push([i, i - 1]);
+        return [...acc, [i, i - 1]];
       }
     }
     return acc;
