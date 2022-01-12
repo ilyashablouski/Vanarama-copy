@@ -58,9 +58,10 @@ export interface VanOffersPageData_vanOffersPage {
 }
 
 export interface VanOffersPageData {
-  vanOffersPage: VanOffersPageData_vanOffersPage;
+  genericPage: VanOffersPageData_vanOffersPage;
 }
 
 export interface VanOffersPageDataVariables {
   isPreview?: boolean | null;
+  slug: string;
 }

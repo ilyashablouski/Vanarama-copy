@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 // eslint-disable-next-line import/prefer-default-export
 export const VAN_OFFERS_CONTENT = gql`
-  query VanOffersPageData($isPreview: Boolean) {
-    vanOffersPage(isPreview: $isPreview) {
+  query VanOffersPageData($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       body
       intro
