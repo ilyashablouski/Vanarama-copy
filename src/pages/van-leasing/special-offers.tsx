@@ -11,14 +11,13 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { Nullable } from 'types/common';
+import { GENERIC_PAGE } from 'gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import {
-  VanOffersPageData,
-  VanOffersPageDataVariables,
-  VanOffersPageData as IPageData,
-  VanOffersPageData_vanOffersPage_metaData as IMetaData,
-} from '../../../generated/VanOffersPageData';
-import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
+  GenericPageQuery,
+  GenericPageQueryVariables,
+  GenericPageQuery_genericPage_metaData as IMetaData,
+} from '../../../generated/GenericPageQuery';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
@@ -55,7 +54,7 @@ const RouterLink = dynamic(() =>
 );
 
 interface IProps extends IVansSpecialOffersData {
-  pageData: Nullable<IPageData>;
+  pageData: Nullable<GenericPageQuery>;
   metaData: Nullable<IMetaData>;
 }
 
@@ -492,10 +491,10 @@ export async function getServerSideProps(
 
   try {
     const { data } = await client.query<
-      VanOffersPageData,
-      VanOffersPageDataVariables
+      GenericPageQuery,
+      GenericPageQueryVariables
     >({
-      query: VAN_OFFERS_CONTENT,
+      query: GENERIC_PAGE,
       variables: {
         isPreview: !!context?.preview,
         slug: 'van-leasing/special-offers',

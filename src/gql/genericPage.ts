@@ -80,6 +80,12 @@ export const GENERIC_PAGE = gql`
             url
           }
         }
+        iconBullets {
+          title
+          iconBullets {
+            text
+          }
+        }
         iconBullets1 {
           title
           iconBullets {
