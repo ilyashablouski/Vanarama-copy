@@ -127,7 +127,7 @@ const OLAFLayout: React.FC<IProps> = ({
   const router = useRouter();
   const { data } = useStoredOrderQuery();
   const order = data?.storedOrder?.order || null;
-  const rating = data?.storedOrder?.rating || undefined;
+  const rating = data?.storedOrder?.rating ?? undefined;
 
   const [
     getLeaseData,
@@ -208,12 +208,13 @@ const OLAFLayout: React.FC<IProps> = ({
   }, [router.pathname]);
 
   // get saved url of order's pdp page and delete error
-  const handleNewSessionStart = () =>
-    router
-      .replace(
-        `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
-      )
-      .then(() => isSessionFinishedCache(undefined));
+  const handleNewSessionStart = () => {
+    isSessionFinishedCache(false);
+
+    router.replace(
+      `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
+    );
+  };
 
   const isCar = derivative?.vehicleType === VehicleTypeEnum.CAR;
   const isVan =
