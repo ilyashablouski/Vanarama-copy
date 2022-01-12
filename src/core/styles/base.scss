@@ -44,6 +44,7 @@ $include-presentation-styles: false !default;
 // @import '../atoms/numeric-input/numeric-input.scss';
 // @import '../atoms/sliding-input/sliding-input.scss';
 // @import '../atoms/pagination/pagination.scss';
+@import '../atoms/january-sale-banner/january-sale-banner.scss';
 @import '../atoms/price/price.scss';
 // @import '../atoms/radio/radio.scss';
 @import '../atoms/rating/rating.scss';
@@ -110,6 +111,7 @@ $include-presentation-styles: false !default;
 @import '../organisms/icon-list/icon-list.scss';
 //TODO:Delete when fix storybook styles import path
 @import '../organisms/full-screen-carousel/full-screen-carousel.scss';
+@import '../organisms/jan-sale-hero/jan-sale-hero.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';

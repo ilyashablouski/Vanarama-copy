@@ -129,6 +129,7 @@ export const pushPageViewEvent = async (path: string, title = '') => {
       path,
       title,
     },
+    pageMode: path.includes('.html') ? 'no-SPA' : 'SPA',
   });
 };
 

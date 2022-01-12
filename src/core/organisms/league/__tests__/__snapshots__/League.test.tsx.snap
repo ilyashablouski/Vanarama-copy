@@ -31,7 +31,6 @@ Array [
       <a
         className="link -teal -regular -plain"
         href=""
-        onClick={[Function]}
       >
         Here
       </a>
@@ -85,7 +84,6 @@ Array [
       <a
         className="link -teal -regular -plain"
         href=""
-        onClick={[Function]}
       >
         Here
       </a>

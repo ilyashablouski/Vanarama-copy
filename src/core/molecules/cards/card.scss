@@ -186,7 +186,7 @@ $small: 0.875rem;
           minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr)
           0;
 
-        img {
+        .card-image {
           position: absolute;
           width: 100%;
           max-width: inherit;
