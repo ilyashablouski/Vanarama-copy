@@ -474,7 +474,7 @@ export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
 
-const janSaleStartTime = Number(new Date(2022, 0, 10, 0, 0, 1));
+const janSaleStartTime = Number(new Date(2022, 0, 12, 0, 0, 1));
 const janSaleEndTime = Number(new Date(2022, 0, 31, 23, 59, 59));
 export function isJanSaleCampaignEnabled() {
   const currentTime = Date.now();

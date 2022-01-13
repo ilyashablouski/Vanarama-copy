@@ -107,13 +107,16 @@
       flex-direction: column;
       align-items: center;
 
-      @include tablet {
+      @include mobile-tablet {
+        top: 7%;
         left: 18%;
+      }
+
+      @include tablet {
         max-width: 330px;
       }
 
       @include mobile {
-        left: 18%;
         max-width: 210px;
       }
     }
@@ -148,6 +151,8 @@
     }
 
     .text {
+      display: inline-flex;
+      justify-content: center;
       margin-top: 0;
       line-height: 1;
       color: $orange !important;
@@ -155,7 +160,7 @@
       &.-cashback {
         font-family: $font-family-heading;
         font-size: 3.5625rem;
-        line-height: .7;
+        line-height: 0.95;
 
         @include tablet {
           font-size: 2.75rem;
@@ -167,24 +172,26 @@
       }
 
       &.-vehicle-type {
-        margin-top: 10px;
+        margin-top: 6px;
         font-family: $font-family-heading;
         font-size: 2.0625rem;
 
+        @include mobile-tablet {
+          margin-top: 4px;
+        }
+
         @include tablet {
-          margin-top: 8px;
-          font-size: 1.9375rem;
+          font-size: 1.875rem;
         }
 
         @include mobile {
-          margin-top: 8px;
           font-size: 1rem;
         }
       }
 
       &.-extra-offer {
         width: 100%;
-        margin-top: 10px;
+        margin-top: 11px;
         padding: 5px 5px 7px;
         border-radius: 30px;
         font-size: 1.6875rem;
@@ -193,7 +200,7 @@
         background: $orange;
 
         @include tablet {
-          margin-top: 8px;
+          margin-top: 9px;
           font-size: 1.5625rem;
         }
 
@@ -206,7 +213,7 @@
       &.-date {
         display: inline-flex;
         align-items: center;
-        margin-top: 12px;
+        margin-top: 11px;
         font-size: 1.25rem;
         font-weight: $font-weight-medium;
 
@@ -240,13 +247,14 @@
     }
   }
 
-  .terms-and-conditions {
+  .terms-link {
     margin-top: 2rem !important;
     font-size: $font-size-300;
     font-weight: $font-weight-light;
+    word-break: break-word;
     color: $darker;
 
-    @include desktop {
+    @include tablet-desktop {
       margin-right: auto;
     }
 
@@ -287,9 +295,14 @@
         top: 9%;
         left: 18%;
 
-        @include mobile-tablet {
+        @include tablet {
           top: 10%;
-          left: 15%;
+          left: 16%;
+        }
+
+        @include mobile {
+          top: 11%;
+          left: 17%;
         }
       }
 
