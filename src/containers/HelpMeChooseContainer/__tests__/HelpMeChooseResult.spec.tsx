@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
