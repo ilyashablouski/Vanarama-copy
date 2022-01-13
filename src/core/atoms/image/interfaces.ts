@@ -32,5 +32,6 @@ export interface IImageV2Props extends IBaseProps {
   objectFit?: ImageProps['objectFit'];
   optimisedHost?: boolean;
   sizes?: string;
+  quality?: string | number;
   plain?: boolean;
 }

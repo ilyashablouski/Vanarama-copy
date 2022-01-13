@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
+
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PRIMARY_HEADER_DATA = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query GetPrimaryHeaderData {
     primaryHeader {
       id
@@ -17,8 +20,8 @@ export const GET_PRIMARY_HEADER_DATA = gql`
           legacyUrl
           image {
             file {
-              url
               fileName
+              ...imageFile
             }
           }
         }
@@ -39,8 +42,8 @@ export const GET_PRIMARY_HEADER_DATA = gql`
             legacyUrl
             image {
               file {
-                url
                 fileName
+                ...imageFile
               }
             }
           }
