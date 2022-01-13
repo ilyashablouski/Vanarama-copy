@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import localForage from 'localforage';
+import { useSavePersonUuidMutation } from 'gql/storedPersonUuid';
 import {
   useStoredOrderQuery,
   useSaveOrderMutation,
@@ -53,10 +53,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [savePersonEmailMutation] = useSavePersonEmailMutation();
+  const [setPersonUuid] = useSavePersonUuidMutation();
 
   const savePersonDataInLocalStorage = async (data: SaveBusinessAboutYou) => {
     await Promise.all([
-      localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid),
+      setPersonUuid({
+        variables: {
+          uuid: data.createUpdateBusinessPerson?.uuid,
+        },
+      }),
       savePersonEmailMutation({
         variables: {
           email: data.createUpdateBusinessPerson?.emailAddresses[0].value,
