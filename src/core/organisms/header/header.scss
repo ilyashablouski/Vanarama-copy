@@ -647,7 +647,7 @@
     max-height: 60vh;
     padding: 1rem 0;
     display: grid;
-    grid-template-columns: repeat(12, minmax(min-content, 1fr));
+    grid-template-columns: repeat(12, minmax(auto, 1fr));
     place-content: start;
   }
   .menu-tertiary .menu-title {
