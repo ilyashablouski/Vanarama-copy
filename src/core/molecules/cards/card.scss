@@ -182,14 +182,17 @@ $small: 0.875rem;
       // Model version of inline card
       &.-model {
         gap: 0 1.375rem;
+        place-self: stretch;
+        align-content: stretch;
         grid-template-columns:
           minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr)
           0;
 
         .card-image {
-          position: absolute;
+          grid-area: 1 / 1 / 8 / content !important;
           width: 100%;
           max-width: inherit;
+          height: auto;
         }
 
         .title {
@@ -197,7 +200,7 @@ $small: 0.875rem;
         }
 
         .-flex-h {
-          grid-row: 8;
+          grid-area: span 1 / content / 8 !important;
           flex-wrap: wrap;
           margin: 1.375rem 0;
 
