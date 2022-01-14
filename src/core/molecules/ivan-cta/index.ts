@@ -1,3 +1,1 @@
-import IvanCta from './IvanCta';
-
-export default IvanCta;
+export { default } from './IvanCta';

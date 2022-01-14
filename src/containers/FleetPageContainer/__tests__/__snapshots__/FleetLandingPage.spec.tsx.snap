@@ -27,17 +27,26 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           </p>
           <div>
             <div
-              class="image hero--image hero--image-fleet -expand -plain"
+              class="image hero--image hero--image-fleet -pt-000 -expand -plain"
             >
-              <img
-                class="image--native"
-                data-cfasync="false"
-                data-testid="fleet_hero-image"
-                loading="eager"
-                sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
-              />
+              <div
+                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              >
+                <div
+                  style="display: block; box-sizing: border-box; padding-top: 35.476190476190474%;"
+                />
+                <img
+                  class="image--native"
+                  data-nimg="responsive"
+                  data-testid="fleet_hero-image"
+                  decoding="async"
+                  sizes="100vw"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=3840&q=60"
+                  srcset="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=640&q=60 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=750&q=60 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=828&q=60 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1080&q=60 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1200&q=60 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1920&q=60 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=2048&q=60 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=3840&q=60 3840w"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                />
+                <noscript />
+              </div>
             </div>
           </div>
         </div>

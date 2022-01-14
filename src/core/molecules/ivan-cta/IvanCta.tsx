@@ -1,15 +1,18 @@
 import cx from 'classnames';
 import React from 'react';
-import { IBaseProps } from '../../interfaces/base';
-import Text from '../../atoms/text';
-import Image from '../../atoms/image';
-import Card from '../cards';
-import Heading from '../../atoms/heading';
+
+import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
+import ImageV2 from 'core/atoms/image/ImageV2';
+import Card from 'core/molecules/cards';
+import { IBaseProps } from 'core/interfaces/base';
 
 interface IProps extends IBaseProps {
   title: string;
   body: string;
   imageSrc: string;
+  imageWidth?: string | number;
+  imageHeight?: string | number;
   isCompact?: boolean;
 }
 
@@ -19,6 +22,8 @@ const IvanCta: React.FC<IProps> = ({
   title,
   body,
   imageSrc,
+  imageHeight,
+  imageWidth,
   children,
 }) => {
   if (isCompact) {
@@ -27,13 +32,26 @@ const IvanCta: React.FC<IProps> = ({
         <Text color="white" size="xsmall">
           {body}
         </Text>
-        <Image src={imageSrc} plain />
+        <ImageV2
+          width={imageWidth}
+          height={imageHeight}
+          src={imageSrc}
+          alt={title}
+          plain
+        />
       </div>
     );
   }
   return (
     <Card inline className={cx(className, 'ivan-cta')}>
-      <Image src={imageSrc} plain className="card-image" />
+      <ImageV2
+        className="card-image"
+        width={imageWidth}
+        height={imageHeight}
+        src={imageSrc}
+        alt={title}
+        plain
+      />
       <div className="title">
         <Heading size="lead" color="black">
           {title}

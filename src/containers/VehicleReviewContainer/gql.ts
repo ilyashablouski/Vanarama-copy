@@ -3,8 +3,10 @@ import {
   ReviewsPageQuery,
   ReviewsPageQueryVariables,
 } from '../../../generated/ReviewsPageQuery';
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
 
 export const GENERIC_PAGE_QUESTION = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query ReviewsPageQuery($slug: String!, $isPreview: Boolean) {
     reviewsPage(slug: $slug, isPreview: $isPreview) {
       metaData {
@@ -55,7 +57,7 @@ export const GENERIC_PAGE_QUESTION = gql`
           reviewVideo
           reviewPhoto {
             file {
-              url
+              ...imageFile
             }
           }
         }

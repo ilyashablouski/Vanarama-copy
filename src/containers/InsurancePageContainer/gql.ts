@@ -1,7 +1,9 @@
 import { gql } from '@apollo/client';
 import FeaturedSection from '../../components/FeaturedSection';
+import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
 
 const GET_INSURANCE_LANDING_PAGE = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query GetInsuranceLandingPage($isPreview: Boolean) {
     insuranceLandingPage(isPreview: $isPreview) {
       id
@@ -86,7 +88,7 @@ const GET_INSURANCE_LANDING_PAGE = gql`
           body
           image {
             file {
-              url
+              ...imageFile
             }
           }
           heroCard {
