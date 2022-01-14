@@ -48,10 +48,12 @@ const Close = dynamic(() => import('core/assets/icons/Close'), {
   ssr: false,
 });
 
-export interface IHeaderPromoImage {
+export interface IHeaderPromoImageLink {
   legacyUrl?: string;
   url: string;
   image: {
+    width?: number;
+    height?: number;
     fileName: string;
     url: string;
   };
@@ -59,10 +61,10 @@ export interface IHeaderPromoImage {
 export interface IHeaderLink extends ILinkProps {
   id?: string;
   as?: string;
+  promoImageLink?: IHeaderPromoImageLink;
+  promoImagesLinks?: Array<IHeaderPromoImageLink>;
   highlight?: boolean;
   highlightLabel?: string;
-  promotionalImage?: IHeaderPromoImage;
-  promotionalImages?: Array<IHeaderPromoImage>;
 }
 
 export interface IHeaderProps extends IBaseProps {

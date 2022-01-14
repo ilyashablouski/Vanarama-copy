@@ -6,12 +6,12 @@ import cx from 'classnames';
 import { IBaseProps } from 'core/interfaces/base';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import RouterLink from '../RouterLink/RouterLink';
-import { IHeaderLink, IHeaderPromoImage } from './Header';
+import { IHeaderLink, IHeaderPromoImageLink } from './Header';
 import Skeleton from '../Skeleton';
 import Label from './Label';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Button = dynamic(() => import('core/atoms/button'), {
@@ -32,7 +32,7 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   isTabletOrMobile: boolean;
   isMenuOpen: boolean;
   isSecondaryMenuOpen: boolean;
-  promotionalImages?: Array<IHeaderPromoImage>;
+  promoImagesLinks?: Array<IHeaderPromoImageLink>;
 }
 
 const MIN_PROMO_IMAGES_NUMBER = 1;
@@ -47,10 +47,10 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isTabletOrMobile,
     isSecondaryMenuOpen,
     isMenuOpen,
-    promotionalImages,
+    promoImagesLinks,
   } = props;
   const firstChildrenLinks: IHeaderLink | undefined = useMemo(
-    () => links.find(el => !!el.children?.length && !el.promotionalImage?.url),
+    () => links.find(el => !!el.children?.length && !el.promoImageLink?.url),
     [links],
   );
 
@@ -63,8 +63,11 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     firstChildrenLinks?.id || '',
   );
 
-  const promoImagesNumber = promotionalImages?.length ?? 0;
-  const multiplePromoImages = promoImagesNumber > MIN_PROMO_IMAGES_NUMBER;
+  const promoImagesNumber = promoImagesLinks?.length ?? 0;
+  const isMultiplePromoImages = promoImagesNumber > MIN_PROMO_IMAGES_NUMBER;
+  const resultPromoImagesLinks = promoImagesLinks?.slice(
+    isMultiplePromoImages && activeTertiaryMenu ? MIN_PROMO_IMAGES_NUMBER : 0,
+  );
 
   useEffect(() => {
     if (isTabletOrMobile) {
@@ -220,101 +223,94 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               </li>
             ))}
           </ul>
-          {tertiaryLinks.map(tertiaryBlock => (
-            <React.Fragment key={`menu-tertiary-${tertiaryBlock?.id}`}>
-              <ul
-                className={cx('menu-tertiary', {
-                  '-open': activeTertiaryMenu === tertiaryBlock.id,
-                })}
-              >
-                <li className={linkClassName({ title: true })}>
-                  <Button
-                    withoutDefaultClass
-                    className="link"
-                    onClick={el => {
-                      el.preventDefault();
-                      setActiveTertiaryMenu(null);
-                    }}
-                    dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
-                    color="black"
-                    fill="clear"
-                    label={tertiaryBlock.label}
-                  />
-                </li>
-                {(tertiaryBlock.children as IHeaderLink[]).map(
-                  (linkSecondary: IHeaderLink) => (
+          {tertiaryLinks.map(tertiaryBlock => {
+            const { promoImageLink, children: secondaryLinks } = tertiaryBlock;
+
+            return (
+              <React.Fragment key={`menu-tertiary-${tertiaryBlock.id}`}>
+                <ul
+                  className={cx('menu-tertiary', {
+                    '-open': activeTertiaryMenu === tertiaryBlock.id,
+                  })}
+                >
+                  <li className={linkClassName({ title: true })}>
+                    <Button
+                      withoutDefaultClass
+                      className="link"
+                      onClick={el => {
+                        el.preventDefault();
+                        setActiveTertiaryMenu(null);
+                      }}
+                      dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
+                      color="black"
+                      fill="clear"
+                      label={tertiaryBlock.label}
+                    />
+                  </li>
+                  {secondaryLinks?.map((secondaryLink: IHeaderLink) => (
                     <li
-                      key={linkSecondary.label}
+                      key={secondaryLink.label}
                       className={linkClassName({
-                        highlight: linkSecondary.highlight,
-                        half: tertiaryBlock?.children!.length > 4,
+                        highlight: secondaryLink.highlight,
+                        half: secondaryLinks.length > 4,
                       })}
                     >
-                      <RouterLink link={linkSecondary} as={linkSecondary.as}>
-                        {linkSecondary.highlight && (
+                      <RouterLink link={secondaryLink} as={secondaryLink.as}>
+                        {secondaryLink.highlight && (
                           <Icon
                             icon={<FlameSharp />}
                             color="white"
                             size="xsmall"
                           />
                         )}
-                        <span>{linkSecondary.label}</span>
+                        <span>{secondaryLink.label}</span>
                       </RouterLink>
                     </li>
-                  ),
-                )}
-              </ul>
-              {tertiaryBlock.promotionalImage?.url && (
-                <div
-                  className={cx('menu-featured', 'tertiary', {
-                    '-hide':
-                      activeTertiaryMenu !== tertiaryBlock.id &&
-                      activeTertiaryMenu !== '',
-                  })}
-                >
-                  <RouterLink
-                    link={{
-                      href: tertiaryBlock.promotionalImage?.url,
-                      label: '',
-                    }}
+                  ))}
+                </ul>
+                {promoImageLink?.url && (
+                  <div
+                    className={cx('menu-featured', 'tertiary', {
+                      '-hide':
+                        activeTertiaryMenu !== tertiaryBlock.id &&
+                        activeTertiaryMenu !== '',
+                    })}
                   >
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      optimisationOptions={{
-                        quality: 40,
+                    <RouterLink
+                      link={{
+                        href: promoImageLink?.url,
+                        label: '',
                       }}
-                      src={
-                        tertiaryBlock.promotionalImage?.image.url ||
-                        '/img-placeholder.png'
-                      }
-                      alt={tertiaryBlock.promotionalImage?.image.fileName}
-                    />
-                  </RouterLink>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+                    >
+                      <ImageV2
+                        quality={40}
+                        width={promoImageLink?.image.width ?? 800}
+                        height={promoImageLink?.image.height ?? 800}
+                        alt={promoImageLink?.image.fileName}
+                        src={
+                          promoImageLink?.image.url || '/img-placeholder.png'
+                        }
+                      />
+                    </RouterLink>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
 
-          {promotionalImages
-            ?.slice(
-              multiplePromoImages && activeTertiaryMenu
-                ? MIN_PROMO_IMAGES_NUMBER
-                : 0,
-            )
-            .map(promotionalImage => (
-              <div className="menu-featured" key={promotionalImage.url}>
-                <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    optimisationOptions={{
-                      quality: 40,
-                    }}
-                    src={promotionalImage?.image.url || '/img-placeholder.png'}
-                    alt={promotionalImage?.image.fileName}
-                  />
-                </RouterLink>
-              </div>
-            ))}
+          {resultPromoImagesLinks?.map(promoImageLink => (
+            <div className="menu-featured" key={promoImageLink.url}>
+              <RouterLink link={{ href: promoImageLink?.url, label: '' }}>
+                <ImageV2
+                  quality={40}
+                  width={promoImageLink.image.width ?? 800}
+                  height={promoImageLink.image.height ?? 800}
+                  src={promoImageLink?.image.url || '/img-placeholder.png'}
+                  alt={promoImageLink?.image.fileName}
+                />
+              </RouterLink>
+            </div>
+          ))}
         </div>
       </LazyLoadComponent>
     </div>
