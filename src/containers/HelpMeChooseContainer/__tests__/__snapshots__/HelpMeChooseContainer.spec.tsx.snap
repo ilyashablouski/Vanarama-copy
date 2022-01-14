@@ -6,13 +6,13 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
 >
   <h1
     className="heading stepped-form--title -black -xlarge"
-    data-uitestid="undefined-heading"
+    data-uitestid="test-ui-id-heading"
   >
     Which Fuel Type Do You Prefer?
   </h1>
   <p
     className="text -mb-100 -regular -darker"
-    data-uitestid="undefined-text"
+    data-uitestid="test-ui-id-text"
   >
     Select As Many As You Like
   </p>
@@ -30,7 +30,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
       >
         <span
           className="choice-label"
-          data-uitestid="undefined-choiceboxes_span_Diesel"
+          data-uitestid="test-ui-id-choiceboxes_span_Diesel"
         >
           Diesel
         </span>
@@ -43,7 +43,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
       >
         <span
           className="choice-label"
-          data-uitestid="undefined-choiceboxes_span_Petrol"
+          data-uitestid="test-ui-id-choiceboxes_span_Petrol"
         >
           Petrol
         </span>
@@ -60,7 +60,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
   <button
     className="button -primary -large -solid -disabled"
     data-testid="submit"
-    data-uitestid="undefined-submit"
+    data-uitestid="test-ui-id-submit"
     disabled={true}
     onClick={[MockFunction]}
     type="submit"
@@ -102,13 +102,13 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
 >
   <h1
     className="heading stepped-form--title -black -xlarge"
-    data-uitestid="undefined-heading"
+    data-uitestid="test-ui-id-heading"
   >
     Which Fuel Type Do You Prefer?
   </h1>
   <p
     className="text -mb-100 -regular -darker"
-    data-uitestid="undefined-text"
+    data-uitestid="test-ui-id-text"
   >
     Select As Many As You Like
   </p>
@@ -126,7 +126,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
       >
         <span
           className="choice-label"
-          data-uitestid="undefined-choiceboxes_span_Diesel"
+          data-uitestid="test-ui-id-choiceboxes_span_Diesel"
         >
           Diesel
         </span>
@@ -139,7 +139,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
       >
         <span
           className="choice-label"
-          data-uitestid="undefined-choiceboxes_span_Petrol"
+          data-uitestid="test-ui-id-choiceboxes_span_Petrol"
         >
           Petrol
         </span>
@@ -156,7 +156,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
   <button
     className="button -primary -large -solid"
     data-testid="submit"
-    data-uitestid="undefined-submit"
+    data-uitestid="test-ui-id-submit"
     disabled={false}
     onClick={[MockFunction]}
     type="submit"
