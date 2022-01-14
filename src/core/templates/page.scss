@@ -62,7 +62,7 @@
   grid-template-rows: [icon text] auto;
   place-items: center start;
   gap: 1rem;
-  border: 1px solid #ea6308;
+  border: 1px solid #ea6308 !important;
   border-radius: $border-radius-medium;
 
   @include mobile {
@@ -70,7 +70,6 @@
 
     .heading {
       text-align: left !important;
-      //font-size: 1.25rem;
       font-size: var(--class-fs);
     }
 
@@ -79,11 +78,12 @@
     }
   }
 
-  > .icon {
+  > .icon,
+  > .image {
     margin-top: 10px;
     display: flex;
     grid-area: icon;
-    width: 70px;
+    width: 70px !important;
     height: auto;
     justify-content: center;
     align-self: flex-start;
@@ -93,7 +93,7 @@
     }
   }
 
-  > :not(.icon) {
+  > :not(.icon):not(.image) {
     grid-area: text;
   }
 

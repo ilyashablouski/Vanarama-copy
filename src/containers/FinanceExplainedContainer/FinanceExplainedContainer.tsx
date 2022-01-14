@@ -20,7 +20,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={1} />,
 });
 const IvanCta = dynamic(() => import('core/molecules/ivan-cta'), {
@@ -40,18 +40,16 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
     ['sections', 'cards', 'cards'],
     data?.genericPage,
   );
-  const featured1 = getSectionsData(
-    ['sections', 'featured1'],
-    data?.genericPage,
-  );
   const carousel: CarouselData = getSectionsData(
     ['sections', 'carousel'],
     data?.genericPage,
   );
-  const featured2 = getSectionsData(
-    ['sections', 'featured2'],
-    data?.genericPage,
-  );
+
+  const featured1 = data?.genericPage.sections?.featured1;
+  const featured1Image = featured1?.image?.file;
+
+  const featured2 = data?.genericPage.sections?.featured2;
+  const featured2FirstCardImage = featured2?.cards?.[0]?.image?.file;
 
   return (
     <>
@@ -155,11 +153,12 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
               />
             </div>
           </div>
-          {featured1.image?.file?.url && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={featured1.image?.file?.url}
-              alt={featured1.image?.file?.fileName}
+          {featured1Image?.url && (
+            <ImageV2
+              width={featured1Image?.details.image.width}
+              height={featured1Image?.details.image.height}
+              src={featured1Image?.url}
+              alt={featured1.title ?? ''}
             />
           )}
         </div>
@@ -220,9 +219,11 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
           {featured2.cards?.length && (
             <div>
               <IvanCta
+                imageSrc={featured2FirstCardImage?.url || ''}
+                imageWidth={featured2FirstCardImage?.details.image.width}
+                imageHeight={featured2FirstCardImage?.details.image.height}
                 title={featured2.cards[0]?.title || ''}
                 body={featured2.cards[0]?.body || ''}
-                imageSrc={featured2.cards[0]?.image?.file?.url || ''}
               >
                 <RouterLink
                   link={{

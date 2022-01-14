@@ -8,6 +8,7 @@ import {
   GetTrimGroupList,
   GetTrimGroupListVariables,
 } from '../../generated/GetTrimGroupList';
+import { IMAGE_FILE_FRAGMENT } from './image';
 
 export const GET_CAR_DATA = gql`
   query GetVehicleDetails(
@@ -243,6 +244,7 @@ export const GET_IMACA_ASSETS = gql`
 `;
 
 export const GET_PDP_CONTENT = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query GetPdpContent(
     $vehicleType: PdpVehicleType!
     $isPreview: Boolean
@@ -269,7 +271,7 @@ export const GET_PDP_CONTENT = gql`
         image {
           title
           file {
-            url
+            ...imageFile
           }
         }
         link {
