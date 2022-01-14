@@ -13,7 +13,7 @@ import Cookies from 'js-cookie';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
-import { convertChildrenNavLink, convertPromotionalImage } from './helpers';
+import { convertChildrenNavLink, convertPromoImageLink } from './helpers';
 import { useStoredPersonQuery } from '../../gql/storedPerson';
 import {
   GetPrimaryHeaderData as HeaderData,
@@ -121,8 +121,8 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.id || '',
-          promotionalImages: linksGroup?.promotionalImages?.map(
-            convertPromotionalImage,
+          promoImagesLinks: linksGroup?.promotionalImages?.map(
+            convertPromoImageLink,
           ),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
@@ -146,7 +146,7 @@ const HeaderContainer: FC = () => {
               label: el.name || '',
               href: linksGroupUrl.href,
               id: el?.name || '',
-              promotionalImage: convertPromotionalImage(el.promotionalImage),
+              promoImageLink: convertPromoImageLink(el.promotionalImage),
               children: isTabletOrMobile
                 ? [linksGroupUrl, ...childrenLink]
                 : childrenLink,
@@ -158,8 +158,8 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id || '',
-          promotionalImages: linksGroup?.promotionalImages?.map(
-            convertPromotionalImage,
+          promoImagesLinks: linksGroup?.promotionalImages?.map(
+            convertPromoImageLink,
           ),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...transformGroupLink]
@@ -171,8 +171,8 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id || '',
-          promotionalImages: linksGroup?.promotionalImages?.map(
-            convertPromotionalImage,
+          promoImagesLinks: linksGroup?.promotionalImages?.map(
+            convertPromoImageLink,
           ),
         };
       }
