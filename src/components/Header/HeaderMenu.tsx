@@ -39,14 +39,13 @@ const HeaderMenu: FC<IHeaderMenuProps> = memo(props => {
             label="Menu"
           />
         </li>
-        {!!menuLinks.length &&
-          menuLinks.map((entry, index) => (
-            <HeaderMenuLink
-              key={`${entry.id}_${index.toString()}`}
-              link={entry}
-              isMenuOpen={open}
-            />
-          ))}
+        {menuLinks.map((link, index) => (
+          <HeaderMenuLink
+            key={`${link.id}_${index.toString()}`}
+            link={link}
+            isMenuOpen={open}
+          />
+        ))}
       </ul>
     </nav>
   );
