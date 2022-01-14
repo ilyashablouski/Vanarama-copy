@@ -9,7 +9,7 @@ import Skeleton from '../../Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -54,10 +54,9 @@ const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
         </IconList>
       )}
     </div>
-    <Image
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-      width="900"
-      height="500"
+    <ImageV2
+      width={image?.file?.details.image.width}
+      height={image?.file?.details.image.height}
       src={image?.file?.url || ''}
       alt={image?.title || ''}
     />

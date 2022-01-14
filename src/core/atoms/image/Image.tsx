@@ -8,24 +8,21 @@ import {
   optimiseImage,
 } from '../../../helpers/imageOptimiseUtils';
 
-const Image: FC<IImageProps> = props => {
-  const {
-    className,
-    size = 'expand',
-    width,
-    height,
-    alt,
-    round,
-    plain,
-    inline,
-    optimisedHost,
-    optimisationOptions,
-    lazyLoad,
-    dataTestId,
-  } = props;
-
-  const { src } = props;
-
+const Image: FC<IImageProps> = ({
+  className,
+  size = 'expand',
+  width,
+  height,
+  src,
+  alt,
+  round,
+  plain,
+  inline,
+  optimisedHost,
+  optimisationOptions,
+  lazyLoad,
+  dataTestId,
+}) => {
   let srcset;
   let srcDefault = src;
   let src1200;
