@@ -267,8 +267,18 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_leadText 
   description: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file_details {
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file_details_image;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file {
   url: string;
+  details: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file_details;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image {

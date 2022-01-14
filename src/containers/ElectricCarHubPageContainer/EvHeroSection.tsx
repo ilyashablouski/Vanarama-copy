@@ -7,7 +7,7 @@ import Skeleton from '../../components/Skeleton';
 import { filterList as IFilterList } from '../../../generated/filterList';
 import { GenericPageQuery_genericPage_sectionsAsArray } from '../../../generated/GenericPageQuery';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Price = dynamic(() => import('core/atoms/price'));
@@ -21,7 +21,10 @@ interface IProps {
 }
 
 const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
-  const heroBody = sectionsAsArray?.hero?.[0]?.body;
+  const heroSection = sectionsAsArray?.hero?.[0];
+  const heroImage = heroSection?.image?.file;
+  const heroBody = heroSection?.body;
+
   const heroBodyArr = heroBody?.split(' ');
   const priceLabel = heroBody?.slice(0, heroBody.indexOf('£'));
   const price = heroBodyArr?.find(phrase => phrase.includes('£'));
@@ -42,17 +45,17 @@ const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
           text="Free Home charger"
           icon={<FreeHomeCharger />}
         />
-        <Image
-          lazyLoad={false}
-          className="electric-hero--image"
+        <ImageV2
           plain
           size="expand"
+          lazyLoad={false}
+          className="electric-hero--image"
+          height={heroImage?.details.image.height}
+          width={heroImage?.details.image.width}
           src={
-            sectionsAsArray?.hero?.[0]?.image?.file?.url ||
+            heroImage?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
-          height={sectionsAsArray?.hero?.[0]?.image?.file?.details.image.height}
-          width={sectionsAsArray?.hero?.[0]?.image?.file?.details.image.width}
         />
         <section className="electric-hero--description ">
           <Price

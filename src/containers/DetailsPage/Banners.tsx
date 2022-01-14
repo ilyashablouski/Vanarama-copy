@@ -1,15 +1,13 @@
 import React from 'react';
-
-import Image from 'core/atoms/image/Image';
 import dynamic from 'next/dynamic';
-import RouterLink from '../../components/RouterLink';
+
+import ImageV2 from 'core/atoms/image/ImageV2';
+
 import { GetPdpContent_pdpContent_banners } from '../../../generated/GetPdpContent';
+
+import RouterLink from '../../components/RouterLink';
 import Skeleton from '../../components/Skeleton';
 
-const Icon = dynamic(() => import('core/atoms/icon/'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -25,8 +23,14 @@ const Banners = ({ cards }: IProps) => {
   return cards.length > 1 ? (
     <div className="two-col">
       {cards.map(card => (
-        <div key={card.title} className="option-icon-left -white">
-          <Image src={card?.image?.file?.url || ''} plain size="regular" />
+        <div key={card?.title} className="option-icon-left -white">
+          <ImageV2
+            width={card.image?.file?.details.image.width}
+            height={card.image?.file?.details.image.height}
+            src={card.image?.file?.url || ''}
+            size="regular"
+            plain
+          />
           <div className="copy">
             <Text tag="p">
               <span>{card.title}</span>
@@ -44,21 +48,24 @@ const Banners = ({ cards }: IProps) => {
     </div>
   ) : (
     <div className="banner">
-      <Icon
-        className="-inherit md hydrated"
-        icon={<Image src={cards[0]?.image?.file?.url || ''} plain />}
+      <ImageV2
+        width={cards[0]?.image?.file?.details.image.width}
+        height={cards[0]?.image?.file?.details.image.height}
+        src={cards[0]?.image?.file?.url || ''}
+        size="regular"
+        plain
       />
       <div>
         <Heading color="black" size="regular">
-          <span>{cards[0].title}</span>
+          <span>{cards[0]?.title}</span>
         </Heading>
         <Text className="-pr-100" color="black" size="regular">
           {cards[0]?.description}
         </Text>
         <RouterLink
           link={{
-            href: cards[0].link?.url || '',
-            label: cards[0].link?.text || '',
+            href: cards[0]?.link?.url || '',
+            label: cards[0]?.link?.text || '',
           }}
           classNames={{
             color: 'teal',

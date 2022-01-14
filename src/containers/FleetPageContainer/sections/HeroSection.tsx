@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import {
   GenericPageQuery_genericPage_sections_hero_heroLabel as IHeroLabel,
   GenericPageQuery_genericPage_sections_hero_image as IHeroImage,
@@ -10,12 +10,6 @@ import Hero, {
   HeroHeading,
   HeroPrompt,
 } from '../../../components/Hero';
-
-const optimisationOptions = {
-  height: 620,
-  width: 620,
-  quality: 59,
-};
 
 interface IProps {
   title: string | null;
@@ -30,14 +24,16 @@ const HeroSection: React.FC<IProps> = ({ title, body, image, heroLabel }) => {
       <HeroHeading text={title || ''} />
       <HeroTitle text={body || ''} />
       <div>
-        <Image
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          dataTestId="fleet_hero-image"
-          size="expand"
+        <ImageV2
+          className="hero--image hero--image-fleet -pt-000"
+          width={image?.file?.details.image.width ?? 840}
+          height={image?.file?.details.image.height ?? 298}
           src={image?.file?.url || config.heroImage.src}
+          dataTestId="fleet_hero-image"
+          lazyLoad={false}
+          size="expand"
+          quality={60}
           plain
-          className="hero--image hero--image-fleet"
         />
       </div>
       {heroLabel?.[0]?.visible && (

@@ -6,7 +6,7 @@ import { GenericPageQuery_genericPage_sections_hero_image as IHeroImage } from '
 import { HeroHeading, HeroTitle } from '../../../components/Hero';
 import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={2} />,
 });
 
@@ -23,14 +23,16 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
     <section className="row:bg-hero -deranged">
       <div className="row:hero -clear-background row:hero--deranged-content">
         <div className="-deranged-content--wrapper">
-          <Image
-            width="119"
-            height="96"
-            src="/Assets/images/deranged/deranged-logo.png"
-            size="large"
+          <ImageV2
+            width="41"
+            height="51"
+            src={`${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-logo.png`}
             alt="Deranged icon"
-            plain
+            lazyLoad={false}
+            size="large"
+            quality={60}
             inline
+            plain
           />
           <div>
             <HeroHeading text={title || ''} />
