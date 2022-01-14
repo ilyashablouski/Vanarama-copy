@@ -58,8 +58,18 @@ export interface ReviewsPageQuery_reviewsPage_sections_rowText {
   link: ReviewsPageQuery_reviewsPage_sections_rowText_link | null;
 }
 
+export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file_details {
+  image: ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file_details_image;
+}
+
 export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file {
   url: string;
+  details: ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file_details;
 }
 
 export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto {

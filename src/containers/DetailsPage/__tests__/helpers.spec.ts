@@ -25,6 +25,12 @@ const banners = (): IPdpBanner[] => [
     image: {
       file: {
         url: '/shield.png',
+        details: {
+          image: {
+            width: 100,
+            height: 100,
+          },
+        },
       },
       title: 'shield',
     },
@@ -41,6 +47,12 @@ const banners = (): IPdpBanner[] => [
     image: {
       file: {
         url: '/hand_and_heart.png',
+        details: {
+          image: {
+            width: 100,
+            height: 100,
+          },
+        },
       },
       title: 'hand and heart',
     },

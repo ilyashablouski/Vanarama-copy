@@ -16,7 +16,7 @@ const PartnershipFeatureSection = ({
 }: {
   featured: Partner_partner_featured;
 }) => {
-  const Image = dynamic(() => import('core/atoms/image'), {
+  const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
     loading: () => <Skeleton count={3} />,
   });
   const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -37,8 +37,10 @@ const PartnershipFeatureSection = ({
       {video ? (
         <Media src={video || ''} width="100%" height="360px" />
       ) : (
-        <Image
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        <ImageV2
+          width={image?.file?.details.image.width ?? 1000}
+          height={image?.file?.details.image.height ?? 650}
+          alt={title ?? ''}
           src={
             image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
