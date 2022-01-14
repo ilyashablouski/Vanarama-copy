@@ -2,7 +2,7 @@ import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import ProductCard from 'core/molecules/cards/ProductCard';
-import React, { FC, useContext, memo } from 'react';
+import React, { FC, useContext, memo, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { features } from './helpers';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
@@ -11,7 +11,11 @@ import { isWished } from '../../utils/wishlistHelpers';
 import RouterLink from '../RouterLink';
 import truncateString from '../../utils/truncateString';
 import { FuelTypeEnum } from '../../../entities/global';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  FinanceTypeEnum,
+  LeaseTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   GetProductCard_derivatives,
   GetProductCard_productCard,
@@ -55,6 +59,24 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const urlWithPriceQuery = useMemo(() => {
+    if (
+      (leaseType === LeaseTypeEnum.PERSONAL &&
+        product.vehicleType === VehicleTypeEnum.CAR) ||
+      (leaseType === LeaseTypeEnum.BUSINESS &&
+        product.vehicleType === VehicleTypeEnum.LCV)
+    ) {
+      return getLegacyUrl(data.vehicleList?.edges, product?.capId);
+    }
+    return `${getLegacyUrl(
+      data.vehicleList?.edges,
+      product?.capId,
+    )}?leaseType=${
+      leaseType === LeaseTypeEnum.PERSONAL
+        ? FinanceTypeEnum.PCH
+        : FinanceTypeEnum.BCH
+    }`;
+  }, [data.vehicleList?.edges, leaseType, product?.capId, product.vehicleType]);
 
   return (
     <ProductCard
@@ -114,7 +136,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
         link: (
           <RouterLink
             link={{
-              href: getLegacyUrl(data.vehicleList?.edges, product?.capId),
+              href: urlWithPriceQuery,
               label: '',
             }}
             onClick={() => sessionStorage.setItem('capId', product.capId || '')}
@@ -169,7 +191,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
         />
         <RouterLink
           link={{
-            href: getLegacyUrl(data.vehicleList?.edges, product?.capId),
+            href: urlWithPriceQuery,
             label: 'View Offer',
           }}
           onClick={() => sessionStorage.setItem('capId', product.capId || '')}
