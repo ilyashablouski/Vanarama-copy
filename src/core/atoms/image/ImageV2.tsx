@@ -20,6 +20,7 @@ const ImageV2: FC<IImageV2Props> = ({
   objectFit,
   optimisedHost,
   sizes,
+  quality,
   lazyLoad,
   ...props
 }) => {
@@ -56,6 +57,7 @@ const ImageV2: FC<IImageV2Props> = ({
         layout={layout}
         loader={loader}
         sizes={sizes}
+        quality={quality}
         data-testid={dataTestId}
         className="image--native"
         objectFit={objectFit}
