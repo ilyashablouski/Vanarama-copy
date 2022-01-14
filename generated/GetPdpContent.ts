@@ -19,8 +19,18 @@ export interface GetPdpContent_pdpContent_content {
   questionAnswers: (GetPdpContent_pdpContent_content_questionAnswers | null)[] | null;
 }
 
+export interface GetPdpContent_pdpContent_banners_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface GetPdpContent_pdpContent_banners_image_file_details {
+  image: GetPdpContent_pdpContent_banners_image_file_details_image;
+}
+
 export interface GetPdpContent_pdpContent_banners_image_file {
   url: string;
+  details: GetPdpContent_pdpContent_banners_image_file_details;
 }
 
 export interface GetPdpContent_pdpContent_banners_image {

@@ -232,6 +232,12 @@ const DATA = {
           file: {
             url:
               '//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         heroCard: [

@@ -17,7 +17,7 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
@@ -56,10 +56,12 @@ const VehicleReviewContainer: FC<IProps> = ({
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
 
+  const vehicleImage = sections?.vehicleReviewMedia?.reviewPhoto?.file;
+
+  const expertMark = Number(sections?.vehicleReview?.rating || 0);
   const expertName = sections?.vehicleReview?.author?.length
     ? sections?.vehicleReview?.author[0]?.name || ''
     : '';
-  const expertMark = Number(sections?.vehicleReview?.rating || 0);
 
   return (
     <>
@@ -78,11 +80,10 @@ const VehicleReviewContainer: FC<IProps> = ({
           >
             <TabPanels className="-p-000">
               <TabPanel index={0}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  src={
-                    sections?.vehicleReviewMedia?.reviewPhoto?.file?.url || ''
-                  }
+                <ImageV2
+                  width={vehicleImage?.details.image.width}
+                  height={vehicleImage?.details.image.height}
+                  src={vehicleImage?.url || ''}
                 />
               </TabPanel>
               <TabPanel index={1}>
