@@ -956,6 +956,7 @@ $small: 0.875rem;
 
   &--details {
     min-height: 112px;
+    grid-template-rows: minmax(0, auto) minmax(0, auto) [content] minmax(0, 1fr) [content] repeat(auto-fit, minmax(1rem, auto)) minmax(0, auto)!important;
 
     .text {
       grid-area: content !important;
