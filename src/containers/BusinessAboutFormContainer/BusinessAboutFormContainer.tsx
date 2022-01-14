@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { useSavePersonUuidMutation } from 'gql/storedPersonUuid';
+import { useSavePersonUuidMutation } from '../../gql/storedPersonUuid';
 import {
   useStoredOrderQuery,
   useSaveOrderMutation,
