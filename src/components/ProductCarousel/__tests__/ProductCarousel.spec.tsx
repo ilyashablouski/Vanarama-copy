@@ -112,7 +112,7 @@ describe('<ProductCarousel />', () => {
 
     expect(screen.getByTestId('van-view-offer')).toHaveAttribute(
       'href',
-      '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+      '/ford/focus/10-ecoBoost-125-st-line-nav-5dr?leaseType=PCH',
     );
   });
 });
