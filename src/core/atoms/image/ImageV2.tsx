@@ -2,25 +2,28 @@ import React, { FC, SyntheticEvent } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 
+import { cloudflareLoader } from './helpers';
 import { IImageV2Props } from './interfaces';
 
 const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
-const ImageV2: FC<IImageV2Props> = props => {
-  const {
-    className,
-    size = 'expand',
-    width,
-    height,
-    alt,
-    round,
-    plain,
-    inline,
-    dataTestId,
-    objectFit,
-    lazyLoad,
-  } = props;
-
+const ImageV2: FC<IImageV2Props> = ({
+  className,
+  size = 'expand',
+  width,
+  height,
+  alt,
+  round,
+  plain,
+  inline,
+  dataTestId,
+  objectFit,
+  optimisedHost,
+  sizes,
+  quality,
+  lazyLoad,
+  ...props
+}) => {
   let { src } = props;
 
   src = src || PLACEHOLDER_URL;
@@ -34,6 +37,7 @@ const ImageV2: FC<IImageV2Props> = props => {
   };
 
   const layout = width && height ? 'responsive' : 'fill';
+  const loader = optimisedHost ? cloudflareLoader : undefined;
 
   return (
     <div
@@ -51,6 +55,9 @@ const ImageV2: FC<IImageV2Props> = props => {
         height={height}
         src={src}
         layout={layout}
+        loader={loader}
+        sizes={sizes}
+        quality={quality}
         data-testid={dataTestId}
         className="image--native"
         objectFit={objectFit}

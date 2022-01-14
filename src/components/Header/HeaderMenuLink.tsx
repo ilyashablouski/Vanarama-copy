@@ -92,7 +92,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
           isMenuOpen={isMenuOpen}
           isSecondaryMenuOpen={isSecondaryMenuOpen}
           onClickTitle={() => setIsOpenMenu(false)}
-          promotionalImages={link.promotionalImages}
+          promoImagesLinks={link.promoImagesLinks}
           links={link.children as IHeaderLink[]}
           isTabletOrMobile={isTabletOrMobile}
           title={link.label}
