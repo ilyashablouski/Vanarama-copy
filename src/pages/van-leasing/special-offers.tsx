@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { Nullable } from 'types/common';
-import { GENERIC_PAGE } from 'gql/genericPage';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageQuery,
