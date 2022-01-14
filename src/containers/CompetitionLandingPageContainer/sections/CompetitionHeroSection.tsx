@@ -10,7 +10,7 @@ import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -48,14 +48,15 @@ const CompetitionHeroSection = ({
       }}
     />
     <div>
-      <Image
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        alt="Hero Image"
-        dataTestId="insurance_hero-image"
+      <ImageV2
         size="expand"
+        className="hero--image -pt-000"
+        dataTestId="insurance_hero-image"
+        width={image?.file?.details.image.width ?? 840}
+        height={image?.file?.details.image.height ?? 298}
         src={image?.file?.url || config.heroImage.src}
+        alt="Hero Image"
         plain
-        className="hero--image"
       />
     </div>
     {heroLabel?.[0]?.visible && (

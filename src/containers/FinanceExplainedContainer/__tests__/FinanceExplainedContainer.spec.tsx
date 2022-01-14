@@ -82,6 +82,12 @@ const SECTIONS = {
               '//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg',
             fileName: 'header-ivan.svg',
             contentType: 'image/svg+xml',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
             __typename: 'File',
           },
           __typename: 'Image',
