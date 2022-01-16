@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
+import router from 'next/router';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 import Skeleton from '../../components/Skeleton';
 import ErrorMessages from '../../models/enum/ErrorMessages';
+import { pushPageData } from '../../utils/dataLayerHelpers';
+import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
+import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -56,6 +60,18 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       }
     },
   );
+  const [savePersonEmailMutation] = useSavePersonEmailMutation();
+  const savePersonDataInLocalStorage = (data: IGoldrushFromValues) => {
+    savePersonEmailMutation({
+      variables: {
+        email: data.email,
+      },
+    });
+  };
+  async function pushAnalytics(values: IGoldrushFromValues) {
+    await savePersonDataInLocalStorage(values);
+    await pushPageData({ pathname: router.pathname });
+  }
 
   const goldrushForm = () => (
     <GoldrushForm
@@ -66,6 +82,9 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       text="We’ll be in touch within 1-2 business hours"
       isPostcodeVisible={isPostcodeVisible}
       onSubmit={values => {
+        if (callBack) {
+          pushAnalytics(values);
+        }
         createOpportunity({
           variables: {
             email: values.email,
