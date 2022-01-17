@@ -11,14 +11,13 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { Nullable } from 'types/common';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import {
-  VanOffersPageData,
-  VanOffersPageDataVariables,
-  VanOffersPageData as IPageData,
-  VanOffersPageData_vanOffersPage_metaData as IMetaData,
-} from '../../../generated/VanOffersPageData';
-import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
+  GenericPageQuery,
+  GenericPageQueryVariables,
+  GenericPageQuery_genericPage_metaData as IMetaData,
+} from '../../../generated/GenericPageQuery';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
@@ -55,7 +54,7 @@ const RouterLink = dynamic(() =>
 );
 
 interface IProps extends IVansSpecialOffersData {
-  pageData: Nullable<IPageData>;
+  pageData: Nullable<GenericPageQuery>;
   metaData: Nullable<IMetaData>;
 }
 
@@ -101,7 +100,7 @@ export const VanOffers: NextPage<IProps> = ({
             {metaDataName}
           </Heading>
           <Text size="regular" color="darker">
-            {data?.vanOffersPage.intro}
+            {data?.genericPage.intro}
           </Text>
         </div>
       </section>
@@ -385,7 +384,7 @@ export const VanOffers: NextPage<IProps> = ({
         <div className="row:text -columns">
           <ReactMarkdown
             allowDangerousHtml
-            source={data?.vanOffersPage.body || ''}
+            source={data?.genericPage.body || ''}
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -403,10 +402,10 @@ export const VanOffers: NextPage<IProps> = ({
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <div className="row:icon-list">
           <Heading tag="span" size="lead" color="black">
-            {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
+            {data?.genericPage.sections?.iconBullets?.title || ''}
           </Heading>
           <hr />
-          {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
+          {data?.genericPage?.sections?.iconBullets?.iconBullets?.map(
             (item, index) => (
               <>
                 <Icon
@@ -431,12 +430,12 @@ export const VanOffers: NextPage<IProps> = ({
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <div className="row:text -columns">
           <Heading size="large" color="black">
-            {data?.vanOffersPage?.sections?.featured?.title || ''}
+            {data?.genericPage?.sections?.featured?.title || ''}
           </Heading>
           <div>
             <ReactMarkdown
               allowDangerousHtml
-              source={data?.vanOffersPage?.sections?.featured?.body || ''}
+              source={data?.genericPage?.sections?.featured?.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -470,14 +469,14 @@ export const VanOffers: NextPage<IProps> = ({
         </div>
       </LazyLoadComponent>
 
-      {data?.vanOffersPage.metaData && (
+      {data?.genericPage?.metaData && (
         <>
           <Head
-            metaData={data?.vanOffersPage.metaData}
-            featuredImage={data?.vanOffersPage.featuredImage}
+            metaData={data?.genericPage?.metaData}
+            featuredImage={data?.genericPage?.featuredImage}
           />
           <SchemaJSON
-            json={JSON.stringify(data?.vanOffersPage.metaData.schema)}
+            json={JSON.stringify(data?.genericPage?.metaData.schema)}
           />
         </>
       )}
@@ -492,12 +491,13 @@ export async function getServerSideProps(
 
   try {
     const { data } = await client.query<
-      VanOffersPageData,
-      VanOffersPageDataVariables
+      GenericPageQuery,
+      GenericPageQueryVariables
     >({
-      query: VAN_OFFERS_CONTENT,
+      query: GENERIC_PAGE,
       variables: {
         isPreview: !!context?.preview,
+        slug: 'van-leasing/special-offers',
       },
     });
 
@@ -519,7 +519,7 @@ export async function getServerSideProps(
     return {
       props: {
         pageData: encodeData(data),
-        metaData: data?.vanOffersPage?.metaData || null,
+        metaData: data?.genericPage?.metaData || null,
         productsPickup: productsPickup || null,
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,
