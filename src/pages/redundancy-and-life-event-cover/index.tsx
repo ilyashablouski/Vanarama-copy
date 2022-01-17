@@ -5,7 +5,7 @@ import { ParsedUrlQueryInput } from 'querystring';
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
 
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion';
 import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
@@ -53,12 +53,6 @@ const DEFAULT_HERO_IMAGE_URL =
   'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png';
 const DEFAULT_HOT_OFFERS_COUNT = 6;
 
-const optimisationOptions = {
-  height: 620,
-  width: 620,
-  quality: 59,
-};
-
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
@@ -91,8 +85,7 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   const findOutMoreSection = sections?.carousel?.[1];
   const featureSections = sections?.featured;
 
-  const heroImageUrl =
-    sections?.hero?.[0]?.image?.file?.url || DEFAULT_HERO_IMAGE_URL;
+  const heroImage = sections?.hero?.[0]?.image?.file;
   const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const leaseType = isPersonalCar
     ? LeaseTypeEnum.PERSONAL
@@ -149,13 +142,15 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
           </div>
         </div>
         <div className="hero--right">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
+          <ImageV2
             plain
+            quality={60}
             size="expand"
-            src={heroImageUrl}
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width}
+            height={heroImage?.details.image.height}
+            src={heroImage?.url || DEFAULT_HERO_IMAGE_URL}
           />
         </div>
       </Hero>

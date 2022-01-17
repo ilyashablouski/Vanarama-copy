@@ -239,6 +239,10 @@ const CustomiseLease = ({
     setTempTrimValue(trim);
   }, [trim]);
 
+  useEffect(() => {
+    setTempColorValue(colour);
+  }, [colour]);
+
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
     const leaseSettings = {

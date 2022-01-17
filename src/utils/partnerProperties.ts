@@ -5,6 +5,7 @@ import { getSessionStorage } from './windowSessionStorage';
 import { Nullable, Nullish } from '../types/common';
 import {
   Partner_partner_footer as IPartnerFooter,
+  Partner_partner_logo_file as IPartnerLogoFile,
   Partner_partner_searchPageText as IPartnerSearchText,
 } from '../../generated/Partner';
 import { isBrowser } from './deviceType';
@@ -37,10 +38,7 @@ export interface IPartnerProperties {
 }
 export interface IPartnerPropertiesLogo {
   title: string | undefined;
-  file: IPartnerPropertiesLogoFile | null;
-}
-export interface IPartnerPropertiesLogoFile {
-  url: string;
+  file: IPartnerLogoFile | null;
 }
 
 export function isPartnerSessionActive() {

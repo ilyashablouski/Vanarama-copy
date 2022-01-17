@@ -68,6 +68,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg',
             contentType: 'image/jpeg',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,
@@ -85,6 +91,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png',
             contentType: 'image/png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,
@@ -102,6 +114,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
             contentType: 'image/png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,
@@ -126,6 +144,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
             contentType: 'image/png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,
@@ -143,6 +167,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
             contentType: 'image/png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,
@@ -161,6 +191,12 @@ const SECTIONS = {
             url:
               '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
             contentType: 'image/png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
         link: null,

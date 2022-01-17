@@ -1,8 +1,10 @@
 import { gql } from '@apollo/client';
 import FeaturedSection from '../../components/FeaturedSection';
 import TilesContainer from '../../containers/TilesContainer/TilesContainer';
+import { IMAGE_FILE_FRAGMENT } from '../image';
 
 const HUB_VAN_CONTENT = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query HubVanPageData($isPreview: Boolean) {
     hubVanPage(isPreview: $isPreview) {
       id
@@ -32,7 +34,7 @@ const HUB_VAN_CONTENT = gql`
           image {
             title
             file {
-              url
+              ...imageFile
             }
           }
           heroLabel {

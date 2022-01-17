@@ -1,11 +1,13 @@
 import React, { FC, memo } from 'react';
 
-import Link from '../../atoms/link';
-import Text from '../../atoms/text';
-import Heading from '../../atoms/heading';
-import Image from '../../atoms/image';
+import Link from 'core/atoms/link';
+import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
+import ImageV2 from 'core/atoms/image/ImageV2';
 
 import { ILeagueProps } from './interfaces';
+
+const baseImageUrl = `${process.env.HOST_DOMAIN}/Assets/images-optimised/home`;
 
 const League: FC<ILeagueProps> = memo(props => {
   const { altText, link } = props;
@@ -13,12 +15,13 @@ const League: FC<ILeagueProps> = memo(props => {
   return (
     <>
       <div>
-        <Image
-          plain
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/national-league.png`}
-          size="expand"
+        <ImageV2
+          width={290}
+          height={86}
+          src={`${baseImageUrl}/national-league.png`}
           alt={altText}
+          size="expand"
+          plain
         />
       </div>
       <div>
@@ -31,12 +34,13 @@ const League: FC<ILeagueProps> = memo(props => {
             Here
           </Link>
         </Text>
-        <Image
-          plain
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/league-cup.png`}
-          size="expand"
+        <ImageV2
+          width={206}
+          height={206}
+          src={`${baseImageUrl}/league-cup.png`}
           alt={altText}
+          size="expand"
+          plain
         />
       </div>
     </>
