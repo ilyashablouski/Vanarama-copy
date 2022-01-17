@@ -174,15 +174,22 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <img
-              alt="Fleet-Icon"
-              class="image--native"
-              data-cfasync="false"
-              loading="eager"
-              sizes="(min-width:320px) 800px, 1200px"
-              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
-              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 1200w"
-            />
+            <div
+              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            >
+              <div
+                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              />
+              <img
+                alt="Fleet-Icon"
+                class="image--native"
+                data-nimg="responsive"
+                decoding="async"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+              />
+              <noscript />
+            </div>
           </div>
         </div>
         <div>
@@ -205,15 +212,22 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <img
-              alt="Fleet-Icon"
-              class="image--native"
-              data-cfasync="false"
-              loading="eager"
-              sizes="(min-width:320px) 800px, 1200px"
-              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
-              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 1200w"
-            />
+            <div
+              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            >
+              <div
+                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              />
+              <img
+                alt="Fleet-Icon"
+                class="image--native"
+                data-nimg="responsive"
+                decoding="async"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+              />
+              <noscript />
+            </div>
           </div>
         </div>
         <div>
@@ -236,15 +250,22 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <img
-              alt="Fleet-Icon"
-              class="image--native"
-              data-cfasync="false"
-              loading="eager"
-              sizes="(min-width:320px) 800px, 1200px"
-              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
-              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 1200w"
-            />
+            <div
+              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            >
+              <div
+                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              />
+              <img
+                alt="Fleet-Icon"
+                class="image--native"
+                data-nimg="responsive"
+                decoding="async"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+              />
+              <noscript />
+            </div>
           </div>
         </div>
         <div>
@@ -418,7 +439,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
     <section
       class="row:featured-right"
     >
-      <div>
+      <article>
         <h2
           class="heading -black -lead"
         >
@@ -435,7 +456,7 @@ We started out in 2004 leasing vans (hence the name) but since then we’ve grow
         >
           At Vanarama, we understand that your vehicle is a statement about you and so we wanted to make it as easy to upgrade as you would your mobile phone! We’ll get you moving in the most cost-effective, simple way possible & we'll be there every step of the way - from choosing your new car to delivery straight to your door.
         </p>
-      </div>
+      </article>
     </section>
   </div>
   <script

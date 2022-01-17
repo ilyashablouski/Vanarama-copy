@@ -7,8 +7,18 @@
 // GraphQL query operation: Partner
 // ====================================================
 
+export interface Partner_partner_logo_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_logo_file_details {
+  image: Partner_partner_logo_file_details_image;
+}
+
 export interface Partner_partner_logo_file {
   url: string;
+  details: Partner_partner_logo_file_details;
 }
 
 export interface Partner_partner_logo {

@@ -74,4 +74,5 @@ extend type Mutation {
   deleteStoredPerson: Boolean
   savePersonBankUuid(bankUuid: ID): ID
   saveWishlistVehicleIds(ids: [String]): [String]
+  deletePersonUuid: Boolean
 }

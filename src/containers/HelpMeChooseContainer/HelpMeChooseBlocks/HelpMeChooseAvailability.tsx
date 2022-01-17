@@ -5,7 +5,7 @@ import { setQuery } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
-  const { steps, setLoadingStatus } = props;
+  const { steps, setLoadingStatus, dataUiTestId } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
     (steps.availability.value as string[]) || [''],
@@ -50,6 +50,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       }}
       currentValue={availabilityValue}
       submitBtnText="View Results"
+      dataUiTestId={dataUiTestId}
     />
   );
 };

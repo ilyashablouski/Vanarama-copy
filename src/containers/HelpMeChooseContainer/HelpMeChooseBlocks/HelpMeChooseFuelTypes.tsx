@@ -6,7 +6,7 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
 const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
-  const { steps, helpMeChooseData, setLoadingStatus } = props;
+  const { steps, helpMeChooseData, setLoadingStatus, dataUiTestId } = props;
   const router = useRouter();
   const [fuelTypesValue, setFuelTypesValue] = useState<string[]>(
     steps.fuelTypes.value as string[],
@@ -32,6 +32,7 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
       multiSelect
       currentValue={fuelTypesValue}
       clearMultiSelectTitle="I Don't Mind"
+      dataUiTestId={dataUiTestId}
     />
   );
 };

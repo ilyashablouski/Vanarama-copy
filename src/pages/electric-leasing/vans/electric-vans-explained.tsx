@@ -7,7 +7,7 @@ import {
 import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import LeadText from 'components/LeadText/LeadText';
 import EvArticlesCarousel from '../../../containers/EvContentHubContainer/EvArticlesCarousel';
 import useLeaseType from '../../../hooks/useLeaseType';
@@ -49,28 +49,25 @@ export const EVHubPage: NextPage<IProps> = ({
 }) => {
   const { cachedLeaseType } = useLeaseType(null);
 
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
-
   const isPersonalCar = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+
   const sections = data?.genericPage.sectionsAsArray;
+  const heroImage = sections?.hero?.[0]?.image?.file;
 
   return (
     <>
       <Hero>
         <div className="hero--left">
-          <Image
-            lazyLoad
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
+          <ImageV2
             plain
+            quality={60}
             size="expand"
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 1710}
+            height={heroImage?.details.image.height ?? 1278}
             src={
-              sections?.hero?.[0]?.image?.file?.url ||
+              heroImage?.url ||
               'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
             }
           />
