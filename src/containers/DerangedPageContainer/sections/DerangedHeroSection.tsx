@@ -31,6 +31,7 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
             lazyLoad={false}
             size="large"
             quality={60}
+            sizes="30vw"
             inline
             plain
           />

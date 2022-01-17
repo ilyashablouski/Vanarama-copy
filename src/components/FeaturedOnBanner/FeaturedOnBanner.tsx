@@ -80,6 +80,8 @@ const FeaturedOnBanner = () => (
         {featuredImageList.map(({ width, height, src, alt }) => (
           <ImageV2
             key={alt}
+            sizes="30vw"
+            quality={70}
             width={width}
             height={height}
             src={src}

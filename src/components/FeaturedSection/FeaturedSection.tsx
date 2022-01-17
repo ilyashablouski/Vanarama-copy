@@ -77,6 +77,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
 
       {image && (
         <ImageV2
+          quality={60}
           width={image?.file?.details.image.width ?? 1000}
           height={image?.file?.details.image.height ?? 650}
           src={
