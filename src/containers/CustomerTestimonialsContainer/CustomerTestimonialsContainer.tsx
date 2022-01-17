@@ -21,7 +21,7 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Initials = dynamic(() => import('core/atoms/initials'), {
@@ -141,8 +141,9 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
             >
               {!!tile.image?.file?.url && (
                 <div>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  <ImageV2
+                    width={tile.image?.file.details.image.width}
+                    height={tile.image?.file.details.image.height}
                     src={tile.image?.file?.url || ''}
                     alt={tile.image?.title || ''}
                     size="expand"

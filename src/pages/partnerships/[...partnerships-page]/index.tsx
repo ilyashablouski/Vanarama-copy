@@ -110,7 +110,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const { flag, body, image } = data?.partner?.hero || {};
   const { titleTag } = data?.partner?.featured || {};
   const { title } = logo || {};
-  const { url } = logo?.file || {};
 
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
@@ -184,7 +183,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       <Hero
         topHeader={
           showPartnerLogo && (
-            <PartnershipLogo logo={url || ''} imageAlt={title || undefined} />
+            <PartnershipLogo logo={logo?.file} imageAlt={title ?? ''} />
           )
         }
         customCTAColor={colourPrimary || ''}

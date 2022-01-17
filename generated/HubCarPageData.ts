@@ -29,8 +29,18 @@ export interface HubCarPageData_hubCarPage_featuredImage {
   file: HubCarPageData_hubCarPage_featuredImage_file | null;
 }
 
+export interface HubCarPageData_hubCarPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubCarPageData_hubCarPage_sections_hero_image_file_details {
+  image: HubCarPageData_hubCarPage_sections_hero_image_file_details_image;
+}
+
 export interface HubCarPageData_hubCarPage_sections_hero_image_file {
   url: string;
+  details: HubCarPageData_hubCarPage_sections_hero_image_file_details;
 }
 
 export interface HubCarPageData_hubCarPage_sections_hero_image {

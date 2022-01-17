@@ -13,7 +13,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 
@@ -23,15 +23,16 @@ interface ITopInfoBlockProps {
 
 // It should common component for all search pages which contain info block on the top of page
 const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
+  const featuredImage = topInfoSection.featured?.image?.file;
+
   return topInfoSection ? (
     <section className={`row:${getFeaturedClassPartial(topInfoSection)}`}>
-      <div>
-        <Image
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          src={topInfoSection.featured?.image?.file?.url || ''}
-        />
-      </div>
-      <div>
+      <ImageV2
+        width={featuredImage?.details.image.width}
+        height={featuredImage?.details.image.height}
+        src={featuredImage?.url || ''}
+      />
+      <article>
         <Heading
           size="large"
           color="black"
@@ -64,7 +65,7 @@ const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
             }}
           />
         </div>
-      </div>
+      </article>
     </section>
   ) : (
     <></>

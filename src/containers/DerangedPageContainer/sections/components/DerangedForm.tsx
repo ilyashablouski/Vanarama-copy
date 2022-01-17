@@ -16,7 +16,7 @@ import {
   DERANGED_FORM_PLACEHOLDERS_VALUES,
 } from '../constants';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={2} />,
 });
 const GoldrushForm = dynamic(
@@ -70,10 +70,12 @@ const DerangedForm: React.FC<IDerangedForm> = ({
       <Text className="drawer__subtitle">
         We&apos;ll be in touch within 1-2 business hours
       </Text>
-      <Image
+      <ImageV2
+        width={800}
+        height={500}
         src={selectedVehicle.imageSrc}
+        alt={selectedVehicle.title}
         size="expand"
-        alt="Deranged Image"
         plain
       />
       <Text className="heading drawer__brand" size="regular" color="black">
