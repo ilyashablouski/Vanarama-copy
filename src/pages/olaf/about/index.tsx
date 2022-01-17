@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
 import Cookies from 'js-cookie';
 import { useSavePersonUuidMutation } from '../../../gql/storedPersonUuid';
@@ -121,7 +120,11 @@ const AboutYouPage: NextPage = () => {
   );
 
   const savePersonDataInLocalStorage = (data: IPerson) => {
-    localForage.setItem('personUuid', data.uuid);
+    setPersonUuid({
+      variables: {
+        uuid: data.uuid,
+      },
+    });
     savePersonEmailMutation({
       variables: {
         email: data.emailAddresses[0].value,
