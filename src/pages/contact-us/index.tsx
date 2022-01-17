@@ -8,10 +8,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import {
-  ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
-  ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
-} from '../../../generated/ContactUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
@@ -37,7 +33,7 @@ import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -59,6 +55,9 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data }) => {
   const COORDS = { lat: 51.762479, lng: -0.438241 };
   const metaData = data?.genericPage?.metaData;
   const breadcrumbsItems = getBreadCrumbsItems(metaData);
+
+  const cardsSection = data?.genericPage.sections?.cards;
+  const featured2Section = data?.genericPage.sections?.featured2;
 
   return (
     <>
@@ -134,20 +133,17 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data }) => {
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
-          {(getSectionsData(
-            ['cards', 'cards'],
-            data?.genericPage.sections,
-          ) as Cards[])?.map((c: Cards, index) => (
+          {cardsSection?.cards?.map((card, index) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || index}
+              key={card.title || index}
             >
               <Heading size="large" color="black">
-                {c.title}
+                {card.title}
               </Heading>
               <ReactMarkdown
                 allowDangerousHtml
-                source={c.body || ''}
+                source={card.body || ''}
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -197,31 +193,29 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data }) => {
             }}
           />
         </div>
-        {(getSectionsData(
-          ['featured2', 'cards'],
-          data?.genericPage.sections,
-        ) as Cards2[])?.map((c: Cards2 | null, index) => (
+        {featured2Section?.cards?.map((card, index) => (
           <Card
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            key={card?.title || index}
             inline
-            key={c?.title || index}
           >
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            <ImageV2
               className="card-image"
-              src={c?.image?.file?.url || ''}
+              width={card?.image?.file?.details.image.width}
+              height={card?.image?.file?.details.image.height}
+              src={card?.image?.file?.url || ''}
             />
-            <CardTitle title={c?.title || ''} />
-            <Text color="darker">{c?.body}</Text>
+            <CardTitle title={card?.title || ''} />
+            <Text color="darker">{card?.body}</Text>
             <RouterLink
               classNames={{ color: 'teal' }}
               className="button -clear"
               link={{
-                href: c?.link?.legacyUrl || c?.link?.url || '',
-                label: c?.link?.text || '',
+                href: card?.link?.legacyUrl || card?.link?.url || '',
+                label: card?.link?.text || '',
               }}
             >
-              <div className="button--inner">{c?.link?.text}</div>
+              <div className="button--inner">{card?.link?.text}</div>
             </RouterLink>
           </Card>
         ))}

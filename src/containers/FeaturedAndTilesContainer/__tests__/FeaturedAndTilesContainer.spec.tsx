@@ -34,6 +34,12 @@ const SECTIONS = {
           '//images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg',
         fileName: 'gymarama.jpg',
         contentType: 'image/jpeg',
+        details: {
+          image: {
+            width: 100,
+            height: 100,
+          },
+        },
       },
     },
     layout: null,

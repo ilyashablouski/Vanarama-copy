@@ -354,16 +354,9 @@ export const GENERIC_PAGE = gql`
               title
               description
               file {
-                url
                 fileName
                 contentType
-                details {
-                  size
-                  image {
-                    width
-                    height
-                  }
-                }
+                ...imageFile
               }
             }
             label
