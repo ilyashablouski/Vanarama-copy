@@ -9,10 +9,12 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
   >
     <span
       className="heading -black -regular"
+      data-uitestid="test-ui-id-heading"
     >
       Monthly Budget:
       <span
         className="text -b -ml-100 -regular -orange"
+        data-uitestid="test-ui-id-text"
       >
         Up To £350 PM inc.VAT
       </span>
@@ -99,6 +101,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
   </div>
   <span
     className="heading -black -regular"
+    data-uitestid="test-ui-id-heading-payment"
   >
     Initial Payment - No. Of Months
   </span>
@@ -113,6 +116,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="test-ui-id-choiceboxes_span_1"
       >
         1
       </span>
@@ -125,6 +129,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="test-ui-id-choiceboxes_span_3"
       >
         3
       </span>
@@ -137,6 +142,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="test-ui-id-choiceboxes_span_6"
       >
         6
       </span>
@@ -149,6 +155,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="test-ui-id-choiceboxes_span_9"
       >
         9
       </span>
@@ -161,6 +168,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     >
       <span
         className="choice-label"
+        data-uitestid="test-ui-id-choiceboxes_span_12"
       >
         12
       </span>
@@ -168,10 +176,12 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
   </div>
   <h1
     className="heading stepped-form--title -mb-100 -black -xlarge"
+    data-uitestid="test-ui-id-heading-vehicles"
   >
     We've Found 
     <span
       className="text -b -mh-100 -xlarge -orange"
+      data-uitestid="test-ui-id-text"
     >
       30
     </span>
@@ -304,16 +314,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -354,6 +367,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -566,16 +580,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -616,6 +633,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -828,16 +846,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -878,6 +899,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -1090,16 +1112,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -1140,6 +1165,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -1352,16 +1378,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -1402,6 +1431,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -1614,16 +1644,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -1664,6 +1697,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -1876,16 +1910,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -1926,6 +1963,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -2138,16 +2176,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -2188,6 +2229,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -2400,16 +2442,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -2450,6 +2495,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -2662,16 +2708,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -2712,6 +2761,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -2924,16 +2974,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -2974,6 +3027,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -3186,16 +3240,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -3236,6 +3293,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -3448,16 +3506,19 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="heading link -black -large"
             data-testid="link"
+            data-uitestid="test-ui-id-router-link"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
             <span
               className="heading -pb-100 -primary -large"
+              data-uitestid="test-ui-id-heading-manufacturer"
             >
               Smart Forfour Electric Hatchback
             </span>
             <span
               className="heading -dark -small"
+              data-uitestid="test-ui-id-heading-derivative"
             >
               60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]
             </span>
@@ -3498,6 +3559,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           <a
             className="button link -teal -regular -solid"
             data-testid="view-offer"
+            data-uitestid="test-ui-id-router-link-view"
             href="/smart-car-leasing/forfour/forfour-electric-hatchback/60kw-eq-pulse-premium-17kwh-5dr-auto-22kwch-166453.html?leaseType=PCH&mileage=6000&term=48&upfront=6"
             onClick={[Function]}
           >
@@ -3595,6 +3657,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
       <button
         className="button stepped-form--button -primary -large -clear"
         data-testid="help-me-choose_load-more"
+        data-uitestid="test-ui-id-load-more"
         onClick={[Function]}
         type="button"
       >
@@ -3612,6 +3675,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     <button
       className="button stepped-form--button -primary -large -solid"
       data-testid="help-me-choose_view-all"
+      data-uitestid="test-ui-id-view-all"
       onClick={[Function]}
       type="button"
     >
@@ -3624,6 +3688,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     <button
       className="button stepped-form--button -primary -large -outline"
       data-testid="help-me-choose_search-again"
+      data-uitestid="test-ui-id-search-again"
       onClick={[Function]}
       type="button"
     >

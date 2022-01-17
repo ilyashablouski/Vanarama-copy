@@ -395,6 +395,7 @@ describe('<HelpMeChooseResult />', () => {
             setPageOffset={jest.fn()}
             steps={steps}
             helpMeChooseData={helpMeChooseData}
+            dataUiTestId="test-ui-id"
           />
         </ApolloProvider>,
       )
@@ -419,6 +420,7 @@ describe('<HelpMeChooseResult />', () => {
           setPageOffset={setPageOffset}
           steps={steps}
           helpMeChooseData={helpMeChooseData}
+          dataUiTestId="test-ui-id-2"
         />
       </ApolloProvider>,
     );
