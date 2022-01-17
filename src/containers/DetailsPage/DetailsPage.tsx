@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
-import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
@@ -16,6 +15,7 @@ import decode from 'decode-html';
 
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
+import { useDeletePersonUuidMutation } from 'gql/storedPersonUuid';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -392,6 +392,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [deletePersonEmailMutation] = useDeletePersonEmailMutation();
   const [deleteStoredPersonMutation] = useDeleteStoredPersonMutation();
   const [saveQuoteMutation] = useSaveQuoteMutation();
+  const [deletePersonUuid] = useDeletePersonUuidMutation();
 
   const isPersonLoggedIn = isUserAuthenticated();
 
@@ -442,7 +443,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           : Promise.resolve();
         return Promise.all([
           deletePersonEmailMutation(),
-          localForage.removeItem('personUuid'),
+          deletePersonUuid(),
           onDeleteStoredPerson,
         ]);
       })
