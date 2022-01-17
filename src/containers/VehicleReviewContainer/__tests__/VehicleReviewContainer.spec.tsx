@@ -56,6 +56,12 @@ const SECTIONS = {
         __typename: 'File',
         url:
           '//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg',
+        details: {
+          image: {
+            width: 100,
+            height: 100,
+          },
+        },
       },
     },
   },

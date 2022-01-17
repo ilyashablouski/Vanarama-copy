@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Image from 'core/atoms/image/Image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 
 import { HomePageData } from '../../../generated/HomePageData';
 import { filterList as IFilterList } from '../../../generated/filterList';
@@ -8,12 +8,6 @@ import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insura
 import { getSectionsData } from '../../utils/getSectionsData';
 
 import Hero, { HeroPrompt } from '../../components/Hero';
-
-const optimisationOptions = {
-  height: 620,
-  width: 620,
-  quality: 59,
-};
 
 export interface IHomePageHero {
   data: HomePageData | undefined;
@@ -26,14 +20,11 @@ const HomePageHero: React.FC<IHomePageHero> = ({
   searchPodCarsData,
   searchPodVansData,
 }) => {
+  const heroImage = data?.homePage?.sections?.hero?.image?.file;
   const heroLabel = getSectionsData(
     ['hero', 'heroLabel'],
     data?.homePage?.sections,
   )?.[0];
-  const heroImageSrc = getSectionsData(
-    ['hero', 'image', 'file', 'url'],
-    data?.homePage?.sections,
-  );
 
   return (
     <Hero
@@ -49,12 +40,14 @@ const HomePageHero: React.FC<IHomePageHero> = ({
         <p>On Car Hot Offers</p>
       </div>
       <div>
-        <Image
-          className="hero--image"
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          src={heroImageSrc}
+        <ImageV2
+          className="hero--image -pt-000"
+          width={heroImage?.details.image.width}
+          height={heroImage?.details.image.height}
+          src={heroImage?.url || ''}
+          lazyLoad={false}
           size="expand"
+          quality={60}
           plain
         />
       </div>
