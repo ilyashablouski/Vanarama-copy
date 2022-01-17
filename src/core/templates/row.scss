@@ -704,10 +704,6 @@
         bottom: 110px;
         padding-top: 30%;
         margin-bottom: -110px;
-        background-image: var(--hero-bg);
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
 
         @media (max-width: 1216px) {
           bottom: 50px;
@@ -715,16 +711,22 @@
         }
 
         @include tablet {
-          padding-top: 52%;
+          padding-top: 35%;
           background-position: 60% center;
         }
 
         @include mobile {
-          bottom: 0;
+          bottom: 130px;
           min-height: unset !important;
-          margin-bottom: 0;
-          padding-top: 112%;
-          background-image: var(--hero-bg-mobile);
+          margin-bottom: -210px;
+          padding-top: 150%;
+        }
+
+        @media (max-width: 400px) {
+          bottom: 80px;
+          min-height: unset !important;
+          margin-bottom: -140px;
+          padding-top: 150%;
         }
       }
 
@@ -734,6 +736,7 @@
         margin: 0 !important;
         padding: 0 !important;
         background-image: none;
+        border-radius: 0;
 
         @include tablet {
           height: 80px;

@@ -113,6 +113,10 @@
       --page-gap: calc(var(--layout-gap) * 2);
     }
 
+    .full-screen-image {
+      grid-column: full;
+      overflow: hidden;
+    }
 
     .simple-placeholder {
       &__item {

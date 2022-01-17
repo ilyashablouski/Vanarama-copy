@@ -17,6 +17,7 @@ module.exports = {
         'ellisdonovan.s3.eu-west-2.amazonaws.com',
         process.env.HOST_DOMAIN.replace('https://', ''),
         'img.youtube.com',
+        'vanarama.com',
       ],
     },
     // Env vars.
