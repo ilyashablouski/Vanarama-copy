@@ -46,7 +46,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   capId,
   opportunityType,
   vehicleType,
-  callBack,
+  isCallBackForm,
   termsAndConditions,
   onCompleted,
   dataUiTestId,
@@ -76,13 +76,15 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   const goldrushForm = () => (
     <GoldrushForm
       dataUiTestId={dataUiTestId}
-      callBack={callBack}
+      isCallBackForm={isCallBackForm}
       isSubmitting={loading}
-      heading={callBack ? 'Please Fill In Your Details' : 'Get Your Quote Now'}
+      heading={
+        isCallBackForm ? 'Please Fill In Your Details' : 'Get Your Quote Now'
+      }
       text="We’ll be in touch within 1-2 business hours"
       isPostcodeVisible={isPostcodeVisible}
       onSubmit={values => {
-        if (callBack) {
+        if (isCallBackForm) {
           pushAnalytics(values);
         }
         createOpportunity({
@@ -104,7 +106,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
     />
   );
 
-  if (callBack) {
+  if (isCallBackForm) {
     return (
       <div className="-pt-000">
         {isGratitudeVisible ? (

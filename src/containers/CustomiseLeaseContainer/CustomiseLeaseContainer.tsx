@@ -396,7 +396,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
           dataUiTestId={`${dataUiTestId}_goldrush-form`}
           isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
           capId={capId}
-          callBack
+          isCallBackForm
           opportunityType={OpportunityTypeEnum.QUOTE}
           vehicleType={vehicleType}
           onCompleted={() => {
