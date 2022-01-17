@@ -25,7 +25,7 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
         {linkGroups?.map(linkGroup => (
           <FooterColumn
             key={linkGroup?.name || ''}
-            dataUiTestId="footer_footer-column"
+            dataUiTestId={`footer_footer-column_${linkGroup?.name}`}
             linkGroup={linkGroup}
           />
         ))}

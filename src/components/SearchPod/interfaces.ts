@@ -19,6 +19,7 @@ export interface ISearchPodProps {
   headingText: string;
   customCTAColor?: string;
   isCustomSearchButtonLabel?: boolean;
+  dataUiTestId?: string;
 }
 
 export interface ITabsConfig {

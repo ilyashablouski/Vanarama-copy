@@ -56,8 +56,17 @@ const socialButtons = [
 const FooterColumn: FC<IFooterColumn> = ({ linkGroup, dataUiTestId }) => {
   if (linkGroup) {
     return (
-      <div className="footer--column" key={linkGroup.name || ''}>
-        <Heading color="medium" tag="span" size="small">
+      <div
+        className="footer--column"
+        key={linkGroup.name || ''}
+        data-uitestid={dataUiTestId}
+      >
+        <Heading
+          color="medium"
+          tag="span"
+          size="small"
+          dataUiTestId={`${dataUiTestId}_heading`}
+        >
           {linkGroup.name}
         </Heading>
         {!(linkGroup.links?.length || linkGroup.linkGroups?.length) &&
@@ -69,6 +78,7 @@ const FooterColumn: FC<IFooterColumn> = ({ linkGroup, dataUiTestId }) => {
                 <RouterLink
                   link={{ href: link?.url || '', label: link?.text || '' }}
                   classNames={{ color: 'white', size: 'small' }}
+                  dataUiTestId={`${dataUiTestId}_link_${link?.text}`}
                 />
               </li>
             ))}

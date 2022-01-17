@@ -197,6 +197,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       </span>
       <span
         className="text -xsmall -dark"
+        data-uitestid="vehicle-card_card-icon_Manual"
       >
         Manual
       </span>
@@ -540,6 +541,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       </span>
       <span
         className="text -xsmall -dark"
+        data-uitestid="vehicle-card_card-icon_Manual"
       >
         Manual
       </span>
@@ -883,6 +885,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       </span>
       <span
         className="text -xsmall -dark"
+        data-uitestid="vehicle-card_card-icon_Manual"
       >
         Manual
       </span>

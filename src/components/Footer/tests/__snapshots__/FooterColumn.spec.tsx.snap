@@ -3,9 +3,11 @@
 exports[`<FooterColumn /> renders correctly with body 1`] = `
 <div
   className="footer--column"
+  data-uitestid="footer_footer-column_ABOUT US"
 >
   <span
     className="heading -medium -small"
+    data-uitestid="footer_footer-column_ABOUT US_heading"
   >
     GET IN TOUCH WITH US
   </span>
@@ -18,9 +20,11 @@ exports[`<FooterColumn /> renders correctly with body 1`] = `
 exports[`<FooterColumn /> renders correctly with links 1`] = `
 <div
   className="footer--column"
+  data-uitestid="footer_footer-column_ABOUT US"
 >
   <span
     className="heading -medium -small"
+    data-uitestid="footer_footer-column_ABOUT US_heading"
   >
     VANS & TRUCKS
   </span>
@@ -29,6 +33,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
+        data-uitestid="footer_footer-column_ABOUT US_link_Van Leasing"
         href="https://vanarama.com/van-leasing.html"
         onClick={[Function]}
       >
@@ -39,6 +44,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
+        data-uitestid="footer_footer-column_ABOUT US_link_Pickup Truck Leasing"
         href="https://vanarama.com/pickup-truck-leasing.html"
         onClick={[Function]}
       >
@@ -49,6 +55,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
+        data-uitestid="footer_footer-column_ABOUT US_link_Van Reviews"
         href="https://vanarama.com/van-reviews.html"
         onClick={[Function]}
       >

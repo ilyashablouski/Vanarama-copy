@@ -25,6 +25,7 @@ const PartnershipLogo = ({ title, logo, imageAlt }: IPartnershipLogo) => (
       plain
       className="partnership-logo--heading"
       size="large"
+      dataUiTestId="partnership_hero-logo"
     />
   </div>
 );

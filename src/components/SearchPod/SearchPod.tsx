@@ -52,6 +52,7 @@ const SearchPod = ({
   headingText,
   customCTAColor,
   isCustomSearchButtonLabel,
+  dataUiTestId,
 }: ISearchPodProps) => {
   return (
     <Card className="hero-card">
@@ -69,7 +70,7 @@ const SearchPod = ({
                 index={parseInt(TypeToIndex[type as any], 10)}
                 key={`${tabName}-tab`}
                 dataTestId={`${tabName}tab`}
-                dataUiTestId={`searchPod-${tabName}-tab`}
+                dataUiTestId={`${dataUiTestId || ''}searchPod-${tabName}-tab`}
               >
                 {tabName}
               </Tab>
@@ -181,7 +182,9 @@ const SearchPod = ({
                 }
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
-                dataUiTestId={`searchPod-${tab.type}Search-button`}
+                dataUiTestId={`${dataUiTestId || ''}searchPod-${
+                  tab.type
+                }Search-button`}
               />
             </TabPanel>
           ))}

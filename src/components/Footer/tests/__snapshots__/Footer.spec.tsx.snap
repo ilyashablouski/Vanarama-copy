@@ -6,9 +6,11 @@ exports[`<Footer /> renders correctly with body 1`] = `
 >
   <div
     className="footer--column"
+    data-uitestid="footer_footer-column_GET IN TOUCH WITH US"
   >
     <span
       className="heading -medium -small"
+      data-uitestid="footer_footer-column_GET IN TOUCH WITH US_heading"
     >
       GET IN TOUCH WITH US
     </span>
@@ -116,7 +118,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
-          data-uitestid="footer_footer-column_facebook-social-link"
+          data-uitestid="footer_footer-column_GET IN TOUCH WITH US_facebook-social-link"
           href="https://www.facebook.com/vanarama/"
           rel="noreferrer"
           target="_blank"
@@ -143,7 +145,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
-          data-uitestid="footer_footer-column_twitter-social-link"
+          data-uitestid="footer_footer-column_GET IN TOUCH WITH US_twitter-social-link"
           href="https://twitter.com/Vanarama"
           rel="noreferrer"
           target="_blank"
@@ -170,7 +172,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
-          data-uitestid="footer_footer-column_instagram-social-link"
+          data-uitestid="footer_footer-column_GET IN TOUCH WITH US_instagram-social-link"
           href="https://www.instagram.com/vanaramauk/"
           rel="noreferrer"
           target="_blank"
@@ -197,7 +199,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
-          data-uitestid="footer_footer-column_linkedin-social-link"
+          data-uitestid="footer_footer-column_GET IN TOUCH WITH US_linkedin-social-link"
           href="https://www.linkedin.com/company/vanarama"
           rel="noreferrer"
           target="_blank"
@@ -224,7 +226,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
       >
         <a
           className="button--inner"
-          data-uitestid="footer_footer-column_youtube-social-link"
+          data-uitestid="footer_footer-column_GET IN TOUCH WITH US_youtube-social-link"
           href="https://www.youtube.com/user/vanaramauk"
           rel="noreferrer"
           target="_blank"
@@ -250,7 +252,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
     </div>
     <span
       className="logo"
-      data-uitestid="footer_footer-column_bvrla-logo"
+      data-uitestid="footer_footer-column_GET IN TOUCH WITH US_bvrla-logo"
     >
       <svg
         className="logo--asset logo--asset-bvrla"
@@ -280,9 +282,11 @@ exports[`<Footer /> renders correctly with body 1`] = `
   </div>
   <div
     className="footer--column"
+    data-uitestid="footer_footer-column_VANS & TRUCKS"
   >
     <span
       className="heading -medium -small"
+      data-uitestid="footer_footer-column_VANS & TRUCKS_heading"
     >
       VANS & TRUCKS
     </span>
@@ -291,6 +295,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van Leasing"
           href="https://beta.vanarama.com/van-leasing.html"
           onClick={[Function]}
         >
@@ -301,6 +306,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Pickup Truck Leasing"
           href="https://beta.vanarama.com/pickup-truck-leasing.html"
           onClick={[Function]}
         >
@@ -311,6 +317,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van Reviews"
           href="https://beta.vanarama.com/van-reviews.html"
           onClick={[Function]}
         >
@@ -321,6 +328,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van News"
           href="https://beta.vanarama.com/latest-news/category/van-news.html"
           onClick={[Function]}
         >
@@ -331,6 +339,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Compare Vans"
           href="https://www.vanarama.com/compare-vans.html"
           onClick={[Function]}
         >
@@ -341,6 +350,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van Leasing Explained"
           href="https://beta.vanarama.com/van-leasing-explained.html"
           onClick={[Function]}
         >
@@ -351,6 +361,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Customer Leasing Questions"
           href="https://beta.vanarama.com/van-leasing-questions.html"
           onClick={[Function]}
         >
@@ -361,6 +372,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Advanced Breakdown Cover"
           href="https://beta.vanarama.com/advanced-breakdown-cover.html"
           onClick={[Function]}
         >
@@ -371,6 +383,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Service Plus"
           href="https://beta.vanarama.com/serviceplus.html"
           onClick={[Function]}
         >
@@ -381,6 +394,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van Insurance"
           href="https://beta.vanarama.com/van-insurance.html"
           onClick={[Function]}
         >
@@ -391,6 +405,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_VANS & TRUCKS_link_Van Insurance FAQs"
           href="https://beta.vanarama.com/van-insurance/faq.html"
           onClick={[Function]}
         >
@@ -401,9 +416,11 @@ exports[`<Footer /> renders correctly with body 1`] = `
   </div>
   <div
     className="footer--column"
+    data-uitestid="footer_footer-column_CARS"
   >
     <span
       className="heading -medium -small"
+      data-uitestid="footer_footer-column_CARS_heading"
     >
       CARS
     </span>
@@ -412,6 +429,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Car Leasing"
           href="https://beta.vanarama.com/car-leasing.html"
           onClick={[Function]}
         >
@@ -422,6 +440,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Car News"
           href="https://beta.vanarama.com/car-leasing/blog/category/car-news.html"
           onClick={[Function]}
         >
@@ -432,6 +451,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Car Leasing Explained "
           href="https://beta.vanarama.com/car-leasing-explained.html"
           onClick={[Function]}
         >
@@ -442,6 +462,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Redundancy & Life Event Cover"
           href="https://beta.vanarama.com/redundancy-and-life-event-cover.html"
           onClick={[Function]}
         >
@@ -452,6 +473,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Eligability Checker"
           href="https://beta.vanarama.com/eligibility-checker.html"
           onClick={[Function]}
         >
@@ -462,6 +484,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_CARS_link_Company Cash Allowance"
           href="https://beta.vanarama.com/car-leasing-explained/given-company-cash-allowance-vs-company-car.html"
           onClick={[Function]}
         >
@@ -472,9 +495,11 @@ exports[`<Footer /> renders correctly with body 1`] = `
   </div>
   <div
     className="footer--column"
+    data-uitestid="footer_footer-column_ABOUT US & CONTACT"
   >
     <span
       className="heading -medium -small"
+      data-uitestid="footer_footer-column_ABOUT US & CONTACT_heading"
     >
       ABOUT US & CONTACT
     </span>
@@ -483,6 +508,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Our Price Promise"
           href="https://beta.vanarama.com/about-us/price-protection-guarantee.html"
           onClick={[Function]}
         >
@@ -493,6 +519,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_5 Star Service Promise"
           href="https://beta.vanarama.com/about-us/five-star-service.html"
           onClick={[Function]}
         >
@@ -503,6 +530,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Customer Leasing Reviews"
           href="https://beta.vanarama.com/about-us/customer-testimonials.html"
           onClick={[Function]}
         >
@@ -513,6 +541,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Award Winning Leasing"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
           onClick={[Function]}
         >
@@ -523,6 +552,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Careers"
           href="https://beta.vanarama.com/careers.html"
           onClick={[Function]}
         >
@@ -533,6 +563,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Our Local Representatives"
           href="https://beta.vanarama.com/locations.html"
           onClick={[Function]}
         >
@@ -543,6 +574,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Community"
           href="https://beta.vanarama.com/community.html"
           onClick={[Function]}
         >
@@ -553,6 +585,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_FCA Initial Disclosure Document"
           href="https://beta.vanarama.com/fca.html"
           onClick={[Function]}
         >
@@ -563,6 +596,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Complaints Policy"
           href="https://beta.vanarama.com/contact-us/complaints-procedure.html"
           onClick={[Function]}
         >
@@ -573,6 +607,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Cookie & Privacy Policy"
           href="https://beta.vanarama.com/legal/privacy-policy.html"
           onClick={[Function]}
         >
@@ -583,6 +618,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Terms & Conditions"
           href="https://beta.vanarama.com/legal/terms-and-conditions"
           onClick={[Function]}
         >
@@ -593,6 +629,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Modern Slavery Statement"
           href="https://beta.vanarama.com/legal/modern-slavery-statement.html"
           onClick={[Function]}
         >
@@ -603,6 +640,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
+          data-uitestid="footer_footer-column_ABOUT US & CONTACT_link_Sitemap"
           href="https://beta.vanarama.com/sitemap.html"
           onClick={[Function]}
         >

@@ -192,6 +192,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         searchPodCarsData={decodeData(searchPodCarsData)}
         activeSearchIndex={2}
         searchType={searchType}
+        dataUiTestId="partnerships-home-page_"
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown
@@ -232,7 +233,11 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         >
           <TabList className="lead">
             {vehicleTypes?.map((type: string, i: number) => (
-              <Tab key={type} index={i}>
+              <Tab
+                key={type}
+                index={i}
+                dataUiTestId={`partnerships-home-page_carousel-tab_${type}`}
+              >
                 {type}
               </Tab>
             ))}
@@ -254,6 +259,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
                             ? LeaseTypeEnum.PERSONAL
                             : LeaseTypeEnum.BUSINESS
                         }
+                        dataUiTestId="partnerships-home-page_product-carousel"
                         data={{
                           derivatives:
                             vehicleType?.derivatives?.derivatives || null,
@@ -274,6 +280,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
 
                     <div className="-justify-content-row -pt-500">
                       <RouterLink
+                        dataUiTestId="partnerships-home-page_button_view-more"
                         className="button"
                         classNames={{
                           color: 'teal',

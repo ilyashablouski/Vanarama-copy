@@ -198,7 +198,10 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                       </span>
                       <span
                         class="text -xsmall -dark"
-                      />
+                        data-uitestid="top-offers_product-card-0_card-icon_Manual"
+                      >
+                        Manual
+                      </span>
                     </div>
                   </div>
                   <div
