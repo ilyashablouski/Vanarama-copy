@@ -42,7 +42,7 @@ import {
 import { VehicleSearchTypeEnum } from '../../../../entities/global';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -209,14 +209,17 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           }}
         />
         <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            alt="Hero Image"
-            dataTestId="insurance_hero-image"
+          <ImageV2
+            quality={60}
             size="expand"
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            dataTestId="insurance_hero-image"
+            width={image?.file?.details.image.width}
+            height={image?.file?.details.image.height}
             src={image?.file?.url || ''}
+            alt="Hero Image"
             plain
-            className="hero--image"
           />
         </div>
       </Hero>

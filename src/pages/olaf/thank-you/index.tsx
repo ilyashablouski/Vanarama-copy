@@ -14,7 +14,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 
@@ -50,12 +50,14 @@ const ThankYouPage: NextPage = () => {
         <div className="row:features-4col">
           <Tile plain className="-align-center">
             <span>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              <ImageV2
+                size="large"
+                width={500}
+                height={325}
+                quality={60}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round
-                size="large"
               />
             </span>
             <span className="tile--link">
@@ -66,12 +68,14 @@ const ThankYouPage: NextPage = () => {
           </Tile>
           <Tile plain className="-align-center">
             <span>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              <ImageV2
+                size="large"
+                width={500}
+                height={325}
+                quality={60}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403419"
                 inline
                 round
-                size="large"
               />
             </span>
             <span className="tile--link">
@@ -82,12 +86,14 @@ const ThankYouPage: NextPage = () => {
           </Tile>
           <Tile plain className="-align-center">
             <span>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              <ImageV2
+                size="large"
+                width={500}
+                height={325}
+                quality={60}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403430"
                 inline
                 round
-                size="large"
               />
             </span>
             <span className="tile--link">
@@ -98,12 +104,14 @@ const ThankYouPage: NextPage = () => {
           </Tile>
           <Tile plain className="-align-center">
             <span>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              <ImageV2
+                size="large"
+                width={500}
+                height={325}
+                quality={60}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round
-                size="large"
               />
             </span>
             <span className="tile--link">
