@@ -6,16 +6,18 @@ import {
 } from '../../../generated/GetPrimaryHeaderData';
 import { Nullish } from '../../types/common';
 
-export function convertPromotionalImage(
-  promotionalImage: Nullish<
+export function convertPromoImageLink(
+  promoImageLink: Nullish<
     GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage
   >,
 ) {
   return {
-    url: promotionalImage?.legacyUrl || promotionalImage?.url || '',
+    url: promoImageLink?.legacyUrl || promoImageLink?.url || '',
     image: {
-      url: promotionalImage?.image?.[0]?.file?.url || '',
-      fileName: promotionalImage?.image?.[0]?.file?.fileName || '',
+      width: promoImageLink?.image?.[0]?.file?.details.image.width,
+      height: promoImageLink?.image?.[0]?.file?.details.image.height,
+      url: promoImageLink?.image?.[0]?.file?.url || '',
+      fileName: promoImageLink?.image?.[0]?.file?.fileName || '',
     },
   };
 }

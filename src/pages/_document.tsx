@@ -8,7 +8,6 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
-import { VWOScript } from '../components/VWOScript';
 import { CookieBarScript } from '../components/CookieBarScript';
 import Inline from '../components/Style/Inline';
 import { Env } from '../utils/env';
@@ -35,7 +34,6 @@ const isLocalEnv = process?.env?.LOCAL === 'true';
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
   blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
-  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 class MyDocument extends Document {
@@ -43,9 +41,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="preconnect" href="https://cdn.blueconic.net" />
-          <link rel="preconnect" href="https://plugins.blueconic.net" />
-          <link rel="preconnect" href="https://vanarama.blueconic.net" />
+          <link rel="preconnect" href="https://g562.vanarama.com" />
           {scriptEnvs.blueconic.includes(env) && (
             <script
               async
@@ -54,7 +50,6 @@ class MyDocument extends Document {
             />
           )}
           <CookieBarScript />
-          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}

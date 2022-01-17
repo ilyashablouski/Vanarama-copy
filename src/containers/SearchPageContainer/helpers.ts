@@ -25,6 +25,7 @@ import {
 } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arraysAreEqual } from '../../utils/helpers';
+import { IPartnerProperties } from '../../utils/partnerProperties';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -674,4 +675,52 @@ export const getValueFromStorage = (
     ? undefined
     : sessionStorage?.getItem(isCarSearch ? 'Car' : 'Vans');
   return value ? JSON.parse(value) : undefined;
+};
+
+export const getPartnershipTitle = (
+  partnerData: IPartnerProperties,
+  isCar: boolean,
+  isPickup?: boolean,
+) => {
+  switch (true) {
+    case isCar:
+      return (
+        partnerData.searchPageText?.carsTitle || partnerData.searchPageTitle
+      );
+    case isPickup:
+      return (
+        partnerData.searchPageText?.pickupsTitle || partnerData.searchPageTitle
+      );
+    case !isCar:
+      return (
+        partnerData.searchPageText?.vansTitle || partnerData.searchPageTitle
+      );
+    default:
+      return partnerData.searchPageTitle;
+  }
+};
+export const getPartnershipDescription = (
+  partnerData: IPartnerProperties,
+  isCar: boolean,
+  isPickup?: boolean,
+) => {
+  switch (true) {
+    case isCar:
+      return (
+        partnerData.searchPageText?.carsDescription ||
+        partnerData.searchPageDescription
+      );
+    case isPickup:
+      return (
+        partnerData.searchPageText?.pickupsDescription ||
+        partnerData.searchPageDescription
+      );
+    case !isCar:
+      return (
+        partnerData.searchPageText?.vansDescription ||
+        partnerData.searchPageDescription
+      );
+    default:
+      return partnerData.searchPageDescription;
+  }
 };

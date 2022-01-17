@@ -24,6 +24,12 @@ const query = gql`
             file {
               url
               fileName
+              details {
+                image {
+                  width
+                  height
+                }
+              }
             }
           }
         }
@@ -46,6 +52,12 @@ const query = gql`
               file {
                 url
                 fileName
+                details {
+                  image {
+                    width
+                    height
+                  }
+                }
               }
             }
           }

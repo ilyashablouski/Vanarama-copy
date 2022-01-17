@@ -28,10 +28,18 @@ import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeCho
 import Skeleton from '../../components/Skeleton';
 import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
 import Head from '../../components/Head/Head';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
+
+const JanuarySaleBanner = dynamic(
+  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
@@ -147,6 +155,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
+      {isJanSaleCampaignEnabled() && <JanuarySaleBanner className="-mb-500" />}
       {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (
@@ -161,6 +170,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_about-you"
             />
           )}
           {steps.bodyStyles.active && !!bodyStyleData?.length && (
@@ -168,6 +178,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_body-style"
             />
           )}
           {steps.fuelTypes.active && !!fuelTypesData?.length && (
@@ -175,6 +186,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_fuel-types"
             />
           )}
           {steps.transmissions.active && !!transmissionsData?.length && (
@@ -182,6 +194,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_transmissions"
             />
           )}
           {steps.terms.active && !!termsData?.length && (
@@ -189,6 +202,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_terms"
             />
           )}
           {steps.mileages.active && !!mileagesData?.length && (
@@ -196,6 +210,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_miles"
             />
           )}
           {steps.availability.active && !!availabilityData?.length && (
@@ -203,6 +218,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_availability"
             />
           )}
           {steps.rental.active && steps.initialPeriods.active && (
@@ -215,6 +231,7 @@ const HelpMeChoose: NextPage = () => {
               resultsData={resultsData}
               setResultsData={setResultsData}
               setPageOffset={setPageOffset}
+              dataUiTestId="help-me-choose_result"
             />
           )}
         </>

@@ -19,7 +19,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 
@@ -53,14 +53,14 @@ const PageNotFoundContainer: NextPage<IProps> = ({
         </Heading>
       </div>
       <div className="row:featured-left">
-        <div className="lazyload-wrapper">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            className="-white"
-            size="expand"
-            src={featured?.image?.file?.url || ''}
-          />
-        </div>
+        <ImageV2
+          lazyLoad={false}
+          className="-white"
+          width={featured?.image?.file?.details.image.width}
+          height={featured?.image?.file?.details.image.height}
+          src={featured?.image?.file?.url || ''}
+          size="expand"
+        />
         <div className="full-height">
           <ReactMarkdown
             allowDangerousHtml

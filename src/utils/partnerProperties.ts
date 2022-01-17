@@ -3,7 +3,11 @@ import router from 'next/router';
 import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
 import { Nullable, Nullish } from '../types/common';
-import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
+import {
+  Partner_partner_footer as IPartnerFooter,
+  Partner_partner_logo_file as IPartnerLogoFile,
+  Partner_partner_searchPageText as IPartnerSearchText,
+} from '../../generated/Partner';
 import { isBrowser } from './deviceType';
 
 export const PARTNER_COOKIE_NAME = 'activePartnership';
@@ -30,13 +34,11 @@ export interface IPartnerProperties {
   showPartnerLogo: Nullable<boolean>;
   searchPageDescription: string;
   searchPageTitle: string;
+  searchPageText: IPartnerSearchText;
 }
 export interface IPartnerPropertiesLogo {
   title: string | undefined;
-  file: IPartnerPropertiesLogoFile | null;
-}
-export interface IPartnerPropertiesLogoFile {
-  url: string;
+  file: IPartnerLogoFile | null;
 }
 
 export function isPartnerSessionActive() {

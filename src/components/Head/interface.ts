@@ -14,5 +14,6 @@ export interface IFeaturedImageFile {
 
 export interface IHeadProps {
   featuredImage?: IFeaturedImageFile | null;
+  paginatedPageNumber?: number | null;
   metaData: MetaData;
 }

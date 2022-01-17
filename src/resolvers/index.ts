@@ -17,6 +17,7 @@ import savePersonBankUuid from './mutation/savePersonBankUuid';
 import deleteStoredPerson from './mutation/deleteStoredPerson';
 import saveWishlistVehicleIds from './mutation/saveWishlistVehicleIds';
 import saveItemsToCompare from './mutation/saveItemsToCompare';
+import deletePersonUuid from './mutation/deletePersonUuid';
 
 export default {
   Query: {
@@ -40,5 +41,6 @@ export default {
     deleteStoredPerson,
     saveWishlistVehicleIds,
     saveItemsToCompare,
+    deletePersonUuid,
   },
 };

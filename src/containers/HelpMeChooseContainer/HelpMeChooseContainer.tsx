@@ -32,6 +32,7 @@ interface IHelpMeChooseContainer {
   clearMultiSelectTitle?: string;
   withIcons?: boolean;
   submitBtnText?: string;
+  dataUiTestId: string;
 }
 
 const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
@@ -44,6 +45,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
   clearMultiSelectTitle,
   withIcons,
   submitBtnText,
+  dataUiTestId,
 }) => {
   /** handler for multiselect */
   const handleChecked = (checked: IChoice) => {
@@ -80,11 +82,18 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
           color="black"
           size="xlarge"
           className="stepped-form--title"
+          dataUiTestId={`${dataUiTestId}-heading`}
         >
           {title}
         </Heading>
         {multiSelect && choicesValues.length !== 1 && (
-          <Text tag="p" size="regular" color="darker" className="-mb-100">
+          <Text
+            tag="p"
+            size="regular"
+            color="darker"
+            className="-mb-100"
+            dataUiTestId={`${dataUiTestId}-text`}
+          >
             Select As Many As You Like
           </Text>
         )}
@@ -101,6 +110,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
             onClearClick={() => setChoice([''])}
             withIcons={withIcons}
             currentValue={currentValue}
+            dataUiTestId={`${dataUiTestId}-choiceboxes`}
           />
         </div>
         <Button
@@ -114,6 +124,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
           size="large"
           onClick={onClickContinue}
           disabled={!currentValue?.length}
+          dataUiTestId={`${dataUiTestId}-submit`}
         />
       </div>
     </>

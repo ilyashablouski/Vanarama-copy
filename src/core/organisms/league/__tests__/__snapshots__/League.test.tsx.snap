@@ -6,15 +6,90 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <img
-        className="image--native"
-        data-cfasync="false"
-        loading="eager"
-        onError={[Function]}
-        sizes="(min-width:320px) 800px, 1200px"
-        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
-        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 1200w"
-      />
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "boxSizing": "border-box",
+              "display": "block",
+              "paddingTop": "29.655172413793103%",
+            }
+          }
+        />
+        <img
+          className="image--native"
+          data-nimg="responsive"
+          decoding="async"
+          onError={[Function]}
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            className="image--native"
+            data-nimg="responsive"
+            decoding="async"
+            loading="lazy"
+            onError={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": undefined,
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
     </div>
   </div>,
   <div>
@@ -31,7 +106,6 @@ Array [
       <a
         className="link -teal -regular -plain"
         href=""
-        onClick={[Function]}
       >
         Here
       </a>
@@ -39,15 +113,90 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <img
-        className="image--native"
-        data-cfasync="false"
-        loading="eager"
-        onError={[Function]}
-        sizes="(min-width:320px) 800px, 1200px"
-        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
-        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 1200w"
-      />
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "boxSizing": "border-box",
+              "display": "block",
+              "paddingTop": "100%",
+            }
+          }
+        />
+        <img
+          className="image--native"
+          data-nimg="responsive"
+          decoding="async"
+          onError={[Function]}
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            className="image--native"
+            data-nimg="responsive"
+            decoding="async"
+            loading="lazy"
+            onError={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": undefined,
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
     </div>
   </div>,
 ]
@@ -59,16 +208,92 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <img
-        alt="image1"
-        className="image--native"
-        data-cfasync="false"
-        loading="eager"
-        onError={[Function]}
-        sizes="(min-width:320px) 800px, 1200px"
-        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
-        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png 1200w"
-      />
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "boxSizing": "border-box",
+              "display": "block",
+              "paddingTop": "29.655172413793103%",
+            }
+          }
+        />
+        <img
+          alt="image1"
+          className="image--native"
+          data-nimg="responsive"
+          decoding="async"
+          onError={[Function]}
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt="image1"
+            className="image--native"
+            data-nimg="responsive"
+            decoding="async"
+            loading="lazy"
+            onError={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fnational-league.png&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": undefined,
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
     </div>
   </div>,
   <div>
@@ -85,7 +310,6 @@ Array [
       <a
         className="link -teal -regular -plain"
         href=""
-        onClick={[Function]}
       >
         Here
       </a>
@@ -93,16 +317,92 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <img
-        alt="image1"
-        className="image--native"
-        data-cfasync="false"
-        loading="eager"
-        onError={[Function]}
-        sizes="(min-width:320px) 800px, 1200px"
-        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
-        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png 1200w"
-      />
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "margin": 0,
+            "overflow": "hidden",
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "boxSizing": "border-box",
+              "display": "block",
+              "paddingTop": "100%",
+            }
+          }
+        />
+        <img
+          alt="image1"
+          className="image--native"
+          data-nimg="responsive"
+          decoding="async"
+          onError={[Function]}
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+        <noscript>
+          <img
+            alt="image1"
+            className="image--native"
+            data-nimg="responsive"
+            decoding="async"
+            loading="lazy"
+            onError={[Function]}
+            sizes="100vw"
+            src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=3840&q=75"
+            srcSet="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages-optimised%2Fhome%2Fleague-cup.png&w=3840&q=75 3840w"
+            style={
+              Object {
+                "border": "none",
+                "bottom": 0,
+                "boxSizing": "border-box",
+                "display": "block",
+                "height": 0,
+                "left": 0,
+                "margin": "auto",
+                "maxHeight": "100%",
+                "maxWidth": "100%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "objectFit": undefined,
+                "objectPosition": undefined,
+                "padding": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "width": 0,
+              }
+            }
+          />
+        </noscript>
+      </div>
     </div>
   </div>,
 ]

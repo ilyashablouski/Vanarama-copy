@@ -94,6 +94,7 @@ interface IHelpMeChooseResult extends HelpMeChooseStep {
   resultsData: Vehicles[];
   setResultsData: Dispatch<SetStateAction<Vehicles[]>>;
   setPageOffset: Dispatch<SetStateAction<number>>;
+  dataUiTestId: string;
 }
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
@@ -109,6 +110,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     resultsData,
     setResultsData,
     setPageOffset,
+    dataUiTestId,
   } = props;
   const getProducts = useImperativeQuery(HELP_ME_CHOOSE);
 
@@ -223,9 +225,18 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     <>
       <div className="row:stepped-form">
         <div className="stepped-form--filter">
-          <Heading tag="span" size="regular" color="black">
+          <Heading
+            tag="span"
+            size="regular"
+            color="black"
+            dataUiTestId={`${dataUiTestId}-heading`}
+          >
             Monthly Budget:
-            <Text color="orange" className="-b -ml-100">
+            <Text
+              color="orange"
+              className="-b -ml-100"
+              dataUiTestId={`${dataUiTestId}-text`}
+            >
               {rental === 0
                 ? `Above £550 PM ${stateVAT}.VAT`
                 : `Up To £${rental} PM ${stateVAT}.VAT`}
@@ -241,7 +252,12 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
             disabledFirstStep
           />
         </div>
-        <Heading tag="span" size="regular" color="black">
+        <Heading
+          tag="span"
+          size="regular"
+          color="black"
+          dataUiTestId={`${dataUiTestId}-heading-payment`}
+        >
           Initial Payment - No. Of Months
         </Heading>
         <Choiceboxes
@@ -255,15 +271,23 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
               el.value || '',
             );
           }}
+          dataUiTestId={`${dataUiTestId}-choiceboxes`}
         />
         <Heading
           tag="h1"
           color="black"
           size="xlarge"
           className="stepped-form--title -mb-100"
+          dataUiTestId={`${dataUiTestId}-heading-vehicles`}
         >
           {`We've Found `}
-          <Text tag="span" size="xlarge" color="orange" className="-b -mh-100">
+          <Text
+            tag="span"
+            size="xlarge"
+            color="orange"
+            className="-b -mh-100"
+            dataUiTestId={`${dataUiTestId}-text`}
+          >
             {vehiclesResultNumber}
           </Text>{' '}
           Vehicles
@@ -335,13 +359,24 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                           }}
                           className="heading"
                           classNames={{ size: 'large', color: 'black' }}
+                          dataUiTestId={`${dataUiTestId}-router-link`}
                         >
-                          <Heading tag="span" size="large" className="-pb-100">
+                          <Heading
+                            tag="span"
+                            size="large"
+                            className="-pb-100"
+                            dataUiTestId={`${dataUiTestId}-heading-manufacturer`}
+                          >
                             {truncateString(
                               `${el.manufacturerName} ${el.modelName}`,
                             )}
                           </Heading>
-                          <Heading tag="span" size="small" color="dark">
+                          <Heading
+                            tag="span"
+                            size="small"
+                            color="dark"
+                            dataUiTestId={`${dataUiTestId}-heading-derivative`}
+                          >
                             {el.derivativeName || ''}
                           </Heading>
                         </RouterLink>
@@ -358,6 +393,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                             ? 'Inc.VAT'
                             : 'Exc.VAT'
                         }`}
+                        dataUiTestId={`${dataUiTestId}-price`}
                       />
                       <RouterLink
                         link={{
@@ -383,6 +419,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                         }}
                         className="button"
                         dataTestId="view-offer"
+                        dataUiTestId={`${dataUiTestId}-router-link-view`}
                       >
                         <div className="button--inner">View Offer</div>
                       </RouterLink>
@@ -407,6 +444,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                   className="stepped-form--button"
                   type="button"
                   fill="clear"
+                  dataUiTestId={`${dataUiTestId}-load-more`}
                 />
               </div>
             )}
@@ -433,6 +471,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
             size="large"
             className="stepped-form--button"
             type="button"
+            dataUiTestId={`${dataUiTestId}-view-all`}
           />
           <Button
             color="primary"
@@ -443,6 +482,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
             size="large"
             className="stepped-form--button"
             type="button"
+            dataUiTestId={`${dataUiTestId}-search-again`}
           />
         </div>
       </div>

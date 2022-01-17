@@ -9,7 +9,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image/Image';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
@@ -30,8 +29,8 @@ import { CompareContext } from '../../utils/comparatorTool';
 import css from '!!raw-loader!../../../public/styles/pages/car-leasing.css';
 import {
   HubCarPageData,
-  HubCarPageDataVariables,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
+  HubCarPageDataVariables,
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
@@ -59,6 +58,7 @@ import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -82,6 +82,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 const getFuelType = (product: IProduct | null) =>
   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
@@ -100,12 +101,22 @@ export const CarsPage: NextPage<IProps> = ({
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
-  const titleTagText = data?.hubCarPage.sections?.leadText?.titleTag;
-  const headerText = data?.hubCarPage.sections?.leadText?.heading;
-  const descriptionText = data?.hubCarPage.sections?.leadText?.description;
-  const tiles = data?.hubCarPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.hubCarPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.hubCarPage.sections?.tiles?.titleTag;
+
+  const sections = data?.hubCarPage.sections;
+
+  const heroSection = sections?.hero;
+  const heroImage = heroSection?.image?.file;
+
+  const leadTextSection = sections?.leadText;
+  const titleTagText = leadTextSection?.titleTag;
+  const headerText = leadTextSection?.heading;
+  const descriptionText = leadTextSection?.description;
+
+  const tilesSection = sections?.tiles;
+  const tiles = tilesSection?.tiles;
+  const tilesTitle = tilesSection?.tilesTitle;
+  const tilesTitleTag = tilesSection?.titleTag;
+
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(
@@ -126,12 +137,6 @@ export const CarsPage: NextPage<IProps> = ({
     { label: 'Business', value: 'Business', active: !isPersonal },
   ];
 
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
-
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
     data?.hubCarPage.sections,
@@ -148,45 +153,51 @@ export const CarsPage: NextPage<IProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      <Hero
-        searchPodCarsData={searchPodCarsData}
-        smallPrint={freeInsuranceSmallPrint}
-        customCTALink="/car-leasing/free-car-insurance"
-      >
-        <div className="nlol nlol-free-insurance">
-          <p>Find Your New Lease Of Life</p>
-          <h2>1 Year&apos;s FREE Insurance</h2>
-          <p>On Car Hot Offers</p>
-        </div>
-        <div>
-          <Image
-            lazyLoad
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              data?.hubCarPage.sections?.hero?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-            }
-          />
-        </div>
-        {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={
-              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={
-              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-            }
-            text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
-          />
-        )}
-      </Hero>
+      {isJanSaleCampaignEnabled() ? (
+        <HeroJanSale searchPodCarsData={searchPodCarsData} variant="cars" />
+      ) : (
+        <Hero
+          searchPodCarsData={searchPodCarsData}
+          smallPrint={freeInsuranceSmallPrint}
+          customCTALink="/car-leasing/free-car-insurance"
+        >
+          <div className="nlol nlol-free-insurance">
+            <p>Find Your New Lease Of Life</p>
+            <h2>1 Year&apos;s FREE Insurance</h2>
+            <p>On Car Hot Offers</p>
+          </div>
+          <div>
+            <ImageV2
+              plain
+              quality={60}
+              size="expand"
+              lazyLoad={false}
+              className="hero--image -pt-000"
+              width={heroImage?.details.image.width ?? 695}
+              height={heroImage?.details.image.height ?? 359}
+              src={
+                heroImage?.url ||
+                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+              }
+            />
+          </div>
+          {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={
+                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
+                ''
+              }
+              url={
+                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+              }
+              text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={
+                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+              }
+            />
+          )}
+        </Hero>
+      )}
 
       <HeadingSection
         titleTag={titleTagText}
@@ -581,11 +592,9 @@ export async function getServerSideProps(
       client,
     );
 
-    const data = encodeData(hubCarPage);
-
     return {
       props: {
-        data,
+        data: encodeData(hubCarPage),
         searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),

@@ -15,22 +15,27 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
     <section
       class="row:featured-right"
     >
-      <div>
+      <div
+        class="image -expand"
+      >
         <div
-          class="image -expand"
+          style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
         >
-          <img
-            alt="gymarama.jpg"
-            class="image--native"
-            data-cfasync="false"
-            loading="eager"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 1200w"
+          <div
+            style="display: block; box-sizing: border-box; padding-top: 100%;"
           />
+          <img
+            alt="Welcome To Vanarama Smiles"
+            class="image--native"
+            data-nimg="responsive"
+            decoding="async"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+          />
+          <noscript />
         </div>
       </div>
-      <div>
+      <article>
         <h2
           class="heading -black -lead"
         >
@@ -41,7 +46,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
         >
           As a thank you, we're giving Vanarama customers exclusive access to our rewards scheme. When you lease with us you'll earn Smiles to enjoy some of the very best offers, discounts and free gifts.
         </p>
-      </div>
+      </article>
     </section>
     <section
       class="row:bg-light"
@@ -218,7 +223,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
     <section
       class="row:featured-right"
     >
-      <div>
+      <article>
         <h2
           class="heading -black -lead"
         >
@@ -229,7 +234,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
         >
           Due to the Covid-19 outbreak, earning and spending Smiles points on certain rewards is now temporarily on hold. We are sorry for any inconvenience this may cause. We are working hard behind the scenes to source some of the best in-home offers for you during this difficult time. To view these offers, simply visit the My Offers page on vanaramasmiles.co.uk
         </p>
-      </div>
+      </article>
     </section>
   </div>
 </body>
