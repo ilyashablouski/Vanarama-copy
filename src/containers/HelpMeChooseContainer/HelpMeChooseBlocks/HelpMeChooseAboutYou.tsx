@@ -7,10 +7,11 @@ export interface HelpMeChooseStep {
   steps: IInitStep;
   helpMeChooseData: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
+  dataUiTestId: string;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { steps, setLoadingStatus } = props;
+  const { steps, setLoadingStatus, dataUiTestId } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string[]>(
     steps.financeTypes.value as string[],
@@ -42,6 +43,7 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
         setQuery(router, query);
       }}
       currentValue={financeTypesValue}
+      dataUiTestId={dataUiTestId}
     />
   );
 };
