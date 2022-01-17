@@ -57,6 +57,15 @@ export interface GenericPageQuery_genericPage_sections_leadText {
   link: GenericPageQuery_genericPage_sections_leadText_link | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_iconBullets_iconBullets {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_iconBullets {
+  title: string | null;
+  iconBullets: (GenericPageQuery_genericPage_sections_iconBullets_iconBullets | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_iconBullets1_iconBullets {
   text: string | null;
 }
@@ -717,6 +726,7 @@ export interface GenericPageQuery_genericPage_sections_steps {
 
 export interface GenericPageQuery_genericPage_sections {
   leadText: GenericPageQuery_genericPage_sections_leadText | null;
+  iconBullets: GenericPageQuery_genericPage_sections_iconBullets | null;
   iconBullets1: GenericPageQuery_genericPage_sections_iconBullets1 | null;
   iconBullets2: GenericPageQuery_genericPage_sections_iconBullets2 | null;
   faqs: GenericPageQuery_genericPage_sections_faqs | null;
@@ -1038,14 +1048,13 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details {
-  size: number;
   image: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details_image;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
   details: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details;
 }
 

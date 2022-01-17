@@ -10,7 +10,7 @@ import Skeleton from '../../components/Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -23,20 +23,21 @@ interface IFeatured {
 
 export const FeaturedHtml: React.FC<IFeatured> = ({ featured }) => {
   const featuredClass = getFeaturedClassPartial(featured);
+  const featuredImage = featured?.image?.file;
+
   return (
     <>
       {featured && (
         <section className={`row:${featuredClass}`}>
-          {featured.image?.file?.url && (
-            <div>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={featured.image?.file?.url}
-                alt={featured.image?.file?.fileName}
-              />
-            </div>
+          {featuredImage?.url && (
+            <ImageV2
+              width={featuredImage?.details.image.width}
+              height={featuredImage?.details.image.height}
+              src={featuredImage?.url ?? ''}
+              alt={featured.title ?? ''}
+            />
           )}
-          <div>
+          <article>
             <Heading
               color="black"
               size="lead"
@@ -67,7 +68,7 @@ export const FeaturedHtml: React.FC<IFeatured> = ({ featured }) => {
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </div>
+          </article>
         </section>
       )}
     </>

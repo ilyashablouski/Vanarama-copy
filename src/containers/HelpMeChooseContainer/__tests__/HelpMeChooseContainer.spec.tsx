@@ -24,6 +24,7 @@ describe('<HelpMeChooseContainer />', () => {
       currentValue: [],
       onClickContinue: jest.fn(),
       clearMultiSelectTitle: "I Don't Mind",
+      dataUiTestId: 'test-ui-id',
     });
 
     expect(tree).toMatchSnapshot();
@@ -41,6 +42,7 @@ describe('<HelpMeChooseContainer />', () => {
       currentValue: ['Petrol'],
       onClickContinue: jest.fn(),
       clearMultiSelectTitle: "I Don't Mind",
+      dataUiTestId: 'test-ui-id',
     });
 
     expect(tree).toMatchSnapshot();
@@ -60,6 +62,7 @@ describe('<HelpMeChooseContainer />', () => {
         currentValue={['Petrol']}
         onClickContinue={jest.fn()}
         clearMultiSelectTitle="I Don't Mind"
+        dataUiTestId="test-ui-id"
       />,
     );
     fireEvent.click(screen.getByText('Diesel'));
@@ -80,6 +83,7 @@ describe('<HelpMeChooseContainer />', () => {
         currentValue={[]}
         onClickContinue={jest.fn()}
         clearMultiSelectTitle="I Don't Mind"
+        dataUiTestId="test-ui-id-2"
       />,
     );
     fireEvent.click(screen.getByText('Diesel'));
@@ -100,6 +104,7 @@ describe('<HelpMeChooseContainer />', () => {
         currentValue={[]}
         onClickContinue={jest.fn()}
         clearMultiSelectTitle="I Don't Mind"
+        dataUiTestId="test-ui-id-3"
       />,
     );
     fireEvent.click(screen.getByText('Diesel'));
@@ -120,6 +125,7 @@ describe('<HelpMeChooseContainer />', () => {
         currentValue={['Petrol']}
         onClickContinue={jest.fn()}
         clearMultiSelectTitle="I Don't Mind"
+        dataUiTestId="test-ui-id-4"
       />,
     );
     fireEvent.click(screen.getByText('Petrol'));
@@ -140,6 +146,7 @@ describe('<HelpMeChooseContainer />', () => {
         currentValue={['Petrol']}
         onClickContinue={jest.fn()}
         clearMultiSelectTitle="I Don't Mind"
+        dataUiTestId="test-ui-id-5"
       />,
     );
     fireEvent.click(screen.getByText("I Don't Mind"));

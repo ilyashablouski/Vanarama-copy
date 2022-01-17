@@ -11,6 +11,7 @@ import {
   SavePersonUuid,
   SavePersonUuidVariables,
 } from '../../generated/SavePersonUuid';
+import { DeletePersonUuid } from '../../generated/DeletePersonUuid';
 
 export const GET_STORED_PERSON_UUID_QUERY = gql`
   query GetStoredPersonUuid {
@@ -21,6 +22,12 @@ export const GET_STORED_PERSON_UUID_QUERY = gql`
 export const SAVE_PERSON_UUID_MUTATION = gql`
   mutation SavePersonUuid($uuid: ID) {
     savePersonUuid(uuid: $uuid) @client
+  }
+`;
+
+export const DELETE_PERSON_UUID_MUTATION = gql`
+  mutation DeletePersonUuid {
+    deletePersonUuid @client
   }
 `;
 
@@ -48,4 +55,14 @@ export function getStoredPersonUuid(
     })
     .then(operation => operation.data?.storedPersonUuid)
     .catch(() => null);
+}
+
+export function useDeletePersonUuidMutation(
+  onCompleted?: (mutationResult: DeletePersonUuid) => void,
+  onError?: (error: ApolloError) => void,
+) {
+  return useMutation(DELETE_PERSON_UUID_MUTATION, {
+    onCompleted,
+    onError,
+  });
 }

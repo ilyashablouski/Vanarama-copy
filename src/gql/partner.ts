@@ -1,9 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import { gql, useQuery } from '@apollo/client';
+
 import { Partner, PartnerVariables } from '../../generated/Partner';
+import { IMAGE_FILE_FRAGMENT } from './image';
+
 import FeaturedSection from '../components/FeaturedSection';
 
 export const PARTNER = gql`
+  ${IMAGE_FILE_FRAGMENT}
   query Partner($slug: String!, $isPreview: Boolean) {
     partner(slug: $slug, isPreview: $isPreview) {
       customerSovereignty
@@ -13,7 +17,7 @@ export const PARTNER = gql`
       logo {
         title
         file {
-          url
+          ...imageFile
         }
       }
       fuelTypes
@@ -28,7 +32,7 @@ export const PARTNER = gql`
         body
         image {
           file {
-            url
+            ...imageFile
           }
         }
       }

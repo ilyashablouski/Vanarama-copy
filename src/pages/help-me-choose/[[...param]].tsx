@@ -170,6 +170,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_about-you"
             />
           )}
           {steps.bodyStyles.active && !!bodyStyleData?.length && (
@@ -177,6 +178,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_body-style"
             />
           )}
           {steps.fuelTypes.active && !!fuelTypesData?.length && (
@@ -184,6 +186,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_fuel-types"
             />
           )}
           {steps.transmissions.active && !!transmissionsData?.length && (
@@ -191,6 +194,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_transmissions"
             />
           )}
           {steps.terms.active && !!termsData?.length && (
@@ -198,6 +202,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_terms"
             />
           )}
           {steps.mileages.active && !!mileagesData?.length && (
@@ -205,6 +210,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_miles"
             />
           )}
           {steps.availability.active && !!availabilityData?.length && (
@@ -212,6 +218,7 @@ const HelpMeChoose: NextPage = () => {
               steps={steps}
               helpMeChooseData={helpMeChooseData}
               setLoadingStatus={setLoadingStatus}
+              dataUiTestId="help-me-choose_availability"
             />
           )}
           {steps.rental.active && steps.initialPeriods.active && (
@@ -224,6 +231,7 @@ const HelpMeChoose: NextPage = () => {
               resultsData={resultsData}
               setResultsData={setResultsData}
               setPageOffset={setPageOffset}
+              dataUiTestId="help-me-choose_result"
             />
           )}
         </>

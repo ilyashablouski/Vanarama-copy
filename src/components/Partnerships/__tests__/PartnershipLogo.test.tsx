@@ -10,7 +10,15 @@ describe('PartnershipLogo', () => {
     render(
       <PartnershipLogo
         title="In partnership with"
-        logo="https://via.placeholder.com/300x90.png"
+        logo={{
+          url: 'https://via.placeholder.com/300x90.png',
+          details: {
+            image: {
+              width: 100,
+              height: 100,
+            },
+          },
+        }}
       />,
     );
   });
