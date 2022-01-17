@@ -29,8 +29,18 @@ export interface HubPickupPageData_hubPickupPage_featuredImage {
   file: HubPickupPageData_hubPickupPage_featuredImage_file | null;
 }
 
+export interface HubPickupPageData_hubPickupPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubPickupPageData_hubPickupPage_sections_hero_image_file_details {
+  image: HubPickupPageData_hubPickupPage_sections_hero_image_file_details_image;
+}
+
 export interface HubPickupPageData_hubPickupPage_sections_hero_image_file {
   url: string;
+  details: HubPickupPageData_hubPickupPage_sections_hero_image_file_details;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_hero_image {

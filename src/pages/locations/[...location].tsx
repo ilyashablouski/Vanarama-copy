@@ -23,7 +23,6 @@ import { getFeaturedClassPartial } from '../../utils/layout';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage_sections_hero as IHero,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import {
@@ -55,7 +54,7 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={1} />,
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
@@ -92,7 +91,9 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
     },
   );
 
-  const hero: IHero = getSectionsData(['sections', 'hero'], data.genericPage);
+  const heroSection = data.genericPage.sections?.hero;
+  const heroImage = heroSection?.image?.file;
+
   const leadText = getSectionsData(['sections', 'leadText'], data.genericPage);
   const featured = getSectionsData(['sections', 'featured1'], data.genericPage);
   const featured1 = getSectionsData(
@@ -108,81 +109,78 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
 
   return (
     <>
-      {hero && (
+      {heroSection && (
         <Hero backgroundUrl={HERO_BACKGROUND_URL}>
           <div className="hero--left">
             <Heading size="xlarge" color="inherit" tag="h1">
-              {hero.title}
+              {heroSection.title}
             </Heading>
             <Text size="large" color="inherit" tag="p">
-              {hero.body}
+              {heroSection.body}
             </Text>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              className="hero--image"
+            <ImageV2
               plain
+              quality={60}
+              lazyLoad={false}
+              className="hero--image -pt-000"
+              width={heroImage?.details.image.width ?? 695}
+              height={heroImage?.details.image.height ?? 359}
               src={
-                hero.image?.file?.url ||
+                heroImage?.url ||
                 'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
               }
             />
           </div>
           <div className="hero--right">
-            {hero.heroCard &&
-              hero.heroCard.map(el => (
-                <Card
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  className="hero-card"
-                >
-                  <div className="hero-card--inner">
-                    <Heading tag="span" color="black" size="small">
-                      {el?.title}
-                    </Heading>
-                    {el?.body ? (
-                      <ReactMarkdown
-                        allowDangerousHtml
-                        source={el?.body || ''}
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink link={{ href, label: children }} />
-                            );
-                          },
-                          heading: props => (
-                            <Text
-                              {...props}
-                              size="lead"
-                              color="black"
-                              tag="h3"
-                            />
-                          ),
-                          paragraph: props => (
-                            <Text {...props} tag="p" color="black" />
-                          ),
-                        }}
+            {heroSection.heroCard?.map(el => (
+              <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                className="hero-card"
+              >
+                <div className="hero-card--inner">
+                  <Heading tag="span" color="black" size="small">
+                    {el?.title}
+                  </Heading>
+                  {el?.body ? (
+                    <ReactMarkdown
+                      allowDangerousHtml
+                      source={el?.body || ''}
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                        heading: props => (
+                          <Text {...props} size="lead" color="black" tag="h3" />
+                        ),
+                        paragraph: props => (
+                          <Text {...props} tag="p" color="black" />
+                        ),
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <Button
+                        color="teal"
+                        size="regular"
+                        fill="solid"
+                        label="Call 07771 501507"
+                        className="-fullwidth"
                       />
-                    ) : (
-                      <>
-                        <Button
-                          color="teal"
-                          size="regular"
-                          fill="solid"
-                          label="Call 07771 501507"
-                          className="-fullwidth"
-                        />
-                        <Button
-                          color="teal"
-                          size="regular"
-                          fill="outline"
-                          label="Get A Quote"
-                          className="-fullwidth"
-                        />
-                      </>
-                    )}
-                  </div>
-                </Card>
-              ))}
+                      <Button
+                        color="teal"
+                        size="regular"
+                        fill="outline"
+                        label="Get A Quote"
+                        className="-fullwidth"
+                      />
+                    </>
+                  )}
+                </div>
+              </Card>
+            ))}
           </div>
           <LogoMarkIcon />
         </Hero>
