@@ -6,7 +6,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image/Image';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import createApolloClient from '../../apolloClient';
@@ -131,23 +130,22 @@ export const VansPage: NextPage<IProps> = ({
     data?.hubVanPage.sections,
   );
 
+  const heroSection = data?.hubVanPage.sections?.hero;
+  const heroImage = heroSection?.image?.file;
+  const heroLabel = heroSection?.heroLabel?.[0];
+
+  const tilesSection = data?.hubVanPage.sections?.tiles;
+  const tiles = tilesSection?.tiles;
+  const tilesTitle = tilesSection?.tilesTitle;
+  const tilesTitleTag = tilesSection?.titleTag;
+
+  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
     offer?.capId,
   );
-  const tiles = data?.hubVanPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.hubVanPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.hubVanPage.sections?.tiles?.titleTag;
-
-  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
   const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
-
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
 
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
@@ -170,34 +168,26 @@ export const VansPage: NextPage<IProps> = ({
             <p>With Vanarama</p>
           </div>
           <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
+            <ImageV2
               plain
+              quality={60}
               size="expand"
+              lazyLoad={false}
+              className="hero--image -pt-000"
+              width={heroImage?.details.image.width ?? 1710}
+              height={heroImage?.details.image.height ?? 1278}
               src={
-                getSectionsData(
-                  ['hero', 'image', 'file', 'url'],
-                  data?.hubVanPage.sections,
-                ) ||
+                heroImage?.url ||
                 'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
               }
             />
           </div>
-          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          {heroLabel?.visible && (
             <HeroPrompt
-              label={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-                ''
-              }
-              url={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-              }
-              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-              }
+              label={heroLabel?.link?.text || ''}
+              url={heroLabel?.link?.url || ''}
+              text={heroLabel?.text || ''}
+              btnVisible={heroLabel?.link?.visible}
             />
           )}
         </Hero>
