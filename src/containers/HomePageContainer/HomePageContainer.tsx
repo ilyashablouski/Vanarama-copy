@@ -409,6 +409,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ) : (
               <ImageV2
+                quality={60}
                 objectFit="cover"
                 width={imageFeatured1?.details.image.width ?? 1000}
                 height={imageFeatured1?.details.image.height ?? 650}
@@ -438,6 +439,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ) : (
               <ImageV2
+                quality={60}
                 objectFit="cover"
                 width={imageFeatured2?.details.image.width ?? 1000}
                 height={imageFeatured2?.details.image.height ?? 650}

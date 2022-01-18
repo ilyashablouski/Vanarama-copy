@@ -28,7 +28,7 @@ const LevcHeroBanner: React.FC<IProps> = ({
         />
       </div>
       <ColoredSection className="colored-section" backgroundColor={accentColor}>
-        <ImageV2 className="levc-logo" src={logoUrl} plain />
+        <ImageV2 sizes="30vw" className="levc-logo" src={logoUrl} plain />
       </ColoredSection>
     </>
   );

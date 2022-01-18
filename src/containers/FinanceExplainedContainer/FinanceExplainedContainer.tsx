@@ -155,6 +155,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
           </div>
           {featured1Image?.url && (
             <ImageV2
+              quality={60}
               width={featured1Image?.details.image.width}
               height={featured1Image?.details.image.height}
               src={featured1Image?.url}

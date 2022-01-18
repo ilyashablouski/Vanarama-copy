@@ -47,7 +47,7 @@ const HomePageHero: React.FC<IHomePageHero> = ({
           src={heroImage?.url || ''}
           lazyLoad={false}
           size="expand"
-          quality={60}
+          quality={70}
           plain
         />
       </div>

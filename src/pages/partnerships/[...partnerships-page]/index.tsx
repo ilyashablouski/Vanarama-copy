@@ -210,7 +210,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         />
         <div>
           <ImageV2
-            quality={60}
+            quality={70}
             size="expand"
             lazyLoad={false}
             className="hero--image -pt-000"

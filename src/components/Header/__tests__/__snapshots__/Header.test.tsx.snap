@@ -2296,6 +2296,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -2342,6 +2347,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -2376,19 +2386,101 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -2407,6 +2499,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -2436,6 +2533,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"
@@ -2499,6 +2601,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -2545,6 +2652,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -2579,19 +2691,101 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -2610,6 +2804,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -2639,6 +2838,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"
@@ -2702,6 +2906,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -2748,6 +2957,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -2782,19 +2996,101 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -2813,6 +3109,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -2842,6 +3143,11 @@ exports[`<Header /> renders correctly 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"
@@ -5253,6 +5559,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -5299,6 +5610,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -5333,19 +5649,101 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -5364,6 +5762,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -5393,6 +5796,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"
@@ -5456,6 +5864,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -5502,6 +5915,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -5536,19 +5954,101 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -5567,6 +6067,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -5596,6 +6101,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"
@@ -5659,6 +6169,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="1em"
@@ -5705,6 +6220,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="25"
@@ -5739,19 +6259,101 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": 61,
+                  }
+                }
               >
                 <div
                   className="image -expand -plain"
                 >
-                  <img
-                    className="image--native"
-                    data-cfasync="false"
-                    loading="eager"
-                    onError={[Function]}
-                    sizes="(min-width:320px) 800px, 1200px"
-                    src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                    srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                  />
+                  <div
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "display": "block",
+                        "margin": 0,
+                        "overflow": "hidden",
+                        "position": "relative",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "paddingTop": "41.02564102564102%",
+                        }
+                      }
+                    />
+                    <img
+                      alt="Trust pilot logo"
+                      className="image--native"
+                      data-nimg="responsive"
+                      decoding="async"
+                      onError={[Function]}
+                      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                      style={
+                        Object {
+                          "border": "none",
+                          "bottom": 0,
+                          "boxSizing": "border-box",
+                          "display": "block",
+                          "height": 0,
+                          "left": 0,
+                          "margin": "auto",
+                          "maxHeight": "100%",
+                          "maxWidth": "100%",
+                          "minHeight": "100%",
+                          "minWidth": "100%",
+                          "objectFit": undefined,
+                          "objectPosition": undefined,
+                          "padding": 0,
+                          "position": "absolute",
+                          "right": 0,
+                          "top": 0,
+                          "width": 0,
+                        }
+                      }
+                    />
+                    <noscript>
+                      <img
+                        alt="Trust pilot logo"
+                        className="image--native"
+                        data-nimg="responsive"
+                        decoding="async"
+                        loading="lazy"
+                        onError={[Function]}
+                        sizes="20vw"
+                        src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                        srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                        style={
+                          Object {
+                            "border": "none",
+                            "bottom": 0,
+                            "boxSizing": "border-box",
+                            "display": "block",
+                            "height": 0,
+                            "left": 0,
+                            "margin": "auto",
+                            "maxHeight": "100%",
+                            "maxWidth": "100%",
+                            "minHeight": "100%",
+                            "minWidth": "100%",
+                            "objectFit": undefined,
+                            "objectPosition": undefined,
+                            "padding": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                            "width": 0,
+                          }
+                        }
+                      />
+                    </noscript>
+                  </div>
                 </div>
               </i>
               <span
@@ -5770,6 +6372,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="24"
@@ -5799,6 +6406,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             >
               <i
                 className="icon benefits-bar__icon -lead"
+                style={
+                  Object {
+                    "width": undefined,
+                  }
+                }
               >
                 <svg
                   height="38"

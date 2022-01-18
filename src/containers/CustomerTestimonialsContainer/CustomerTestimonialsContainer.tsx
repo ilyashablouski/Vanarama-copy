@@ -142,6 +142,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
               {!!tile.image?.file?.url && (
                 <div>
                   <ImageV2
+                    quality={60}
                     width={tile.image?.file.details.image.width}
                     height={tile.image?.file.details.image.height}
                     src={tile.image?.file?.url || ''}

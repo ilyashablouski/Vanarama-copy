@@ -169,7 +169,7 @@ export const CarsPage: NextPage<IProps> = ({
           <div>
             <ImageV2
               plain
-              quality={60}
+              quality={70}
               size="expand"
               lazyLoad={false}
               className="hero--image -pt-000"
@@ -211,6 +211,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
               size="expand"
               plain
@@ -238,6 +239,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
               size="expand"
               plain
@@ -436,6 +438,7 @@ export const CarsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured1?.details.image.width ?? 1000}
             height={imageFeatured1?.details.image.height ?? 650}
@@ -494,6 +497,7 @@ export const CarsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured2?.details.image.width ?? 1000}
             height={imageFeatured2?.details.image.height ?? 650}

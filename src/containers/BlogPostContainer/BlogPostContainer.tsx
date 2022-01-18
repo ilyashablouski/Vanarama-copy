@@ -121,6 +121,7 @@ const BlogPostContainer: NextPage<IProps> = ({
         <div className="row:featured-image">
           {image && (
             <ImageV2
+              quality={70}
               lazyLoad={false}
               className="-white"
               size="expand"

@@ -259,9 +259,9 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       </div>
       {featured && (
         <div className="row:featured-left">
-          {/* using this class for prevent major layout shifts */}
           <div className="blog-top-image">
             <ImageV2
+              quality={70}
               lazyLoad={false}
               width={featured?.image?.file?.details.image.width}
               height={featured?.image?.file?.details.image.height}
