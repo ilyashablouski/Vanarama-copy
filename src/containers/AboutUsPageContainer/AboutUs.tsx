@@ -133,7 +133,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ data }) => {
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
             <ImageV2
-              quality={60}
+              quality={70}
               lazyLoad={false}
               src={featuredImage.file.url}
               alt="About Vanarama"

@@ -200,7 +200,7 @@ export const EVHubPage: NextPage<IProps> = ({
           <div className="hero--right">
             <ImageV2
               plain
-              quality={60}
+              quality={70}
               size="expand"
               lazyLoad={false}
               className="hero--image -pt-000"

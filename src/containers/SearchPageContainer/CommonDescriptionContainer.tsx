@@ -30,7 +30,7 @@ const CommonDescriptionContainer = memo(
       <section className="row:featured-right">
         {featuredImage?.url && (
           <ImageV2
-            quality={60}
+            quality={70}
             lazyLoad={false}
             width={featuredImage.details.image.width}
             height={featuredImage.details.image.height}

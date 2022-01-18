@@ -32,7 +32,7 @@ const HeroSection: React.FC<IProps> = ({ title, body, image, heroLabel }) => {
           dataTestId="fleet_hero-image"
           lazyLoad={false}
           size="expand"
-          quality={60}
+          quality={70}
           plain
         />
       </div>

@@ -51,7 +51,7 @@ const WhyLeaseWithVanaramaTiles = ({
             <ImageV2
               inline
               round
-              quality={70}
+              quality={60}
               sizes="50vw"
               width="100"
               height="100"

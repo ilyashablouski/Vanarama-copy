@@ -16,6 +16,8 @@ const League: FC<ILeagueProps> = memo(props => {
     <>
       <div>
         <ImageV2
+          sizes="50vw"
+          quality={60}
           width={290}
           height={86}
           src={`${baseImageUrl}/national-league.png`}
@@ -35,6 +37,8 @@ const League: FC<ILeagueProps> = memo(props => {
           </Link>
         </Text>
         <ImageV2
+          sizes="30vw"
+          quality={60}
           width={206}
           height={206}
           src={`${baseImageUrl}/league-cup.png`}

@@ -120,7 +120,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
             </Text>
             <ImageV2
               plain
-              quality={60}
+              quality={70}
               lazyLoad={false}
               className="hero--image -pt-000"
               width={heroImage?.details.image.width ?? 695}

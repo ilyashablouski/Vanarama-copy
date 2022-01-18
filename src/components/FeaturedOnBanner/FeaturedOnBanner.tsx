@@ -81,7 +81,7 @@ const FeaturedOnBanner = () => (
           <ImageV2
             key={alt}
             sizes="30vw"
-            quality={70}
+            quality={60}
             width={width}
             height={height}
             src={src}

@@ -94,6 +94,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
             <ImageV2
+              quality={70}
               lazyLoad={false}
               src={featuredImageUrl}
               className="-white"

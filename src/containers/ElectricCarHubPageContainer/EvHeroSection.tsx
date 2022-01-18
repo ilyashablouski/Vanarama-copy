@@ -47,7 +47,7 @@ const EvHeroSection: FC<IProps> = ({ sectionsAsArray, searchPodCarsData }) => {
         />
         <ImageV2
           plain
-          quality={60}
+          quality={70}
           size="expand"
           lazyLoad={false}
           className="electric-hero--image"
