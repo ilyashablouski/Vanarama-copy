@@ -46,6 +46,7 @@ const HomePageHero: React.FC<IHomePageHero> = ({
           height={heroImage?.details.image.height}
           src={heroImage?.url || ''}
           lazyLoad={false}
+          optimisedHost
           size="expand"
           quality={70}
           plain

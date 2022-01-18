@@ -27,6 +27,7 @@ function FeaturedMedia({ featuredImage, featuredVideoUrl }: IProps) {
     return (
       <ImageV2
         quality={60}
+        optimisedHost
         lazyLoad={false}
         objectFit="cover"
         width={featuredImage.details.image.width}

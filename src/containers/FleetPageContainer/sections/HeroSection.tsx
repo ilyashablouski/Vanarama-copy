@@ -31,6 +31,7 @@ const HeroSection: React.FC<IProps> = ({ title, body, image, heroLabel }) => {
           src={image?.file?.url || config.heroImage.src}
           dataTestId="fleet_hero-image"
           lazyLoad={false}
+          optimisedHost
           size="expand"
           quality={70}
           plain

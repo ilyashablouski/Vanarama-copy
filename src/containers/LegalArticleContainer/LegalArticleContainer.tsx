@@ -53,6 +53,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
           {image && (
             <ImageV2
               quality={70}
+              optimisedHost
               lazyLoad={false}
               className="-white"
               size="expand"

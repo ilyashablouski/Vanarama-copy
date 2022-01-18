@@ -29,6 +29,7 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
             plain
             quality={70}
             size="expand"
+            optimisedHost
             lazyLoad={false}
             className="hero--image -pt-000"
             width={heroImage?.details.image.width ?? 1710}

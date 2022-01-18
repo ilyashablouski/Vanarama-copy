@@ -82,6 +82,7 @@ const VehicleReviewContainer: FC<IProps> = ({
               <TabPanel index={0}>
                 <ImageV2
                   quality={70}
+                  optimisedHost
                   lazyLoad={false}
                   width={vehicleImage?.details.image.width}
                   height={vehicleImage?.details.image.height}

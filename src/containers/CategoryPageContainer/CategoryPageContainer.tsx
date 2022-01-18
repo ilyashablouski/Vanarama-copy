@@ -262,6 +262,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <div className="blog-top-image">
             <ImageV2
               quality={70}
+              optimisedHost
               lazyLoad={false}
               width={featured?.image?.file?.details.image.width}
               height={featured?.image?.file?.details.image.height}

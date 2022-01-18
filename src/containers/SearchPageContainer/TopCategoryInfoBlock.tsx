@@ -84,6 +84,7 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
       </div>
       <ImageV2
         quality={70}
+        optimisedHost
         lazyLoad={false}
         className="card-image"
         width={imageFile?.details.image.width}

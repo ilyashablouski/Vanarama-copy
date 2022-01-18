@@ -58,6 +58,7 @@ const InsuranceHeroSection = ({
         src={image?.file?.url || config.heroImage.src}
         dataTestId="insurance_hero-image"
         lazyLoad={false}
+        optimisedHost
         size="expand"
         quality={70}
         plain
