@@ -4,6 +4,7 @@ import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -168,7 +169,12 @@ export const OffersPage: NextPage<IProps> = ({
                 href: '/car-leasing/free-car-insurance.html',
               }}
             >
-              <div className="free-insurance-background">
+              <div className="free-insurance-wrapper">
+                <ImageV2
+                  src={`${process.env.HOST_DOMAIN}/freeInsuranceBanner.png`}
+                  plain
+                  className="free-insurance-image"
+                />
                 <div className="free-insurance-text-container">
                   <Text color="dark" size="xsmall">
                     *

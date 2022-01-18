@@ -113,6 +113,27 @@
       --page-gap: calc(var(--layout-gap) * 2);
     }
 
+    .deranged-hero-wrapper {
+      height: 732px;
+      grid-column: full;
+      position: absolute;
+      width: 100%;
+      z-index: 5;
+      top: 173px;
+      overflow: hidden;
+
+      @media (max-width: 1215px) {
+        top: 144px;
+      }
+
+      .deranged-hero-image {
+        position: absolute;
+        top: 85px;
+        transform: scale(1.3);
+        height: 563px;
+      }
+    }
+
     .full-screen-image {
       grid-column: full;
       overflow: hidden;

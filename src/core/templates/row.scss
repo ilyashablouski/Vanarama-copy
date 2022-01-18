@@ -687,18 +687,6 @@
         }
       }
 
-      &.-deranged {
-        background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,width=1440,quality=45,sharpness=0,metadata=none/Assets/images/deranged/deranged-desktop.jpg')
-          no-repeat center center;
-        background-size: cover;
-
-        @include mobile375 {
-          background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,width=375,quality=45,sharpness=0,metadata=none/Assets/images/deranged/deranged-mobile.jpg')
-            no-repeat center center;
-          background-size: cover;
-        }
-      }
-
       &.-levc-hero {
         position: relative;
         bottom: 110px;
@@ -2059,18 +2047,20 @@
       max-width: 40ch;
     }
 
-    .free-insurance-background {
-      // background: url(/freeInsuranceBanner.png) no-repeat center center;
-      background: url('https://www.vanarama.com/cdn-cgi/image/fit=cover,height=194,width=384,quality=45,sharpness=0,metadata=none/freeInsuranceBanner.png')
-        no-repeat center center;
-      background-size: cover;
-      width: 100%;
+    .free-insurance-wrapper {
       height: 194px;
-      border-radius: 0.375rem;
       position: relative;
 
       @include mobile-tablet() {
         background-position: left center;
+      }
+
+      .free-insurance-image {
+        height: 100%;
+
+        img {
+          border-radius: 0.375rem;
+        }
       }
     }
 
