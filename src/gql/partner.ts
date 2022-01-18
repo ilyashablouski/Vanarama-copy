@@ -32,7 +32,7 @@ export const PARTNER = gql`
         body
         image {
           file {
-            url
+            ...imageFile
           }
         }
       }

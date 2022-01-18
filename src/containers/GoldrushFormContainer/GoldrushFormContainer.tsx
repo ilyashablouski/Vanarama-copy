@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
+import router from 'next/router';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 import Skeleton from '../../components/Skeleton';
 import ErrorMessages from '../../models/enum/ErrorMessages';
+import { pushPageData } from '../../utils/dataLayerHelpers';
+import { useSavePersonEmailMutation } from '../../gql/storedPersonEmail';
+import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -42,7 +46,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   capId,
   opportunityType,
   vehicleType,
-  callBack,
+  isCallBackForm,
   termsAndConditions,
   onCompleted,
   dataUiTestId,
@@ -56,16 +60,33 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       }
     },
   );
+  const [savePersonEmailMutation] = useSavePersonEmailMutation();
+  const savePersonDataInLocalStorage = (data: IGoldrushFromValues) => {
+    savePersonEmailMutation({
+      variables: {
+        email: data.email,
+      },
+    });
+  };
+  async function pushAnalytics(values: IGoldrushFromValues) {
+    await savePersonDataInLocalStorage(values);
+    await pushPageData({ pathname: router.pathname });
+  }
 
   const goldrushForm = () => (
     <GoldrushForm
       dataUiTestId={dataUiTestId}
-      callBack={callBack}
+      isCallBackForm={isCallBackForm}
       isSubmitting={loading}
-      heading={callBack ? 'Please Fill In Your Details' : 'Get Your Quote Now'}
+      heading={
+        isCallBackForm ? 'Please Fill In Your Details' : 'Get Your Quote Now'
+      }
       text="We’ll be in touch within 1-2 business hours"
       isPostcodeVisible={isPostcodeVisible}
       onSubmit={values => {
+        if (isCallBackForm) {
+          pushAnalytics(values);
+        }
         createOpportunity({
           variables: {
             email: values.email,
@@ -85,7 +106,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
     />
   );
 
-  if (callBack) {
+  if (isCallBackForm) {
     return (
       <div className="-pt-000">
         {isGratitudeVisible ? (
