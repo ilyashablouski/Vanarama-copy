@@ -33,6 +33,7 @@ const IvanCta: React.FC<IProps> = ({
           {body}
         </Text>
         <ImageV2
+          quality={60}
           width={imageWidth}
           height={imageHeight}
           src={imageSrc}
@@ -45,6 +46,7 @@ const IvanCta: React.FC<IProps> = ({
   return (
     <Card inline className={cx(className, 'ivan-cta')}>
       <ImageV2
+        quality={60}
         className="card-image"
         width={imageWidth}
         height={imageHeight}

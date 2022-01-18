@@ -34,16 +34,15 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
             const imageFile = getSectionsData(['image', 'file'], item);
 
             return (
-              <React.Fragment key={index.toString()}>
-                <div key={index.toString()}>
-                  <ImageV2
-                    width={imageFile?.details.image.width ?? 800}
-                    height={imageFile?.details.image.height ?? 425}
-                    src={imageFile?.url || defaultImage}
-                  />
-                  <p className="heading -lead -black -pv-300">{item.body}</p>
-                </div>
-              </React.Fragment>
+              <div key={index.toString()}>
+                <ImageV2
+                  quality={60}
+                  width={imageFile?.details.image.width ?? 800}
+                  height={imageFile?.details.image.height ?? 425}
+                  src={imageFile?.url || defaultImage}
+                />
+                <p className="heading -lead -black -pv-300">{item.body}</p>
+              </div>
             );
           })}
         </div>

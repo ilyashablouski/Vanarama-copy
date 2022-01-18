@@ -59,7 +59,7 @@ const InsuranceHeroSection = ({
         dataTestId="insurance_hero-image"
         lazyLoad={false}
         size="expand"
-        quality={60}
+        quality={70}
         plain
       />
     </div>

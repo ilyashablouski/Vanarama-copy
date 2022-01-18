@@ -27,7 +27,7 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
         <div className="hero--left">
           <ImageV2
             plain
-            quality={60}
+            quality={70}
             size="expand"
             lazyLoad={false}
             className="hero--image -pt-000"

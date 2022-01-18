@@ -67,10 +67,11 @@ function ImageCarousel({
             >
               {renderImageDecoration?.(imageUrl, index)}
               <ImageV2
-                plain
+                quality={60}
                 src={imageUrl}
                 lazyLoad={index !== 0}
                 alt={imageAltText}
+                plain
               />
             </SwiperSlide>
           ))}
@@ -99,7 +100,7 @@ function ImageCarousel({
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
-                <ImageV2 plain src={imageUrl} alt={imageAltText} />
+                <ImageV2 quality={60} src={imageUrl} alt={imageAltText} plain />
               </SwiperSlide>
             ))}
           </Swiper>

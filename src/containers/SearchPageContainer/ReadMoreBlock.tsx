@@ -33,6 +33,7 @@ const ReadMoreBlock = ({ featured }: IProps) => {
       {!featured?.layout?.includes('Full Width') && (
         <div>
           <ImageV2
+            quality={60}
             width={featured.image?.file?.details.image.width}
             height={featured.image?.file?.details.image.height}
             src={featured.image?.file?.url || ''}

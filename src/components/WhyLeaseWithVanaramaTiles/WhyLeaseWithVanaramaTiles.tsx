@@ -49,10 +49,12 @@ const WhyLeaseWithVanaramaTiles = ({
         <Tile className="-plain -button -align-center" plain>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <ImageV2
-              width="100"
-              height="100"
               inline
               round
+              quality={60}
+              sizes="50vw"
+              width="100"
+              height="100"
               size="large"
               src={
                 tile.image?.file?.url ||

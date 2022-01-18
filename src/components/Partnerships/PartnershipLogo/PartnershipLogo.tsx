@@ -21,6 +21,8 @@ const PartnershipLogo = ({ title, logo, imageAlt }: IPartnershipLogo) => (
       {title || 'In partnership with'}
     </p>
     <ImageV2
+      sizes="30vw"
+      quality={60}
       lazyLoad={false}
       className="partnership-logo--heading"
       dataTestId="partnership_hero-logo"
