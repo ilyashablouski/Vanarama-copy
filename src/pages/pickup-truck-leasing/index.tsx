@@ -177,6 +177,7 @@ export const PickupsPage: NextPage<IProps> = ({
               plain
               quality={70}
               size="expand"
+              optimisedHost
               lazyLoad={false}
               className="hero--image -pt-000"
               width={heroImage?.details.image.width ?? 572}

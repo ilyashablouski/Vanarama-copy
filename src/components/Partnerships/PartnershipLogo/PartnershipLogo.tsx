@@ -23,6 +23,7 @@ const PartnershipLogo = ({ title, logo, imageAlt }: IPartnershipLogo) => (
     <ImageV2
       sizes="30vw"
       quality={60}
+      optimisedHost
       lazyLoad={false}
       className="partnership-logo--heading"
       dataTestId="partnership_hero-logo"

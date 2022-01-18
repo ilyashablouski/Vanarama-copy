@@ -33,6 +33,7 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
           className="deranged-hero-image"
           objectFit="cover"
           lazyLoad={false}
+          optimisedHost
           quality={70}
           plain
         />

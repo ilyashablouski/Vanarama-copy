@@ -31,6 +31,7 @@ const CommonDescriptionContainer = memo(
         {featuredImage?.url && (
           <ImageV2
             quality={70}
+            optimisedHost
             lazyLoad={false}
             width={featuredImage.details.image.width}
             height={featuredImage.details.image.height}

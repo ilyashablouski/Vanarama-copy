@@ -134,6 +134,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ data }) => {
           {featuredImage?.file?.url && (
             <ImageV2
               quality={70}
+              optimisedHost
               lazyLoad={false}
               src={featuredImage.file.url}
               alt="About Vanarama"

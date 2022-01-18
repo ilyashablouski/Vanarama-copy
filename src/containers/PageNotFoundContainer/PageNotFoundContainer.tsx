@@ -54,6 +54,7 @@ const PageNotFoundContainer: NextPage<IProps> = ({
       <div className="row:featured-left">
         <ImageV2
           quality={60}
+          optimisedHost
           lazyLoad={false}
           className="-white"
           width={featured?.image?.file?.details.image.width}
