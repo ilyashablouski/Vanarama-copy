@@ -7,12 +7,13 @@
 // GraphQL query operation: suggestionList
 // ====================================================
 
-export interface suggestionList_suggestionListV2 {
-  suggestions: (string | null)[] | null;
+export interface suggestionList_suggestionListV3 {
+  vehicles: (string | null)[] | null;
+  vehicleCategories: (string | null)[] | null;
 }
 
 export interface suggestionList {
-  suggestionListV2: suggestionList_suggestionListV2 | null;
+  suggestionListV3: suggestionList_suggestionListV3 | null;
 }
 
 export interface suggestionListVariables {
