@@ -2,6 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
+import { ApolloProvider } from '@apollo/client';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer';
 import { useQuoteDataLazyQuery } from '../gql';
 import { IProps } from '../interfaces';
@@ -11,12 +12,21 @@ import {
 } from '../../../../generated/globalTypes';
 import { useOpportunityCreation } from '../../GoldrushFormContainer/gql';
 import { GetQuoteDetails } from '../../../../generated/GetQuoteDetails';
+import createApolloClient from '../../../apolloClient';
 
 jest.mock('../gql');
 jest.mock('../../GoldrushFormContainer/gql');
 
+const client = createApolloClient({});
+
 const getComponent = (props: IProps) => {
-  return renderer.create(<CustomiseLeaseContainer {...props} />).toJSON();
+  return renderer
+    .create(
+      <ApolloProvider client={client}>
+        <CustomiseLeaseContainer {...props} />
+      </ApolloProvider>,
+    )
+    .toJSON();
 };
 
 const data = {
@@ -172,7 +182,11 @@ describe('<CustomiseLeaseContainer />', () => {
       },
     ]);
 
-    render(<CustomiseLeaseContainer {...props} quote={data} />);
+    render(
+      <ApolloProvider client={client}>
+        <CustomiseLeaseContainer {...props} quote={data} />
+      </ApolloProvider>,
+    );
 
     expect(screen.getByText('12000 Miles'));
 
