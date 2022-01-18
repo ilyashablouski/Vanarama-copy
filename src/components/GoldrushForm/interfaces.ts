@@ -4,7 +4,7 @@ export interface IGoldrushFormProps {
   isPostcodeVisible?: boolean;
   isTextInVisible?: boolean;
   heading?: string;
-  callBack?: boolean;
+  isCallBackForm?: boolean;
   text?: string;
   className?: string;
   termsAndConditionsId?: string;
