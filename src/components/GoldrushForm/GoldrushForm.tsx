@@ -33,7 +33,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   isSubmitting,
   isPostcodeVisible,
   heading,
-  callBack,
+  isCallBackForm,
   text,
   isTextInVisible,
   termsAndConditionsId,
@@ -53,7 +53,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   },
   dataUiTestId,
 }) => {
-  const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
+  const buttonLabelText = isCallBackForm ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
   const methods = useForm<IGoldrushFromValues>({
     mode: 'onBlur',
@@ -84,7 +84,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
         {heading && (
           <Heading
             tag="span"
-            size={callBack ? 'large' : 'lead'}
+            size={isCallBackForm ? 'large' : 'lead'}
             color="black"
             dataUiTestId={dataUiTestId ? `${dataUiTestId}_heading` : undefined}
           >
@@ -162,7 +162,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
         )}
         {!noTermsAndConditions && (
           <>
-            {callBack ? (
+            {isCallBackForm ? (
               <FormGroup
                 error={
                   methods.errors?.termsAndCons?.message?.toString() ||
@@ -185,7 +185,11 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           </>
         )}
         {!isTextInVisible && (
-          <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
+          <Text
+            tag="p"
+            color={isCallBackForm ? 'dark' : 'darker'}
+            size="xsmall"
+          >
             Vanarama collects the contact information you provide to us to
             contact you about our products and services. You may unsubscribe
             from these communications at any time. For information on how to
