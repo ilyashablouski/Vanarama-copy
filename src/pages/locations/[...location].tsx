@@ -223,7 +223,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
             <GoldrushForm
-              callBack={false}
+              isCallBackForm={false}
               isSubmitting={loading}
               isPostcodeVisible
               isTextInVisible

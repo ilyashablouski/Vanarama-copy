@@ -89,7 +89,7 @@ const DerangedForm: React.FC<IDerangedForm> = ({
           <GoldrushForm
             onSubmit={values => onSubmit(values)}
             isSubmitting={loading}
-            callBack
+            isCallBackForm
             isLabelsShown={DERANGED_FORM_LABELS_VALUES}
             isPlaceholdersShown={DERANGED_FORM_PLACEHOLDERS_VALUES}
           />
