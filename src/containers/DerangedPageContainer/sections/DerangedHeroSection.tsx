@@ -4,7 +4,8 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../../components/Skeleton';
 import { GenericPageQuery_genericPage_sections_hero_image as IHeroImage } from '../../../../generated/GenericPageQuery';
 import { HeroHeading, HeroTitle } from '../../../components/Hero';
-import { useMobileViewport } from '../../../hooks/useMediaQuery';
+import useMediaQuery, { useMobileViewport } from '../../../hooks/useMediaQuery';
+import { derangedImageSrc } from './constants';
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={2} />,
@@ -18,34 +19,49 @@ interface IProps {
 
 const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
   const isMobileViewport = useMobileViewport();
+  const isMobile375Viewport = useMediaQuery('(max-width: 375px)');
 
   return (
-    <section className="row:bg-hero -deranged">
-      <div className="row:hero -clear-background row:hero--deranged-content">
-        <div className="-deranged-content--wrapper">
-          <ImageV2
-            width="41"
-            height="51"
-            src={`${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-logo.png`}
-            alt="Deranged icon"
-            size="large"
-            quality={60}
-            sizes="30vw"
-            inline
-            plain
-          />
-          <div>
-            <HeroHeading text={title || ''} />
-            <HeroTitle
-              text={body || ''}
-              className={cx('-w-500', {
-                '-mt-200': isMobileViewport,
-              })}
+    <>
+      <div className="deranged-hero-wrapper">
+        <ImageV2
+          src={
+            isMobile375Viewport
+              ? derangedImageSrc.mobile375
+              : derangedImageSrc.desktop
+          }
+          className="deranged-hero-image"
+          objectFit="cover"
+          plain
+        />
+      </div>
+      <section className="row:bg-hero">
+        <div className="row:hero -clear-background row:hero--deranged-content">
+          <div className="-deranged-content--wrapper">
+            <ImageV2
+              width="41"
+              height="51"
+              src={`${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-logo.png`}
+              alt="Deranged icon"
+              lazyLoad={false}
+              size="large"
+              quality={60}
+              inline
+              plain
             />
+            <div>
+              <HeroHeading text={title || ''} />
+              <HeroTitle
+                text={body || ''}
+                className={cx('-w-500', {
+                  '-mt-200': isMobileViewport,
+                })}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
