@@ -117,7 +117,7 @@ const GlobalSearchContainer = () => {
           <div className="header-search-results-container">
             <GlobalSearchLeftSideContainer
               dataUiTestId="global-search_suggestions"
-              suggestions={suggestions.suggestsList as string[]}
+              suggestions={suggestions.suggestsList}
             />
             <GlobalSearchRightSideContainer
               dataUiTestId="global-search_results"

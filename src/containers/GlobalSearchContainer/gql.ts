@@ -226,7 +226,7 @@ export function useTextSearchList(
 }
 
 export interface IGlobalSearchData {
-  suggestsList: (string | null)[];
+  suggestsList: string[];
   vehiclesList: productDerivatives_productDerivatives_derivatives[];
 }
 
@@ -278,8 +278,13 @@ export const getVehiclesCardsData = async (
  */
 const getSuggestionList = (
   searchString: string,
-  { vehicles, vehicleCategories }: suggestionList_suggestionListV3,
+  suggestions: suggestionList_suggestionListV3 | null,
 ) => {
+  if (!suggestions) {
+    return [];
+  }
+
+  const { vehicles, vehicleCategories } = suggestions;
   const vehicle = [
     ...new Set(
       searchString
@@ -349,11 +354,11 @@ export function useGlobalSearch(query?: string) {
 
       const resultVehicles = getSuggestionList(
         value,
-        suggestsList?.data?.suggestionListV3 as suggestionList_suggestionListV3,
+        suggestsList?.data?.suggestionListV3,
       );
 
       return {
-        suggestsList: resultVehicles?.slice(0, 5) || [],
+        suggestsList: (resultVehicles as string[])?.slice(0, 5) || [],
         vehiclesList:
           (vehiclesList?.data.productDerivatives
             ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||
