@@ -248,18 +248,29 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                     >
                       <i
                         class="icon benefits-bar__icon -lead"
+                        style="width: 61px;"
                       >
                         <div
                           class="image -expand -plain"
                         >
-                          <img
-                            class="image--native"
-                            data-cfasync="false"
-                            loading="eager"
-                            sizes="(min-width:320px) 800px, 1200px"
-                            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                          />
+                          <div
+                            style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                          >
+                            <div
+                              style="display: block; box-sizing: border-box; padding-top: 41.02564102564102%;"
+                            />
+                            <img
+                              alt="Trust pilot logo"
+                              class="image--native"
+                              data-nimg="responsive"
+                              decoding="async"
+                              sizes="20vw"
+                              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                              style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                            />
+                            <noscript />
+                          </div>
                         </div>
                       </i>
                       <span
@@ -425,18 +436,29 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                     >
                       <i
                         class="icon benefits-bar__icon -lead"
+                        style="width: 61px;"
                       >
                         <div
                           class="image -expand -plain"
                         >
-                          <img
-                            class="image--native"
-                            data-cfasync="false"
-                            loading="eager"
-                            sizes="(min-width:320px) 800px, 1200px"
-                            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                          />
+                          <div
+                            style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                          >
+                            <div
+                              style="display: block; box-sizing: border-box; padding-top: 41.02564102564102%;"
+                            />
+                            <img
+                              alt="Trust pilot logo"
+                              class="image--native"
+                              data-nimg="responsive"
+                              decoding="async"
+                              sizes="20vw"
+                              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                              style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                            />
+                            <noscript />
+                          </div>
                         </div>
                       </i>
                       <span
@@ -602,18 +624,29 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                     >
                       <i
                         class="icon benefits-bar__icon -lead"
+                        style="width: 61px;"
                       >
                         <div
                           class="image -expand -plain"
                         >
-                          <img
-                            class="image--native"
-                            data-cfasync="false"
-                            loading="eager"
-                            sizes="(min-width:320px) 800px, 1200px"
-                            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
-                            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w"
-                          />
+                          <div
+                            style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                          >
+                            <div
+                              style="display: block; box-sizing: border-box; padding-top: 41.02564102564102%;"
+                            />
+                            <img
+                              alt="Trust pilot logo"
+                              class="image--native"
+                              data-nimg="responsive"
+                              decoding="async"
+                              sizes="20vw"
+                              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png"
+                              srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=128,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 128w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=256,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 256w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=384,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 384w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://dev.vanarama-nonprod.com/Assets/images/benefits-bar/trust-pilot-logo.png 3840w"
+                              style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                            />
+                            <noscript />
+                          </div>
                         </div>
                       </i>
                       <span
