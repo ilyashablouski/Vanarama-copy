@@ -94,7 +94,8 @@ const HeroJanSale: React.FC<IProps> = ({
         <div className="hero--left">
           <div className="js-hero">
             <ImageV2
-              quality={60}
+              quality={70}
+              optimisedHost
               lazyLoad={false}
               width={vehicleImage.width}
               height={vehicleImage.height}

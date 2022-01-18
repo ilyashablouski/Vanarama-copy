@@ -32,6 +32,9 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
           }
           className="deranged-hero-image"
           objectFit="cover"
+          lazyLoad={false}
+          optimisedHost
+          quality={70}
           plain
         />
       </div>
@@ -43,9 +46,9 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
               height="51"
               src={`${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-logo.png`}
               alt="Deranged icon"
-              lazyLoad={false}
-              size="large"
               quality={60}
+              sizes="30vw"
+              size="large"
               inline
               plain
             />

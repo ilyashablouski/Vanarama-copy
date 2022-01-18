@@ -31,6 +31,7 @@ export const FeaturedHtml: React.FC<IFeatured> = ({ featured }) => {
         <section className={`row:${featuredClass}`}>
           {featuredImage?.url && (
             <ImageV2
+              quality={60}
               width={featuredImage?.details.image.width}
               height={featuredImage?.details.image.height}
               src={featuredImage?.url ?? ''}

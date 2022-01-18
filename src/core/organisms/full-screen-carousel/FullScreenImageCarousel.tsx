@@ -38,11 +38,12 @@ function FullScreenImageCarousel({
           {images.map(imageUrl => (
             <SwiperSlide key={imageUrl}>
               <ImageV2
-                plain
+                quality={60}
                 width={1920}
                 height={1080}
                 src={imageUrl}
                 alt={imageAltText}
+                plain
               />
             </SwiperSlide>
           ))}

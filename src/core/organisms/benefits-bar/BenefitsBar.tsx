@@ -29,24 +29,21 @@ const Slider: FC<ICarouselProps> = () => (
         preventClicks
         preventClicksPropagation
       >
-        {BENEFIT_LIST.map((item, index) => {
-          return (
-            <SwiperSlide key={item.title}>
-              <div className="text -small -white">
-                <Icon
-                  icon={item.icon}
-                  className="benefits-bar__icon"
-                  size="lead"
-                />
-                <span
-                  data-uitestid={`benefits-bar_benefits-item-${index}_label`}
-                >
-                  {item.title}
-                </span>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+        {BENEFIT_LIST.map((item, index) => (
+          <SwiperSlide key={item.title}>
+            <div className="text -small -white">
+              <Icon
+                icon={item.icon}
+                style={{ width: item.iconWidth }}
+                className="benefits-bar__icon"
+                size="lead"
+              />
+              <span data-uitestid={`benefits-bar_benefits-item-${index}_label`}>
+                {item.title}
+              </span>
+            </div>
+          </SwiperSlide>
+        ))}
       </Swiper>
       <button className="swiper-prev" type="button">
         <Icon icon={<ChevronBack />} className="benefits-bar__icon" />

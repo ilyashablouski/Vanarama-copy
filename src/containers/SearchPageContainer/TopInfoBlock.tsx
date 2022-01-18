@@ -28,6 +28,7 @@ const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
   return topInfoSection ? (
     <section className={`row:${getFeaturedClassPartial(topInfoSection)}`}>
       <ImageV2
+        quality={60}
         width={featuredImage?.details.image.width}
         height={featuredImage?.details.image.height}
         src={featuredImage?.url || ''}

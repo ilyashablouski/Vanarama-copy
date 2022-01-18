@@ -36,8 +36,9 @@ const HeroSection: FC<IProps> = ({ sectionsAsArray }) => {
       <div className="hero--right">
         <ImageV2
           plain
-          quality={60}
+          quality={70}
           size="expand"
+          optimisedHost
           lazyLoad={false}
           className="hero--image -pt-000"
           width={heroImage?.details.image.width ?? 1710}
