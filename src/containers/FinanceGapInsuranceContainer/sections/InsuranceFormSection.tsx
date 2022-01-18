@@ -36,7 +36,7 @@ const InsuranceFormSection = ({
       </div>
       <div className="card -mt-000">
         <GoldrushForm
-          callBack
+          isCallBackForm
           isSubmitting={isSubmitting}
           isPostcodeVisible
           onSubmit={onSubmit}

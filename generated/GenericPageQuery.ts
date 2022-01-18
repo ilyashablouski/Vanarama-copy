@@ -1048,14 +1048,13 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details {
-  size: number;
   image: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details_image;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file {
-  url: string;
   fileName: string;
   contentType: string;
+  url: string;
   details: GenericPageQuery_genericPage_sectionsAsArray_hero_heroCta_image_file_details;
 }
 

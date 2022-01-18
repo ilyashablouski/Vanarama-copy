@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import Text from 'core/atoms/text';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import RouterLink from '../RouterLink';
@@ -22,30 +22,48 @@ const TERM_TEXT_VARIANTS = {
 
 const HERO_BANNER_VARIANTS = {
   cars: {
-    vehicleImageName: `car`,
     classNameMod: '-cars-hub',
     extraOfferText: '+1 Year’s FREE Insurance',
     termsText: TERM_TEXT_VARIANTS.full,
+    vehicleImage: {
+      name: `car`,
+      width: 605,
+      height: 543,
+    },
   },
   vans: {
-    vehicleImageName: `van`,
     classNameMod: '-vans-hub',
     extraOfferText: '+FREE 30 Day Returns',
     termsText: TERM_TEXT_VARIANTS.short,
+    vehicleImage: {
+      name: `van`,
+      width: 605,
+      height: 539,
+    },
   },
   pickups: {
-    vehicleImageName: `pickup`,
     classNameMod: '-pickups-hub',
     extraOfferText: '+FREE 30 Day Returns',
     termsText: TERM_TEXT_VARIANTS.short,
+    vehicleImage: {
+      name: `pickup`,
+      width: 605,
+      height: 539,
+    },
   },
   electric: {
-    vehicleImageName: `electric`,
     classNameMod: '-electric-hub',
     extraOfferText: '+FREE Home Charger',
     termsText: TERM_TEXT_VARIANTS.short,
+    vehicleImage: {
+      name: `electric`,
+      width: 605,
+      height: 539,
+    },
   },
 };
+
+const baseImageUrl = `${process.env.HOST_DOMAIN}/Assets/images/jan-sale`;
 
 interface IProps extends IHeroProps {
   variant: keyof typeof HERO_BANNER_VARIANTS;
@@ -60,7 +78,7 @@ const HeroJanSale: React.FC<IProps> = ({
 }) => {
   const {
     classNameMod,
-    vehicleImageName,
+    vehicleImage,
     extraOfferText,
     termsText,
   } = HERO_BANNER_VARIANTS[variant];
@@ -75,8 +93,12 @@ const HeroJanSale: React.FC<IProps> = ({
       <div className="row:hero">
         <div className="hero--left">
           <div className="js-hero">
-            <Image
-              src={`/Assets/images/jan-sale/${vehicleImageName}.png`}
+            <ImageV2
+              quality={60}
+              lazyLoad={false}
+              width={vehicleImage.width}
+              height={vehicleImage.height}
+              src={`${baseImageUrl}/${vehicleImage.name}.png`}
               size="expand"
               plain
             />

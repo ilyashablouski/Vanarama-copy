@@ -17,3 +17,8 @@ export const DERANGED_FORM_PLACEHOLDERS_VALUES = {
   email: true,
   phoneNumber: true,
 };
+
+export const derangedImageSrc = {
+  desktop: `${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-desktop.jpg`,
+  mobile375: `${process.env.HOST_DOMAIN}/Assets/images/deranged/deranged-mobile.jpg`,
+};

@@ -53,6 +53,12 @@ const DATA = {
           file: {
             url:
               '//images.ctfassets.net/3xid768u5joa/6vZ9Rxd6NxxmvTSdTX1T6U/919ab2e8c97ae1dcc6d8f23b7c5e2650/Pickups-Hub-Hero-Image.png',
+            details: {
+              image: {
+                width: 100,
+                height: 100,
+              },
+            },
           },
         },
       },

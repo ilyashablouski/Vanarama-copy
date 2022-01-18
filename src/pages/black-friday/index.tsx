@@ -5,7 +5,7 @@ import {
   IGenericPage,
   IGenericPageProps,
 } from '../../gql/genericPage';
-import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageQuery,
