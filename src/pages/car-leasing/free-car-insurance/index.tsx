@@ -6,7 +6,7 @@ import {
   NextPage,
 } from 'next';
 import React, { useEffect, useState } from 'react';
-import Image from 'core/atoms/image';
+import ImageV2 from 'core/atoms/image/ImageV2';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
@@ -53,13 +53,8 @@ const FreeCarInsurance: NextPage<IProps> = ({
 }) => {
   const { cachedLeaseType } = useLeaseType(null);
 
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
-
   const sections = data?.genericPage.sectionsAsArray;
+  const heroImage = sections?.hero?.[0]?.image?.file;
   const featureSections = sections?.featured || [];
   const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const accordionSections: any = sections?.questionSet?.[0]?.questionAnswers?.map(
@@ -75,6 +70,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
 
   const [partnershipActive, setPartnershipActive] = useState(false);
   const [findOutMoreQueries, setFindOutMoreQueries] = useState({});
+
   useEffect(() => {
     const partnership = getPartnerProperties();
     if (partnership) {
@@ -98,14 +94,17 @@ const FreeCarInsurance: NextPage<IProps> = ({
           </div>
         </div>
         <div className="hero--right">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
+          <ImageV2
             plain
+            quality={70}
             size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 1710}
+            height={heroImage?.details.image.height ?? 1278}
             src={
-              sections?.hero?.[0]?.image?.file?.url ||
+              heroImage?.url ||
               'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
             }
           />

@@ -121,7 +121,7 @@ const FinanceGapInsurancePageContainer = ({
           }}
         >
           <GoldrushForm
-            callBack={false}
+            isCallBackForm={false}
             className="form-insurance"
             isSubmitting={loading}
             isPostcodeVisible

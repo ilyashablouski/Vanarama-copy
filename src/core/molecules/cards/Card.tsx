@@ -46,6 +46,7 @@ const Card: FC<ICardProps> = memo(props => {
       )}
       {imageSrc !== undefined ? (
         <ImageV2
+          quality={60}
           className="card-image"
           width={imageWidth}
           height={imageHeight}

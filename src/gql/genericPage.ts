@@ -80,6 +80,12 @@ export const GENERIC_PAGE = gql`
             url
           }
         }
+        iconBullets {
+          title
+          iconBullets {
+            text
+          }
+        }
         iconBullets1 {
           title
           iconBullets {
@@ -354,16 +360,9 @@ export const GENERIC_PAGE = gql`
               title
               description
               file {
-                url
                 fileName
                 contentType
-                details {
-                  size
-                  image {
-                    width
-                    height
-                  }
-                }
+                ...imageFile
               }
             }
             label

@@ -6,7 +6,7 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -23,53 +23,49 @@ const CommonDescriptionContainer = memo(
     const description =
       pageData?.genericPage?.intro ||
       pageData?.genericPage?.sections?.featured1?.body;
-    const imageUrl = pageData?.genericPage?.featuredImage?.file?.url;
+    const featuredImage = pageData?.genericPage?.featuredImage?.file;
+    const title = pageData?.genericPage.metaData.name;
 
-    return description || imageUrl ? (
+    return description || featuredImage?.url ? (
       <section className="row:featured-right">
-        {imageUrl && (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={imageUrl}
-              alt="Featured image"
-            />
-          </div>
+        {featuredImage?.url && (
+          <ImageV2
+            quality={70}
+            optimisedHost
+            lazyLoad={false}
+            width={featuredImage.details.image.width}
+            height={featuredImage.details.image.height}
+            src={featuredImage.url}
+            alt={title ?? ''}
+          />
         )}
-
         {description && (
-          <div>
-            <Text color="darker" size="regular" tag="div">
-              <ReactMarkdown
-                className="markdown"
-                allowDangerousHtml
-                source={customDescription || description}
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return (
-                      <RouterLink
-                        link={{ href, label: children }}
-                        classNames={{ color: 'teal' }}
-                      />
-                    );
-                  },
-                  image: props => {
-                    const { src, alt } = props;
-                    return (
-                      <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                    );
-                  },
-                  heading: props => (
-                    <Text {...props} size="lead" color="darker" tag="h3" />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
-                }}
-              />
-            </Text>
-          </div>
+          <article>
+            <ReactMarkdown
+              className="markdown"
+              allowDangerousHtml
+              source={customDescription || description}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </article>
         )}
       </section>
     ) : null;

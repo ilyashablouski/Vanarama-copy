@@ -36,7 +36,7 @@ import {
   PageTypeEnum,
 } from '../../../types/common';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
 });
 const RouterLink = dynamic(() =>
@@ -55,18 +55,22 @@ const EVansPage: NextPage<IProps> = ({
   vehicleListUrlData,
 }) => {
   const [featuresArray, setFeaturesArray] = useState<IFeatured[]>([]);
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
+
   const { sections } = data?.genericPage;
-  const titleTagText = sections?.leadText?.titleTag;
-  const headerText = sections?.leadText?.heading;
-  const descriptionText = sections?.leadText?.description;
-  const tiles = data?.genericPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.genericPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.genericPage.sections?.tiles?.titleTag;
+
+  const heroSection = sections?.hero;
+  const heroImage = heroSection?.image?.file;
+  const heroLabel = sections?.hero?.heroLabel?.[0];
+
+  const leadTextSection = sections?.leadText;
+  const titleTagText = leadTextSection?.titleTag;
+  const headerText = leadTextSection?.heading;
+  const descriptionText = leadTextSection?.description;
+
+  const tilesSection = data?.genericPage.sections?.tiles;
+  const tiles = tilesSection?.tiles;
+  const tilesTitle = tilesSection?.tilesTitle;
+  const tilesTitleTag = tilesSection?.titleTag;
 
   useEffect(() => {
     setFeaturesArray(getFeaturedSectionsAsArray(sections));
@@ -79,25 +83,27 @@ const EVansPage: NextPage<IProps> = ({
           title={sections?.hero?.title}
           body={sections?.hero?.body}
         />
-        {sections?.hero?.heroLabel?.[0]?.visible && (
+        {heroLabel?.visible && (
           <HeroPrompt
-            label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
-            url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-            text={sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+            label={heroLabel?.link?.text || ''}
+            url={heroLabel?.link?.url || ''}
+            text={heroLabel?.text || ''}
+            btnVisible={heroLabel?.link?.visible}
           />
         )}
       </div>
       <div className="hero--right">
-        <Image
-          lazyLoad
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
+        <ImageV2
           plain
+          quality={70}
           size="expand"
+          optimisedHost
+          lazyLoad={false}
+          className="hero--image -pt-000"
+          width={heroImage?.details?.image.width ?? 1710}
+          height={heroImage?.details?.image.height ?? 1278}
           src={
-            sections?.hero?.image?.file?.url ||
+            heroImage?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />

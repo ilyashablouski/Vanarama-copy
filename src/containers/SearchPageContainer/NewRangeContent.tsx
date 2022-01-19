@@ -104,6 +104,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ImageV2
+              quality={60}
               className="card-image media"
               width={imageFeatured1?.details.image.width}
               height={imageFeatured1?.details.image.height}
@@ -220,8 +221,8 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                 />
               </div>
             </div>
-
             <ImageV2
+              quality={60}
               className="card-image media"
               width={imageFeatured2?.details.image.width}
               height={imageFeatured2?.details.image.height}
@@ -233,6 +234,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ImageV2
+              quality={60}
               className="card-image media"
               width={imageFeatured3?.details.image.width}
               height={imageFeatured3?.details.image.height}
@@ -359,6 +361,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
       <section className="row:featured-left page__range-page-description">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <ImageV2
+            quality={60}
             className="card-image media"
             width={imageFeatured5?.details.image.width}
             height={imageFeatured5?.details.image.height}

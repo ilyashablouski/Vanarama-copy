@@ -7,6 +7,6 @@ export interface GoldrushFormContainerProps {
   opportunityType: OpportunityTypeEnum;
   termsAndConditions?: boolean;
   vehicleType?: string;
-  callBack?: boolean;
+  isCallBackForm?: boolean;
   dataUiTestId?: string;
 }

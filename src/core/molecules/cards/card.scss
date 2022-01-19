@@ -96,8 +96,7 @@ $small: 0.875rem;
       grid-area: span 1 / 1 / span 1 / -1;
       place-self: end stretch;
     }
-    > .card-image,
-    .lazyload-wrapper {
+    > .card-image {
       grid-area: span 1 / 1 / span 1 / -1;
     }
 
@@ -149,8 +148,7 @@ $small: 0.875rem;
         place-self: end stretch;
       }
 
-      > .card-image,
-      .lazyload-wrapper {
+      > .card-image {
         grid-area: span 1 / 1 / span 1 / -1;
       }
     }

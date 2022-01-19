@@ -9,7 +9,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image/Image';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
@@ -102,12 +101,22 @@ export const CarsPage: NextPage<IProps> = ({
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
-  const titleTagText = data?.hubCarPage.sections?.leadText?.titleTag;
-  const headerText = data?.hubCarPage.sections?.leadText?.heading;
-  const descriptionText = data?.hubCarPage.sections?.leadText?.description;
-  const tiles = data?.hubCarPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.hubCarPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.hubCarPage.sections?.tiles?.titleTag;
+
+  const sections = data?.hubCarPage.sections;
+
+  const heroSection = sections?.hero;
+  const heroImage = heroSection?.image?.file;
+
+  const leadTextSection = sections?.leadText;
+  const titleTagText = leadTextSection?.titleTag;
+  const headerText = leadTextSection?.heading;
+  const descriptionText = leadTextSection?.description;
+
+  const tilesSection = sections?.tiles;
+  const tiles = tilesSection?.tiles;
+  const tilesTitle = tilesSection?.tilesTitle;
+  const tilesTitleTag = tilesSection?.titleTag;
+
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(
@@ -127,12 +136,6 @@ export const CarsPage: NextPage<IProps> = ({
     { label: 'Personal', value: 'Personal', active: isPersonal },
     { label: 'Business', value: 'Business', active: !isPersonal },
   ];
-
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
 
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
@@ -164,15 +167,17 @@ export const CarsPage: NextPage<IProps> = ({
             <p>On Car Hot Offers</p>
           </div>
           <div>
-            <Image
-              lazyLoad
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
+            <ImageV2
               plain
+              quality={70}
               size="expand"
+              optimisedHost
+              lazyLoad={false}
+              className="hero--image -pt-000"
+              width={heroImage?.details.image.width ?? 695}
+              height={heroImage?.details.image.height ?? 359}
               src={
-                data?.hubCarPage.sections?.hero?.image?.file?.url ||
+                heroImage?.url ||
                 'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
               }
             />
@@ -207,6 +212,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
               size="expand"
               plain
@@ -234,6 +240,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
               size="expand"
               plain
@@ -432,6 +439,7 @@ export const CarsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured1?.details.image.width ?? 1000}
             height={imageFeatured1?.details.image.height ?? 650}
@@ -490,6 +498,7 @@ export const CarsPage: NextPage<IProps> = ({
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured2?.details.image.width ?? 1000}
             height={imageFeatured2?.details.image.height ?? 650}

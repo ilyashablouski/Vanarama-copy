@@ -13,6 +13,7 @@ exports[`<IvanCta /> should compact render correctly 1`] = `
   <Memo(ImageV2)
     alt=""
     plain={true}
+    quality={60}
     src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
   />
 </div>
@@ -27,6 +28,7 @@ exports[`<IvanCta /> should default render correctly 1`] = `
     alt="Meet iVan"
     className="card-image"
     plain={true}
+    quality={60}
     src="https://images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
   />
   <div

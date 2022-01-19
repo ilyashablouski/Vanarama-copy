@@ -5,7 +5,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import React, { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import Image from 'core/atoms/image/Image';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -114,12 +113,20 @@ export const PickupsPage: NextPage<IProps> = ({
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
   const searchPodVansData = decodeData(searchPodVansDataEncoded);
 
-  const titleTagText = data?.hubPickupPage.sections?.leadText?.titleTag;
-  const headerText = data?.hubPickupPage.sections?.leadText?.heading;
-  const descriptionText = data?.hubPickupPage.sections?.leadText?.description;
-  const tiles = data?.hubPickupPage.sections?.tiles2?.tiles;
-  const tilesTitle = data?.hubPickupPage.sections?.tiles2?.tilesTitle;
-  const tilesTitleTag = data?.hubPickupPage.sections?.tiles2?.titleTag;
+  const heroSection = data?.hubPickupPage?.sections?.hero;
+  const heroImage = heroSection?.image?.file;
+  const heroLabel = heroSection?.heroLabel?.[0];
+
+  const leadTextSection = data?.hubPickupPage.sections?.leadText;
+  const titleTagText = leadTextSection?.titleTag;
+  const headerText = leadTextSection?.heading;
+  const descriptionText = leadTextSection?.description;
+
+  const tiles2Section = data?.hubPickupPage?.sections?.tiles2;
+  const tiles = tiles2Section?.tiles;
+  const tilesTitle = tiles2Section?.tilesTitle;
+  const tilesTitleTag = tiles2Section?.titleTag;
+
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
     () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
@@ -145,12 +152,6 @@ export const PickupsPage: NextPage<IProps> = ({
 
   const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
 
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
-
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
     data?.hubPickupPage.sections,
@@ -172,35 +173,27 @@ export const PickupsPage: NextPage<IProps> = ({
             <p>With Vanarama</p>
           </div>
           <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
+            <ImageV2
               plain
+              quality={70}
               size="expand"
+              optimisedHost
+              lazyLoad={false}
+              className="hero--image -pt-000"
+              width={heroImage?.details.image.width ?? 572}
+              height={heroImage?.details.image.height ?? 354}
               src={
-                data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+                heroImage?.url ||
                 'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
               }
             />
           </div>
-          {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          {heroLabel?.visible && (
             <HeroPrompt
-              label={
-                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
-                  ?.text || ''
-              }
-              url={
-                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
-                ''
-              }
-              text={
-                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
-              }
-              btnVisible={
-                data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link
-                  ?.visible
-              }
+              label={heroLabel?.link?.text || ''}
+              url={heroLabel?.link?.url || ''}
+              text={heroLabel?.text || ''}
+              btnVisible={heroLabel?.link?.visible}
             />
           )}
         </Hero>
