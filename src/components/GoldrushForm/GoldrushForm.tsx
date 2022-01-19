@@ -106,9 +106,19 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           controlId="goldrush-form_full-name"
           label={isLabelsShown?.fullName ? 'Full Name' : ''}
           error={methods.errors.fullName?.message?.toString()}
+          dataUiTestId={
+            dataUiTestId
+              ? `${dataUiTestId}_goldrush-form_full-name_error`
+              : undefined
+          }
         >
           <TextInput
             id="goldrush-form_full-name"
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_goldrush-form_full-name`
+                : undefined
+            }
             dataTestId="goldrush-form_full-name"
             name="fullName"
             ref={methods.register(fullNameValidator)}
@@ -120,6 +130,11 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           controlId="goldrush-form_email"
           label={isLabelsShown?.email ? 'Email Address' : ''}
           error={methods.errors.email?.message?.toString()}
+          dataUiTestId={
+            dataUiTestId
+              ? `${dataUiTestId}_goldrush-form_email_error`
+              : undefined
+          }
         >
           <TextInput
             id="goldrush-form_email"
@@ -128,12 +143,20 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             ref={methods.register(emailValidator)}
             type="text"
             placeholder={isPlaceholdersShown?.email ? 'Email Address' : ''}
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_goldrush-form_email` : undefined
+            }
           />
         </FormGroup>
         <FormGroup
           controlId="goldrush-form_phone-number"
           label={isLabelsShown?.phoneNumber ? 'Phone Number' : ''}
           error={methods.errors.phoneNumber?.message?.toString()}
+          dataUiTestId={
+            dataUiTestId
+              ? `${dataUiTestId}_goldrush-form_phone-number_error`
+              : undefined
+          }
         >
           <TextInput
             id="goldrush-form_phone-number"
@@ -142,6 +165,11 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             ref={methods.register(phoneNumberValidator)}
             type="text"
             placeholder={isPlaceholdersShown?.phoneNumber ? 'Phone Number' : ''}
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_goldrush-form_phone-number`
+                : undefined
+            }
           />
         </FormGroup>
         {isPostcodeVisible && (
@@ -168,10 +196,28 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
                   methods.errors?.termsAndCons?.message?.toString() ||
                   methods.errors?.privacyPolicy?.message?.toString()
                 }
+                dataUiTestId={
+                  dataUiTestId
+                    ? `${dataUiTestId}_error_${
+                        methods.errors?.termsAndCons
+                          ? 'terms-and-conditions'
+                          : 'privacy-policy'
+                      }`
+                    : undefined
+                }
               >
-                <TermsAndConditions id={termsAndConditionsId || ''} />
-                <PrivacyPolicy id={termsAndConditionsId || ''} />
-                <Consent id={termsAndConditionsId || ''} />
+                <TermsAndConditions
+                  id={termsAndConditionsId || ''}
+                  dataUiTestId={dataUiTestId}
+                />
+                <PrivacyPolicy
+                  id={termsAndConditionsId || ''}
+                  dataUiTestId={dataUiTestId}
+                />
+                <Consent
+                  id={termsAndConditionsId || ''}
+                  dataUiTestId={dataUiTestId}
+                />
               </FormGroup>
             ) : (
               <FormGroup
@@ -189,6 +235,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             tag="p"
             color={isCallBackForm ? 'dark' : 'darker'}
             size="xsmall"
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_legal_content` : undefined
+            }
           >
             Vanarama collects the contact information you provide to us to
             contact you about our products and services. You may unsubscribe
@@ -205,6 +254,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           size="lead"
           fill="solid"
           color="teal"
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_goldrush-form_submit` : undefined
+          }
         />
       </Form>
     </FormProvider>

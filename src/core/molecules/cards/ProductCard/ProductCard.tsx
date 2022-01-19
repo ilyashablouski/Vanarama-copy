@@ -34,7 +34,9 @@ const ProductCard: FC<IProductCardProps> = props => {
 
   return (
     <Card {...props}>
-      {!!features?.length && <CardIcons icons={features} />}
+      {!!features?.length && (
+        <CardIcons icons={features} dataUiTestId={dataUiTestId} />
+      )}
       {children}
       <div className="card-footer">
         {onCompare && (
