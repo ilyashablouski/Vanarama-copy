@@ -6,7 +6,6 @@ import Button from 'core/atoms/button';
 
 import CloseSharp from '../../assets/icons/CloseSharp';
 import RouterLink from '../../../components/RouterLink';
-import { pushCookiePreferencesDataLayer } from '../../../utils/dataLayerHelpers';
 
 interface IProps {
   onAccept: () => void;
@@ -24,13 +23,11 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
   function handleAcceptClick() {
     hideCookieBar();
     onAccept();
-    pushCookiePreferencesDataLayer();
   }
 
   function handleDeclineClick() {
     hideCookieBar();
     onDecline();
-    pushCookiePreferencesDataLayer();
   }
 
   function handleAnimationEnd({

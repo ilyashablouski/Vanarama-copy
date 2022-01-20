@@ -25,7 +25,6 @@ import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
 import { getStoredPersonUuid } from '../gql/storedPersonUuid';
-import { getLocalStorage } from './windowLocalStorage';
 import { Nullish } from '../types/common';
 
 interface ICheckoutData {
@@ -737,14 +736,4 @@ export const pushWishlistActionEventDataLayer = (
   };
 
   pushToDataLayer(data);
-};
-
-export const pushCookiePreferencesDataLayer = () => {
-  if (!window.dataLayer) {
-    return;
-  }
-
-  window.dataLayer?.push({
-    cookiePreferences: getLocalStorage('cookiePreferences'),
-  });
 };
