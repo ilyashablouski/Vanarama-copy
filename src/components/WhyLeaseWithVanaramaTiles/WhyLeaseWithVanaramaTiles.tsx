@@ -9,6 +9,7 @@ import { Partner_partner_tiles as IPartnerTiles } from '../../../generated/Partn
 import Skeleton from '../Skeleton';
 import TileLink from '../TileLink';
 import RouterLink from '../RouterLink';
+import { normalizeString } from '../../utils/data';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -68,7 +69,9 @@ const WhyLeaseWithVanaramaTiles = ({
           <TileLink
             tile={tile}
             dataUiTestId={
-              dataUiTestId ? `${dataUiTestId}_${tile.title}` : undefined
+              dataUiTestId
+                ? `${dataUiTestId}_${normalizeString(tile.title)}`
+                : undefined
             }
           />
           <ReactMarkdown
