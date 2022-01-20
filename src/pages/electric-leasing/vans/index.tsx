@@ -133,6 +133,7 @@ const EVansPage: NextPage<IProps> = ({
                   ),
                   description: item?.derivativeName || '',
                 }}
+                dataUiTestId="electric-leasing-vans-page_vehicle-card"
               />
             ) : null;
           })}

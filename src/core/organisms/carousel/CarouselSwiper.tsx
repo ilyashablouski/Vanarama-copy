@@ -39,7 +39,10 @@ function CarouselSwiper({
   dataUiTestId,
 }: ICarouselProps) {
   return (
-    <div className={cx('carousel', className)}>
+    <div
+      className={cx('carousel', className)}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_carousel` : undefined}
+    >
       <Swiper
         slidesPerView="auto"
         loop={loop ?? countItems > 1}

@@ -18,6 +18,7 @@ const LeadTextComponent: FC<IProps> = ({
   withSeparator = true,
   className,
   xlargeText,
+  dataUiTestId,
 }) => (
   <section className={cx('row:lead-text', className)}>
     {withSeparator && <hr className="-fullwidth" />}
@@ -27,6 +28,9 @@ const LeadTextComponent: FC<IProps> = ({
       className="-a-center"
       tag={
         getTitleTag(leadText?.titleTag || 'h2') as keyof JSX.IntrinsicElements
+      }
+      dataUiTestId={
+        dataUiTestId ? `${dataUiTestId}_lead-text-component_title` : undefined
       }
     >
       {leadText?.heading}

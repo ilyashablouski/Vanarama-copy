@@ -238,6 +238,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       </div>
       <div
         className="price--label"
+        data-uitestid="vehicle-card_price-label"
       >
         Per Month Exc.VAT
       </div>
@@ -587,6 +588,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       </div>
       <div
         className="price--label"
+        data-uitestid="vehicle-card_price-label"
       >
         Per Month Inc.VAT
       </div>
@@ -936,6 +938,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       </div>
       <div
         className="price--label"
+        data-uitestid="vehicle-card_price-label"
       >
         Per Month Inc.VAT
       </div>

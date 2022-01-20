@@ -60,6 +60,7 @@ const ECarsPage: NextPage<IProps> = ({
       }
       vehicleListUrlData={vehicleListUrlData || null}
       searchPodCarsData={searchPodCarsData}
+      dataUiTestId="electric-leasing-cars-page"
     />
   );
 };

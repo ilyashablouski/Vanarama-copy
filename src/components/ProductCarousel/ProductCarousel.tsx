@@ -21,7 +21,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       <CarouselSwiper
         className={cx('-product -mh-auto', className)}
         countItems={countItems || 6}
-        dataUiTestId={dataUiTestId}
+        dataUiTestId={dataUiTestId || dataUiTestIdMask}
       >
         {data.productCard?.map(
           (product, index) =>
