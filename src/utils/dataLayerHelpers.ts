@@ -25,6 +25,7 @@ import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
 import { getStoredPersonUuid } from '../gql/storedPersonUuid';
+import { Nullish } from '../types/common';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -102,9 +103,10 @@ interface IPageData {
 }
 
 interface ICategory {
-  cars: boolean | null | undefined;
-  vans: boolean | null | undefined;
-  pickups: boolean | null | undefined;
+  cars: Nullish<boolean>;
+  vans: Nullish<boolean>;
+  pickups: Nullish<boolean>;
+  electricCars?: Nullish<boolean>;
 }
 
 declare global {
@@ -133,15 +135,40 @@ export const pushPageViewEvent = async (path: string, title = '') => {
   });
 };
 
-export const getCategory = ({ cars, pickups }: ICategory): string => {
-  if (pickups) {
-    return 'Pickup';
-  }
+export const getCategory = ({
+  cars,
+  pickups,
+  electricCars,
+}: ICategory): string => {
   if (cars) {
     return 'Car';
   }
+  if (pickups) {
+    return 'Pickup';
+  }
+  if (electricCars) {
+    return 'EV';
+  }
   return 'Van';
 };
+
+const isCarsCategory = (
+  lineItem: Nullish<LineItemInputObject>,
+  derivativeData: Nullable<GetDerivative_derivative>,
+): boolean =>
+  Boolean(
+    lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR &&
+      !derivativeData?.fuelType?.name?.includes('Electric'),
+  );
+
+const isElectricCarsCategory = (
+  lineItem: Nullish<LineItemInputObject>,
+  derivativeData: Nullable<GetDerivative_derivative>,
+): boolean =>
+  Boolean(
+    lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR &&
+      derivativeData?.fuelType?.name?.includes('Electric'),
+  );
 
 export const productsMapper = (
   detailsData: OrderInputObject | null,
@@ -153,8 +180,9 @@ export const productsMapper = (
     name: derivativeData?.name || 'undefined',
     price: `${lineItem?.vehicleProduct?.monthlyPayment}` || 'undefined',
     category: getCategory({
-      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      cars: isCarsCategory(lineItem, derivativeData),
       pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      electricCars: isElectricCarsCategory(lineItem, derivativeData),
       vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
     }),
     brand: derivativeData?.manufacturer.name || 'undefined',
@@ -527,8 +555,9 @@ export const pushAboutYouDataLayer = (
     derivativeData,
     price,
     type: getCategory({
-      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      cars: isCarsCategory(lineItem, derivativeData),
       pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      electricCars: isElectricCarsCategory(lineItem, derivativeData),
       vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
     }),
     lineItem,
@@ -571,8 +600,9 @@ export const pushSummaryDataLayer = ({
     derivativeData,
     price,
     type: getCategory({
-      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      cars: isCarsCategory(lineItem, derivativeData),
       pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      electricCars: isElectricCarsCategory(lineItem, derivativeData),
       vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
     }),
     lineItem,
