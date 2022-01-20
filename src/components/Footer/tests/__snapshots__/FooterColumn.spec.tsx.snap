@@ -3,11 +3,11 @@
 exports[`<FooterColumn /> renders correctly with body 1`] = `
 <div
   className="footer--column"
-  data-uitestid="footer_footer-column_ABOUT US"
+  data-uitestid="footer_footer-column_about-us"
 >
   <span
     className="heading -medium -small"
-    data-uitestid="footer_footer-column_ABOUT US_heading"
+    data-uitestid="footer_footer-column_about-us_heading"
   >
     GET IN TOUCH WITH US
   </span>
@@ -20,11 +20,11 @@ exports[`<FooterColumn /> renders correctly with body 1`] = `
 exports[`<FooterColumn /> renders correctly with links 1`] = `
 <div
   className="footer--column"
-  data-uitestid="footer_footer-column_ABOUT US"
+  data-uitestid="footer_footer-column_about-us"
 >
   <span
     className="heading -medium -small"
-    data-uitestid="footer_footer-column_ABOUT US_heading"
+    data-uitestid="footer_footer-column_about-us_heading"
   >
     VANS & TRUCKS
   </span>
@@ -33,7 +33,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
-        data-uitestid="footer_footer-column_ABOUT US_link_Van Leasing"
+        data-uitestid="footer_footer-column_about-us_link_van-leasing"
         href="https://vanarama.com/van-leasing.html"
         onClick={[Function]}
       >
@@ -44,7 +44,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
-        data-uitestid="footer_footer-column_ABOUT US_link_Pickup Truck Leasing"
+        data-uitestid="footer_footer-column_about-us_link_pickup-truck-leasing"
         href="https://vanarama.com/pickup-truck-leasing.html"
         onClick={[Function]}
       >
@@ -55,7 +55,7 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
       <a
         className="link -white -small"
         data-testid="link"
-        data-uitestid="footer_footer-column_ABOUT US_link_Van Reviews"
+        data-uitestid="footer_footer-column_about-us_link_van-reviews"
         href="https://vanarama.com/van-reviews.html"
         onClick={[Function]}
       >

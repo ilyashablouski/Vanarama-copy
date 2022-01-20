@@ -150,7 +150,7 @@ describe('<Footer />', () => {
                     {
                       url:
                         'https://beta.vanarama.com/car-leasing-explained.html',
-                      text: 'Car Leasing Explained ',
+                      text: 'Car Leasing Explained',
                     },
                     {
                       url:

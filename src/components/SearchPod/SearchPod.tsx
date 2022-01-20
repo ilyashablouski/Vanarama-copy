@@ -8,6 +8,7 @@ import {
 } from '../../../generated/filterList';
 import { ISearchPodProps } from './interfaces';
 import Skeleton from '../Skeleton';
+import { normalizeString } from '../../utils/data';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -70,7 +71,9 @@ const SearchPod = ({
                 index={parseInt(TypeToIndex[type as any], 10)}
                 key={`${tabName}-tab`}
                 dataTestId={`${tabName}tab`}
-                dataUiTestId={`${dataUiTestId || ''}searchPod-${tabName}-tab`}
+                dataUiTestId={`${dataUiTestId || ''}searchPod_${normalizeString(
+                  tabName,
+                )}-tab`}
               >
                 {tabName}
               </Tab>
@@ -182,9 +185,9 @@ const SearchPod = ({
                 }
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
-                dataUiTestId={`${dataUiTestId || ''}searchPod-${
-                  tab.type
-                }Search-button`}
+                dataUiTestId={`${dataUiTestId || ''}searchPod_${normalizeString(
+                  tab.type,
+                )}-search-button`}
               />
             </TabPanel>
           ))}

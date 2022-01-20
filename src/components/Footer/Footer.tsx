@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { normalizeString } from '../../utils/data';
 
 const Text = dynamic(() => import('core/atoms/text'));
 const FooterColumn = dynamic(() => import('./FooterColumn'));
@@ -25,7 +26,9 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
         {linkGroups?.map(linkGroup => (
           <FooterColumn
             key={linkGroup?.name || ''}
-            dataUiTestId={`footer_footer-column_${linkGroup?.name}`}
+            dataUiTestId={`footer_footer-column_${normalizeString(
+              linkGroup?.name,
+            )}`}
             linkGroup={linkGroup}
           />
         ))}

@@ -1,4 +1,4 @@
-import { decodeData, encodeData } from '../data';
+import { decodeData, encodeData, normalizeString } from '../data';
 
 describe('decodeData/encodeData', () => {
   const originalObj = {
@@ -181,5 +181,21 @@ describe('decodeData/encodeData', () => {
 
   it('encodeData', () => {
     expect(encodeData(originalObj)).toEqual(encodedObj);
+  });
+
+  describe('normalizeString', () => {
+    it('with capital letters', () => {
+      const str = 'footer_footer-column_ABOUT US_heading';
+      const result = 'footer_footer-column_about-us_heading';
+
+      expect(normalizeString(str)).toEqual(result);
+    });
+
+    it('with capital letters and special characters', () => {
+      const str = 'Vans & Trucks';
+      const result = 'vans-trucks';
+
+      expect(normalizeString(str)).toEqual(result);
+    });
   });
 });

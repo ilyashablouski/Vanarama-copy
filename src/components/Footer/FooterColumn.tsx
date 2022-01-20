@@ -12,6 +12,7 @@ import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../g
 import RouterLink from '../RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import Skeleton from '../Skeleton';
+import { normalizeString } from '../../utils/data';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -78,7 +79,9 @@ const FooterColumn: FC<IFooterColumn> = ({ linkGroup, dataUiTestId }) => {
                 <RouterLink
                   link={{ href: link?.url || '', label: link?.text || '' }}
                   classNames={{ color: 'white', size: 'small' }}
-                  dataUiTestId={`${dataUiTestId}_link_${link?.text}`}
+                  dataUiTestId={`${dataUiTestId}_link_${normalizeString(
+                    link?.text,
+                  )}`}
                 />
               </li>
             ))}
