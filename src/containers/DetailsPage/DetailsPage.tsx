@@ -735,7 +735,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-
+        {isJanSaleCampaignEnabled() && (
+          <JanuarySaleBanners className="pdp-page-wrapper" />
+        )}
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}

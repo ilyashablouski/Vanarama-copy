@@ -10,6 +10,7 @@ import { IHeaderLink, IHeaderPromoImageLink } from './Header';
 import Skeleton from '../Skeleton';
 import Label from './Label';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
@@ -252,7 +253,9 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                       key={secondaryLink.label}
                       className={linkClassName({
                         highlight: secondaryLink.highlight,
-                        half: secondaryLinks.length > 4,
+                        half:
+                          secondaryLinks.length > 4 &&
+                          !(isJanSaleCampaignEnabled() && title === 'ELECTRIC'),
                       })}
                     >
                       <RouterLink link={secondaryLink} as={secondaryLink.as}>
