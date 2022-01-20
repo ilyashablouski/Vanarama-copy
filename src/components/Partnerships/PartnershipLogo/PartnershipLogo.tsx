@@ -32,6 +32,7 @@ const PartnershipLogo = ({ title, logo, imageAlt }: IPartnershipLogo) => (
       src={logo?.url ?? ''}
       alt={imageAlt ?? 'Partnership Image'}
       size="large"
+      dataUiTestId="partnership_hero-logo"
       plain
     />
   </div>

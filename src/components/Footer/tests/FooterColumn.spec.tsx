@@ -18,6 +18,7 @@ describe('<FooterColumn />', () => {
               name: 'GET IN TOUCH WITH US',
               linkGroups: null,
             }}
+            dataUiTestId="footer_footer-column_about-us"
           />,
         )
         .toJSON();
@@ -50,6 +51,7 @@ describe('<FooterColumn />', () => {
               name: 'VANS & TRUCKS',
               linkGroups: null,
             }}
+            dataUiTestId="footer_footer-column_about-us"
           />,
         )
         .toJSON();
