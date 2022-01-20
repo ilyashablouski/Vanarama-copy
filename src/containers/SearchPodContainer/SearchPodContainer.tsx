@@ -33,6 +33,7 @@ interface ISearchPodContainerProps {
   activeSearchIndex?: number;
   searchType?: VehicleTypeEnum;
   isCustomSearchButtonLabel?: boolean;
+  dataUiTestId?: string;
 }
 
 enum Tabs {
@@ -51,6 +52,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   activeSearchIndex,
   searchType,
   isCustomSearchButtonLabel,
+  dataUiTestId,
 }) => {
   const router = useRouter();
 
@@ -386,6 +388,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       headingText={headingText}
       customCTAColor={customCTAColor}
       isCustomSearchButtonLabel={isCustomSearchButtonLabel}
+      dataUiTestId={dataUiTestId}
     />
   );
 };

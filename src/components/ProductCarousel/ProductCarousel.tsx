@@ -14,12 +14,14 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   customCTABackground,
   dataUiTestIdMask,
   className,
+  dataUiTestId,
 }) => {
   if (data.productCard?.length && data.productCard?.length > 1) {
     return (
       <CarouselSwiper
         className={cx('-product -mh-auto', className)}
         countItems={countItems || 6}
+        dataUiTestId={dataUiTestId}
       >
         {data.productCard?.map(
           (product, index) =>
@@ -33,7 +35,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     data={data}
                     dataTestIdBtn={dataTestIdBtn}
                     dataUiTestIdMask={
-                      isDuplicate ? undefined : dataUiTestIdMask
+                      isDuplicate ? undefined : dataUiTestIdMask || dataUiTestId
                     }
                     productType={productType}
                     customCTABackground={customCTABackground}

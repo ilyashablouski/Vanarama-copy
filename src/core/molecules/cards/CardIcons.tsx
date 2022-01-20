@@ -13,6 +13,7 @@ interface ICardIconsProps {
   className?: string;
   icons: TIcon[];
   featuredProduct?: boolean;
+  dataUiTestId?: string;
 }
 
 const shortName = (name: string) => {
@@ -29,6 +30,7 @@ const CardIcons: React.FC<ICardIconsProps> = ({
   className,
   icons,
   featuredProduct = false,
+  dataUiTestId,
 }) => (
   <div
     className={cx(
@@ -45,7 +47,15 @@ const CardIcons: React.FC<ICardIconsProps> = ({
             {shortName(item.name)}
           </Text>
         )}
-        <Text size="xsmall" color="dark">
+        <Text
+          size="xsmall"
+          color="dark"
+          dataUiTestId={
+            dataUiTestId
+              ? `${dataUiTestId}_card-icon_${item.name ? item.label : 'N/A'}`
+              : undefined
+          }
+        >
           {item.name ? item.label : 'N/A'}
         </Text>
       </div>
