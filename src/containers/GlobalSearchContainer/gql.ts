@@ -11,6 +11,7 @@ import Cookies from 'js-cookie';
 import {
   suggestionList,
   suggestionListVariables,
+  suggestionList_suggestionListV3,
 } from '../../../generated/suggestionList';
 import {
   productDerivatives as IProductDerivativesQuery,
@@ -116,8 +117,9 @@ export const PRODUCT_DERIVATIVE = gql`
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
-    suggestionListV2(query: $query, pagination: { size: 6 }) {
-      suggestions
+    suggestionListV3(query: $query) {
+      vehicles
+      vehicleCategories
     }
   }
 `;
@@ -264,10 +266,43 @@ export const getVehiclesCardsData = async (
       ? fetchProductCardsData(client, responseVansCapIds, VehicleTypeEnum.LCV)
       : undefined,
   ]);
+
   return {
     LCV: (vansProductCards as ICardsData[]) ?? [],
     CAR: (carsProductCards as ICardsData[]) ?? [],
   };
+};
+
+/**
+ * Get a list of vehicles depending on the input query
+ */
+const getSuggestionList = (
+  searchString: string,
+  suggestions: suggestionList_suggestionListV3 | null,
+) => {
+  if (!suggestions) {
+    return [];
+  }
+
+  const { vehicles, vehicleCategories } = suggestions;
+  const vehicle = [
+    ...new Set(
+      searchString
+        .toLowerCase()
+        .split(' ')
+        .filter(Boolean),
+    ),
+  ];
+
+  const isModel = vehicleCategories?.some(value =>
+    value?.toLowerCase().includes(vehicle[0]),
+  );
+
+  if (vehicle.length > 1 || !isModel) {
+    return vehicles;
+  }
+
+  return vehicleCategories;
 };
 
 export function useGlobalSearch(query?: string) {
@@ -316,12 +351,14 @@ export function useGlobalSearch(query?: string) {
           },
         }),
       ]);
+
+      const resultVehicles = getSuggestionList(
+        value,
+        suggestsList?.data?.suggestionListV3,
+      );
+
       return {
-        suggestsList:
-          (suggestsList?.data.suggestionListV2?.suggestions as string[])?.slice(
-            0,
-            5,
-          ) || [],
+        suggestsList: (resultVehicles as string[])?.slice(0, 5) || [],
         vehiclesList:
           (vehiclesList?.data.productDerivatives
             ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||

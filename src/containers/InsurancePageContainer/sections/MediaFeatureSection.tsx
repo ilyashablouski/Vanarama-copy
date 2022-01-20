@@ -53,6 +53,7 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
     <div className={`row:featured-${className}`}>
       {selectedLayout !== LayoutTypes.right && image?.file?.url ? (
         <ImageV2
+          quality={60}
           width={image.file.details.image.width}
           height={image.file.details.image.height}
           src={image.file.url}

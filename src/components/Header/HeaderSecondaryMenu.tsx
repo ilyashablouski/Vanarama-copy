@@ -283,7 +283,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                       }}
                     >
                       <ImageV2
-                        quality={40}
+                        quality={60}
                         width={promoImageLink?.image.width ?? 800}
                         height={promoImageLink?.image.height ?? 800}
                         alt={promoImageLink?.image.fileName}
@@ -302,7 +302,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             <div className="menu-featured" key={promoImageLink.url}>
               <RouterLink link={{ href: promoImageLink?.url, label: '' }}>
                 <ImageV2
-                  quality={40}
+                  quality={60}
                   width={promoImageLink.image.width ?? 800}
                   height={promoImageLink.image.height ?? 800}
                   src={promoImageLink?.image.url || '/img-placeholder.png'}

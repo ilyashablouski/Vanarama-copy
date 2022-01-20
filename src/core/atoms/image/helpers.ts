@@ -2,7 +2,7 @@ import { ImageLoaderProps } from 'next/image';
 import { trimStartSlash } from '../../../utils/url';
 
 // eslint-disable-next-line import/prefer-default-export
-export function cloudflareLoader({ src, width, quality }: ImageLoaderProps) {
+export function optimizedLoader({ src, width, quality }: ImageLoaderProps) {
   const params = [`width=${width}`];
 
   if (quality) {

@@ -25,6 +25,8 @@ const Banners = ({ cards }: IProps) => {
       {cards.map(card => (
         <div key={card?.title} className="option-icon-left -white">
           <ImageV2
+            sizes="30vw"
+            quality={60}
             width={card.image?.file?.details.image.width}
             height={card.image?.file?.details.image.height}
             src={card.image?.file?.url || ''}
@@ -49,6 +51,8 @@ const Banners = ({ cards }: IProps) => {
   ) : (
     <div className="banner">
       <ImageV2
+        sizes="30vw"
+        quality={60}
         width={cards[0]?.image?.file?.details.image.width}
         height={cards[0]?.image?.file?.details.image.height}
         src={cards[0]?.image?.file?.url || ''}

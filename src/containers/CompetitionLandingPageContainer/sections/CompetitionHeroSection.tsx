@@ -49,7 +49,10 @@ const CompetitionHeroSection = ({
     />
     <div>
       <ImageV2
+        quality={70}
         size="expand"
+        optimisedHost
+        lazyLoad={false}
         className="hero--image -pt-000"
         dataTestId="insurance_hero-image"
         width={image?.file?.details.image.width ?? 840}

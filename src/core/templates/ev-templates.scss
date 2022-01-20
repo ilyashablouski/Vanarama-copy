@@ -209,17 +209,36 @@
 
     &--deranged-content {
       margin-top: 100px;
-      margin-bottom: 200px;
+      margin-bottom: 180px;
       max-width: 550px;
+      z-index: 10;
+
 
       @include tablet-desktop {
         margin-left: 100px;
+      }
+
+      @media (max-width: 1215px) {
+        margin-bottom: 289px;
       }
 
       @include mobile {
         text-align: center;
         margin-top: 50px;
         margin-bottom: 330px;
+      }
+
+      @media (max-width: 549px) {
+        margin-bottom: 307px;
+      }
+
+      @media (max-width: 395px) {
+        margin-bottom: 265px;
+      }
+
+
+      @media (max-width: 360px) {
+        margin-bottom: 234px;
       }
     }
 
