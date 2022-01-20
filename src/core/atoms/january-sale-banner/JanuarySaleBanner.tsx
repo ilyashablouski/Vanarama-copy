@@ -15,7 +15,7 @@ const JanuarySaleBanner: React.FC<IBaseProps> = ({ className }) => (
                 £250 Cashback On Every Vehicle
               </span>
               <div className="sale-banner__group">
-                <span className="sale-banner__aside-text sale-banner__aside-text__bold -mobile">
+                <span className="sale-banner__aside-text -mobile">
                   £250 Cashback
                 </span>
                 <span className="sale-banner__aside-text -january sale-banner__aside-text__bold -mobile">
