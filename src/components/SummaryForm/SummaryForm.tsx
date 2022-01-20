@@ -25,6 +25,7 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
+import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -39,6 +40,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 const Modal = dynamic(() => import('core/molecules/modal'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -76,6 +80,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
 }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
 
@@ -171,6 +176,23 @@ const SummaryForm: FCWithFragments<IProps> = ({
   return (
     <>
       <Form className="olaf-summary">
+        {isShowModal && (
+          <Modal
+            show
+            onRequestClose={() => {
+              setIsShowModal(false);
+            }}
+            title="Keeping Your Order Secure"
+          >
+            <Text color="darker" size="small">
+              At Vanarama, we do everything we can to protect your privacy and
+              security. Our website security features encrypt your information
+              so it stays safe and your details will only be shared with our
+              trusted funders and credit agencies for the purposes of your
+              application - never with any third-parties.
+            </Text>
+          </Modal>
+        )}
         <Heading
           color="black"
           size="xlarge"
@@ -230,6 +252,28 @@ const SummaryForm: FCWithFragments<IProps> = ({
             setIsSubmit(true);
             return handleSubmit();
           }}
+        />
+        <Button
+          size="small"
+          type="button"
+          color="none"
+          iconColor="white"
+          iconPosition="before"
+          withoutDefaultClass
+          style={{ width: '35%', margin: '0 auto' }}
+          label={
+            <>
+              <Icon icon={<SecureOrder />} color="teal" />
+              <span
+                className="link -teal -regular -mt-100"
+                style={{ textDecoration: 'underline' }}
+              >
+                Secure order
+              </span>
+            </>
+          }
+          dataTestId="secure-order"
+          onClick={() => setIsShowModal(true)}
         />
       </Form>
       {showModal && (

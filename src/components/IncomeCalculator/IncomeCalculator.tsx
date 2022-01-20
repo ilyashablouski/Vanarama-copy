@@ -14,6 +14,7 @@ import {
 import { responseToInitialFormValues } from './mappers';
 import { calculateIncome } from './utils';
 import Skeleton from '../Skeleton';
+import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -38,6 +39,9 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
   loading: () => <Skeleton count={1} />,
 });
 const Modal = dynamic(() => import('core/molecules/modal'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -89,6 +93,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
     isOpen: false,
     controlId: '',
   });
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const findByModalId = modalData.find(
     item => item.id === isInitPayModalShowing.controlId,
@@ -108,6 +113,23 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      {isShowModal && (
+        <Modal
+          show
+          onRequestClose={() => {
+            setIsShowModal(false);
+          }}
+          title="Keeping Your Order Secure"
+        >
+          <Text color="darker" size="small">
+            At Vanarama, we do everything we can to protect your privacy and
+            security. Our website security features encrypt your information so
+            it stays safe and your details will only be shared with our trusted
+            funders and credit agencies for the purposes of your application -
+            never with any third-parties.
+          </Text>
+        </Modal>
+      )}
       <Heading color="black" size="xlarge" dataTestId="expenses" tag="h1">
         Expenses
       </Heading>
@@ -378,6 +400,28 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           iconPosition="after"
           dataTestId="continue"
           size="large"
+        />
+        <Button
+          size="small"
+          type="button"
+          color="none"
+          iconColor="white"
+          iconPosition="before"
+          withoutDefaultClass
+          style={{ width: '35%', margin: '0 auto' }}
+          label={
+            <>
+              <Icon icon={<SecureOrder />} color="teal" />
+              <span
+                className="link -teal -regular -mt-100"
+                style={{ textDecoration: 'underline' }}
+              >
+                Secure order
+              </span>
+            </>
+          }
+          dataTestId="secure-order"
+          onClick={() => setIsShowModal(true)}
         />
       </FormGroup>
       {isInitPayModalShowing.isOpen && (
