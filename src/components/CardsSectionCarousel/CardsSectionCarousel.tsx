@@ -10,6 +10,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../RouterLink';
 import Pagination from '../BlogCarousel/Pagination';
+import { normalizeString } from '../../utils/data';
 
 interface IProps extends IBaseProps {
   cards: GenericPageQuery_genericPage_sectionsAsArray_cards_cards[];
@@ -20,13 +21,15 @@ const CardsSectionCarousel: React.FC<IProps> = ({
   cards,
   dataUiTestIdMask,
   className,
+  dataUiTestId,
 }) => {
   if (cards?.length && cards?.length > 1) {
     return (
       <CarouselSwiper
         className={cx('blog-carousel -mh-auto', className)}
         countItems={cards.length || 3}
-        paginationComponent={<Pagination />}
+        paginationComponent={<Pagination dataUiTestId={dataUiTestId} />}
+        dataUiTestId={dataUiTestId}
       >
         {cards.map((el: Cards, index: number) => (
           <SwiperSlide key={`_${index}` || ''}>
@@ -54,7 +57,18 @@ const CardsSectionCarousel: React.FC<IProps> = ({
                     size: 'regular',
                   }}
                 >
-                  <div className="button--inner">{el.link?.text}</div>
+                  <div
+                    className="button--inner"
+                    data-uitestid={
+                      dataUiTestId
+                        ? `${dataUiTestId}_button_${normalizeString(
+                            el.link?.text,
+                          )}`
+                        : undefined
+                    }
+                  >
+                    {el.link?.text}
+                  </div>
                 </RouterLink>
               </Card>
             )}

@@ -55,7 +55,14 @@ const Price: FC<IPriceProps> = memo(props => {
             )}
           </div>
           {priceDescription && (
-            <div className="price--label">{priceDescription}</div>
+            <div
+              className="price--label"
+              data-uitestid={
+                dataUitestId ? `${dataUitestId}_price-label` : undefined
+              }
+            >
+              {priceDescription}
+            </div>
           )}
         </>
       ) : (

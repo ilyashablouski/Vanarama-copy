@@ -148,7 +148,16 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
                 `${product?.manufacturerName} ${product?.modelName}`,
               )}
             </Heading>
-            <Heading tag="span" size="small" color="dark">
+            <Heading
+              tag="span"
+              size="small"
+              color="dark"
+              dataUiTestId={
+                dataUiTestIdMask
+                  ? `${dataUiTestIdMask}_product-carousel-card_derivative-name`
+                  : undefined
+              }
+            >
               {product?.derivativeName || ''}
             </Heading>
           </RouterLink>
@@ -163,7 +172,15 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
           <>
             {getVehicle(product, data.derivatives)?.fuelType?.name ===
               FuelTypeEnum.ELECTRIC && (
-              <CardLabel text="Free Home charger" icon={<FreeHomeCharger />} />
+              <CardLabel
+                text="Free Home charger"
+                dataUiTestId={
+                  dataUiTestIdMask
+                    ? `${dataUiTestIdMask}_product-carousel-card_free-home-charger`
+                    : undefined
+                }
+                icon={<FreeHomeCharger />}
+              />
             )}
             {product?.freeInsurance &&
               product.vehicleType === VehicleTypeEnum.CAR && (
@@ -188,6 +205,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
           priceDescription={`Per Month ${
             leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
           }.VAT`}
+          dataUitestId={dataUiTestIdMask}
         />
         <RouterLink
           link={{
