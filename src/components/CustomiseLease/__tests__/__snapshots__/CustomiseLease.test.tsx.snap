@@ -720,6 +720,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="price--inner"
+            data-uitestid="details-page_price_price-inner"
           >
             <span
               className="price--sub"
@@ -1547,6 +1548,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="price--inner"
+            data-uitestid="details-page_price_price-inner"
           >
             <span
               className="price--sub"

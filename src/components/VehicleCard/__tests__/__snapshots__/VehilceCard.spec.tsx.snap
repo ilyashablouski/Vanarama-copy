@@ -8,6 +8,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
 >
   <div
     className="card-header"
+    data-uitestid="vehicle-card_header"
   >
     <div
       data-uitestid="vehicle-card_availability"
@@ -38,6 +39,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
         className="image--native"
         data-nimg="fill"
         data-testid="card-image"
+        data-uitestid="vehicle-card_img"
         decoding="async"
         onError={[Function]}
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -69,6 +71,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
           className="image--native"
           data-nimg="fill"
           data-testid="card-image"
+          data-uitestid="vehicle-card_img"
           decoding="async"
           loading="lazy"
           onError={[Function]}
@@ -129,6 +132,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   </div>
   <div
     className="features"
+    data-uitestid="vehicle-card_features"
   >
     <div>
       <i
@@ -211,6 +215,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     >
       <div
         className="price--inner"
+        data-uitestid="vehicle-card_price-inner"
       >
         <span
           className="price--sub"
@@ -352,6 +357,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
 >
   <div
     className="card-header"
+    data-uitestid="vehicle-card_header"
   >
     <div
       data-uitestid="vehicle-card_availability"
@@ -382,6 +388,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         className="image--native"
         data-nimg="fill"
         data-testid="card-image"
+        data-uitestid="vehicle-card_img"
         decoding="async"
         onError={[Function]}
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -413,6 +420,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
           className="image--native"
           data-nimg="fill"
           data-testid="card-image"
+          data-uitestid="vehicle-card_img"
           decoding="async"
           loading="lazy"
           onError={[Function]}
@@ -473,6 +481,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   </div>
   <div
     className="features"
+    data-uitestid="vehicle-card_features"
   >
     <div>
       <i
@@ -555,6 +564,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     >
       <div
         className="price--inner"
+        data-uitestid="vehicle-card_price-inner"
       >
         <span
           className="price--sub"
@@ -696,6 +706,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
 >
   <div
     className="card-header"
+    data-uitestid="vehicle-card_header"
   >
     <div
       data-uitestid="vehicle-card_availability"
@@ -726,6 +737,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
         className="image--native"
         data-nimg="fill"
         data-testid="card-image"
+        data-uitestid="vehicle-card_img"
         decoding="async"
         onError={[Function]}
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -757,6 +769,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
           className="image--native"
           data-nimg="fill"
           data-testid="card-image"
+          data-uitestid="vehicle-card_img"
           decoding="async"
           loading="lazy"
           onError={[Function]}
@@ -817,6 +830,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   </div>
   <div
     className="features"
+    data-uitestid="vehicle-card_features"
   >
     <div>
       <i
@@ -899,6 +913,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     >
       <div
         className="price--inner"
+        data-uitestid="vehicle-card_price-inner"
       >
         <span
           className="price--sub"

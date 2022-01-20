@@ -13,10 +13,11 @@ interface ITileLinkProps {
     link?: HomePageData_homePage_sections_tiles_tiles_link | null;
     title: string | null;
   };
+  dataUiTestId?: string;
 }
 
 const TileLink: React.FC<ITileLinkProps> = props => {
-  const { tile } = props;
+  const { tile, dataUiTestId } = props;
   if (tile.link) {
     return (
       <RouterLink
@@ -31,7 +32,12 @@ const TileLink: React.FC<ITileLinkProps> = props => {
   }
   return (
     <span className="tile--link">
-      <Heading tag="span" size="regular" color="black">
+      <Heading
+        tag="span"
+        size="regular"
+        color="black"
+        dataUiTestId={dataUiTestId}
+      >
         {tile.title}
       </Heading>
     </span>

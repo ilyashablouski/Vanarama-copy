@@ -37,6 +37,7 @@ const CardIcons: React.FC<ICardIconsProps> = ({
       { features: !featuredProduct, 'card--features': featuredProduct },
       className,
     )}
+    data-uitestid={dataUiTestId ? `${dataUiTestId}_features` : undefined}
   >
     {/* At most only ever show 4 */}
     {icons.slice(0, 4).map(item => (

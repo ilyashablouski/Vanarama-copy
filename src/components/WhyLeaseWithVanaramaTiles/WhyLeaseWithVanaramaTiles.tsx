@@ -9,6 +9,7 @@ import { Partner_partner_tiles as IPartnerTiles } from '../../../generated/Partn
 import Skeleton from '../Skeleton';
 import TileLink from '../TileLink';
 import RouterLink from '../RouterLink';
+import { normalizeString } from '../../utils/data';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -27,12 +28,14 @@ interface IWhyLeaseWithVanaramaTiles {
   title: Nullable<string>;
   titleTag?: Nullable<string>;
   tiles: IPartnerTiles[];
+  dataUiTestId?: string;
 }
 
 const WhyLeaseWithVanaramaTiles = ({
   title,
   titleTag,
   tiles,
+  dataUiTestId,
 }: IWhyLeaseWithVanaramaTiles) => (
   <section className="row:features-4col">
     {title && (
@@ -40,6 +43,7 @@ const WhyLeaseWithVanaramaTiles = ({
         size="large"
         color="black"
         tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
+        dataUiTestId={dataUiTestId ? `${dataUiTestId}_heading` : undefined}
       >
         {title}
       </Heading>
@@ -62,7 +66,14 @@ const WhyLeaseWithVanaramaTiles = ({
               }
             />
           </div>
-          <TileLink tile={tile} />
+          <TileLink
+            tile={tile}
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_${normalizeString(tile.title)}`
+                : undefined
+            }
+          />
           <ReactMarkdown
             allowDangerousHtml
             source={tile.body || ''}

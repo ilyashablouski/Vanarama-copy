@@ -5,9 +5,13 @@ import RouterLink from '../RouterLink';
 
 interface IGenericCheckboxes {
   id: string;
+  dataUiTestId?: string;
 }
 
-export const TermsAndConditions: React.FC<IGenericCheckboxes> = ({ id }) => {
+export const TermsAndConditions: React.FC<IGenericCheckboxes> = ({
+  id,
+  dataUiTestId,
+}) => {
   const { register } = useFormContext();
   return (
     <CheckBox
@@ -21,16 +25,25 @@ export const TermsAndConditions: React.FC<IGenericCheckboxes> = ({ id }) => {
           className="link -teal"
           href="/legal/terms-and-conditions"
           target="_blank"
+          data-uitestid={
+            dataUiTestId
+              ? `${dataUiTestId}_terms-and-conditions_link`
+              : undefined
+          }
         >
           Terms and Conditions
         </a>,
       ]}
       ref={register(termsAndCons)}
+      dataUiTestId={dataUiTestId}
     />
   );
 };
 
-export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
+export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({
+  id,
+  dataUiTestId,
+}) => {
   const { register } = useFormContext();
   return (
     <CheckBox
@@ -47,14 +60,18 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
             target: '_blank',
           }}
           classNames={{ color: 'teal' }}
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_privacy-policy_link` : undefined
+          }
         />,
       ]}
       ref={register(privacyPolicy)}
+      dataUiTestId={dataUiTestId}
     />
   );
 };
 
-export const Consent: React.FC<IGenericCheckboxes> = ({ id }) => {
+export const Consent: React.FC<IGenericCheckboxes> = ({ id, dataUiTestId }) => {
   const { register } = useFormContext();
   return (
     <CheckBox
@@ -63,6 +80,7 @@ export const Consent: React.FC<IGenericCheckboxes> = ({ id }) => {
       name="consent"
       label="Keep me updated on the latest deals & offers"
       ref={register}
+      dataUiTestId={dataUiTestId}
     />
   );
 };
