@@ -8,7 +8,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const ModalFormSuccessMessage = () => {
+interface IModalFormSuccessMessage {
+  dataUiTestId?: string;
+}
+
+const ModalFormSuccessMessage = ({
+  dataUiTestId,
+}: IModalFormSuccessMessage) => {
   return (
     <div className="drawer__form-content">
       <Icon size="xlarge" color="success" icon={<CheckmarkCircle />} />
@@ -16,6 +22,11 @@ const ModalFormSuccessMessage = () => {
         size="lead"
         color="success"
         className="drawer__form-content-success"
+        dataUiTestId={
+          dataUiTestId
+            ? `${dataUiTestId}_modal-form-success-message`
+            : undefined
+        }
       >
         Your enquiry has been sent
       </Text>

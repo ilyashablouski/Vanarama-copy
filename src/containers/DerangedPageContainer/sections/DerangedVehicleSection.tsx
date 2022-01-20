@@ -17,9 +17,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   vehicleList: (GetConversionsVehicleList_conversions | null)[];
+  dataUiTestId?: string;
 }
 
-const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
+const DerangedVehicleSection: React.FC<IProps> = ({
+  vehicleList,
+  dataUiTestId,
+}) => {
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [isFormSend, setIsFormSend] = useState<boolean>(false);
   const [selectedVehicle, setSelectedVehicle] = useState<ISelectedVehicle>(
@@ -79,6 +83,9 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
                   }}
                   data={vehicle}
                   handleClick={handleClick}
+                  dataUiTestId={
+                    dataUiTestId ? `${dataUiTestId}_card` : undefined
+                  }
                 />
               ),
           )}
@@ -91,6 +98,9 @@ const DerangedVehicleSection: React.FC<IProps> = ({ vehicleList }) => {
         setIsFormSend={setIsFormSend}
         selectedVehicle={selectedVehicle}
         setSelectedVehicle={setSelectedVehicle}
+        dataUiTestId={
+          dataUiTestId ? `${dataUiTestId}_deranged-modal` : undefined
+        }
       />
     </section>
   );

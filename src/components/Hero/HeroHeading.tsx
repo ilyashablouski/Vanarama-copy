@@ -10,6 +10,7 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({
   titleTag,
   color = 'white',
   className,
+  dataUiTestId,
 }) => {
   if (!text) {
     return <Skeleton count={2} />;
@@ -21,6 +22,7 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({
       size="xlarge"
       color={color}
       tag={getTitleTag(titleTag || 'h1') as keyof JSX.IntrinsicElements}
+      dataUiTestId={dataUiTestId}
     >
       {text}
     </Heading>

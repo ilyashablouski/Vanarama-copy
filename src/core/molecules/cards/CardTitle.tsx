@@ -36,6 +36,7 @@ const CardTitle: FC<ICardTitleProps> = memo(props => {
     withBtn,
     ratingSize,
     btnClick,
+    dataUiTestId,
   } = props;
   return (
     <div
@@ -45,7 +46,13 @@ const CardTitle: FC<ICardTitleProps> = memo(props => {
       })}
     >
       {link ?? (
-        <Heading tag={tag} size={size} color="black" dataTestId="card-heading">
+        <Heading
+          tag={tag}
+          size={size}
+          color="black"
+          dataTestId="card-heading"
+          dataUiTestId={dataUiTestId ? `${dataUiTestId}_heading` : undefined}
+        >
           {title}
         </Heading>
       )}
@@ -55,11 +62,20 @@ const CardTitle: FC<ICardTitleProps> = memo(props => {
           size="small"
           color="dark"
           dataTestId="card-description"
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_description` : undefined
+          }
         >
           {description}
         </Heading>
       )}
-      {typeof score === 'number' && <Rating size={ratingSize} score={score} />}
+      {typeof score === 'number' && (
+        <Rating
+          size={ratingSize}
+          score={score}
+          dataUiTestId={dataUiTestId ? `${dataUiTestId}_rating` : undefined}
+        />
+      )}
       {withBtn && (
         <Button
           color="teal"

@@ -33,6 +33,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
         '-success': complete,
         '-orange': incomplete,
       })}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_header` : undefined}
     >
       <div style={accentStyles} data-uitestid={`${dataUiTestId}_availability`}>
         {text}

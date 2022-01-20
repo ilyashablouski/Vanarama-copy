@@ -24,7 +24,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
             aria-selected={true}
             className="-active"
             data-testid="Vans & Truckstab"
-            data-uitestid="searchPod-Vans & Trucks-tab"
+            data-uitestid="searchPod_vans-trucks-tab"
             id="tab:1-1"
             onClick={[Function]}
             role="tab"
@@ -37,7 +37,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
             aria-selected={false}
             className=""
             data-testid="Carstab"
-            data-uitestid="searchPod-Cars-tab"
+            data-uitestid="searchPod_cars-tab"
             id="tab:1-2"
             onClick={[Function]}
             role="tab"
@@ -409,7 +409,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <button
           className="button -fullwidth -teal -large -solid"
           data-testid="VanssearchBtn"
-          data-uitestid="searchPod-VansSearch-button"
+          data-uitestid="searchPod_vans-search-button"
           onClick={[Function]}
         >
           <div
@@ -704,7 +704,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <button
           className="button -fullwidth -teal -large -solid"
           data-testid="CarssearchBtn"
-          data-uitestid="searchPod-CarsSearch-button"
+          data-uitestid="searchPod_cars-search-button"
           onClick={[Function]}
         >
           <div
