@@ -274,7 +274,7 @@ describe('<TopOffersContainer />', () => {
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
-            keyInformation: [{ name: 'name' }],
+            keyInformation: [{ name: 'name', value: 'Manual' }],
             businessRate: 55,
             personalRate: 55,
           },

@@ -101,3 +101,11 @@ export function modifyObjectStringValues({
     });
   }
 }
+
+export function normalizeString(str: string | null | undefined) {
+  return str
+    ?.toLowerCase()
+    .replace(/&/g, '')
+    .replace(/\s/g, '-')
+    .replace(/--/g, '-');
+}

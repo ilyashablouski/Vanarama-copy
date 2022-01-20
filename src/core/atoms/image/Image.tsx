@@ -22,6 +22,7 @@ const Image: FC<IImageProps> = ({
   optimisationOptions,
   lazyLoad,
   dataTestId,
+  dataUiTestId,
 }) => {
   let srcset;
   let srcDefault = src;
@@ -86,6 +87,7 @@ const Image: FC<IImageProps> = ({
         onError={onError}
         data-cfasync="false"
         data-testid={dataTestId}
+        data-uitestid={dataUiTestId}
       />
     </div>
   );
