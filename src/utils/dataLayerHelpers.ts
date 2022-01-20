@@ -104,10 +104,10 @@ interface IPageData {
 }
 
 interface ICategory {
-  cars: boolean | null | undefined;
-  vans: boolean | null | undefined;
-  pickups: boolean | null | undefined;
-  electricCars?: boolean | null | undefined;
+  cars: Nullish<boolean>;
+  vans: Nullish<boolean>;
+  pickups: Nullish<boolean>;
+  electricCars?: Nullish<boolean>;
 }
 
 declare global {
