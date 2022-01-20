@@ -38,7 +38,10 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
           plain
         />
       </div>
-      <section className="row:bg-hero">
+      <section
+        className="row:bg-hero"
+        data-uitestid="deranged-vehicles_hero_section"
+      >
         <div className="row:hero -clear-background row:hero--deranged-content">
           <div className="-deranged-content--wrapper">
             <ImageV2
@@ -53,12 +56,16 @@ const DerangedHeroSection: React.FC<IProps> = ({ title, body }) => {
               plain
             />
             <div>
-              <HeroHeading text={title || ''} />
+              <HeroHeading
+                text={title || ''}
+                dataUiTestId="deranged-vehicles_hero_heading"
+              />
               <HeroTitle
                 text={body || ''}
                 className={cx('-w-500', {
                   '-mt-200': isMobileViewport,
                 })}
+                dataUiTestId="deranged-vehicles_hero_description"
               />
             </div>
           </div>

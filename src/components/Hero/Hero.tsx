@@ -45,6 +45,7 @@ const Hero: React.FC<IHeroProps> = ({
   searchType,
   isCustomSearchButtonLabel,
   className,
+  dataUiTestId,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -98,6 +99,7 @@ const Hero: React.FC<IHeroProps> = ({
         activeSearchIndex={activeSearchIndex}
         searchType={searchType}
         isCustomSearchButtonLabel={isCustomSearchButtonLabel}
+        dataUiTestId={dataUiTestId}
       />
     );
   };

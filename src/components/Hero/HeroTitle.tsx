@@ -6,13 +6,23 @@ import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink';
 import { IHeroTitleProps } from './interface';
 
-const HeroTitle: React.FC<IHeroTitleProps> = ({ className, text }) => {
+const HeroTitle: React.FC<IHeroTitleProps> = ({
+  className,
+  text,
+  dataUiTestId,
+}) => {
   if (!text) {
     return <Skeleton count={2} />;
   }
 
   return (
-    <Text className={className} tag="p" size="large" color="white">
+    <Text
+      className={className}
+      tag="p"
+      size="large"
+      color="white"
+      dataUiTestId={dataUiTestId}
+    >
       <ReactMarkdown
         allowDangerousHtml
         source={text}

@@ -36,9 +36,13 @@ function CarouselSwiper({
   paginationComponent,
   navigationOptions = navigationDefaultOptions,
   paginationOptions = paginationDefaultOptions,
+  dataUiTestId,
 }: ICarouselProps) {
   return (
-    <div className={cx('carousel', className)}>
+    <div
+      className={cx('carousel', className)}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_carousel` : undefined}
+    >
       <Swiper
         slidesPerView="auto"
         loop={loop ?? countItems > 1}
@@ -56,6 +60,9 @@ function CarouselSwiper({
             className={cx('carousel--nav', {
               '-disabled': disableNavigation,
             })}
+            data-uitestid={
+              dataUiTestId ? `${dataUiTestId}_carousel-swiper` : undefined
+            }
           >
             <button className="carousel--nav-arrow swiper-prev" type="button">
               <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
