@@ -171,9 +171,12 @@ export const OffersPage: NextPage<IProps> = ({
             >
               <div className="free-insurance-wrapper">
                 <ImageV2
+                  quality={60}
+                  optimisedHost
+                  lazyLoad={false}
                   src={`${process.env.HOST_DOMAIN}/freeInsuranceBanner.png`}
-                  plain
                   className="free-insurance-image"
+                  plain
                 />
                 <div className="free-insurance-text-container">
                   <Text color="dark" size="xsmall">
