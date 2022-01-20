@@ -23,6 +23,9 @@ const LevcHeroBanner: React.FC<IProps> = ({
     <>
       <div className="full-screen-image">
         <ImageV2
+          quality={70}
+          optimisedHost
+          lazyLoad={false}
           src={isMobile ? backgroundUrlMobile : backgroundUrl}
           className="row:bg-hero -levc-hero"
         />

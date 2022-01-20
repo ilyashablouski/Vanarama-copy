@@ -14,7 +14,7 @@ export const TempPage: NextPage = () => {
 
       <div className="row:title">
         <Heading tag="h2" size="large" color="black">
-          If you would like to place an order, find out the status of current
+          If you would like to place an order, find out the status of a current
           order or you have an existing vehicle and need some help, please call
           01442 902324 and speak to one of our account managers.
         </Heading>
