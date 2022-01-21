@@ -1,4 +1,10 @@
-import React, { useState, useEffect, ReactNode, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  ReactNode,
+  useMemo,
+  useCallback,
+} from 'react';
 import { useRouter } from 'next/router';
 import { useStoredOrderQuery } from 'gql/storedOrder';
 import dynamic from 'next/dynamic';
@@ -32,7 +38,7 @@ import {
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
 import Banner from '../../components/Banner/Banner';
-import ModalSecureOrder from '../../components/ModalSecureOrder';
+import SecureOrderModal from '../../components/SecureOrderModal';
 import Heading from '../../core/atoms/heading';
 import Text from '../../core/atoms/text';
 import Card from '../../core/molecules/cards/Card';
@@ -41,7 +47,7 @@ import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
 import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 import Skeleton from '../../components/Skeleton';
-import SecureOrder from '../../core/assets/icons/SecureOrder';
+import SecureOrderIcon from '../../core/assets/icons/SecureOrder';
 
 import { isSessionFinishedCache } from '../../cache';
 
@@ -155,6 +161,10 @@ const OLAFLayout: React.FC<IProps> = ({
     derivativeData.data?.vehicleImages &&
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
 
+  const toggleModalVisibility = useCallback(() => {
+    setIsShowModal(!isShowModal);
+  }, [isShowModal]);
+
   useEffect(() => {
     if (sessionState?.isSessionFinished) {
       setModalVisibility(true);
@@ -250,6 +260,33 @@ const OLAFLayout: React.FC<IProps> = ({
         >
           {children}
         </OlafContext.Provider>
+
+        {isShowModal && (
+          <SecureOrderModal onModalClose={toggleModalVisibility} />
+        )}
+        <Button
+          size="small"
+          type="button"
+          color="none"
+          iconColor="white"
+          iconPosition="before"
+          withoutDefaultClass
+          label={
+            <>
+              <Icon icon={<SecureOrderIcon />} color="teal" />
+              <Text
+                size="regular"
+                color="teal"
+                className="-underline -mt-100 link"
+              >
+                Secure order
+              </Text>
+            </>
+          }
+          dataTestId="secure-order"
+          onClick={toggleModalVisibility}
+        />
+
         {showAside && order && derivative && (
           <div className="olaf-aside">
             <OlafCard
@@ -400,38 +437,6 @@ const OLAFLayout: React.FC<IProps> = ({
           />
         </div>
       </Modal>
-
-      {isShowModal && (
-        <ModalSecureOrder
-          closeModal={() => {
-            setIsShowModal(false);
-          }}
-        />
-      )}
-      <div className="form">
-        <Button
-          size="small"
-          type="button"
-          color="none"
-          iconColor="white"
-          iconPosition="before"
-          withoutDefaultClass
-          style={{ margin: '0 auto' }}
-          label={
-            <>
-              <Icon icon={<SecureOrder />} color="teal" />
-              <span
-                className="link -teal -regular -mt-100"
-                style={{ textDecoration: 'underline' }}
-              >
-                Secure order
-              </span>
-            </>
-          }
-          dataTestId="secure-order"
-          onClick={() => setIsShowModal(true)}
-        />
-      </div>
     </>
   );
 };
