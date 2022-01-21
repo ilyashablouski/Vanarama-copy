@@ -76,7 +76,6 @@ const SummaryForm: FCWithFragments<IProps> = ({
 }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication();
 
@@ -172,23 +171,6 @@ const SummaryForm: FCWithFragments<IProps> = ({
   return (
     <>
       <Form className="olaf-summary">
-        {isShowModal && (
-          <Modal
-            show
-            onRequestClose={() => {
-              setIsShowModal(false);
-            }}
-            title="Keeping Your Order Secure"
-          >
-            <Text color="darker" size="small">
-              At Vanarama, we do everything we can to protect your privacy and
-              security. Our website security features encrypt your information
-              so it stays safe and your details will only be shared with our
-              trusted funders and credit agencies for the purposes of your
-              application - never with any third-parties.
-            </Text>
-          </Modal>
-        )}
         <Heading
           color="black"
           size="xlarge"
