@@ -22,6 +22,7 @@ const ImageV2: FC<IImageV2Props> = ({
   sizes,
   quality,
   lazyLoad,
+  dataUiTestId,
   ...props
 }) => {
   let { src } = props;
@@ -63,6 +64,7 @@ const ImageV2: FC<IImageV2Props> = ({
         objectFit={objectFit}
         priority={lazyLoad === false}
         onError={onError}
+        data-uitestid={dataUiTestId ? `${dataUiTestId}_img` : undefined}
       />
     </div>
   );

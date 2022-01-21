@@ -2,6 +2,7 @@ import cx from 'classnames';
 import React, { FC, memo } from 'react';
 
 import { IBaseProps } from '../../interfaces/base';
+import { normalizeString } from '../../../utils/data';
 
 interface ICardHeader {
   text: string;
@@ -33,12 +34,20 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
         '-success': complete,
         '-orange': incomplete,
       })}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_header` : undefined}
     >
       <div style={accentStyles} data-uitestid={`${dataUiTestId}_availability`}>
         {text}
       </div>
       {(accentIcon || accentText) && (
-        <div style={accentStyles}>
+        <div
+          style={accentStyles}
+          data-uitestid={
+            dataUiTestId
+              ? `${dataUiTestId}_${normalizeString(accentText)}`
+              : undefined
+          }
+        >
           {accentIcon ?? null}
           {accentText && <span>{accentText}</span>}
         </div>

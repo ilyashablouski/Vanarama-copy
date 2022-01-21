@@ -43,6 +43,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         class="image--native"
                         data-nimg="fill"
                         data-testid="card-image"
+                        data-uitestid="top-offers_product-card-0_img"
                         decoding="async"
                         sizes="100vw"
                         src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=60"
@@ -74,6 +75,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     </a>
                     <div
                       class="rating -regular -orange"
+                      data-uitestid="top-offers_product-card-0_rating"
                     >
                       <span>
                         <i
@@ -159,6 +161,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                   </div>
                   <div
                     class="features"
+                    data-uitestid="top-offers_product-card-0_features"
                   >
                     <div>
                       <i
@@ -198,7 +201,10 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                       </span>
                       <span
                         class="text -xsmall -dark"
-                      />
+                        data-uitestid="top-offers_product-card-0_card-icon_Manual"
+                      >
+                        Manual
+                      </span>
                     </div>
                   </div>
                   <div
@@ -209,6 +215,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     >
                       <div
                         class="price--inner"
+                        data-uitestid="top-offers_product-card-0_price-inner"
                       >
                         <span
                           class="price--sub"
@@ -231,6 +238,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                       </div>
                       <div
                         class="price--label"
+                        data-uitestid="top-offers_product-card-0_price-label"
                       >
                         Per Month Inc.VAT
                       </div>

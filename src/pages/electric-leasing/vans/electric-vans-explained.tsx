@@ -78,6 +78,7 @@ export const EVHubPage: NextPage<IProps> = ({
             text={sections?.hero?.[0]?.title || ''}
             titleTag="h1"
             color="orange"
+            dataUiTestId="electric-vans-explained-page_hero_title"
           />
         </div>
       </Hero>
@@ -151,6 +152,7 @@ export const EVHubPage: NextPage<IProps> = ({
                 }}
                 withoutDefaultClassName
                 dataTestId="view-all-cars"
+                dataUiTestId="electric-vans-explained-page_carousel_button_view-all"
               >
                 <div className="button--inner">View All Offers</div>
               </RouterLink>

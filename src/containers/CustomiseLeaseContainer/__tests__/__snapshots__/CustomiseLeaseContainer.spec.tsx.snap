@@ -878,6 +878,7 @@ Array [
           >
             <div
               className="price--inner"
+              data-uitestid="details-page_price_price-inner"
             >
               <span
                 className="price--sub"
@@ -1055,6 +1056,7 @@ Array [
                     <input
                       className="textinput--native regular"
                       data-testid="goldrush-form_full-name"
+                      data-uitestid="customise-lease_goldrush-form_goldrush-form_full-name"
                       id="goldrush-form_full-name"
                       name="fullName"
                       placeholder=""
@@ -1081,6 +1083,7 @@ Array [
                     <input
                       className="textinput--native regular"
                       data-testid="goldrush-form_email"
+                      data-uitestid="customise-lease_goldrush-form_goldrush-form_email"
                       id="goldrush-form_email"
                       name="email"
                       placeholder=""
@@ -1107,6 +1110,7 @@ Array [
                     <input
                       className="textinput--native regular"
                       data-testid="goldrush-form_phone-number"
+                      data-uitestid="customise-lease_goldrush-form_goldrush-form_phone-number"
                       id="goldrush-form_phone-number"
                       name="phoneNumber"
                       placeholder=""
@@ -1123,16 +1127,19 @@ Array [
                 >
                   <div
                     className="checkbox -teal"
+                    data-uitestid="customise-lease_goldrush-form_div_termsAndCons"
                   >
                     <input
                       className="checkbox--native visually-hidden"
                       data-testid="aboutTermsAndCons"
+                      data-uitestid="customise-lease_goldrush-form_checkbox_termsAndCons"
                       id="termsAndCons"
                       name="termsAndCons"
                       type="checkbox"
                     />
                     <label
                       className="checkbox--label"
+                      data-uitestid="customise-lease_goldrush-form_label_termsAndCons"
                       htmlFor="termsAndCons"
                     >
                       <span
@@ -1141,6 +1148,7 @@ Array [
                         I agree to the 
                         <a
                           className="link -teal"
+                          data-uitestid="customise-lease_goldrush-form_terms-and-conditions_link"
                           href="/legal/terms-and-conditions"
                           target="_blank"
                         >
@@ -1151,16 +1159,19 @@ Array [
                   </div>
                   <div
                     className="checkbox -teal"
+                    data-uitestid="customise-lease_goldrush-form_div_privacyPolicy"
                   >
                     <input
                       className="checkbox--native visually-hidden"
                       data-testid="aboutPrivacyPolicy"
+                      data-uitestid="customise-lease_goldrush-form_checkbox_privacyPolicy"
                       id="privacyPolicy"
                       name="privacyPolicy"
                       type="checkbox"
                     />
                     <label
                       className="checkbox--label"
+                      data-uitestid="customise-lease_goldrush-form_label_privacyPolicy"
                       htmlFor="privacyPolicy"
                     >
                       <span
@@ -1170,6 +1181,7 @@ Array [
                         <a
                           className="link -teal"
                           data-testid="link"
+                          data-uitestid="customise-lease_goldrush-form_privacy-policy_link"
                           href="/legal/privacy-policy"
                           onClick={[Function]}
                           target="_blank"
@@ -1181,16 +1193,19 @@ Array [
                   </div>
                   <div
                     className="checkbox -teal"
+                    data-uitestid="customise-lease_goldrush-form_div_consent"
                   >
                     <input
                       className="checkbox--native visually-hidden"
                       data-testid="aboutConsent"
+                      data-uitestid="customise-lease_goldrush-form_checkbox_consent"
                       id="consent"
                       name="consent"
                       type="checkbox"
                     />
                     <label
                       className="checkbox--label"
+                      data-uitestid="customise-lease_goldrush-form_label_consent"
                       htmlFor="consent"
                     >
                       <span
@@ -1204,12 +1219,14 @@ Array [
               </div>
               <p
                 className="text -xsmall -dark"
+                data-uitestid="customise-lease_goldrush-form_legal_content"
               >
                 Vanarama collects the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
               </p>
               <button
                 className="button -teal -lead -solid"
                 data-testid="goldrush-form_submit"
+                data-uitestid="customise-lease_goldrush-form_goldrush-form_submit"
                 disabled={false}
                 type="submit"
               >

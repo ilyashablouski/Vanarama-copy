@@ -188,6 +188,11 @@ const VehicleCard = React.memo(
                 <CardLabel
                   text="Free Home charger"
                   icon={<FreeHomeCharger />}
+                  dataUiTestId={
+                    dataUiTestId
+                      ? `${dataUiTestId}_free-home-charger`
+                      : undefined
+                  }
                 />
               )}
               {isFreeInsuranceVehicle && (

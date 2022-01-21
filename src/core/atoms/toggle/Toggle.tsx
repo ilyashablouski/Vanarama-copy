@@ -58,7 +58,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
             className="toggle--on"
             style={checked ? customStyles : undefined}
             data-uitestid={
-              dataUiTestId ? `${dataUiTestId}_toggle-on` : undefined
+              dataUiTestId ? `${dataUiTestId}_${onLabel}` : undefined
             }
           >
             {onLabel}
@@ -67,7 +67,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
             className="toggle--off"
             style={!checked ? customStyles : undefined}
             data-uitestid={
-              dataUiTestId ? `${dataUiTestId}_toggle-off` : undefined
+              dataUiTestId ? `${dataUiTestId}_${offLabel}` : undefined
             }
           >
             {offLabel}
