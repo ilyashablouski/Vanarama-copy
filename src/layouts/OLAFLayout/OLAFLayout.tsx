@@ -32,6 +32,7 @@ import {
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
 import Banner from '../../components/Banner/Banner';
+import ModalSecureOrder from '../../components/ModalSecureOrder';
 import Heading from '../../core/atoms/heading';
 import Text from '../../core/atoms/text';
 import Card from '../../core/molecules/cards/Card';
@@ -40,6 +41,7 @@ import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
 import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 import Skeleton from '../../components/Skeleton';
+import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 import { isSessionFinishedCache } from '../../cache';
 
@@ -138,6 +140,7 @@ const OLAFLayout: React.FC<IProps> = ({
   const [isModalVisible, setModalVisibility] = useState(false);
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const showAside = !isMobile || asideOpen;
 
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
@@ -397,6 +400,38 @@ const OLAFLayout: React.FC<IProps> = ({
           />
         </div>
       </Modal>
+
+      {isShowModal && (
+        <ModalSecureOrder
+          closeModal={() => {
+            setIsShowModal(false);
+          }}
+        />
+      )}
+      <div className="form">
+        <Button
+          size="small"
+          type="button"
+          color="none"
+          iconColor="white"
+          iconPosition="before"
+          withoutDefaultClass
+          style={{ margin: '0 auto' }}
+          label={
+            <>
+              <Icon icon={<SecureOrder />} color="teal" />
+              <span
+                className="link -teal -regular -mt-100"
+                style={{ textDecoration: 'underline' }}
+              >
+                Secure order
+              </span>
+            </>
+          }
+          dataTestId="secure-order"
+          onClick={() => setIsShowModal(true)}
+        />
+      </div>
     </>
   );
 };

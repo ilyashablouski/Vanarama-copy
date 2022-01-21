@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
@@ -16,7 +16,6 @@ import { mapEmailErrorMessage } from './mapEmailErrorMessage';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 import useEmailValidation from './useEmailValidation';
 import Skeleton from '../Skeleton';
-import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -34,15 +33,6 @@ const Form = dynamic(() => import('core/organisms/form'), {
 const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
   loading: () => <Skeleton count={5} />,
 });
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
@@ -54,8 +44,6 @@ const AboutForm: FCWithFragments<IProps> = ({
   onRegistrationClick,
   isSubmit,
 }) => {
-  const [isShowModal, setIsShowModal] = useState(false);
-
   const defaultValues = useMemo(() => responseToInitialFormValues(person), [
     person,
   ]);
@@ -90,23 +78,6 @@ const AboutForm: FCWithFragments<IProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      {isShowModal && (
-        <Modal
-          show
-          onRequestClose={() => {
-            setIsShowModal(false);
-          }}
-          title="Keeping Your Order Secure"
-        >
-          <Text color="darker" size="small">
-            At Vanarama, we do everything we can to protect your privacy and
-            security. Our website security features encrypt your information so
-            it stays safe and your details will only be shared with our trusted
-            funders and credit agencies for the purposes of your application -
-            never with any third-parties.
-          </Text>
-        </Modal>
-      )}
       <FormGroup
         controlId="title"
         label="Title"
@@ -402,28 +373,6 @@ const AboutForm: FCWithFragments<IProps> = ({
         iconPosition="after"
         dataTestId="aboutSubmit"
         dataUiTestId="olaf_about_continue-button"
-      />
-      <Button
-        size="small"
-        type="button"
-        color="none"
-        iconColor="white"
-        iconPosition="before"
-        withoutDefaultClass
-        style={{ width: '35%', margin: '0 auto' }}
-        label={
-          <>
-            <Icon icon={<SecureOrder />} color="teal" />
-            <span
-              className="link -teal -regular -mt-100"
-              style={{ textDecoration: 'underline' }}
-            >
-              Secure order
-            </span>
-          </>
-        }
-        dataTestId="secure-order"
-        onClick={() => setIsShowModal(true)}
       />
     </Form>
   );

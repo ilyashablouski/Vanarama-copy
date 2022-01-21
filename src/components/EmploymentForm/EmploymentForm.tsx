@@ -12,7 +12,6 @@ import {
 import { responseToInitialFormValues } from './mappers';
 import validationSchema from './validationSchema';
 import Skeleton from '../Skeleton';
-import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -33,12 +32,6 @@ const Form = dynamic(() => import('core/organisms/form'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   dropDownData,
@@ -47,7 +40,6 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
 }) => {
   const context = useContext(OlafContext);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <Formik<IFormValues>
@@ -60,23 +52,6 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
-          {isShowModal && (
-            <Modal
-              show
-              onRequestClose={() => {
-                setIsShowModal(false);
-              }}
-              title="Keeping Your Order Secure"
-            >
-              <Text color="darker" size="small">
-                At Vanarama, we do everything we can to protect your privacy and
-                security. Our website security features encrypt your information
-                so it stays safe and your details will only be shared with our
-                trusted funders and credit agencies for the purposes of your
-                application - never with any third-parties.
-              </Text>
-            </Modal>
-          )}
           <Heading
             dataTestId="employment-history-heading"
             tag="h1"
@@ -113,28 +88,6 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
             disabled={isSubmit}
             label={isSubmit ? 'Saving...' : 'Continue'}
             type="submit"
-          />
-          <Button
-            size="small"
-            type="button"
-            color="none"
-            iconColor="white"
-            iconPosition="before"
-            withoutDefaultClass
-            style={{ width: '35%', margin: '0 auto' }}
-            label={
-              <>
-                <Icon icon={<SecureOrder />} color="teal" />
-                <span
-                  className="link -teal -regular -mt-100"
-                  style={{ textDecoration: 'underline' }}
-                >
-                  Secure order
-                </span>
-              </>
-            }
-            dataTestId="secure-order"
-            onClick={() => setIsShowModal(true)}
           />
         </Form>
       )}

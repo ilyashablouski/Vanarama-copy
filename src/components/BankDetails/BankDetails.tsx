@@ -5,7 +5,7 @@ import Select from 'core/atoms/select';
 import TextInput from 'core/atoms/textinput';
 import SortCode from 'core/molecules/sortcode';
 import { gql } from '@apollo/client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -14,7 +14,6 @@ import { IBankDetails, IBankDetailsProps } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import Skeleton from '../Skeleton';
 import BankAccountValidator from '../BankAccountValidator';
-import SecureOrder from '../../core/assets/icons/SecureOrder';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -36,12 +35,6 @@ const Form = dynamic(() => import('core/organisms/form'), {
   loading: () => <Skeleton count={1} />,
 });
 const FormGroup = dynamic(() => import('core/molecules/formgroup'));
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   account,
@@ -65,27 +58,8 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   const sortCode = watch('sortCode');
   const accountNumber = watch('accountNumber');
 
-  const [isShowModal, setIsShowModal] = useState(false);
-
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      {isShowModal && (
-        <Modal
-          show
-          onRequestClose={() => {
-            setIsShowModal(false);
-          }}
-          title="Keeping Your Order Secure"
-        >
-          <Text color="darker" size="small">
-            At Vanarama, we do everything we can to protect your privacy and
-            security. Our website security features encrypt your information so
-            it stays safe and your details will only be shared with our trusted
-            funders and credit agencies for the purposes of your application -
-            never with any third-parties.
-          </Text>
-        </Modal>
-      )}
       <Heading color="black" size="xlarge" dataTestId="bankDetails" tag="h1">
         Bank Details
       </Heading>
@@ -335,28 +309,6 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         iconColor="white"
         iconPosition="after"
         dataTestId="continue"
-      />
-      <Button
-        size="small"
-        type="button"
-        color="none"
-        iconColor="white"
-        iconPosition="before"
-        withoutDefaultClass
-        style={{ width: '35%', margin: '0 auto' }}
-        label={
-          <>
-            <Icon icon={<SecureOrder />} color="teal" />
-            <span
-              className="link -teal -regular -mt-100"
-              style={{ textDecoration: 'underline' }}
-            >
-              Secure order
-            </span>
-          </>
-        }
-        dataTestId="secure-order"
-        onClick={() => setIsShowModal(true)}
       />
     </Form>
   );
