@@ -61,6 +61,10 @@
     }
   }
 
+  &.-underline {
+    text-decoration: underline;
+  }
+
   @include colour-selector(-primary, darker, contrast);
   @include colour-selector(-secondary, dark, contrast);
 }

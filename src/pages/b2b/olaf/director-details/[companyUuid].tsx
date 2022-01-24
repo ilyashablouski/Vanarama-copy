@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import DirectorDetailsFormContainer from '../../../../containers/DirectorDetailsFormContainer';
+import OlafFormContainer from '../../../../containers/SecureModalLayout';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
@@ -32,14 +33,16 @@ export const DirectorDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <DirectorDetailsFormContainer
-        directorUuid={directorUuid}
-        companyUuid={companyUuid}
-        personUuid={personUuid}
-        orderUuid={storedOrderData?.storedOrder?.order?.uuid || ''}
-        onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
-      />
+      <OlafFormContainer>
+        <DirectorDetailsFormContainer
+          directorUuid={directorUuid}
+          companyUuid={companyUuid}
+          personUuid={personUuid}
+          orderUuid={storedOrderData?.storedOrder?.order?.uuid || ''}
+          onCompleted={handleSubmitCompletion}
+          onError={handleSubmitError}
+        />
+      </OlafFormContainer>
     </OLAFLayout>
   );
 };
