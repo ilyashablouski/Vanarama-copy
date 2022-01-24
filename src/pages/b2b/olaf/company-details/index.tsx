@@ -5,6 +5,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
+import OlafFormContainer from '../../../../containers/SecureModalLayout';
 import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
@@ -34,14 +35,16 @@ export const CompanyDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <CompanyDetailsFormContainer
-        companyUuid={companyUuid}
-        personUuid={personUuid}
-        orderId={data?.storedOrder?.order?.uuid || ''}
-        onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
-        isEdited={isEdited}
-      />
+      <OlafFormContainer>
+        <CompanyDetailsFormContainer
+          companyUuid={companyUuid}
+          personUuid={personUuid}
+          orderId={data?.storedOrder?.order?.uuid || ''}
+          onCompleted={handleSubmitCompletion}
+          onError={handleSubmitError}
+          isEdited={isEdited}
+        />
+      </OlafFormContainer>
     </OLAFLayout>
   );
 };
