@@ -22,6 +22,7 @@ const Media: React.FC<IMediaProps> = ({
   responsive,
   player,
   noLazy,
+  dataUiTestId,
 }) => {
   const renderPlayer = () => (
     <ReactPlayer
@@ -47,7 +48,7 @@ const Media: React.FC<IMediaProps> = ({
       : IframeContainer({ responsive, width, height, src });
 
   return (
-    <div className={cx('media', className)}>
+    <div className={cx('media', className)} data-uitestid={dataUiTestId}>
       {noLazy ? (
         render()
       ) : (
