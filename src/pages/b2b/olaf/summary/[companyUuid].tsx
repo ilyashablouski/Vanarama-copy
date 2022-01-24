@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
-import OlafFormContainer from '../../../../containers/OlafFormContainer';
+import OlafFormContainer from '../../../../containers/SecureModalLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
@@ -32,11 +32,6 @@ const BusinessSummaryPage: NextPage = () => {
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
   );
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const toggleModalVisibility = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
 
   const handleComplete = (emailAddress: string | undefined) => {
     router.push('/olaf/thank-you?isB2b=1', '/olaf/thank-you?isB2b=1').then(() =>
@@ -56,10 +51,7 @@ const BusinessSummaryPage: NextPage = () => {
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
     >
-      <OlafFormContainer
-        onModalClose={toggleModalVisibility}
-        isShowModal={isShowModal}
-      >
+      <OlafFormContainer>
         <BusinessSummaryFormContainer
           isSoleTrader={isSoleTrader}
           onComplete={handleComplete}

@@ -8,7 +8,7 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
-import OlafFormContainer from '../../../../containers/OlafFormContainer';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 import {
@@ -75,11 +75,6 @@ export const BusinessAboutPage: NextPage = () => {
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
   );
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const toggleModalVisibility = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
 
   const handleLogInCLick = useCallback(() => {
     loginFormRef?.current?.scrollIntoView({
@@ -191,10 +186,7 @@ export const BusinessAboutPage: NextPage = () => {
           />
         </div>
       )}
-      <OlafFormContainer
-        onModalClose={toggleModalVisibility}
-        isShowModal={isShowModal}
-      >
+      <SecureModalLayout>
         <BusinessAboutFormContainer
           personUuid={personUuid}
           personLoggedIn={isPersonLoggedIn}
@@ -203,7 +195,7 @@ export const BusinessAboutPage: NextPage = () => {
           onLogInCLick={handleLogInCLick}
           onRegistrationClick={handleRegistrationClick}
         />
-      </OlafFormContainer>
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

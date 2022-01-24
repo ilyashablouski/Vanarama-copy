@@ -9,11 +9,13 @@ const Modal = dynamic(() => import('core/molecules/modal'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface ISecureOrderModal {
+interface ISecureOrderModalProps {
   onModalClose: () => void;
 }
 
-const SecureOrderModal: React.FC<ISecureOrderModal> = ({ onModalClose }) => (
+const SecureOrderModal: React.FC<ISecureOrderModalProps> = ({
+  onModalClose,
+}) => (
   <Modal show onRequestClose={onModalClose} title="Keeping Your Order Secure">
     <Text color="darker" size="small">
       At Vanarama, we do everything we can to protect your privacy and security.

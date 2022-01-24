@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
-import OlafFormContainer from '../../../../containers/OlafFormContainer';
+import OlafFormContainer from '../../../../containers/SecureModalLayout';
 import { useStoredOrderQuery } from '../../../../gql/storedOrder';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
@@ -24,11 +24,6 @@ export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const personUuid = useGetPersonUuid();
   const { data } = useStoredOrderQuery();
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const toggleModalVisibility = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
 
   const { companyUuid, redirect } = router.query as QueryParams;
   const isEdited = !!router.query.redirect;
@@ -40,10 +35,7 @@ export const CompanyDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <OlafFormContainer
-        onModalClose={toggleModalVisibility}
-        isShowModal={isShowModal}
-      >
+      <OlafFormContainer>
         <CompanyDetailsFormContainer
           companyUuid={companyUuid}
           personUuid={personUuid}

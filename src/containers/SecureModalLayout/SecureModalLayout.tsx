@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
 import SecureOrderModal from '../../components/SecureOrderModal';
 import Skeleton from '../../components/Skeleton';
@@ -14,20 +14,17 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface IOlafFormContainer {
-  isShowModal: boolean;
-  onModalClose: () => void;
-}
+const SecureModalLayout: React.FC = ({ children }) => {
+  const [isShowModal, setIsShowModal] = useState(false);
 
-const OlafFormContainer: React.FC<IOlafFormContainer> = ({
-  children,
-  isShowModal,
-  onModalClose,
-}) => {
+  const toggleModalVisibility = useCallback(() => {
+    setIsShowModal(!isShowModal);
+  }, [isShowModal]);
+
   return (
     <div className="-flex-v">
       {children}
-      {isShowModal && <SecureOrderModal onModalClose={onModalClose} />}
+      {isShowModal && <SecureOrderModal onModalClose={toggleModalVisibility} />}
       <Button
         size="small"
         type="button"
@@ -48,10 +45,10 @@ const OlafFormContainer: React.FC<IOlafFormContainer> = ({
           </>
         }
         dataTestId="secure-order"
-        onClick={onModalClose}
+        onClick={toggleModalVisibility}
       />
     </div>
   );
 };
 
-export default OlafFormContainer;
+export default SecureModalLayout;

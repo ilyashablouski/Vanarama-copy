@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
-import OlafFormContainer from '../../../../containers/OlafFormContainer';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
@@ -26,11 +26,6 @@ const CompanyBankDetailsPage: NextPage = () => {
   const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const { companyUuid, redirect } = router.query as QueryParams;
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const toggleModalVisibility = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
 
   const handleSubmitCompletion = () => {
     const summaryUrl = !isSoleTraderJourney
@@ -44,10 +39,7 @@ const CompanyBankDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <OlafFormContainer
-        onModalClose={toggleModalVisibility}
-        isShowModal={isShowModal}
-      >
+      <SecureModalLayout>
         <CompanyBankDetailsFormContainer
           personUuid={personUuid}
           isSoleTrader={isSoleTraderJourney}
@@ -57,7 +49,7 @@ const CompanyBankDetailsPage: NextPage = () => {
           onCompleted={handleSubmitCompletion}
           onError={handleSubmitError}
         />
-      </OlafFormContainer>
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };
