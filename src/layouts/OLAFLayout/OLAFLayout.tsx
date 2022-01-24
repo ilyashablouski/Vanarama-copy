@@ -2,11 +2,13 @@ import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useStoredOrderQuery } from 'gql/storedOrder';
 import dynamic from 'next/dynamic';
+
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
+
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
