@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import DirectorDetailsFormContainer from '../../../../containers/DirectorDetailsFormContainer';
-import OlafFormContainer from '../../../../containers/SecureModalLayout';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
@@ -33,7 +33,7 @@ export const DirectorDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <OlafFormContainer>
+      <SecureModalLayout>
         <DirectorDetailsFormContainer
           directorUuid={directorUuid}
           companyUuid={companyUuid}
@@ -42,7 +42,7 @@ export const DirectorDetailsPage: NextPage = () => {
           onCompleted={handleSubmitCompletion}
           onError={handleSubmitError}
         />
-      </OlafFormContainer>
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };
