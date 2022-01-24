@@ -1,8 +1,9 @@
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import VatDetailsFormContainer from '../../../../containers/VatDetailsFormContainer';
+import OlafFormContainer from '../../../../containers/OlafFormContainer';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
@@ -26,6 +27,11 @@ export const VatDetailsPage: NextPage = () => {
   const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
   const { companyUuid, redirect } = router.query as QueryParams;
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const toggleModalVisibility = useCallback(() => {
+    setIsShowModal(!isShowModal);
+  }, [isShowModal]);
 
   const handleSubmitCompletion = () => {
     const detailsUrl = !isSoleTraderJourney
@@ -37,15 +43,20 @@ export const VatDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <VatDetailsFormContainer
-        personUuid={personUuid}
-        isSoleTrader={isSoleTraderJourney}
-        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
-        companyUuid={companyUuid}
-        onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
-        isEdited={!!redirect}
-      />
+      <OlafFormContainer
+        onModalClose={toggleModalVisibility}
+        isShowModal={isShowModal}
+      >
+        <VatDetailsFormContainer
+          personUuid={personUuid}
+          isSoleTrader={isSoleTraderJourney}
+          orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
+          companyUuid={companyUuid}
+          onCompleted={handleSubmitCompletion}
+          onError={handleSubmitError}
+          isEdited={!!redirect}
+        />
+      </OlafFormContainer>
     </OLAFLayout>
   );
 };

@@ -1,20 +1,12 @@
-import React, {
-  useState,
-  useEffect,
-  ReactNode,
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useState, useEffect, ReactNode, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useStoredOrderQuery } from 'gql/storedOrder';
 import dynamic from 'next/dynamic';
-
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
-
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -38,7 +30,6 @@ import {
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
 import Banner from '../../components/Banner/Banner';
-import SecureOrderModal from '../../components/SecureOrderModal';
 import Heading from '../../core/atoms/heading';
 import Text from '../../core/atoms/text';
 import Card from '../../core/molecules/cards/Card';
@@ -47,7 +38,6 @@ import Icon from '../../core/atoms/icon';
 import Checkmark from '../../core/assets/icons/Checkmark';
 import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 import Skeleton from '../../components/Skeleton';
-import SecureOrderIcon from '../../core/assets/icons/SecureOrder';
 
 import { isSessionFinishedCache } from '../../cache';
 
@@ -146,7 +136,6 @@ const OLAFLayout: React.FC<IProps> = ({
   const [isModalVisible, setModalVisibility] = useState(false);
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
   const showAside = !isMobile || asideOpen;
 
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
@@ -160,10 +149,6 @@ const OLAFLayout: React.FC<IProps> = ({
     derivativeData &&
     derivativeData.data?.vehicleImages &&
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
-
-  const toggleModalVisibility = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
 
   useEffect(() => {
     if (sessionState?.isSessionFinished) {
@@ -260,32 +245,6 @@ const OLAFLayout: React.FC<IProps> = ({
         >
           {children}
         </OlafContext.Provider>
-
-        {isShowModal && (
-          <SecureOrderModal onModalClose={toggleModalVisibility} />
-        )}
-        <Button
-          size="small"
-          type="button"
-          color="none"
-          iconColor="white"
-          iconPosition="before"
-          withoutDefaultClass
-          label={
-            <>
-              <Icon icon={<SecureOrderIcon />} color="teal" />
-              <Text
-                size="regular"
-                color="teal"
-                className="-underline -mt-100 link"
-              >
-                Secure order
-              </Text>
-            </>
-          }
-          dataTestId="secure-order"
-          onClick={toggleModalVisibility}
-        />
 
         {showAside && order && derivative && (
           <div className="olaf-aside">
