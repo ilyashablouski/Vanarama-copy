@@ -44,6 +44,7 @@ const CardTitle: FC<ICardTitleProps> = memo(props => {
         [`${className}`]: className,
         '-flex-h': withBtn,
       })}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_title` : undefined}
     >
       {link ?? (
         <Heading

@@ -35,6 +35,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                   
                   <div
                     class="image card-image -expand -plain"
+                    data-uitestid="top-offers_product-card-0_img-wrapper"
                   >
                     <div
                       style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
@@ -55,6 +56,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                   </div>
                   <div
                     class="title"
+                    data-uitestid="top-offers_product-card-0_title"
                   >
                     <a
                       class="heading link -black -large"
