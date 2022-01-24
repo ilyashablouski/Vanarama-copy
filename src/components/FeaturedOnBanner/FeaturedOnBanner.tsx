@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { IBaseProps } from 'core/interfaces/base';
 import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
@@ -70,8 +71,8 @@ const featuredImageList = [
   },
 ];
 
-const FeaturedOnBanner = () => (
-  <section className="row:featured-logos">
+const FeaturedOnBanner = ({ dataUiTestId }: IBaseProps) => (
+  <section className="row:featured-logos" data-uitestid={dataUiTestId}>
     <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
       <Heading tag="span" size="small" color="darker">
         AS FEATURED ON
