@@ -245,7 +245,6 @@ const OLAFLayout: React.FC<IProps> = ({
         >
           {children}
         </OlafContext.Provider>
-
         {showAside && order && derivative && (
           <div className="olaf-aside">
             <OlafCard
