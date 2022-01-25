@@ -28,10 +28,17 @@ const LevcHeroBanner: React.FC<IProps> = ({
           lazyLoad={false}
           src={isMobile ? backgroundUrlMobile : backgroundUrl}
           className="row:bg-hero -levc-hero"
+          dataUiTestId="levc-van-leasing_hero"
         />
       </div>
       <ColoredSection className="colored-section" backgroundColor={accentColor}>
-        <ImageV2 sizes="30vw" className="levc-logo" src={logoUrl} plain />
+        <ImageV2
+          sizes="30vw"
+          className="levc-logo"
+          src={logoUrl}
+          plain
+          dataUiTestId="levc-van-leasing_hero_logo"
+        />
       </ColoredSection>
     </>
   );
