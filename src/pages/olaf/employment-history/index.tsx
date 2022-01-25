@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
+import SecureModalLayout from '../../../containers/SecureModalLayout';
 import EmploymentFormContainer from '../../../containers/EmploymentFormContainer/EmploymentFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
@@ -41,13 +42,15 @@ const EmploymentHistoryPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <EmploymentFormContainer
-        isEdit={!!redirect}
-        personUuid={personUuid}
-        onCompleted={data =>
-          onCompleteClick(data?.createUpdateEmploymentHistory)
-        }
-      />
+      <SecureModalLayout>
+        <EmploymentFormContainer
+          isEdit={!!redirect}
+          personUuid={personUuid}
+          onCompleted={data =>
+            onCompleteClick(data?.createUpdateEmploymentHistory)
+          }
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

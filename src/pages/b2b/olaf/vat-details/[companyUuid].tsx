@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import VatDetailsFormContainer from '../../../../containers/VatDetailsFormContainer';
-import OlafFormContainer from '../../../../containers/SecureModalLayout';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
@@ -38,7 +38,7 @@ export const VatDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <OlafFormContainer>
+      <SecureModalLayout>
         <VatDetailsFormContainer
           personUuid={personUuid}
           isSoleTrader={isSoleTraderJourney}
@@ -48,7 +48,7 @@ export const VatDetailsPage: NextPage = () => {
           onError={handleSubmitError}
           isEdited={!!redirect}
         />
-      </OlafFormContainer>
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };
