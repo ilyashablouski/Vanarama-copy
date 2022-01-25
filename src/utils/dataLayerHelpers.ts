@@ -26,6 +26,7 @@ import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
 import { getStoredPersonUuid } from '../gql/storedPersonUuid';
 import { Nullish } from '../types/common';
+import { getLocalStorage } from './windowLocalStorage';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -736,4 +737,14 @@ export const pushWishlistActionEventDataLayer = (
   };
 
   pushToDataLayer(data);
+};
+
+export const pushCookiePreferencesDataLayer = () => {
+  if (!window.dataLayer) {
+    return;
+  }
+
+  window.dataLayer?.push({
+    cookiePreferences: getLocalStorage('cookiePreferences'),
+  });
 };
