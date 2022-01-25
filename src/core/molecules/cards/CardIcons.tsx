@@ -2,6 +2,7 @@ import cx from 'classnames';
 import React from 'react';
 import Icon from '../../atoms/icon';
 import Text from '../../atoms/text';
+import { normalizeString } from '../../../utils/data';
 
 export type TIcon = {
   icon: React.ReactNode;
@@ -41,7 +42,16 @@ const CardIcons: React.FC<ICardIconsProps> = ({
   >
     {/* At most only ever show 4 */}
     {icons.slice(0, 4).map(item => (
-      <div key={`${item.label}_${item.index}`}>
+      <div
+        key={`${item.label}_${item.index}`}
+        data-uitestid={
+          dataUiTestId
+            ? `${dataUiTestId}_features_${normalizeString(
+                shortName(item.name),
+              )}`
+            : undefined
+        }
+      >
         <Icon icon={item.icon} />
         {item.name && (
           <Text size="xsmall" color="darker">
