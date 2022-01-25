@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import IvanCta from '../IvanCta';
 
 describe('<IvanCta />', () => {
   it('should default render correctly', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <IvanCta
         body="Our helpful chatbot iVan is available 24/7 to answer your van financing questions"
         title="Meet iVan"
@@ -12,11 +12,11 @@ describe('<IvanCta />', () => {
       />,
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should compact render correctly', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <IvanCta
         isCompact
         body="We're open again at 8:30am. Why not chat to iVan?"
@@ -25,6 +25,6 @@ describe('<IvanCta />', () => {
       />,
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

@@ -1,146 +1,305 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CarouselSwiper /> should render correctly with children 1`] = `
-<div
-  className="carousel"
->
-  <Swiper
-    loop={true}
-    navigation={
-      Object {
-        "nextEl": ".swiper-next",
-        "prevEl": ".swiper-prev",
-      }
-    }
-    noSwipingSelector="input, select, option, textarea, button, .button, video, label"
-    pagination={
-      Object {
-        "clickable": true,
-        "el": ".swiper-pagination",
-        "type": "bullets",
-      }
-    }
-    simulateTouch={false}
-    slidesPerView="auto"
-    touchEventsTarget="wrapper"
+<div>
+  <div
+    class="carousel"
   >
-    <SwiperSlide>
-      <div>
-        <p>
-          slide 1
-        </p>
-      </div>
-    </SwiperSlide>
-    <SwiperSlide>
-      <div>
-        <p>
-          slide 2
-        </p>
-      </div>
-    </SwiperSlide>
-    <SwiperSlide>
-      <div>
-        <p>
-          slide 3
-        </p>
-      </div>
-    </SwiperSlide>
     <div
-      className="carousel--nav"
+      class="swiper-container swiper-container-initialized swiper-container-horizontal"
     >
-      <button
-        className="carousel--nav-arrow swiper-prev"
-        type="button"
-      >
-        <Icon
-          color="darker"
-          icon={<Memo />}
-          size="regular"
-        />
-      </button>
       <div
-        className="swiper-pagination"
-      />
-      <button
-        className="carousel--nav-arrow swiper-next"
-        type="button"
+        class="swiper-wrapper"
+        style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
       >
-        <Icon
-          color="darker"
-          icon={<Memo />}
-          size="regular"
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="2"
+        >
+          <div>
+            <p>
+              slide 3
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide"
+          data-swiper-slide-index="2"
+        >
+          <div>
+            <p>
+              slide 3
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="2"
+        >
+          <div>
+            <p>
+              slide 3
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="carousel--nav"
+      >
+        <button
+          class="carousel--nav-arrow swiper-prev"
+          type="button"
+        >
+          <i
+            class="icon -darker -regular"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polyline
+                points="244 400 100 256 244 112"
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              />
+              <line
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                x1="120"
+                x2="412"
+                y1="256"
+                y2="256"
+              />
+            </svg>
+          </i>
+        </button>
+        <div
+          class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"
         />
-      </button>
+        <button
+          class="carousel--nav-arrow swiper-next"
+          type="button"
+        >
+          <i
+            class="icon -darker -regular"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polyline
+                points="268 112 412 256 268 400"
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              />
+              <line
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                x1="392"
+                x2="100"
+                y1="256"
+                y2="256"
+              />
+            </svg>
+          </i>
+        </button>
+      </div>
     </div>
-  </Swiper>
+  </div>
 </div>
 `;
 
 exports[`<CarouselSwiper /> should render correctly with two children 1`] = `
-<div
-  className="carousel"
->
-  <Swiper
-    loop={true}
-    navigation={
-      Object {
-        "nextEl": ".swiper-next",
-        "prevEl": ".swiper-prev",
-      }
-    }
-    noSwipingSelector="input, select, option, textarea, button, .button, video, label"
-    pagination={
-      Object {
-        "clickable": true,
-        "el": ".swiper-pagination",
-        "type": "bullets",
-      }
-    }
-    simulateTouch={false}
-    slidesPerView="auto"
-    touchEventsTarget="wrapper"
+<div>
+  <div
+    class="carousel"
   >
-    <SwiperSlide>
-      <div>
-        <p>
-          slide 1
-        </p>
-      </div>
-    </SwiperSlide>
-    <SwiperSlide>
-      <div>
-        <p>
-          slide 2
-        </p>
-      </div>
-    </SwiperSlide>
     <div
-      className="carousel--nav"
+      class="swiper-container swiper-container-initialized swiper-container-horizontal"
     >
-      <button
-        className="carousel--nav-arrow swiper-prev"
-        type="button"
-      >
-        <Icon
-          color="darker"
-          icon={<Memo />}
-          size="regular"
-        />
-      </button>
       <div
-        className="swiper-pagination"
-      />
-      <button
-        className="carousel--nav-arrow swiper-next"
-        type="button"
+        class="swiper-wrapper"
+        style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
       >
-        <Icon
-          color="darker"
-          icon={<Memo />}
-          size="regular"
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="0"
+        >
+          <div>
+            <p>
+              slide 1
+            </p>
+          </div>
+        </div>
+        <div
+          class="swiper-slide swiper-slide-duplicate"
+          data-swiper-slide-index="1"
+        >
+          <div>
+            <p>
+              slide 2
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="carousel--nav"
+      >
+        <button
+          class="carousel--nav-arrow swiper-prev"
+          type="button"
+        >
+          <i
+            class="icon -darker -regular"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polyline
+                points="244 400 100 256 244 112"
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              />
+              <line
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                x1="120"
+                x2="412"
+                y1="256"
+                y2="256"
+              />
+            </svg>
+          </i>
+        </button>
+        <div
+          class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"
         />
-      </button>
+        <button
+          class="carousel--nav-arrow swiper-next"
+          type="button"
+        >
+          <i
+            class="icon -darker -regular"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polyline
+                points="268 112 412 256 268 400"
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              />
+              <line
+                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                x1="392"
+                x2="100"
+                y1="256"
+                y2="256"
+              />
+            </svg>
+          </i>
+        </button>
+      </div>
     </div>
-  </Swiper>
+  </div>
 </div>
 `;

@@ -1,34 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Drawer /> should render correctly 1`] = `
-<Fragment>
+<div>
   <div
-    className="srp-f-flyout open"
+    class="srp-f-flyout open"
   >
-    <Memo(Text)
-      className="title"
-      tag="div"
+    <div
+      class="text title -regular -darker"
     >
       <span
         data-uitestid="global-search-page-container_title"
       >
         Test
       </span>
-      <Icon
-        className="close-filter"
+      <i
+        class="icon close-filter"
         data-uitestid="global-search-page-container_icon_close-filter"
-        icon={<Memo />}
-        onClick={[MockFunction]}
-      />
-    </Memo(Text)>
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <path
+            d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"
+          />
+        </svg>
+      </i>
+    </div>
   </div>
   <div
-    className="srp-f-mask open"
+    class="srp-f-mask open"
     data-uitestid="global-search-page-container_div_shadow-overlay"
-    onClick={[MockFunction]}
     role="presentation"
   >
-    <Memo() />
+    <svg
+      enable-background="new 0 0 0 0"
+      version="1.1"
+      viewBox="0 0 100 100"
+      x="0px"
+      xmlns="http://www.w3.org/2000/svg"
+      y="0px"
+    >
+      <path
+        d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
+        fill="#fff"
+      >
+        <animatetransform
+          attributeName="transform"
+          attributeType="XML"
+          dur="1s"
+          from="0 50 50"
+          repeatCount="indefinite"
+          to="360 50 50"
+          type="rotate"
+        />
+      </path>
+    </svg>
   </div>
-</Fragment>
+</div>
 `;

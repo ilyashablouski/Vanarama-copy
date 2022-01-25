@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import CardIcons, { TIcon } from '../CardIcons';
 import BluetoothSharp from '../../../assets/icons/BluetoothSharp';
 import CompassSharp from '../../../assets/icons/CompassSharp';
@@ -27,12 +27,12 @@ describe('<CardIcons />', () => {
     ];
 
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <CardIcons className="some-custom-class" icons={icons} />,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render with N/A when name undefined', () => {
@@ -55,12 +55,12 @@ describe('<CardIcons />', () => {
     ];
 
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <CardIcons className="some-custom-class" icons={icons} />,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render no more than 4 icons', () => {
@@ -89,11 +89,11 @@ describe('<CardIcons />', () => {
     ];
 
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <CardIcons className="some-custom-class" icons={icons} />,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

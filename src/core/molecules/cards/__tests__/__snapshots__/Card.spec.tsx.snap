@@ -1,115 +1,250 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Card /> Article Card should render correctly 1`] = `
-<div
-  className="card"
-  data-testid="card"
->
-  <Memo(ImageV2)
-    className="card-image"
-    dataTestId="card-image"
-    objectFit="cover"
-    plain={true}
-    quality={60}
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
-  <Memo()
-    title="Article Card"
-  />
-  <Memo(Text)
-    color="dark"
-    dataTestId="card-description"
+<div>
+  <div
+    class="card"
+    data-testid="card"
   >
-    Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
-  </Memo(Text)>
+    <div
+      class="image card-image -expand -plain"
+    >
+      <div
+        style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+      >
+        <img
+          class="image--native"
+          data-nimg="fill"
+          data-testid="card-image"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+        />
+        <noscript />
+      </div>
+    </div>
+    <div
+      class="title"
+    >
+      <span
+        class="heading -black -lead"
+        data-testid="card-heading"
+      >
+        Article Card
+      </span>
+    </div>
+    <span
+      class="text -regular -dark"
+      data-testid="card-description"
+    >
+      Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
+    </span>
+  </div>
 </div>
 `;
 
 exports[`<Card /> Basic Card should render correctly 1`] = `
-<div
-  className="card"
-  data-testid="card"
->
-  <Memo()
-    title="Basic Card"
-  />
-  <Memo(Text)
-    color="dark"
-    dataTestId="card-description"
+<div>
+  <div
+    class="card"
+    data-testid="card"
   >
-    Dolore Lorem culpa ea irure do ad exercitation cillum laborum culpa sint aliqua voluptate duis
-  </Memo(Text)>
+    <div
+      class="title"
+    >
+      <span
+        class="heading -black -lead"
+        data-testid="card-heading"
+      >
+        Basic Card
+      </span>
+    </div>
+    <span
+      class="text -regular -dark"
+      data-testid="card-description"
+    >
+      Dolore Lorem culpa ea irure do ad exercitation cillum laborum culpa sint aliqua voluptate duis
+    </span>
+  </div>
 </div>
 `;
 
 exports[`<Card /> Featured Review Card should render correctly 1`] = `
-<div
-  className="card"
-  data-testid="card"
->
-  <Memo(ImageV2)
-    className="card-image"
-    dataTestId="card-image"
-    objectFit="cover"
-    plain={true}
-    quality={60}
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
-  <Memo()
-    link={
+<div>
+  <div
+    class="card"
+    data-testid="card"
+  >
+    <div
+      class="image card-image -expand -plain"
+    >
+      <div
+        style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+      >
+        <img
+          class="image--native"
+          data-nimg="fill"
+          data-testid="card-image"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+        />
+        <noscript />
+      </div>
+    </div>
+    <div
+      class="title"
+    >
       <a
-        className="heading -large -black"
+        class="heading -large -black"
         href="#"
       >
         Featured Review Card
       </a>
-    }
-    score={4.5}
-    title=""
-  />
-  <Memo(Text)
-    color="dark"
-    dataTestId="card-description"
-  >
-    Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
-  </Memo(Text)>
+      <div
+        class="rating -regular -orange"
+      >
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span
+          class="text -regular -dark"
+        >
+          4.5
+        </span>
+      </div>
+    </div>
+    <span
+      class="text -regular -dark"
+      data-testid="card-description"
+    >
+      Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
+    </span>
+  </div>
 </div>
 `;
 
 exports[`<Card /> should render correctly only image 1`] = `
-<div
-  className="card"
-  data-testid="card"
->
-  <Memo(ImageV2)
-    className="card-image"
-    dataTestId="card-image"
-    objectFit="cover"
-    plain={true}
-    quality={60}
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
+<div>
+  <div
+    class="card"
+    data-testid="card"
+  >
+    <div
+      class="image card-image -expand -plain"
+    >
+      <div
+        style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+      >
+        <img
+          class="image--native"
+          data-nimg="fill"
+          data-testid="card-image"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+        />
+        <noscript />
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`<Card /> should render correctly with a custom class name 1`] = `
-<div
-  className="card some-custom-class-name"
-  data-testid="card"
->
-  <p>
-    Hello World
-  </p>
+<div>
+  <div
+    class="card some-custom-class-name"
+    data-testid="card"
+  >
+    <p>
+      Hello World
+    </p>
+  </div>
 </div>
 `;
 
 exports[`<Card /> should render correctly with children 1`] = `
-<div
-  className="card"
-  data-testid="card"
->
-  <p>
-    Hello World
-  </p>
+<div>
+  <div
+    class="card"
+    data-testid="card"
+  >
+    <p>
+      Hello World
+    </p>
+  </div>
 </div>
 `;
