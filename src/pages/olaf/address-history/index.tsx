@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
-
+import SecureModalLayout from '../../../containers/SecureModalLayout';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
@@ -40,11 +40,13 @@ const AddressHistoryPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <AddressFormContainer
-        isEdit={!!redirect}
-        personUuid={personUuid}
-        onCompleted={data => onCompleteClick(data?.createUpdateAddress)}
-      />
+      <SecureModalLayout>
+        <AddressFormContainer
+          isEdit={!!redirect}
+          personUuid={personUuid}
+          onCompleted={data => onCompleteClick(data?.createUpdateAddress)}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };
