@@ -4,7 +4,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import { useState } from 'react';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
-import OlafFormContainer from '../../../../containers/SecureModalLayout';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
@@ -51,7 +51,7 @@ const BusinessSummaryPage: NextPage = () => {
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
     >
-      <OlafFormContainer>
+      <SecureModalLayout>
         <BusinessSummaryFormContainer
           isSoleTrader={isSoleTrader}
           onComplete={handleComplete}
@@ -60,7 +60,7 @@ const BusinessSummaryPage: NextPage = () => {
           orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
           companyUuid={companyUuid}
         />
-      </OlafFormContainer>
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };
