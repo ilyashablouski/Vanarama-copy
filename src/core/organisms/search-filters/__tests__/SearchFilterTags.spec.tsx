@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import SearchFilterTags from '../SearchFilterTags';
 
 describe('<SearchFilterTags />', () => {
   it('should render correctly with children & default props', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <SearchFilterTags
         selectedFilters={[
           { order: 1, value: 'Audi' },
@@ -16,14 +16,14 @@ describe('<SearchFilterTags />', () => {
           <span>child element</span>
         </div>
       </SearchFilterTags>,
-    );
+    ).container;
 
     // ASSERT
     expect(wrapper).toMatchSnapshot();
   });
 
   it('should render correctly with a custom class name', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <SearchFilterTags
         selectedFilters={[
           { order: 1, value: 'Audi' },
@@ -34,7 +34,7 @@ describe('<SearchFilterTags />', () => {
       >
         <p>child element</p>
       </SearchFilterTags>,
-    );
+    ).container;
 
     // ASSERT
     expect(wrapper).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe('<SearchFilterTags />', () => {
 
   it('should call onClearAll when user clicks clearAll button', () => {
     const onClearAll = jest.fn();
-    const wrap = mount(
+    render(
       <SearchFilterTags
         selectedFilters={[
           { order: 1, value: 'Audi' },
@@ -54,10 +54,7 @@ describe('<SearchFilterTags />', () => {
         <p>child element</p>
       </SearchFilterTags>,
     );
-    wrap
-      .find('#clearAllButton')
-      .first()
-      .simulate('click');
+    fireEvent.click(screen.getByText('Clear All'));
     expect(onClearAll).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,303 +1,158 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] = `
-<ComporatorBar
-  compareVehicles={[Function]}
-  deleteVehicle={[Function]}
-  setCompareVehicles={[Function]}
-  vehicles={
-    Array [
-      Object {
-        "averageRating": 4.6,
-        "bodyStyle": "Hatchback",
-        "businessRate": 132.95,
-        "capId": "1234",
-        "derivativeName": "1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS",
-        "imageUrl": "https://images.autorama.co.uk/Photos/Cap/Vehicles/164069/cap-90660-164069.jpg",
-        "isOnOffer": true,
-        "keyInformation": Array [],
-        "leadTime": "14-21 Day Delivery",
-        "manufacturerName": "Ford",
-        "modelName": "Corsa Hatchback",
-        "offerPosition": 2,
-        "pageUrl": Object {
-          "capId": "1234",
-          "href": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
-          "url": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
-        },
-        "personalRate": 159.95,
-        "rangeName": "Focus",
-        "vehicleType": "CAR",
-      },
-      Object {
-        "averageRating": 4.6,
-        "bodyStyle": "Hatchback",
-        "businessRate": 132.95,
-        "capId": "12345",
-        "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
-        "freeInsurance": true,
-        "imageUrl": "https://images.autorama.co.uk/Photos/Cap/Vehicles/164069/cap-90660-164069.jpg",
-        "isOnOffer": true,
-        "keyInformation": Array [],
-        "leadTime": "14-21 Day Delivery",
-        "manufacturerName": "Ford",
-        "modelName": "Corsa Hatchback",
-        "offerPosition": 2,
-        "pageUrl": Object {
-          "capId": "12345",
-          "href": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
-          "url": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
-        },
-        "personalRate": 159.95,
-        "rangeName": "Kuga",
-        "vehicleType": "CAR",
-      },
-    ]
-  }
->
+<div>
   <div
-    className="comparator-bar"
+    class="comparator-bar"
   >
     <div
-      className="comparator-bar--container"
+      class="comparator-bar--container"
     >
-      <ComporatorBar
-        dataUiTestId="comparator-bar-vehicle-card0"
-        deleteVehicle={[Function]}
-        key="12340"
-        number={1}
-        vehicle={
-          Object {
-            "capId": "1234",
-            "derivativeName": "1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS",
-            "manufacturerName": "Ford",
-            "rangeName": "Focus",
-          }
-        }
-      >
-        <div
-          className="card"
-          data-uitestid="comparator-bar-vehicle-card0-present"
-        >
-          <Heading
-            color="black"
-            size="lead"
-          >
-            <p
-              className="heading -black -lead"
-            >
-              Ford Focus
-            </p>
-          </Heading>
-          <Memo(Text)
-            color="dark"
-            size="xsmall"
-          >
-            <span
-              className="text -xsmall -dark"
-            >
-              1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
-            </span>
-          </Memo(Text)>
-          <button
-            className="corner-button"
-            data-testid="comparatorBar-delete-1"
-            data-uitestid="comparator-bar-vehicle_card-remove-button-1"
-            onClick={[Function]}
-            type="button"
-          >
-            <Icon
-              color="white"
-              icon={<Memo />}
-            >
-              <i
-                className="icon -white"
-              >
-                <Memo()>
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polygon
-                      points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
-                    />
-                  </svg>
-                </Memo()>
-              </i>
-            </Icon>
-          </button>
-        </div>
-      </ComporatorBar>
-      <ComporatorBar
-        dataUiTestId="comparator-bar-vehicle-card1"
-        deleteVehicle={[Function]}
-        key="123451"
-        number={2}
-        vehicle={
-          Object {
-            "capId": "12345",
-            "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
-            "manufacturerName": "Ford",
-            "rangeName": "Kuga",
-          }
-        }
-      >
-        <div
-          className="card"
-          data-uitestid="comparator-bar-vehicle-card1-present"
-        >
-          <Heading
-            color="black"
-            size="lead"
-          >
-            <p
-              className="heading -black -lead"
-            >
-              Ford Kuga
-            </p>
-          </Heading>
-          <Memo(Text)
-            color="dark"
-            size="xsmall"
-          >
-            <span
-              className="text -xsmall -dark"
-            >
-              2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT
-            </span>
-          </Memo(Text)>
-          <button
-            className="corner-button"
-            data-testid="comparatorBar-delete-2"
-            data-uitestid="comparator-bar-vehicle_card-remove-button-2"
-            onClick={[Function]}
-            type="button"
-          >
-            <Icon
-              color="white"
-              icon={<Memo />}
-            >
-              <i
-                className="icon -white"
-              >
-                <Memo()>
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polygon
-                      points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
-                    />
-                  </svg>
-                </Memo()>
-              </i>
-            </Icon>
-          </button>
-        </div>
-      </ComporatorBar>
-      <ComporatorBar
-        dataUiTestId="comparator-bar-vehicle-card2"
-        deleteVehicle={[Function]}
-        key="2"
-        number={3}
-      >
-        <div
-          className="card -skeleton"
-          data-uitestid="comparator-bar-vehicle-card2-absent"
-        >
-          <Heading
-            color="black"
-            size="lead"
-          >
-            <p
-              className="heading -black -lead"
-            >
-              Vehicle 3
-            </p>
-          </Heading>
-          <Memo(Text)
-            color="dark"
-            size="xsmall"
-          >
-            <span
-              className="text -xsmall -dark"
-            >
-              —
-            </span>
-          </Memo(Text)>
-        </div>
-      </ComporatorBar>
       <div
-        className="comparator-bar--actions"
+        class="card"
+        data-uitestid="comparator-bar-vehicle-card0-present"
       >
-        <Heading
-          className="comparator-bar--actions-count"
-          color="black"
-          size="xsmall"
+        <p
+          class="heading -black -lead"
         >
-          <p
-            className="heading comparator-bar--actions-count -black -xsmall"
-          >
-            2 Vehicles Added
-          </p>
-        </Heading>
-        <ForwardRef(Button)
-          color="teal"
-          dataUiTestId="comparator-bar-bar_compare-button"
-          disabled={false}
-          label="Compare Vehicles"
-          onClick={[Function]}
-          size="lead"
+          Ford Focus
+        </p>
+        <span
+          class="text -xsmall -dark"
         >
-          <button
-            className="button -teal -lead -solid"
-            data-uitestid="comparator-bar-bar_compare-button"
-            disabled={false}
-            onClick={[Function]}
+          1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
+        </span>
+        <button
+          class="corner-button"
+          data-testid="comparatorBar-delete-1"
+          data-uitestid="comparator-bar-vehicle_card-remove-button-1"
+          type="button"
+        >
+          <i
+            class="icon -white"
           >
-            <div
-              className="button--inner"
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
             >
-              Compare Vehicles
-            </div>
-          </button>
-        </ForwardRef(Button)>
+              <polygon
+                points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+              />
+            </svg>
+          </i>
+        </button>
+      </div>
+      <div
+        class="card"
+        data-uitestid="comparator-bar-vehicle-card1-present"
+      >
+        <p
+          class="heading -black -lead"
+        >
+          Ford Kuga
+        </p>
+        <span
+          class="text -xsmall -dark"
+        >
+          2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT
+        </span>
+        <button
+          class="corner-button"
+          data-testid="comparatorBar-delete-2"
+          data-uitestid="comparator-bar-vehicle_card-remove-button-2"
+          type="button"
+        >
+          <i
+            class="icon -white"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <polygon
+                points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+              />
+            </svg>
+          </i>
+        </button>
+      </div>
+      <div
+        class="card -skeleton"
+        data-uitestid="comparator-bar-vehicle-card2-absent"
+      >
+        <p
+          class="heading -black -lead"
+        >
+          Vehicle 3
+        </p>
+        <span
+          class="text -xsmall -dark"
+        >
+          —
+        </span>
+      </div>
+      <div
+        class="comparator-bar--actions"
+      >
+        <p
+          class="heading comparator-bar--actions-count -black -xsmall"
+        >
+          2 Vehicles Added
+        </p>
+        <button
+          class="button -teal -lead -solid"
+          data-uitestid="comparator-bar-bar_compare-button"
+        >
+          <div
+            class="button--inner"
+          >
+            Compare Vehicles
+          </div>
+        </button>
       </div>
     </div>
   </div>
-</ComporatorBar>
+</div>
 `;
 
 exports[`<ComparatorBarCard /> renders correctly with ComparatorBarCard 1`] = `
-<div
-  className="card"
-  data-uitestid="undefined-present"
->
-  <Heading
-    color="black"
-    size="lead"
+<div>
+  <div
+    class="card"
+    data-uitestid="undefined-present"
   >
-    Ford Focus
-  </Heading>
-  <Memo(Text)
-    color="dark"
-    size="xsmall"
-  >
-    1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
-  </Memo(Text)>
-  <button
-    className="corner-button"
-    data-testid="comparatorBar-delete-0"
-    data-uitestid="comparator-bar-vehicle_card-remove-button-0"
-    onClick={[Function]}
-    type="button"
-  >
-    <Icon
-      color="white"
-      icon={<Memo />}
-    />
-  </button>
+    <p
+      class="heading -black -lead"
+    >
+      Ford Focus
+    </p>
+    <span
+      class="text -xsmall -dark"
+    >
+      1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
+    </span>
+    <button
+      class="corner-button"
+      data-testid="comparatorBar-delete-0"
+      data-uitestid="comparator-bar-vehicle_card-remove-button-0"
+      type="button"
+    >
+      <i
+        class="icon -white"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <polygon
+            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+          />
+        </svg>
+      </i>
+    </button>
+  </div>
 </div>
 `;

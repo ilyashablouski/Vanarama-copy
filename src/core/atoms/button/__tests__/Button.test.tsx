@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
 
+import { fireEvent, render, screen } from '@testing-library/react';
 import Button from '..';
 import { IButtonProps } from '../interfaces';
 
@@ -54,8 +54,8 @@ describe('<Button />', () => {
 
   it('should be able to click the button', () => {
     const onClick = jest.fn();
-    const element = mount(<Button {...optionalProps} onClick={onClick} />);
-    element.find('button').simulate('click');
+    render(<Button {...optionalProps} onClick={onClick} />);
+    fireEvent.click(screen.getByRole('button'));
     expect(onClick).toHaveBeenCalled();
   });
 });
