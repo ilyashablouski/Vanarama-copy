@@ -1,8 +1,7 @@
 module.exports = {
   testPathIgnorePatterns: ['./cypress/'],
-  coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js'],
+  coveragePathIgnorePatterns: ['/node_modules/'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   setupFiles: ['dotenv/config'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   coverageReporters: ['json', 'lcov', 'text', 'text-summary'],

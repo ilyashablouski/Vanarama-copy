@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Panel from '../Panel';
 
 import { IPanelProps } from '../interfaces';
@@ -14,7 +14,7 @@ const setSelectedFiltersState = jest.fn();
 describe('<Panel />', () => {
   it('should render correctly with correct panel id', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       getComponent({
         panelId: 'bodyType',
         searchFilters,
@@ -25,6 +25,6 @@ describe('<Panel />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

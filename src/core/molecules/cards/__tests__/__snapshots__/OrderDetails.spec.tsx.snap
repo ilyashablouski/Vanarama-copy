@@ -1,133 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<OrderCard /> should render correctly 1`] = `
-<Memo()
-  className="card--order"
-  orderDetails={
-    Object {
-      "annualMileage": "6000 miles",
-      "available": "now",
-      "color": "Solid - Polar white",
-      "contractLength": "60 months",
-      "fuel": "Petrol",
-      "initailRental": "£815.70 (inc VAT)",
-      "maintenance": "No",
-      "orderButton": <Memo
-        color="teal"
-        fill="solid"
-        label="View Order"
-        onClick={[Function]}
-        size="regular"
-      />,
-      "orderDate": "12.12.2020",
-      "orderNumber": "204334-44-44",
-      "price": 209,
-      "priceDescription": "Per Month ex. VAT",
-      "transmission": "Manual",
-      "trim": "Cloth - Black",
-    }
-  }
->
+<div>
   <div
-    className="spec-list"
+    class="card card--order"
+    data-testid="card"
   >
-    <span
-      key="available"
+    <div
+      class="spec-list"
     >
-      Available
-       
-      now
-    </span>
-    <span
-      key="rental"
-    >
-      Initial Rental
-       
-      £815.70 (inc VAT)
-    </span>
-    <span
-      key="contractLength"
-    >
-      Contract Length
-       
-      60 months
-    </span>
-    <span
-      key="annualMileage"
-    >
-      Annual Mileage
-       
-      6000 miles
-    </span>
-    <span
-      key="maintenance"
-    >
-      Maintenance
-       
-      No
-    </span>
-    <span
-      key="fuel"
-    >
-      Fuel
-       
-      Petrol
-    </span>
-    <span
-      key="transmission"
-    >
-      Transmission
-       
-      Manual
-    </span>
-    <span
-      key="colour"
-    >
-      Colour
-       
-      Solid - Polar white
-    </span>
-    <span
-      key="trim"
-    >
-      Trim
-       
-      Cloth - Black
-    </span>
-    <hr />
-    <div>
       <span>
-        Order No: 
+        Available
+         
+        now
       </span>
       <span>
-        204334-44-44
+        Initial Rental
+         
+        £815.70 (inc VAT)
       </span>
+      <span>
+        Contract Length
+         
+        60 months
+      </span>
+      <span>
+        Annual Mileage
+         
+        6000 miles
+      </span>
+      <span>
+        Maintenance
+         
+        No
+      </span>
+      <span>
+        Fuel
+         
+        Petrol
+      </span>
+      <span>
+        Transmission
+         
+        Manual
+      </span>
+      <span>
+        Colour
+         
+        Solid - Polar white
+      </span>
+      <span>
+        Trim
+         
+        Cloth - Black
+      </span>
+      <hr />
+      <div>
+        <span>
+          Order No: 
+        </span>
+        <span>
+          204334-44-44
+        </span>
+      </div>
+      <div>
+        <span>
+          Date: 
+        </span>
+        <span>
+          12.12.2020
+        </span>
+      </div>
     </div>
-    <div>
-      <span>
-        Date: 
-      </span>
-      <span>
-        12.12.2020
-      </span>
+    <div
+      class="-flex-h"
+    >
+      <div
+        class="price -large -black"
+      >
+        <div
+          class="price--inner"
+        >
+          <span
+            class="price--sub"
+          >
+            £
+          </span>
+          <span
+            class="price--pounds"
+          >
+            209
+          </span>
+          <span
+            class="price--sub"
+          >
+            .
+            00
+          </span>
+        </div>
+        <div
+          class="price--label"
+        >
+          Per Month ex. VAT
+        </div>
+      </div>
+      <button
+        class="button -teal -regular -solid"
+      >
+        <div
+          class="button--inner"
+        >
+          View Order
+        </div>
+      </button>
     </div>
   </div>
-  <div
-    className="-flex-h"
-  >
-    <Price
-      price={209}
-      priceDescription="Per Month ex. VAT"
-      separator="."
-      size="large"
-    />
-    <Memo(ForwardRef(Button))
-      color="teal"
-      fill="solid"
-      label="View Order"
-      onClick={[Function]}
-      size="regular"
-    />
-  </div>
-</Memo()>
+</div>
 `;

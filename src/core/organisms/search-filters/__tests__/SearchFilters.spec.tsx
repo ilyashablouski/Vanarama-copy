@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import SearchFilters from '../SearchFilters';
 
 describe('<SearchFilters />', () => {
   it('should render correctly with children', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <SearchFilters>
         <div>
           <span>child element</span>
@@ -13,17 +13,17 @@ describe('<SearchFilters />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render correctly with a custom class name', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <SearchFilters className="some-custom-class-name">
         <p>child element</p>
       </SearchFilters>,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

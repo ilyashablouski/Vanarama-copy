@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount } from 'enzyme';
 
+import { fireEvent, render, screen } from '@testing-library/react';
 import Pagination from '..';
 
 const mandatoryProps = {
@@ -22,7 +22,7 @@ describe('<Pagination />', () => {
 
   it('should be able to click the pagination', () => {
     const onClick = jest.fn();
-    const element = mount(<Pagination {...mandatoryProps} onClick={onClick} />);
-    element.find('.pagination').simulate('click');
+    render(<Pagination {...mandatoryProps} onClick={onClick} />);
+    fireEvent.click(screen.getByText('3'));
   });
 });

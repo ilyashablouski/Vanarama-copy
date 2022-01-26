@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import OlafCard from '../OlafCard/OlafCard';
 
 describe('<OlafCard />', () => {
   it('Olaf Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <OlafCard
         olafDetails={{
           price: 209,
@@ -38,6 +38,6 @@ describe('<OlafCard />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

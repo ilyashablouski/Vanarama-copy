@@ -1,45 +1,45 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Card from '../Card';
 
 describe('<Card />', () => {
   it('should render correctly with children', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card>
         <p>Hello World</p>
       </Card>,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should render correctly with a custom class name', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card className="some-custom-class-name">
         <p>Hello World</p>
       </Card>,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should render correctly only image', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440" />,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('Basic Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card
         title={{
           title: 'Basic Card',
@@ -49,12 +49,12 @@ describe('<Card />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('Featured Review Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card
         title={{
           title: '',
@@ -71,12 +71,12 @@ describe('<Card />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('Article Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Card
         title={{
           title: 'Article Card',
@@ -87,6 +87,6 @@ describe('<Card />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
