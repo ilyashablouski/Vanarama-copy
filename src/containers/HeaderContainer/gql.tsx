@@ -1,6 +1,11 @@
-import { gql } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { IMAGE_FILE_FRAGMENT } from '../../gql/image';
+import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
+import {
+  ServiceBannerQuery,
+  ServiceBannerQueryVariables,
+} from '../../../generated/ServiceBannerQuery';
 
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PRIMARY_HEADER_DATA = gql`
@@ -52,3 +57,42 @@ export const GET_PRIMARY_HEADER_DATA = gql`
     }
   }
 `;
+
+export const LOGOUT_USER_MUTATION = gql`
+  mutation LogOutUserMutation {
+    logoutV2 {
+      isSuccessful
+    }
+  }
+`;
+
+export function useLogOutMutation() {
+  return useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
+}
+
+export const SERVICE_BANNER_QUERY = gql`
+  query ServiceBannerQuery($slug: String, $isPreview: Boolean) {
+    serviceBanner(slug: $slug, isPreview: $isPreview) {
+      id
+      message
+      link {
+        text
+        url
+        label
+      }
+      enable
+    }
+  }
+`;
+
+export function useServiceBannerQuery(slug: string, isPreview: boolean) {
+  return useQuery<ServiceBannerQuery, ServiceBannerQueryVariables>(
+    SERVICE_BANNER_QUERY,
+    {
+      variables: {
+        slug,
+        isPreview,
+      },
+    },
+  );
+}
