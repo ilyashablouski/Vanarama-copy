@@ -1,4 +1,4 @@
-import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+import { MyAccount_myAccountMaskedDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
 
 export interface IPersonInformationFormValues {
   firstName: string;

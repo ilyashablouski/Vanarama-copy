@@ -1,5 +1,5 @@
 import { IPersonInformationFormValues } from './interface';
-import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+import { MyAccount_myAccountMaskedDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (

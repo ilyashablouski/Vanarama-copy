@@ -16,7 +16,7 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/MyAccount';
+import { MyAccount_myAccountMaskedDetailsByPersonUuid } from '../../../../generated/MyAccount';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
@@ -36,7 +36,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 interface IProps {
-  person: MyAccount_myAccountDetailsByPersonUuid;
+  person: MyAccount_myAccountMaskedDetailsByPersonUuid;
   uuid: string;
   partyUuid: string;
   orders: GetMyOrders_myOrders[];
@@ -218,7 +218,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     ]);
     return addApolloState(client, {
       props: {
-        person: personData.myAccountDetailsByPersonUuid,
+        person: personData.myAccountMaskedDetailsByPersonUuid,
         uuid: data.getPerson.uuid,
         orders: orders.myOrders,
         quotes: quotes.myOrders,
