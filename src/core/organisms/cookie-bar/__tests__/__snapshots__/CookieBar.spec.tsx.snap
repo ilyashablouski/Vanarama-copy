@@ -45,7 +45,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
           }
           link={
             Object {
-              "href": "/legal/privacy-policy",
+              "href": "/legal/cookies-policy",
               "label": "cookie policy",
             }
           }
@@ -54,7 +54,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
           <Link
             href={
               Object {
-                "pathname": "/legal/privacy-policy",
+                "pathname": "/legal/cookies-policy",
                 "query": Object {},
               }
             }
@@ -65,7 +65,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
               className="link -primary"
               data-menu={null}
               data-testid="router-link"
-              href="/legal/privacy-policy"
+              href="/legal/cookies-policy"
               onClick={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
