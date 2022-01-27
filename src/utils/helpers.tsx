@@ -430,7 +430,6 @@ export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
-  BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
   JAN_SALE = 'DIG-8417',
 }
 
@@ -462,12 +461,6 @@ export function isUpdatedServicePlanFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
-}
-
-export function isBlogCarPagesCarouselFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.BLOG_CAR_PAGES_CAROUSEL);
 }
 
 export const isCookieBarFeatureEnabled = () => {

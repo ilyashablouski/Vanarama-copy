@@ -1,26 +1,63 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PanelHeader /> should render correctly 1`] = `
-<header
-  className="slideout-modal--tile-header"
->
-  <Memo(ForwardRef(Button))
-    color="black"
-    fill="clear"
-    icon={<Memo />}
-    iconPosition="before"
-    label="Label"
-    onClick={[Function]}
-    size="regular"
-  />
-  <Memo(ForwardRef(Button))
-    color="dark"
-    fill="clear"
-    icon={<Memo />}
-    iconPosition="after"
-    label="All"
-    onClick={[Function]}
-    size="xsmall"
-  />
-</header>
+<div>
+  <header
+    class="slideout-modal--tile-header"
+  >
+    <button
+      class="button -black -regular -clear"
+    >
+      <div
+        class="button--inner"
+      >
+        <i
+          class="icon"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="244 400 100 256 244 112"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+            />
+            <line
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              x1="120"
+              x2="412"
+              y1="256"
+              y2="256"
+            />
+          </svg>
+        </i>
+        Label
+      </div>
+    </button>
+    <button
+      class="button -dark -xsmall -clear"
+    >
+      <div
+        class="button--inner"
+      >
+        All
+        <i
+          class="icon"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="416 128 192 384 96 288"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 44;"
+            />
+          </svg>
+        </i>
+      </div>
+    </button>
+  </header>
+</div>
 `;

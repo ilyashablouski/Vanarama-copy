@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Accordion from '../Accordion';
 
 describe('<Accordion />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Accordion
         items={[
           {
@@ -25,6 +25,6 @@ describe('<Accordion />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

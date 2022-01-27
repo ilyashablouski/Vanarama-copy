@@ -69,5 +69,4 @@ const ErrorPage = ({
   );
 };
 
-// TODO: https://autorama.atlassian.net/browse/DIG-5611
 export default ErrorPage;

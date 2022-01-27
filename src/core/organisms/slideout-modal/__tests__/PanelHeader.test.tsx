@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import PanelHeader from '../PanelHeader';
 
 import { IPanelHeaderProps } from '../interfaces';
@@ -14,7 +14,7 @@ const setSelectedFiltersState = jest.fn();
 describe('<PanelHeader />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       getComponent({
         panelId: 'bodyType',
         label: 'Label',
@@ -26,6 +26,6 @@ describe('<PanelHeader />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

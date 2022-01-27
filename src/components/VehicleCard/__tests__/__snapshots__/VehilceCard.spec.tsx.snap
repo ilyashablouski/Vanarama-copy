@@ -19,6 +19,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   </div>
   <div
     className="image card-image -expand -plain"
+    data-uitestid="vehicle-card_img-wrapper"
   >
     <div
       style={
@@ -106,6 +107,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   </div>
   <div
     className="title"
+    data-uitestid="vehicle-card_title"
   >
     <a
       className="heading link -black -large"
@@ -125,6 +127,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       </span>
       <span
         className="heading -dark -small"
+        data-uitestid="vehicle-card_span_description"
       >
         test
       </span>
@@ -134,7 +137,9 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     className="features"
     data-uitestid="vehicle-card_features"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_features_transmission"
+    >
       <i
         className="icon"
       >
@@ -369,6 +374,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   </div>
   <div
     className="image card-image -expand -plain"
+    data-uitestid="vehicle-card_img-wrapper"
   >
     <div
       style={
@@ -456,6 +462,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   </div>
   <div
     className="title"
+    data-uitestid="vehicle-card_title"
   >
     <a
       className="heading link -black -large"
@@ -475,6 +482,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       </span>
       <span
         className="heading -dark -small"
+        data-uitestid="vehicle-card_span_description"
       >
         test
       </span>
@@ -484,7 +492,9 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     className="features"
     data-uitestid="vehicle-card_features"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_features_transmission"
+    >
       <i
         className="icon"
       >
@@ -719,6 +729,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   </div>
   <div
     className="image card-image -expand -plain"
+    data-uitestid="vehicle-card_img-wrapper"
   >
     <div
       style={
@@ -806,6 +817,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   </div>
   <div
     className="title"
+    data-uitestid="vehicle-card_title"
   >
     <a
       className="heading link -black -large"
@@ -825,6 +837,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       </span>
       <span
         className="heading -dark -small"
+        data-uitestid="vehicle-card_span_description"
       >
         test
       </span>
@@ -834,7 +847,9 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     className="features"
     data-uitestid="vehicle-card_features"
   >
-    <div>
+    <div
+      data-uitestid="vehicle-card_features_transmission"
+    >
       <i
         className="icon"
       >

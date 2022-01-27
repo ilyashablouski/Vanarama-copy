@@ -8,6 +8,7 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 import {
@@ -185,14 +186,16 @@ export const BusinessAboutPage: NextPage = () => {
           />
         </div>
       )}
-      <BusinessAboutFormContainer
-        personUuid={personUuid}
-        personLoggedIn={isPersonLoggedIn}
-        onCompleted={handleCreateUpdateBusinessPersonCompletion}
-        onError={handleCreateUpdateBusinessPersonError}
-        onLogInCLick={handleLogInCLick}
-        onRegistrationClick={handleRegistrationClick}
-      />
+      <SecureModalLayout>
+        <BusinessAboutFormContainer
+          personUuid={personUuid}
+          personLoggedIn={isPersonLoggedIn}
+          onCompleted={handleCreateUpdateBusinessPersonCompletion}
+          onError={handleCreateUpdateBusinessPersonError}
+          onLogInCLick={handleLogInCLick}
+          onRegistrationClick={handleRegistrationClick}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

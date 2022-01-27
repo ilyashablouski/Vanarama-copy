@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
-import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+import { MyAccount_myAccountMaskedDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
 
 import { useCreatePerson } from './gql';
 import { formValuesToInput } from './mappers';

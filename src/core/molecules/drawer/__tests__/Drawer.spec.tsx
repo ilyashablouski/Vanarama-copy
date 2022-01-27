@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Drawer from '../Drawer';
 
 describe('<Drawer />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <Drawer
         title="Test"
         isShowDrawer
@@ -15,6 +15,6 @@ describe('<Drawer />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });
