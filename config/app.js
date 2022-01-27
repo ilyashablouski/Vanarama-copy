@@ -18,7 +18,7 @@ module.exports = {
         'images.autorama.co.uk',
         'ellisdonovan.s3.eu-west-2.amazonaws.com',
         HOST_DOMAIN,
-        HOST_DOMAIN.includes('www') ? HOST_DOMAIN.replace('www', '') : null,
+        HOST_DOMAIN.includes('www.') ? HOST_DOMAIN.replace('www.', '') : null,
         'img.youtube.com',
       ].filter(el => {
         return el != null;
