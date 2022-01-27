@@ -6,6 +6,8 @@ const yn = require('yn');
 
 const fetchRewritesList = require('../rewrites');
 
+const HOST_DOMAIN = process.env.HOST_DOMAIN.replace('https://', '');
+
 module.exports = {
   // Next.
   next: {
@@ -15,9 +17,12 @@ module.exports = {
         'images.ctfassets.net',
         'images.autorama.co.uk',
         'ellisdonovan.s3.eu-west-2.amazonaws.com',
-        process.env.HOST_DOMAIN.replace('https://', ''),
+        HOST_DOMAIN,
+        HOST_DOMAIN.includes('www') ? HOST_DOMAIN.replace('www', '') : null,
         'img.youtube.com',
-      ],
+      ].filter(el => {
+        return el != null;
+      }),
     },
     // Env vars.
     env: {
