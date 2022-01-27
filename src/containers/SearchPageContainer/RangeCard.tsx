@@ -63,7 +63,6 @@ const RangeCard = memo(
     manufacturersUrls,
     dataUiTestId,
   }: IVehicleCardProps) => {
-    // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
 
