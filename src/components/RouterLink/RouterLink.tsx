@@ -11,6 +11,7 @@ import { LinkTypes } from '../../models/enum/LinkTypes';
 import { IClassNamesProps } from '../../models/IClassNamesProps';
 import { ILinkProps } from './interface';
 import setRel from '../../utils/setRel';
+import { removeUrlQueryPart } from '../../utils/url';
 
 interface IAppLinkProps extends IBaseProps {
   link: ILinkProps;
@@ -121,8 +122,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       ? `/${replaceSpaceInHref}`
       : replaceSpaceInHref;
 
-  // TODO: Refactor src/utils/url.ts and reuse it
-  const urlWithoutQueryString = href.split('?')[0];
+  const urlWithoutQueryString = removeUrlQueryPart(href);
   const queryString = href.split('?')[1];
 
   return (
