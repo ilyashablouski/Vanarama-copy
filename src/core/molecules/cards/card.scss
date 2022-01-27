@@ -1022,6 +1022,10 @@ $small: 0.875rem;
           line-height: 16px;
         }
       }
+      a {
+        font-size: $font-size-200;
+        text-transform: capitalize;
+      }
     }
   }
 
