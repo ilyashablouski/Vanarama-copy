@@ -6,7 +6,6 @@ const requiredWhenEmployed = (message: string) => (
   status: string,
   schema: Yup.StringSchema,
 ) =>
-  // TODO: Work out how to get these magic strings from the BE instead
   status === 'Employed' || status === 'Self employed'
     ? schema.nullable().required(message)
     : schema.nullable();
