@@ -10,7 +10,10 @@ import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import ArticleLink from '../../components/ArticleLink';
+import BlogCarousel from '../../components/BlogCarousel';
 import { convertHeadingToSlug } from '../../utils/markdownHelpers';
+import { CarouselPositionEnum } from '../../models/IBlogsProps';
+import useVehicleCarousel from '../../hooks/useVehicleCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -30,6 +33,7 @@ interface IProps {
   title: string | null;
   body: string | null;
   image: string | null | undefined;
+  articleUrl?: string;
 }
 
 const LeasingArticleContainer: FC<IProps> = ({
@@ -37,8 +41,14 @@ const LeasingArticleContainer: FC<IProps> = ({
   sections,
   image,
   body,
+  articleUrl,
 }) => {
   const cards = getSectionsData(['cards'], sections);
+
+  const { carouselPosition, vehiclesList } = useVehicleCarousel(
+    'guides',
+    articleUrl,
+  );
 
   return (
     <>
@@ -83,6 +93,13 @@ const LeasingArticleContainer: FC<IProps> = ({
               ),
             }}
           />
+          {carouselPosition?.includes(CarouselPositionEnum.withinBody) && (
+            <BlogCarousel
+              countItems={9}
+              vehiclesList={vehiclesList}
+              className="carousel-two-column"
+            />
+          )}
         </article>
         <div>
           <Heading
@@ -119,6 +136,11 @@ const LeasingArticleContainer: FC<IProps> = ({
           ))}
         </div>
       </div>
+      {carouselPosition?.includes(CarouselPositionEnum.aboveFooter) && (
+        <div className="row:bg-lighter blog-carousel-wrapper">
+          <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
+        </div>
+      )}
       <div className="row:comments" />
     </>
   );

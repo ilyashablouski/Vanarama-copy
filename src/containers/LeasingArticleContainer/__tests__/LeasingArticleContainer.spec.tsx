@@ -77,6 +77,8 @@ const SECTIONS = {
   },
 } as any;
 
+const ARTICLE_URL = 'guides/cars/volvo-xc40-review';
+
 describe('<FinanceExplainedContainer />', () => {
   beforeAll(async () => {
     await preloadAll();
@@ -90,6 +92,7 @@ describe('<FinanceExplainedContainer />', () => {
           title={METADATA.title}
           body={BODY}
           image={null}
+          articleUrl={ARTICLE_URL}
         />
       </MockedProvider>,
     );

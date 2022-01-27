@@ -26,7 +26,10 @@ import {
 import { convertErrorToProps } from '../../../../utils/helpers';
 import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
-const GuidesCarsExplained: NextPage<IGenericPage> = ({ data: encodedData }) => {
+const GuidesCarsExplained: NextPage<IGenericPage> = ({
+  data: encodedData,
+  articleUrl,
+}) => {
   const data = decodeData(encodedData);
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -53,6 +56,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({ data: encodedData }) => {
         title={title}
         sections={sections}
         image={featuredImageUrl}
+        articleUrl={articleUrl}
       />
       {metaData && (
         <>
@@ -87,6 +91,7 @@ export async function getStaticProps(
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
+    const articleUrl = `guides/cars/${context?.params?.explained}`;
     const client = createApolloClient({});
     const { data } = await client.query<
       GenericPageQuery,
@@ -94,7 +99,7 @@ export async function getStaticProps(
     >({
       query: GENERIC_PAGE,
       variables: {
-        slug: `guides/cars/${context?.params?.explained}`,
+        slug: articleUrl,
         isPreview: !!context?.preview,
       },
     });
@@ -104,6 +109,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
+        articleUrl,
       },
     };
   } catch (error) {

@@ -1,5 +1,6 @@
 import { ProductDerivativeFilter } from '../../../generated/globalTypes';
 import { BlogPostCarouselData_blogPost_productFilter } from '../../../generated/BlogPostCarouselData';
+import { GenericPageCarouselData_genericPage_productFilter } from '../../../generated/GenericPageCarouselData';
 
 const vehicleTypeMapper = {
   CAR: ['Car'],
@@ -7,7 +8,10 @@ const vehicleTypeMapper = {
 };
 // eslint-disable-next-line import/prefer-default-export
 export const productFilterMapper = (
-  blogProductFilter?: Nullable<BlogPostCarouselData_blogPost_productFilter>,
+  blogProductFilter?: Nullable<
+    | BlogPostCarouselData_blogPost_productFilter
+    | GenericPageCarouselData_genericPage_productFilter
+  >,
 ): ProductDerivativeFilter => ({
   manufacturerNames: blogProductFilter?.manufacturer || undefined,
   rangeNames: blogProductFilter?.range || undefined,
