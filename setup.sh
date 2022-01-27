@@ -5,10 +5,11 @@ APP=${3}
 REGION=${4}
 CURRENTBRANCH=${5}
 ALTERNATEDOMAIN=${6}
-HOST_DOMAIN="https://${6}"
+HOST_DOMAIN=${6}
 IMGOPTIMISATIONHOST=${7}
 
 export ENV=$ENV
+export HOST_DOMAIN="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/HOST_DOMAIN" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export API_KEY="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export API_URL="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export LOQATE_KEY="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/LOQATE_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
