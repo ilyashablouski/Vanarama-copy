@@ -6,7 +6,6 @@ import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import SearchPageFilters from '../../../components/SearchPageFilters';
-// TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
 const resetMocks = () => {
