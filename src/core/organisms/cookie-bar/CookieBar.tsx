@@ -64,7 +64,7 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
             color: 'primary',
           }}
           link={{
-            href: '/legal/privacy-policy',
+            href: '/legal/cookies-policy',
             label: 'cookie policy',
           }}
         >

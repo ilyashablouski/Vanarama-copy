@@ -20,6 +20,7 @@ const capId = '93456';
 
 const banners = (): IPdpBanner[] => [
   {
+    name: 'Van PDP Banner Loss Of Earnings',
     slug: 'free-insurance-banner',
     description: 'Worth Avg £538',
     image: {
@@ -39,8 +40,11 @@ const banners = (): IPdpBanner[] => [
       url: 'https://www.vanarama.com/car-leasing/free-car-insurance',
     },
     title: "Special Offer: Lease This Car Online & Get 1 Year's FREE Insurance",
+    startDate: '2022-01-24T00:00+03:00',
+    endDate: '2022-01-25T00:00+03:00',
   },
   {
+    name: 'Van PDP Banner Loss Of Earnings',
     slug: 'redundancy',
     description:
       'When you lease this car online, if the worst happens, you can return it anytime.',
@@ -61,6 +65,8 @@ const banners = (): IPdpBanner[] => [
       url: 'https://www.vanarama.com/redundancy-and-life-event-cover.html',
     },
     title: 'Special Offer: Free Redundancy & Life Event Cover',
+    startDate: '2022-01-24T00:00+03:00',
+    endDate: '2022-01-25T00:00+03:00',
   },
 ];
 

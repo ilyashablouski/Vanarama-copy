@@ -1,28 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Accordion /> should render correctly 1`] = `
-<ul
-  className="accordion"
->
-  <AccordionItem
-    item={
-      Object {
-        "children": "Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis",
-        "id": 1,
-        "title": "Fugiat Labore Adipisicing Nisi Ipsum",
-      }
-    }
-    key="1"
-  />
-  <AccordionItem
-    item={
-      Object {
-        "children": "Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis",
-        "id": 2,
-        "title": "Eu Sit Occaecat Do Enim",
-      }
-    }
-    key="2"
-  />
-</ul>
+<div>
+  <ul
+    class="accordion"
+  >
+    <li
+      class="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        class="accordion--heading"
+        type="button"
+      >
+        <i
+          class="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="184 112 328 256 184 400"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+            />
+          </svg>
+        </i>
+        <div
+          class="accordion--title"
+        >
+          <span
+            class="text -regular -black"
+          >
+            Fugiat Labore Adipisicing Nisi Ipsum
+          </span>
+        </div>
+      </button>
+      <div
+        class="accordion--content"
+      >
+        <p>
+          Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis
+        </p>
+      </div>
+    </li>
+    <li
+      class="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        class="accordion--heading"
+        type="button"
+      >
+        <i
+          class="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="184 112 328 256 184 400"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+            />
+          </svg>
+        </i>
+        <div
+          class="accordion--title"
+        >
+          <span
+            class="text -regular -black"
+          >
+            Eu Sit Occaecat Do Enim
+          </span>
+        </div>
+      </button>
+      <div
+        class="accordion--content"
+      >
+        <p>
+          Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
 `;

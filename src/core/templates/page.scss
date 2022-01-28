@@ -65,6 +65,10 @@
   border: 1px solid #ea6308 !important;
   border-radius: $border-radius-medium;
 
+  .text {
+    white-space: initial;
+  }
+
   @include mobile {
     place-items: start;
 

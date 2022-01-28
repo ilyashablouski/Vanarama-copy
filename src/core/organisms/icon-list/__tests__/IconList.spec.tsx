@@ -1,41 +1,40 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-
+import { render } from '@testing-library/react';
 import IconList from '../IconList';
 import IconListItem from '../IconListItem';
 
 describe('<IconList />', () => {
   it('renders correctly with default <IconListItem /> child', () => {
-    const wrapper = mount(
+    const { container } = render(
       <IconList>
         <IconListItem>hello world</IconListItem>
       </IconList>,
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('renders correctly with optional props', () => {
-    const wrapper = shallow(
+    const { container } = render(
       <IconList textColor="teal" dataTestId="testID">
         <li>hello world</li>
       </IconList>,
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });
 
 describe('<IconListItem />', () => {
   it('renders correctly with children', () => {
-    const wrapper = mount(<IconListItem>hello world</IconListItem>);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<IconListItem>hello world</IconListItem>);
+    expect(container).toMatchSnapshot();
   });
 
   it('renders correctly with optional props', () => {
-    const wrapper = mount(
+    const { container } = render(
       <IconListItem iconColor="orange" dataTestId="testID2">
         hello world
       </IconListItem>,
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

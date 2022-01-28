@@ -1,31 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SearchFiltersHead /> should render correctly with a custom class name 1`] = `
-<div
-  aria-level={3}
-  className="search-filters--title some-custom-class-name"
-  onClick={[Function]}
-  role="heading"
->
-  <div>
-    <span>
-      child element
-    </span>
+<div>
+  <div
+    aria-level="3"
+    class="search-filters--title some-custom-class-name"
+    role="heading"
+  >
+    <div>
+      <span>
+        child element
+      </span>
+    </div>
   </div>
 </div>
 `;
 
 exports[`<SearchFiltersHead /> should render correctly with children 1`] = `
-<div
-  aria-level={3}
-  className="search-filters--title"
-  onClick={[Function]}
-  role="heading"
->
-  <div>
-    <span>
-      child element
-    </span>
+<div>
+  <div
+    aria-level="3"
+    class="search-filters--title"
+    role="heading"
+  >
+    <div>
+      <span>
+        child element
+      </span>
+    </div>
   </div>
 </div>
 `;

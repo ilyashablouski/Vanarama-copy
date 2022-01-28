@@ -1,19 +1,19 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import TextInput from '../TextInput';
 
 describe('<TextInput />', () => {
   it('should render correctly in the default state', () => {
     // ACT
-    const wrapper = shallow(<TextInput />);
+    const wrapper = render(<TextInput />);
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render correctly with optional props', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <TextInput
         calculated
         className="custom-class-name"
@@ -27,7 +27,7 @@ describe('<TextInput />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should be able to be used in controlled mode', () => {
@@ -35,33 +35,34 @@ describe('<TextInput />', () => {
     const onChange = jest.fn();
 
     // ACT
-    const wrapper = shallow(<TextInput onChange={onChange} />);
-    wrapper.find('input').simulate('change', { target: { value: 'A' } });
-
+    render(<TextInput onChange={onChange} placeholder="Placeholder" />);
+    fireEvent.change(screen.getByPlaceholderText('Placeholder'), {
+      target: { value: 'A' },
+    });
     // ASSERT
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   it('should render correctly with a suffix', () => {
     // ACT
-    const wrapper = shallow(<TextInput suffix="%" />);
+    const wrapper = render(<TextInput suffix="%" />);
 
     // ASSERT
-    expect(wrapper).toMatchInlineSnapshot(`
-      <div
-        className="textinput regular"
-      >
-        <input
-          className="textinput--native regular -suffix"
-          type="text"
-        />
-        <Memo(Text)
-          className="textinput--suffix"
-          color="dark"
-          size="regular"
+    expect(wrapper.container).toMatchInlineSnapshot(`
+      <div>
+        <div
+          class="textinput regular"
         >
-          %
-        </Memo(Text)>
+          <input
+            class="textinput--native regular -suffix"
+            type="text"
+          />
+          <span
+            class="text textinput--suffix -regular -dark"
+          >
+            %
+          </span>
+        </div>
       </div>
     `);
   });

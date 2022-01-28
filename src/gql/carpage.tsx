@@ -265,8 +265,9 @@ export const GET_PDP_CONTENT = gql`
         }
       }
       banners {
-        slug
+        name
         title
+        slug
         description
         image {
           title
@@ -278,6 +279,8 @@ export const GET_PDP_CONTENT = gql`
           text
           url
         }
+        startDate
+        endDate
       }
     }
   }
