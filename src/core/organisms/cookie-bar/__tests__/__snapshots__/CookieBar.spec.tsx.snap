@@ -28,7 +28,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
       <a
         class="link -primary"
         data-testid="router-link"
-        href="/legal/privacy-policy"
+        href="/legal/cookies-policy"
       >
         cookie policy
       </a>
