@@ -9,7 +9,7 @@ describe('<MediaGallery />', () => {
   const resetMocks = () => {
     return {
       isCar: false,
-      images: ['test', 'test'],
+      images: ['test1', 'test2'],
       videoSrc: 'test.com',
       threeSixtyVideoSrc: 'test.com',
       imacaAssets: null,
