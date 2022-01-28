@@ -10,13 +10,11 @@
 export interface ServiceBannerQuery_serviceBanner_link {
   text: string | null;
   url: string | null;
-  label: string | null;
 }
 
 export interface ServiceBannerQuery_serviceBanner {
-  id: string;
-  message: string | null;
   link: ServiceBannerQuery_serviceBanner_link | null;
+  message: string | null;
   enable: boolean | null;
 }
 
