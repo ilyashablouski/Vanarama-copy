@@ -73,13 +73,11 @@ export function useLogOutMutation() {
 export const SERVICE_BANNER_QUERY = gql`
   query ServiceBannerQuery($slug: String, $isPreview: Boolean) {
     serviceBanner(slug: $slug, isPreview: $isPreview) {
-      id
-      message
       link {
         text
         url
-        label
       }
+      message
       enable
     }
   }

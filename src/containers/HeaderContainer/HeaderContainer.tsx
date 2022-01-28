@@ -30,7 +30,7 @@ import {
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
 import { useLogOutMutation, useServiceBannerQuery } from './gql';
-import ServiceBanner from "../../components/ServiceBanner";
+import ServiceBanner from '../../components/ServiceBanner';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -57,7 +57,7 @@ const HeaderContainer: FC = () => {
 
   const { data: serviceBannerData } = useServiceBannerQuery(
     router.asPath,
-    false,
+    !!router.query?.isPreview,
   );
 
   const [logOut] = useLogOutMutation();
@@ -246,6 +246,11 @@ const HeaderContainer: FC = () => {
           topBarLinks={partnershipLinks}
           customHomePath={partnershipHomeLink}
         />
+        <ServiceBanner
+          enabled={serviceBannerData?.serviceBanner?.enable}
+          message={serviceBannerData?.serviceBanner?.message}
+          link={serviceBannerData?.serviceBanner?.link}
+        />
       </>
     );
   }
@@ -260,9 +265,11 @@ const HeaderContainer: FC = () => {
           phoneNumberLink={phoneNumberLink}
           topBarLinks={[...offerLink, ...topLinks]}
         />
-        {serviceBannerData?.serviceBanner?.enable && (
-          <ServiceBanner/>
-        )}
+        <ServiceBanner
+          enabled={serviceBannerData?.serviceBanner?.enable}
+          message={serviceBannerData?.serviceBanner?.message}
+          link={serviceBannerData?.serviceBanner?.link}
+        />
       </>
     );
   }
