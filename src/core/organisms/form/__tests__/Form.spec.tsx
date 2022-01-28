@@ -1,30 +1,30 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import Form from '..';
 
 describe('<Form />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <Form>
         <p>Hello World!</p>
       </Form>,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should render correctly in the invalid state', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <Form invalid>
         <p>Hello World!</p>
       </Form>,
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('should call `onSubmit` when submitting', () => {
@@ -32,14 +32,12 @@ describe('<Form />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <Form onSubmit={onSubmit}>
         <p>Hello World!</p>
       </Form>,
     );
-
-    wrapper.simulate('submit');
-
+    fireEvent.submit(container.getElementsByTagName('form')[0]);
     // ASSERT
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });

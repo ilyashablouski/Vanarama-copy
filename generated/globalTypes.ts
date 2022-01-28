@@ -104,6 +104,7 @@ export enum ProductDerivativeSortDirection {
 export enum ProductDerivativeSortField {
   availability = "availability",
   availabilitySort = "availabilitySort",
+  indexedAt = "indexedAt",
   initialPayment = "initialPayment",
   mileage = "mileage",
   offerRanking = "offerRanking",
@@ -747,6 +748,7 @@ export interface ProductDerivativeFilter {
   fuelTypes?: (string | null)[] | null;
   vehicleCategory?: (string | null)[] | null;
   financeTypes?: (FinanceType | null)[] | null;
+  defaultPrice?: boolean | null;
   onOffer?: boolean | null;
   doors?: (number | null)[] | null;
   noOfSeats?: (number | null)[] | null;

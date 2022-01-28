@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import ComparatorBar from '../ComparatorBar';
@@ -15,7 +14,7 @@ jest.mock('next/router', () => ({
 }));
 describe('<ComparatorBar />', () => {
   it('renders correctly with default <ComparatorBar />', () => {
-    const wrapper = mount(
+    const wrapper = render(
       <ComparatorBar
         deleteVehicle={() => {}}
         compareVehicles={() => {}}
@@ -23,7 +22,7 @@ describe('<ComparatorBar />', () => {
         setCompareVehicles={() => {}}
       />,
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 
   it('button compare vehicles correctly with default <ComparatorBar />', () => {
@@ -63,13 +62,13 @@ describe('<ComparatorBar />', () => {
 
 describe('<ComparatorBarCard />', () => {
   it('renders correctly with ComparatorBarCard', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <ComparatorBarCard
         number={0}
         deleteVehicle={() => {}}
         vehicle={vehiclesMock[0]}
       />,
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

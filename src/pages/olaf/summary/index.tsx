@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
+import SecureModalLayout from '../../../containers/SecureModalLayout';
 import SummaryFormContainer from '../../../containers/SummaryFormContainer/SummaryFormContainer';
 import { OLAFQueryParams } from '../../../utils/url';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
@@ -42,11 +43,13 @@ const SummaryPage: NextPage = () => {
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
     >
-      <SummaryFormContainer
-        onComplete={handleComplete}
-        personUuid={personUuid}
-        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
-      />
+      <SecureModalLayout>
+        <SummaryFormContainer
+          onComplete={handleComplete}
+          personUuid={personUuid}
+          orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

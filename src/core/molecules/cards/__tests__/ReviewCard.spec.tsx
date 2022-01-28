@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import ReviewCard from '../ReviewCard/ReviewCard';
 
 describe('<ReviewCard />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const { container } = render(
       <ReviewCard
         review={{
           text:
@@ -17,6 +17,6 @@ describe('<ReviewCard />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

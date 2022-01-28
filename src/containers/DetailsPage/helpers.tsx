@@ -113,3 +113,37 @@ export const pdpVanType = (data: GetVehicleDetails): PdpVehicleType => {
 
 export const parseQuoteParams = (param?: Nullable<string>) =>
   parseInt(param || '', 10) || null;
+
+export function isBannerAvailable(card: IPdpBanner | undefined): boolean {
+  if (!card) {
+    return false;
+  }
+
+  const { startDate, endDate } = card;
+  const currentTime = new Date();
+
+  if (!startDate && !endDate) {
+    return true;
+  }
+
+  if (!startDate && endDate) {
+    const endTime = new Date(endDate);
+
+    return currentTime <= endTime;
+  }
+
+  if (startDate && !endDate) {
+    const startTime = new Date(startDate);
+
+    return currentTime >= startTime;
+  }
+
+  if (startDate && endDate) {
+    const startTime = new Date(startDate);
+    const endTime = new Date(endDate);
+
+    return currentTime >= startTime && currentTime <= endTime;
+  }
+
+  return true;
+}

@@ -44,11 +44,14 @@ export interface GetPdpContent_pdpContent_banners_link {
 }
 
 export interface GetPdpContent_pdpContent_banners {
-  slug: string;
+  name: string | null;
   title: string | null;
+  slug: string;
   description: string | null;
   image: GetPdpContent_pdpContent_banners_image | null;
   link: GetPdpContent_pdpContent_banners_link | null;
+  startDate: CustomDateTime | null;
+  endDate: CustomDateTime | null;
 }
 
 export interface GetPdpContent_pdpContent {

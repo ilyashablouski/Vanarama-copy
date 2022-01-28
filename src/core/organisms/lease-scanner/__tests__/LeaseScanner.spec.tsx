@@ -1,8 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 
+import { render, fireEvent } from '@testing-library/react';
 import LeaseScanner from '../LeaseScanner';
-import Button from '../../../atoms/button';
 
 describe('<LeaseScanner />', () => {
   const resetMocks = () => {
@@ -22,21 +21,20 @@ describe('<LeaseScanner />', () => {
     mocks = resetMocks();
   });
   it('should be render', () => {
-    const wrapper = shallow(<LeaseScanner {...mocks} />);
-    expect(wrapper.find('.lease-scanner').exists()).toBeTruthy();
+    const wrapper = render(<LeaseScanner {...mocks} />).container;
+    expect(wrapper.getElementsByClassName('lease-scanner')[0]).toBeTruthy();
   });
   it('should be click to Order now button', () => {
     mocks.startLoading = true;
-    const wrapper = mount(<LeaseScanner {...mocks} />);
-    expect(wrapper.find('.initial-loading--wrapper').exists()).toBeTruthy();
+    const wrapper = render(<LeaseScanner {...mocks} />).container;
+    expect(
+      wrapper.getElementsByClassName('initial-loading--wrapper')[0],
+    ).toBeTruthy();
   });
   it('should be show initialize loading slide', () => {
     mocks.startLoading = true;
-    const wrapper = shallow(<LeaseScanner {...mocks} />);
-    wrapper
-      .find(Button)
-      .first()
-      .simulate('click');
+    const wrapper = render(<LeaseScanner {...mocks} />).container;
+    fireEvent.click(wrapper.getElementsByTagName('button')[0]);
     expect(mocks.orderNowClick).toHaveBeenCalled();
   });
 });

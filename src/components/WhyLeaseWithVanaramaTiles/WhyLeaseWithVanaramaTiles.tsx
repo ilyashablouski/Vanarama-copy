@@ -37,7 +37,10 @@ const WhyLeaseWithVanaramaTiles = ({
   tiles,
   dataUiTestId,
 }: IWhyLeaseWithVanaramaTiles) => (
-  <section className="row:features-4col">
+  <section
+    className="row:features-4col"
+    data-uitestid={dataUiTestId ? `${dataUiTestId}_section` : undefined}
+  >
     {title && (
       <Heading
         size="large"

@@ -1,326 +1,177 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Panel /> should render correctly with correct panel id 1`] = `
-<Fragment>
-  <Memo(PanelHeader)
-    label="Body Type"
-    panelId="bodyType"
-    searchFilters={
-      Object {
-        "bodyType": Array [
-          Object {
-            "label": "4x4",
-            "value": "4x4",
-          },
-          Object {
-            "label": "Coupe",
-            "value": "Coupe",
-          },
-          Object {
-            "label": "Convertible",
-            "value": "Convertible",
-          },
-          Object {
-            "label": "Estate",
-            "value": "Estate",
-          },
-          Object {
-            "label": "Saloon",
-            "value": "Saloon",
-          },
-        ],
-        "budget": Array [
-          Object {
-            "label": "0",
-            "value": "0",
-          },
-          Object {
-            "label": "100",
-            "value": "100",
-          },
-          Object {
-            "label": "200",
-            "value": "200",
-          },
-          Object {
-            "label": "300",
-            "value": "300",
-          },
-          Object {
-            "label": "400",
-            "value": "400",
-          },
-          Object {
-            "label": "500",
-            "value": "500",
-          },
-        ],
-        "fuelType": Array [
-          Object {
-            "label": "Petrol",
-            "value": "Petrol",
-          },
-          Object {
-            "label": "Diesel",
-            "value": "Diesel",
-          },
-          Object {
-            "label": "Electric",
-            "value": "Electric",
-          },
-        ],
-        "manufacturers": Array [
-          Object {
-            "label": "Audi",
-            "value": "Audi",
-          },
-          Object {
-            "label": "BMW",
-            "value": "BMW",
-          },
-          Object {
-            "label": "Ferrari",
-            "value": "Ferrari",
-          },
-          Object {
-            "label": "Fiat",
-            "value": "Fiat",
-          },
-          Object {
-            "label": "Mercedes-Benz",
-            "value": "Mercedes-Benz",
-          },
-          Object {
-            "label": "Tesla",
-            "value": "Tesla",
-          },
-          Object {
-            "label": "Volvo",
-            "value": "Volvo",
-          },
-        ],
-        "ranges": Array [
-          Object {
-            "label": "A1",
-            "value": "A1",
-          },
-          Object {
-            "label": "A3",
-            "value": "A3",
-          },
-          Object {
-            "label": "3 Series",
-            "value": "3 Series",
-          },
-          Object {
-            "label": "4 Series",
-            "value": "4 Series",
-          },
-          Object {
-            "label": "C Class",
-            "value": "C Class",
-          },
-          Object {
-            "label": "Model S",
-            "value": "Model S",
-          },
-        ],
-        "transmission": Array [
-          Object {
-            "label": "Automatic",
-            "value": "Automatic",
-          },
-          Object {
-            "label": "Manual",
-            "value": "Manual",
-          },
-        ],
-      }
-    }
-    selectedFilters={
-      Object {
-        "bodyType": Array [
-          "Estate",
-        ],
-        "budget": Array [
-          "100",
-          "300",
-        ],
-        "fuelType": Array [
-          "Petrol",
-        ],
-        "manufacturers": Array [
-          "BMW",
-        ],
-        "ranges": Array [
-          "4 Series",
-        ],
-        "transmission": Array [
-          "Manual",
-        ],
-      }
-    }
-    setOpenPanel={[MockFunction]}
-    setSelectedFiltersState={[MockFunction]}
-  />
-  <Memo(PanelBody)
-    panelId="bodyType"
-    searchFilters={
-      Object {
-        "bodyType": Array [
-          Object {
-            "label": "4x4",
-            "value": "4x4",
-          },
-          Object {
-            "label": "Coupe",
-            "value": "Coupe",
-          },
-          Object {
-            "label": "Convertible",
-            "value": "Convertible",
-          },
-          Object {
-            "label": "Estate",
-            "value": "Estate",
-          },
-          Object {
-            "label": "Saloon",
-            "value": "Saloon",
-          },
-        ],
-        "budget": Array [
-          Object {
-            "label": "0",
-            "value": "0",
-          },
-          Object {
-            "label": "100",
-            "value": "100",
-          },
-          Object {
-            "label": "200",
-            "value": "200",
-          },
-          Object {
-            "label": "300",
-            "value": "300",
-          },
-          Object {
-            "label": "400",
-            "value": "400",
-          },
-          Object {
-            "label": "500",
-            "value": "500",
-          },
-        ],
-        "fuelType": Array [
-          Object {
-            "label": "Petrol",
-            "value": "Petrol",
-          },
-          Object {
-            "label": "Diesel",
-            "value": "Diesel",
-          },
-          Object {
-            "label": "Electric",
-            "value": "Electric",
-          },
-        ],
-        "manufacturers": Array [
-          Object {
-            "label": "Audi",
-            "value": "Audi",
-          },
-          Object {
-            "label": "BMW",
-            "value": "BMW",
-          },
-          Object {
-            "label": "Ferrari",
-            "value": "Ferrari",
-          },
-          Object {
-            "label": "Fiat",
-            "value": "Fiat",
-          },
-          Object {
-            "label": "Mercedes-Benz",
-            "value": "Mercedes-Benz",
-          },
-          Object {
-            "label": "Tesla",
-            "value": "Tesla",
-          },
-          Object {
-            "label": "Volvo",
-            "value": "Volvo",
-          },
-        ],
-        "ranges": Array [
-          Object {
-            "label": "A1",
-            "value": "A1",
-          },
-          Object {
-            "label": "A3",
-            "value": "A3",
-          },
-          Object {
-            "label": "3 Series",
-            "value": "3 Series",
-          },
-          Object {
-            "label": "4 Series",
-            "value": "4 Series",
-          },
-          Object {
-            "label": "C Class",
-            "value": "C Class",
-          },
-          Object {
-            "label": "Model S",
-            "value": "Model S",
-          },
-        ],
-        "transmission": Array [
-          Object {
-            "label": "Automatic",
-            "value": "Automatic",
-          },
-          Object {
-            "label": "Manual",
-            "value": "Manual",
-          },
-        ],
-      }
-    }
-    selectedFilters={
-      Object {
-        "bodyType": Array [
-          "Estate",
-        ],
-        "budget": Array [
-          "100",
-          "300",
-        ],
-        "fuelType": Array [
-          "Petrol",
-        ],
-        "manufacturers": Array [
-          "BMW",
-        ],
-        "ranges": Array [
-          "4 Series",
-        ],
-        "transmission": Array [
-          "Manual",
-        ],
-      }
-    }
-    setSelectedFiltersState={[MockFunction]}
-  />
-</Fragment>
+<div>
+  <header
+    class="slideout-modal--tile-header"
+  >
+    <button
+      class="button -black -regular -clear"
+    >
+      <div
+        class="button--inner"
+      >
+        <i
+          class="icon"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="244 400 100 256 244 112"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+            />
+            <line
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+              x1="120"
+              x2="412"
+              y1="256"
+              y2="256"
+            />
+          </svg>
+        </i>
+        Body Type
+      </div>
+    </button>
+    <button
+      class="button -dark -xsmall -clear"
+    >
+      <div
+        class="button--inner"
+      >
+        All
+        <i
+          class="icon"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="416 128 192 384 96 288"
+              style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 44;"
+            />
+          </svg>
+        </i>
+      </div>
+    </button>
+  </header>
+  <div
+    class="slideout-modal--tile-content"
+  >
+    <nav
+      class="slideout-modal--nav"
+    >
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          class="checkbox--native visually-hidden"
+          id="4x4"
+          name="bodyType"
+          type="checkbox"
+          value="4x4"
+        />
+        <label
+          class="checkbox--label"
+          for="4x4"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            4x4
+          </span>
+        </label>
+      </div>
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          class="checkbox--native visually-hidden"
+          id="Coupe"
+          name="bodyType"
+          type="checkbox"
+          value="Coupe"
+        />
+        <label
+          class="checkbox--label"
+          for="Coupe"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            Coupe
+          </span>
+        </label>
+      </div>
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          class="checkbox--native visually-hidden"
+          id="Convertible"
+          name="bodyType"
+          type="checkbox"
+          value="Convertible"
+        />
+        <label
+          class="checkbox--label"
+          for="Convertible"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            Convertible
+          </span>
+        </label>
+      </div>
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          checked=""
+          class="checkbox--native visually-hidden"
+          id="Estate"
+          name="bodyType"
+          type="checkbox"
+          value="Estate"
+        />
+        <label
+          class="checkbox--label"
+          for="Estate"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            Estate
+          </span>
+        </label>
+      </div>
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          class="checkbox--native visually-hidden"
+          id="Saloon"
+          name="bodyType"
+          type="checkbox"
+          value="Saloon"
+        />
+        <label
+          class="checkbox--label"
+          for="Saloon"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            Saloon
+          </span>
+        </label>
+      </div>
+    </nav>
+  </div>
+</div>
 `;

@@ -7,7 +7,7 @@
 // GraphQL query operation: MyAccount
 // ====================================================
 
-export interface MyAccount_myAccountDetailsByPersonUuid_address {
+export interface MyAccount_myAccountMaskedDetailsByPersonUuid_address {
   lineOne: string;
   lineTwo: string | null;
   city: string;
@@ -15,11 +15,11 @@ export interface MyAccount_myAccountDetailsByPersonUuid_address {
   serviceId: string | null;
 }
 
-export interface MyAccount_myAccountDetailsByPersonUuid {
+export interface MyAccount_myAccountMaskedDetailsByPersonUuid {
   personUuid: string;
   firstName: string;
   lastName: string;
-  address: MyAccount_myAccountDetailsByPersonUuid_address | null;
+  address: MyAccount_myAccountMaskedDetailsByPersonUuid_address | null;
   telephoneNumber: string | null;
   emailAddress: string;
   emailConsent: boolean | null;
@@ -28,9 +28,9 @@ export interface MyAccount_myAccountDetailsByPersonUuid {
 
 export interface MyAccount {
   /**
-   * Find Person by UUID and return personal details for my account section
+   * Find Person by UUID and return personal masked details for my account section
    */
-  myAccountDetailsByPersonUuid: MyAccount_myAccountDetailsByPersonUuid | null;
+  myAccountMaskedDetailsByPersonUuid: MyAccount_myAccountMaskedDetailsByPersonUuid | null;
 }
 
 export interface MyAccountVariables {

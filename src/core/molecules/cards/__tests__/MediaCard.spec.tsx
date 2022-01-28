@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import MediaCard from '../MediaCard/MediaCard';
 
 describe('<MediaCard />', () => {
   it('Media Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <MediaCard
         title={{ title: 'Media Card' }}
         media={{
@@ -19,6 +19,6 @@ describe('<MediaCard />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

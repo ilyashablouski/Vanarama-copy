@@ -49,6 +49,7 @@ const ImageV2: FC<IImageV2Props> = ({
         '-plain': plain,
         '-inline': inline,
       })}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_img-wrapper` : undefined}
     >
       <Image
         alt={alt}

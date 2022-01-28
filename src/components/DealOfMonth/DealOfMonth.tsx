@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
+import { IBaseProps } from 'core/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
@@ -46,7 +47,7 @@ const ArrowForwardSharp = dynamic(
   },
 );
 
-interface IDealOfMonthProps {
+interface IDealOfMonthProps extends IBaseProps {
   wished: boolean | undefined;
   compared: boolean | undefined;
   onWishlist: () => void;
@@ -83,6 +84,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   compared,
   onWishlist,
   onCompare,
+  dataUiTestId,
 }) => (
   <>
     <Card
@@ -95,13 +97,21 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         accentText: 'Hot Offer',
         text: flagText,
       }}
+      dataUiTestId={dataUiTestId ? `${dataUiTestId}_card` : undefined}
     />
     <article className="-col">
       <div>
         <Heading size="xlarge" color="black">
           {vehicle}
         </Heading>
-        <Text tag="p" size="lead" color="darker">
+        <Text
+          tag="p"
+          size="lead"
+          color="darker"
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_card_specification` : undefined
+          }
+        >
           {specification}
         </Text>
         {rating && <Rating score={rating} color="orange" />}
@@ -121,6 +131,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           priceDescription={
             isPersonal ? 'Per Month Inc VAT' : 'Per Month Ex. VAT'
           }
+          dataUitestId={dataUiTestId}
         />
         <RouterLink
           link={{
@@ -132,6 +143,9 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           className="button"
           dataTestId="deal-of-month__view-offer"
           withoutDefaultClassName
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_card_view-offer_button` : undefined
+          }
         >
           <div className="button--inner">
             View Offer

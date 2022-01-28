@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import SlideoutModal from '../SlideoutModal';
 
 import { searchFilters, selectedFilters } from '../__fixtures__';
@@ -13,17 +13,17 @@ const getComponent = (props: ISlideoutModalProps) => (
 describe('<SlideoutModal />', () => {
   it('should render correctly with search filters', () => {
     // ACT
-    const wrapper = shallow(getComponent({ searchFilters }));
+    const { container } = render(getComponent({ searchFilters }));
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should render correctly with selected filters', () => {
     // ACT
-    const wrapper = shallow(getComponent({ searchFilters, selectedFilters }));
+    const container = render(getComponent({ searchFilters, selectedFilters }));
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
-import Cookies from 'js-cookie';
 import { vehicleCarouselForBlogPageRequest } from '../utils/offers';
-import { isBlogCarPagesCarouselFeatureFlagEnabled } from '../utils/helpers';
 import { IBlogCarouselCard } from '../components/BlogCarousel/interface';
 import { productFilterMapper } from '../components/BlogCarousel/helpers';
 import { useBlogPostCarouselData } from '../gql/blogPost';
@@ -17,11 +15,7 @@ export default function useVehicleCarousel(articleUrl?: string) {
   ] = useBlogPostCarouselData();
 
   useEffect(() => {
-    if (
-      isBlogCarPagesCarouselFeatureFlagEnabled(Cookies) &&
-      articleUrl &&
-      !carouselData
-    ) {
+    if (articleUrl && !carouselData) {
       blogPostCarouselData({
         variables: {
           slug: articleUrl,

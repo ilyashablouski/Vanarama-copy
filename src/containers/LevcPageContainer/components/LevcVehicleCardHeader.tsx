@@ -4,6 +4,7 @@ import Icon from 'core/atoms/icon';
 import LevcLogoIcon from 'core/assets/icons/LogoLevc';
 
 import { ICardHeaderProps } from 'core/molecules/cards/CardHeader';
+import { normalizeString } from '../../../utils/data';
 
 const LevcVehicleCardHeader = ({
   accentStyles,
@@ -18,6 +19,11 @@ const LevcVehicleCardHeader = ({
           background: accentStyles?.color,
           color: accentStyles?.background as string,
         }}
+        data-uitestid={
+          dataUiTestId
+            ? `${dataUiTestId}_${normalizeString(accentText)}`
+            : undefined
+        }
       >
         {accentText}
       </div>
@@ -25,11 +31,16 @@ const LevcVehicleCardHeader = ({
     <div
       className="text"
       style={accentStyles}
-      data-uitestid={`${dataUiTestId}_availability`}
+      data-uitestid={dataUiTestId ? `${dataUiTestId}_availability` : undefined}
     >
       {text}
     </div>
-    <div style={accentStyles}>
+    <div
+      style={accentStyles}
+      data-uitestid={
+        dataUiTestId ? `${dataUiTestId}_levc-logo-icon` : undefined
+      }
+    >
       <Icon
         className="sm hydrated"
         icon={<LevcLogoIcon />}

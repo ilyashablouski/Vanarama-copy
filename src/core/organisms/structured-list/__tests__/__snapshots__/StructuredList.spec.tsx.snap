@@ -1,77 +1,123 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<StructuredList /> should render correctly with a custom CSS class 1`] = `
-<section
-  className="structured-list custom-class"
->
-  <div
-    className="structured-list-tbody"
+<div>
+  <section
+    class="structured-list custom-class"
   >
-    <ListItem
-      dataTestId="email-value"
-      editing={false}
-      id="email"
-      key="email-value"
-      label="Email"
-      testId={0}
-      value="example@example.com"
-    />
-    <ListItem
-      dataTestId="full-name-value"
-      editing={false}
-      id="fullname"
-      key="full-name-value"
-      label="Fullname"
-      testId={1}
-      value="Mr John Doe"
-    />
-    <ListItem
-      dataTestId="mobile-value"
-      editing={false}
-      id="mobile"
-      key="mobile-value"
-      label="Mobile"
-      testId={2}
-      value="012100000"
-    />
-  </div>
-</section>
+    <div
+      class="structured-list-tbody"
+    >
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-0-Email"
+        >
+          Email
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="email-value"
+        >
+          example@example.com
+        </div>
+      </div>
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-1-Fullname"
+        >
+          Fullname
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="full-name-value"
+        >
+          Mr John Doe
+        </div>
+      </div>
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-2-Mobile"
+        >
+          Mobile
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="mobile-value"
+        >
+          012100000
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 `;
 
 exports[`<StructuredList /> should render with required props 1`] = `
-<section
-  className="structured-list"
->
-  <div
-    className="structured-list-tbody"
+<div>
+  <section
+    class="structured-list"
   >
-    <ListItem
-      dataTestId="email-value"
-      editing={false}
-      id="email"
-      key="email-value"
-      label="Email"
-      testId={0}
-      value="example@example.com"
-    />
-    <ListItem
-      dataTestId="full-name-value"
-      editing={false}
-      id="fullname"
-      key="full-name-value"
-      label="Fullname"
-      testId={1}
-      value="Mr John Doe"
-    />
-    <ListItem
-      dataTestId="mobile-value"
-      editing={false}
-      id="mobile"
-      key="mobile-value"
-      label="Mobile"
-      testId={2}
-      value="012100000"
-    />
-  </div>
-</section>
+    <div
+      class="structured-list-tbody"
+    >
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-0-Email"
+        >
+          Email
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="email-value"
+        >
+          example@example.com
+        </div>
+      </div>
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-1-Fullname"
+        >
+          Fullname
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="full-name-value"
+        >
+          Mr John Doe
+        </div>
+      </div>
+      <div
+        class="structured-list-row"
+      >
+        <div
+          class="structured-list-td structured-list-content--nowrap"
+          data-testid="data_id-2-Mobile"
+        >
+          Mobile
+        </div>
+        <div
+          class="structured-list-td"
+          data-testid="mobile-value"
+        >
+          012100000
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 `;

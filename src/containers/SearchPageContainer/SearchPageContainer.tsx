@@ -151,7 +151,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
-  const [isPartnershipActive] = useState<boolean>(!!getPartnerProperties());
+  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const applyColumns = !isEvPage ? '-columns' : '';
   const initialFiltersState = useMemo(
     () =>
@@ -784,6 +784,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     }
   }, [cacheData, setCapsIds, isCarSearch]);
 
+  useEffect(() => {
+    const partnerActive = getPartnerProperties();
+    setPartnershipActive(!!partnerActive);
+  }, [isPartnershipActive]);
+
   // load more offers
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
@@ -829,13 +834,17 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       !isSpecialOfferPage &&
       !isRangePage &&
       !isModelPage &&
-      !isDynamicFilterPage,
+      !isDynamicFilterPage &&
+      !isAllManufacturersPage &&
+      !isPartnershipActive,
     [
       isManufacturerPage,
       isSpecialOfferPage,
       isRangePage,
       isModelPage,
       isDynamicFilterPage,
+      isAllManufacturersPage,
+      isPartnershipActive,
     ],
   );
 
@@ -867,23 +876,19 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           </div>
         </div>
       )}
-
       {isNewPage && isRangePage
         ? null
         : !(isSpecialOfferPage && isCarSearch) &&
           featured && <ReadMoreBlock featured={featured} />}
-
       {isNewPage && isRangePage ? (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
           pageData={pageData}
         />
       ) : null}
-
       {isAllManufacturersPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
-
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
           dataUiTestId={`${dataUiTestId}_top-offers`}
@@ -908,7 +913,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         />
       )}
 
-      {shouldRenderCheckbox && !isAllManufacturersPage && !isPartnershipActive && (
+      {shouldRenderCheckbox && (
         <div className="-mv-400 -stretch-left">
           <Checkbox
             id="specialOffer"
@@ -1104,7 +1109,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
-
       {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
     </>
   );
