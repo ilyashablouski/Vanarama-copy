@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -28,6 +28,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
+const COUNT_CARD = 9;
 interface IProps {
   sections: Section | null;
   title: string | null;
@@ -50,12 +51,19 @@ const LeasingArticleContainer: FC<IProps> = ({
     articleUrl,
   );
 
-  const carouselWithinBody = carouselPosition?.includes(
-    CarouselPositionEnum.withinBody,
-  );
-  const carouselAboveFooter = carouselPosition?.includes(
-    CarouselPositionEnum.aboveFooter,
-  );
+  const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
+    const carouselPositionWithinBody = carouselPosition?.includes(
+      CarouselPositionEnum.withinBody,
+    );
+    const carouselPositionAboveFooter = carouselPosition?.includes(
+      CarouselPositionEnum.aboveFooter,
+    );
+
+    return {
+      carouselWithinBody: carouselPositionWithinBody,
+      carouselAboveFooter: carouselPositionAboveFooter,
+    };
+  }, [carouselPosition]);
 
   return (
     <>
@@ -102,7 +110,7 @@ const LeasingArticleContainer: FC<IProps> = ({
           />
           {carouselWithinBody && (
             <BlogCarousel
-              countItems={9}
+              countItems={COUNT_CARD}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
             />
@@ -145,7 +153,7 @@ const LeasingArticleContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
+          <BlogCarousel countItems={COUNT_CARD} vehiclesList={vehiclesList} />
         </div>
       )}
       <div className="row:comments" />

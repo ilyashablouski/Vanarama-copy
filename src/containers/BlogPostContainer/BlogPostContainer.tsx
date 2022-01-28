@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -42,6 +42,8 @@ const Media = dynamic(() => import('core/atoms/media'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
+
+const COUNT_CARD = 9;
 
 export const renderHeading = (props: IMarkdownHeading) =>
   React.createElement(
@@ -112,12 +114,19 @@ const BlogPostContainer: NextPage<IProps> = ({
     articleUrl,
   );
 
-  const carouselWithinBody = carouselPosition?.includes(
-    CarouselPositionEnum.withinBody,
-  );
-  const carouselAboveFooter = carouselPosition?.includes(
-    CarouselPositionEnum.aboveFooter,
-  );
+  const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
+    const carouselPositionWithinBody = carouselPosition?.includes(
+      CarouselPositionEnum.withinBody,
+    );
+    const carouselPositionAboveFooter = carouselPosition?.includes(
+      CarouselPositionEnum.aboveFooter,
+    );
+
+    return {
+      carouselWithinBody: carouselPositionWithinBody,
+      carouselAboveFooter: carouselPositionAboveFooter,
+    };
+  }, [carouselPosition]);
 
   return (
     <>
@@ -155,7 +164,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
           {carouselWithinBody && (
             <BlogCarousel
-              countItems={9}
+              countItems={COUNT_CARD}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
             />
@@ -219,7 +228,7 @@ const BlogPostContainer: NextPage<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
+          <BlogCarousel countItems={COUNT_CARD} vehiclesList={vehiclesList} />
         </div>
       )}
       {metaData && (

@@ -7,16 +7,16 @@ import { useBlogPostCarouselData } from '../gql/blogPost';
 import { useGenericPageCarouselData } from '../gql/genericPage';
 import { UnionToIntersection } from '../core/interfaces/unionToIntersection';
 
-type ICarouselTypeKeys = keyof typeof carouselType;
-type ICarouselResultKeys = typeof carouselType[ICarouselTypeKeys]['key'];
+type ICarouselTypeKeys = keyof typeof carouselTypeMap;
+type ICarouselResultKeys = typeof carouselTypeMap[ICarouselTypeKeys]['key'];
 type ICarouselResponseTypes = UnionToIntersection<
   NonNullable<
-    ReturnType<typeof carouselType[ICarouselTypeKeys]['query']>['1']['data']
+    ReturnType<typeof carouselTypeMap[ICarouselTypeKeys]['query']>['1']['data']
   >
 >[ICarouselResultKeys];
 type ICarouselData = Record<ICarouselResultKeys, ICarouselResponseTypes>;
 
-const carouselType = {
+const carouselTypeMap = {
   blog: {
     key: 'blogPost',
     query: useBlogPostCarouselData,
@@ -32,7 +32,7 @@ export default function useVehicleCarousel(
   articleUrl?: string,
 ) {
   const client = useApolloClient();
-  const { query, key } = carouselType[type];
+  const { query, key } = carouselTypeMap[type];
 
   const [vehiclesList, setVehiclesList] = useState<ICarouselCard[]>([]);
   const [carouselData, response] = query();
