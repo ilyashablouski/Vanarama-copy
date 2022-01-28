@@ -13,7 +13,6 @@ const query = gql`
   }
 `;
 
-// TODO: remove SortObject interface after implement of productDerivative query
 /**
  * --- useSortOrder hook ---
  * @return {Array} return sort order data array

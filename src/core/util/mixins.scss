@@ -151,7 +151,6 @@
   }
 }
 
-/// @todo refactor - name is inappropriate / not helpful
 // adds spacing between child elements - in either block or inline orientation (vertically / horizontally)
 // like so: CHILD |<--->| CHILD |<--->| CHILD |<--->| CHILD
 @mixin owl($value, $direction: block, $prefix: 'owl') {
@@ -176,7 +175,6 @@
   }
 }
 
-/// @todo refactor - same function as above but without the custom-property usage
 @mixin distribute-children($value, $direction: block) {
   @if $direction == block {
     > * {
