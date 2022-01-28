@@ -112,6 +112,13 @@ const BlogPostContainer: NextPage<IProps> = ({
     articleUrl,
   );
 
+  const carouselWithinBody = carouselPosition?.includes(
+    CarouselPositionEnum.withinBody,
+  );
+  const carouselAboveFooter = carouselPosition?.includes(
+    CarouselPositionEnum.aboveFooter,
+  );
+
   return (
     <>
       <div className="row:title">
@@ -146,7 +153,7 @@ const BlogPostContainer: NextPage<IProps> = ({
               image: renderImage,
             }}
           />
-          {carouselPosition?.includes(CarouselPositionEnum.withinBody) && (
+          {carouselWithinBody && (
             <BlogCarousel
               countItems={9}
               vehiclesList={vehiclesList}
@@ -210,7 +217,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           </LazyLoadComponent>
         </div>
       </div>
-      {carouselPosition?.includes(CarouselPositionEnum.aboveFooter) && (
+      {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
           <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
         </div>

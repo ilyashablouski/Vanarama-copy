@@ -1,7 +1,7 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
-import { screen, render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import LeasingArticleContainer from '../LeasingArticleContainer';
 
 jest.mock('next/router', () => ({
@@ -79,7 +79,7 @@ const SECTIONS = {
 
 const ARTICLE_URL = 'guides/cars/volvo-xc40-review';
 
-describe('<FinanceExplainedContainer />', () => {
+describe('<LeasingArticleContainer />', () => {
   beforeAll(async () => {
     await preloadAll();
   });
@@ -96,16 +96,6 @@ describe('<FinanceExplainedContainer />', () => {
         />
       </MockedProvider>,
     );
-    // ASSERT
-    await waitFor(() => {
-      expect(screen.getByText(`Our Leasing Guides`)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(`Company Cash Allowance Vs Company Car`),
-      ).toBeInTheDocument();
-    });
 
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();

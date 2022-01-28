@@ -50,6 +50,13 @@ const LeasingArticleContainer: FC<IProps> = ({
     articleUrl,
   );
 
+  const carouselWithinBody = carouselPosition?.includes(
+    CarouselPositionEnum.withinBody,
+  );
+  const carouselAboveFooter = carouselPosition?.includes(
+    CarouselPositionEnum.aboveFooter,
+  );
+
   return (
     <>
       <div className="row:title">
@@ -93,7 +100,7 @@ const LeasingArticleContainer: FC<IProps> = ({
               ),
             }}
           />
-          {carouselPosition?.includes(CarouselPositionEnum.withinBody) && (
+          {carouselWithinBody && (
             <BlogCarousel
               countItems={9}
               vehiclesList={vehiclesList}
@@ -136,7 +143,7 @@ const LeasingArticleContainer: FC<IProps> = ({
           ))}
         </div>
       </div>
-      {carouselPosition?.includes(CarouselPositionEnum.aboveFooter) && (
+      {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
           <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
         </div>

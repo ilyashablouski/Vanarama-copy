@@ -7,14 +7,14 @@ import { useBlogPostCarouselData } from '../gql/blogPost';
 import { useGenericPageCarouselData } from '../gql/genericPage';
 import { UnionToIntersection } from '../core/interfaces/unionToIntersection';
 
-type CarouselTypeKeys = keyof typeof carouselType;
-type CarouselResultKeys = typeof carouselType[CarouselTypeKeys]['key'];
-type CarouselResponseTypes = UnionToIntersection<
+type ICarouselTypeKeys = keyof typeof carouselType;
+type ICarouselResultKeys = typeof carouselType[ICarouselTypeKeys]['key'];
+type ICarouselResponseTypes = UnionToIntersection<
   NonNullable<
-    ReturnType<typeof carouselType[CarouselTypeKeys]['query']>['1']['data']
+    ReturnType<typeof carouselType[ICarouselTypeKeys]['query']>['1']['data']
   >
->[CarouselResultKeys];
-type CarouselType = Record<CarouselResultKeys, CarouselResponseTypes>;
+>[ICarouselResultKeys];
+type ICarouselData = Record<ICarouselResultKeys, ICarouselResponseTypes>;
 
 const carouselType = {
   blog: {
@@ -28,7 +28,7 @@ const carouselType = {
 } as const;
 
 export default function useVehicleCarousel(
-  type: CarouselTypeKeys,
+  type: ICarouselTypeKeys,
   articleUrl?: string,
 ) {
   const client = useApolloClient();
@@ -37,10 +37,10 @@ export default function useVehicleCarousel(
   const [vehiclesList, setVehiclesList] = useState<ICarouselCard[]>([]);
   const [carouselData, response] = query();
   const { productFilter, carouselPosition } =
-    ((response.data as unknown) as CarouselType)?.[key] ?? {};
+    ((response.data as unknown) as ICarouselData)?.[key] ?? {};
 
   useEffect(() => {
-    if (articleUrl && !productFilter) {
+    if (articleUrl && !carouselPosition) {
       carouselData({
         variables: {
           slug: articleUrl,
@@ -48,7 +48,7 @@ export default function useVehicleCarousel(
       });
     }
 
-    if (!productFilter) {
+    if (carouselPosition) {
       (async () => {
         const vehicleCarouselList = await vehicleCarouselRequest(
           client,
@@ -58,7 +58,7 @@ export default function useVehicleCarousel(
         setVehiclesList(vehicleCarouselList || []);
       })();
     }
-  }, [articleUrl, carouselData, productFilter, client, key]);
+  }, [articleUrl, carouselData, productFilter, client, key, carouselPosition]);
 
   return { carouselPosition, vehiclesList };
 }
