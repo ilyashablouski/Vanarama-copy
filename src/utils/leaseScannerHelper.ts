@@ -1,9 +1,11 @@
 /* eslint-disable import/prefer-default-export */
+import { isHitachiChangedName } from './helpers';
+
 export const LEASING_PROVIDERS = [
   'LeasePlan',
   'Arval',
   'Lex',
-  'Hitachi',
+  isHitachiChangedName() ? 'Novuna' : 'Hitachi',
   'ALD',
   'BNP Paribas',
   'Leasys',
