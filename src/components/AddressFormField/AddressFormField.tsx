@@ -39,6 +39,9 @@ export default function AddressFormField({
             label={label}
             error={errors[id]?.message?.toString()}
             hint={hint}
+            hintButton={
+              <AddressFinder.ManualAddingButtonHint dataTestId="cannot-find-your-address" />
+            }
           >
             <AddressFinder.Input id={id} dataTestId={dataTestId} />
             <AddressFinder.Selected dataTestId={dataTestId} />

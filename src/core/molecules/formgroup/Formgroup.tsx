@@ -24,6 +24,7 @@ const Formgroup: React.FC<IFormgroupProps> = ({
   dataTestId,
   error,
   hint,
+  hintButton,
   inline,
   label,
   editable,
@@ -37,8 +38,14 @@ const Formgroup: React.FC<IFormgroupProps> = ({
     data-testid={dataTestId}
   >
     {label && (
-      <label className="formgroup--legend" htmlFor={controlId}>
+      <label
+        className={cx('formgroup--legend', className, {
+          '-with-hint-btn': hintButton,
+        })}
+        htmlFor={controlId}
+      >
         {label}
+        {hintButton}
       </label>
     )}
     {onInfoIconClick && (
