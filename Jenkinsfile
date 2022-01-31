@@ -230,7 +230,6 @@ pipeline {
                   branch 'develop'
                   branch 'master'
                   branch 'release/*'
-                  changeRequest target: 'master'
                 }
             }
             steps {
@@ -313,7 +312,6 @@ pipeline {
                   branch 'develop'
                   branch 'master'
                   branch 'release/*'
-                  changeRequest target: 'master'
                 }
             }
             steps {
