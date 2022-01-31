@@ -246,9 +246,9 @@ pipeline {
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                             sh """
-                                curl $buildEnvExecS3Path --output build-env-var.linux-amd64
+                                curl ${buildEnvExecS3Path} --output build-env-var.linux-amd64
                                 chmod +x build-env-var.linux-amd64                      
-                                eval "$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${envs}/${stack}/${app} -envTemplate=env.template -envStdout)"
+                                eval '$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${envs}/${stack}/${app} -envTemplate=env.template -envStdout)'
 
                                 docker pull $dockerRepoName:latest || true
                                 docker build -t $dockerRepoName:${getDockerTagName()} \
