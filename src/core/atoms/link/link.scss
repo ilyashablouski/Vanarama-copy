@@ -87,6 +87,10 @@
     display: flex;
   }
 
+  &.-underline {
+    text-decoration: underline;
+  }
+
   @include mobile {
     white-space: nowrap;
   }
