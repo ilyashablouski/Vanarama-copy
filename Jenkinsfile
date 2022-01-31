@@ -23,10 +23,6 @@ def app_environment = [
         accountId: '000379120260',
         jenkinsAgent: 'grid-dev-jenkins-agent',
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development',
-        terraformService: true,
-        alternateDomain: 'dev.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://dev.vanarama-nonprod.com'
     ],
     "uat": [
         clusterName: 'grid-uat',
@@ -39,10 +35,6 @@ def app_environment = [
         accountId: '126764662304',
         jenkinsAgent: 'grid-uat-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development',
-        terraformService: true,
-        alternateDomain: 'uat.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://uat.vanarama-nonprod.com'
     ],
     "pre-prod": [
         clusterName: 'grid-pre-prod',
@@ -55,10 +47,6 @@ def app_environment = [
         accountId: '148418686323',
         jenkinsAgent: 'grid-pre-prod-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development',
-        terraformService: true,
-        alternateDomain: 'vanarama-prod.com',
-        imgOptimisationHost: 'https://vanarama-prod.com'
     ]
 ]
 
@@ -245,36 +233,45 @@ pipeline {
                   changeRequest target: 'master'
                 }
             }
-                 steps {
-
-              script {
-                def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
-                def ecrCredentialId = app_environment["${getConfig()}"].ecrCredentialId
-                ecrLogin(ecrCredentialId)
-                def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
-                def envs = app_environment["${getConfig()}"].env
-                def NODE_ENV = app_environment["${getConfig()}"].NODE_ENV
-                def alternateDomain = app_environment["${getConfig()}"].alternateDomain
-                def imgOptimisationHost = app_environment["${getConfig()}"].imgOptimisationHost
-                
+            steps {
+                script {
+                    def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
+                    def ecrCredentialId = app_environment["${getConfig()}"].ecrCredentialId
+                    ecrLogin(ecrCredentialId)
+                    def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
+                    def envs = app_environment["${getConfig()}"].env
+                    
                     //TO DO - Paramaterise the source function with env variable
+                    // Eval the output of build-env-var to set ENV vars for docker
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
-                    sh """
-                      curl ${buildEnvExecS3Path} --output build-env-var.linux-amd64
-                      chmod +x build-env-var.linux-amd64
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+                            sh """
+                                curl ${buildEnvExecS3Path} --output build-env-var.linux-amd64
+                                chmod +x build-env-var.linux-amd64                      
+                                eval '$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${envs}/${stack}/${app} -envTemplate=env.template -envStdout)'
 
-                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${getConfig()} ${alternateDomain} ${imgOptimisationHost}
-                      docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${getDockerTagName()} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg HEAP_ID=\${HEAP_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV} --build-arg HOST_DOMAIN=\${HOST_DOMAIN} --cache-from $dockerRepoName:latest .
-                    """
-                  }
+                                docker pull $dockerRepoName:latest || true
+                                docker build -t $dockerRepoName:${getDockerTagName()} \
+                                    --build-arg NPM_TOKEN=${NPM_TOKEN} \
+                                    --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} \
+                                    --build-arg API_KEY=\${API_KEY} \
+                                    --build-arg API_URL=\${API_URL} \
+                                    --build-arg ENV=\${ENV} \
+                                    --build-arg GTM_ID=\${GTM_ID} \
+                                    --build-arg HEAP_ID=\${HEAP_ID} \
+                                    --build-arg MICROBLINK_URL=\${MICROBLINK_URL} \
+                                    --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} \
+                                    --build-arg LOQATE_KEY=\${LOQATE_KEY} \
+                                    --build-arg NODE_ENV=\${NODE_ENV} \
+                                    --build-arg HOST_DOMAIN=\${HOST_DOMAIN} \
+                                    --cache-from $dockerRepoName:latest .
+                            """
+                        }
+                    }
                 }
-               }
-                 }
             }
-
-            }
+        }
+    }
 
         }
         // stage("3. Static Code Analysis") {
