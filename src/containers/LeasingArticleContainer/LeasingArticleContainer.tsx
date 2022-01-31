@@ -28,7 +28,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
-const COUNT_CARD = 9;
+const COUNT_CARDS = 9;
 interface IProps {
   sections: Section | null;
   title: string | null;
@@ -52,16 +52,13 @@ const LeasingArticleContainer: FC<IProps> = ({
   );
 
   const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
-    const carouselPositionWithinBody = carouselPosition?.includes(
-      CarouselPositionEnum.withinBody,
-    );
-    const carouselPositionAboveFooter = carouselPosition?.includes(
-      CarouselPositionEnum.aboveFooter,
-    );
-
     return {
-      carouselWithinBody: carouselPositionWithinBody,
-      carouselAboveFooter: carouselPositionAboveFooter,
+      carouselWithinBody: carouselPosition?.includes(
+        CarouselPositionEnum.withinBody,
+      ),
+      carouselAboveFooter: carouselPosition?.includes(
+        CarouselPositionEnum.aboveFooter,
+      ),
     };
   }, [carouselPosition]);
 
@@ -110,7 +107,7 @@ const LeasingArticleContainer: FC<IProps> = ({
           />
           {carouselWithinBody && (
             <BlogCarousel
-              countItems={COUNT_CARD}
+              countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
             />
@@ -153,7 +150,7 @@ const LeasingArticleContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARD} vehiclesList={vehiclesList} />
+          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
         </div>
       )}
       <div className="row:comments" />
