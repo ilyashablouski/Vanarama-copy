@@ -431,6 +431,7 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   JAN_SALE = 'DIG-8417',
+  NOVUNA_LEASE = 'DIG-8639',
 }
 
 function isFeatureFlagEnabled(
@@ -477,4 +478,15 @@ export function isJanSaleCampaignEnabled() {
   }
 
   return Cookies.get(FeatureFlags.JAN_SALE) === '1';
+}
+
+const hitachiNewNameStartTime = Number(new Date(2022, 1, 14, 0, 1, 0));
+export function isHitachiChangedName() {
+  const currentTime = Date.now();
+
+  if (currentTime >= hitachiNewNameStartTime) {
+    return true;
+  }
+
+  return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
 }
