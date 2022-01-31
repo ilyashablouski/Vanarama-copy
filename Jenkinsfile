@@ -248,7 +248,7 @@ pipeline {
                             sh """
                                 curl ${buildEnvExecS3Path} --output build-env-var.linux-amd64
                                 chmod +x build-env-var.linux-amd64                      
-                                eval "\$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${envs}/${stack}/${app} -envTemplate=env.template -envStdout)"
+                                eval "\$(AWS_REGION=eu-west-2 ./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${envs}/${stack}/${app} -envTemplate=env.template -envStdout)"
 
                                 docker pull $dockerRepoName:latest || true
                                 docker build -t $dockerRepoName:${getDockerTagName()} \\
