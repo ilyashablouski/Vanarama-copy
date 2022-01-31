@@ -68,37 +68,33 @@ describe('<StructuredList />', () => {
     ).container;
     expect(wrap.getElementsByTagName('select').length).toEqual(1);
   });
-  // TODO: fix test
-  it.skip('should call `onEditClicked` when clicking the Edit link', () => {
-    // // ARRANGE
-    // const onEditClicked = jest.fn();
-    //
-    // // ACT
-    // const wrapper = render(
-    //   <StructuredList list={[]} editable onEditClicked={onEditClicked} />,
-    // );
-    //
-    // // Find the anchor element with the text "Edit", and click it
-    // wrapper.find('a[children="Edit"]').simulate('click');
-    //
-    // // ASSERT
-    // expect(onEditClicked).toHaveBeenCalledTimes(1);
-  });
-  // TODO: fix test
-  it.skip('should attach a data-testid attribute to the Edit link', () => {
+
+  it('should call `onEditClicked` when clicking the Edit link', () => {
     // ARRANGE
-    // const dataTestId = 'my-data-testid';
-    //
-    // // ACT
-    // const wrapper = mount(
-    //   <StructuredList list={[]} editable editDataTestId={dataTestId} />,
-    // );
-    //
-    // // ASSERT
-    // // Find the anchor element with the text "Edit" and make sure it has a data-testid
-    // expect(wrapper.find('a[children="Edit"]').prop('data-testid')).toEqual(
-    //   dataTestId,
-    // );
+    const onEditClicked = jest.fn();
+
+    // ACT
+    render(<StructuredList list={[]} editable onEditClicked={onEditClicked} />);
+
+    // Find the anchor element with the text "Edit", and click it
+    screen.getByText('Edit').click();
+
+    // ASSERT
+    expect(onEditClicked).toHaveBeenCalledTimes(1);
+  });
+
+  it('should attach a data-testid attribute to the Edit link', () => {
+    // ARRANGE
+    const dataTestId = 'my-data-testid';
+
+    // ACT
+    render(<StructuredList list={[]} editable editDataTestId={dataTestId} />);
+
+    const attr = screen.getByText('Edit').getAttribute('data-testid');
+
+    // ASSERT
+    // Find the anchor element with the text "Edit" and make sure it has a data-testid
+    expect(attr).toEqual(dataTestId);
   });
 
   it('should attach a data-testid attributes the the list items', () => {

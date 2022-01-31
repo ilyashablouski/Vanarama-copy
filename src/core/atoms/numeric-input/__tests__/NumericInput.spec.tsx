@@ -6,16 +6,6 @@ const getComponent = () => {
   return <NumericInput id="accountNumber" placeholder="accountNumber" />;
 };
 
-const buildEventAndSetSpy = (key: any) => {
-  const event = { key, preventDefault: () => {} };
-  jest.spyOn(event, 'preventDefault');
-
-  return event;
-};
-
-const simulateKeyPress = (event: any) =>
-  fireEvent.keyPress(screen.getAllByPlaceholderText('accountNumber')[0], event);
-
 describe('<NumericInput />', () => {
   let wrapper: any;
 
@@ -28,19 +18,22 @@ describe('<NumericInput />', () => {
   });
 
   it('lets you type numbers', () => {
-    const event = buildEventAndSetSpy(3);
-
-    simulateKeyPress(event);
-
-    expect(event.preventDefault).toHaveBeenCalledTimes(0);
+    const elem = screen.getAllByPlaceholderText('accountNumber')[0];
+    const event = fireEvent.keyPress(elem, {
+      key: '6',
+      code: 'Digit6',
+      charCode: 54,
+    });
+    expect(event).toBe(true);
   });
 
-  // TODO: fix test
-  it.skip('does not let you type non-numbers', () => {
-    const event = buildEventAndSetSpy('a');
-
-    simulateKeyPress(event);
-
-    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+  it('does not let you type non-numbers', () => {
+    const elem = screen.getAllByPlaceholderText('accountNumber')[0];
+    const event = fireEvent.keyPress(elem, {
+      key: 'f',
+      code: 'KeyF',
+      charCode: 102,
+    });
+    expect(event).toBe(false);
   });
 });
