@@ -25,6 +25,10 @@ const carouselTypeMap = {
     key: 'genericPage',
     query: useGenericPageCarouselData,
   },
+  reviews: {
+    key: 'genericPage',
+    query: useGenericPageCarouselData,
+  },
 } as const;
 
 export default function useVehicleCarousel(
