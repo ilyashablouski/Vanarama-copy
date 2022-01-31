@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 import Skeleton from '../Skeleton';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { IBlogCarouselCard } from './interface';
+import { ICarouselCard } from './interface';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -18,7 +18,7 @@ interface IProps {
   countItems?: number;
   dataUiTestIdAlias?: string;
   className?: string;
-  vehiclesList: IBlogCarouselCard[];
+  vehiclesList: ICarouselCard[];
 }
 
 const BlogCarousel: FC<IProps> = ({

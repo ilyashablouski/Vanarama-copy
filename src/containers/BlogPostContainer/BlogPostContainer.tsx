@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -42,6 +42,8 @@ const Media = dynamic(() => import('core/atoms/media'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
+
+const COUNT_CARDS = 9;
 
 export const renderHeading = (props: IMarkdownHeading) =>
   React.createElement(
@@ -107,7 +109,21 @@ const BlogPostContainer: NextPage<IProps> = ({
   articles,
   articleUrl,
 }) => {
-  const { carouselData, vehiclesList } = useVehicleCarousel(articleUrl);
+  const { carouselPosition, vehiclesList } = useVehicleCarousel(
+    'blog',
+    articleUrl,
+  );
+
+  const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
+    return {
+      carouselWithinBody: carouselPosition?.includes(
+        CarouselPositionEnum.withinBody,
+      ),
+      carouselAboveFooter: carouselPosition?.includes(
+        CarouselPositionEnum.aboveFooter,
+      ),
+    };
+  }, [carouselPosition]);
 
   return (
     <>
@@ -143,11 +159,9 @@ const BlogPostContainer: NextPage<IProps> = ({
               image: renderImage,
             }}
           />
-          {carouselData?.blogPost.carouselPosition?.includes(
-            CarouselPositionEnum.withinBody,
-          ) && (
+          {carouselWithinBody && (
             <BlogCarousel
-              countItems={9}
+              countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
             />
@@ -209,11 +223,9 @@ const BlogPostContainer: NextPage<IProps> = ({
           </LazyLoadComponent>
         </div>
       </div>
-      {carouselData?.blogPost.carouselPosition?.includes(
-        CarouselPositionEnum.aboveFooter,
-      ) && (
+      {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={9} vehiclesList={vehiclesList} />
+          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
         </div>
       )}
       {metaData && (
