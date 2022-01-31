@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
@@ -8,8 +8,11 @@ import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import BlogCarousel from '../../components/BlogCarousel';
 import { IBreadcrumbLink } from '../../types/breadcrumbs';
 import { Nullish } from '../../types/common';
+import { CarouselPositionEnum } from '../../models/IBlogsProps';
+import useVehicleCarousel from '../../hooks/useVehicleCarousel';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -40,11 +43,14 @@ const ReviewCard = dynamic(
   },
 );
 
+const COUNT_CARDS = 9;
+
 interface IProps {
   sections: Sections | null;
   title: string | null;
   body: string | null;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
+  articleUrl?: string;
 }
 
 const VehicleReviewContainer: FC<IProps> = ({
@@ -52,6 +58,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   title,
   sections,
   breadcrumbsItems,
+  articleUrl,
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
@@ -62,6 +69,22 @@ const VehicleReviewContainer: FC<IProps> = ({
   const expertName = sections?.vehicleReview?.author?.length
     ? sections?.vehicleReview?.author[0]?.name || ''
     : '';
+
+  const { carouselPosition, vehiclesList } = useVehicleCarousel(
+    'reviews',
+    articleUrl,
+  );
+
+  const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
+    return {
+      carouselWithinBody: carouselPosition?.includes(
+        CarouselPositionEnum.withinBody,
+      ),
+      carouselAboveFooter: carouselPosition?.includes(
+        CarouselPositionEnum.aboveFooter,
+      ),
+    };
+  }, [carouselPosition]);
 
   return (
     <>
@@ -134,6 +157,13 @@ const VehicleReviewContainer: FC<IProps> = ({
               <div className="button--inner">{sections?.link?.text}</div>
             </RouterLink>
           </div>
+          {carouselWithinBody && (
+            <BlogCarousel
+              countItems={COUNT_CARDS}
+              vehiclesList={vehiclesList}
+              className="carousel-two-column"
+            />
+          )}
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
@@ -201,6 +231,11 @@ const VehicleReviewContainer: FC<IProps> = ({
           </RouterLink>
         </div>
       </div>
+      {carouselAboveFooter && (
+        <div className="row:bg-lighter blog-carousel-wrapper">
+          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+        </div>
+      )}
     </>
   );
 };

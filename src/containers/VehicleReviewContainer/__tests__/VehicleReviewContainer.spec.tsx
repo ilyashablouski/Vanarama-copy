@@ -152,6 +152,8 @@ const SECTIONS = {
   },
 } as any;
 
+const ARTICLE_URL = 'reviews/vans/peugeot/peugeot-expert-review';
+
 describe('<VehicleReviewContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
@@ -165,6 +167,7 @@ describe('<VehicleReviewContainer />', () => {
           title={METADATA.title}
           body={BODY}
           breadcrumbsItems={null}
+          articleUrl={ARTICLE_URL}
         />
       </MockedProvider>,
     );

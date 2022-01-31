@@ -38,9 +38,10 @@ import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
 type IProps = IPageWithData<{
   data: ReviewsHubCategoryQuery | ReviewsPageQuery;
+  articleUrl: string;
 }>;
 
-const ReviewHub: NextPage<IProps> = ({ data: encodedData }) => {
+const ReviewHub: NextPage<IProps> = ({ data: encodedData, articleUrl }) => {
   const data = decodeData(encodedData);
 
   if ('reviewsPage' in data) {
@@ -58,6 +59,7 @@ const ReviewHub: NextPage<IProps> = ({ data: encodedData }) => {
           title={title}
           sections={sections}
           breadcrumbsItems={breadcrumbsItems}
+          articleUrl={articleUrl}
         />
         {metaData && (
           <>
@@ -121,6 +123,7 @@ export async function getStaticProps(
   try {
     const client = createApolloClient({});
     const hub = context?.params?.hub as string[];
+    const articleUrl = `reviews/vans/${hub?.join('/')}`;
 
     const { data } = await client.query<
       ReviewsHubCategoryQuery | ReviewsPageQuery,
@@ -129,7 +132,7 @@ export async function getStaticProps(
       query:
         hub.length === 1 ? GENERIC_PAGE_QUESTION_HUB : GENERIC_PAGE_QUESTION,
       variables: {
-        slug: `reviews/vans/${hub?.join('/')}`,
+        slug: articleUrl,
         isPreview: !!context?.preview,
       },
     });
@@ -139,6 +142,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
+        articleUrl,
       },
     };
   } catch (error) {
