@@ -48,7 +48,7 @@ exports[`<Formgroup /> should render correctly with a custom CSS class name 1`] 
     class="formgroup some-custom-class"
   >
     <label
-      class="formgroup--legend"
+      class="formgroup--legend some-custom-class"
     >
       Label text
     </label>

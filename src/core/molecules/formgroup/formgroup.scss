@@ -45,6 +45,11 @@
   &--legend {
     color: $black;
     padding: 0;
+
+    &.-with-hint-btn {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   & &--error {
@@ -67,6 +72,14 @@
     font-size: $font-size-400;
     line-height: calc(1em + 0.25rem);
     margin-top: -2px;
+  }
+
+  &__hint-btn {
+    @include mobile {
+      .text {
+        font-size: 11.5px;
+      }
+    }
   }
 
   &.-invalid {
