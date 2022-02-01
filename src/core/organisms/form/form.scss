@@ -8,10 +8,6 @@
   grid-template-rows: repeat(auto-fit, minmax(0, max-content));
   grid-auto-flow: row;
 
-  &.address-form .tile {
-    height: auto;
-  }
-
   & > * {
     min-width: 0;
   }
