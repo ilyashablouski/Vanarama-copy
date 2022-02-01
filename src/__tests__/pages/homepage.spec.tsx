@@ -73,6 +73,12 @@ const homePageData = {
               file: {
                 url:
                   '//images.ctfassets.net/3xid768u5joa/019f3SEZOZmrp4IAj7bS2a/9d737a81502fac89dc0276fbda8e6a2b/hero-placeholder.png',
+                details: {
+                  image: {
+                    width: 100,
+                    height: 100,
+                  },
+                },
               },
             },
           },
