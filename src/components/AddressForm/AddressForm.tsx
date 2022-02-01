@@ -51,7 +51,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
       validationSchema={validationSchema}
     >
       {formikProps => (
-        <Form onSubmit={formikProps.handleSubmit} className="address-form">
+        <Form onSubmit={formikProps.handleSubmit}>
           <Heading
             dataTestId="address-history-heading"
             tag="h1"
