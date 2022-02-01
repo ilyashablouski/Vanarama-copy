@@ -35,6 +35,7 @@ interface IProps {
   body: string | null;
   image: string | null | undefined;
   articleUrl?: string;
+  bodyLower?: string | null;
 }
 
 const LeasingArticleContainer: FC<IProps> = ({
@@ -43,6 +44,7 @@ const LeasingArticleContainer: FC<IProps> = ({
   image,
   body,
   articleUrl,
+  bodyLower,
 }) => {
   const cards = getSectionsData(['cards'], sections);
 
@@ -112,6 +114,26 @@ const LeasingArticleContainer: FC<IProps> = ({
               className="carousel-two-column"
             />
           )}
+          <ReactMarkdown
+            allowDangerousHtml
+            source={bodyLower || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <ArticleLink href={href}>{children}</ArticleLink>;
+              },
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+              heading: props => (
+                <Text
+                  {...props}
+                  id={convertHeadingToSlug(props)}
+                  size="lead"
+                  color="darker"
+                  tag="h3"
+                />
+              ),
+            }}
+          />
         </article>
         <div>
           <Heading
