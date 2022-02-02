@@ -52,10 +52,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isJanSaleCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -94,7 +91,6 @@ const ProductCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 type IProps = IPageWithData<
   IPickupsPageOffersData & {
@@ -163,48 +159,40 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          searchPodVansData={searchPodVansData}
-          variant="pickups"
-          dataUiTestId="pickup-truck-leasing-page_hero"
-        />
-      ) : (
-        <Hero
-          dataUiTestId="pickup-truck-leasing-page_hero"
-          searchPodVansData={searchPodVansData}
-        >
-          <div className="nlol">
-            <p>Find Your</p>
-            <h2>New Lease Of Life</h2>
-            <p>With Vanarama</p>
-          </div>
-          <div>
-            <ImageV2
-              plain
-              quality={70}
-              size="expand"
-              optimisedHost
-              lazyLoad={false}
-              className="hero--image -pt-000"
-              width={heroImage?.details.image.width ?? 572}
-              height={heroImage?.details.image.height ?? 354}
-              src={
-                heroImage?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-              }
-            />
-          </div>
-          {heroLabel?.visible && (
-            <HeroPrompt
-              label={heroLabel?.link?.text || ''}
-              url={heroLabel?.link?.url || ''}
-              text={heroLabel?.text || ''}
-              btnVisible={heroLabel?.link?.visible}
-            />
-          )}
-        </Hero>
-      )}
+      <Hero
+        dataUiTestId="pickup-truck-leasing-page_hero"
+        searchPodVansData={searchPodVansData}
+      >
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
+        <div>
+          <ImageV2
+            plain
+            quality={70}
+            size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 572}
+            height={heroImage?.details.image.height ?? 354}
+            src={
+              heroImage?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+            }
+          />
+        </div>
+        {heroLabel?.visible && (
+          <HeroPrompt
+            label={heroLabel?.link?.text || ''}
+            url={heroLabel?.link?.url || ''}
+            text={heroLabel?.text || ''}
+            btnVisible={heroLabel?.link?.visible}
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}
