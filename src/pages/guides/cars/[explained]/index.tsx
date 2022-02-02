@@ -43,6 +43,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({
   );
   const breadcrumbsItems =
     Array.isArray(metaData?.breadcrumbs) && getBreadCrumbsItems(metaData);
+  const bodyLower = getSectionsData(['bodyLower'], data?.genericPage);
 
   return (
     <>
@@ -57,6 +58,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({
         sections={sections}
         image={featuredImageUrl}
         articleUrl={articleUrl}
+        bodyLower={bodyLower}
       />
       {metaData && (
         <>
