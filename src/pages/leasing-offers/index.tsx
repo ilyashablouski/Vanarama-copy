@@ -123,6 +123,7 @@ export const OffersPage: NextPage<IProps> = ({
                 window.scrollTo(0, vanRef!.current!.offsetTop);
               }}
               className="-d-block"
+              dataUiTestId="leasing-offers-page_vans_button"
             />
             <Button
               size="large"
@@ -140,6 +141,7 @@ export const OffersPage: NextPage<IProps> = ({
                 window.scrollTo(0, truckRef!.current!.offsetTop);
               }}
               className="-d-block"
+              dataUiTestId="leasing-offers-page_trucks_button"
             />
             <Button
               size="large"
@@ -157,11 +159,15 @@ export const OffersPage: NextPage<IProps> = ({
                 window.scrollTo(0, carRef!.current!.offsetTop);
               }}
               className="-d-block"
+              dataUiTestId="leasing-offers-page_cars_button"
             />
           </div>
         </div>
         <div>
-          <div className="free-insurance-card">
+          <div
+            className="free-insurance-card"
+            data-uitestid="leasing-offers-page_free-insurance-card"
+          >
             <RouterLink
               classNames={{ color: 'teal', size: 'regular' }}
               link={{
@@ -171,9 +177,12 @@ export const OffersPage: NextPage<IProps> = ({
             >
               <div className="free-insurance-wrapper">
                 <ImageV2
+                  quality={60}
+                  optimisedHost
+                  lazyLoad={false}
                   src={`${process.env.HOST_DOMAIN}/freeInsuranceBanner.png`}
-                  plain
                   className="free-insurance-image"
+                  plain
                 />
                 <div className="free-insurance-text-container">
                   <Text color="dark" size="xsmall">
@@ -199,6 +208,7 @@ export const OffersPage: NextPage<IProps> = ({
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
+              data-uitestid="leasing-offers-page_car-lease-hot-offers_title"
             >
               Car Lease Hot Offers
             </span>
@@ -240,6 +250,7 @@ export const OffersPage: NextPage<IProps> = ({
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
+              data-uitestid="leasing-offers-page_van-lease-hot-offers_title"
             >
               Van Lease Hot Offers
             </span>
@@ -265,6 +276,7 @@ export const OffersPage: NextPage<IProps> = ({
               href: '/special-offers.html',
             }}
             withoutDefaultClassName
+            dataUiTestId="car-offers-view_all_van-button"
           >
             <div className="button--inner">View All Van Hot Offers</div>
           </RouterLink>
@@ -280,6 +292,7 @@ export const OffersPage: NextPage<IProps> = ({
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
+              data-uitestid="leasing-offers-page_truck-lease-hot-offers_title"
             >
               Truck Lease Hot Offers
             </span>
@@ -305,6 +318,7 @@ export const OffersPage: NextPage<IProps> = ({
               href: '/pickup-special-offers.html',
             }}
             withoutDefaultClassName
+            dataUiTestId="car-offers-view_all_truck-button"
           >
             <div className="button--inner">View All Truck Hot Offers</div>
           </RouterLink>

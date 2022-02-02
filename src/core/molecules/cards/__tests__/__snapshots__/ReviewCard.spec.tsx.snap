@@ -1,30 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ReviewCard /> should render correctly 1`] = `
-<div
-  className="card -overflow"
-  data-testid="card-review"
->
-  <Memo(Text)
-    className="review-text"
-    color="dark"
-    dataTestId="review"
-    size="regular"
-  >
-    Cillum sit et in nostrud occaecat est labore ea laborum voluptate magna eu aliquip mollit
-  </Memo(Text)>
+<div>
   <div
-    className="review-author"
-    data-testid="author-review"
+    class="card -overflow"
+    data-testid="card-review"
   >
-    Review Card
-  </div>
-  <div
-    className="review-decoration"
-  >
-    <Rating
-      score={4.5}
-    />
+    <span
+      class="text review-text -regular -dark"
+      data-testid="review"
+    >
+      Cillum sit et in nostrud occaecat est labore ea laborum voluptate magna eu aliquip mollit
+    </span>
+    <div
+      class="review-author"
+      data-testid="author-review"
+    >
+      Review Card
+    </div>
+    <div
+      class="review-decoration"
+    >
+      <div
+        class="rating -regular -orange"
+      >
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span>
+          <i
+            class="icon -orange"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <path
+                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+              />
+            </svg>
+          </i>
+        </span>
+        <span
+          class="text -regular -dark"
+        >
+          4.5
+        </span>
+      </div>
+    </div>
   </div>
 </div>
 `;

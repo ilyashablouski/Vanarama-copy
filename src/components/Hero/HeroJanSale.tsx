@@ -75,6 +75,7 @@ const HeroJanSale: React.FC<IProps> = ({
   activeSearchIndex,
   searchType,
   variant,
+  dataUiTestId,
 }) => {
   const {
     classNameMod,
@@ -124,6 +125,7 @@ const HeroJanSale: React.FC<IProps> = ({
             searchPodVansData={searchPodVansData}
             activeSearchIndex={activeSearchIndex}
             searchType={searchType}
+            dataUiTestId={dataUiTestId}
           />
         </div>
       </div>

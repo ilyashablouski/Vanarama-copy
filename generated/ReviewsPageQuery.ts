@@ -124,6 +124,7 @@ export interface ReviewsPageQuery_reviewsPage {
   metaData: ReviewsPageQuery_reviewsPage_metaData;
   featuredImage: ReviewsPageQuery_reviewsPage_featuredImage | null;
   body: string | null;
+  bodyLower: string | null;
   sections: ReviewsPageQuery_reviewsPage_sections | null;
 }
 

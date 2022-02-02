@@ -1,33 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import TextInput from '../../textinput';
+import { fireEvent, render, screen } from '@testing-library/react';
 import NumericInput from '../NumericInput';
 
 const getComponent = () => {
-  return <NumericInput id="accountNumber" />;
-};
-
-const buildEventAndSetSpy = (key: any) => {
-  const event = { key, preventDefault: () => {} };
-  jest.spyOn(event, 'preventDefault');
-
-  return event;
-};
-
-const simulateKeyPress = (wrapper: any, event: any) => {
-  const input = wrapper
-    .find(TextInput)
-    .at(0)
-    .find('input');
-
-  input.simulate('keypress', event);
+  return <NumericInput id="accountNumber" placeholder="accountNumber" />;
 };
 
 describe('<NumericInput />', () => {
   let wrapper: any;
 
   beforeEach(() => {
-    wrapper = mount(getComponent());
+    wrapper = render(getComponent()).container;
   });
 
   it('renders correctly', () => {
@@ -35,18 +18,22 @@ describe('<NumericInput />', () => {
   });
 
   it('lets you type numbers', () => {
-    const event = buildEventAndSetSpy(3);
-
-    simulateKeyPress(wrapper, event);
-
-    expect(event.preventDefault).toHaveBeenCalledTimes(0);
+    const elem = screen.getAllByPlaceholderText('accountNumber')[0];
+    const event = fireEvent.keyPress(elem, {
+      key: '6',
+      code: 'Digit6',
+      charCode: 54,
+    });
+    expect(event).toBe(true);
   });
 
   it('does not let you type non-numbers', () => {
-    const event = buildEventAndSetSpy('a');
-
-    simulateKeyPress(wrapper, event);
-
-    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    const elem = screen.getAllByPlaceholderText('accountNumber')[0];
+    const event = fireEvent.keyPress(elem, {
+      key: 'f',
+      code: 'KeyF',
+      charCode: 102,
+    });
+    expect(event).toBe(false);
   });
 });

@@ -5,11 +5,12 @@ interface IProps {
   text: string | ReactNode;
   icon?: ReactNode;
   className?: string;
+  dataUiTestId?: string;
 }
 
-const CardLabel: FC<IProps> = ({ icon, text, className }) => {
+const CardLabel: FC<IProps> = ({ icon, text, className, dataUiTestId }) => {
   return (
-    <span className={className}>
+    <span className={className} data-uitestid={dataUiTestId}>
       {icon && <Icon icon={icon} />}
       {text}
     </span>

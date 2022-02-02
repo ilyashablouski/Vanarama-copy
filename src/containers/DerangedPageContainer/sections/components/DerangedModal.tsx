@@ -11,6 +11,7 @@ interface IDerangedModalForm {
   setIsFormSend: Dispatch<SetStateAction<boolean>>;
   selectedVehicle: ISelectedVehicle;
   setSelectedVehicle: Dispatch<SetStateAction<ISelectedVehicle>>;
+  dataUiTestId?: string;
 }
 
 const DerangedModal: React.FC<IDerangedModalForm> = ({
@@ -20,6 +21,7 @@ const DerangedModal: React.FC<IDerangedModalForm> = ({
   setIsShowDrawer,
   selectedVehicle,
   setSelectedVehicle,
+  dataUiTestId,
 }) => {
   const onCloseDrawer = () => {
     if (isFormSend) {
@@ -39,8 +41,10 @@ const DerangedModal: React.FC<IDerangedModalForm> = ({
           isFormSend={isFormSend}
           setIsFormSend={setIsFormSend}
           selectedVehicle={selectedVehicle}
+          dataUiTestId={dataUiTestId}
         />
       }
+      dataUiTestId={dataUiTestId}
     />
   );
 };

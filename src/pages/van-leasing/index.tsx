@@ -41,7 +41,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
-import { decodeData, encodeData } from '../../utils/data';
+import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
@@ -159,9 +159,16 @@ export const VansPage: NextPage<IProps> = ({
   return (
     <>
       {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale searchPodVansData={searchPodVansData} variant="vans" />
+        <HeroJanSale
+          dataUiTestId="van-leasing-page_hero"
+          searchPodVansData={searchPodVansData}
+          variant="vans"
+        />
       ) : (
-        <Hero searchPodVansData={searchPodVansData}>
+        <Hero
+          dataUiTestId="van-leasing-page_hero"
+          searchPodVansData={searchPodVansData}
+        >
           <div className="nlol">
             <p>Find Your</p>
             <h2>New Lease Of Life</h2>
@@ -198,12 +205,17 @@ export const VansPage: NextPage<IProps> = ({
         titleTag={titleTagText}
         header={headerText}
         description={descriptionText}
+        dataUiTestId="van-leasing-page_heading-section"
       />
 
       <hr className="-fullwidth" />
       {offer && (
-        <div className="row:featured-product">
+        <div
+          className="row:featured-product"
+          data-uitestid="van-leasing-page_deal-of-month_section"
+        >
           <DealOfMonth
+            dataUiTestId="van-leasing-page_deal-of-month"
             isPersonal={isPersonal}
             imageSrc={offer?.imageUrl || ''}
             keyInfo={offer?.keyInformation || []}
@@ -458,6 +470,9 @@ export const VansPage: NextPage<IProps> = ({
                 ) || null,
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(['steps', 'heading'], data?.hubVanPage.sections),
+            )}`}
           >
             {getSectionsData(['steps', 'heading'], data?.hubVanPage.sections)}
           </Heading>
@@ -471,6 +486,7 @@ export const VansPage: NextPage<IProps> = ({
               heading={step.title || ''}
               step={index + 1}
               text={step.body || ''}
+              dataUiTestId="van-leasing-page_leasing-step"
             />
           ))}
         </LazyLoadComponent>
@@ -491,6 +507,12 @@ export const VansPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -501,6 +523,12 @@ export const VansPage: NextPage<IProps> = ({
               imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           />
         )}
 
@@ -516,6 +544,12 @@ export const VansPage: NextPage<IProps> = ({
                 ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           >
             {getSectionsData(['featured1', 'title'], data?.hubVanPage.sections)}
           </Heading>
@@ -557,6 +591,12 @@ export const VansPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured2', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -567,6 +607,12 @@ export const VansPage: NextPage<IProps> = ({
               imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured2', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           />
         )}
         <div className="-inset -middle -col-400">
@@ -653,16 +699,21 @@ export const VansPage: NextPage<IProps> = ({
           tiles={tiles}
           title={tilesTitle || ''}
           titleTag={tilesTitleTag}
+          dataUiTestId="van-leasing-page_why-lease-with-vanarama-titles"
         />
       )}
 
-      <section className="row:manufacturer-grid">
+      <section
+        className="row:manufacturer-grid"
+        data-uitestid="van-leasing-page_search-by-manufacturer_section"
+      >
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
             className="-a-center -mb-500"
             tag="h2"
+            dataUiTestId="van-leasing-page_search-by-manufacturer_title"
           >
             Search By Manufacturer
           </Heading>
@@ -677,6 +728,9 @@ export const VansPage: NextPage<IProps> = ({
                   href: man.href,
                 }}
                 withoutDefaultClassName
+                dataUiTestId={`van-leasing-page_search-by-manufacturer_${normalizeString(
+                  man.label,
+                )}_link`}
               >
                 <div className="button--inner">{man.label}</div>
               </RouterLink>
@@ -685,11 +739,14 @@ export const VansPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <NationalLeagueBanner />
+      <NationalLeagueBanner dataUiTestId="van-leasing-page_national-league-banner" />
 
-      <FeaturedOnSection />
+      <FeaturedOnSection dataUiTestId="van-leasing-page_featured-on" />
 
-      <section className="row:trustpilot">
+      <section
+        className="row:trustpilot"
+        data-uitestid="van-leasing-page_trustpilot_section"
+      >
         <TrustPilot />
       </section>
 

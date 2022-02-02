@@ -252,7 +252,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                       key={secondaryLink.label}
                       className={linkClassName({
                         highlight: secondaryLink.highlight,
-                        half: secondaryLinks.length > 4,
+                        half: secondaryLinks.length > 4 && title !== 'ELECTRIC',
                       })}
                     >
                       <RouterLink link={secondaryLink} as={secondaryLink.as}>

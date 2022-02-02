@@ -705,6 +705,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                   <div>
                     Free Home charger*
                     <span>Worth £1049 + FREE installation.</span>
+                    <RouterLink
+                      link={{
+                        href:
+                          '/legal/terms-and-conditions/free-home-charge-points-terms',
+                        label: '',
+                      }}
+                      classNames={{ color: 'teal', size: 'small' }}
+                    >
+                      *T&Cs apply
+                    </RouterLink>
                   </div>
                 }
                 icon={<FreeHomeCharger />}
@@ -716,6 +726,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                   <div>
                     1yr Free Insurance*
                     <span>Worth average £538.</span>
+                    <RouterLink
+                      link={{
+                        href: '/legal/terms-and-conditions',
+                        label: '',
+                      }}
+                      classNames={{ color: 'teal', size: 'small' }}
+                    >
+                      *T&Cs apply
+                    </RouterLink>
                   </div>
                 }
                 icon={<FreeInsuranceCardLabelIcon />}
@@ -723,19 +742,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             )}
           </div>
         )}
-        {(isElectric || isFreeInsurance) && (
-          <div className="subject-to--- no-p-bottom">
-            <span>
-              <sup>*</sup>Subject to Eligibility
-            </span>
-          </div>
-        )}
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-
+        {isJanSaleCampaignEnabled() && (
+          <JanuarySaleBanners className="pdp-page-wrapper" />
+        )}
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}

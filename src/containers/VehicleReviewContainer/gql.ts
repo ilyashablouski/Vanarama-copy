@@ -33,6 +33,7 @@ export const GENERIC_PAGE_QUESTION = gql`
         }
       }
       body
+      bodyLower
       sections {
         link {
           text

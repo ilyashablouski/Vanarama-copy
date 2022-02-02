@@ -38,6 +38,7 @@ const Rating: FC<IRatingProps> = memo(props => {
     score = 4.5,
     noLabel = false,
     onClick,
+    dataUiTestId,
   } = props;
 
   let i;
@@ -90,7 +91,10 @@ const Rating: FC<IRatingProps> = memo(props => {
   }
 
   return (
-    <div className={cx('rating', className, `-${size}`, `-${color}`)}>
+    <div
+      className={cx('rating', className, `-${size}`, `-${color}`)}
+      data-uitestid={dataUiTestId}
+    >
       {items}
       {!noLabel && (
         <Text size={size} color={labelColor}>

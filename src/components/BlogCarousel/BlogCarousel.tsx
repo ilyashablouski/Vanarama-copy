@@ -8,7 +8,7 @@ import Pagination from './Pagination';
 import Skeleton from '../Skeleton';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { IBlogCarouselCard } from './interface';
+import { ICarouselCard } from './interface';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -18,7 +18,8 @@ interface IProps {
   countItems?: number;
   dataUiTestIdAlias?: string;
   className?: string;
-  vehiclesList: IBlogCarouselCard[];
+  vehiclesList: ICarouselCard[];
+  title: string;
 }
 
 const BlogCarousel: FC<IProps> = ({
@@ -26,13 +27,14 @@ const BlogCarousel: FC<IProps> = ({
   dataUiTestIdAlias,
   className,
   vehiclesList,
+  title,
 }) => {
   const isMobile = useMobileViewport();
 
   return vehiclesList?.length > 0 ? (
     <>
       <Heading size="large" color="black" tag="h2" className="-mb-500">
-        Lease it now!
+        {title}
       </Heading>
       <CarouselSwiper
         className={cx('blog-carousel -mh-auto', className)}

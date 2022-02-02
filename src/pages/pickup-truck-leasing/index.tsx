@@ -42,7 +42,7 @@ import {
   IPickupsPageOffersData,
   pickupsPageOffersRequest,
 } from '../../utils/offers';
-import { decodeData, encodeData } from '../../utils/data';
+import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
@@ -164,9 +164,16 @@ export const PickupsPage: NextPage<IProps> = ({
   return (
     <>
       {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale searchPodVansData={searchPodVansData} variant="pickups" />
+        <HeroJanSale
+          searchPodVansData={searchPodVansData}
+          variant="pickups"
+          dataUiTestId="pickup-truck-leasing-page_hero"
+        />
       ) : (
-        <Hero searchPodVansData={searchPodVansData}>
+        <Hero
+          dataUiTestId="pickup-truck-leasing-page_hero"
+          searchPodVansData={searchPodVansData}
+        >
           <div className="nlol">
             <p>Find Your</p>
             <h2>New Lease Of Life</h2>
@@ -203,13 +210,18 @@ export const PickupsPage: NextPage<IProps> = ({
         titleTag={titleTagText}
         header={headerText}
         description={descriptionText}
+        dataUiTestId="pickup-truck-leasing-page_heading-section"
       />
 
       <hr className="-fullwidth" />
 
-      <div className="row:featured-product">
+      <div
+        className="row:featured-product"
+        data-uitestid="pickup-truck-leasing-page_deal-of-month_section"
+      >
         {offer && (
           <DealOfMonth
+            dataUiTestId="pickup-truck-leasing-page_deal-of-month"
             isPersonal={isPersonal}
             imageSrc={
               offer?.imageUrl ||
@@ -266,6 +278,7 @@ export const PickupsPage: NextPage<IProps> = ({
               >
                 <ProductCard
                   key={item?.capId || index}
+                  dataUiTestId="pickup-truck-lieasing-page_product-card"
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
@@ -303,7 +316,12 @@ export const PickupsPage: NextPage<IProps> = ({
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           )}
                         </Heading>
-                        <Heading tag="span" size="small" color="dark">
+                        <Heading
+                          tag="span"
+                          size="small"
+                          color="dark"
+                          dataUiTestId="pickup-truck-leasing-page_product-card_derivative-name"
+                        >
                           {item?.derivativeName || ''}
                         </Heading>
                       </RouterLink>
@@ -321,6 +339,7 @@ export const PickupsPage: NextPage<IProps> = ({
                       priceDescription={`Per Month ${
                         isPersonal ? 'Inc' : 'Exc'
                       }.VAT`}
+                      dataUitestId="pickup-truck-leasing_product-card"
                     />
                     <RouterLink
                       link={{
@@ -353,6 +372,7 @@ export const PickupsPage: NextPage<IProps> = ({
             classNames={{ color: 'teal', size: 'large' }}
             className="button -solid"
             dataTestId="view-all-pickups"
+            dataUiTestId="pichip-truck-leasing-page_view-all-pickups_button"
           >
             <div className="button--inner">View All Pickups</div>
           </RouterLink>
@@ -369,6 +389,9 @@ export const PickupsPage: NextPage<IProps> = ({
               data?.hubPickupPage.sections?.steps?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
+          dataUiTestId={`pickup-truck-leasing_${normalizeString(
+            data?.hubPickupPage.sections?.steps?.heading,
+          )}`}
         >
           {data?.hubPickupPage.sections?.steps?.heading}
         </Heading>
@@ -380,6 +403,7 @@ export const PickupsPage: NextPage<IProps> = ({
               heading={step.title || ''}
               step={index + 1}
               text={step.body || ''}
+              dataUiTestId="pickup-truck-leasing_leasing-step"
             />
           ),
         )}
@@ -400,6 +424,9 @@ export const PickupsPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+              data?.hubPickupPage.sections?.featured1?.title,
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -410,10 +437,16 @@ export const PickupsPage: NextPage<IProps> = ({
               imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`pickup-truck-leasing_${normalizeString(
+              data?.hubPickupPage.sections?.featured1?.title,
+            )}`}
           />
         )}
         <div style={{ padding: '1rem' }}>
           <Heading
+            dataUiTestId={`pickup-truck-leasing_${normalizeString(
+              data?.hubPickupPage.sections?.featured1?.title,
+            )}`}
             size="large"
             color="black"
             tag={
@@ -424,7 +457,12 @@ export const PickupsPage: NextPage<IProps> = ({
           >
             {data?.hubPickupPage.sections?.featured1?.title}
           </Heading>
-          <div className="markdown">
+          <div
+            className="markdown"
+            data-uitestid={`pickup-truck-leasing_${normalizeString(
+              data?.hubPickupPage.sections?.featured1?.title,
+            )}_markdown`}
+          >
             <ReactMarkdown
               allowDangerousHtml
               source={data?.hubPickupPage.sections?.featured1?.body || ''}
@@ -458,6 +496,9 @@ export const PickupsPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+              data?.hubPickupPage.sections?.featured2?.title,
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -468,6 +509,9 @@ export const PickupsPage: NextPage<IProps> = ({
               imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+              data?.hubPickupPage.sections?.featured2?.title,
+            )}`}
           />
         )}
         <div className="-inset -middle -col-400">
@@ -479,6 +523,9 @@ export const PickupsPage: NextPage<IProps> = ({
                 data?.hubPickupPage.sections?.featured2?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={`pickup-truck-leasing_${normalizeString(
+              data?.hubPickupPage.sections?.featured2?.title,
+            )}`}
           >
             {data?.hubPickupPage.sections?.featured2?.title}
           </Heading>
@@ -494,14 +541,28 @@ export const PickupsPage: NextPage<IProps> = ({
                 heading: props => (
                   <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
+                paragraph: props => (
+                  <Text
+                    {...props}
+                    tag="p"
+                    color="darker"
+                    dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+                      data?.hubPickupPage.sections?.featured2?.title,
+                    )}_text`}
+                  />
+                ),
               }}
             />
           </div>
         </div>
       </section>
 
-      <section className="row:accessories">
+      <section
+        className="row:accessories"
+        data-uitestid={`pickup-truck-leasing-page_${normalizeString(
+          data?.hubPickupPage.sections?.tiles1?.name,
+        )}_section`}
+      >
         <Heading
           size="large"
           color="black"
@@ -526,7 +587,13 @@ export const PickupsPage: NextPage<IProps> = ({
                   'https://source.unsplash.com/collection/2102317/500x325?sig=403450'
                 }
               />
-              <Heading size="regular" color="black">
+              <Heading
+                size="regular"
+                color="black"
+                dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+                  acc.title,
+                )}`}
+              >
                 {acc.title}{' '}
               </Heading>
               <Text tag="div" size="regular" color="darker">
@@ -548,11 +615,21 @@ export const PickupsPage: NextPage<IProps> = ({
               data?.hubPickupPage.sections?.rowText?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
+          dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+            data?.hubPickupPage.sections?.rowText?.heading,
+          )}_title`}
         >
           {data?.hubPickupPage.sections?.rowText?.heading}
         </Heading>
         <div>
-          <Text tag="p" size="regular" color="darker">
+          <Text
+            tag="p"
+            size="regular"
+            color="darker"
+            dataUiTestId={`pickup-truck-leasing-page_${normalizeString(
+              data?.hubPickupPage.sections?.rowText?.heading,
+            )}_text`}
+          >
             {data?.hubPickupPage.sections?.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
@@ -565,6 +642,7 @@ export const PickupsPage: NextPage<IProps> = ({
               label: 'View Leasing Guides',
               href: '/guides/van-leasing-explained',
             }}
+            dataUiTestId="pickup-truck-leasing-page_view-leasing-guides_link"
           >
             View Leasing Guides <ArrowForwardSharp />
           </RouterLink>
@@ -578,16 +656,21 @@ export const PickupsPage: NextPage<IProps> = ({
           tiles={tiles}
           title={tilesTitle || ''}
           titleTag={tilesTitleTag}
+          dataUiTestId="pickup-truck-leasing-page_why-lease-with-vanarama-titles"
         />
       )}
 
-      <section className="row:manufacturer-grid">
+      <section
+        className="row:manufacturer-grid"
+        data-uitestid="pickup-truck-leasing-page_search-by-manufacturer_section"
+      >
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
             className="-a-center -mb-500"
             tag="h2"
+            dataUiTestId="pickup-truck-leasing-page_search-by-manufacturer_title"
           >
             Search By Manufacturer
           </Heading>
@@ -602,6 +685,9 @@ export const PickupsPage: NextPage<IProps> = ({
                 }}
                 withoutDefaultClassName
                 key={man.label}
+                dataUiTestId={`pickup-truck-leasing-page_search-by-manufacturer_${normalizeString(
+                  man.label,
+                )}_link`}
               >
                 <div className="button--inner">{man.label}</div>
               </RouterLink>
@@ -610,11 +696,14 @@ export const PickupsPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <NationalLeagueBanner />
+      <NationalLeagueBanner dataUiTestId="pickup-truck-leasing-page_national-league-banner" />
 
-      <FeaturedOnSection />
+      <FeaturedOnSection dataUiTestId="pickup-truck-leasing-page_featured-on" />
 
-      <section className="row:trustpilot">
+      <section
+        className="row:trustpilot"
+        data-uitestid="pickup-truck-leasing-page_trustpilot_section"
+      >
         <TrustPilot />
       </section>
 

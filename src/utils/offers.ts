@@ -34,7 +34,7 @@ import {
   GET_PRODUCT_DERIVATIVES,
   getVehiclesCardsData,
 } from '../containers/GlobalSearchContainer/gql';
-import { IBlogCarouselCard } from '../components/BlogCarousel/interface';
+import { ICarouselCard } from '../components/BlogCarousel/interface';
 
 type VehicleListQueryVariables = {
   derivativeIds: string[];
@@ -436,10 +436,10 @@ export const specialOffersForBlogPageRequest = async (
   };
 };
 
-export const vehicleCarouselForBlogPageRequest = async (
+export const vehicleCarouselRequest = async (
   client: ApolloClient<NormalizedCacheObject | object>,
   productFilter: ProductDerivativeFilter,
-): Promise<IBlogCarouselCard[]> => {
+): Promise<ICarouselCard[]> => {
   const vehiclesList = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,

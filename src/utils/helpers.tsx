@@ -430,8 +430,8 @@ export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
-  BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
   JAN_SALE = 'DIG-8417',
+  NOVUNA_LEASE = 'DIG-8639',
 }
 
 function isFeatureFlagEnabled(
@@ -464,12 +464,6 @@ export function isUpdatedServicePlanFeatureFlagEnabled(
   return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
 }
 
-export function isBlogCarPagesCarouselFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.BLOG_CAR_PAGES_CAROUSEL);
-}
-
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
@@ -484,4 +478,15 @@ export function isJanSaleCampaignEnabled() {
   }
 
   return Cookies.get(FeatureFlags.JAN_SALE) === '1';
+}
+
+const hitachiNewNameStartTime = Number(new Date(2022, 1, 14, 0, 1, 0));
+export function isHitachiChangedName() {
+  const currentTime = Date.now();
+
+  if (currentTime >= hitachiNewNameStartTime) {
+    return true;
+  }
+
+  return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
 }

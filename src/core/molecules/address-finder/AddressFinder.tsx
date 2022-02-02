@@ -9,6 +9,7 @@ import ManualAddressForm from './components/ManualAddressForm';
 import AddressFinderIntermediate from './components/AddressFinderIntermediate';
 import AddressFinderResults from './components/AddressFinderResults';
 import AddressFinderSelected from './components/AddressFinderSelected';
+import ManualAddingButtonHint from './components/ManualAddingButtonHint';
 import { AddressFinderProvider } from './context';
 import { IAddressFinderProps, IManualAddressFormValues } from './interfaces';
 import reducer, { createInitState, InputTypeEnum } from './reducer';
@@ -17,6 +18,7 @@ import { suggestionToDisplay } from './utils';
 export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
   Input: typeof AddressFinderInput;
   ManualAddingButton: typeof ManualAddingButton;
+  ManualAddingButtonHint: typeof ManualAddingButtonHint;
   Results: typeof AddressFinderResults;
   Selected: typeof AddressFinderSelected;
   ManualAddressForm: typeof ManualAddressForm;
@@ -143,6 +145,7 @@ AddressFinder.Intermediate = AddressFinderIntermediate;
 AddressFinder.Results = AddressFinderResults;
 AddressFinder.Selected = AddressFinderSelected;
 AddressFinder.ManualAddingButton = ManualAddingButton;
+AddressFinder.ManualAddingButtonHint = ManualAddingButtonHint;
 AddressFinder.ManualAddressForm = ManualAddressForm;
 
 export default AddressFinder;

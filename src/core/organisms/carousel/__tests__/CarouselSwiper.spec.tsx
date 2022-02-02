@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { SwiperSlide } from 'swiper/react';
+import { render } from '@testing-library/react';
 import CarouselSwiper from '../CarouselSwiper';
 
 describe('<CarouselSwiper />', () => {
   it('should render correctly with children', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <CarouselSwiper countItems={3}>
         <SwiperSlide>
           <div>
@@ -26,10 +26,10 @@ describe('<CarouselSwiper />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
   it('should render correctly with two children', () => {
-    const wrapper = shallow(
+    const wrapper = render(
       <CarouselSwiper countItems={2}>
         <SwiperSlide>
           <div>
@@ -45,6 +45,6 @@ describe('<CarouselSwiper />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

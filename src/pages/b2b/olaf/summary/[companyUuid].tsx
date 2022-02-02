@@ -4,6 +4,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import { useState } from 'react';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
+import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
@@ -50,14 +51,16 @@ const BusinessSummaryPage: NextPage = () => {
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
     >
-      <BusinessSummaryFormContainer
-        isSoleTrader={isSoleTrader}
-        onComplete={handleComplete}
-        onError={handleSubmitError}
-        personUuid={personUuid}
-        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
-        companyUuid={companyUuid}
-      />
+      <SecureModalLayout>
+        <BusinessSummaryFormContainer
+          isSoleTrader={isSoleTrader}
+          onComplete={handleComplete}
+          onError={handleSubmitError}
+          personUuid={personUuid}
+          orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
+          companyUuid={companyUuid}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

@@ -1,11 +1,11 @@
-import { shallow } from 'enzyme';
 import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Checkbox from '../Checkbox';
 
 describe('<Checkbox />', () => {
   it('should render correctly in the default state', () => {
     // ACT
-    const wrapper = shallow(<Checkbox id="example" label="Label" />);
+    const wrapper = render(<Checkbox id="example" label="Label" />).container;
 
     // ASSERT
     expect(wrapper).toMatchSnapshot();
@@ -13,7 +13,7 @@ describe('<Checkbox />', () => {
 
   it('should render correctly with optional props', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <Checkbox
         className="custom-class-name"
         dataTestId="data-testid"
@@ -24,7 +24,7 @@ describe('<Checkbox />', () => {
         outline
         label="Label"
       />,
-    );
+    ).container;
 
     // ASSERT
     expect(wrapper).toMatchSnapshot();
@@ -35,11 +35,9 @@ describe('<Checkbox />', () => {
     const onChange = jest.fn();
 
     // ACT
-    const wrapper = shallow(
-      <Checkbox id="example" label="Label" onChange={onChange} />,
-    );
+    render(<Checkbox id="example" label="Label" onChange={onChange} />);
 
-    wrapper.find('input').simulate('change', { target: { value: 'A' } });
+    fireEvent.click(screen.getByLabelText('Label'));
 
     // ASSERT
     expect(onChange).toHaveBeenCalledTimes(1);

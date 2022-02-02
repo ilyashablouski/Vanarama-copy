@@ -89,15 +89,6 @@ function MediaGallery({
               <ImageCarousel
                 images={images}
                 imageAltText={imageAltText}
-                // TODO: Should be uncommented in the future when we are going to use product card banners.
-                // renderImageDecoration={(image, index) =>
-                //   index === 0 ? (
-                //     <div className="gallery-promotion-container">
-                //       {showElectricBanner && <ElectricVehicleBanner />}
-                //       {showInsuranceBanner && <FreeInsuranceBanner />}
-                //     </div>
-                //   ) : null
-                // }
                 renderImageDecoration={() =>
                   shouldRenderImaca && (
                     <button

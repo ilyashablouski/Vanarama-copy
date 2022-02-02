@@ -31,7 +31,15 @@ const FormikAddressField: React.FC<IProps> = ({
         setIsFocused(!suggestion);
       }}
     >
-      <Formgroup error={error} controlId={name} label={label} hint={hint}>
+      <Formgroup
+        error={error}
+        controlId={name}
+        label={label}
+        hint={hint}
+        hintButton={
+          <AddressFinder.ManualAddingButtonHint dataTestId="cannot-find-your-address" />
+        }
+      >
         <AddressFinder.Input
           id={name}
           dataTestId={name}

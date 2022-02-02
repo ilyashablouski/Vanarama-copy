@@ -81,19 +81,43 @@ const DerangedPageContainer: React.FC<IDerangedPageContainer> = ({
         />
       )}
       {vehicleList?.length && (
-        <DerangedVehicleSection vehicleList={vehicleList} />
+        <DerangedVehicleSection
+          vehicleList={vehicleList}
+          dataUiTestId="deranged-vehicles_vehicle-section"
+        />
       )}
-      {featured1 && <FeaturedSection featured={featured1} />}
-      {featured2 && <FeaturedSection featured={featured2} />}
-      {featured3 && <FeaturedSection featured={featured3} />}
-      {featured4 && <FeaturedSection featured={featured4} />}
+      {featured1 && (
+        <FeaturedSection
+          featured={featured1}
+          dataUiTestId="deranged-vehicles_content-1"
+        />
+      )}
+      {featured2 && (
+        <FeaturedSection
+          featured={featured2}
+          dataUiTestId="deranged-vehicles_content-2"
+        />
+      )}
+      {featured3 && (
+        <FeaturedSection
+          featured={featured3}
+          dataUiTestId="deranged-vehicles_content-3"
+        />
+      )}
+      {featured4 && (
+        <FeaturedSection
+          featured={featured4}
+          dataUiTestId="deranged-vehicles_content-4"
+        />
+      )}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           title={tiles.tilesTitle || ''}
           tiles={tiles.tiles || []}
+          dataUiTestId="deranged-vehicles_why-lease-with-vanarama"
         />
       )}
-      <NationalLeagueBanner />
+      <NationalLeagueBanner dataUiTestId="deranged-vehicles_national-league-banner" />
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />

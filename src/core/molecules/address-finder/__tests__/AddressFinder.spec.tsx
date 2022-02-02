@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
+import FormGroup from 'core/molecules/formgroup';
 import { ILoqateQuery } from '../../../../hooks/useLoqate/interfaces';
 import AddressFinder from '../AddressFinder';
 
@@ -244,5 +245,44 @@ describe('<AddressFinder />', () => {
     // ASSERT
     expect(onSuggestionChange).toHaveBeenCalledTimes(1);
     expect(onSuggestionChange).toHaveBeenCalledWith();
+  });
+
+  it('should render manual address form after user clicks on "cannot find your address" button', () => {
+    // ACT
+    render(
+      <AddressFinder apiKey="XXX-XXX-XXX" onSuggestionChange={jest.fn()}>
+        <FormGroup
+          controlId="input"
+          label="Enter Your Postcode"
+          hintButton={
+            <AddressFinder.ManualAddingButtonHint dataTestId="cannot-find-your-address" />
+          }
+        >
+          <AddressFinder.Input id="input" />
+        </FormGroup>
+        <AddressFinder.Results dataTestId="results" />
+        <>
+          <AddressFinder.ManualAddingButton />
+          <AddressFinder.ManualAddressForm />
+        </>
+      </AddressFinder>,
+    );
+
+    const input = screen.getByLabelText(/Enter Your Postcode/);
+    fireEvent.change(input, { target: { value: 'SW1A' } });
+    fireEvent.click(screen.getByTestId('cannot-find-your-address'));
+
+    // ASSERT
+    expect(
+      screen.getByTestId('manual_address_form-line_one'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId('manual_address_form-line_two'),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId('manual_address_form-city')).toBeInTheDocument();
+    expect(screen.getByTestId('county')).toBeInTheDocument();
+    expect(
+      screen.getByTestId('manual_address_form-postcode'),
+    ).toBeInTheDocument();
   });
 });
