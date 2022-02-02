@@ -19,6 +19,7 @@ interface IProps {
   dataUiTestIdAlias?: string;
   className?: string;
   vehiclesList: ICarouselCard[];
+  title: string;
 }
 
 const BlogCarousel: FC<IProps> = ({
@@ -26,13 +27,14 @@ const BlogCarousel: FC<IProps> = ({
   dataUiTestIdAlias,
   className,
   vehiclesList,
+  title,
 }) => {
   const isMobile = useMobileViewport();
 
   return vehiclesList?.length > 0 ? (
     <>
       <Heading size="large" color="black" tag="h2" className="-mb-500">
-        Lease it now!
+        {title}
       </Heading>
       <CarouselSwiper
         className={cx('blog-carousel -mh-auto', className)}

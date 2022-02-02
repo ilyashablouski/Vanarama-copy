@@ -109,7 +109,7 @@ const BlogPostContainer: NextPage<IProps> = ({
   articles,
   articleUrl,
 }) => {
-  const { carouselPosition, vehiclesList } = useVehicleCarousel(
+  const { carouselPosition, vehiclesList, title } = useVehicleCarousel(
     'blog',
     articleUrl,
   );
@@ -163,6 +163,7 @@ const BlogPostContainer: NextPage<IProps> = ({
             <BlogCarousel
               countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
+              title={title}
               className="carousel-two-column"
             />
           )}
@@ -225,7 +226,11 @@ const BlogPostContainer: NextPage<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+          <BlogCarousel
+            countItems={COUNT_CARDS}
+            vehiclesList={vehiclesList}
+            title={title}
+          />
         </div>
       )}
       {metaData && (

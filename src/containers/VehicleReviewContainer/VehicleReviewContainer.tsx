@@ -70,10 +70,11 @@ const VehicleReviewContainer: FC<IProps> = ({
     ? sections?.vehicleReview?.author[0]?.name || ''
     : '';
 
-  const { carouselPosition, vehiclesList } = useVehicleCarousel(
-    'reviews',
-    articleUrl,
-  );
+  const {
+    carouselPosition,
+    vehiclesList,
+    title: blogCarouselTitle,
+  } = useVehicleCarousel('reviews', articleUrl);
 
   const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
     return {
@@ -162,6 +163,7 @@ const VehicleReviewContainer: FC<IProps> = ({
               countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
+              title={blogCarouselTitle}
             />
           )}
         </article>
@@ -233,7 +235,11 @@ const VehicleReviewContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+          <BlogCarousel
+            countItems={COUNT_CARDS}
+            vehiclesList={vehiclesList}
+            title={blogCarouselTitle}
+          />
         </div>
       )}
     </>
