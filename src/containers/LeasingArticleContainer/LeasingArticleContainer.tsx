@@ -48,10 +48,11 @@ const LeasingArticleContainer: FC<IProps> = ({
 }) => {
   const cards = getSectionsData(['cards'], sections);
 
-  const { carouselPosition, vehiclesList } = useVehicleCarousel(
-    'guides',
-    articleUrl,
-  );
+  const {
+    carouselPosition,
+    vehiclesList,
+    title: blogCarouselTitle,
+  } = useVehicleCarousel('guides', articleUrl);
 
   const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
     return {
@@ -112,6 +113,7 @@ const LeasingArticleContainer: FC<IProps> = ({
               countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
+              title={blogCarouselTitle}
             />
           )}
           <ReactMarkdown
@@ -172,7 +174,11 @@ const LeasingArticleContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+          <BlogCarousel
+            countItems={COUNT_CARDS}
+            vehiclesList={vehiclesList}
+            title={blogCarouselTitle}
+          />
         </div>
       )}
       <div className="row:comments" />
