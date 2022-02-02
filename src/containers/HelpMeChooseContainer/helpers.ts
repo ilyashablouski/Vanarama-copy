@@ -128,6 +128,10 @@ export const onReplace = (
   );
 };
 
+const removePlusesFromStringArray = (arr: string[]) => {
+  return arr.map((item: string) => item.replace(/\+/g, ' '));
+};
+
 export const buildAnObjectFromAQuery = (
   steps: IInitStep,
   showResults?: {
@@ -142,9 +146,7 @@ export const buildAnObjectFromAQuery = (
       val.value[0].length &&
       !val.active
     ) {
-      object.lqBodyStyles = val.value.map((item: string) =>
-        item.replace('+', ' '),
-      );
+      object.lqBodyStyles = removePlusesFromStringArray(val.value);
     }
     if (
       key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
@@ -152,7 +154,7 @@ export const buildAnObjectFromAQuery = (
       val.value[0].length &&
       !val.active
     ) {
-      object.fuelTypes = val.value;
+      object.fuelTypes = removePlusesFromStringArray(val.value);
     }
     if (
       key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
