@@ -10,6 +10,11 @@ export const formValuesToInput = (
   partyId,
   employmentHistories: values.history.map(item => ({
     companyAddressServiceId: item.address?.id || undefined,
+    companyAddressLineOne: item.address?.lineOne,
+    companyAddressLineTwo: item.address?.lineTwo,
+    companyAddressCity: item.address?.city,
+    companyAddressCountry: item.address?.country,
+    companyAddressPostcode: item.address?.postcode,
     companyName: item.company || undefined,
     contract: item.contract || undefined,
     employedSinceDate: parseDate('01', item.month, item.year),
