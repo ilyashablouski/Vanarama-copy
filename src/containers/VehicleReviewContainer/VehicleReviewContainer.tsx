@@ -51,6 +51,7 @@ interface IProps {
   body: string | null;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   articleUrl?: string;
+  bodyLower?: string | null;
 }
 
 const VehicleReviewContainer: FC<IProps> = ({
@@ -59,6 +60,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   sections,
   breadcrumbsItems,
   articleUrl,
+  bodyLower,
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
@@ -166,6 +168,16 @@ const VehicleReviewContainer: FC<IProps> = ({
               title={blogCarouselTitle}
             />
           )}
+          <ReactMarkdown
+            allowDangerousHtml
+            source={bodyLower || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">

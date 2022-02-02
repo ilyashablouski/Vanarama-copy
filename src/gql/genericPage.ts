@@ -429,6 +429,7 @@ export const GENERIC_PAGE = gql`
       }
       intro
       body
+      bodyLower
     }
   }
   ${TilesContainer.fragments.tiles}
