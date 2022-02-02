@@ -7,6 +7,7 @@ import {
   getNextProgressStep,
   getPathName,
   onReplace,
+  removePlusesFromStringArray,
   setQuery,
 } from '../helpers';
 
@@ -529,6 +530,23 @@ describe('<helpers />', () => {
         sort,
       };
       expect(buildAnObjectFromAQuery(steps, { size: 5 })).toMatchObject(result);
+    });
+  });
+  describe('removePlusesFromStringArray', () => {
+    it('should remove all pluses from string array', () => {
+      const initArr = [
+        'Diesel/plugin+Elec+Hybrid',
+        'Petrol/plugin+Elec+Hybrid',
+        'Small+Car',
+      ];
+      const expectedArray = [
+        'Diesel/plugin Elec Hybrid',
+        'Petrol/plugin Elec Hybrid',
+        'Small Car',
+      ];
+      expect(removePlusesFromStringArray(initArr)).toEqual(
+        expect.arrayContaining(expectedArray),
+      );
     });
   });
 });
