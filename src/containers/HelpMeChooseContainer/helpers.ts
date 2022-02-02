@@ -128,7 +128,7 @@ export const onReplace = (
   );
 };
 
-const removePlusesFromStringArray = (arr: string[]) => {
+export const removePlusesFromStringArray = (arr: string[]) => {
   return arr.map((item: string) => item.replace(/\+/g, ' '));
 };
 
