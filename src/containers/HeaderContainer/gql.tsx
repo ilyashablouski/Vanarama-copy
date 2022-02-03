@@ -83,7 +83,7 @@ export const SERVICE_BANNER_QUERY = gql`
   }
 `;
 
-export function useServiceBannerQuery(slug: string, isPreview: boolean) {
+export function useServiceBannerQuery(slug?: string, isPreview?: boolean) {
   return useQuery<ServiceBannerQuery, ServiceBannerQueryVariables>(
     SERVICE_BANNER_QUERY,
     {

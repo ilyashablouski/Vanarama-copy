@@ -30,7 +30,6 @@ import {
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
 import { useLogOutMutation, useServiceBannerQuery } from './gql';
-import ServiceBanner from '../../components/ServiceBanner';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -55,10 +54,7 @@ const HeaderContainer: FC = () => {
     router.asPath,
   ]);
 
-  const { data: serviceBannerData } = useServiceBannerQuery(
-    router.asPath,
-    !!router.query?.isPreview,
-  );
+  const { data: serviceBannerData } = useServiceBannerQuery();
 
   const [logOut] = useLogOutMutation();
   const { data: storedPersonData, refetch } = useStoredPersonQuery(
@@ -237,40 +233,28 @@ const HeaderContainer: FC = () => {
 
   if (partnership) {
     return (
-      <>
-        <Header
-          person={storedPersonData?.storedPerson}
-          onLogOut={handleLogOut}
-          loginLink={loginLink}
-          phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
-          topBarLinks={partnershipLinks}
-          customHomePath={partnershipHomeLink}
-        />
-        <ServiceBanner
-          enabled={serviceBannerData?.serviceBanner?.enable}
-          message={serviceBannerData?.serviceBanner?.message}
-          link={serviceBannerData?.serviceBanner?.link}
-        />
-      </>
+      <Header
+        serviceBanner={serviceBannerData?.serviceBanner}
+        person={storedPersonData?.storedPerson}
+        onLogOut={handleLogOut}
+        loginLink={loginLink}
+        phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
+        topBarLinks={partnershipLinks}
+        customHomePath={partnershipHomeLink}
+      />
     );
   }
 
   if (topLinks?.length) {
     return (
-      <>
-        <Header
-          person={storedPersonData?.storedPerson}
-          onLogOut={handleLogOut}
-          loginLink={loginLink}
-          phoneNumberLink={phoneNumberLink}
-          topBarLinks={[...offerLink, ...topLinks]}
-        />
-        <ServiceBanner
-          enabled={serviceBannerData?.serviceBanner?.enable}
-          message={serviceBannerData?.serviceBanner?.message}
-          link={serviceBannerData?.serviceBanner?.link}
-        />
-      </>
+      <Header
+        serviceBanner={serviceBannerData?.serviceBanner}
+        person={storedPersonData?.storedPerson}
+        onLogOut={handleLogOut}
+        loginLink={loginLink}
+        phoneNumberLink={phoneNumberLink}
+        topBarLinks={[...offerLink, ...topLinks]}
+      />
     );
   }
 
