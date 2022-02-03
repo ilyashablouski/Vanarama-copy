@@ -57,7 +57,7 @@ const HelpMeChoose: NextPage = () => {
   >(HELP_ME_CHOOSE);
 
   const bodyStyleData = getSectionsData(
-    ['helpMeChoose', 'aggregation', 'capBodyStyle'],
+    ['helpMeChoose', 'aggregation', 'lqBodyStyle'],
     helpMeChooseData?.data,
   );
   const fuelTypesData = getSectionsData(
