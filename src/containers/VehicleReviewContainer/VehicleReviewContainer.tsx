@@ -51,6 +51,7 @@ interface IProps {
   body: string | null;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   articleUrl?: string;
+  bodyLower?: string | null;
 }
 
 const VehicleReviewContainer: FC<IProps> = ({
@@ -59,6 +60,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   sections,
   breadcrumbsItems,
   articleUrl,
+  bodyLower,
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(1);
@@ -70,10 +72,11 @@ const VehicleReviewContainer: FC<IProps> = ({
     ? sections?.vehicleReview?.author[0]?.name || ''
     : '';
 
-  const { carouselPosition, vehiclesList } = useVehicleCarousel(
-    'reviews',
-    articleUrl,
-  );
+  const {
+    carouselPosition,
+    vehiclesList,
+    title: blogCarouselTitle,
+  } = useVehicleCarousel('reviews', articleUrl);
 
   const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
     return {
@@ -162,8 +165,19 @@ const VehicleReviewContainer: FC<IProps> = ({
               countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
+              title={blogCarouselTitle}
             />
           )}
+          <ReactMarkdown
+            allowDangerousHtml
+            source={bodyLower || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
@@ -233,7 +247,11 @@ const VehicleReviewContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+          <BlogCarousel
+            countItems={COUNT_CARDS}
+            vehiclesList={vehiclesList}
+            title={blogCarouselTitle}
+          />
         </div>
       )}
     </>

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
+import { UnionToIntersection } from 'core/interfaces/unionToIntersection';
 import { vehicleCarouselRequest } from '../utils/offers';
 import { ICarouselCard } from '../components/BlogCarousel/interface';
 import { productFilterMapper } from '../components/BlogCarousel/helpers';
 import { useBlogPostCarouselData } from '../gql/blogPost';
 import { useGenericPageCarouselData } from '../gql/genericPage';
-import { UnionToIntersection } from '../core/interfaces/unionToIntersection';
 
 type ICarouselTypeKeys = keyof typeof carouselTypeMap;
 type ICarouselResultKeys = typeof carouselTypeMap[ICarouselTypeKeys]['key'];
@@ -42,6 +42,7 @@ export default function useVehicleCarousel(
   const [carouselData, response] = query();
   const { productFilter, carouselPosition } =
     ((response.data as unknown) as ICarouselData)?.[key] ?? {};
+  const title = useMemo(() => productFilter?.title || '', [productFilter]);
 
   useEffect(() => {
     if (articleUrl && !carouselPosition) {
@@ -64,5 +65,5 @@ export default function useVehicleCarousel(
     }
   }, [articleUrl, carouselData, productFilter, client, key, carouselPosition]);
 
-  return { carouselPosition, vehiclesList };
+  return { carouselPosition, vehiclesList, title };
 }

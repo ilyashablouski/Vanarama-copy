@@ -29,11 +29,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import {
-  toPriceFormat,
-  getOptionFromList,
-  isJanSaleCampaignEnabled,
-} from '../../utils/helpers';
+import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -135,12 +131,6 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
-const JanuarySaleBanners = dynamic(
-  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 interface IDetailsPageProps {
   capId: number;
@@ -614,17 +604,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      {isJanSaleCampaignEnabled() && isMobile && (
-        <JanuarySaleBanners className="pdp-page-wrapper" />
-      )}
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isJanSaleCampaignEnabled() && !isMobile && (
-          <JanuarySaleBanners className="pdp-page-wrapper" />
-        )}
-        {!isJanSaleCampaignEnabled() && isFreeInsurance && (
-          <FreeInsuranceBanner />
-        )}
+        {isFreeInsurance && <FreeInsuranceBanner />}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
@@ -747,9 +729,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-        {isJanSaleCampaignEnabled() && (
-          <JanuarySaleBanners className="pdp-page-wrapper" />
-        )}
+
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
