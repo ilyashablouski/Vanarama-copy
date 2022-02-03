@@ -327,6 +327,14 @@
 }
 
 .side-bar-layout {
+  .icon-list.maintenanceList {
+    border: none;
+    li {
+      border: none;
+      padding-top: 0;
+      font-weight: 400;
+    }
+  }
   > div {
     &:first-of-type {
       > .heading {
@@ -414,7 +422,6 @@
       padding: 30px 40px 50px;
       .title {
         &.-large {
-          font-size: 33px;
           margin-bottom: -0.50rem;
         }
         &.-regular {

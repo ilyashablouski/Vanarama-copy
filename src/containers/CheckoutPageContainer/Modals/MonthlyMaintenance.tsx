@@ -3,55 +3,60 @@ import React from 'react';
 import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 import List from 'core/atoms/list';
-import Icon from 'core/atoms/icon';
 import Checkmark from 'core/assets/icons/Checkmark';
-
-const INCLUDED_ADVANTAGES = [
-  'Routine servicing & maintenance.',
-  'Batteries, brake pads & exhaust replacement caused by fair wear & tear.',
-  'Tyre replacement, including 1 accidental tyre per year which is an upgrade from a standard funder package.',
-  'Any warranty-related work.',
-  'Oil & antifreeze top-ups.',
-  'MOTs, if required.',
-];
-
-const NOT_INCLUDED_ADVANTAGES = [
-  'Fuel, Ad Blue, washing or parking charges.',
-  'Damage to windscreens or mirrors.',
-  'Winter tyres.',
-  'Mis-fuelling.',
-  'Service or repair work for converted bodies, tail lifts or refrigerated vehicles.',
-  'Repairs or maintenance caused by accidental, negligent or wilful damage.',
-];
+import IconList, { IconListItem } from 'core/organisms/icon-list';
+import { includedItems, notIncludedItems } from '../../DetailsPage/config';
 
 const MonthlyMaintenance = () => (
   <>
-    <Heading className="title -mt-400" color="black" size="large" tag="span">
-      Service Plus Maintenance Package
+    <Heading className="title -mt-400" color="black" size="large" tag="h2">
+      The Vanarama Service Plan (Our Maintenance Package) Covers:
     </Heading>
+    <Text tag="p" color="darker" className="-mv-400" size="regular">
+      We know how important it is to keep you moving and keep your vehicle on
+      the road which is why we introduced the Vanarama Service Plan. The Plan
+      covers all routine servicing & maintenance but also provides full RAC
+      Breakdown Cover and a 7-day relief vehicle if you break down for a
+      hassle-free, fixed monthly charge so you don’t have to worry about a
+      thing!
+    </Text>
     <Heading size="lead" color="black" className="-mt-500">
       What’s Included?
     </Heading>
-    <List>
-      {INCLUDED_ADVANTAGES.map(item => (
-        <li className="-custom" key={item}>
-          <Icon size="regular" color="teal" icon={<Checkmark />} />
-          {item}
-        </li>
+    <IconList className="maintenanceList -mt-100">
+      {includedItems.map(({ value, innerItems }) => (
+        <IconListItem
+          iconColor="teal"
+          className="-custom"
+          key={value.toString()}
+          listIcon={<Checkmark />}
+        >
+          {value}
+          {innerItems && (
+            <IconList>
+              {innerItems?.map((text, idx) => (
+                <IconListItem
+                  iconColor="teal"
+                  className="-custom"
+                  key={idx.toString()}
+                  listIcon={<Checkmark />}
+                >
+                  {text}
+                </IconListItem>
+              ))}
+            </IconList>
+          )}
+        </IconListItem>
       ))}
-    </List>
+    </IconList>
     <Heading size="lead" color="black" className="-mt-300">
       What’s NOT Included?
     </Heading>
     <List>
-      {NOT_INCLUDED_ADVANTAGES.map(item => (
+      {notIncludedItems.map(item => (
         <li key={item}>{item}</li>
       ))}
     </List>
-    <Text size="regular" color="darker" className="copy -mt-300">
-      PS: Without this package you’ll have to pay for all servicing and
-      maintenance for your vehicle for the duration of your lease.
-    </Text>
   </>
 );
 
