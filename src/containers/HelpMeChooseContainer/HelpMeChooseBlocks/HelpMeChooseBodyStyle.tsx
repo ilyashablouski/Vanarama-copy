@@ -13,7 +13,7 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
   );
 
   const bodyStyleData = getSectionsData(
-    ['helpMeChoose', 'aggregation', 'capBodyStyle'],
+    ['helpMeChoose', 'aggregation', 'lqBodyStyle'],
     helpMeChooseData?.data,
   );
 
