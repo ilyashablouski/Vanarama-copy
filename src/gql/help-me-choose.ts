@@ -17,7 +17,7 @@ export const HELP_ME_CHOOSE = gql`
         rangeName
         transmission
         fuelType
-        capBodyStyle
+        lqBodyStyle
         term
         mileage
         availability
@@ -45,7 +45,7 @@ export const HELP_ME_CHOOSE = gql`
           key
           docCount
         }
-        capBodyStyle {
+        lqBodyStyle {
           key
           docCount
         }
