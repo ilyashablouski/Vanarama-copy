@@ -19,8 +19,8 @@ import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 import HeaderWishlistLink from './HeaderWishlistLink';
 import { isUserAuthenticated } from '../../utils/authentication';
-import ServiceBanner from "../ServiceBanner";
-import { ServiceBannerQuery } from "../../../generated/ServiceBannerQuery";
+import ServiceBanner from '../ServiceBanner';
+import { ServiceBannerQuery } from '../../../generated/ServiceBannerQuery';
 
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),

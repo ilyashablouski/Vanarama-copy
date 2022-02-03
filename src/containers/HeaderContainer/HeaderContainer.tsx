@@ -30,7 +30,6 @@ import {
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
 import { useLogOutMutation, useServiceBannerQuery } from './gql';
-import ServiceBanner from '../../components/ServiceBanner';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
