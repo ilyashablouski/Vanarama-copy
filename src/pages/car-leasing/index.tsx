@@ -58,7 +58,6 @@ import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
-import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -82,7 +81,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 const getFuelType = (product: IProduct | null) =>
   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
@@ -153,57 +151,48 @@ export const CarsPage: NextPage<IProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          dataUiTestId="car-leasing-page_hero"
-          searchPodCarsData={searchPodCarsData}
-          variant="cars"
-        />
-      ) : (
-        <Hero
-          searchPodCarsData={searchPodCarsData}
-          smallPrint={freeInsuranceSmallPrint}
-          customCTALink="/car-leasing/free-car-insurance"
-          dataUiTestId="car-leasing-page_hero"
-        >
-          <div className="nlol nlol-free-insurance">
-            <p>Find Your New Lease Of Life</p>
-            <h2>1 Year&apos;s FREE Insurance</h2>
-            <p>On Car Hot Offers</p>
-          </div>
-          <div>
-            <ImageV2
-              plain
-              quality={70}
-              size="expand"
-              optimisedHost
-              lazyLoad={false}
-              className="hero--image -pt-000"
-              width={heroImage?.details.image.width ?? 695}
-              height={heroImage?.details.image.height ?? 359}
-              src={
-                heroImage?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-              }
-            />
-          </div>
-          {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
-            <HeroPrompt
-              label={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-                ''
-              }
-              url={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-              }
-              text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-              }
-            />
-          )}
-        </Hero>
-      )}
+      <Hero
+        searchPodCarsData={searchPodCarsData}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
+        dataUiTestId="car-leasing-page_hero"
+      >
+        <div className="nlol nlol-free-insurance">
+          <p>Find Your New Lease Of Life</p>
+          <h2>1 Year&apos;s FREE Insurance</h2>
+          <p>On Car Hot Offers</p>
+        </div>
+        <div>
+          <ImageV2
+            plain
+            quality={70}
+            size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 695}
+            height={heroImage?.details.image.height ?? 359}
+            src={
+              heroImage?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            }
+          />
+        </div>
+        {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}

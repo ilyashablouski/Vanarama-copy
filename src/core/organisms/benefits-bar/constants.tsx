@@ -1,15 +1,9 @@
-import dynamic from 'next/dynamic';
-
 import ImageV2 from 'core/atoms/image/ImageV2';
 
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
-
-import { isJanSaleCampaignEnabled } from '../../../utils/helpers';
-
-const PoundCircle = dynamic(() => import('core/assets/icons/PoundCircle'));
 
 const baseImageUrl = `${process.env.HOST_DOMAIN}/Assets/images/benefits-bar`;
 
@@ -40,15 +34,10 @@ export const BENEFIT_LIST = [
       />
     ),
   },
-  isJanSaleCampaignEnabled()
-    ? {
-        title: '£250 Cashback On Every Vehicle',
-        icon: <PoundCircle />,
-      }
-    : {
-        title: 'Road Tax & Roadside Assistance Included',
-        icon: <BreakdownCar />,
-      },
+  {
+    title: 'Road Tax & Roadside Assistance Included',
+    icon: <BreakdownCar />,
+  },
   {
     title: 'FREE & Fast Delivery',
     icon: <DeliveryCar />,

@@ -51,10 +51,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isJanSaleCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -83,7 +80,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
@@ -158,48 +154,40 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          dataUiTestId="van-leasing-page_hero"
-          searchPodVansData={searchPodVansData}
-          variant="vans"
-        />
-      ) : (
-        <Hero
-          dataUiTestId="van-leasing-page_hero"
-          searchPodVansData={searchPodVansData}
-        >
-          <div className="nlol">
-            <p>Find Your</p>
-            <h2>New Lease Of Life</h2>
-            <p>With Vanarama</p>
-          </div>
-          <div>
-            <ImageV2
-              plain
-              quality={70}
-              size="expand"
-              optimisedHost
-              lazyLoad={false}
-              className="hero--image -pt-000"
-              width={heroImage?.details.image.width ?? 1710}
-              height={heroImage?.details.image.height ?? 1278}
-              src={
-                heroImage?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-              }
-            />
-          </div>
-          {heroLabel?.visible && (
-            <HeroPrompt
-              label={heroLabel?.link?.text || ''}
-              url={heroLabel?.link?.url || ''}
-              text={heroLabel?.text || ''}
-              btnVisible={heroLabel?.link?.visible}
-            />
-          )}
-        </Hero>
-      )}
+      <Hero
+        dataUiTestId="van-leasing-page_hero"
+        searchPodVansData={searchPodVansData}
+      >
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
+        <div>
+          <ImageV2
+            plain
+            quality={70}
+            size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 1710}
+            height={heroImage?.details.image.height ?? 1278}
+            src={
+              heroImage?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+        {heroLabel?.visible && (
+          <HeroPrompt
+            label={heroLabel?.link?.text || ''}
+            url={heroLabel?.link?.url || ''}
+            text={heroLabel?.text || ''}
+            btnVisible={heroLabel?.link?.visible}
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}

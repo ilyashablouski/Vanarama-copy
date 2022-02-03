@@ -51,6 +51,7 @@ const ReviewHub: NextPage<IProps> = ({ data: encodedData, articleUrl }) => {
     const metaData = getSectionsData(['metaData'], data.reviewsPage);
     const featuredImage = getSectionsData(['featuredImage'], data?.reviewsPage);
     const breadcrumbsItems = getBreadCrumbsItems(metaData);
+    const bodyLower = getSectionsData(['bodyLower'], data?.reviewsPage);
 
     return (
       <>
@@ -60,6 +61,7 @@ const ReviewHub: NextPage<IProps> = ({ data: encodedData, articleUrl }) => {
           sections={sections}
           breadcrumbsItems={breadcrumbsItems}
           articleUrl={articleUrl}
+          bodyLower={bodyLower}
         />
         {metaData && (
           <>

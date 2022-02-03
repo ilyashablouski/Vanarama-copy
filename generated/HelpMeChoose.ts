@@ -19,7 +19,7 @@ export interface HelpMeChoose_helpMeChoose_vehicles {
   rangeName: string | null;
   transmission: string | null;
   fuelType: string | null;
-  capBodyStyle: string | null;
+  lqBodyStyle: string | null;
   term: number | null;
   mileage: number | null;
   availability: number | null;
@@ -50,7 +50,7 @@ export interface HelpMeChoose_helpMeChoose_aggregation_fuelType {
   docCount: number | null;
 }
 
-export interface HelpMeChoose_helpMeChoose_aggregation_capBodyStyle {
+export interface HelpMeChoose_helpMeChoose_aggregation_lqBodyStyle {
   key: string | null;
   docCount: number | null;
 }
@@ -91,7 +91,7 @@ export interface HelpMeChoose_helpMeChoose_aggregation {
   vehicleType: HelpMeChoose_helpMeChoose_aggregation_vehicleType[] | null;
   transmission: HelpMeChoose_helpMeChoose_aggregation_transmission[] | null;
   fuelType: HelpMeChoose_helpMeChoose_aggregation_fuelType[] | null;
-  capBodyStyle: HelpMeChoose_helpMeChoose_aggregation_capBodyStyle[] | null;
+  lqBodyStyle: HelpMeChoose_helpMeChoose_aggregation_lqBodyStyle[] | null;
   term: HelpMeChoose_helpMeChoose_aggregation_term[] | null;
   mileage: HelpMeChoose_helpMeChoose_aggregation_mileage[] | null;
   initialPeriod: HelpMeChoose_helpMeChoose_aggregation_initialPeriod[] | null;

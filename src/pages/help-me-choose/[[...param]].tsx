@@ -28,18 +28,10 @@ import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeCho
 import Skeleton from '../../components/Skeleton';
 import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
 import Head from '../../components/Head/Head';
-import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
-
-const JanuarySaleBanner = dynamic(
-  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
@@ -65,7 +57,7 @@ const HelpMeChoose: NextPage = () => {
   >(HELP_ME_CHOOSE);
 
   const bodyStyleData = getSectionsData(
-    ['helpMeChoose', 'aggregation', 'capBodyStyle'],
+    ['helpMeChoose', 'aggregation', 'lqBodyStyle'],
     helpMeChooseData?.data,
   );
   const fuelTypesData = getSectionsData(
@@ -155,7 +147,6 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {isJanSaleCampaignEnabled() && <JanuarySaleBanner className="-mb-500" />}
       {isLoading || !pageTitle ? (
         <Loading size="large" />
       ) : (

@@ -82,7 +82,7 @@ const steps = {
 const resultsData = [
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '1',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -104,7 +104,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '2',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -126,7 +126,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '3',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -148,7 +148,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '4',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -170,7 +170,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '5',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -192,7 +192,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '6',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -214,7 +214,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '7',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -236,7 +236,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '8',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -258,7 +258,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '9',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -280,7 +280,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '10',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -302,7 +302,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '11',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -324,7 +324,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '12',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,
@@ -346,7 +346,7 @@ const resultsData = [
   },
   {
     availability: 7,
-    capBodyStyle: 'Hatchback',
+    lqBodyStyle: 'Hatchback',
     derivativeId: '13',
     derivativeName: '60kW EQ Pulse Premium 17kWh 5 Doors Auto [22kWch]',
     financeType: FinanceTypeEnum.PCH,

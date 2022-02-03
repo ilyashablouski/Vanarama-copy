@@ -50,7 +50,7 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     key: '3',
   },
   {
-    label: 'Monthly Maintenance',
+    label: 'Vanarama Service Plan',
     isVisible: values.monthlyMaintenance,
     key: '4',
   },

@@ -35,6 +35,7 @@ interface IProps {
   body: string | null;
   image: string | null | undefined;
   articleUrl?: string;
+  bodyLower?: string | null;
 }
 
 const LeasingArticleContainer: FC<IProps> = ({
@@ -43,13 +44,15 @@ const LeasingArticleContainer: FC<IProps> = ({
   image,
   body,
   articleUrl,
+  bodyLower,
 }) => {
   const cards = getSectionsData(['cards'], sections);
 
-  const { carouselPosition, vehiclesList } = useVehicleCarousel(
-    'guides',
-    articleUrl,
-  );
+  const {
+    carouselPosition,
+    vehiclesList,
+    title: blogCarouselTitle,
+  } = useVehicleCarousel('guides', articleUrl);
 
   const { carouselWithinBody, carouselAboveFooter } = useMemo(() => {
     return {
@@ -110,8 +113,29 @@ const LeasingArticleContainer: FC<IProps> = ({
               countItems={COUNT_CARDS}
               vehiclesList={vehiclesList}
               className="carousel-two-column"
+              title={blogCarouselTitle}
             />
           )}
+          <ReactMarkdown
+            allowDangerousHtml
+            source={bodyLower || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <ArticleLink href={href}>{children}</ArticleLink>;
+              },
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+              heading: props => (
+                <Text
+                  {...props}
+                  id={convertHeadingToSlug(props)}
+                  size="lead"
+                  color="darker"
+                  tag="h3"
+                />
+              ),
+            }}
+          />
         </article>
         <div>
           <Heading
@@ -150,7 +174,11 @@ const LeasingArticleContainer: FC<IProps> = ({
       </div>
       {carouselAboveFooter && (
         <div className="row:bg-lighter blog-carousel-wrapper">
-          <BlogCarousel countItems={COUNT_CARDS} vehiclesList={vehiclesList} />
+          <BlogCarousel
+            countItems={COUNT_CARDS}
+            vehiclesList={vehiclesList}
+            title={blogCarouselTitle}
+          />
         </div>
       )}
       <div className="row:comments" />
