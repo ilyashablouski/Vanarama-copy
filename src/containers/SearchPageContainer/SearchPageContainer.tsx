@@ -77,7 +77,7 @@ import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { globalColors } from '../../utils/colors';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { TColor } from '../../types/color';
 import {
@@ -679,6 +679,14 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       })),
     [metaData],
   );
+
+  const fuelTypesData = useMemo(
+    () =>
+      filtersData?.fuelTypes?.length > 0
+        ? filtersData?.fuelTypes
+        : getPartnerProperties()?.fuelTypes,
+    [filtersData],
+  );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -723,7 +731,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         ? isSpecialOffers || null
         : null;
 
-      if (isPreviousPage(router.query) && window && !called) {
+      if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
           createInitialVehiclesVariables({
             isCarSearch,
@@ -733,6 +741,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
+            fuelTypes: fuelTypesData,
           }),
         );
         return;
@@ -746,10 +755,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
-          fuelTypes:
-            filtersData?.fuelTypes?.length > 0
-              ? filtersData?.fuelTypes
-              : getPartnerProperties()?.fuelTypes,
+          fuelTypes: fuelTypesData,
         }),
       );
     }
