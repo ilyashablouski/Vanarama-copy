@@ -18,6 +18,7 @@ export function useGetQuoteQuery(
 ) {
   return useQuery<GetStoredQuote>(GET_QUOTE_QUERY, {
     fetchPolicy: 'no-cache',
+    ssr: false,
     onCompleted,
     onError,
   });
