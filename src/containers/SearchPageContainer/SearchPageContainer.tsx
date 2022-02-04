@@ -679,6 +679,14 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       })),
     [metaData],
   );
+
+  const fuelTypesData = useMemo(
+    () =>
+      filtersData?.fuelTypes?.length > 0
+        ? filtersData?.fuelTypes
+        : getPartnerProperties()?.fuelTypes,
+    [filtersData],
+  );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -733,10 +741,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
-            fuelTypes:
-              filtersData?.fuelTypes?.length > 0
-                ? filtersData?.fuelTypes
-                : getPartnerProperties()?.fuelTypes,
+            fuelTypes: fuelTypesData,
           }),
         );
         return;
@@ -750,10 +755,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
-          fuelTypes:
-            filtersData?.fuelTypes?.length > 0
-              ? filtersData?.fuelTypes
-              : getPartnerProperties()?.fuelTypes,
+          fuelTypes: fuelTypesData,
         }),
       );
     }
