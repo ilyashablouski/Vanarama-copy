@@ -17,6 +17,7 @@ export function useGetQuoteQuery(
   onError?: (error: ApolloError) => void,
 ) {
   return useQuery<GetStoredQuote>(GET_QUOTE_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted,
     onError,
   });
