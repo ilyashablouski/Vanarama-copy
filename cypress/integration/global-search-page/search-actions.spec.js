@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { checkDESCSortingOrder } from '../../support/utils';
 
 describe('Global Search', () => {
   beforeEach(() => {
@@ -32,36 +33,16 @@ describe('Global Search', () => {
       expect(location.search).to.eq('?searchTerm=bmw&transmissions=Automatic');
     });
   });
-  it('Change sort order from Low to high', () => {
+  it('Change sort order from High to Low', () => {
     cy.get('button')
       .contains('Sort')
       .click();
     cy.get('label')
-      .contains('Price Low To High')
+      .contains('Price High To Low')
       .click();
-    cy.get('.srp-f-mask').click('right');
-    cy.get('.card').then($el => {
-      const isCorrectOrder = Array.from(Array($el.length)).every(
-        (_node, index) => {
-          if (index === 0 || index - 1 === $el.length) {
-            return true;
-          }
-          let firstElementPrice;
-          let secondElementPrice;
-          firstElementPrice = $el.get(index).querySelector('.price--pounds')
-            .textContent;
-          firstElementPrice += $el.get(index).querySelectorAll('.price--sub')[1]
-            .textContent;
-          secondElementPrice = $el
-            .get(index + 1)
-            ?.querySelector('.price--pounds').textContent;
-          secondElementPrice += $el
-            .get(index + 1)
-            ?.querySelectorAll('.price--sub')[1].textContent;
-          return firstElementPrice <= secondElementPrice;
-        },
-      );
-      expect(isCorrectOrder).to.eq(true);
-    });
+    cy.get(
+      'i[data-uitestid="global-search-page-container_icon_close-filter"]',
+    ).click();
+    cy.get('.card.product').then(checkDESCSortingOrder);
   });
 });

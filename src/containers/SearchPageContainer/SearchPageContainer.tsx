@@ -885,7 +885,9 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       {isNewPage && isRangePage
         ? null
         : !(isSpecialOfferPage && isCarSearch) &&
-          featured && <ReadMoreBlock featured={featured} />}
+          featured && (
+            <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+          )}
       {isNewPage && isRangePage ? (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
@@ -1102,6 +1104,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
                 label: 'Terms and conditions apply',
               }}
               classNames={{ color: 'teal' }}
+              dataUiTestId={`${dataUiTestId}_link_terms-and-conditions`}
             >
               Terms and conditions apply
             </RouterLink>
