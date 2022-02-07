@@ -115,8 +115,11 @@ const RelatedCarousel = ({
             paginationComponent={
               renderNewPagination ? <Pagination /> : undefined
             }
+            dataUiTestId={dataUiTestId}
           >
-            {resultCards.map(item => renderCarouselSlide(item, dataUiTestId))}
+            {resultCards.map((item, index) =>
+              renderCarouselSlide(item, `${dataUiTestId}_${index}`),
+            )}
           </CarouselSwiper>
         </div>
       </div>
