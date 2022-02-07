@@ -1090,7 +1090,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           ) : null}
 
           {isCarousel && (
-            <RelatedCarousel cards={carousel.cards} title={carousel.title} />
+            <RelatedCarousel
+              cards={carousel.cards}
+              title={carousel.title}
+              dataUiTestId={`${dataUiTestId}_related`}
+            />
           )}
         </>
       )}

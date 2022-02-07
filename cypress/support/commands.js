@@ -17,7 +17,10 @@ Cypress.Commands.add('scrollToFooter', () => {
 });
 
 Cypress.Commands.add('clearSessionStorage', () => {
-  cy.window().then(window => window.sessionStorage.clear());
+  cy.window().then(window => {
+    window.sessionStorage.clear();
+    window.indexedDB.deleteDatabase('localforage');
+  });
 });
 
 Cypress.Commands.add('visitAndWait', (appRoute, endpoints) => {
@@ -87,78 +90,92 @@ Cypress.Commands.add('changeLeaseType', dataUiTstId => {
   });
 });
 
-Cypress.Commands.add('openDetailsPage', ({ dataUiTestId, cardContainer }) => {
-  let link = '';
-  cy.get(
-    `a[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_view-offer-button]`,
-  )
-    .should('be.visible')
-    .as('viewProductBtn')
-    .invoke('attr', 'href')
-    .then(href => {
-      link = href;
+Cypress.Commands.add(
+  'openDetailsPage',
+  ({ dataUiTestId, cardContainer, isCarousel }) => {
+    let link = '';
+    const parentSelector = isCarousel ? '.swiper-slide-active ' : '';
+    cy.get(
+      `${parentSelector}a[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_view-offer-button]`,
+    )
+      .should('be.visible')
+      .as('viewProductBtn')
+      .invoke('attr', 'href')
+      .then(href => {
+        link = href;
+      });
+    cy.get('@viewProductBtn')
+      .contains('View Offer')
+      .click();
+    cy.location('pathname').should(url => {
+      expect(url).to.eq(link);
     });
-  cy.get('@viewProductBtn')
-    .contains('View Offer')
-    .click();
-  cy.location('pathname').should(url => {
-    expect(url).to.eq(link);
-  });
-});
+  },
+);
 
-Cypress.Commands.add('addItemToWishlist', ({ dataUiTestId, cardContainer }) => {
-  let cardTitle = '';
-  cy.get(`div[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0]`)
-    .should('be.visible')
-    .then($card => {
-      cardTitle = $card[0]
-        .querySelector('span.heading.-large')
-        .textContent.toLowerCase();
-    });
-  cy.get(
-    `button[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0-wishlist-button]`,
-  )
-    .should('be.visible')
-    .click();
-  cy.get('a[data-uitestid=header-wishlist_link]').click();
-  cy.location('pathname').should('eq', '/wishlist');
-  cy.get('div.card.product')
-    .should('be.visible')
-    .then($cards => {
-      const wishCardTitle = $cards[0]
-        .querySelector('span.heading.-large')
-        .textContent.toLowerCase();
-      expect(wishCardTitle).to.eq(cardTitle);
-    });
-});
+Cypress.Commands.add(
+  'addItemToWishlist',
+  ({ dataUiTestId, cardContainer, isCarousel }) => {
+    let cardTitle = '';
+    const parentSelector = isCarousel ? '.swiper-slide-active ' : '';
+    cy.get(
+      `${parentSelector}div[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0]`,
+    )
+      .should('be.visible')
+      .then($card => {
+        cardTitle = $card[0]
+          .querySelector('span.heading.-large')
+          .textContent.toLowerCase();
+      });
+    cy.get(
+      `${parentSelector}button[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0-wishlist-button]`,
+    )
+      .should('be.visible')
+      .click();
+    cy.get('a[data-uitestid=header-wishlist_link]').click();
+    cy.location('pathname').should('eq', '/wishlist');
+    cy.get('div.card.product')
+      .should('be.visible')
+      .then($cards => {
+        const wishCardTitle = $cards[0]
+          .querySelector('span.heading.-large')
+          .textContent.toLowerCase();
+        expect(wishCardTitle).to.eq(cardTitle);
+      });
+  },
+);
 
-Cypress.Commands.add('addItemToCompare', ({ dataUiTestId, cardContainer }) => {
-  let productCardTitle;
-  cy.get(
-    `span[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_span_heading]`,
-  ).then($text => {
-    productCardTitle = $text
-      .text()
-      .split(' ')[0]
-      .toLowerCase();
-  });
-  cy.get(
-    `button[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_compare-button]`,
-  ).click();
-  cy.get('div[data-uitestid=comparator-bar]').should('be.visible');
-  cy.get('div[data-uitestid=comparator-bar-vehicle-card0-present]')
-    .find('p.heading')
-    .should($text => {
-      const compareCardTitle = $text
+Cypress.Commands.add(
+  'addItemToCompare',
+  ({ dataUiTestId, cardContainer, isCarousel }) => {
+    let productCardTitle;
+    const parentSelector = isCarousel ? '.swiper-slide-active ' : '';
+    cy.get(
+      `${parentSelector}span[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_span_heading]`,
+    ).then($text => {
+      productCardTitle = $text
         .text()
         .split(' ')[0]
         .toLowerCase();
-      expect(compareCardTitle, 'manufacturer').to.equal(productCardTitle);
     });
-  cy.get(
-    'button[data-uitestid=comparator-bar-vehicle_card-remove-button-1]',
-  ).click();
-});
+    cy.get(
+      `${parentSelector}button[data-uitestid=${dataUiTestId}_${cardContainer}_product-card-0_compare-button]`,
+    ).click();
+    cy.get('div[data-uitestid=comparator-bar]').should('be.visible');
+    cy.get('div[data-uitestid=comparator-bar-vehicle-card0-present]')
+      .find('p.heading')
+      .should($text => {
+        const compareCardTitle = $text
+          .text()
+          .split(' ')[0]
+          .toLowerCase();
+        expect(compareCardTitle, 'manufacturer').to.equal(productCardTitle);
+      });
+    cy.get(
+      'button[data-uitestid=comparator-bar-vehicle_card-remove-button-1]',
+    ).click();
+  },
+);
 
 Cypress.Commands.add('loadMoreBtn', dataUiTestId => {
   cy.intercept('POST', '/graphql').as('graphqlRequest');
