@@ -132,7 +132,7 @@ export const pushPageViewEvent = async (path: string, title = '') => {
       path,
       title,
     },
-    pageMode: path.includes('.html') ? 'no-SPA' : 'SPA',
+    pageMode: path.includes('.html') || path.slice(1) === '' ? 'no-SPA' : 'SPA',
     cookiePreferences: getLocalStorage('cookiePreferences') || 'undefined',
   });
 };
