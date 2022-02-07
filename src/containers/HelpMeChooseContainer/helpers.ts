@@ -2,6 +2,7 @@ import { NextRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { formatProductPageUrl } from '../../utils/url';
 import {
+  FilterListObject,
   SortDirection,
   SortField,
   VehicleTypeEnum,
@@ -65,17 +66,7 @@ export const getBuckets = (data: any[], activeData: string[], type?: string) =>
 
 export const onReplace = (
   router: NextRouter,
-  newStep: {
-    financeTypes: IStep;
-    bodyStyles: IStep;
-    fuelTypes: IStep;
-    transmissions: IStep;
-    terms: IStep;
-    mileages: IStep;
-    availability: IStep;
-    rental: IStep;
-    initialPeriods: IStep;
-  },
+  newStep: IInitStep,
   pathName?: string,
   isEdit?: string | null,
 ) => {
@@ -138,82 +129,28 @@ export const buildAnObjectFromAQuery = (
     size: number;
   },
 ): HelpMeChooseVariables => {
-  const object = {} as any;
-  Object.entries(steps).forEach(([key, val]) => {
-    if (
-      key === HELP_ME_CHOOSE_STEPS.BODY_STYLES &&
-      val.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.lqBodyStyles = removePlusesFromStringArray(val.value);
-    }
-    if (
-      key === HELP_ME_CHOOSE_STEPS.FUEL_TYPES &&
-      val.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.fuelTypes = removePlusesFromStringArray(val.value);
-    }
-    if (
-      key === HELP_ME_CHOOSE_STEPS.TRANSMISSIONS &&
-      val?.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.transmissions = val.value;
-    }
-    if (
-      key === HELP_ME_CHOOSE_STEPS.TERMS &&
-      val?.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.terms = [parseInt(val.value[0], 10)];
-    }
-    if (
-      key === HELP_ME_CHOOSE_STEPS.MILEAGES &&
-      val?.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.mileages = [parseInt(val.value[0] || '', 10)];
-    }
-    if (
-      key === HELP_ME_CHOOSE_STEPS.AVAILABILITY &&
-      val?.value?.length &&
-      val.value[0].length &&
-      !val.active
-    ) {
-      object.availability = parseInt(val.value[0] || '', 10);
-    }
-    if (
-      (key === HELP_ME_CHOOSE_STEPS.RENTAL &&
-        val.value?.length &&
-        val.active) ||
-      (key === HELP_ME_CHOOSE_STEPS.RENTAL && val.active)
-    ) {
-      object.rental =
-        parseFloat(val.value as any) === 0
-          ? {
-              min: 0,
-            }
-          : {
-              max: parseFloat(val.value as any),
-            };
-    }
-    if (
-      (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS &&
-        val.value?.length &&
-        val.active) ||
-      (key === HELP_ME_CHOOSE_STEPS.INITIAL_PERIODS && val.active)
-    ) {
-      object.initialPeriods = [parseInt(val.value as any, 10)];
-    }
-  });
-  object.financeTypes = steps.financeTypes.value;
-  object.vehicleTypes = [VehicleTypeEnum.CAR];
+  const object = {
+    lqBodyStyles: removePlusesFromStringArray(steps.bodyStyles.value),
+    fuelTypes: removePlusesFromStringArray(steps.fuelTypes.value),
+    transmissions: steps.transmissions.value,
+    terms: steps.terms.value[0] ? [parseInt(steps.terms.value[0], 10)] : [],
+    mileages: steps.mileages.value[0]
+      ? [parseInt(steps.mileages.value[0] || '', 10)]
+      : [],
+    availability: steps.availability.value[0]
+      ? parseInt(steps.availability.value[0] || '', 10)
+      : null,
+    rental: steps.rental.value
+      ? {
+          max: parseFloat(steps.rental.value as any),
+        }
+      : {},
+    initialPeriods: steps.initialPeriods.value
+      ? [parseInt(steps.initialPeriods.value as any, 10)]
+      : [],
+    financeTypes: steps.financeTypes.value,
+    vehicleTypes: [VehicleTypeEnum.CAR],
+  } as FilterListObject;
   const variables = {
     filter: object,
     pagination: {
@@ -328,9 +265,15 @@ export const formatForWishlist = (
   };
 };
 
-export interface IStep {
+export interface IStepWithStringValue {
   active: boolean;
-  value: string[] | string;
+  value: string;
+  title: string;
+}
+
+export interface IStepWithArrValue {
+  active: boolean;
+  value: string[];
   title: string;
 }
 
@@ -339,15 +282,15 @@ interface IValue {
 }
 
 export interface IInitStep {
-  financeTypes: IStep;
-  bodyStyles: IStep;
-  fuelTypes: IStep;
-  transmissions: IStep;
-  terms: IStep;
-  mileages: IStep;
-  availability: IStep;
-  rental: IStep;
-  initialPeriods: IStep;
+  financeTypes: IStepWithArrValue;
+  bodyStyles: IStepWithArrValue;
+  fuelTypes: IStepWithArrValue;
+  transmissions: IStepWithArrValue;
+  terms: IStepWithArrValue;
+  mileages: IStepWithArrValue;
+  availability: IStepWithArrValue;
+  rental: IStepWithStringValue;
+  initialPeriods: IStepWithStringValue;
 }
 
 export const initialSteps: IInitStep = {
@@ -485,7 +428,7 @@ export const getNextProgressStep = (
         Object.defineProperty(
           copyInitialSteps[key as keyof IInitStep],
           'value',
-          { value: splitedValue },
+          { value: splitedValue[0] ? splitedValue : [] },
         );
       }
       return [key, splitedValue];

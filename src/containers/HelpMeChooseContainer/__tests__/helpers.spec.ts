@@ -449,6 +449,14 @@ describe('<helpers />', () => {
           filter: {
             financeTypes: [],
             vehicleTypes: ['CAR'],
+            availability: null,
+            bodyStyles: [],
+            fuelTypes: [],
+            initialPeriods: [],
+            mileages: [],
+            rental: {},
+            terms: [],
+            transmissions: [],
           },
           pagination: {
             size: 12,
