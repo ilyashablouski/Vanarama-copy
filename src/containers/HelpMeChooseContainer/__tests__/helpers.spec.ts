@@ -556,5 +556,10 @@ describe('<helpers />', () => {
         expect.arrayContaining(expectedArray),
       );
     });
+    it('should return value if called with not an array', function() {
+      expect(
+        removePlusesFromStringArray(('sameValue' as unknown) as string[]),
+      ).toEqual('sameValue');
+    });
   });
 });

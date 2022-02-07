@@ -120,6 +120,9 @@ export const onReplace = (
 };
 
 export const removePlusesFromStringArray = (arr: string[]) => {
+  if (!Array.isArray(arr)) {
+    return arr;
+  }
   return arr.map((item: string) => item.replace(/\+/g, ' '));
 };
 
@@ -130,8 +133,10 @@ export const buildAnObjectFromAQuery = (
   },
 ): HelpMeChooseVariables => {
   const object = {
-    lqBodyStyles: removePlusesFromStringArray(steps.bodyStyles.value),
-    fuelTypes: removePlusesFromStringArray(steps.fuelTypes.value),
+    lqBodyStyles: removePlusesFromStringArray(
+      steps.bodyStyles.value as string[],
+    ),
+    fuelTypes: removePlusesFromStringArray(steps.fuelTypes.value as string[]),
     transmissions: steps.transmissions.value,
     terms: steps.terms.value[0] ? [parseInt(steps.terms.value[0], 10)] : [],
     mileages: steps.mileages.value[0]
@@ -265,15 +270,9 @@ export const formatForWishlist = (
   };
 };
 
-export interface IStepWithStringValue {
+export interface IStep {
   active: boolean;
-  value: string;
-  title: string;
-}
-
-export interface IStepWithArrValue {
-  active: boolean;
-  value: string[];
+  value: string[] | string;
   title: string;
 }
 
@@ -282,15 +281,15 @@ interface IValue {
 }
 
 export interface IInitStep {
-  financeTypes: IStepWithArrValue;
-  bodyStyles: IStepWithArrValue;
-  fuelTypes: IStepWithArrValue;
-  transmissions: IStepWithArrValue;
-  terms: IStepWithArrValue;
-  mileages: IStepWithArrValue;
-  availability: IStepWithArrValue;
-  rental: IStepWithStringValue;
-  initialPeriods: IStepWithStringValue;
+  financeTypes: IStep;
+  bodyStyles: IStep;
+  fuelTypes: IStep;
+  transmissions: IStep;
+  terms: IStep;
+  mileages: IStep;
+  availability: IStep;
+  rental: IStep;
+  initialPeriods: IStep;
 }
 
 export const initialSteps: IInitStep = {
