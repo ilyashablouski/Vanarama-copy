@@ -119,11 +119,11 @@ export const onReplace = (
   );
 };
 
-export const removePlusesFromStringArray = (arr: string[]) => {
-  if (!Array.isArray(arr)) {
-    return arr;
+export const removePlusesFromStringArray = (value: string[]) => {
+  if (!Array.isArray(value)) {
+    return value;
   }
-  return arr.map((item: string) => item.replace(/\+/g, ' '));
+  return value.map((item: string) => item.replace(/\+/g, ' '));
 };
 
 export const buildAnObjectFromAQuery = (

@@ -450,7 +450,7 @@ describe('<helpers />', () => {
             financeTypes: [],
             vehicleTypes: ['CAR'],
             availability: null,
-            bodyStyles: [],
+            lqBodyStyles: [],
             fuelTypes: [],
             initialPeriods: [],
             mileages: [],
