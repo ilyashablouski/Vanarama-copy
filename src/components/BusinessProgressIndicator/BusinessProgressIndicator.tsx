@@ -31,7 +31,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   isSoleTraderJourney,
 }) => {
   const { pathname, query, asPath } = useRouter();
-  const { companyUuid } = query as QueryParams;
+  const { companyUuid, redirect } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const { data: storedOrderData } = useStoredOrderQuery();
   const personUuid = useGetPersonUuid();
@@ -45,15 +45,6 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   );
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;
-
-  const queryParams = getUrlParam({
-    companyUuid,
-    isSoleTraderJourney,
-    redirect:
-      currentStep < cachedLastStep && !asPath.includes('?')
-        ? undefined
-        : asPath,
-  });
 
   // do not show redirect param in url
   const queryParamsMask = getUrlParam({
@@ -76,7 +67,12 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   return (
     <ProgressIndicator activeStep={cachedLastStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
-        const url = `${href}${queryParams}`;
+        const url = `${href}${getUrlParam({
+          companyUuid,
+          isSoleTraderJourney,
+          redirect: step < cachedLastStep ? redirect || asPath : undefined,
+        })}`;
+
         const urlMask = `${href}${queryParamsMask}`
           .replace('[companyUuid]', companyUuid)
           .replace('[personUuid]', personUuid);
