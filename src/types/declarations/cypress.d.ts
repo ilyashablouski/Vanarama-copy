@@ -18,7 +18,6 @@ namespace Cypress {
       breadcrumb: string;
     }) => void;
     checkSpecialOffer: (dataUiTestId: string) => void;
-    sortDESC: (dataUiTestId: string) => null;
     addItemToCompare: (params: {
       dataUiTestId: string;
       cardContainer: string;

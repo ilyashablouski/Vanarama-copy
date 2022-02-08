@@ -1,8 +1,16 @@
 /// <reference types="cypress" />
 
-import { APP_URL, VAN_LEASING_TEST_ID } from '../../../../support/utils';
+import {
+  APP_URL,
+  checkDESCSortingOrder,
+  VAN_LEASING_TEST_ID,
+} from '../../../../support/utils';
 
-describe('Search Page Container, Van Leasing manufacturers range', () => {
+describe(`
+  [Search Page Container]
+  Van Leasing 
+  - manufacturers range
+  `, () => {
   const dataUiTestId = VAN_LEASING_TEST_ID;
   const cardContainer = 'search-results';
 
@@ -69,7 +77,12 @@ describe('Search Page Container, Van Leasing manufacturers range', () => {
   });
 
   it('sorting results by price from high to low', () => {
-    cy.sortDESC(dataUiTestId);
+    cy.get(`select[data-uitestid=${dataUiTestId}_select]`).select('rate_DESC');
+    cy.intercept({ pathname: '/graphql' }).as('graphqlRequest');
+    cy.wait('@graphqlRequest')
+      .wait('@graphqlRequest')
+      .wait('@graphqlRequest');
+    cy.get('.card.product').should(checkDESCSortingOrder);
   });
 
   it('first item is added to compare', () => {

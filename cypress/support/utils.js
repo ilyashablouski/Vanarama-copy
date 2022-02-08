@@ -1,5 +1,7 @@
 export const APP_URL = 'http://localhost:6601';
 export const VAN_LEASING_TEST_ID = 'vans-search-page';
+export const PICKUP_LEASING_TEST_ID = 'pickups-search-page';
+export const CAR_LEASING_TEST_ID = 'cars-search-page';
 
 export const isMobile = () => {
   return (

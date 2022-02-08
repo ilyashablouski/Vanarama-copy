@@ -2,7 +2,7 @@
 
 import { APP_URL, isMobile } from '../../support/utils';
 
-describe('Search Page Container navigation', () => {
+describe('[Search Page Container] navigation', () => {
   beforeEach(() => {
     cy.visitAndWait(`${APP_URL}/car-leasing/volvo/xc60`, [
       {
