@@ -431,6 +431,7 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
   NOVUNA_LEASE = 'DIG-8639',
+  EDIT_PERSONAL_INFORMATION = 'DIG-8722',
 }
 
 function isFeatureFlagEnabled(
@@ -476,4 +477,10 @@ export function isHitachiChangedName() {
   }
 
   return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
+}
+
+export function isEditPersonalInformationFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.EDIT_PERSONAL_INFORMATION);
 }

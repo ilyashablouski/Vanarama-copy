@@ -21,7 +21,10 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
+import {
+  isAccountSectionFeatureFlagEnabled,
+  isEditPersonalInformationFeatureFlagEnabled,
+} from '../../../utils/helpers';
 import { redirectToMaintenancePage } from '../../../utils/redirect';
 import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
 
@@ -41,6 +44,7 @@ interface IProps {
   partyUuid: string;
   orders: GetMyOrders_myOrders[];
   quotes: GetMyOrders_myOrders[];
+  isEditPersonalInformationEnabled?: boolean;
 }
 
 const handleNetworkError = () =>
@@ -78,7 +82,13 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
+const MyDetailsPage: NextPage<IProps> = ({
+  person,
+  uuid,
+  orders,
+  quotes,
+  isEditPersonalInformationEnabled,
+}) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
   const isLoading = useAccountRouteChangeStart(router);
@@ -113,7 +123,13 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
           />
           <div className="row:my-details">
             <div className="my-details--form">
-              <PersonalInformationFormContainer person={person} uuid={uuid} />
+              <PersonalInformationFormContainer
+                person={person}
+                uuid={uuid}
+                isEditPersonalInformationEnabled={
+                  isEditPersonalInformationEnabled
+                }
+              />
             </div>
             <div className="my-details--form ">
               <Heading
@@ -161,6 +177,9 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+    context.req.headers.cookie,
+  );
+  const isEditPersonalInformationEnabled = isEditPersonalInformationFeatureFlagEnabled(
     context.req.headers.cookie,
   );
 
@@ -222,6 +241,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         uuid: data.getPerson.uuid,
         orders: orders.myOrders,
         quotes: quotes.myOrders,
+        isEditPersonalInformationEnabled,
       },
     });
   } catch {
