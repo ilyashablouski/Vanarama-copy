@@ -19,9 +19,21 @@ namespace Cypress {
     }) => void;
     checkSpecialOffer: (dataUiTestId: string) => void;
     sortDESC: (dataUiTestId: string) => null;
-    addItemToCompare: (params: { dataUiTestId: string, cardContainer: string }) => void;
-    addItemToWishlist: (params: { dataUiTestId: string, cardContainer: string }) => void;
-    openDetailsPage: (params: { dataUiTestId: string, cardContainer: string }) => void;
+    addItemToCompare: (params: {
+      dataUiTestId: string;
+      cardContainer: string;
+      isCarousel?: boolean;
+    }) => void;
+    addItemToWishlist: (params: {
+      dataUiTestId: string;
+      cardContainer: string;
+      isCarousel?: boolean;
+    }) => void;
+    openDetailsPage: (params: {
+      dataUiTestId: string;
+      cardContainer: string;
+      isCarousel?: boolean;
+    }) => void;
     termsAndConditions: (params: {
       dataUiTestId: string;
       link: string;
