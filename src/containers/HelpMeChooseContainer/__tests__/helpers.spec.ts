@@ -449,6 +449,14 @@ describe('<helpers />', () => {
           filter: {
             financeTypes: [],
             vehicleTypes: ['CAR'],
+            availability: null,
+            lqBodyStyles: [],
+            fuelTypes: [],
+            initialPeriods: [],
+            mileages: [],
+            rental: {},
+            terms: [],
+            transmissions: [],
           },
           pagination: {
             size: 12,
@@ -547,6 +555,11 @@ describe('<helpers />', () => {
       expect(removePlusesFromStringArray(initArr)).toEqual(
         expect.arrayContaining(expectedArray),
       );
+    });
+    it('should return value if called with not an array', () => {
+      expect(
+        removePlusesFromStringArray(('sameValue' as unknown) as string[]),
+      ).toEqual('sameValue');
     });
   });
 });
