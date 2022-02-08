@@ -36,7 +36,11 @@ const getAddressFromPerson = (person: IProps['person']) =>
       }
     : undefined;
 
-const PersonalInformation = ({ person, submit }: IProps) => {
+const PersonalInformation = ({
+  person,
+  submit,
+  isEditPersonalInformationEnabled,
+}: IProps) => {
   const personAddress = getAddressFromPerson(person);
 
   const [editData, setEditData] = useState(false);
@@ -198,68 +202,74 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
           </div>
         </section>
-        <div>
-          <Heading color="black" size="large" dataTestId="updated">
-            Keep Me Updated
-          </Heading>
-          <FormGroup
-            label=""
-            className="-mb-300 -mt-300"
-            error={errors?.emailConsent?.message?.toString()}
-          >
-            <CheckBox
-              id="emailConsent"
-              dataTestId="emailConsent"
-              name="emailConsent"
-              label="I want to be kept updated about exclusive deals & offers from Vanarama."
-              ref={register}
-              defaultChecked={person?.emailConsent || false}
-              disabled={!editData}
-            />
-          </FormGroup>
-          <Text color="darker" className="-pl-500" tag="p">
-            You may unsubscribe from these communications at anytime. For
-            further information please check out our
-            <a
-              key="a"
-              className="link -teal -ml-100"
-              href="/legal/privacy-policy.html"
-              target="_blank"
-            >
-              Privacy Policy
-            </a>
-            .
-          </Text>
-        </div>
-        <div style={{ marginTop: '15px' }}>
-          {editData && (
-            <Button
-              type="submit"
-              label={
-                formState.isSubmitting
-                  ? 'Saving...'
-                  : 'Save New Personal Details'
-              }
-              color="teal"
-              disabled={formState.isSubmitting}
-              dataTestId="personalSubmitEdit"
-            />
-          )}
-          {!editData && (
-            <Button
-              type="button"
-              label={
-                formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'
-              }
-              color="teal"
-              onClick={() => {
-                setEditData(!editData);
-              }}
-              disabled={formState.isSubmitting}
-              dataTestId="personalSubmit"
-            />
-          )}
-        </div>
+        {isEditPersonalInformationEnabled && (
+          <>
+            <div>
+              <Heading color="black" size="large" dataTestId="updated">
+                Keep Me Updated
+              </Heading>
+              <FormGroup
+                label=""
+                className="-mb-300 -mt-300"
+                error={errors?.emailConsent?.message?.toString()}
+              >
+                <CheckBox
+                  id="emailConsent"
+                  dataTestId="emailConsent"
+                  name="emailConsent"
+                  label="I want to be kept updated about exclusive deals & offers from Vanarama."
+                  ref={register}
+                  defaultChecked={person?.emailConsent || false}
+                  disabled={!editData}
+                />
+              </FormGroup>
+              <Text color="darker" className="-pl-500" tag="p">
+                You may unsubscribe from these communications at anytime. For
+                further information please check out our
+                <a
+                  key="a"
+                  className="link -teal -ml-100"
+                  href="/legal/privacy-policy.html"
+                  target="_blank"
+                >
+                  Privacy Policy
+                </a>
+                .
+              </Text>
+            </div>
+            <div style={{ marginTop: '15px' }}>
+              {editData && (
+                <Button
+                  type="submit"
+                  label={
+                    formState.isSubmitting
+                      ? 'Saving...'
+                      : 'Save New Personal Details'
+                  }
+                  color="teal"
+                  disabled={formState.isSubmitting}
+                  dataTestId="personalSubmitEdit"
+                />
+              )}
+              {!editData && (
+                <Button
+                  type="button"
+                  label={
+                    formState.isSubmitting
+                      ? 'Saving...'
+                      : 'Edit Personal Details'
+                  }
+                  color="teal"
+                  onClick={() => {
+                    setEditData(!editData);
+                  }}
+                  disabled={formState.isSubmitting}
+                  dataTestId="personalSubmit"
+                />
+              )}
+            </div>
+          </>
+        )}
       </Form>
     </div>
   );

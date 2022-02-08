@@ -24,4 +24,5 @@ export interface IProps {
     values: IPersonInformationFormValues,
     serviceId: string | undefined,
   ) => Promise<any>;
+  isEditPersonalInformationEnabled?: boolean;
 }

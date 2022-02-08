@@ -18,10 +18,11 @@ const getKey = (person: IPerson | null): string => {
 interface IProps {
   person: IPerson;
   uuid: string;
+  isEditPersonalInformationEnabled?: boolean;
 }
 
 const PersonalInformationContainer: React.FC<IProps> = props => {
-  const { person, uuid: personUuid } = props;
+  const { person, uuid: personUuid, isEditPersonalInformationEnabled } = props;
   const [personData, setPersonData] = useState<IPerson | null>(person);
 
   const [createDetailsHandle, { loading, error }] = useCreatePerson(data => {
@@ -47,6 +48,7 @@ const PersonalInformationContainer: React.FC<IProps> = props => {
           },
         })
       }
+      isEditPersonalInformationEnabled={isEditPersonalInformationEnabled}
     />
   );
 };
