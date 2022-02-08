@@ -57,9 +57,6 @@ body {
 
 main {
   padding-top: 0;
-  @include mobile-tablet {
-    padding-top: 145px;
-  }
 }
 
 /// @deprecated

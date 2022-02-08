@@ -11,7 +11,7 @@
 
   @include mobile-tablet {
     padding-top: 0;
-    position: fixed;
+    position: sticky;
     top: 0;
   }
 }
