@@ -263,6 +263,7 @@ pipeline {
                                     --build-arg LOQATE_KEY=\${LOQATE_KEY} \\
                                     --build-arg NODE_ENV=\${NODE_ENV} \\
                                     --build-arg HOST_DOMAIN=\${HOST_DOMAIN} \\
+                                    --build-arg SEO_BUCKET_NAME=\${SEO_BUCKET_NAME} \\
                                     --cache-from $dockerRepoName:latest .
                             """
                         }
