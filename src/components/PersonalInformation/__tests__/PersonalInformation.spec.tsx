@@ -27,13 +27,25 @@ describe('<PersonalInformation />', () => {
   beforeEach(async () => {
     await preloadAll();
     jest.clearAllMocks();
-    render(<PersonalInformation person={person} submit={submit} />);
+    render(
+      <PersonalInformation
+        person={person}
+        submit={submit}
+        isEditPersonalInformationEnabled
+      />,
+    );
   });
 
   it('should render correctly', async () => {
     const getComponent = () => {
       return renderer
-        .create(<PersonalInformation person={person} submit={submit} />)
+        .create(
+          <PersonalInformation
+            person={person}
+            submit={submit}
+            isEditPersonalInformationEnabled
+          />,
+        )
         .toJSON();
     };
 
