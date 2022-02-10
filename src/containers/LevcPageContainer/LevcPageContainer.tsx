@@ -123,6 +123,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
         <WhyLeaseWithVanaramaTiles
           title={tilesSection.tilesTitle}
           tiles={tilesSection.tiles}
+          dataUiTestId="levc-van-leasing_why-lease-with-vanarama-tiles"
         />
       )}
       {carouselSection && (
