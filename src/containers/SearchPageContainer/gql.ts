@@ -140,7 +140,6 @@ export function useVehiclesList(
         : (savedSortOrder as SortObject[]),
       first,
     },
-    // TODO: investigate issue with duplicate requests on SearchPage
     fetchPolicy: 'network-only',
   });
 }
@@ -175,7 +174,6 @@ export const GET_RANGES = gql`
     }
   }
 `;
-// TODO: add rangeSlug param
 export function getRangesList(
   vehicleTypes: VehicleTypeEnum,
   manufacturerSlug: string,

@@ -33,12 +33,14 @@ interface IDerangedForm {
   isFormSend: boolean;
   setIsFormSend: Dispatch<SetStateAction<boolean>>;
   selectedVehicle: ISelectedVehicle;
+  dataUiTestId?: string;
 }
 
 const DerangedForm: React.FC<IDerangedForm> = ({
   isFormSend,
   setIsFormSend,
   selectedVehicle,
+  dataUiTestId,
 }) => {
   const [createOpportunity, { loading }] = useOpportunityCreation(
     () => setIsFormSend(true),
@@ -67,7 +69,10 @@ const DerangedForm: React.FC<IDerangedForm> = ({
 
   return (
     <div className="drawer__container">
-      <Text className="drawer__subtitle">
+      <Text
+        className="drawer__subtitle"
+        dataUiTestId={dataUiTestId ? `${dataUiTestId}_subtitle` : undefined}
+      >
         We&apos;ll be in touch within 1-2 business hours
       </Text>
       <ImageV2
@@ -78,7 +83,12 @@ const DerangedForm: React.FC<IDerangedForm> = ({
         size="expand"
         plain
       />
-      <Text className="heading drawer__brand" size="regular" color="black">
+      <Text
+        className="heading drawer__brand"
+        size="regular"
+        color="black"
+        dataUiTestId={dataUiTestId ? `${dataUiTestId}_drawer-brand` : undefined}
+      >
         {selectedVehicle.title}
       </Text>
       <Text className="heading drawer__description" color="dark" size="xsmall">
@@ -89,16 +99,24 @@ const DerangedForm: React.FC<IDerangedForm> = ({
           <GoldrushForm
             onSubmit={values => onSubmit(values)}
             isSubmitting={loading}
-            callBack
+            isCallBackForm
             isLabelsShown={DERANGED_FORM_LABELS_VALUES}
             isPlaceholdersShown={DERANGED_FORM_PLACEHOLDERS_VALUES}
+            dataUiTestId={dataUiTestId}
           />
-          <Text className="drawer__text-footer" size="xsmall" color="dark">
+          <Text
+            className="drawer__text-footer"
+            size="xsmall"
+            color="dark"
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_from-price-text` : undefined
+            }
+          >
             Price is subject to change based on your lease term
           </Text>
         </>
       ) : (
-        <ModalFormSuccessMessage />
+        <ModalFormSuccessMessage dataUiTestId={dataUiTestId} />
       )}
     </div>
   );

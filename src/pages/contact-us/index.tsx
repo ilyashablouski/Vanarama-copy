@@ -200,6 +200,7 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data }) => {
             inline
           >
             <ImageV2
+              quality={60}
               className="card-image"
               width={card?.image?.file?.details.image.width}
               height={card?.image?.file?.details.image.height}

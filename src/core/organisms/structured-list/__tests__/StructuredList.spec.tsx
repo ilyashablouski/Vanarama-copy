@@ -1,10 +1,9 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import StructuredList from '../StructuredList';
 import ListItem from '../ListItem';
 import { IStructuredListProps } from '../interfaces';
 import { editableList, defaultList as list } from '../__fixtures__';
-import TextInput from '../../../atoms/textinput';
 
 const getComponent = (props: IStructuredListProps) => (
   <StructuredList {...props} />
@@ -12,65 +11,62 @@ const getComponent = (props: IStructuredListProps) => (
 
 describe('<StructuredList />', () => {
   it('should render with required props', () => {
-    const wrap = shallow(getComponent({ list }));
+    const { container } = render(getComponent({ list }));
 
-    expect(wrap).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should render correctly with a custom CSS class', () => {
-    const wrap = shallow(getComponent({ list, className: 'custom-class' }));
+    const { container } = render(
+      getComponent({ list, className: 'custom-class' }),
+    );
 
-    expect(wrap).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it('should contain `<Link/>` with expected props/vals', () => {
-    const wrap = shallow(
+    const wrap = render(
       getComponent({ list: editableList, editable: true }),
-    ).find('.structured-list--edit');
+    ).container.getElementsByClassName('structured-list--edit')[0];
 
-    expect(wrap.find('Link').length).toEqual(1);
-    expect(wrap.find('Link').text()).toEqual('Edit');
+    expect(wrap.getElementsByClassName('link').length).toEqual(1);
+    expect(wrap.getElementsByClassName('link')[0].textContent).toEqual('Edit');
     expect(
-      wrap
-        .find('Link')
-        .at(0)
-        .props().onClick,
-    ).toEqual(expect.any(Function));
+      fireEvent.click(wrap.getElementsByClassName('link')[0]),
+    ).toBeTruthy();
   });
 
   it('should contain 4 ListItem components (defined in fixtures)', () => {
-    const wrap = shallow(getComponent({ list: editableList, editable: true }));
+    const wrap = render(getComponent({ list: editableList, editable: true }))
+      .container;
 
     expect(
       wrap
-        .find('.structured-list-tbody')
-        .at(0)
-        .find('ListItem').length,
+        .getElementsByClassName('structured-list-tbody')[0]
+        .getElementsByClassName('structured-list-row').length,
     ).toEqual(4);
   });
 
   it('should contain `<ListItem/>` with default value (non editing state)', () => {
-    const wrap = mount(
+    const wrap = render(
       <ListItem textEdit editing={false} label="Test" value="test" />,
-    );
+    ).container;
     expect(
-      wrap
-        .find('.structured-list-td')
-        .at(1)
-        .text(),
+      wrap.getElementsByClassName('structured-list-td')[1].textContent,
     ).toEqual('test');
   });
 
   it('should contain `<ListItem/>` with TextInput (editing state)', () => {
-    const wrap = mount(<ListItem textEdit editing label="Test" value="test" />);
-    expect(wrap.find(TextInput).length).toEqual(1);
+    const wrap = render(<ListItem textEdit editing label="Test" value="test" />)
+      .container;
+    expect(wrap.getElementsByClassName('textinput--native').length).toEqual(1);
   });
 
   it('should contain `<ListItem/>` with select (editing state)', () => {
-    const wrap = mount(
+    const wrap = render(
       <ListItem selectEdit editing label="Test" value="test" />,
-    );
-    expect(wrap.find('select').length).toEqual(1);
+    ).container;
+    expect(wrap.getElementsByTagName('select').length).toEqual(1);
   });
 
   it('should call `onEditClicked` when clicking the Edit link', () => {
@@ -78,12 +74,10 @@ describe('<StructuredList />', () => {
     const onEditClicked = jest.fn();
 
     // ACT
-    const wrapper = mount(
-      <StructuredList list={[]} editable onEditClicked={onEditClicked} />,
-    );
+    render(<StructuredList list={[]} editable onEditClicked={onEditClicked} />);
 
     // Find the anchor element with the text "Edit", and click it
-    wrapper.find('a[children="Edit"]').simulate('click');
+    screen.getByText('Edit').click();
 
     // ASSERT
     expect(onEditClicked).toHaveBeenCalledTimes(1);
@@ -94,15 +88,13 @@ describe('<StructuredList />', () => {
     const dataTestId = 'my-data-testid';
 
     // ACT
-    const wrapper = mount(
-      <StructuredList list={[]} editable editDataTestId={dataTestId} />,
-    );
+    render(<StructuredList list={[]} editable editDataTestId={dataTestId} />);
+
+    const attr = screen.getByText('Edit').getAttribute('data-testid');
 
     // ASSERT
     // Find the anchor element with the text "Edit" and make sure it has a data-testid
-    expect(wrapper.find('a[children="Edit"]').prop('data-testid')).toEqual(
-      dataTestId,
-    );
+    expect(attr).toEqual(dataTestId);
   });
 
   it('should attach a data-testid attributes the the list items', () => {
@@ -110,7 +102,7 @@ describe('<StructuredList />', () => {
     const dataTestId = 'my-data-testid';
 
     // ACT
-    const wrapper = mount(
+    render(
       <StructuredList
         list={[
           { label: 'Some item label', value: 'Some item value', dataTestId },
@@ -120,7 +112,7 @@ describe('<StructuredList />', () => {
 
     // ASSERT
     // Find the anchor element with the text "Edit" and make sure it has a data-testid
-    expect(wrapper.find('[data-testid="my-data-testid"]').text()).toEqual(
+    expect(screen.getByTestId('my-data-testid').textContent).toEqual(
       'Some item value',
     );
   });

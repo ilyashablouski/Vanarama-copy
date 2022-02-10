@@ -19,9 +19,10 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 
 interface IProps {
   featured: IFeatured;
+  dataUiTestId?: string;
 }
 
-const ReadMoreBlock = ({ featured }: IProps) => {
+const ReadMoreBlock = ({ featured, dataUiTestId }: IProps) => {
   const isReadMoreIncluded = useMemo(
     () => featured?.layout?.includes('Read More'),
     [featured],
@@ -33,6 +34,7 @@ const ReadMoreBlock = ({ featured }: IProps) => {
       {!featured?.layout?.includes('Full Width') && (
         <div>
           <ImageV2
+            quality={60}
             width={featured.image?.file?.details.image.width}
             height={featured.image?.file?.details.image.height}
             src={featured.image?.file?.url || ''}
@@ -49,6 +51,7 @@ const ReadMoreBlock = ({ featured }: IProps) => {
                 ? featured?.defaultHeight || 100
                 : '',
           }}
+          data-uitestid={`${dataUiTestId}_block_read-more`}
         >
           <Heading
             tag={(featured.titleTag as keyof JSX.IntrinsicElements) || 'span'}
@@ -82,6 +85,7 @@ const ReadMoreBlock = ({ featured }: IProps) => {
             fill="clear"
             label={readMore ? 'Read More' : 'Read Less'}
             onClick={() => setReadMore(!readMore)}
+            dataUiTestId={`${dataUiTestId}_button_read-more`}
           />
         )}
       </div>

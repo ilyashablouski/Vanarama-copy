@@ -1,5 +1,11 @@
 {
   "baseUrl": "http://localhost:6601",
   "viewportWidth": 1217,
-  "viewportHeight": 860
+  "viewportHeight": 860,
+  "defaultCommandTimeout": 15000,
+  "requestTimeout": 15000,
+  "env": {
+    "mobileViewportWidthBreakpoint": 767
+  },
+  "chromeWebSecurity": false
 }

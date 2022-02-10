@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Button from '../../../atoms/button';
 import OrderCard from '../OrderCard/OrderCard';
 
 describe('<OrderCard />', () => {
   it('should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <OrderCard
         orderDetails={{
           price: 209,
@@ -36,6 +36,6 @@ describe('<OrderCard />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

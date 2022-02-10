@@ -31,6 +31,7 @@ it('should render PersonalInformationContainer correctly', async () => {
         smsConsent: true,
       }}
       uuid="aa08cca2-5f8d-4b8c-9506-193d9c32e05f"
+      isEditPersonalInformationEnabled
     />,
   );
 

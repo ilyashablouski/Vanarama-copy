@@ -17,6 +17,7 @@ import { Nullable } from '../../types/common';
 
 import Skeleton from '../../components/Skeleton';
 import LevcHeroBanner from './components/LevcHeroBanner';
+import { normalizeString } from '../../utils/data';
 
 const FeaturedSection = dynamic(
   () => import('../../components/FeaturedSection'),
@@ -103,6 +104,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
           className="-a-center"
           leadText={leadTextSection}
           withSeparator={false}
+          dataUiTestId="levc-van-leasing"
         />
       )}
       {featuredSectionList?.map(featuredSection => (
@@ -111,6 +113,9 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
             featured={featuredSection}
             videoClassName="aspect-16-9"
             videoHeight="100%"
+            dataUiTestId={`levc-van-leasing_featured-section_${normalizeString(
+              featuredSection.title,
+            )}`}
           />
         </React.Fragment>
       ))}
@@ -124,6 +129,7 @@ const LevcPageContainer: React.FC<ILevcPageContainer> = ({
         <RelatedCarousel
           cards={carouselSection.cards}
           title={carouselSection.title}
+          dataUiTestId="levc-van-leasing_related-carousel"
         />
       )}
     </>

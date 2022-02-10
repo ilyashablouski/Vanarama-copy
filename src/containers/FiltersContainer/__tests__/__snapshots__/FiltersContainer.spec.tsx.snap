@@ -71,13 +71,13 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           >
             <span
               class="toggle--on"
-              data-uitestid="cars-search-page_toggle-on"
+              data-uitestid="cars-search-page_Personal"
             >
               Personal
             </span>
             <span
               class="toggle--off"
-              data-uitestid="cars-search-page_toggle-off"
+              data-uitestid="cars-search-page_Business"
             >
               Business
             </span>

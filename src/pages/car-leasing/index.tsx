@@ -17,7 +17,7 @@ import decode from 'decode-html';
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
-import { decodeData, encodeData } from '../../utils/data';
+import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -58,7 +58,6 @@ import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
-import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -82,7 +81,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 const getFuelType = (product: IProduct | null) =>
   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
@@ -153,56 +151,54 @@ export const CarsPage: NextPage<IProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale searchPodCarsData={searchPodCarsData} variant="cars" />
-      ) : (
-        <Hero
-          searchPodCarsData={searchPodCarsData}
-          smallPrint={freeInsuranceSmallPrint}
-          customCTALink="/car-leasing/free-car-insurance"
-        >
-          <div className="nlol nlol-free-insurance">
-            <p>Find Your New Lease Of Life</p>
-            <h2>1 Year&apos;s FREE Insurance</h2>
-            <p>On Car Hot Offers</p>
-          </div>
-          <div>
-            <ImageV2
-              plain
-              quality={60}
-              size="expand"
-              lazyLoad={false}
-              className="hero--image -pt-000"
-              width={heroImage?.details.image.width ?? 695}
-              height={heroImage?.details.image.height ?? 359}
-              src={
-                heroImage?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-              }
-            />
-          </div>
-          {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
-            <HeroPrompt
-              label={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-                ''
-              }
-              url={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-              }
-              text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={
-                data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-              }
-            />
-          )}
-        </Hero>
-      )}
+      <Hero
+        searchPodCarsData={searchPodCarsData}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
+        dataUiTestId="car-leasing-page_hero"
+      >
+        <div className="nlol nlol-free-insurance">
+          <p>Find Your New Lease Of Life</p>
+          <h2>1 Year&apos;s FREE Insurance</h2>
+          <p>On Car Hot Offers</p>
+        </div>
+        <div>
+          <ImageV2
+            plain
+            quality={70}
+            size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 695}
+            height={heroImage?.details.image.height ?? 359}
+            src={
+              heroImage?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            }
+          />
+        </div>
+        {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}
         header={headerText}
         description={descriptionText}
+        dataUiTestId="car-leasing-page_heading-section"
       />
 
       <section className="row:eligibility-checker-cta">
@@ -211,6 +207,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
               size="expand"
               plain
@@ -238,6 +235,7 @@ export const CarsPage: NextPage<IProps> = ({
             <ImageV2
               width="800"
               height="400"
+              quality={60}
               src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
               size="expand"
               plain
@@ -285,6 +283,7 @@ export const CarsPage: NextPage<IProps> = ({
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
+                  dataUiTestId="car-leasing-page_product-card"
                   key={item?.capId || index}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -323,7 +322,12 @@ export const CarsPage: NextPage<IProps> = ({
                             `${item?.manufacturerName} ${item?.modelName}`,
                           )}
                         </Heading>
-                        <Heading tag="span" size="small" color="dark">
+                        <Heading
+                          tag="span"
+                          size="small"
+                          color="dark"
+                          dataUiTestId="car-leasing-page_product-card_derivative-name"
+                        >
                           {item?.derivativeName || ''}
                         </Heading>
                       </RouterLink>
@@ -362,6 +366,7 @@ export const CarsPage: NextPage<IProps> = ({
                       priceDescription={`Per Month ${
                         isPersonal ? 'Inc.VAT' : 'Exc.VAT'
                       }`}
+                      dataUitestId="car-leasing-page_product-card"
                     />
                     <RouterLink
                       link={{
@@ -395,6 +400,7 @@ export const CarsPage: NextPage<IProps> = ({
             classNames={{ color: 'teal', size: 'large' }}
             className="button -solid"
             dataTestId="view-all-cars"
+            dataUiTestId="car-leasing-page_view-all-cars_button"
           >
             <div className="button--inner">View All Cars</div>
           </RouterLink>
@@ -402,7 +408,14 @@ export const CarsPage: NextPage<IProps> = ({
       </div>
 
       <section className="row:steps-4col">
-        <Heading className="-a-center -mb-400" size="large" color="black">
+        <Heading
+          className="-a-center -mb-400"
+          size="large"
+          color="black"
+          dataUiTestId={`car-leasing-page_${normalizeString(
+            data?.hubCarPage.sections?.steps?.heading,
+          )}`}
+        >
           {data?.hubCarPage.sections?.steps?.heading}
         </Heading>
         {data?.hubCarPage.sections?.steps?.steps?.map(
@@ -413,6 +426,7 @@ export const CarsPage: NextPage<IProps> = ({
               heading={step.title || ''}
               step={index + 1}
               text={step.body || ''}
+              dataUiTestId="car-leasing-page_leasing-step"
             />
           ),
         )}
@@ -433,9 +447,13 @@ export const CarsPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`car-leasing-page_${normalizeString(
+              data?.hubCarPage.sections?.featured1?.title,
+            )}_media`}
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured1?.details.image.width ?? 1000}
             height={imageFeatured1?.details.image.height ?? 650}
@@ -443,10 +461,16 @@ export const CarsPage: NextPage<IProps> = ({
               imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`car-leasing-page_${normalizeString(
+              data?.hubCarPage.sections?.featured1?.title,
+            )}`}
           />
         )}
         <div className="-inset -middle -col-400">
           <Heading
+            dataUiTestId={`car-leasing-page_${normalizeString(
+              data?.hubCarPage.sections?.featured1?.title,
+            )}`}
             size="large"
             color="black"
             tag={
@@ -491,9 +515,13 @@ export const CarsPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`car-leasing-page_${normalizeString(
+              data?.hubCarPage.sections?.featured2?.title,
+            )}_media`}
           />
         ) : (
           <ImageV2
+            quality={60}
             objectFit="cover"
             width={imageFeatured2?.details.image.width ?? 1000}
             height={imageFeatured2?.details.image.height ?? 650}
@@ -501,6 +529,9 @@ export const CarsPage: NextPage<IProps> = ({
               imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`car-leasing-page_${normalizeString(
+              data?.hubCarPage.sections?.featured2?.title,
+            )}`}
           />
         )}
         <div className="-inset -middle -col-400">
@@ -539,14 +570,18 @@ export const CarsPage: NextPage<IProps> = ({
           tiles={tiles}
           title={tilesTitle || ''}
           titleTag={tilesTitleTag}
+          dataUiTestId="car-leasing-page_why-lease-with-vanarama-titles"
         />
       )}
 
-      <NationalLeagueBanner />
+      <NationalLeagueBanner dataUiTestId="car-leasing-page_national-league-banner" />
 
-      <FeaturedOnSection />
+      <FeaturedOnSection dataUiTestId="car-leasing-page_featured-on" />
 
-      <section className="row:trustpilot">
+      <section
+        className="row:trustpilot"
+        data-uitestid="car-leasing-page_trustpilot_section"
+      >
         <TrustPilot />
       </section>
 

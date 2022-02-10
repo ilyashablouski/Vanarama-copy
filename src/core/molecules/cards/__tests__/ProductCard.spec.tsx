@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import ProductCard from '../ProductCard/ProductCard';
 
 describe('<ProductCard />', () => {
   it('Product Card should render correctly', () => {
     // ACT
-    const wrapper = shallow(
+    const wrapper = render(
       <ProductCard
         header={{
           accentText: 'Hot Offer',
@@ -28,6 +28,6 @@ describe('<ProductCard />', () => {
     );
 
     // ASSERT
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.container).toMatchSnapshot();
   });
 });

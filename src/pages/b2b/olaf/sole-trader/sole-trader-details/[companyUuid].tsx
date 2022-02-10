@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
+import SecureModalLayout from '../../../../../containers/SecureModalLayout';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
@@ -32,14 +33,16 @@ export const SoleTraderDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <SoleTraderDetailsFormContainer
-        orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
-        personUuid={personUuid}
-        companyUuid={companyUuid}
-        onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
-        isEdited={!!redirect}
-      />
+      <SecureModalLayout>
+        <SoleTraderDetailsFormContainer
+          orderId={storedOrderData?.storedOrder?.order?.uuid || ''}
+          personUuid={personUuid}
+          companyUuid={companyUuid}
+          onCompleted={handleSubmitCompletion}
+          onError={handleSubmitError}
+          isEdited={!!redirect}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

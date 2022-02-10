@@ -1,49 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<IvanCta /> should compact render correctly 1`] = `
-<div
-  className="ivan-cta--compact"
->
-  <Memo(Text)
-    color="white"
-    size="xsmall"
+<div>
+  <div
+    class="ivan-cta--compact"
   >
-    We're open again at 8:30am. Why not chat to iVan?
-  </Memo(Text)>
-  <Memo(ImageV2)
-    alt=""
-    plain={true}
-    src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
-  />
+    <span
+      class="text -xsmall -white"
+    >
+      We're open again at 8:30am. Why not chat to iVan?
+    </span>
+    <div
+      class="image -expand -plain"
+    >
+      <div
+        style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+      >
+        <img
+          alt=""
+          class="image--native"
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+        />
+        <noscript />
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
 exports[`<IvanCta /> should default render correctly 1`] = `
-<Memo()
-  className="ivan-cta"
-  inline={true}
->
-  <Memo(ImageV2)
-    alt="Meet iVan"
-    className="card-image"
-    plain={true}
-    src="https://images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
-  />
+<div>
   <div
-    className="title"
+    class="card ivan-cta -inline"
+    data-testid="card"
   >
-    <Heading
-      color="black"
-      size="lead"
+    <div
+      class="image card-image -expand -plain"
     >
-      Meet iVan
-    </Heading>
+      <div
+        style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+      >
+        <img
+          alt="Meet iVan"
+          class="image--native"
+          data-nimg="fill"
+          decoding="async"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+        />
+        <noscript />
+      </div>
+    </div>
+    <div
+      class="title"
+    >
+      <p
+        class="heading -black -lead"
+      >
+        Meet iVan
+      </p>
+    </div>
+    <span
+      class="text -regular -dark"
+    >
+      Our helpful chatbot iVan is available 24/7 to answer your van financing questions
+    </span>
   </div>
-  <Memo(Text)
-    color="dark"
-    size="regular"
-  >
-    Our helpful chatbot iVan is available 24/7 to answer your van financing questions
-  </Memo(Text)>
-</Memo()>
+</div>
 `;

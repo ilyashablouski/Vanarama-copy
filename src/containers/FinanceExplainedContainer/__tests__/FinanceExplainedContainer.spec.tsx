@@ -118,6 +118,7 @@ const DATA = {
     intro: '',
     sectionsAsArray: null,
     colourPrimary: '#000000',
+    bodyLower: '',
   },
 } as GenericPageQuery;
 

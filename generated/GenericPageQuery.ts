@@ -1222,6 +1222,7 @@ export interface GenericPageQuery_genericPage {
   sections: GenericPageQuery_genericPage_sections | null;
   sectionsAsArray: GenericPageQuery_genericPage_sectionsAsArray | null;
   body: string | null;
+  bodyLower: string | null;
 }
 
 export interface GenericPageQuery {

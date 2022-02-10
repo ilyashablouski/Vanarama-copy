@@ -7,6 +7,7 @@ import {
   getNextProgressStep,
   getPathName,
   onReplace,
+  removePlusesFromStringArray,
   setQuery,
 } from '../helpers';
 
@@ -448,6 +449,14 @@ describe('<helpers />', () => {
           filter: {
             financeTypes: [],
             vehicleTypes: ['CAR'],
+            availability: null,
+            lqBodyStyles: [],
+            fuelTypes: [],
+            initialPeriods: [],
+            mileages: [],
+            rental: {},
+            terms: [],
+            transmissions: [],
           },
           pagination: {
             size: 12,
@@ -529,6 +538,28 @@ describe('<helpers />', () => {
         sort,
       };
       expect(buildAnObjectFromAQuery(steps, { size: 5 })).toMatchObject(result);
+    });
+  });
+  describe('removePlusesFromStringArray', () => {
+    it('should remove all pluses from string array', () => {
+      const initArr = [
+        'Diesel/plugin+Elec+Hybrid',
+        'Petrol/plugin+Elec+Hybrid',
+        'Small+Car',
+      ];
+      const expectedArray = [
+        'Diesel/plugin Elec Hybrid',
+        'Petrol/plugin Elec Hybrid',
+        'Small Car',
+      ];
+      expect(removePlusesFromStringArray(initArr)).toEqual(
+        expect.arrayContaining(expectedArray),
+      );
+    });
+    it('should return value if called with not an array', () => {
+      expect(
+        removePlusesFromStringArray(('sameValue' as unknown) as string[]),
+      ).toEqual('sameValue');
     });
   });
 });

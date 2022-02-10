@@ -77,7 +77,7 @@ import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { globalColors } from '../../utils/colors';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { TColor } from '../../types/color';
 import {
@@ -151,7 +151,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
-  const [isPartnershipActive] = useState<boolean>(!!getPartnerProperties());
+  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const applyColumns = !isEvPage ? '-columns' : '';
   const initialFiltersState = useMemo(
     () =>
@@ -679,6 +679,14 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       })),
     [metaData],
   );
+
+  const fuelTypesData = useMemo(
+    () =>
+      filtersData?.fuelTypes?.length > 0
+        ? filtersData?.fuelTypes
+        : getPartnerProperties()?.fuelTypes,
+    [filtersData],
+  );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -723,7 +731,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         ? isSpecialOffers || null
         : null;
 
-      if (isPreviousPage(router.query) && window && !called) {
+      if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
           createInitialVehiclesVariables({
             isCarSearch,
@@ -733,6 +741,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
+            fuelTypes: fuelTypesData,
           }),
         );
         return;
@@ -746,10 +755,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
-          fuelTypes:
-            filtersData?.fuelTypes?.length > 0
-              ? filtersData?.fuelTypes
-              : getPartnerProperties()?.fuelTypes,
+          fuelTypes: fuelTypesData,
         }),
       );
     }
@@ -783,6 +789,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       );
     }
   }, [cacheData, setCapsIds, isCarSearch]);
+
+  useEffect(() => {
+    const partnerActive = getPartnerProperties();
+    setPartnershipActive(!!partnerActive);
+  }, [isPartnershipActive]);
 
   // load more offers
   const onLoadMore = () => {
@@ -829,13 +840,17 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       !isSpecialOfferPage &&
       !isRangePage &&
       !isModelPage &&
-      !isDynamicFilterPage,
+      !isDynamicFilterPage &&
+      !isAllManufacturersPage &&
+      !isPartnershipActive,
     [
       isManufacturerPage,
       isSpecialOfferPage,
       isRangePage,
       isModelPage,
       isDynamicFilterPage,
+      isAllManufacturersPage,
+      isPartnershipActive,
     ],
   );
 
@@ -867,23 +882,21 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           </div>
         </div>
       )}
-
       {isNewPage && isRangePage
         ? null
         : !(isSpecialOfferPage && isCarSearch) &&
-          featured && <ReadMoreBlock featured={featured} />}
-
+          featured && (
+            <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+          )}
       {isNewPage && isRangePage ? (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
           pageData={pageData}
         />
       ) : null}
-
       {isAllManufacturersPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
-
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
           dataUiTestId={`${dataUiTestId}_top-offers`}
@@ -908,7 +921,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         />
       )}
 
-      {shouldRenderCheckbox && !isAllManufacturersPage && !isPartnershipActive && (
+      {shouldRenderCheckbox && (
         <div className="-mv-400 -stretch-left">
           <Checkbox
             id="specialOffer"
@@ -1077,7 +1090,11 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           ) : null}
 
           {isCarousel && (
-            <RelatedCarousel cards={carousel.cards} title={carousel.title} />
+            <RelatedCarousel
+              cards={carousel.cards}
+              title={carousel.title}
+              dataUiTestId={`${dataUiTestId}_related`}
+            />
           )}
         </>
       )}
@@ -1091,6 +1108,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
                 label: 'Terms and conditions apply',
               }}
               classNames={{ color: 'teal' }}
+              dataUiTestId={`${dataUiTestId}_link_terms-and-conditions`}
             >
               Terms and conditions apply
             </RouterLink>
@@ -1104,7 +1122,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
-
       {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
     </>
   );

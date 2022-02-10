@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Icon from '../../../atoms/icon';
 import Flame from '../../../assets/icons/Flame';
 
@@ -9,7 +9,7 @@ describe('<MediaGallery />', () => {
   const resetMocks = () => {
     return {
       isCar: false,
-      images: ['test', 'test'],
+      images: ['test1', 'test2'],
       videoSrc: 'test.com',
       threeSixtyVideoSrc: 'test.com',
       imacaAssets: null,
@@ -30,7 +30,7 @@ describe('<MediaGallery />', () => {
   });
 
   it('should be render', () => {
-    const wrapper = shallow(<MediaGallery {...mocks} />);
-    expect(wrapper.find('.pdp--flag').exists()).toBeTruthy();
+    const { container } = render(<MediaGallery {...mocks} />);
+    expect(container.getElementsByClassName('pdp--flag').length).toBe(1);
   });
 });

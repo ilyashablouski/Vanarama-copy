@@ -78,8 +78,6 @@ const LoginForm: React.FC<ILoginFormProps> = ({
           width="45ch"
         />
       </Formgroup>
-      {/* TODO: Make Link work with next/link */}
-      {/* <NextLink href="/password-reset" passHref> */}
       <Link
         dataTestId="forgot-password"
         dataUiTestId="login-form-forgot-password"
@@ -88,7 +86,6 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       >
         Problems Logging In?
       </Link>
-      {/* </NextLink> */}
       <Button
         dataTestId="login-form_submit"
         type="submit"

@@ -33,6 +33,7 @@ interface IDerangedVehicleCardProps {
     conversionId: Nullable<number>,
     capId: Nullable<string>,
   ) => void;
+  dataUiTestId?: string;
 }
 
 const DerangedVehicleCard = React.memo(
@@ -42,6 +43,7 @@ const DerangedVehicleCard = React.memo(
     title,
     data,
     handleClick,
+    dataUiTestId,
   }: IDerangedVehicleCardProps) => {
     const imageProps = {
       imageSrc:
@@ -57,6 +59,7 @@ const DerangedVehicleCard = React.memo(
       <ProductCard
         loadImage={loadImage}
         lazyLoad={lazyLoad}
+        dataUiTestId={dataUiTestId}
         {...imageProps}
         header={{
           accentIcon: data.isOnOffer ? (
@@ -78,12 +81,18 @@ const DerangedVehicleCard = React.memo(
             size="large"
             separator="."
             priceDescription="Per Month Exc.VAT"
+            dataUitestId={dataUiTestId}
           />
           <Button
             color="teal"
             fill="solid"
             label="Enquire Now"
             size="regular"
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_card_button_enquire-now`
+                : undefined
+            }
             onClick={() =>
               handleClick(
                 imageProps.imageSrc,

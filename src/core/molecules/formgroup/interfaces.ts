@@ -16,6 +16,10 @@ export interface IFormgroupProps extends IBaseProps {
    */
   hint?: string;
   /**
+   * Use hint button for help users to enter address manually if it's not on the Loqate database
+   */
+  hintButton?: React.ReactNode;
+  /**
    * Whether to display the children inline
    */
   inline?: boolean;

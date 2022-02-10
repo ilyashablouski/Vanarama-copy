@@ -32,7 +32,11 @@ const Drawer = ({
         })}
       >
         <Text tag="div" className="title">
-          <span>{title}</span>
+          <span
+            data-uitestid={dataUiTestId ? `${dataUiTestId}_title` : undefined}
+          >
+            {title}
+          </span>
           <Icon
             icon={<Close />}
             onClick={onCloseDrawer}

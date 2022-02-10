@@ -26,8 +26,18 @@ export interface Partner_partner_logo {
   file: Partner_partner_logo_file | null;
 }
 
+export interface Partner_partner_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface Partner_partner_hero_image_file_details {
+  image: Partner_partner_hero_image_file_details_image;
+}
+
 export interface Partner_partner_hero_image_file {
   url: string;
+  details: Partner_partner_hero_image_file_details;
 }
 
 export interface Partner_partner_hero_image {

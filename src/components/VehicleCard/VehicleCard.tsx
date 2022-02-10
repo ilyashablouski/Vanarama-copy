@@ -175,7 +175,14 @@ const VehicleCard = React.memo(
               >
                 {title?.title || ''}
               </Heading>
-              <Heading tag="span" size="small" color="dark">
+              <Heading
+                tag="span"
+                size="small"
+                color="dark"
+                dataUiTestId={
+                  dataUiTestId ? `${dataUiTestId}_span_description` : undefined
+                }
+              >
                 {title?.description || ''}
               </Heading>
             </RouterLink>
@@ -188,6 +195,11 @@ const VehicleCard = React.memo(
                 <CardLabel
                   text="Free Home charger"
                   icon={<FreeHomeCharger />}
+                  dataUiTestId={
+                    dataUiTestId
+                      ? `${dataUiTestId}_free-home-charger`
+                      : undefined
+                  }
                 />
               )}
               {isFreeInsuranceVehicle && (

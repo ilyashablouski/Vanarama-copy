@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { gql, useMutation, useApolloClient } from '@apollo/client';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
@@ -19,7 +19,6 @@ import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
-import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -30,16 +29,18 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
+import { useLogOutMutation, useServiceBannerQuery } from './gql';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
-export const LOGOUT_USER_MUTATION = gql`
-  mutation LogOutUserMutation {
-    logoutV2 {
-      isSuccessful
-    }
-  }
-`;
+const creteLoginLink = (redirect: string) => ({
+  label: 'Login',
+  href: '/account/login-register',
+  query: {
+    redirect,
+  },
+  as: '/account/login-register',
+});
 
 const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
@@ -49,16 +50,13 @@ const HeaderContainer: FC = () => {
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
 
-  const LOGIN_LINK = {
-    label: 'Login',
-    href: '/account/login-register',
-    query: {
-      redirect: router.asPath,
-    },
-    as: '/account/login-register',
-  };
+  const loginLink = useMemo(() => creteLoginLink(router.asPath), [
+    router.asPath,
+  ]);
 
-  const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
+  const { data: serviceBannerData } = useServiceBannerQuery();
+
+  const [logOut] = useLogOutMutation();
   const { data: storedPersonData, refetch } = useStoredPersonQuery(
     operationResult => {
       if (operationResult?.storedPerson) {
@@ -236,9 +234,10 @@ const HeaderContainer: FC = () => {
   if (partnership) {
     return (
       <Header
+        serviceBanner={serviceBannerData?.serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
-        loginLink={LOGIN_LINK}
+        loginLink={loginLink}
         phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
         topBarLinks={partnershipLinks}
         customHomePath={partnershipHomeLink}
@@ -249,9 +248,10 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
+        serviceBanner={serviceBannerData?.serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
-        loginLink={LOGIN_LINK}
+        loginLink={loginLink}
         phoneNumberLink={phoneNumberLink}
         topBarLinks={[...offerLink, ...topLinks]}
       />

@@ -29,11 +29,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import {
-  toPriceFormat,
-  getOptionFromList,
-  isJanSaleCampaignEnabled,
-} from '../../utils/helpers';
+import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -135,12 +131,6 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
-const JanuarySaleBanners = dynamic(
-  () => import('core/atoms/january-sale-banner/JanuarySaleBanner'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 interface IDetailsPageProps {
   capId: number;
@@ -614,17 +604,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      {isJanSaleCampaignEnabled() && isMobile && (
-        <JanuarySaleBanners className="pdp-page-wrapper" />
-      )}
       <div className="pdp--promo">
         <PartnershipLogoHeader />
-        {isJanSaleCampaignEnabled() && !isMobile && (
-          <JanuarySaleBanners className="pdp-page-wrapper" />
-        )}
-        {!isJanSaleCampaignEnabled() && isFreeInsurance && (
-          <FreeInsuranceBanner />
-        )}
+        {isFreeInsurance && <FreeInsuranceBanner />}
       </div>
       <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
@@ -705,6 +687,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                   <div>
                     Free Home charger*
                     <span>Worth £1049 + FREE installation.</span>
+                    <RouterLink
+                      link={{
+                        href:
+                          '/legal/terms-and-conditions/free-home-charge-points-terms',
+                        label: '',
+                      }}
+                      classNames={{ color: 'teal', size: 'small' }}
+                    >
+                      *T&Cs apply
+                    </RouterLink>
                   </div>
                 }
                 icon={<FreeHomeCharger />}
@@ -716,18 +708,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                   <div>
                     1yr Free Insurance*
                     <span>Worth average £538.</span>
+                    <RouterLink
+                      link={{
+                        href: '/legal/terms-and-conditions',
+                        label: '',
+                      }}
+                      classNames={{ color: 'teal', size: 'small' }}
+                    >
+                      *T&Cs apply
+                    </RouterLink>
                   </div>
                 }
                 icon={<FreeInsuranceCardLabelIcon />}
               />
             )}
-          </div>
-        )}
-        {(isElectric || isFreeInsurance) && (
-          <div className="subject-to--- no-p-bottom">
-            <span>
-              <sup>*</sup>Subject to Eligibility
-            </span>
           </div>
         )}
         <VehicleTechDetails

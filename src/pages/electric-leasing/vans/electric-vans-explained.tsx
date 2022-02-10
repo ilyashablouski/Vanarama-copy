@@ -60,8 +60,9 @@ export const EVHubPage: NextPage<IProps> = ({
         <div className="hero--left">
           <ImageV2
             plain
-            quality={60}
+            quality={70}
             size="expand"
+            optimisedHost
             lazyLoad={false}
             className="hero--image -pt-000"
             width={heroImage?.details.image.width ?? 1710}
@@ -77,6 +78,7 @@ export const EVHubPage: NextPage<IProps> = ({
             text={sections?.hero?.[0]?.title || ''}
             titleTag="h1"
             color="orange"
+            dataUiTestId="electric-vans-explained-page_hero_title"
           />
         </div>
       </Hero>
@@ -150,6 +152,7 @@ export const EVHubPage: NextPage<IProps> = ({
                 }}
                 withoutDefaultClassName
                 dataTestId="view-all-cars"
+                dataUiTestId="electric-vans-explained-page_carousel_button_view-all"
               >
                 <div className="button--inner">View All Offers</div>
               </RouterLink>

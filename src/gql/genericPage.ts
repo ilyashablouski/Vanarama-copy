@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import createApolloClient from '../apolloClient';
 import {
   GenericPageQuery,
@@ -12,6 +12,10 @@ import {
   GenericPageBreadcrumbsQuery,
   GenericPageBreadcrumbsQueryVariables,
 } from '../../generated/GenericPageBreadcrumbsQuery';
+import {
+  GenericPageCarouselData,
+  GenericPageCarouselDataVariables,
+} from '../../generated/GenericPageCarouselData';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import FeaturedSection from '../components/FeaturedSection';
 import {
@@ -25,6 +29,7 @@ export interface IGenericPage {
   data: GenericPageQuery;
   pageHead?: GenericPageHeadQuery;
   error?: IErrorProps;
+  articleUrl?: string;
 }
 
 export type IGenericPageProps = IPageWithData<IGenericPage> | IPageWithError;
@@ -424,6 +429,7 @@ export const GENERIC_PAGE = gql`
       }
       intro
       body
+      bodyLower
     }
   }
   ${TilesContainer.fragments.tiles}
@@ -534,3 +540,27 @@ export function getGenericSearchPageSlug(newUrl: string) {
     },
   });
 }
+
+export const GENERIC_PAGE_CAROUSEL_DATA = gql`
+  query GenericPageCarouselData($slug: String!) {
+    genericPage(slug: $slug) {
+      carouselPosition
+      productFilter {
+        title
+        manufacturer
+        vehicleType
+        range
+        bodyType
+        fuelType
+        transmission
+      }
+    }
+  }
+`;
+
+export const useGenericPageCarouselData = () => {
+  return useLazyQuery<
+    GenericPageCarouselData,
+    GenericPageCarouselDataVariables
+  >(GENERIC_PAGE_CAROUSEL_DATA);
+};

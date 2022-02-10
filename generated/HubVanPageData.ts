@@ -29,8 +29,18 @@ export interface HubVanPageData_hubVanPage_featuredImage {
   file: HubVanPageData_hubVanPage_featuredImage_file | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_hero_image_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HubVanPageData_hubVanPage_sections_hero_image_file_details {
+  image: HubVanPageData_hubVanPage_sections_hero_image_file_details_image;
+}
+
 export interface HubVanPageData_hubVanPage_sections_hero_image_file {
   url: string;
+  details: HubVanPageData_hubVanPage_sections_hero_image_file_details;
 }
 
 export interface HubVanPageData_hubVanPage_sections_hero_image {

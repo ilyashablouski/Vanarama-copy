@@ -55,6 +55,7 @@ const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
       )}
     </div>
     <ImageV2
+      quality={60}
       width={image?.file?.details.image.width}
       height={image?.file?.details.image.height}
       src={image?.file?.url || ''}

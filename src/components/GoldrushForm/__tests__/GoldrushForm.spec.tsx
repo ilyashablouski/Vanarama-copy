@@ -321,7 +321,7 @@ describe('<GoldrushForm />', () => {
     // ACT
     render(
       <GoldrushForm
-        callBack
+        isCallBackForm
         heading={testHeading}
         onSubmit={onSubmitMock}
         isPostcodeVisible
@@ -345,7 +345,7 @@ describe('<GoldrushForm />', () => {
     // ACT
     render(
       <GoldrushForm
-        callBack
+        isCallBackForm
         heading={testHeading}
         onSubmit={onSubmitMock}
         isPostcodeVisible

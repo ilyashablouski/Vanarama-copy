@@ -25,6 +25,7 @@ export interface IHeroProps extends IBaseProps {
   expand?: boolean;
   terms?: string | null;
   isCustomSearchButtonLabel?: boolean;
+  dataUiTestId?: string;
 }
 
 export interface IHeroTitleProps extends IBaseProps {

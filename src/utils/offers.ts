@@ -17,6 +17,8 @@ import { GET_CAR_DERIVATIVES } from '../containers/OrdersInformation/gql';
 import {
   VehicleListUrl,
   VehicleListUrl_vehicleList as IVehicleList,
+  VehicleListUrl_vehicleList_edges,
+  VehicleListUrl_vehicleList_pageInfo,
   VehicleListUrlVariables,
 } from '../../generated/VehicleListUrl';
 import { VEHICLE_LIST_URL } from '../gql/vehicleList';
@@ -32,62 +34,96 @@ import {
   GET_PRODUCT_DERIVATIVES,
   getVehiclesCardsData,
 } from '../containers/GlobalSearchContainer/gql';
-import { IBlogCarouselCard } from '../components/BlogCarousel/interface';
+import { ICarouselCard } from '../components/BlogCarousel/interface';
+
+type VehicleListQueryVariables = {
+  derivativeIds: string[];
+  after?: string;
+};
+
+async function queryVehicleList(
+  client: ApolloClient<NormalizedCacheObject | object>,
+  variables: VehicleListQueryVariables,
+) {
+  return client.query<VehicleListUrl | null, VehicleListUrlVariables>({
+    query: VEHICLE_LIST_URL,
+    variables,
+  });
+}
+
+function getHasNextPage(vehicleListQueryData: VehicleListUrl | null): boolean {
+  return Boolean(vehicleListQueryData?.vehicleList.pageInfo.hasNextPage);
+}
+
+function getLastCursor(
+  vehicleListQueryData: VehicleListUrl | null,
+): string | null {
+  return vehicleListQueryData?.vehicleList.pageInfo.endCursor ?? null;
+}
+
+function getPageInfoFallback(): VehicleListUrl_vehicleList_pageInfo {
+  return {
+    startCursor: null,
+    endCursor: null,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  };
+}
+
+async function queryEntireVehicleList(
+  client: ApolloClient<NormalizedCacheObject | object>,
+  derivativeIds: string[],
+): Promise<IVehicleList> {
+  let hasNextPage = true;
+  let lastCursor: string | null = null;
+
+  const edges: (VehicleListUrl_vehicleList_edges | null)[] = [];
+  let pageInfo = getPageInfoFallback();
+  let totalCount = 0;
+
+  async function fetchVehicleList(): Promise<null> {
+    const variables: VehicleListQueryVariables = {
+      derivativeIds,
+    };
+
+    if (lastCursor) {
+      variables.after = lastCursor;
+    }
+
+    const { data: vehicleListQueryData } = await queryVehicleList(
+      client,
+      variables,
+    );
+
+    hasNextPage = getHasNextPage(vehicleListQueryData);
+    lastCursor = getLastCursor(vehicleListQueryData);
+
+    if (vehicleListQueryData) {
+      pageInfo = vehicleListQueryData.vehicleList.pageInfo;
+      totalCount = vehicleListQueryData.vehicleList.totalCount;
+      edges.push(...(vehicleListQueryData.vehicleList.edges || []));
+    }
+
+    return hasNextPage ? fetchVehicleList() : null;
+  }
+
+  await fetchVehicleList();
+
+  return { pageInfo, totalCount, edges };
+}
 
 export const getVehicleListUrlQuery = async (
   client: ApolloClient<NormalizedCacheObject | object>,
   derivativeIds: string[],
 ) => {
   try {
-    const { data: vehicleListUrlQuery } = await client.query<
-      VehicleListUrl,
-      VehicleListUrlVariables
-    >({
-      query: VEHICLE_LIST_URL,
-      variables: {
-        derivativeIds,
-      },
-    });
-    const vehicleListUrlData = {
-      pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
-      totalCount: vehicleListUrlQuery?.vehicleList.totalCount || 0,
-      edges: vehicleListUrlQuery?.vehicleList.edges,
-    } as IVehicleList;
-    const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
-    if (hasNextPage) {
-      const edges = vehicleListUrlQuery?.vehicleList.edges || [];
-      const lastCursor = edges[edges.length - 1]?.cursor;
-      const { data: fetchMoreData } = await client.query<
-        VehicleListUrl,
-        VehicleListUrlVariables
-      >({
-        query: VEHICLE_LIST_URL,
-        variables: {
-          derivativeIds,
-          after: lastCursor,
-        },
-      });
-      vehicleListUrlData.pageInfo =
-        fetchMoreData?.vehicleList.pageInfo || vehicleListUrlData.pageInfo;
-      vehicleListUrlData.totalCount =
-        fetchMoreData?.vehicleList.totalCount || vehicleListUrlData.totalCount;
-      vehicleListUrlData.edges = [
-        ...(vehicleListUrlData.edges || []),
-        ...(fetchMoreData?.vehicleList?.edges || []),
-      ];
-    }
-    return vehicleListUrlData;
+    return await queryEntireVehicleList(client, derivativeIds);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('Error:', err);
     return {
       totalCount: 0,
-      pageInfo: {
-        startCursor: null,
-        endCursor: null,
-        hasNextPage: false,
-        hasPreviousPage: false,
-      },
+      pageInfo: getPageInfoFallback(),
       edges: null,
     };
   }
@@ -400,10 +436,10 @@ export const specialOffersForBlogPageRequest = async (
   };
 };
 
-export const vehicleCarouselForBlogPageRequest = async (
+export const vehicleCarouselRequest = async (
   client: ApolloClient<NormalizedCacheObject | object>,
   productFilter: ProductDerivativeFilter,
-): Promise<IBlogCarouselCard[]> => {
+): Promise<ICarouselCard[]> => {
   const vehiclesList = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,

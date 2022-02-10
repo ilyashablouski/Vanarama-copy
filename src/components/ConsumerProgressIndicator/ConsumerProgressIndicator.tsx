@@ -18,7 +18,7 @@ type QueryParams = {
 
 const ConsumerProgressIndicator: React.FC = () => {
   const { pathname, query, asPath } = useRouter();
-  const { uuid } = query as QueryParams;
+  const { uuid, redirect } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
 
@@ -26,14 +26,6 @@ const ConsumerProgressIndicator: React.FC = () => {
   const steps = useMemo(() => generateConsumerSteps(), []);
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;
-
-  const queryParams = getUrlParam({
-    uuid,
-    redirect:
-      currentStep < cachedLastStep && !asPath.includes('?')
-        ? undefined
-        : asPath,
-  });
 
   // do not show redirect param in url
   const queryParamsMask = getUrlParam({
@@ -56,7 +48,10 @@ const ConsumerProgressIndicator: React.FC = () => {
   return (
     <ProgressIndicator activeStep={cachedLastStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
-        const url = `${href}${queryParams}`;
+        const url = `${href}${getUrlParam({
+          uuid,
+          redirect: step < cachedLastStep ? redirect || asPath : undefined,
+        })}`;
         const urlMask = `${href}${queryParamsMask}`;
 
         return (

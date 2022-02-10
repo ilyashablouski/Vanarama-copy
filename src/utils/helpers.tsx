@@ -429,9 +429,8 @@ export function moveFactoryOrderToEnd(
 export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
-  ACCOUNT_SECTION_MAINTENANCE = 'DIG-7932',
-  BLOG_CAR_PAGES_CAROUSEL = 'DIG-7807',
-  JAN_SALE = 'DIG-8417',
+  NOVUNA_LEASE = 'DIG-8639',
+  EDIT_PERSONAL_INFORMATION = 'DIG-8722',
 }
 
 function isFeatureFlagEnabled(
@@ -449,39 +448,29 @@ function isFeatureFlagEnabled(
   return cookies.includes(`${featureFlag}=1`);
 }
 
-export function isAccountSectionFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(
-    cookies,
-    FeatureFlags.ACCOUNT_SECTION_MAINTENANCE,
-  );
-}
-
 export function isUpdatedServicePlanFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
 }
 
-export function isBlogCarPagesCarouselFeatureFlagEnabled(
-  cookies: Cookies.CookiesStatic<object> | string | undefined,
-) {
-  return isFeatureFlagEnabled(cookies, FeatureFlags.BLOG_CAR_PAGES_CAROUSEL);
-}
-
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
 
-const janSaleStartTime = Number(new Date(2022, 0, 12, 0, 0, 1));
-const janSaleEndTime = Number(new Date(2022, 0, 31, 23, 59, 59));
-export function isJanSaleCampaignEnabled() {
+const hitachiNewNameStartTime = Number(new Date(2022, 1, 14, 0, 1, 0));
+export function isHitachiChangedName() {
   const currentTime = Date.now();
 
-  if (currentTime >= janSaleStartTime && currentTime <= janSaleEndTime) {
+  if (currentTime >= hitachiNewNameStartTime) {
     return true;
   }
 
-  return Cookies.get(FeatureFlags.JAN_SALE) === '1';
+  return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
+}
+
+export function isEditPersonalInformationFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.EDIT_PERSONAL_INFORMATION);
 }

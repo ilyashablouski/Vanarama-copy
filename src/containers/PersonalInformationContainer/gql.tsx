@@ -27,7 +27,7 @@ export const CREATE_UPDATE_PERSON = gql`
 
 export const GET_PERSON_INFORMATION_DATA = gql`
   query MyAccount($personUuid: String!) {
-    myAccountDetailsByPersonUuid(personUuid: $personUuid) {
+    myAccountMaskedDetailsByPersonUuid(personUuid: $personUuid) {
       personUuid
       firstName
       lastName

@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import SecureModalLayout from '../../../containers/SecureModalLayout';
 import BankDetailsFormContainer from '../../../containers/BankDetailsFormContainer/BankDetailsFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
@@ -55,11 +56,13 @@ const BankDetailsPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <BankDetailsFormContainer
-        isEdit={!!redirect}
-        personUuid={personUuid}
-        onCompleted={data => onCompleteClick(data?.createUpdateBankAccount)}
-      />
+      <SecureModalLayout>
+        <BankDetailsFormContainer
+          isEdit={!!redirect}
+          personUuid={personUuid}
+          onCompleted={data => onCompleteClick(data?.createUpdateBankAccount)}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

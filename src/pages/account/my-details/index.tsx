@@ -16,13 +16,12 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import { MyAccount_myAccountDetailsByPersonUuid } from '../../../../generated/MyAccount';
+import { MyAccount_myAccountMaskedDetailsByPersonUuid } from '../../../../generated/MyAccount';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
-import { redirectToMaintenancePage } from '../../../utils/redirect';
+import { isEditPersonalInformationFeatureFlagEnabled } from '../../../utils/helpers';
 import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
@@ -36,11 +35,12 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 interface IProps {
-  person: MyAccount_myAccountDetailsByPersonUuid;
+  person: MyAccount_myAccountMaskedDetailsByPersonUuid;
   uuid: string;
   partyUuid: string;
   orders: GetMyOrders_myOrders[];
   quotes: GetMyOrders_myOrders[];
+  isEditPersonalInformationEnabled?: boolean;
 }
 
 const handleNetworkError = () =>
@@ -78,7 +78,13 @@ const metaData = {
   breadcrumbs: null,
 };
 
-const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
+const MyDetailsPage: NextPage<IProps> = ({
+  person,
+  uuid,
+  orders,
+  quotes,
+  isEditPersonalInformationEnabled,
+}) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
   const isLoading = useAccountRouteChangeStart(router);
@@ -113,7 +119,13 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
           />
           <div className="row:my-details">
             <div className="my-details--form">
-              <PersonalInformationFormContainer person={person} uuid={uuid} />
+              <PersonalInformationFormContainer
+                person={person}
+                uuid={uuid}
+                isEditPersonalInformationEnabled={
+                  isEditPersonalInformationEnabled
+                }
+              />
             </div>
             <div className="my-details--form ">
               <Heading
@@ -160,13 +172,9 @@ const MyDetailsPage: NextPage<IProps> = ({ person, uuid, orders, quotes }) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
+  const isEditPersonalInformationEnabled = isEditPersonalInformationFeatureFlagEnabled(
     context.req.headers.cookie,
   );
-
-  if (!isAccountSectionEnabled) {
-    return redirectToMaintenancePage();
-  }
 
   const client = initializeApollo(undefined, context);
   try {
@@ -218,10 +226,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     ]);
     return addApolloState(client, {
       props: {
-        person: personData.myAccountDetailsByPersonUuid,
+        person: personData.myAccountMaskedDetailsByPersonUuid,
         uuid: data.getPerson.uuid,
         orders: orders.myOrders,
         quotes: quotes.myOrders,
+        isEditPersonalInformationEnabled,
       },
     });
   } catch {

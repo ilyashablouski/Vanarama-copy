@@ -10,12 +10,14 @@ import { ILeagueProps } from './interfaces';
 const baseImageUrl = `${process.env.HOST_DOMAIN}/Assets/images-optimised/home`;
 
 const League: FC<ILeagueProps> = memo(props => {
-  const { altText, link } = props;
+  const { altText, link, dataUiTestId } = props;
 
   return (
     <>
       <div>
         <ImageV2
+          sizes="50vw"
+          quality={60}
           width={290}
           height={86}
           src={`${baseImageUrl}/national-league.png`}
@@ -30,11 +32,19 @@ const League: FC<ILeagueProps> = memo(props => {
         </Heading>
         <Text color="darker" size="lead" tag="span">
           Read About Our Sponsorship{' '}
-          <Link color="teal" href={link}>
+          <Link
+            color="teal"
+            href={link}
+            dataUiTestId={
+              dataUiTestId ? `${dataUiTestId}_link_here` : undefined
+            }
+          >
             Here
           </Link>
         </Text>
         <ImageV2
+          sizes="30vw"
+          quality={60}
           width={206}
           height={206}
           src={`${baseImageUrl}/league-cup.png`}

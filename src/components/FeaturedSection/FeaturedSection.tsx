@@ -37,6 +37,7 @@ interface IFeaturedEx {
   videoWidth?: string | number;
   videoHeight?: string | number;
   videoClassName?: string;
+  dataUiTestId?: string;
 }
 
 const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
@@ -45,6 +46,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
   videoWidth,
   videoHeight,
   id,
+  dataUiTestId,
 }) => {
   const {
     video,
@@ -77,12 +79,14 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
 
       {image && (
         <ImageV2
+          quality={60}
           width={image?.file?.details.image.width ?? 1000}
           height={image?.file?.details.image.height ?? 650}
           src={
             image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
+          dataUiTestId={dataUiTestId}
         />
       )}
 
@@ -102,6 +106,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
             size="large"
             color="black"
             tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
+            dataUiTestId={dataUiTestId ? `${dataUiTestId}_heading` : undefined}
           >
             {title}
           </Heading>

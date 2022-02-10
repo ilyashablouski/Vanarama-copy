@@ -6,7 +6,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
-import Image from 'core/atoms/image/Image';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import createApolloClient from '../../apolloClient';
@@ -42,7 +41,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
-import { decodeData, encodeData } from '../../utils/data';
+import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
@@ -52,10 +51,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
-import {
-  convertErrorToProps,
-  isJanSaleCampaignEnabled,
-} from '../../utils/helpers';
+import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
   IPageWithError,
@@ -84,7 +80,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
@@ -131,23 +126,22 @@ export const VansPage: NextPage<IProps> = ({
     data?.hubVanPage.sections,
   );
 
+  const heroSection = data?.hubVanPage.sections?.hero;
+  const heroImage = heroSection?.image?.file;
+  const heroLabel = heroSection?.heroLabel?.[0];
+
+  const tilesSection = data?.hubVanPage.sections?.tiles;
+  const tiles = tilesSection?.tiles;
+  const tilesTitle = tilesSection?.tilesTitle;
+  const tilesTitleTag = tilesSection?.titleTag;
+
+  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
     offer?.capId,
   );
-  const tiles = data?.hubVanPage.sections?.tiles?.tiles;
-  const tilesTitle = data?.hubVanPage.sections?.tiles?.tilesTitle;
-  const tilesTitleTag = data?.hubVanPage.sections?.tiles?.titleTag;
-
-  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
   const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
-
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
 
   const imageFeatured1 = getSectionsData(
     ['featured1', 'image', 'file'],
@@ -160,59 +154,56 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale searchPodVansData={searchPodVansData} variant="vans" />
-      ) : (
-        <Hero searchPodVansData={searchPodVansData}>
-          <div className="nlol">
-            <p>Find Your</p>
-            <h2>New Lease Of Life</h2>
-            <p>With Vanarama</p>
-          </div>
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={optimisationOptions}
-              className="hero--image"
-              plain
-              size="expand"
-              src={
-                getSectionsData(
-                  ['hero', 'image', 'file', 'url'],
-                  data?.hubVanPage.sections,
-                ) ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-              }
-            />
-          </div>
-          {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
-            <HeroPrompt
-              label={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
-                ''
-              }
-              url={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-              }
-              text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-              btnVisible={
-                data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-              }
-            />
-          )}
-        </Hero>
-      )}
+      <Hero
+        dataUiTestId="van-leasing-page_hero"
+        searchPodVansData={searchPodVansData}
+      >
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
+        <div>
+          <ImageV2
+            plain
+            quality={70}
+            size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            width={heroImage?.details.image.width ?? 1710}
+            height={heroImage?.details.image.height ?? 1278}
+            src={
+              heroImage?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+        {heroLabel?.visible && (
+          <HeroPrompt
+            label={heroLabel?.link?.text || ''}
+            url={heroLabel?.link?.url || ''}
+            text={heroLabel?.text || ''}
+            btnVisible={heroLabel?.link?.visible}
+          />
+        )}
+      </Hero>
 
       <HeadingSection
         titleTag={titleTagText}
         header={headerText}
         description={descriptionText}
+        dataUiTestId="van-leasing-page_heading-section"
       />
 
       <hr className="-fullwidth" />
       {offer && (
-        <div className="row:featured-product">
+        <div
+          className="row:featured-product"
+          data-uitestid="van-leasing-page_deal-of-month_section"
+        >
           <DealOfMonth
+            dataUiTestId="van-leasing-page_deal-of-month"
             isPersonal={isPersonal}
             imageSrc={offer?.imageUrl || ''}
             keyInfo={offer?.keyInformation || []}
@@ -467,6 +458,9 @@ export const VansPage: NextPage<IProps> = ({
                 ) || null,
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(['steps', 'heading'], data?.hubVanPage.sections),
+            )}`}
           >
             {getSectionsData(['steps', 'heading'], data?.hubVanPage.sections)}
           </Heading>
@@ -480,6 +474,7 @@ export const VansPage: NextPage<IProps> = ({
               heading={step.title || ''}
               step={index + 1}
               text={step.body || ''}
+              dataUiTestId="van-leasing-page_leasing-step"
             />
           ))}
         </LazyLoadComponent>
@@ -500,6 +495,12 @@ export const VansPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -510,6 +511,12 @@ export const VansPage: NextPage<IProps> = ({
               imageFeatured1?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           />
         )}
 
@@ -525,6 +532,12 @@ export const VansPage: NextPage<IProps> = ({
                 ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured1', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           >
             {getSectionsData(['featured1', 'title'], data?.hubVanPage.sections)}
           </Heading>
@@ -566,6 +579,12 @@ export const VansPage: NextPage<IProps> = ({
             }
             width="100%"
             height="360px"
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured2', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}_media`}
           />
         ) : (
           <ImageV2
@@ -576,6 +595,12 @@ export const VansPage: NextPage<IProps> = ({
               imageFeatured2?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
+            dataUiTestId={`van-leasing-page_${normalizeString(
+              getSectionsData(
+                ['featured2', 'title'],
+                data?.hubVanPage.sections,
+              ),
+            )}`}
           />
         )}
         <div className="-inset -middle -col-400">
@@ -662,16 +687,21 @@ export const VansPage: NextPage<IProps> = ({
           tiles={tiles}
           title={tilesTitle || ''}
           titleTag={tilesTitleTag}
+          dataUiTestId="van-leasing-page_why-lease-with-vanarama-titles"
         />
       )}
 
-      <section className="row:manufacturer-grid">
+      <section
+        className="row:manufacturer-grid"
+        data-uitestid="van-leasing-page_search-by-manufacturer_section"
+      >
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
             className="-a-center -mb-500"
             tag="h2"
+            dataUiTestId="van-leasing-page_search-by-manufacturer_title"
           >
             Search By Manufacturer
           </Heading>
@@ -686,6 +716,9 @@ export const VansPage: NextPage<IProps> = ({
                   href: man.href,
                 }}
                 withoutDefaultClassName
+                dataUiTestId={`van-leasing-page_search-by-manufacturer_${normalizeString(
+                  man.label,
+                )}_link`}
               >
                 <div className="button--inner">{man.label}</div>
               </RouterLink>
@@ -694,11 +727,14 @@ export const VansPage: NextPage<IProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <NationalLeagueBanner />
+      <NationalLeagueBanner dataUiTestId="van-leasing-page_national-league-banner" />
 
-      <FeaturedOnSection />
+      <FeaturedOnSection dataUiTestId="van-leasing-page_featured-on" />
 
-      <section className="row:trustpilot">
+      <section
+        className="row:trustpilot"
+        data-uitestid="van-leasing-page_trustpilot_section"
+      >
         <TrustPilot />
       </section>
 

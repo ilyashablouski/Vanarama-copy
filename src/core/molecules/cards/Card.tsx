@@ -46,6 +46,7 @@ const Card: FC<ICardProps> = memo(props => {
       )}
       {imageSrc !== undefined ? (
         <ImageV2
+          quality={60}
           className="card-image"
           width={imageWidth}
           height={imageHeight}
@@ -55,10 +56,13 @@ const Card: FC<ICardProps> = memo(props => {
           dataTestId="card-image"
           alt={alt}
           plain
+          dataUiTestId={dataUiTestId}
         />
       ) : null}
       {extrasRender && <div className="extras">{extrasRender}</div>}
-      {(title?.title || title?.link) && <CardTitle {...title} />}
+      {(title?.title || title?.link) && (
+        <CardTitle {...title} dataUiTestId={dataUiTestId} />
+      )}
       {description && (
         <Text color="dark" dataTestId="card-description">
           {description}

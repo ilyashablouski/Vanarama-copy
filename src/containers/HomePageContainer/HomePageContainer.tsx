@@ -22,7 +22,6 @@ import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import { isJanSaleCampaignEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -63,7 +62,6 @@ const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 const HomePageHero = dynamic(() => import('./HomePageHero'));
-const HeroJanSale = dynamic(() => import('../../components/Hero/HeroJanSale'));
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -117,20 +115,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      {isJanSaleCampaignEnabled() ? (
-        <HeroJanSale
-          searchPodCarsData={searchPodCarsData}
-          searchPodVansData={searchPodVansData}
-          activeSearchIndex={2}
-          variant="cars"
-        />
-      ) : (
-        <HomePageHero
-          searchPodCarsData={searchPodCarsData}
-          searchPodVansData={searchPodVansData}
-          data={data}
-        />
-      )}
+      <HomePageHero
+        searchPodCarsData={searchPodCarsData}
+        searchPodVansData={searchPodVansData}
+        data={data}
+      />
       {data?.homePage && (
         <section className="row:lead-text">
           <Heading
@@ -409,6 +398,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ) : (
               <ImageV2
+                quality={60}
                 objectFit="cover"
                 width={imageFeatured1?.details.image.width ?? 1000}
                 height={imageFeatured1?.details.image.height ?? 650}
@@ -438,6 +428,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ) : (
               <ImageV2
+                quality={60}
                 objectFit="cover"
                 width={imageFeatured2?.details.image.width ?? 1000}
                 height={imageFeatured2?.details.image.height ?? 650}

@@ -15,8 +15,6 @@ import {
   isUserAuthenticatedSSR,
   removeAuthenticationCookies,
 } from '../../../utils/authentication';
-import { isAccountSectionFeatureFlagEnabled } from '../../../utils/helpers';
-import { redirectToMaintenancePage } from '../../../utils/redirect';
 import { useAuthReset } from '../../../containers/LoginFormContainer/gql';
 import { isBrowser } from '../../../utils/deviceType';
 
@@ -179,14 +177,6 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
-    context.req.headers.cookie,
-  );
-
-  if (!isAccountSectionEnabled) {
-    return redirectToMaintenancePage();
-  }
-
   const client = initializeApollo(undefined, context);
   // If user has authenticated already make redirect to details page
   if (

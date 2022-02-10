@@ -23,6 +23,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 import EvHeroSection from './EvHeroSection';
 import RelatedCarousel from '../../components/RelatedCarousel';
+import { normalizeString } from '../../utils/data';
 
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -32,6 +33,7 @@ type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
     searchPodCarsData: IFilterList;
+    dataUiTestId?: string;
   }
 >;
 
@@ -43,6 +45,7 @@ const ECarsPage: FC<IProps> = ({
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
   searchPodCarsData,
+  dataUiTestId,
 }) => {
   const { sectionsAsArray } = data?.genericPage;
   const featuresArrayWithLink = (sectionsAsArray?.featured || []).filter(
@@ -93,6 +96,7 @@ const ECarsPage: FC<IProps> = ({
         xlargeText
         withSeparator={false}
         className="-a-center"
+        dataUiTestId={dataUiTestId}
       />
       <HeadingSection
         titleTag="h2"
@@ -161,7 +165,11 @@ const ECarsPage: FC<IProps> = ({
           </RouterLink>
         </div>
       </CardsSection>
-      <BenefitsComponent />
+      <BenefitsComponent
+        dataUiTestId={
+          dataUiTestId ? `${dataUiTestId}_benefits-component` : undefined
+        }
+      />
       <LeadTextComponent
         leadText={leadTexts[1]}
         withSeparator={false}
@@ -183,10 +191,22 @@ const ECarsPage: FC<IProps> = ({
                 cards?.titleTag || null,
               ) as keyof JSX.IntrinsicElements
             }
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_${normalizeString(cards?.name)}_title`
+                : undefined
+            }
           >
             {cards?.name}
           </Heading>
-          <CardsSectionCarousel cards={cards?.cards || []} />
+          <CardsSectionCarousel
+            cards={cards?.cards || []}
+            dataUiTestId={
+              dataUiTestId
+                ? `${dataUiTestId}_cards-section-carousel`
+                : undefined
+            }
+          />
         </div>
       )}
       <LeadTextComponent

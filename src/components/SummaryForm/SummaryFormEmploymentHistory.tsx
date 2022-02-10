@@ -46,7 +46,6 @@ function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {
         },
       ];
 
-      // FIXME: Get these magic strings from the backend with enums in the future
       if (
         employment.employmentStatus === 'Employed' ||
         employment.employmentStatus === 'Self employed'

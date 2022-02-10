@@ -12,6 +12,7 @@ import {
 } from '../../../utils/dataLayerHelpers';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
+import SecureModalLayout from '../../../containers/SecureModalLayout';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
@@ -211,14 +212,16 @@ const AboutYouPage: NextPage = () => {
           />
         </div>
       )}
-      <AboutFormContainer
-        isEdit={!!redirect}
-        orderId={order?.uuid || ''}
-        personUuid={personUuid}
-        onCompleted={data => clickOnComplete(data?.createUpdatePerson!)}
-        onLogInClick={handleLogInCLick}
-        onRegistrationClick={handleRegistrationClick}
-      />
+      <SecureModalLayout>
+        <AboutFormContainer
+          isEdit={!!redirect}
+          orderId={order?.uuid || ''}
+          personUuid={personUuid}
+          onCompleted={data => clickOnComplete(data?.createUpdatePerson!)}
+          onLogInClick={handleLogInCLick}
+          onRegistrationClick={handleRegistrationClick}
+        />
+      </SecureModalLayout>
     </OLAFLayout>
   );
 };

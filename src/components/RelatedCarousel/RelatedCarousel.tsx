@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
 
 import cx from 'classnames';
+import { IBaseProps } from 'core/interfaces/base';
 import { GenericPageQuery_genericPage_sections_carousel_cards as ICarouselCard } from '../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
@@ -27,16 +28,17 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
 });
 
-interface IProps {
+interface IProps extends IBaseProps {
   cards: (ICarouselCard | null)[] | null;
   title: Nullable<string>;
   renderNewPagination?: boolean;
   className?: string;
 }
 
-const renderCarouselSlide = (card: ICarouselCard) => (
+const renderCarouselSlide = (card: ICarouselCard, dataUiTestId?: string) => (
   <SwiperSlide key={card.name}>
     <Card
+      dataUiTestId={dataUiTestId ? `${dataUiTestId}_card` : undefined}
       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       className="card__article"
       imageSrc={
@@ -71,6 +73,9 @@ const renderCarouselSlide = (card: ICarouselCard) => (
           label: card.link?.text || '',
         }}
         classNames={{ color: 'teal' }}
+        dataUiTestId={
+          dataUiTestId ? `${dataUiTestId}_read-more_link` : undefined
+        }
       />
     </Card>
   </SwiperSlide>
@@ -81,6 +86,7 @@ const RelatedCarousel = ({
   title,
   renderNewPagination,
   className,
+  dataUiTestId,
 }: IProps) => {
   const resultCards = useMemo(
     () => cards?.filter(item => !!item) as ICarouselCard[],
@@ -92,7 +98,14 @@ const RelatedCarousel = ({
       <div className="row:bg-lighter">
         <div className="row:carousel">
           {title && (
-            <Heading size="large" color="black" tag="h3">
+            <Heading
+              size="large"
+              color="black"
+              tag="h3"
+              dataUiTestId={
+                dataUiTestId ? `${dataUiTestId}_heading` : undefined
+              }
+            >
               {title}
             </Heading>
           )}
@@ -102,8 +115,11 @@ const RelatedCarousel = ({
             paginationComponent={
               renderNewPagination ? <Pagination /> : undefined
             }
+            dataUiTestId={dataUiTestId}
           >
-            {resultCards.map(renderCarouselSlide)}
+            {resultCards.map((item, index) =>
+              renderCarouselSlide(item, `${dataUiTestId}_${index}`),
+            )}
           </CarouselSwiper>
         </div>
       </div>

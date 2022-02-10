@@ -16,6 +16,7 @@ interface IPageHeadingSection {
   header: Nullish<string>;
   description?: Nullable<string>;
   largeText?: boolean;
+  dataUiTestId?: string;
 }
 
 const HeadingSection = ({
@@ -23,6 +24,7 @@ const HeadingSection = ({
   header,
   description,
   largeText,
+  dataUiTestId,
 }: IPageHeadingSection) =>
   header || description ? (
     <section className="row:lead-text">
@@ -31,12 +33,20 @@ const HeadingSection = ({
           size={`${largeText ? 'large' : 'xlarge'}`}
           color="black"
           tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
+          dataUiTestId={dataUiTestId ? `${dataUiTestId}_title` : undefined}
         >
           {header}
         </Heading>
       )}
       {description && (
-        <Text tag="span" size="lead" color="darker">
+        <Text
+          tag="span"
+          size="lead"
+          color="darker"
+          dataUiTestId={
+            dataUiTestId ? `${dataUiTestId}_description` : undefined
+          }
+        >
           {description}
         </Text>
       )}

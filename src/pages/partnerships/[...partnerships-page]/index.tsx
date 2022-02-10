@@ -42,7 +42,7 @@ import {
 import { VehicleSearchTypeEnum } from '../../../../entities/global';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
 
-const Image = dynamic(() => import('core/atoms/image'), {
+const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
@@ -191,6 +191,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         searchPodCarsData={decodeData(searchPodCarsData)}
         activeSearchIndex={2}
         searchType={searchType}
+        dataUiTestId="partnerships-home-page_"
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown
@@ -209,14 +210,18 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           }}
         />
         <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            alt="Hero Image"
-            dataTestId="insurance_hero-image"
+          <ImageV2
+            quality={70}
             size="expand"
+            optimisedHost
+            lazyLoad={false}
+            className="hero--image -pt-000"
+            dataTestId="insurance_hero-image"
+            width={image?.file?.details.image.width}
+            height={image?.file?.details.image.height}
             src={image?.file?.url || ''}
+            alt="Hero Image"
             plain
-            className="hero--image"
           />
         </div>
       </Hero>
@@ -231,7 +236,11 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         >
           <TabList className="lead">
             {vehicleTypes?.map((type: string, i: number) => (
-              <Tab key={type} index={i}>
+              <Tab
+                key={type}
+                index={i}
+                dataUiTestId={`partnerships-home-page_carousel-tab_${type}`}
+              >
                 {type}
               </Tab>
             ))}
@@ -253,6 +262,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
                             ? LeaseTypeEnum.PERSONAL
                             : LeaseTypeEnum.BUSINESS
                         }
+                        dataUiTestId="partnerships-home-page_product-carousel"
                         data={{
                           derivatives:
                             vehicleType?.derivatives?.derivatives || null,
@@ -270,36 +280,36 @@ const PartnershipsHomePage: NextPage<IProps> = ({
                         dataTestIdBtn="van-view-offer"
                       />
 
-                      <div className="-justify-content-row -pt-500">
-                        <RouterLink
-                          className="button"
-                          classNames={{
-                            color: 'teal',
-                            solid: true,
-                            size: 'regular',
+                    <div className="-justify-content-row -pt-500">
+                      <RouterLink
+                        dataUiTestId="partnerships-home-page_button_view-more"
+                        className="button"
+                        classNames={{
+                          color: 'teal',
+                          solid: true,
+                          size: 'regular',
+                        }}
+                        link={{
+                          label: 'View More',
+                          href: vehicleType?.href || '',
+                          query: {
+                            fuelTypes,
+                          },
+                        }}
+                        withoutDefaultClassName
+                        dataTestId={vehicleType?.dataTestId}
+                      >
+                        <div
+                          className="button--inner"
+                          style={{
+                            backgroundColor: colourPrimary || undefined,
+                            borderColor: colourPrimary || undefined,
                           }}
-                          link={{
-                            label: 'View More',
-                            href: vehicleType?.href || '',
-                            query: {
-                              fuelTypes,
-                            },
-                          }}
-                          withoutDefaultClassName
-                          dataTestId={vehicleType?.dataTestId}
                         >
-                          <div
-                            className="button--inner"
-                            style={{
-                              backgroundColor: colourPrimary || undefined,
-                              borderColor: colourPrimary || undefined,
-                            }}
-                          >
-                            View More
-                          </div>
-                        </RouterLink>
-                      </div>
-                    </LazyLoadComponent>
+                          View More
+                        </div>
+                      </RouterLink>
+                    </div>
                   </div>
                 </TabPanel>
               );
