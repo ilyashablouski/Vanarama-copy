@@ -1,4 +1,4 @@
-FROM node:12.22.7-alpine
+FROM node:16.13.1-alpine3.15
 
 ARG API_KEY
 ARG API_URL
