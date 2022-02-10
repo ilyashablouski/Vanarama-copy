@@ -279,6 +279,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
                         customCTABackground={colourPrimary || undefined}
                         dataTestIdBtn="van-view-offer"
                       />
+                    </LazyLoadComponent>
 
                     <div className="-justify-content-row -pt-500">
                       <RouterLink

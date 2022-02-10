@@ -2395,23 +2395,36 @@ exports[`<Header /> renders correctly 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -2480,7 +2493,7 @@ exports[`<Header /> renders correctly 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span
@@ -2709,23 +2722,36 @@ exports[`<Header /> renders correctly 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -2794,7 +2820,7 @@ exports[`<Header /> renders correctly 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span
@@ -3023,23 +3049,36 @@ exports[`<Header /> renders correctly 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -3108,7 +3147,7 @@ exports[`<Header /> renders correctly 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span
@@ -5685,23 +5724,36 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -5770,7 +5822,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span
@@ -5999,23 +6051,36 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -6084,7 +6149,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span
@@ -6313,23 +6378,36 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 <div
                   className="image -expand -plain"
                 >
-                  <div
+                  <span
                     style={
                       Object {
+                        "background": "none",
+                        "border": 0,
                         "boxSizing": "border-box",
                         "display": "block",
+                        "height": "initial",
                         "margin": 0,
+                        "opacity": 1,
                         "overflow": "hidden",
+                        "padding": 0,
                         "position": "relative",
+                        "width": "initial",
                       }
                     }
                   >
-                    <div
+                    <span
                       style={
                         Object {
+                          "background": "none",
+                          "border": 0,
                           "boxSizing": "border-box",
                           "display": "block",
+                          "height": "initial",
+                          "margin": 0,
+                          "opacity": 1,
+                          "padding": 0,
                           "paddingTop": "41.02564102564102%",
+                          "width": "initial",
                         }
                       }
                     />
@@ -6398,7 +6476,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                         }
                       />
                     </noscript>
-                  </div>
+                  </span>
                 </div>
               </i>
               <span

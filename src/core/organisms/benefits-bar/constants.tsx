@@ -1,5 +1,6 @@
-import ImageV2 from 'core/atoms/image/ImageV2';
+import React from 'react';
 
+import ImageV2 from 'core/atoms/image/ImageV2';
 import PriceLowest from 'core/assets/icons/PriceLowest';
 import ReturnCircle from 'core/assets/icons/ReturnCircle';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';
