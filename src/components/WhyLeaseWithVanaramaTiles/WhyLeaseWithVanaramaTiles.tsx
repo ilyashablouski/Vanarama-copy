@@ -93,7 +93,20 @@ const WhyLeaseWithVanaramaTiles = ({
               heading: props => (
                 <Text {...props} size="lead" color="darker" tag="h3" />
               ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
+              paragraph: props => (
+                <Text
+                  {...props}
+                  tag="p"
+                  color="darker"
+                  dataUiTestId={
+                    dataUiTestId
+                      ? `${dataUiTestId}_${normalizeString(
+                          tile.title,
+                        )}_description`
+                      : undefined
+                  }
+                />
+              ),
             }}
           />
         </Tile>

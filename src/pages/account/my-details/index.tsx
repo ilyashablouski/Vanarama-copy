@@ -21,11 +21,7 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import { GetMyOrders_myOrders } from '../../../../generated/GetMyOrders';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import {
-  isAccountSectionFeatureFlagEnabled,
-  isEditPersonalInformationFeatureFlagEnabled,
-} from '../../../utils/helpers';
-import { redirectToMaintenancePage } from '../../../utils/redirect';
+import { isEditPersonalInformationFeatureFlagEnabled } from '../../../utils/helpers';
 import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
@@ -176,16 +172,9 @@ const MyDetailsPage: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const isAccountSectionEnabled = isAccountSectionFeatureFlagEnabled(
-    context.req.headers.cookie,
-  );
   const isEditPersonalInformationEnabled = isEditPersonalInformationFeatureFlagEnabled(
     context.req.headers.cookie,
   );
-
-  if (!isAccountSectionEnabled) {
-    return redirectToMaintenancePage();
-  }
 
   const client = initializeApollo(undefined, context);
   try {
