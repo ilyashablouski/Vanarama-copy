@@ -49,45 +49,43 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
         '-hide': !isVisible,
       })}
     >
-      <button
-        type="button"
-        className="cookie-dialog__close"
-        onClick={hideCookieBar}
-      >
-        <CloseSharp />
-      </button>
-      <Text className="cookie-dialog__text" size="small">
-        We use cookies to improve your experience. Find out more in our{' '}
-        <RouterLink
-          prefetch={false}
-          classNames={{
-            color: 'primary',
-          }}
-          link={{
-            href: '/legal/cookies-policy',
-            label: 'cookie policy',
-          }}
-        >
-          cookie policy
-        </RouterLink>
-        .
-      </Text>
-      <div className="cookie-dialog__actions">
-        <Button
-          dataUiTestId="cookieBar-accept-button"
-          fill="solid"
-          color="primary"
-          label="Accept"
-          onClick={handleAcceptClick}
-        />
+      <section className="row:">
+        <Text className="cookie-dialog__text" size="small">
+          This website stores cookies on your computer. These cookies will allow
+          us to remember you and your preferences. <br /> We use this
+          information to improve your browsing experience. <br /> To find out
+          more, please read our{' '}
+          <RouterLink
+            prefetch={false}
+            classNames={{
+              color: 'primary',
+            }}
+            link={{
+              href: '/legal/cookies-policy',
+              label: 'cookie policy',
+            }}
+          >
+            <br /> cookie policy
+          </RouterLink>
+          .
+        </Text>
         <Button
           dataUiTestId="cookieBar-decline-button"
           fill="outline"
           color="primary"
-          label="Decline"
+          label="Don't Accept"
           onClick={handleDeclineClick}
+          className="decline"
         />
-      </div>
+        <Button
+          dataUiTestId="cookieBar-accept-button"
+          fill="solid"
+          color="primary"
+          label="Accept All"
+          onClick={handleAcceptClick}
+          className="accept"
+        />
+      </section>
     </div>
   );
 }
