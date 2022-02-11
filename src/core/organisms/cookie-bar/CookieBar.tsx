@@ -6,12 +6,22 @@ import Button from 'core/atoms/button';
 
 import RouterLink from '../../../components/RouterLink';
 import { pushCookiePreferencesDataLayer } from '../../../utils/dataLayerHelpers';
+import { TColor } from '../../../types/color';
 
 interface IProps {
   onAccept: () => void;
   onDecline: () => void;
   onAfterHide: () => void;
 }
+
+const cookieBarLink = {
+  href: '/legal/cookies-policy',
+  label: 'cookie policy',
+};
+
+const cookieBarLinkClassNames = {
+  color: 'primary' as TColor,
+};
 
 function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
   const [isVisible, setVisible] = useState(true);
@@ -56,13 +66,8 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
           more, please read our{' '}
           <RouterLink
             prefetch={false}
-            classNames={{
-              color: 'primary',
-            }}
-            link={{
-              href: '/legal/cookies-policy',
-              label: 'cookie policy',
-            }}
+            classNames={cookieBarLinkClassNames}
+            link={cookieBarLink}
           >
             <br /> cookie policy
           </RouterLink>
