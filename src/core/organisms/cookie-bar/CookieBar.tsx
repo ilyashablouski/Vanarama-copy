@@ -4,7 +4,6 @@ import cx from 'classnames';
 import Text from 'core/atoms/text';
 import Button from 'core/atoms/button';
 
-import CloseSharp from '../../assets/icons/CloseSharp';
 import RouterLink from '../../../components/RouterLink';
 import { pushCookiePreferencesDataLayer } from '../../../utils/dataLayerHelpers';
 
