@@ -1,10 +1,5 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
-import {
-  isMobile,
-  checkOfferLabel,
-  getFullPriceFromCard,
-  checkDESCSortingOrder,
-} from './utils';
+import { isMobile, checkOfferLabel, getFullPriceFromCard } from './utils';
 
 Cypress.Commands.add('scrollToFooter', () => {
   const timeToWait = 500;
@@ -57,17 +52,6 @@ Cypress.Commands.add('checkSpecialOffer', dataUiTestId => {
   cy.get('div.card.product').then(checkOfferLabel);
 });
 
-Cypress.Commands.add('sortDESC', dataUiTestId => {
-  cy.get(`select[data-uitestid=${dataUiTestId}_select]`).select('rate_DESC');
-  cy.intercept({ pathname: '/graphql', method: 'POST' }).as('graphqlRequest');
-  cy.wait('@graphqlRequest');
-  cy.wait('@graphqlRequest')
-    .wait('@graphqlRequest')
-    .wait('@graphqlRequest')
-    .get('.card.product', { timeout: 4000 })
-    .then(checkDESCSortingOrder);
-});
-
 Cypress.Commands.add('changeLeaseType', dataUiTstId => {
   cy.get(`span[data-uitestid=${dataUiTstId}_Business]`).click();
   const oldPrices = [];
@@ -82,7 +66,7 @@ Cypress.Commands.add('changeLeaseType', dataUiTstId => {
     });
   cy.get(`span[data-uitestid=${dataUiTstId}_Personal]`).click();
 
-  cy.get('@productCards').then($cards => {
+  cy.get('@productCards').should($cards => {
     $cards.each(function checkPrice(index) {
       const price = getFullPriceFromCard(this);
       expect(price).to.be.below(oldPrices[index]);
@@ -136,7 +120,7 @@ Cypress.Commands.add(
     cy.location('pathname').should('eq', '/wishlist');
     cy.get('div.card.product')
       .should('be.visible')
-      .then($cards => {
+      .should($cards => {
         const wishCardTitle = $cards[0]
           .querySelector('span.heading.-large')
           .textContent.toLowerCase();

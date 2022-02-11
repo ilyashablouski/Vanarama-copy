@@ -2,7 +2,11 @@
 
 import { APP_URL, VAN_LEASING_TEST_ID } from '../../../../support/utils';
 
-describe('Search Page Container, Van Leasing manufacturer page', () => {
+describe(`
+  [Search Page Container]
+  Van Leasing
+  - manufacturer page
+  `, () => {
   const dataUiTestId = VAN_LEASING_TEST_ID;
   const cardContainer = 'top-offers';
 

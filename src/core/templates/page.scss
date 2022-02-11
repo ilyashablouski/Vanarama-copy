@@ -111,7 +111,6 @@
 
 .page\: {
   &default {
-    overflow-x: hidden;
     --page-gap: calc(var(--layout-gap) * 1);
     @include mobile {
       --page-gap: calc(var(--layout-gap) * 2);
@@ -180,9 +179,6 @@
         }
       }
 
-      @include mobile-tablet {
-        padding-top: 89px;
-      }
     }
   }
 
