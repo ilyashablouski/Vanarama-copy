@@ -31,11 +31,6 @@ describe('trimSlug', () => {
       'car-leasing/land-rover/range-rover-evoque',
     );
   });
-  it('trimSlug should return same slug', () => {
-    expect(trimSlug('car-leasing/land-rover/range-rover-evoque')).toBe(
-      'car-leasing/land-rover/range-rover-evoque',
-    );
-  });
 });
 
 describe('isBodyStyleForCMS', () => {
