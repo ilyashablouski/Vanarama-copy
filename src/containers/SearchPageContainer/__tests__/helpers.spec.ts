@@ -40,12 +40,8 @@ describe('trimSlug', () => {
 
 describe('isBodyStyleForCMS', () => {
   it(`manufacturer url param string shouldn't return true if compared 
-    body url param and vice versa`, () => {
+    body url param`, () => {
     expect(isBodyStyleForCMS(bodyUrls, 'iveco')).toEqual(false);
-  });
-
-  it(`manufacturer url param string shouldn't return true if compared 
-    body url param and vice versa`, () => {
     expect(isBodyStyleForCMS(bodyUrls, 'specialist-van-leasing')).toEqual(true);
   });
 });
