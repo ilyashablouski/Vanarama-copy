@@ -1,7 +1,6 @@
 import { AppProps } from 'next/app';
 import { ReactChild, ReactPortal } from 'react';
 import { IBreadcrumb } from './breadcrumbs';
-import { IManufacturersSlug } from './manufacturerSlug';
 
 export type Nullish<T> = T | null | undefined;
 export type Nullable<T> = T | null;
@@ -15,7 +14,6 @@ export enum PageTypeEnum {
 
 export type IPageWithData<T> = {
   pageType: PageTypeEnum.DEFAULT;
-  migrationSlugs?: IManufacturersSlug;
 } & T;
 
 export type IPageWithError = {
