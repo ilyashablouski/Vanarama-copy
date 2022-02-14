@@ -13,6 +13,7 @@ ARG IMG_OPTIMISATION_HOST
 ARG NODE_OPTIONS
 ARG HOST_DOMAIN
 ARG HEAP_ID
+ARG SEO_BUCKET_NAME
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
