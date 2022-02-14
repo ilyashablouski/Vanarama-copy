@@ -1,5 +1,10 @@
 import preloadAll from 'jest-next-dynamic';
-import { onMadeLineBreaks, trimSlug } from '../helpers';
+import {
+  bodyUrls,
+  isBodyStyleForCMS,
+  onMadeLineBreaks,
+  trimSlug,
+} from '../helpers';
 
 describe('<helpers />', () => {
   beforeEach(async () => {
@@ -30,5 +35,17 @@ describe('trimSlug', () => {
     expect(trimSlug('car-leasing/land-rover/range-rover-evoque')).toBe(
       'car-leasing/land-rover/range-rover-evoque',
     );
+  });
+});
+
+describe('isBodyStyleForCMS', () => {
+  it(`manufacturer url param string shouldn't return true if compared 
+    body url param and vice versa`, () => {
+    expect(isBodyStyleForCMS(bodyUrls, 'iveco')).toEqual(false);
+  });
+
+  it(`manufacturer url param string shouldn't return true if compared 
+    body url param and vice versa`, () => {
+    expect(isBodyStyleForCMS(bodyUrls, 'specialist-van-leasing')).toEqual(true);
   });
 });
