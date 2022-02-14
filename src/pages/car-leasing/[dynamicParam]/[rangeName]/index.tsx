@@ -202,9 +202,7 @@ export async function getServerSideProps(
         .then(resp => resp.data);
 
       if (vehiclesList.vehicleList.totalCount === 0) {
-        if (vehiclesList.vehicleList.totalCount === 0) {
-          return redirectToParentPage(data?.genericPage.metaData.breadcrumbs);
-        }
+        return redirectToParentPage(data?.genericPage.metaData.breadcrumbs);
       }
 
       try {
