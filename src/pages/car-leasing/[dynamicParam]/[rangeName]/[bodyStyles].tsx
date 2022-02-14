@@ -43,6 +43,7 @@ import {
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { Nullable } from '../../../../types/common';
+import { redirectToParentPage } from "../../../../utils/redirect";
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -183,6 +184,10 @@ export async function getServerSideProps(
           },
         })
         .then(resp => resp.data);
+
+      if (vehiclesList.vehicleList.totalCount === 0) {
+        return redirectToParentPage(data?.genericPage.metaData.breadcrumbs);
+      }
 
       responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
       if (responseCapIds.length) {
