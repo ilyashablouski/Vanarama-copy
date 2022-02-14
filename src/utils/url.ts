@@ -1,4 +1,3 @@
-import { createContext } from 'react';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
@@ -10,11 +9,11 @@ import {
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
-import { IManufacturersSlug } from '../types/manufacturerSlug';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
+const RANGES_WITH_LEGACY_URL = ['e-tron'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -76,21 +75,24 @@ export const generateUrlForBreadcrumb = (
   manufacturer: string,
   pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
-  manufacturersWithSlug: string[],
+  rangeSlug?: string,
+  leasing?: string,
 ) => {
-  // use slugs instead of legacy url
-  if (
-    [
-      ...manufacturersWithSlug.map(value => value.toLowerCase()),
-      ...MANUFACTURERS_WITH_SLUGS,
-    ].includes(manufacturer.toLowerCase())
-  ) {
+  // workaround only for Abarth 595C Convertible
+  if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
     return (
       pageData?.slug ||
       slugArray
         // workaround only for Abarth 595C Convertible
         .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
         .join('/')
+    );
+  }
+
+  // workaround only for Audi e-tron
+  if (rangeSlug && RANGES_WITH_LEGACY_URL.includes(rangeSlug) && leasing) {
+    return (
+      pageData?.slug || `${manufacturer}-${leasing}/etron/${slugArray[3]}.html`
     );
   }
 
@@ -108,7 +110,6 @@ export const getProductPageBreadCrumb = (
   genericPagesData: IGenericPages['items'],
   slug: string,
   cars: boolean | undefined,
-  manufacturersWithSlugs?: string[],
 ) => {
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
@@ -127,23 +128,20 @@ export const getProductPageBreadCrumb = (
     const manufacturerLink = {
       link: {
         label: manufacturer?.name,
-        href: `/${generateUrlForBreadcrumb(
+        href: `/${generateUrlForBreadcrumb(manufacturerSlug, manufacturerPage, [
+          leasing,
           manufacturerSlug,
-          manufacturerPage,
-          [leasing, manufacturerSlug],
-          manufacturersWithSlugs || [],
-        ) || `${manufacturerSlug}-${leasing}.html`}`,
+        ]) || `${manufacturerSlug}-${leasing}.html`}`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `/${generateUrlForBreadcrumb(
+        href: `/${generateUrlForBreadcrumb(manufacturerSlug, rangePage, [
+          leasing,
           manufacturerSlug,
-          rangePage,
-          [leasing, manufacturerSlug, rangeSlug],
-          manufacturersWithSlugs || [],
-        ) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
+          rangeSlug,
+        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
       },
     };
 
@@ -281,27 +279,3 @@ export const getMetadataForPagination = (
         : canonicalUrl,
   };
 };
-
-export const getManufacturerJson = async () => {
-  const jsonData = await fetch(
-    `https://${process.env.SEO_BUCKET_NAME}/migration/data.json`,
-  );
-  return (await jsonData.json()) as Promise<IManufacturersSlug>;
-};
-
-export const manufacturersSlugInitialState = {
-  cms: {
-    car: {
-      manufacturers: [],
-    },
-    lcv: {
-      manufacturers: [],
-    },
-  },
-};
-
-export const ManufacturersSlugContext = createContext<IManufacturersSlug>(
-  manufacturersSlugInitialState,
-);
-
-ManufacturersSlugContext.displayName = 'SlugMigrationContext';
