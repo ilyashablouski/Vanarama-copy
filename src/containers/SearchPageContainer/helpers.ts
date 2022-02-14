@@ -349,10 +349,6 @@ export const pageContentQueryExecutor = (
   });
 };
 
-export function getBodyStyleForCms(this: string, element: string) {
-  return this.indexOf(element) > -1 || element.indexOf(this) > -1;
-}
-
 export const sortValues = [
   {
     text: 'Price Low To High',
@@ -435,17 +431,20 @@ export const ssrCMSQueryExecutor = async (
 export const getCapsIds = (data: (IVehicles | null)[]) =>
   data?.map(vehicle => vehicle?.node?.derivativeId || '') || [];
 
-export const dynamicQueryTypeCheck = (value: string) => {
-  // check for bodystyle page
-  const isBodyStylePage = !!bodyUrls.find(
-    getBodyStyleForCms,
-    value.toLowerCase(),
+export const isBodyStyleForCMS = (bodyStyleUrls: string[], bodyStyle: string) =>
+  bodyStyleUrls.some(
+    element =>
+      element.indexOf(bodyStyle) === 0 || bodyStyle.indexOf(element) === 0,
   );
+
+export const dynamicQueryTypeCheck = (value: string) => {
+  // check for body style page
+  const isBodyStylePage = isBodyStyleForCMS(bodyUrls, value);
   // check for fuel page
   const isFuelType = !!fuelMapper[value as keyof typeof fuelMapper];
   // check for budget page
   const isBudgetType = !!budgetMapper[value as keyof typeof budgetMapper];
-  // check for transmissons page
+  // check for transmission page
   const isTransmissionPage = isTransmission(value);
 
   return {
