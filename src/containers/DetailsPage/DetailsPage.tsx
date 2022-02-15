@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useContext,
-} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
@@ -55,11 +49,7 @@ import { genericPagesQuery_genericPages as IGenericPages } from '../../../genera
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import {
-  getProductPageBreadCrumb,
-  ManufacturersSlugContext,
-  removeUrlQueryPart,
-} from '../../utils/url';
+import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
@@ -183,14 +173,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
-
-  const {
-    cms: {
-      car: { manufacturers: carManufacturers },
-      lcv: { manufacturers: lcvManufacturers },
-    },
-  } = useContext(ManufacturersSlugContext);
-
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
   const leaseScannerRef = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
@@ -363,17 +345,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         genericPages,
         genericPageHead?.genericPage.metaData.slug || '',
         cars,
-        cars ? carManufacturers : lcvManufacturers,
       )
     );
-  }, [
-    cars,
-    data,
-    genericPageHead,
-    genericPages,
-    carManufacturers,
-    lcvManufacturers,
-  ]);
+  }, [cars, data, genericPageHead, genericPages]);
 
   const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
     data,
