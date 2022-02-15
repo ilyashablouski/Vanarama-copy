@@ -282,13 +282,6 @@ export const getMetadataForPagination = (
   };
 };
 
-export const getManufacturerJson = async () => {
-  const jsonData = await fetch(
-    `https://${process.env.SEO_BUCKET_NAME}/migration/data.json`,
-  );
-  return (await jsonData.json()) as Promise<IManufacturersSlug>;
-};
-
 export const manufacturersSlugInitialState = {
   cms: {
     car: {
@@ -298,6 +291,18 @@ export const manufacturersSlugInitialState = {
       manufacturers: [],
     },
   },
+};
+
+export const getManufacturerJson = async () => {
+  try {
+    const jsonData = await fetch(
+      `https://${process.env.SEO_BUCKET_NAME}/migration/data.json`,
+    );
+    return (await jsonData.json()) as IManufacturersSlug;
+  } catch (e) {
+    console.error('Failed to get manufacturers with slug', e);
+    return manufacturersSlugInitialState;
+  }
 };
 
 export const ManufacturersSlugContext = createContext<IManufacturersSlug>(
