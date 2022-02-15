@@ -67,12 +67,9 @@ const GlobalSearchPageContainer = memo(
   }: IProps) => {
     const router = useRouter();
 
-    const {
-      cms: {
-        car: { manufacturers: carManufacturers },
-        lcv: { manufacturers: lcvManufacturers },
-      },
-    } = useContext(ManufacturersSlugContext);
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
 
     const searchTerm = useMemo(
       () => decodeURIComponent(router?.query.searchTerm as string),
@@ -491,9 +488,9 @@ const GlobalSearchPageContainer = memo(
                   derivativeId={vehicle?.derivativeId?.toString()}
                   url={
                     (isManufacturerMigrated(
-                      vehicle?.vehicleType === VehicleTypeEnum.CAR
-                        ? carManufacturers
-                        : lcvManufacturers,
+                      (vehicle?.vehicleType === VehicleTypeEnum.CAR
+                        ? migratedManufacturers?.car?.manufacturers
+                        : migratedManufacturers?.lcv?.manufacturers) || [],
                       vehicle?.manufacturerName || '',
                     )
                       ? vehicle?.url

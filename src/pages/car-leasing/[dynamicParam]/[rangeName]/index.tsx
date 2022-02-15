@@ -238,7 +238,7 @@ export async function getServerSideProps(
               return {
                 ...listItem,
                 url: isManufacturerMigrated(
-                  migrationSlugs?.cms?.car?.manufacturers || [],
+                  migrationSlugs?.vehicles?.car?.manufacturers || [],
                   manufacturerName,
                 )
                   ? `/${formattedUrl}`

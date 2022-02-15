@@ -43,11 +43,9 @@ const ModelCard = memo(
     const [modelUrl, setModelUrl] = useState(
       data?.url || data?.legacyUrl || '',
     );
-    const {
-      cms: {
-        car: { manufacturers: carManufacturers },
-      },
-    } = useContext(ManufacturersSlugContext);
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
 
     const { query } = useRouter();
     const { data: imageData } = useModelImages(
@@ -72,7 +70,12 @@ const ModelCard = memo(
           const { data: slug } = await getGenericSearchPageSlug(newUrl);
           setModelUrl(slug?.genericPage.metaData.legacyUrl || newUrl);
         };
-        if (!isManufacturerMigrated(carManufacturers, manufacturerName)) {
+        if (
+          !isManufacturerMigrated(
+            migratedManufacturers?.car?.manufacturers || [],
+            manufacturerName,
+          )
+        ) {
           initGetSlug();
           return;
         }
@@ -82,7 +85,7 @@ const ModelCard = memo(
           ),
         );
       }
-    }, [data, modelUrl, manufacturerName, rangeName, carManufacturers]);
+    }, [data, modelUrl, manufacturerName, rangeName, migratedManufacturers]);
 
     return (
       <Card

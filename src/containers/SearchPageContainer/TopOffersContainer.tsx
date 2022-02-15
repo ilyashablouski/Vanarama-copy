@@ -91,12 +91,9 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   const isDesktopLayout = useDesktopViewport();
 
-  const {
-    cms: {
-      car: { manufacturers: carManufacturers },
-      lcv: { manufacturers: lcvManufacturers },
-    },
-  } = useContext(ManufacturersSlugContext);
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -235,7 +232,9 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   const renderVehicleCard = (vehicle: IVehicles, index: number) => {
     const isMigrated = isManufacturerMigrated(
-      isCarSearch ? carManufacturers : lcvManufacturers,
+      (isCarSearch
+        ? migratedManufacturers?.car?.manufacturers
+        : migratedManufacturers?.lcv.manufacturers) || [],
       vehicle.node?.manufacturerName || '',
     );
     return (

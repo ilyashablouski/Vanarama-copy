@@ -60,12 +60,7 @@ const ResultsContainer = memo(
   }: IProps) => {
     const router = useRouter();
 
-    const {
-      cms: {
-        car: { manufacturers: carManufacturers },
-        lcv: { manufacturers: lcvManufacturers },
-      },
-    } = useContext(ManufacturersSlugContext);
+    const { vehicles } = useContext(ManufacturersSlugContext);
 
     const getCardData = useCallback(
       (capId: string, dataForCards = cardsData) =>
@@ -123,7 +118,9 @@ const ResultsContainer = memo(
             url={
               getUrlForVehicleCard(
                 vehicle,
-                isCarSearch ? carManufacturers : lcvManufacturers,
+                (isCarSearch
+                  ? vehicles?.car?.manufacturers
+                  : vehicles?.lcv?.manufacturers) || [],
               ) || ''
             }
             title={{

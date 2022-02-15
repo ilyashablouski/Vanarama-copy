@@ -291,7 +291,7 @@ export const getMetadataForPagination = (
 export const manufacturersSlugInitialState = {
   vehicles: {
     car: {
-      manufacturers: [],
+      manufacturers: ['BMW'],
     },
     lcv: {
       manufacturers: [],
@@ -306,6 +306,7 @@ export const getManufacturerJson = async () => {
     );
     return (await jsonData.json()) as IManufacturersSlug;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Failed to get manufacturers with slug', e);
     return manufacturersSlugInitialState;
   }
@@ -341,5 +342,6 @@ export const isManufacturerMigrated = (
 ) =>
   !!vehicleManufacturerName &&
   migratedManufacturers.some(
-    manufacturerName => manufacturerName === vehicleManufacturerName,
+    manufacturerName =>
+      manufacturerName.toLowerCase() === vehicleManufacturerName.toLowerCase(),
   );
