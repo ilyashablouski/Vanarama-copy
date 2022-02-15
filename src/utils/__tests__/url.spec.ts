@@ -395,16 +395,19 @@ describe('Url utils', () => {
         ),
       ).toEqual(false);
       expect(
-        shouldManufacturersStateUpdate(manufacturersSlugInitialState, {
-          vehicles: {
-            car: {
-              manufacturers: ['BMW'],
-            },
-            lcv: {
-              manufacturers: [],
+        shouldManufacturersStateUpdate(
+          {
+            vehicles: {
+              car: {
+                manufacturers: ['BMW'],
+              },
+              lcv: {
+                manufacturers: [],
+              },
             },
           },
-        }),
+          manufacturersSlugInitialState,
+        ),
       ).toEqual(true);
     });
   });
