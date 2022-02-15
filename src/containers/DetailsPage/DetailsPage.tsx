@@ -872,6 +872,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             capsId={capsId || []}
             vehicleType={vehicleType}
             leaseType={leaseType.toUpperCase() || ''}
+            lazyLoadForCarouselImages
           />
         </LazyLoadComponent>
       )}
