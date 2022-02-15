@@ -1,5 +1,5 @@
 export interface IManufacturersSlug {
-  cms: {
+  vehicles: {
     car: {
       manufacturers: string[];
     };

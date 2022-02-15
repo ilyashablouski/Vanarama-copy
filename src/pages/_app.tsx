@@ -12,6 +12,7 @@ import {
   PAGES_WITHOUT_LEASE_RESET,
   removeUrlQueryPart,
   SEARCH_PAGES,
+  shouldManufacturersStateUpdate,
 } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
@@ -119,7 +120,8 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   useFirstRenderEffect(() => {
     if (
       pageProps?.pageType !== PageTypeEnum.ERROR &&
-      pageProps?.migrationSlugs
+      pageProps?.migrationSlugs &&
+      shouldManufacturersStateUpdate(pageProps.migrationSlugs, migrationSlugs)
     ) {
       setMigrationSlugs(pageProps.migrationSlugs);
     }

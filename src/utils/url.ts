@@ -11,6 +11,7 @@ import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
 import { IManufacturersSlug } from '../types/manufacturerSlug';
+import { arraysAreEqual } from './helpers';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -283,7 +284,7 @@ export const getMetadataForPagination = (
 };
 
 export const manufacturersSlugInitialState = {
-  cms: {
+  vehicles: {
     car: {
       manufacturers: [],
     },
@@ -310,3 +311,22 @@ export const ManufacturersSlugContext = createContext<IManufacturersSlug>(
 );
 
 ManufacturersSlugContext.displayName = 'SlugMigrationContext';
+
+export const shouldManufacturersStateUpdate = (
+  newState: IManufacturersSlug,
+  oldState: IManufacturersSlug,
+) => {
+  const isCarsSlugsEqual =
+    newState &&
+    arraysAreEqual(
+      newState.vehicles.car.manufacturers,
+      oldState.vehicles.car.manufacturers,
+    );
+  const isLcvSlugsEqual =
+    newState &&
+    arraysAreEqual(
+      newState.vehicles.lcv.manufacturers,
+      oldState.vehicles.lcv.manufacturers,
+    );
+  return !(isCarsSlugsEqual && isLcvSlugsEqual);
+};
