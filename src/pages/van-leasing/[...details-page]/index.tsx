@@ -24,10 +24,7 @@ import {
   VehicleConfigurationByUrl,
   VehicleConfigurationByUrlVariables,
 } from '../../../../generated/VehicleConfigurationByUrl';
-import {
-  getManufacturerJson,
-  getVehicleConfigurationPath,
-} from '../../../utils/url';
+import { getVehicleConfigurationPath } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
 import {
@@ -80,7 +77,6 @@ import {
   GetColourAndTrimGroupListVariables,
 } from '../../../../generated/GetColourAndTrimGroupList';
 import { IOptionsList } from '../../../types/detailsPage';
-import { IManufacturersSlug } from '../../../types/manufacturerSlug';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -96,7 +92,6 @@ interface IProps {
   leaseTypeQuery?: LeaseTypeEnum | null;
   colourData: Nullable<IOptionsList[]>;
   trimData: Nullable<IOptionsList[]>;
-  migrationSlugs?: IManufacturersSlug;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -267,18 +262,16 @@ export async function getServerSideProps(
         },
       };
     }
-    const [vehicleConfigurationByUrlQuery, migrationSlugs] = await Promise.all([
-      client.query<
-        VehicleConfigurationByUrl,
-        VehicleConfigurationByUrlVariables
-      >({
-        query: VEHICLE_CONFIGURATION_BY_URL,
-        variables: {
-          url: getVehicleConfigurationPath(path),
-        },
-      }),
-      getManufacturerJson(),
-    ]);
+
+    const vehicleConfigurationByUrlQuery = await client.query<
+      VehicleConfigurationByUrl,
+      VehicleConfigurationByUrlVariables
+    >({
+      query: VEHICLE_CONFIGURATION_BY_URL,
+      variables: {
+        url: getVehicleConfigurationPath(path),
+      },
+    });
 
     const capId =
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
@@ -397,28 +390,20 @@ export async function getServerSideProps(
       // Obfuscate data from Googlebot
       productCard = encodeData(productCardData);
     }
-    let genericPages;
 
-    if (
-      !migrationSlugs.cms?.lcv.manufacturers.includes(
-        getCarDataQuery?.data?.derivativeInfo?.manufacturer.name || '',
-      )
-    ) {
-      genericPages = await client
-        .query<genericPagesQuery, genericPagesQueryVariables>({
-          query: GET_LEGACY_URLS,
-          variables: {
-            slugs: getBreadcrumbSlugs(data?.genericPage.metaData.slug),
-          },
-        })
-        .then(resp => resp?.data?.genericPages?.items);
-    }
+    const genericPages = await client
+      .query<genericPagesQuery, genericPagesQueryVariables>({
+        query: GET_LEGACY_URLS,
+        variables: {
+          slugs: getBreadcrumbSlugs(data?.genericPage.metaData.slug),
+        },
+      })
+      .then(resp => resp?.data?.genericPages?.items);
 
     return {
       props: {
         capId,
         capsId: capsIds,
-        migrationSlugs: migrationSlugs || null,
         data: getCarDataQuery.data,
         pdpContent: pdpContent || null,
         quote: quoteDataQuery.data,
