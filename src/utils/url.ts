@@ -316,17 +316,16 @@ export const shouldManufacturersStateUpdate = (
   newState: IManufacturersSlug,
   oldState: IManufacturersSlug,
 ) => {
-  const isCarsSlugsEqual =
-    newState &&
-    arraysAreEqual(
-      newState.vehicles.car.manufacturers,
-      oldState.vehicles.car.manufacturers,
-    );
-  const isLcvSlugsEqual =
-    newState &&
-    arraysAreEqual(
-      newState.vehicles.lcv.manufacturers,
-      oldState.vehicles.lcv.manufacturers,
-    );
-  return !(isCarsSlugsEqual && isLcvSlugsEqual);
+  const isNewStateExist =
+    newState?.vehicles?.car?.manufacturers?.length > 0 ||
+    newState?.vehicles?.lcv?.manufacturers?.length > 0;
+  const isCarsSlugsEqual = arraysAreEqual(
+    newState?.vehicles?.car?.manufacturers,
+    oldState?.vehicles?.car?.manufacturers,
+  );
+  const isLcvSlugsEqual = arraysAreEqual(
+    newState?.vehicles?.lcv?.manufacturers,
+    oldState?.vehicles?.lcv?.manufacturers,
+  );
+  return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
 };

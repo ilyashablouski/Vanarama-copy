@@ -120,7 +120,7 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   useFirstRenderEffect(() => {
     if (
       pageProps?.pageType !== PageTypeEnum.ERROR &&
-      pageProps?.migrationSlugs &&
+      pageProps?.migrationSlugs?.vehicles &&
       shouldManufacturersStateUpdate(pageProps.migrationSlugs, migrationSlugs)
     ) {
       setMigrationSlugs(pageProps.migrationSlugs);
