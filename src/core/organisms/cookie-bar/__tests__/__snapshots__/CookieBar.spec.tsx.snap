@@ -6,58 +6,49 @@ exports[`<CookieBar /> should render correctly 1`] = `
     class="cookie-dialog"
     role="dialog"
   >
-    <button
-      class="cookie-dialog__close"
-      type="button"
+    <section
+      class="row:"
     >
-      <svg
-        height="1em"
-        viewBox="0 0 512 512"
-        width="1em"
+      <span
+        class="text cookie-dialog__text -small -darker"
       >
-        <polygon
-          points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
-        />
-      </svg>
-    </button>
-    <span
-      class="text cookie-dialog__text -small -darker"
-    >
-      We use cookies to improve your experience. Find out more in our
-       
-      <a
-        class="link -primary"
-        data-testid="router-link"
-        href="/legal/cookies-policy"
-      >
-        cookie policy
-      </a>
-      .
-    </span>
-    <div
-      class="cookie-dialog__actions"
-    >
-      <button
-        class="button -primary -regular -solid"
-        data-uitestid="cookieBar-accept-button"
-      >
-        <div
-          class="button--inner"
+        This website stores cookies on your computer. These cookies will allow us to remember you and your preferences. 
+        <br />
+         We use this information to improve your browsing experience. 
+        <br />
+         To find out more, please read our
+         
+        <a
+          class="link -primary"
+          data-testid="router-link"
+          href="/legal/cookies-policy"
         >
-          Accept
-        </div>
-      </button>
+          <br />
+           cookie policy
+        </a>
+        .
+      </span>
       <button
-        class="button -primary -regular -outline"
+        class="button decline -primary -regular -outline"
         data-uitestid="cookieBar-decline-button"
       >
         <div
           class="button--inner"
         >
-          Decline
+          Don't Accept
         </div>
       </button>
-    </div>
+      <button
+        class="button accept -primary -regular -solid"
+        data-uitestid="cookieBar-accept-button"
+      >
+        <div
+          class="button--inner"
+        >
+          Accept All
+        </div>
+      </button>
+    </section>
   </div>
 </div>
 `;

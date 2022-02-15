@@ -12,6 +12,8 @@ import {
   formatToSlugFormat,
   getCanonicalUrl,
   getMetadataForPagination,
+  shouldManufacturersStateUpdate,
+  manufacturersSlugInitialState,
 } from '../url';
 
 describe('Url utils', () => {
@@ -382,6 +384,31 @@ describe('Url utils', () => {
       const canonicalUrl = `${origin}/test-canonical-path`;
 
       expect(getCanonicalUrl(canonicalUrl)).toEqual(canonicalUrl);
+    });
+  });
+  describe('shouldManufacturersStateUpdate', () => {
+    it('shouldManufacturersStateUpdate should return correct result', () => {
+      expect(
+        shouldManufacturersStateUpdate(
+          manufacturersSlugInitialState,
+          manufacturersSlugInitialState,
+        ),
+      ).toEqual(false);
+      expect(
+        shouldManufacturersStateUpdate(
+          {
+            vehicles: {
+              car: {
+                manufacturers: ['BMW'],
+              },
+              lcv: {
+                manufacturers: [],
+              },
+            },
+          },
+          manufacturersSlugInitialState,
+        ),
+      ).toEqual(true);
     });
   });
 

@@ -184,12 +184,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const router = useRouter();
   const isMobile = useMobileViewport();
 
-  const {
-    cms: {
-      car: { manufacturers: carManufacturers },
-      lcv: { manufacturers: lcvManufacturers },
-    },
-  } = useContext(ManufacturersSlugContext);
+  const migratedManufacturers = useContext(ManufacturersSlugContext);
 
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
   const leaseScannerRef = React.useRef<HTMLDivElement>(null);
@@ -363,17 +358,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         genericPages,
         genericPageHead?.genericPage.metaData.slug || '',
         cars,
-        cars ? carManufacturers : lcvManufacturers,
+        (cars
+          ? migratedManufacturers?.vehicles?.car?.manufacturers
+          : migratedManufacturers?.vehicles?.lcv?.manufacturers) || [],
       )
     );
-  }, [
-    cars,
-    data,
-    genericPageHead,
-    genericPages,
-    carManufacturers,
-    lcvManufacturers,
-  ]);
+  }, [cars, data, genericPageHead, genericPages, migratedManufacturers]);
 
   const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
     data,
@@ -898,6 +888,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             capsId={capsId || []}
             vehicleType={vehicleType}
             leaseType={leaseType.toUpperCase() || ''}
+            lazyLoadForCarouselImages
           />
         </LazyLoadComponent>
       )}

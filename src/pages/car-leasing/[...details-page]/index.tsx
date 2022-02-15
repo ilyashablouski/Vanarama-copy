@@ -384,7 +384,7 @@ export async function getServerSideProps(
     let genericPages;
 
     if (
-      !migrationSlugs.cms?.car.manufacturers.includes(
+      !migrationSlugs.vehicles?.car.manufacturers.includes(
         getCarDataQuery?.data?.derivativeInfo?.manufacturer.name || '',
       )
     ) {
