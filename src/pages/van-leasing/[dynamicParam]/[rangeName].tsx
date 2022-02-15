@@ -42,6 +42,7 @@ import {
 } from '../../../../generated/filterList';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { redirectToParentPage } from '../../../utils/redirect';
 import { getManufacturerJson } from '../../../utils/url';
 
 interface IProps extends ISearchPageProps {
@@ -226,6 +227,11 @@ export async function getServerSideProps(
         .then(resp => resp.data);
     }
     context.query.make = (context?.query?.dynamicParam as string).toLowerCase();
+
+    if (vehiclesList?.vehicleList.totalCount === 0) {
+      return redirectToParentPage(data?.genericPage.metaData.breadcrumbs);
+    }
+
     return {
       props: {
         pageData: data,
