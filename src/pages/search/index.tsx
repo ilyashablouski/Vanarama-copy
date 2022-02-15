@@ -51,6 +51,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { Nullable } from '../../types/common';
+import { getManufacturerJson } from '../../utils/url';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -107,12 +108,15 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      false,
-      'isGlobalSearch',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        false,
+        'isGlobalSearch',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     const initialFilters = buildInitialFilterState(context.query);
     const sortOrder = DEFAULT_SORT;
     const responseHandler = async (derivatives: IDerivatives[]) => {
@@ -207,6 +211,7 @@ export async function getServerSideProps(
     return {
       props: {
         isServer: !!context.req,
+        migrationSlugs: migrationSlugs || null,
         pageData: encodeData(data),
         metaData: data?.genericPage.metaData || null,
         productDerivatives: productDerivatives

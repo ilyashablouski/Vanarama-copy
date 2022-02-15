@@ -3,10 +3,12 @@ import {
   GenericPageQuery_genericPage_sections_featured as IFeatured,
   GenericPageQuery_genericPage_metaData as IPageMetaData,
 } from '../../generated/GenericPageQuery';
+import { IManufacturersSlug } from '../types/manufacturerSlug';
 
 export interface ISearchPageProps {
   isServer: boolean;
   metaData: IPageMetaData;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 export interface INotFoundPageData {

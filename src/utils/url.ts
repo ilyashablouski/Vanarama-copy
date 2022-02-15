@@ -56,10 +56,15 @@ export const formatUrl = (value: string) =>
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
+  isManufacturerMigrated = false,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
-  return edge?.node?.legacyUrl || edge?.node?.url || '';
+  return (
+    (isManufacturerMigrated
+      ? edge?.node?.url
+      : edge?.node?.legacyUrl || edge?.node?.url) || ''
+  );
 };
 
 export const getNewUrl = (
@@ -305,3 +310,12 @@ export const ManufacturersSlugContext = createContext<IManufacturersSlug>(
 );
 
 ManufacturersSlugContext.displayName = 'SlugMigrationContext';
+
+export const isManufacturerMigrated = (
+  migratedManufacturers: string[],
+  vehicleManufacturerName: string,
+) =>
+  !!vehicleManufacturerName &&
+  migratedManufacturers.some(
+    manufacturerName => manufacturerName === vehicleManufacturerName,
+  );

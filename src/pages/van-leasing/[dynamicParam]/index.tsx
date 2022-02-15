@@ -53,7 +53,7 @@ import {
   rangeListVariables,
   rangeList_rangeList as IRange,
 } from '../../../../generated/rangeList';
-import { formatToSlugFormat } from '../../../utils/url';
+import { formatToSlugFormat, getManufacturerJson } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
@@ -324,17 +324,21 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      false,
-      type as string,
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        false,
+        type as string,
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     return {
       props: {
         isServer: !!req,
         pageType,
         pageData: data,
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage.metaData || null,
         filtersData: filtersData?.filterList,
         responseCapIds: responseCapIds || null,
