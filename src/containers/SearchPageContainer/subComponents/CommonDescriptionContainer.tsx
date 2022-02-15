@@ -2,9 +2,9 @@ import { memo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
 
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import Skeleton from '../../components/Skeleton';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
