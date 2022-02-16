@@ -2,7 +2,7 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import SearchPageContainer from '../wrappers/WithSpecialOffers';
+import SearchPageContainer from '../SearchPageContainer';
 import {
   useVehiclesList,
   getRangesList,
@@ -166,7 +166,7 @@ jest.mock('../gql', () => ({
   useSearchResultPage: jest.fn(),
 }));
 
-jest.mock('../RangeCard', () => () => {
+jest.mock('../components/RangeCard', () => () => {
   return <div />;
 });
 // ARRANGE
