@@ -10,6 +10,7 @@ import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helper
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
+import { getManufacturerJson } from '../../utils/url';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -44,15 +45,19 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      false,
-      '',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        false,
+        '',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     return {
       props: {
         pageData: encodeData(data),
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
       },

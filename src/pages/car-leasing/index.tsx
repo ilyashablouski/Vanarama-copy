@@ -39,7 +39,13 @@ import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTile
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import {
+  formatProductPageUrl,
+  getLegacyUrl,
+  getManufacturerJson,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -123,6 +129,9 @@ export const CarsPage: NextPage<IProps> = ({
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
 
   useEffect(() => {
     setCachedLeaseType(
@@ -270,7 +279,14 @@ export const CarsPage: NextPage<IProps> = ({
           />
           {productsCar?.productCarousel?.map((item, index) => {
             const productUrl = formatProductPageUrl(
-              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+              getLegacyUrl(
+                vehicleListUrlData.edges,
+                item?.capId,
+                isManufacturerMigrated(
+                  migratedManufacturers?.car?.manufacturers,
+                  item?.manufacturerName || '',
+                ),
+              ),
               item?.capId,
             );
             const extendedProductData = item
@@ -604,15 +620,15 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const { data: hubCarPage } = await client.query<
-      HubCarPageData,
-      HubCarPageDataVariables
-    >({
-      query: HUB_CAR_CONTENT,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data: hubCarPage }, migrationSlugs] = await Promise.all([
+      await client.query<HubCarPageData, HubCarPageDataVariables>({
+        query: HUB_CAR_CONTENT,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getManufacturerJson(),
+    ]);
     const { data: searchPodCarsData } = await client.query<
       IFilterList,
       IFilterListVariables
@@ -630,6 +646,7 @@ export async function getServerSideProps(
     return {
       props: {
         data: encodeData(hubCarPage),
+        migrationSlugs: migrationSlugs || null,
         searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
