@@ -4,7 +4,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, { useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -68,7 +68,7 @@ import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import TopOffersContainer from './subContainers/TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
+import TopOffersContainer from './sections/TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import useMediaQuery from '../../hooks/useMediaQuery';
 import ResultsContainer from './sections/ResultsContainer';
 import ReadMoreBlock from './sections/ReadMoreBlock';
@@ -108,7 +108,7 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
+const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   isServer,
   isCarSearch = false,
   isSimpleSearchPage,
