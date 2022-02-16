@@ -291,7 +291,7 @@ export const getMetadataForPagination = (
 export const manufacturersSlugInitialState = {
   vehicles: {
     car: {
-      manufacturers: ['BMW'],
+      manufacturers: [],
     },
     lcv: {
       manufacturers: [],
