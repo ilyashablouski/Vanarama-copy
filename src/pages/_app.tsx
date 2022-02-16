@@ -7,9 +7,12 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { useApolloClient } from '@apollo/client';
 import {
+  ManufacturersSlugContext,
+  manufacturersSlugInitialState,
   PAGES_WITHOUT_LEASE_RESET,
   removeUrlQueryPart,
   SEARCH_PAGES,
+  shouldManufacturersStateUpdate,
 } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
@@ -42,6 +45,7 @@ import {
 } from '../utils/personHelpers';
 import { ICustomAppProps, PageTypeEnum } from '../types/common';
 import ErrorPage from './_error';
+import useFirstRenderEffect from '../hooks/useFirstRenderEffect';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -74,6 +78,12 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
 
+  const [migrationSlugs, setMigrationSlugs] = useState(
+    pageProps.pageType !== PageTypeEnum.ERROR
+      ? pageProps?.migrationSlugs || manufacturersSlugInitialState
+      : manufacturersSlugInitialState,
+  );
+
   const client = useApolloClient();
 
   useEffect(() => {
@@ -105,6 +115,17 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
       }
     });
   }, []);
+
+  // update state only if migrationSlugs is exist
+  useFirstRenderEffect(() => {
+    if (
+      pageProps?.pageType !== PageTypeEnum.ERROR &&
+      pageProps?.migrationSlugs?.vehicles &&
+      shouldManufacturersStateUpdate(pageProps.migrationSlugs, migrationSlugs)
+    ) {
+      setMigrationSlugs(pageProps.migrationSlugs);
+    }
+  }, [pageProps]);
 
   useEffect(() => {
     async function pushAnalytics() {
@@ -176,7 +197,6 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
     <>
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
-
         <CompareContext.Provider
           value={{
             compareVehicles,
@@ -186,9 +206,12 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
           {pageProps.pageType === PageTypeEnum.ERROR ? (
             <ErrorPage errorData={pageProps.error} />
           ) : (
-            <Component {...pageProps} />
+            <ManufacturersSlugContext.Provider value={migrationSlugs}>
+              <Component {...pageProps} />
+            </ManufacturersSlugContext.Provider>
           )}
         </CompareContext.Provider>
+
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
