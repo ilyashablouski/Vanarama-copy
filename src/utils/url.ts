@@ -301,6 +301,7 @@ export const getManufacturerJson = async () => {
     );
     return (await jsonData.json()) as IManufacturersSlug;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Failed to get manufacturers with slug', e);
     return manufacturersSlugInitialState;
   }
