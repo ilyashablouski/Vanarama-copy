@@ -1024,8 +1024,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
                 />
               )}
             </div>
-          ) : (
-            <></>
           )}
         </div>
       </div>
