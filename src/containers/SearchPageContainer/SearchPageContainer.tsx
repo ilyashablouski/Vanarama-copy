@@ -54,7 +54,7 @@ import {
   getPartnershipTitle,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import TopInfoBlock from './subComponents/TopInfoBlock';
+import TopInfoBlock from './sections/TopInfoBlock';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
@@ -70,8 +70,8 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './subContainers/TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import useMediaQuery from '../../hooks/useMediaQuery';
-import ResultsContainer from './subContainers/ResultsContainer';
-import ReadMoreBlock from './subComponents/ReadMoreBlock';
+import ResultsContainer from './sections/ResultsContainer';
+import ReadMoreBlock from './sections/ReadMoreBlock';
 import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
@@ -83,18 +83,16 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
-import NewRangeContent from './subComponents/NewRangeContent';
+import NewRangeContent from './sections/NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
-import TopCategoryInfoBlock from './subComponents/TopCategoryInfoBlock';
-import SearchPageTitle from './subComponents/SearchPageTitle';
-import SearchPageMarkdown from './subComponents/SearchPageMarkdown';
+import TopCategoryInfoBlock from './sections/TopCategoryInfoBlock';
+import SearchPageTitle from './sections/SearchPageTitle';
+import SearchPageMarkdown from './components/SearchPageMarkdown';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RelatedCarousel from '../../components/RelatedCarousel';
-import TermsAndConditions from './subComponents/TermsAndConditions';
+import TermsAndConditions from './sections/TermsAndConditions';
+import GenericPageData from './sections/GenericPageData';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={2} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -144,7 +142,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   defaultSort,
   newRangePageSlug,
   dataUiTestId,
-}: ISearchPageContainerProps) => {
+}) => {
   // assign here as when inline causing hook lint errors
 
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -1011,7 +1009,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               customCTAColor={customCTAColor}
             />
           </div>
-          {!(isManufacturerPage || isAllManufacturersPage) ? (
+          {!(isManufacturerPage || isAllManufacturersPage) && (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -1035,16 +1033,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         <ReadMoreBlock featured={featured} />
       )}
       {pageData?.genericPage?.sections?.featured2?.body && (
-        <div className="row:text">
-          <Heading tag="h2" size="large" color="black" className="-mb-300">
-            {pageData.genericPage.sections.featured2.title}
-          </Heading>
-          <Text color="darker" size="regular" tag="div">
-            <SearchPageMarkdown
-              markdown={pageData.genericPage.sections.featured2.body}
-            />
-          </Text>
-        </div>
+        <GenericPageData
+          title={pageData.genericPage.sections.featured2.title}
+          body={pageData.genericPage.sections.featured2.body}
+        />
       )}
       {isDynamicFilterPage && tiles?.tiles?.length && (
         <WhyLeaseWithVanaramaTiles

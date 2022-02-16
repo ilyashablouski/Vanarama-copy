@@ -2,7 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import RangeCard from '../RangeCard';
+import RangeCard from '../components/RangeCard';
 import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
 
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';

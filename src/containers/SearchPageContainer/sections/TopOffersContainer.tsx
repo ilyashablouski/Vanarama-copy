@@ -25,7 +25,7 @@ import { getLegacyUrl } from '../../../utils/url';
 import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 import Skeleton from '../../../components/Skeleton';
 import VehicleCard from '../../../components/VehicleCard';
-import ModelCard from '../subComponents/ModelCard';
+import ModelCard from '../components/ModelCard';
 import { Nullable } from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {

@@ -2,7 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import TopOffersContainer from '../TopOffersContainer';
+import TopOffersContainer from '../sections/TopOffersContainer';
 import { GET_VEHICLE_LIST } from '../gql';
 import {
   VehicleTypeEnum,

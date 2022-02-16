@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useRouter } from 'next/router';
-import RangeCard from '../subComponents/RangeCard';
+import RangeCard from '../components/RangeCard';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../../generated/vehicleList';
 import { GetProductCard_productCard as IProductCard } from '../../../../generated/GetProductCard';
