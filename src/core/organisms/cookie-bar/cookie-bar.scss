@@ -12,86 +12,127 @@
 
 .cookie-dialog {
   position: fixed;
-  left: 30px;
-  bottom: 30px;
+  left: 0;
+  bottom: 0;
   width: 100%;
-  max-width: calc(100% - 60px);
-  padding: 21px 25px 25px;
-  border-radius: 6px;
-  text-align: center;
-  background: $white;
-  box-shadow: 0 0 15px #00000021;
+  max-width: 100%;
+  padding: 34px 25px 21px;
+  border-radius: 0;
+  text-align: left;
+  background: #CDD6DE;
+  box-shadow: 0 0 12px #00000098;
   animation: cookieBarFadeIn .45s ease-out 1.45s backwards;
   z-index: 999;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 
   &.-hide {
     animation: cookieBarFadeOut .45s ease-out forwards;
   }
 
-  @include mobile {
-    left: 50%;
-    bottom: 15px;
-    transform: translateX(-50%);
-    max-width: calc(100% - 30px);
-    padding: 18px 24px 14px;
+  @include tablet {
+    padding: 24px 41px 16px;
   }
 
-  &__close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: inline-flex;
-    cursor: pointer;
+  @include mobile {
+    padding: 11px 18px 19px;
   }
 
   &__text {
     display: block;
-    font-size: $font-size-500 !important;
+    font-size: $font-size-300 !important;
     font-weight: 500;
+    line-height: 19px;
+    grid-row-start: 1;
+    grid-column: span 8!important;
 
-    @include mobile {
-      display: inline-block;
-      font-size: $font-size-300 !important;
+    @include mobile-tablet {
+      font-size: $font-size-200 !important;
+
+      & > br {
+        display: none;
+      }
     }
 
-    @media (max-width: 360px) {
-      font-size: $font-size-200 !important;
+    @include mobile {
+      grid-column: span 13!important;
+      text-align: center;
     }
 
     .link {
       white-space: nowrap;
       font-size: inherit;
-    }
-  }
+      text-decoration: underline;
 
-  &__actions {
-    margin-top: 18px;
-
-    @include mobile {
-      margin-top: 12px;
-    }
-
-    .button {
-      width: 94px;
-
-      &:not(:last-child) {
-        margin-right: 20px;
+      & br {
+        display: none;
       }
 
       @include mobile {
-        font-size: $font-size-400;
-        --class-br: #{$border-radius-medium};
-
-        &:not(:last-child) {
-          margin-right: 10px;
+        & br {
+          display: inline-block;
         }
+      }
+    }
+  }
 
-        &--inner {
-          min-width: $rem-500;
-          min-height: $rem-500;
-          padding: 0 $rem-200;
-          gap: $rem-200;
-        }
+  .button {
+    &.accept {
+      background: hsl(183, 48%, 38%);
+      font-size: $font-size-350;
+      min-width: 221px;
+      border-radius: 3px;
+      border: none;
+      grid-column-start: -1;
+      grid-row-start: 1;
+      grid-column-end: 10;
+      justify-self: flex-end;
+      align-self: flex-start;
+      height: 49px;
+
+      & .button--inner {
+        min-height: auto;
+      }
+
+      @include mobile {
+        justify-self: center;
+        text-align: center;
+        grid-row-start: 3;
+        height: 33px;
+        min-width: 114px;
+        grid-column-start: 1;
+        grid-column: span 13;
+      }
+    }
+
+    &.decline {
+      background: none;
+      border: none;
+      font-size: $font-size-300;
+      text-decoration: underline;
+      margin-top: 13px;
+      font-weight: 500;
+      grid-column: span 1;
+      padding: 0;
+      text-align: left;
+      justify-self: flex-start;
+      grid-row-start: 2;
+
+      & .button--inner {
+        padding: 0;
+        min-height: auto;
+      }
+
+      @include mobile-tablet {
+        font-size: $font-size-200;
+      }
+
+      @include mobile {
+        margin-bottom: 15px;
+        grid-column: span 13;
+        justify-self: stretch;
+        text-align: center;
       }
     }
   }

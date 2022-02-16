@@ -55,6 +55,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
     dataUiTestIdMask,
     productType,
     customCTABackground,
+    lazyLoadForCarouselImages,
   } = props;
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
@@ -86,7 +87,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
       }
       style={{ maxHeight: 600 }}
       alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
-      lazyLoad={cardIndex !== 0}
+      lazyLoad={lazyLoadForCarouselImages || cardIndex !== 0}
       header={
         product.leadTime || product.isOnOffer
           ? {
