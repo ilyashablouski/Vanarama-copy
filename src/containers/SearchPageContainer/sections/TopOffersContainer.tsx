@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
@@ -21,7 +21,11 @@ import {
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../generated/bodyStyleList';
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from '../helpers';
-import { getLegacyUrl } from '../../../utils/url';
+import {
+  getLegacyUrl,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../../utils/url';
 import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 import Skeleton from '../../../components/Skeleton';
 import VehicleCard from '../../../components/VehicleCard';
@@ -86,6 +90,10 @@ const TopOffersContainer: React.FC<IProps> = ({
   const router = useRouter();
 
   const isDesktopLayout = useDesktopViewport();
+
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -222,28 +230,40 @@ const TopOffersContainer: React.FC<IProps> = ({
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  const renderVehicleCard = (vehicle: IVehicles, index: number) => (
-    <SwiperSlide key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}>
-      <VehicleCard
-        dataUiTestId={`${dataUiTestId}_product-card-${index}`}
-        loadImage
-        lazyLoad={index !== 0}
-        derivativeId={vehicle.node?.derivativeId}
-        url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-        data={
-          getCardData(
-            vehicle.node?.derivativeId || '',
-            cardsData,
-          ) as IProductCard
-        }
-        title={{
-          title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
-          description: vehicle.node?.derivativeName || '',
-        }}
-        isPersonalPrice={isPersonal}
-      />
-    </SwiperSlide>
-  );
+  const renderVehicleCard = (vehicle: IVehicles, index: number) => {
+    const isMigrated = isManufacturerMigrated(
+      (isCarSearch
+        ? migratedManufacturers?.car?.manufacturers
+        : migratedManufacturers?.lcv.manufacturers) || [],
+      vehicle.node?.manufacturerName || '',
+    );
+    return (
+      <SwiperSlide key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}>
+        <VehicleCard
+          dataUiTestId={`${dataUiTestId}_product-card-${index}`}
+          loadImage
+          lazyLoad={index !== 0}
+          derivativeId={vehicle.node?.derivativeId}
+          url={getLegacyUrl(
+            vehiclesList,
+            vehicle.node?.derivativeId,
+            isMigrated,
+          )}
+          data={
+            getCardData(
+              vehicle.node?.derivativeId || '',
+              cardsData,
+            ) as IProductCard
+          }
+          title={{
+            title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
+            description: vehicle.node?.derivativeName || '',
+          }}
+          isPersonalPrice={isPersonal}
+        />
+      </SwiperSlide>
+    );
+  };
 
   const carouselDisableNavigation =
     vehiclesList.length <= SLIDES_PER_VIEW && isDesktopLayout;

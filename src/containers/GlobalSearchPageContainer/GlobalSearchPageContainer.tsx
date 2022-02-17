@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
@@ -44,6 +44,10 @@ import {
 } from '../../components/GlobalSearchPageSort/helpers';
 import { filtersConfig as config } from '../../components/GlobalSearchPageFilters/config';
 import { generateQueryObject } from '../../components/GlobalSearchPageFilters/helpers';
+import {
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -62,6 +66,11 @@ const GlobalSearchPageContainer = memo(
     isAllProductsRequest,
   }: IProps) => {
     const router = useRouter();
+
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
+
     const searchTerm = useMemo(
       () => decodeURIComponent(router?.query.searchTerm as string),
       [router?.query.searchTerm],
@@ -477,7 +486,16 @@ const GlobalSearchPageContainer = memo(
                     ),
                   }}
                   derivativeId={vehicle?.derivativeId?.toString()}
-                  url={vehicle?.lqUrl || vehicle?.url || ''}
+                  url={
+                    (isManufacturerMigrated(
+                      (vehicle?.vehicleType === VehicleTypeEnum.CAR
+                        ? migratedManufacturers?.car?.manufacturers
+                        : migratedManufacturers?.lcv?.manufacturers) || [],
+                      vehicle?.manufacturerName || '',
+                    )
+                      ? vehicle?.url
+                      : vehicle?.lqUrl || vehicle?.url) || ''
+                  }
                   title={{
                     title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
                     description: vehicle?.derivativeName || '',
