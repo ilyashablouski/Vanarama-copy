@@ -36,6 +36,8 @@ import {
 } from '../containers/GlobalSearchContainer/gql';
 import { ICarouselCard } from '../components/BlogCarousel/interface';
 
+const MAX_VEHICLE_LIST_QUERY_RUN = 4;
+
 type VehicleListQueryVariables = {
   derivativeIds: string[];
   after?: string;
@@ -74,6 +76,7 @@ async function queryEntireVehicleList(
   client: ApolloClient<NormalizedCacheObject | object>,
   derivativeIds: string[],
 ): Promise<IVehicleList> {
+  let counterQueryRun = 0;
   let hasNextPage = true;
   let lastCursor: string | null = null;
 
@@ -82,6 +85,7 @@ async function queryEntireVehicleList(
   let totalCount = 0;
 
   async function fetchVehicleList(): Promise<null> {
+    counterQueryRun += 1;
     const variables: VehicleListQueryVariables = {
       derivativeIds,
     };
@@ -104,6 +108,10 @@ async function queryEntireVehicleList(
       edges.push(...(vehicleListQueryData.vehicleList.edges || []));
     }
 
+    if (counterQueryRun === MAX_VEHICLE_LIST_QUERY_RUN) {
+      return null;
+    }
+
     return hasNextPage ? fetchVehicleList() : null;
   }
 
@@ -114,13 +122,21 @@ async function queryEntireVehicleList(
 
 export const getVehicleListUrlQuery = async (
   client: ApolloClient<NormalizedCacheObject | object>,
-  derivativeIds: string[],
+  derivativeIds: string[] | undefined,
 ) => {
+  if (!derivativeIds || !derivativeIds.length) {
+    return {
+      totalCount: 0,
+      pageInfo: getPageInfoFallback(),
+      edges: null,
+    };
+  }
+
   try {
     return await queryEntireVehicleList(client, derivativeIds);
-  } catch (err) {
+  } catch (error) {
     // eslint-disable-next-line no-console
-    console.log('Error:', err);
+    console.log('Error:', error);
     return {
       totalCount: 0,
       pageInfo: getPageInfoFallback(),
@@ -152,9 +168,9 @@ export function getProductCardContent(
       products: resp.data,
       productsCapIds: getCapIds(resp.data),
     }))
-    .catch(err => {
+    .catch(error => {
       // eslint-disable-next-line no-console
-      console.log('Error:', err);
+      console.log('Error:', error);
       return {
         products: undefined,
         productsCapIds: [],
@@ -178,9 +194,9 @@ export function getCarDerivatives(
     .then(resp => ({
       data: resp.data,
     }))
-    .catch(err => {
+    .catch(error => {
       // eslint-disable-next-line no-console
-      console.log('Error:', err);
+      console.log('Error:', error);
       return {
         data: undefined,
       };
