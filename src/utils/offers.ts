@@ -35,6 +35,7 @@ import {
   getVehiclesCardsData,
 } from '../containers/GlobalSearchContainer/gql';
 import { ICarouselCard } from '../components/BlogCarousel/interface';
+import { IManufacturersSlug } from '../types/manufacturerSlug';
 
 const MAX_VEHICLE_LIST_QUERY_RUN = 4;
 
@@ -713,6 +714,7 @@ export interface IVansPageOffersData {
 export interface ICarsPageOffersData {
   productsCar?: Nullable<ProductCardData>;
   vehicleListUrlData: IVehicleList;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 export interface IPickupsPageOffersData {
