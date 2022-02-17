@@ -35,6 +35,7 @@ import {
   getVehiclesCardsData,
 } from '../containers/GlobalSearchContainer/gql';
 import { ICarouselCard } from '../components/BlogCarousel/interface';
+import { IManufacturersSlug } from '../types/manufacturerSlug';
 
 type VehicleListQueryVariables = {
   derivativeIds: string[];
@@ -697,6 +698,7 @@ export interface IVansPageOffersData {
 export interface ICarsPageOffersData {
   productsCar?: Nullable<ProductCardData>;
   vehicleListUrlData: IVehicleList;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 export interface IPickupsPageOffersData {

@@ -24,7 +24,13 @@ import Hero, { HeroPrompt } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
-import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
+import {
+  formatProductPageUrl,
+  getLegacyUrl,
+  getNewUrl,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
@@ -131,14 +137,24 @@ export const PickupsPage: NextPage<IProps> = ({
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
 
   const dealOfMonthUrl = useMemo(
     () =>
       formatProductPageUrl(
-        getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
+        getLegacyUrl(
+          vehicleListUrlData.edges,
+          offer?.capId,
+          isManufacturerMigrated(
+            migratedManufacturers?.lcv?.manufacturers,
+            offer?.manufacturerName || '',
+          ),
+        ),
         offer?.capId,
       ),
-    [vehicleListUrlData, offer],
+    [vehicleListUrlData, offer, migratedManufacturers?.lcv?.manufacturers],
   );
 
   const dealOfMonthHref = useMemo(
@@ -252,7 +268,14 @@ export const PickupsPage: NextPage<IProps> = ({
           </Heading>
           {productsPickup?.productCarousel?.map((item, index) => {
             const productUrl = formatProductPageUrl(
-              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+              getLegacyUrl(
+                vehicleListUrlData.edges,
+                item?.capId,
+                isManufacturerMigrated(
+                  migratedManufacturers?.lcv?.manufacturers,
+                  item?.manufacturerName || '',
+                ),
+              ),
               item?.capId,
             );
             const extendedProductData = item

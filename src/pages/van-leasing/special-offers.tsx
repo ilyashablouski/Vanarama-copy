@@ -28,6 +28,8 @@ import {
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getManufacturerJson } from '../../utils/url';
+import { IManufacturersSlug } from '../../types/manufacturerSlug';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -56,6 +58,7 @@ const RouterLink = dynamic(() =>
 interface IProps extends IVansSpecialOffersData {
   pageData: Nullable<GenericPageQuery>;
   metaData: Nullable<IMetaData>;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 export const VanOffers: NextPage<IProps> = ({
@@ -490,16 +493,16 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        isPreview: !!context?.preview,
-        slug: 'van-leasing/special-offers',
-      },
-    });
+    const [{ data }, migrationSlugs] = await Promise.all([
+      await client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          isPreview: !!context?.preview,
+          slug: 'van-leasing/special-offers',
+        },
+      }),
+      getManufacturerJson(),
+    ]);
 
     const {
       productsPickup,
@@ -519,6 +522,7 @@ export async function getServerSideProps(
     return {
       props: {
         pageData: encodeData(data),
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage?.metaData || null,
         productsPickup: productsPickup || null,
         productsSmallVan: productsSmallVan || null,
