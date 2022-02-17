@@ -86,9 +86,6 @@ const RangeCard = memo(
       () => nextUrl?.slug?.slice(1).split('/')[1] || '',
       [nextUrl?.slug],
     );
-    const { vehicles: migratedManufacturers } = useContext(
-      ManufacturersSlugContext,
-    );
 
     // test using of slug for routing, only for Abarth
     const href =
