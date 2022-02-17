@@ -42,7 +42,7 @@ import {
 } from '../../../../generated/filterList';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
-import { redirectToParentPage } from '../../../utils/redirect';
+import { redirectToParentPage } from "../../../utils/redirect";
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;

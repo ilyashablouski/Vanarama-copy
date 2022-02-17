@@ -56,7 +56,7 @@ import {
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
-import { redirectToParentPage } from '../../../../utils/redirect';
+import { redirectToParentPage } from "../../../../utils/redirect";
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
