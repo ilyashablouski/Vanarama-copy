@@ -71,9 +71,6 @@ const RangeCard = memo(
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
     const isCarSearch = useMemo(() => searchType.includes('car'), [searchType]);
-    const { vehicles: migratedManufacturers } = useContext(
-      ManufacturersSlugContext,
-    );
     const nextUrl = isAllManufacturersCard
       ? getManufacturerUrl(manufacturersUrls || [], searchType, title)
       : getRangeUrl(
@@ -82,6 +79,13 @@ const RangeCard = memo(
           title,
           query.dynamicParam as string,
         );
+    const manufacturerName = useMemo(
+      () => nextUrl?.slug?.slice(1).split('/')[1] || '',
+      [nextUrl?.slug],
+    );
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
 
     // test using of slug for routing, only for Abarth
     const href =
@@ -91,7 +95,7 @@ const RangeCard = memo(
         (isCarSearch
           ? migratedManufacturers.car.manufacturers
           : migratedManufacturers.lcv.manufacturers) || [],
-        nextUrl?.slug?.slice(1).split('/')[1] || '',
+        manufacturerName,
       )
         ? nextUrl?.slug
         : nextUrl?.legacyUrl || nextUrl?.slug;
