@@ -15,7 +15,7 @@ interface IGenericPageData {
   body: string;
 }
 
-const GenericPageData: FC<IGenericPageData> = ({ title, body }) => (
+const FeaturedSectionBlock: FC<IGenericPageData> = ({ title, body }) => (
   <div className="row:text">
     <Heading tag="h2" size="large" color="black" className="-mb-300">
       {title}
@@ -26,4 +26,4 @@ const GenericPageData: FC<IGenericPageData> = ({ title, body }) => (
   </div>
 );
 
-export default GenericPageData;
+export default FeaturedSectionBlock;

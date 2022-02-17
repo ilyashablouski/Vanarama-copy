@@ -12,7 +12,7 @@ import { Nullable } from '../../../types/common';
 import {
   isManufacturerMigrated,
   ManufacturersSlugContext,
-} from '../../utils/url';
+} from '../../../utils/url';
 
 const getUrlForVehicleCard = (
   vehicle: IVehicles,

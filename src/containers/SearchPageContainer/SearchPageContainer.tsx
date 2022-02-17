@@ -91,7 +91,7 @@ import SearchPageMarkdown from './components/SearchPageMarkdown';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RelatedCarousel from '../../components/RelatedCarousel';
 import TermsAndConditions from './sections/TermsAndConditions';
-import GenericPageData from './sections/GenericPageData';
+import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -1031,7 +1031,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         <ReadMoreBlock featured={featured} />
       )}
       {pageData?.genericPage?.sections?.featured2?.body && (
-        <GenericPageData
+        <FeaturedSectionBlock
           title={pageData.genericPage.sections.featured2.title}
           body={pageData.genericPage.sections.featured2.body}
         />
