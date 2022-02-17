@@ -56,7 +56,6 @@ import {
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
-import { redirectToParentPage } from "../../../../utils/redirect";
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -200,12 +199,6 @@ export async function getServerSideProps(
           },
         })
         .then(resp => resp.data);
-
-      if (vehiclesList.vehicleList.totalCount === 0) {
-        if (vehiclesList.vehicleList.totalCount === 0) {
-          return redirectToParentPage(data?.genericPage.metaData.breadcrumbs);
-        }
-      }
 
       try {
         const resp = await client.query<
