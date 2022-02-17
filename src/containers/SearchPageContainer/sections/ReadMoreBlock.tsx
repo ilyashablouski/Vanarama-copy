@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
-import { getFeaturedClassPartial } from '../../utils/layout';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
+import { getFeaturedClassPartial } from '../../../utils/layout';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../../generated/GenericPageQuery';
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,

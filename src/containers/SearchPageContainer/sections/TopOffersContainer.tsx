@@ -2,31 +2,31 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
-import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
-import { useVehiclesList } from './gql';
+import { useProductCardDataLazyQuery } from '../../CustomerAlsoViewedContainer/gql';
+import { useVehiclesList } from '../gql';
 import {
   vehicleList_vehicleList_edges as IVehicles,
   vehicleList as IVehiclesData,
-} from '../../../generated/vehicleList';
+} from '../../../../generated/vehicleList';
 import {
   VehicleTypeEnum,
   SortField,
   LeaseTypeEnum,
   SortDirection,
-} from '../../../generated/globalTypes';
+} from '../../../../generated/globalTypes';
 import {
   GetProductCard_productCard as IProductCard,
   GetProductCard,
-} from '../../../generated/GetProductCard';
-import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
-import { getLegacyUrl } from '../../utils/url';
-import { useDesktopViewport } from '../../hooks/useMediaQuery';
-import Skeleton from '../../components/Skeleton';
-import VehicleCard from '../../components/VehicleCard';
-import ModelCard from './ModelCard';
-import { Nullable } from '../../types/common';
+} from '../../../../generated/GetProductCard';
+import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../generated/bodyStyleList';
+import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from '../helpers';
+import { getLegacyUrl } from '../../../utils/url';
+import { useDesktopViewport } from '../../../hooks/useMediaQuery';
+import Skeleton from '../../../components/Skeleton';
+import VehicleCard from '../../../components/VehicleCard';
+import ModelCard from '../components/ModelCard';
+import { Nullable } from '../../../types/common';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,

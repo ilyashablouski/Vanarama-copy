@@ -1,11 +1,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import getTitleTag from '../../utils/getTitleTag';
-import { getFeaturedClassPartial } from '../../utils/layout';
-import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import Skeleton from '../../components/Skeleton';
+import getTitleTag from '../../../utils/getTitleTag';
+import { getFeaturedClassPartial } from '../../../utils/layout';
+import { manufacturerPage_manufacturerPage_sections as sections } from '../../../../generated/manufacturerPage';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,

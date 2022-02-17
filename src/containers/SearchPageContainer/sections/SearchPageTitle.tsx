@@ -3,11 +3,11 @@ import React, { useMemo } from 'react';
 import Heading from 'core/atoms/heading';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 import CommonDescriptionContainer from './CommonDescriptionContainer';
-import { IBreadcrumbLink } from '../../types/breadcrumbs';
-import { Nullish } from '../../types/common';
+import { IBreadcrumbLink } from '../../../types/breadcrumbs';
+import { Nullish } from '../../../types/common';
 
 interface IProps {
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;

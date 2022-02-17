@@ -1,13 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
-import { useModelImages } from './gql';
-import { getGenericSearchPageSlug } from '../../gql/genericPage';
-import { formatUrl } from '../../utils/url';
-import { capitalizeFirstLetter } from '../../utils/textTransform';
-import Skeleton from '../../components/Skeleton';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import { bodyStyleList_bodyStyleList as IModelData } from '../../../../generated/bodyStyleList';
+import { useModelImages } from '../gql';
+import { getGenericSearchPageSlug } from '../../../gql/genericPage';
+import { formatUrl } from '../../../utils/url';
+import { capitalizeFirstLetter } from '../../../utils/textTransform';
+import Skeleton from '../../../components/Skeleton';
 
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,

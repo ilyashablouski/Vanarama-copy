@@ -24,7 +24,10 @@ import {
   VehicleConfigurationByUrl,
   VehicleConfigurationByUrlVariables,
 } from '../../../../generated/VehicleConfigurationByUrl';
-import { getVehicleConfigurationPath } from '../../../utils/url';
+import {
+  getManufacturerJson,
+  getVehicleConfigurationPath,
+} from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
 import {
@@ -76,6 +79,7 @@ import {
   GetColourAndTrimGroupList,
   GetColourAndTrimGroupListVariables,
 } from '../../../../generated/GetColourAndTrimGroupList';
+import { IManufacturersSlug } from '../../../types/manufacturerSlug';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -91,6 +95,7 @@ interface IProps {
   imacaAssets: IImacaAssets | null;
   colourData: Nullable<IOptionsList[]>;
   trimData: Nullable<IOptionsList[]>;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -238,15 +243,18 @@ export async function getServerSideProps(
       };
     }
 
-    const vehicleConfigurationByUrlQuery = await client.query<
-      VehicleConfigurationByUrl,
-      VehicleConfigurationByUrlVariables
-    >({
-      query: VEHICLE_CONFIGURATION_BY_URL,
-      variables: {
-        url: getVehicleConfigurationPath(path),
-      },
-    });
+    const [vehicleConfigurationByUrlQuery, migrationSlugs] = await Promise.all([
+      client.query<
+        VehicleConfigurationByUrl,
+        VehicleConfigurationByUrlVariables
+      >({
+        query: VEHICLE_CONFIGURATION_BY_URL,
+        variables: {
+          url: getVehicleConfigurationPath(path),
+        },
+      }),
+      getManufacturerJson(),
+    ]);
 
     const capId =
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
@@ -373,18 +381,27 @@ export async function getServerSideProps(
       productCard = encodeData(productCardData);
     }
 
-    const genericPages = await client
-      .query<genericPagesQuery, genericPagesQueryVariables>({
-        query: GET_LEGACY_URLS,
-        variables: {
-          slugs: breadcrumbSlugs || [],
-        },
-      })
-      .then(resp => resp?.data?.genericPages?.items);
+    let genericPages;
+
+    if (
+      !migrationSlugs.vehicles?.car.manufacturers.includes(
+        getCarDataQuery?.data?.derivativeInfo?.manufacturer.name || '',
+      )
+    ) {
+      genericPages = await client
+        .query<genericPagesQuery, genericPagesQueryVariables>({
+          query: GET_LEGACY_URLS,
+          variables: {
+            slugs: breadcrumbSlugs || [],
+          },
+        })
+        .then(resp => resp?.data?.genericPages?.items);
+    }
 
     return {
       props: {
         capId,
+        migrationSlugs: migrationSlugs || null,
         capsId: capsIds,
         pdpContent: pdpContent || null,
         data: getCarDataQuery.data,
