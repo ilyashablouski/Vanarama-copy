@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
@@ -9,11 +10,12 @@ import {
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
+import { IManufacturersSlug } from '../types/manufacturerSlug';
+import { arraysAreEqual } from './helpers';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
 const MANUFACTURERS_WITH_SLUGS = ['abarth'];
-const RANGES_WITH_LEGACY_URL = ['e-tron'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -55,10 +57,15 @@ export const formatUrl = (value: string) =>
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
+  isManufacturerMigrated = false,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
-  return edge?.node?.legacyUrl || edge?.node?.url || '';
+  return (
+    (isManufacturerMigrated
+      ? edge?.node?.url
+      : edge?.node?.legacyUrl || edge?.node?.url) || ''
+  );
 };
 
 export const getNewUrl = (
@@ -75,24 +82,21 @@ export const generateUrlForBreadcrumb = (
   manufacturer: string,
   pageData: Nullish<IGenericPagesItems>,
   slugArray: string[],
-  rangeSlug?: string,
-  leasing?: string,
+  manufacturersWithSlug: string[],
 ) => {
-  // workaround only for Abarth 595C Convertible
-  if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
+  // use slugs instead of legacy url
+  if (
+    [
+      ...manufacturersWithSlug.map(value => value.toLowerCase()),
+      ...MANUFACTURERS_WITH_SLUGS,
+    ].includes(manufacturer.toLowerCase())
+  ) {
     return (
       pageData?.slug ||
       slugArray
         // workaround only for Abarth 595C Convertible
         .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
         .join('/')
-    );
-  }
-
-  // workaround only for Audi e-tron
-  if (rangeSlug && RANGES_WITH_LEGACY_URL.includes(rangeSlug) && leasing) {
-    return (
-      pageData?.slug || `${manufacturer}-${leasing}/etron/${slugArray[3]}.html`
     );
   }
 
@@ -110,6 +114,7 @@ export const getProductPageBreadCrumb = (
   genericPagesData: IGenericPages['items'],
   slug: string,
   cars: boolean | undefined,
+  manufacturersWithSlugs?: string[],
 ) => {
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
@@ -128,20 +133,23 @@ export const getProductPageBreadCrumb = (
     const manufacturerLink = {
       link: {
         label: manufacturer?.name,
-        href: `/${generateUrlForBreadcrumb(manufacturerSlug, manufacturerPage, [
-          leasing,
+        href: `/${generateUrlForBreadcrumb(
           manufacturerSlug,
-        ]) || `${manufacturerSlug}-${leasing}.html`}`,
+          manufacturerPage,
+          [leasing, manufacturerSlug],
+          manufacturersWithSlugs || [],
+        ) || `${manufacturerSlug}-${leasing}.html`}`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `/${generateUrlForBreadcrumb(manufacturerSlug, rangePage, [
-          leasing,
+        href: `/${generateUrlForBreadcrumb(
           manufacturerSlug,
-          rangeSlug,
-        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
+          rangePage,
+          [leasing, manufacturerSlug, rangeSlug],
+          manufacturersWithSlugs || [],
+        ) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
       },
     };
 
@@ -279,3 +287,61 @@ export const getMetadataForPagination = (
         : canonicalUrl,
   };
 };
+
+export const manufacturersSlugInitialState = {
+  vehicles: {
+    car: {
+      manufacturers: [],
+    },
+    lcv: {
+      manufacturers: [],
+    },
+  },
+};
+
+export const getManufacturerJson = async () => {
+  try {
+    const jsonData = await fetch(
+      `https://${process.env.SEO_BUCKET_NAME}/migration/data.json`,
+    );
+    return (await jsonData.json()) as IManufacturersSlug;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to get manufacturers with slug', e);
+    return manufacturersSlugInitialState;
+  }
+};
+
+export const ManufacturersSlugContext = createContext<IManufacturersSlug>(
+  manufacturersSlugInitialState,
+);
+
+ManufacturersSlugContext.displayName = 'SlugMigrationContext';
+
+export const shouldManufacturersStateUpdate = (
+  newState: IManufacturersSlug,
+  oldState: IManufacturersSlug,
+) => {
+  const isNewStateExist =
+    newState?.vehicles?.car?.manufacturers?.length > 0 ||
+    newState?.vehicles?.lcv?.manufacturers?.length > 0;
+  const isCarsSlugsEqual = arraysAreEqual(
+    newState?.vehicles?.car?.manufacturers,
+    oldState?.vehicles?.car?.manufacturers,
+  );
+  const isLcvSlugsEqual = arraysAreEqual(
+    newState?.vehicles?.lcv?.manufacturers,
+    oldState?.vehicles?.lcv?.manufacturers,
+  );
+  return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
+};
+
+export const isManufacturerMigrated = (
+  migratedManufacturers: string[],
+  vehicleManufacturerName: string,
+) =>
+  !!vehicleManufacturerName &&
+  migratedManufacturers.some(
+    manufacturerName =>
+      manufacturerName.toLowerCase() === vehicleManufacturerName.toLowerCase(),
+  );

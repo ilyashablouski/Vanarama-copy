@@ -23,7 +23,12 @@ import Hero, { HeroPrompt } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
+import {
+  formatProductPageUrl,
+  getLegacyUrl,
+  getManufacturerJson,
+  getNewUrl,
+} from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -757,15 +762,15 @@ export async function getStaticProps(
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<
-      HubVanPageData,
-      HubVanPageDataVariables
-    >({
-      query: HUB_VAN_CONTENT,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, migrationSlugs] = await Promise.all([
+      await client.query<HubVanPageData, HubVanPageDataVariables>({
+        query: HUB_VAN_CONTENT,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getManufacturerJson(),
+    ]);
     const { data: searchPodVansData } = await client.query<
       IFilterList,
       IFilterListVariables
@@ -814,6 +819,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
+        migrationSlugs: migrationSlugs || null,
         searchPodVansData: encodeData(searchPodVansData),
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,

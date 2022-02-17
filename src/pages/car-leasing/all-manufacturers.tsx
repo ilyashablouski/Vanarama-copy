@@ -13,7 +13,10 @@ import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import withApollo from '../../hocs/withApollo';
-import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
+import {
+  manufacturerPage,
+  manufacturerPage_manufacturerPage_sections as sections,
+} from '../../../generated/manufacturerPage';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   manufacturerList,
@@ -25,7 +28,7 @@ import {
   genericPagesQueryVariables,
   genericPagesQuery_genericPages as IGenericPage,
 } from '../../../generated/genericPagesQuery';
-import { formatToSlugFormat } from '../../utils/url';
+import { formatToSlugFormat, getManufacturerJson } from '../../utils/url';
 import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
@@ -66,12 +69,15 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      true,
-      'isAllManufacturersPage',
-    )) as ApolloQueryResult<any>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        true,
+        'isAllManufacturersPage',
+      )) as ApolloQueryResult<manufacturerPage>,
+      getManufacturerJson(),
+    ]);
     if (!Object.keys(context.query).length) {
       manufacturers = await client
         .query<manufacturerList, manufacturerListVariables>({
@@ -101,8 +107,11 @@ export async function getServerSideProps(
         .then(resp => resp?.data?.genericPages?.items));
     return {
       props: {
-        topInfoSection: encodeData(data.manufacturerPage.sections),
+        topInfoSection: data.manufacturerPage.sections
+          ? encodeData(data.manufacturerPage.sections)
+          : null,
         metaData: data.manufacturerPage.metaData,
+        migrationSlugs: migrationSlugs || null,
         isServer: !!context.req,
         manufacturers: manufacturers || null,
         manufacturersUrls: manufacturersUrls

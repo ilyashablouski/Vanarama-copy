@@ -42,6 +42,7 @@ import {
 } from '../../../../generated/filterList';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { getManufacturerJson } from '../../../utils/url';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -129,12 +130,15 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      false,
-      'isRangePage',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        false,
+        'isRangePage',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     defaultSort = sortObjectGenerator([
       {
         field: SortField.offerRanking,
@@ -225,6 +229,7 @@ export async function getServerSideProps(
     return {
       props: {
         pageData: data,
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
         responseCapIds: responseCapIds || null,

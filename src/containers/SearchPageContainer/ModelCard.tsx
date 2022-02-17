@@ -1,11 +1,15 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
 import { getGenericSearchPageSlug } from '../../gql/genericPage';
-import { formatUrl } from '../../utils/url';
+import {
+  formatUrl,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
 import Skeleton from '../../components/Skeleton';
 
@@ -18,6 +22,7 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
 
 interface IExtModelData extends IModelData {
   legacyUrl?: string;
+  url?: string;
 }
 interface IModelCardProps {
   isPersonalPrice: boolean;
@@ -35,7 +40,13 @@ const ModelCard = memo(
     manufacturer,
     dataUiTestId,
   }: IModelCardProps) => {
-    const [legacySlug, setLegacySlug] = useState(data?.legacyUrl || '');
+    const [modelUrl, setModelUrl] = useState(
+      data?.url || data?.legacyUrl || '',
+    );
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
+
     const { query } = useRouter();
     const { data: imageData } = useModelImages(
       [data?.capId?.toString() || '1'],
@@ -51,17 +62,30 @@ const ModelCard = memo(
 
     // request made on client when model pages navigated using client side router
     useEffect(() => {
-      if (!legacySlug) {
+      if (!modelUrl) {
         const initGetSlug = async () => {
           const newUrl = formatUrl(
             `car-leasing/${manufacturerName}/${rangeName}/${data?.bodyStyle}`,
           );
           const { data: slug } = await getGenericSearchPageSlug(newUrl);
-          setLegacySlug(slug?.genericPage.metaData.legacyUrl || newUrl);
+          setModelUrl(slug?.genericPage.metaData.legacyUrl || newUrl);
         };
-        initGetSlug();
+        if (
+          !isManufacturerMigrated(
+            migratedManufacturers?.car?.manufacturers || [],
+            manufacturerName,
+          )
+        ) {
+          initGetSlug();
+          return;
+        }
+        setModelUrl(
+          formatUrl(
+            `car-leasing/${manufacturerName}/${rangeName}/${data?.bodyStyle}`,
+          ),
+        );
       }
-    }, [data, legacySlug, manufacturerName, rangeName]);
+    }, [data, modelUrl, manufacturerName, rangeName, migratedManufacturers]);
 
     return (
       <Card
@@ -74,7 +98,7 @@ const ModelCard = memo(
           link: (
             <RouterLink
               link={{
-                href: legacySlug,
+                href: modelUrl,
                 label: `${capitalizeFirstLetter(
                   manufacturerName,
                 )} ${capitalizeFirstLetter(rangeName)} ${data?.bodyStyle ||
@@ -96,7 +120,7 @@ const ModelCard = memo(
           />
           <RouterLink
             link={{
-              href: legacySlug,
+              href: modelUrl,
               label: `View ${data?.count || 'All'} Offers`,
             }}
             className="button"
