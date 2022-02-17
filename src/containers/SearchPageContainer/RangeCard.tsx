@@ -82,6 +82,13 @@ const RangeCard = memo(
           title,
           query.dynamicParam as string,
         );
+    const manufacturerName = useMemo(
+      () => nextUrl?.slug?.slice(1).split('/')[1] || '',
+      [nextUrl?.slug],
+    );
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
 
     // test using of slug for routing, only for Abarth
     const href =
@@ -91,7 +98,7 @@ const RangeCard = memo(
         (isCarSearch
           ? migratedManufacturers.car.manufacturers
           : migratedManufacturers.lcv.manufacturers) || [],
-        nextUrl?.slug?.slice(1).split('/')[1] || '',
+        manufacturerName,
       )
         ? nextUrl?.slug
         : nextUrl?.legacyUrl || nextUrl?.slug;
