@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useContext } from 'react';
 import { useRouter } from 'next/router';
 import RangeCard from './RangeCard';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -9,9 +9,20 @@ import { rangeList } from '../../../generated/rangeList';
 import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';
 import { Nullable } from '../../types/common';
+import {
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 
-const getUrlForVehicleCard = (vehicle: IVehicles) =>
-  vehicle.node?.manufacturerName === 'Abarth'
+const getUrlForVehicleCard = (
+  vehicle: IVehicles,
+  migratedManufacturers: string[],
+) =>
+  vehicle.node?.manufacturerName === 'Abarth' ||
+  isManufacturerMigrated(
+    migratedManufacturers,
+    vehicle.node?.manufacturerName || '',
+  )
     ? vehicle.node?.url
     : vehicle.node?.legacyUrl || vehicle.node?.url; // return slug if legacy url is not exists
 
@@ -49,8 +60,15 @@ const ResultsContainer = memo(
   }: IProps) => {
     const router = useRouter();
 
-    const getCardData = (capId: string, dataForCards = cardsData) =>
-      dataForCards?.filter(card => card?.capId === capId)[0];
+    const { vehicles } = useContext(ManufacturersSlugContext);
+
+    const getCardData = useCallback(
+      (capId: string, dataForCards = cardsData) =>
+        (dataForCards as Nullable<IProductCard>[])?.filter(
+          card => card?.capId === capId,
+        )[0],
+      [cardsData],
+    );
 
     return isManufacturerPage || isAllManufacturersPage ? (
       <>
@@ -97,7 +115,14 @@ const ResultsContainer = memo(
             key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
             data={getCardData(vehicle.node?.derivativeId || '') as IProductCard}
             derivativeId={vehicle.node?.derivativeId}
-            url={getUrlForVehicleCard(vehicle) || ''}
+            url={
+              getUrlForVehicleCard(
+                vehicle,
+                (isCarSearch
+                  ? vehicles?.car?.manufacturers
+                  : vehicles?.lcv?.manufacturers) || [],
+              ) || ''
+            }
             title={{
               title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
               description: vehicle.node?.derivativeName || '',

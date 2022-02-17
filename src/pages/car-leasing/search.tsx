@@ -32,6 +32,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { decodeData, encodeData } from '../../utils/data';
 import { Nullable } from '../../types/common';
+import { getManufacturerJson } from '../../utils/url';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -76,12 +77,15 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      true,
-      '',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        true,
+        '',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     const cookieString = context?.req?.headers?.cookie || '';
     if (
       !Object.keys(context.query).length ||
@@ -127,6 +131,7 @@ export async function getServerSideProps(
     return {
       props: {
         pageData: encodeData(data),
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage.metaData || null,
         vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
         productCardsData: productCardsData
