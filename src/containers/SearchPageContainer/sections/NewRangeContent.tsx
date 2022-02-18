@@ -31,6 +31,7 @@ type NewRangeContentProps = {
   isNewPage: boolean;
   isRangePage: boolean;
   isNewRangeCarousel: boolean;
+  dataUiTestId: string;
 };
 
 interface ItemAccordion {
@@ -45,6 +46,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   newCarousel,
   isRangePage,
   isNewRangeCarousel,
+  dataUiTestId,
 }) => {
   let countListAccordion = 0;
 
@@ -89,7 +91,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
 
   return (
     <>
-      <div className="row:default">
+      <div className="row:default" data-uitestid={dataUiTestId}>
         <ThreeColumnSection
           title={getSectionsData(
             ['sectionsAsArray', 'cards', '0', 'name'],
@@ -503,7 +505,11 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </div>
       </div>
       {isNewRangeCarousel && (
-        <RelatedCarousel cards={newCarousel.cards} title={newCarousel.title} />
+        <RelatedCarousel
+          cards={newCarousel.cards}
+          title={newCarousel.title}
+          dataUiTestId={`${dataUiTestId}_related`}
+        />
       )}
     </>
   );
