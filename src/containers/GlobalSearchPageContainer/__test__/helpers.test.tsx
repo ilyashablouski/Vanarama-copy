@@ -4,6 +4,7 @@ import {
   buildFiltersRequestObject,
   isSimilarPage,
   buildInitialFilterState,
+  getVehicleListForRender,
 } from '../helpers';
 import { IFiltersData, IProps } from '../interfaces';
 import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../../generated/productDerivatives';
@@ -320,5 +321,57 @@ describe('helpers', () => {
         },
       }),
     ).toEqual(false);
+  });
+  describe('getVehicleListForRender', () => {
+    const vehiclesCardsData = {
+      LCV: [],
+      CAR: [
+        {
+          averageRating: 0,
+          businessRate: 226.9,
+          capId: '94060',
+          freeInsurance: false,
+          imageUrl:
+            'https://images.autorama.co.uk/Photos/Models/9610/alfaromeogiulietta0319(3).jpg',
+          isOnOffer: false,
+          keyInformation: [
+            {
+              name: 'Transmission',
+              value: 'Manual',
+            },
+          ],
+          leadTime: 'Factory Order',
+          personalRate: 272.9,
+          vehicleType: VehicleTypeEnum.CAR,
+        },
+      ],
+    };
+    const migratedManufacturers = {
+      car: {
+        manufacturers: [],
+      },
+      lcv: {
+        manufacturers: [],
+      },
+    };
+    it('should return empty array if vehiclesList is empty array', () => {
+      expect(
+        getVehicleListForRender([], vehiclesCardsData, migratedManufacturers),
+      ).toMatchObject([]);
+    });
+    it('should return empty array if vehiclesList is undefined', () => {
+      expect(
+        getVehicleListForRender(
+          undefined,
+          vehiclesCardsData,
+          migratedManufacturers,
+        ),
+      ).toMatchObject([]);
+    });
+    it('should return empty array if vehiclesList is null', () => {
+      expect(
+        getVehicleListForRender(null, vehiclesCardsData, migratedManufacturers),
+      ).toMatchObject([]);
+    });
   });
 });

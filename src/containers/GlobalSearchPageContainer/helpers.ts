@@ -1,8 +1,16 @@
 import { ParsedUrlQuery } from 'querystring';
-import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../generated/productDerivatives';
+import {
+  productDerivatives_productDerivatives_derivatives,
+  productDerivatives_productDerivatives_derivatives as IVehiclesList,
+} from '../../../generated/productDerivatives';
 import { AVAILABILITY_LABELS } from '../HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
-import { IFiltersData, ISelectedTags, IProps } from './interfaces';
+import {
+  IFiltersData,
+  ISelectedTags,
+  IProps,
+  IVehicleListForRender,
+} from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
 import {
   FinanceType,
@@ -11,6 +19,10 @@ import {
   ProductDerivativeSortField,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
+import { isManufacturerMigrated } from '../../utils/url';
+import { IGSVehiclesCardsData } from '../GlobalSearchContainer/gql';
+import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
+import { IManufacturersSlugVehicles } from '../../types/manufacturerSlug';
 
 export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   vehicleType: data?.vehicleType as VehicleTypeEnum,
@@ -159,5 +171,48 @@ export const isSimilarPage = (prevProps: IProps, nextProps: IProps) => {
   return (
     prevCapIds.length === nextCapIds.length &&
     prevCapIds.every((value, index) => value === nextCapIds[index])
+  );
+};
+
+export const getVehicleListForRender = (
+  vehiclesList:
+    | (productDerivatives_productDerivatives_derivatives | null)[]
+    | null
+    | undefined,
+  vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]>,
+  migratedManufacturers: IManufacturersSlugVehicles,
+): IVehicleListForRender[] => {
+  if (!vehiclesList || !vehiclesList.length) {
+    return [];
+  }
+  return vehiclesList?.map(
+    (vehicle: productDerivatives_productDerivatives_derivatives) => {
+      const vehicleType =
+        (vehicle?.vehicleType as VehicleTypeEnum) || VehicleTypeEnum.LCV;
+      const derivativeId = vehicle?.derivativeId?.toString() || '';
+      return {
+        data: {
+          ...productCardDataMapper(vehicle),
+          ...vehiclesCardsData?.[vehicleType].find(
+            x => x?.capId === derivativeId,
+          ),
+        },
+        derivativeId,
+        title: {
+          title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
+          description: vehicle?.derivativeName || '',
+        },
+        url:
+          (isManufacturerMigrated(
+            (vehicle?.vehicleType === VehicleTypeEnum.CAR
+              ? migratedManufacturers?.car?.manufacturers
+              : migratedManufacturers?.lcv?.manufacturers) || [],
+            vehicle?.manufacturerName || '',
+          )
+            ? vehicle?.url
+            : vehicle?.lqUrl || vehicle?.url) || '',
+        capBodyStyle: vehicle?.capBodyStyle || '',
+      };
+    },
   );
 };
