@@ -20,7 +20,7 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { isManufacturerMigrated } from '../../utils/url';
-import { IGSVehiclesCardsData } from '../GlobalSearchContainer/gql';
+import { IGSVehiclesCardsData } from '../GlobalSearchContainer/interfaces';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { IManufacturersSlugVehicles } from '../../types/manufacturerSlug';
 

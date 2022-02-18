@@ -19,7 +19,6 @@ import {
 import {
   useGSCardsData,
   useTextSearchList,
-  IGSVehiclesCardsData,
 } from '../GlobalSearchContainer/gql';
 import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
@@ -53,6 +52,7 @@ import { filtersConfig as config } from '../../components/GlobalSearchPageFilter
 import { generateQueryObject } from '../../components/GlobalSearchPageFilters/helpers';
 import { ManufacturersSlugContext } from '../../utils/url';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
+import { IGSVehiclesCardsData } from '../GlobalSearchContainer/interfaces';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
