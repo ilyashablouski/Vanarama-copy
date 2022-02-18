@@ -21,7 +21,7 @@ import {
   IGSVehiclesCardsData,
 } from '../GlobalSearchContainer/gql';
 import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
-import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
+import CommonDescriptionContainer from '../SearchPageContainer/sections/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import {
   ProductDerivativeSort,

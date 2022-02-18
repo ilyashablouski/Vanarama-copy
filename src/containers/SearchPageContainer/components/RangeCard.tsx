@@ -1,17 +1,17 @@
 import React, { memo, useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import { getRangeImages, useModelImages } from './gql';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import { getRangeImages, useModelImages } from '../gql';
 import {
   formatToSlugFormat,
   formatUrl,
   isManufacturerMigrated,
   ManufacturersSlugContext,
-} from '../../utils/url';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
-import Skeleton from '../../components/Skeleton';
+} from '../../../utils/url';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { genericPagesQuery_genericPages as IGenericPages } from '../../../../generated/genericPagesQuery';
+import Skeleton from '../../../components/Skeleton';
 
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
