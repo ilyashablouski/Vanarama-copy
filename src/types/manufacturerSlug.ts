@@ -1,10 +1,12 @@
-export interface IManufacturersSlug {
-  vehicles: {
-    car: {
-      manufacturers: string[];
-    };
-    lcv: {
-      manufacturers: string[];
-    };
+export interface IManufacturersSlugVehicles {
+  car: {
+    manufacturers: string[];
   };
+  lcv: {
+    manufacturers: string[];
+  };
+}
+
+export interface IManufacturersSlug {
+  vehicles: IManufacturersSlugVehicles;
 }

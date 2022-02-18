@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import GlobalSearchCard from './GlobalSearchCard';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { IGSVehiclesCardsData, useGSCardsData } from './gql';
+import { useGSCardsData } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import DropdownNoResults from './DropdownNoResults';
+import { IGSVehiclesCardsData } from './interfaces';
 
 interface IProps {
   suggestions: ISuggestion[];
