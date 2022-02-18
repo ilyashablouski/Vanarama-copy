@@ -21,7 +21,7 @@ describe(`
     cy.get('[data-uitestid=cookieBar-accept-button]').click();
     cy.scrollToFooter();
     cy.get(
-      'a[data-uitestid="van-leasing-page_search-by-manufacturer_citroen_link"]',
+      `a[data-uitestid="${dataUiTestId}_search-by-manufacturer_citroen_link"]`,
     ).click();
   });
 
@@ -101,10 +101,10 @@ describe(`
 
   it('related carousel is scrolling', () => {
     cy.scrollToFooter();
-    cy.get('div.carousel[data-uitestid=vans-search-page_related_carousel]')
+    cy.get(`div.carousel[data-uitestid=${dataUiTestId}_related_carousel]`)
       .find('button.swiper-next')
       .click();
-    cy.get('[data-uitestid=vans-search-page_related_0_card] > div').should(
+    cy.get(`[data-uitestid=${dataUiTestId}_related_0_card] > div`).should(
       'not.be.visible',
     );
   });

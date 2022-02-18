@@ -4,6 +4,7 @@
   "viewportHeight": 860,
   "defaultCommandTimeout": 15000,
   "requestTimeout": 15000,
+  "scrollBehavior": "center",
   "env": {
     "mobileViewportWidthBreakpoint": 767
   },

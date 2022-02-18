@@ -48,6 +48,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isSecondaryMenuOpen,
     isMenuOpen,
     promoImagesLinks,
+    dataUiTestId,
   } = props;
   const firstChildrenLinks: IHeaderLink | undefined = useMemo(
     () => links.find(el => !!el.children?.length && !el.promoImageLink?.url),
@@ -111,7 +112,10 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     >
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <div className="menu-secondary--wrapper-inner">
-          <ul className="menu-secondary">
+          <ul
+            className="menu-secondary"
+            data-uitestid={`${dataUiTestId}_menu-secondary`}
+          >
             <li className={linkClassName({ title: true })}>
               <Button
                 withoutDefaultClass
@@ -151,6 +155,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                       label={
                         link.highlightLabel ? link.highlightLabel : link.label
                       }
+                      dataUiTestId={`${dataUiTestId}_button_${link.label}`}
                       onClick={
                         isTabletOrMobile && link.children?.length
                           ? () => {
@@ -232,6 +237,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                   className={cx('menu-tertiary', {
                     '-open': activeTertiaryMenu === tertiaryBlock.id,
                   })}
+                  data-uitestid={`${dataUiTestId}_menu-tertiary_${tertiaryBlock.label}`}
                 >
                   <li className={linkClassName({ title: true })}>
                     <Button

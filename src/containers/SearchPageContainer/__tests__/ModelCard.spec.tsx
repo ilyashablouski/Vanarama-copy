@@ -2,7 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import ModelCard from '../ModelCard';
+import ModelCard from '../components/ModelCard';
 import { GET_MODEL_IMAGES } from '../gql';
 import { GENERIC_SEARCH_PAGE_SLUG } from '../../../gql/genericPage';
 

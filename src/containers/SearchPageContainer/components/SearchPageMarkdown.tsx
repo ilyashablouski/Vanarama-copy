@@ -2,15 +2,15 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
 import Heading from 'core/atoms/heading';
-import RouterLink from '../../components/RouterLink';
-import Skeleton from '../../components/Skeleton';
-import { Nullish } from '../../types/common';
+import RouterLink from '../../../components/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+import { Nullish } from '../../../types/common';
 import {
   IMarkdownHeading,
   IMarkdownImage,
   IMarkdownLink,
   IMarkdownParagraph,
-} from '../../types/markdown';
+} from '../../../types/markdown';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,

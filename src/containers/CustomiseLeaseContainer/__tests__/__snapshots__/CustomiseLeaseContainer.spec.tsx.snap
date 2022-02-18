@@ -1040,6 +1040,7 @@ Array [
               </span>
               <div
                 className="formgroup"
+                data-uitestid="customise-lease_goldrush-form_goldrush-form_full-name_error"
               >
                 <label
                   className="formgroup--legend"
@@ -1067,6 +1068,7 @@ Array [
               </div>
               <div
                 className="formgroup"
+                data-uitestid="customise-lease_goldrush-form_goldrush-form_email_error"
               >
                 <label
                   className="formgroup--legend"
@@ -1094,6 +1096,7 @@ Array [
               </div>
               <div
                 className="formgroup"
+                data-uitestid="customise-lease_goldrush-form_goldrush-form_phone-number_error"
               >
                 <label
                   className="formgroup--legend"
@@ -1121,6 +1124,7 @@ Array [
               </div>
               <div
                 className="formgroup"
+                data-uitestid="customise-lease_goldrush-form_error_privacy-policy"
               >
                 <div
                   className="formgroup--content"

@@ -2,11 +2,11 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import dynamic from 'next/dynamic';
-import getTitleTag from '../../utils/getTitleTag';
-import { getSectionsData } from '../../utils/getSectionsData';
-import RouterLink from '../../components/RouterLink';
-import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import getTitleTag from '../../../utils/getTitleTag';
+import { getSectionsData } from '../../../utils/getSectionsData';
+import RouterLink from '../../../components/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -45,7 +45,7 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
   );
 
   return (
-    <section className="row:featured-left">
+    <section className="row:featured-left" data-uitestid={dataUiTestId}>
       <div>
         <Heading
           className="-mb-400"
