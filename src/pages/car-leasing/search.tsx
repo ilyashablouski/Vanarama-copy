@@ -7,7 +7,7 @@ import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
-import SearchPageContainer from '../../containers/SearchPageContainer';
+import { CarLeaseSerachContainer as SearchPageContainer } from '../../containers/SearchPageContainer';
 import {
   getCapsIds,
   getCustomFuelTypesFromCookies,

@@ -25,7 +25,7 @@ interface ITopInfoBlockProps {
 const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
   const featuredImage = topInfoSection.featured?.image?.file;
 
-  return topInfoSection ? (
+  return (
     <section className={`row:${getFeaturedClassPartial(topInfoSection)}`}>
       <ImageV2
         quality={60}
@@ -68,8 +68,6 @@ const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
         </div>
       </article>
     </section>
-  ) : (
-    <></>
   );
 });
 

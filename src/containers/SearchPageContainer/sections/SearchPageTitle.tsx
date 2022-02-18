@@ -8,23 +8,22 @@ import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import { IBreadcrumbLink } from '../../../types/breadcrumbs';
 import { Nullish } from '../../../types/common';
+import { onMadeLineBreaks } from '../helpers';
 
 interface IProps {
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   pageTitle: string;
-  titleWithBreaks: string[];
   pageData?: GenericPageQuery;
   partnershipDescription: string;
   isDesktopOrTablet: boolean;
-  isPartnershipActive: boolean;
-  isNewPage: boolean;
+  isPartnershipActive?: boolean;
+  isNewPage?: boolean;
   dataUiTestId?: string;
 }
 
 const SearchPageTitle = ({
   breadcrumbsItems,
   pageTitle,
-  titleWithBreaks,
   pageData,
   partnershipDescription,
   isPartnershipActive,
@@ -36,12 +35,12 @@ const SearchPageTitle = ({
     () =>
       isDesktopOrTablet
         ? pageTitle
-        : titleWithBreaks.map(line => (
+        : onMadeLineBreaks(pageTitle).map(line => (
             <React.Fragment key={line}>
               {line} <br />
             </React.Fragment>
           )),
-    [isDesktopOrTablet, pageTitle, titleWithBreaks],
+    [isDesktopOrTablet, pageTitle],
   );
 
   return (

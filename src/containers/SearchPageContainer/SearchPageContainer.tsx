@@ -33,7 +33,6 @@ import {
   getCapsIds,
   getNumberOfVehicles,
   isPreviousPage,
-  onMadeLineBreaks,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   sortValues,
@@ -340,10 +339,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     router.query,
     isBodyStylePage,
     preLoadFiltersData,
-  ]);
-
-  const titleWithBreaks = useMemo(() => onMadeLineBreaks(pageTitle), [
-    pageTitle,
   ]);
 
   // listen for any updates to metaDataSSR
@@ -866,7 +861,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         dataUiTestId={`${dataUiTestId}_page-title`}
         breadcrumbsItems={breadcrumbsItems}
         pageTitle={pageTitle}
-        titleWithBreaks={titleWithBreaks}
         pageData={pageData}
         partnershipDescription={partnershipDescription}
         isDesktopOrTablet={isDesktopOrTablet}
@@ -885,12 +879,12 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         featured && (
           <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
         )}
-      {isNewPage && isRangePage ? (
+      {isNewPage && isRangePage && (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
           pageData={pageData}
         />
-      ) : null}
+      )}
       {isAllManufacturersPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
