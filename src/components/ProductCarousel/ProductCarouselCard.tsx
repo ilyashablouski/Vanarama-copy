@@ -5,7 +5,12 @@ import ProductCard from 'core/molecules/cards/ProductCard';
 import React, { FC, useContext, memo, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { features } from './helpers';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import {
+  formatProductPageUrl,
+  getLegacyUrl,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../utils/url';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { isWished } from '../../utils/wishlistHelpers';
 import RouterLink from '../RouterLink';
@@ -60,6 +65,26 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
+
+  const isMigrated = useMemo(
+    () =>
+      isManufacturerMigrated(
+        (product.vehicleType === VehicleTypeEnum.CAR
+          ? migratedManufacturers?.car?.manufacturers
+          : migratedManufacturers?.lcv?.manufacturers) || [],
+        product.manufacturerName || '',
+      ),
+    [
+      migratedManufacturers?.car?.manufacturers,
+      migratedManufacturers?.lcv?.manufacturers,
+      product.manufacturerName,
+      product.vehicleType,
+    ],
+  );
+
   const urlWithPriceQuery = useMemo(() => {
     if (
       (leaseType === LeaseTypeEnum.PERSONAL &&
@@ -67,17 +92,24 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
       (leaseType === LeaseTypeEnum.BUSINESS &&
         product.vehicleType === VehicleTypeEnum.LCV)
     ) {
-      return getLegacyUrl(data.vehicleList?.edges, product?.capId);
+      return getLegacyUrl(data.vehicleList?.edges, product?.capId, isMigrated);
     }
     return `${getLegacyUrl(
       data.vehicleList?.edges,
       product?.capId,
+      isMigrated,
     )}?leaseType=${
       leaseType === LeaseTypeEnum.PERSONAL
         ? FinanceTypeEnum.PCH
         : FinanceTypeEnum.BCH
     }`;
-  }, [data.vehicleList?.edges, leaseType, product?.capId, product.vehicleType]);
+  }, [
+    data.vehicleList?.edges,
+    leaseType,
+    product?.capId,
+    product.vehicleType,
+    isMigrated,
+  ]);
 
   return (
     <ProductCard
