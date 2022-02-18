@@ -105,7 +105,7 @@ const GlobalSearchPageContainer = memo(
       (IVehicleListForRender | null)[]
     >(
       getVehicleListForRender(
-        preLoadProductDerivatives?.derivatives,
+        preLoadProductDerivatives?.derivatives || [],
         vehiclesCardsData,
         migratedManufacturers,
       ),
@@ -197,7 +197,7 @@ const GlobalSearchPageContainer = memo(
         setTotalResults(vehicles.productDerivatives?.total || 0);
         return setVehicleList(
           getVehicleListForRender(
-            vehicles?.productDerivatives?.derivatives,
+            vehicles?.productDerivatives?.derivatives || [],
             vehiclesCardsData,
             migratedManufacturers,
           ),
@@ -317,7 +317,7 @@ const GlobalSearchPageContainer = memo(
       if (preLoadProductDerivatives?.derivatives) {
         setVehicleList(
           getVehicleListForRender(
-            preLoadProductDerivatives?.derivatives,
+            preLoadProductDerivatives?.derivatives || [],
             vehiclesCardsData,
             migratedManufacturers,
           ),

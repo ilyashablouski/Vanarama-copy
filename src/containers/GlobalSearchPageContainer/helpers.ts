@@ -175,44 +175,39 @@ export const isSimilarPage = (prevProps: IProps, nextProps: IProps) => {
 };
 
 export const getVehicleListForRender = (
-  vehiclesList:
-    | (productDerivatives_productDerivatives_derivatives | null)[]
-    | null
-    | undefined,
+  vehiclesList: (productDerivatives_productDerivatives_derivatives | null)[],
   vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]>,
   migratedManufacturers: IManufacturersSlugVehicles,
 ): IVehicleListForRender[] => {
-  if (!vehiclesList || !vehiclesList.length) {
+  if (vehiclesList[0] === null) {
     return [];
   }
-  return vehiclesList?.map(
-    (vehicle: productDerivatives_productDerivatives_derivatives) => {
-      const vehicleType =
-        (vehicle?.vehicleType as VehicleTypeEnum) || VehicleTypeEnum.LCV;
-      const derivativeId = vehicle?.derivativeId?.toString() || '';
-      return {
-        data: {
-          ...productCardDataMapper(vehicle),
-          ...vehiclesCardsData?.[vehicleType].find(
-            x => x?.capId === derivativeId,
-          ),
-        },
-        derivativeId,
-        title: {
-          title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
-          description: vehicle?.derivativeName || '',
-        },
-        url:
-          (isManufacturerMigrated(
-            (vehicle?.vehicleType === VehicleTypeEnum.CAR
-              ? migratedManufacturers?.car?.manufacturers
-              : migratedManufacturers?.lcv?.manufacturers) || [],
-            vehicle?.manufacturerName || '',
-          )
-            ? vehicle?.url
-            : vehicle?.lqUrl || vehicle?.url) || '',
-        capBodyStyle: vehicle?.capBodyStyle || '',
-      };
-    },
-  );
+  return vehiclesList?.map(vehicle => {
+    const vehicleType =
+      (vehicle?.vehicleType as VehicleTypeEnum) || VehicleTypeEnum.LCV;
+    const derivativeId = vehicle?.derivativeId?.toString() || '';
+    return {
+      data: {
+        ...productCardDataMapper(vehicle),
+        ...vehiclesCardsData?.[vehicleType].find(
+          x => x?.capId === derivativeId,
+        ),
+      },
+      derivativeId,
+      title: {
+        title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
+        description: vehicle?.derivativeName || '',
+      },
+      url:
+        (isManufacturerMigrated(
+          (vehicle?.vehicleType === VehicleTypeEnum.CAR
+            ? migratedManufacturers?.car?.manufacturers
+            : migratedManufacturers?.lcv?.manufacturers) || [],
+          vehicle?.manufacturerName || '',
+        )
+          ? vehicle?.url
+          : vehicle?.lqUrl || vehicle?.url) || '',
+      capBodyStyle: vehicle?.capBodyStyle || '',
+    };
+  });
 };

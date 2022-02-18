@@ -359,19 +359,130 @@ describe('helpers', () => {
         getVehicleListForRender([], vehiclesCardsData, migratedManufacturers),
       ).toMatchObject([]);
     });
-    it('should return empty array if vehiclesList is undefined', () => {
+    it('should return empty array if vehiclesList is array of null', () => {
       expect(
         getVehicleListForRender(
-          undefined,
+          [null, null],
           vehiclesCardsData,
           migratedManufacturers,
         ),
       ).toMatchObject([]);
     });
-    it('should return empty array if vehiclesList is null', () => {
+    it('should works correct', () => {
+      const vehiclesList = [
+        {
+          alloys: true,
+          availability: 0,
+          capBodyStyle: 'Hatchback',
+          capCode: 'ALGI14SR25HPTM',
+          capId: '94060',
+          derivativeId: 94060,
+          derivativeName: '1.4 TB Sprint 5 Doors',
+          doors: 5,
+          enginePowerBhp: 120,
+          enginePowerKw: 88,
+          engineSize: 1400,
+          engineTorque: 215,
+          financeType: 'PCH',
+          fuelType: 'Petrol',
+          fullDescription:
+            'Car Alfa Romeo Giulietta Hatchback Petrol Manual 1.4 TB Sprint 5 Doors',
+          fullPrice: 21900,
+          funder: 'ARV',
+          height: 1465,
+          inStock: false,
+          indexedAt: '2022-01-22T14:55:28.249Z',
+          initialPayment: 3958.8,
+          initialPaymentMaintained: 4317.36,
+          initialPeriod: 12,
+          insuranceGroup: '16E',
+          introducedAt: '2020-08-01T00:00:00.000Z',
+          inventoryCount: 0,
+          length: 4351,
+          loadLength: null,
+          loadWidth: null,
+          lqBodyStyle: 'Hatchback',
+          lqFunderId: 2,
+          lqFunderRateId: 395935878,
+          lqUrl:
+            'alfa-romeo-car-leasing/giulietta/hatchback/1-4-tb-sprint-5dr-168550.html',
+          lqVehicleId: 168550,
+          maintenancePrice: 29.88,
+          manufacturerId: 1,
+          manufacturerName: 'Alfa Romeo',
+          mileage: 10000,
+          modelId: 51060,
+          modelName: 'Giulietta Hatchback',
+          modelYear: 2010,
+          noOfGears: 6,
+          noOfSeats: 5,
+          offerRanking: 999999999,
+          onOffer: false,
+          rangeId: 266,
+          rangeName: 'Giulietta',
+          receivedAt: '2022-01-22T03:35:49.889834Z',
+          rental: 329.9,
+          rentalMaintained: 359.78,
+          sku: 'CAR-94060-ARV-PCH-0-12-48-10',
+          stockBatchId: 0,
+          term: 48,
+          topSpeed: null,
+          totalLeaseCost: 19464.1,
+          totalLeaseCostMaintained: 21227.02,
+          towingCapacity: null,
+          transmission: 'Manual',
+          updatedAt: '2022-01-18T23:19:10.193Z',
+          url:
+            'car-leasing/alfa-romeo/giulietta/hatchback/14-tb-sprint-5-doors-2010',
+          vehicleCategory: 'Car',
+          vehicleType: 'CAR',
+          weight: null,
+          wheelbase: 2634,
+          width: 1798,
+        },
+      ];
+      const result = [
+        {
+          data: {
+            vehicleType: 'CAR',
+            capId: '94060',
+            manufacturerName: 'Alfa Romeo',
+            rangeName: 'Giulietta',
+            modelName: 'Giulietta Hatchback',
+            derivativeName: '1.4 TB Sprint 5 Doors',
+            averageRating: 0,
+            isOnOffer: false,
+            freeInsurance: false,
+            offerPosition: 999999999,
+            leadTime: 'Factory Order',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Models/9610/alfaromeogiulietta0319(3).jpg',
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+            ],
+            businessRate: 226.9,
+            personalRate: 272.9,
+          },
+          derivativeId: '94060',
+          title: {
+            title: 'Alfa Romeo Giulietta Hatchback',
+            description: '1.4 TB Sprint 5 Doors',
+          },
+          url:
+            'alfa-romeo-car-leasing/giulietta/hatchback/1-4-tb-sprint-5dr-168550.html',
+          capBodyStyle: 'Hatchback',
+        },
+      ];
       expect(
-        getVehicleListForRender(null, vehiclesCardsData, migratedManufacturers),
-      ).toMatchObject([]);
+        getVehicleListForRender(
+          vehiclesList,
+          vehiclesCardsData,
+          migratedManufacturers,
+        ),
+      ).toMatchObject(result);
     });
   });
 });
