@@ -342,7 +342,7 @@ export async function getServerSideProps(
 
   try {
     const [{ data }, migrationSlugs] = await Promise.all([
-      await client.query<GenericPageHeadQuery, GenericPageHeadQueryVariables>({
+      client.query<GenericPageHeadQuery, GenericPageHeadQueryVariables>({
         query: GENERIC_PAGE_HEAD,
         variables: {
           slug: 'leasing-offers',
