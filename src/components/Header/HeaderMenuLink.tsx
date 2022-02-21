@@ -96,6 +96,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
           links={link.children as IHeaderLink[]}
           isTabletOrMobile={isTabletOrMobile}
           title={link.label}
+          dataUiTestId={`header_secondary-menu_${link.label}`}
         />
       ) : null}
     </li>

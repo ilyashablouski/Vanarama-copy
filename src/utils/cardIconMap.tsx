@@ -75,7 +75,7 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('WarrantyRosette5', <WarrantyRosette5 />)
   .set('0-62mph', <Speedometer />)
   .set('FrontParkingSensors', <FrontParkingSensors />)
-  .set('Front/RearParkingSensors', <FrontRearParkingSensors />)
+  .set('FrontandRearParkingSensors', <FrontRearParkingSensors />)
   .set('RearParkingSensors', <RearParkingSensors />);
 
 export default IconMap;

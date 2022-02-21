@@ -45,7 +45,7 @@ const TopCategoryInfoBlock = ({ pageData, dataUiTestId }: IProps) => {
   );
 
   return (
-    <section className="row:featured-left">
+    <section className="row:featured-left" data-uitestid={dataUiTestId}>
       <div>
         <Heading
           className="-mb-400"

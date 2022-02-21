@@ -886,7 +886,10 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         />
       )}
       {isAllManufacturersPage && topInfoSection && (
-        <TopInfoBlock topInfoSection={topInfoSection} />
+        <TopInfoBlock
+          topInfoSection={topInfoSection}
+          dataUiTestId={`${dataUiTestId}_top-info-block`}
+        />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -1068,6 +1071,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
               isRangePage={isRangePage}
               pageData={pageData}
               isNewRangeCarousel={isNewRangeCarousel}
+              dataUiTestId={`${dataUiTestId}_new-range-content`}
             />
           )}
 

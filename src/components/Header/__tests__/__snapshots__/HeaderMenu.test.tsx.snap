@@ -82,6 +82,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Vans_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -104,6 +105,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -white -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_VANS Special Offers"
               >
                 <div
                   className="button--inner"
@@ -118,6 +120,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -134,6 +137,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Size"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -150,6 +154,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Type"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -182,6 +187,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -417,6 +423,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Size"
           >
             <li
               className="menu-li menu-title"
@@ -490,6 +497,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Type"
           >
             <li
               className="menu-li menu-title"
@@ -609,6 +617,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Pickups_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -663,6 +672,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Pickups_button_Pickups By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -679,6 +689,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Pickups_button_Best Selling"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -692,6 +703,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Pickups_menu-tertiary_Pickups By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -927,6 +939,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Pickups_menu-tertiary_Best Selling"
           >
             <li
               className="menu-li menu-title"
@@ -1046,6 +1059,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Cars_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -1100,6 +1114,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Cars_button_Cars By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -1116,6 +1131,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Cars_button_Cars By BodyStyle"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -1148,6 +1164,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Cars_menu-tertiary_Cars By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -1527,6 +1544,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Cars_menu-tertiary_Cars By BodyStyle"
           >
             <li
               className="menu-li menu-title"
@@ -1790,6 +1808,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Insurance_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -1812,6 +1831,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Multi-Year Insurance"
               >
                 <div
                   className="button--inner"
@@ -1826,6 +1846,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Finance GAP Insurance"
               >
                 <div
                   className="button--inner"
@@ -1840,6 +1861,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Tools in Transit Insurance"
               >
                 <div
                   className="button--inner"
@@ -1854,6 +1876,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_7-Day Free Insurance"
               >
                 <div
                   className="button--inner"
@@ -1868,6 +1891,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Short-Term Insurance"
               >
                 <div
                   className="button--inner"
@@ -1882,6 +1906,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Frequently Asked Questions"
               >
                 <div
                   className="button--inner"
@@ -2018,6 +2043,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Vans_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -2040,6 +2066,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -white -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_VANS Special Offers"
               >
                 <div
                   className="button--inner"
@@ -2054,6 +2081,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -2070,6 +2098,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Size"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -2086,6 +2115,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Vans_button_Vans By Type"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -2118,6 +2148,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -2353,6 +2384,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Size"
           >
             <li
               className="menu-li menu-title"
@@ -2426,6 +2458,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Type"
           >
             <li
               className="menu-li menu-title"
@@ -2545,6 +2578,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Pickups_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -2599,6 +2633,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Pickups_button_Pickups By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -2615,6 +2650,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Pickups_button_Best Selling"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -2628,6 +2664,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Pickups_menu-tertiary_Pickups By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -2863,6 +2900,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Pickups_menu-tertiary_Best Selling"
           >
             <li
               className="menu-li menu-title"
@@ -2982,6 +3020,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Cars_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -3036,6 +3075,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Cars_button_Cars By Manufacturer"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -3052,6 +3092,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Cars_button_Cars By BodyStyle"
                 onFocus={[Function]}
                 onMouseOver={[Function]}
               >
@@ -3084,6 +3125,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary -open"
+            data-uitestid="header_secondary-menu_Cars_menu-tertiary_Cars By Manufacturer"
           >
             <li
               className="menu-li menu-title"
@@ -3463,6 +3505,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
           </ul>
           <ul
             className="menu-tertiary"
+            data-uitestid="header_secondary-menu_Cars_menu-tertiary_Cars By BodyStyle"
           >
             <li
               className="menu-li menu-title"
@@ -3726,6 +3769,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         >
           <ul
             className="menu-secondary"
+            data-uitestid="header_secondary-menu_Insurance_menu-secondary"
           >
             <li
               className="menu-li menu-title"
@@ -3748,6 +3792,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Multi-Year Insurance"
               >
                 <div
                   className="button--inner"
@@ -3762,6 +3807,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Finance GAP Insurance"
               >
                 <div
                   className="button--inner"
@@ -3776,6 +3822,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Tools in Transit Insurance"
               >
                 <div
                   className="button--inner"
@@ -3790,6 +3837,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_7-Day Free Insurance"
               >
                 <div
                   className="button--inner"
@@ -3804,6 +3852,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Short-Term Insurance"
               >
                 <div
                   className="button--inner"
@@ -3818,6 +3867,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <button
                 className="link -inherit -black -initial-size -clear"
+                data-uitestid="header_secondary-menu_Insurance_button_Frequently Asked Questions"
               >
                 <div
                   className="button--inner"
