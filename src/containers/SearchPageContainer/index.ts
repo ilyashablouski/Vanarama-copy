@@ -1,5 +1,5 @@
-import CarLeaseSerachContainer from './SearchContainer';
+import CarLeaseSearchContainer from './CarLeaseSearchContainer';
 
 export { default } from './SearchPageContainer';
 
-export { CarLeaseSerachContainer };
+export { CarLeaseSearchContainer };

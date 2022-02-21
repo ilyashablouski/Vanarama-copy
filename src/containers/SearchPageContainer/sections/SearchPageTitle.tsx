@@ -6,31 +6,30 @@ import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 import CommonDescriptionContainer from './CommonDescriptionContainer';
-import { IBreadcrumbLink } from '../../../types/breadcrumbs';
-import { Nullish } from '../../../types/common';
 import { onMadeLineBreaks } from '../helpers';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
 interface IProps {
-  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
+  breadcrumbs: CustomJSON | null;
   pageTitle: string;
   pageData?: GenericPageQuery;
   partnershipDescription: string;
-  isDesktopOrTablet: boolean;
   isPartnershipActive?: boolean;
   isNewPage?: boolean;
   dataUiTestId?: string;
 }
 
 const SearchPageTitle = ({
-  breadcrumbsItems,
+  breadcrumbs,
   pageTitle,
   pageData,
   partnershipDescription,
   isPartnershipActive,
-  isDesktopOrTablet,
   isNewPage,
   dataUiTestId,
 }: IProps) => {
+  const isDesktopOrTablet = useMobileViewport();
+
   const headingText = useMemo(
     () =>
       isDesktopOrTablet
@@ -41,6 +40,14 @@ const SearchPageTitle = ({
             </React.Fragment>
           )),
     [isDesktopOrTablet, pageTitle],
+  );
+
+  const breadcrumbsItems = useMemo(
+    () =>
+      breadcrumbs?.map((el: any) => ({
+        link: { href: el.href || '', label: el.label },
+      })),
+    [breadcrumbs],
   );
 
   return (

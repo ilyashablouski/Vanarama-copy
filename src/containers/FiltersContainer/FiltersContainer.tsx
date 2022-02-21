@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { useDesktopViewport } from '../../hooks/useMediaQuery';
@@ -14,6 +14,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
 import { arraysAreEqual } from '../../utils/helpers';
+import { createInitialFiltersState } from '../SearchPageContainer/helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -46,7 +47,6 @@ const FiltersContainer = ({
   preLoadFilters,
   tagArrayBuilderHelper,
   renderFilters,
-  initialState,
   dataUiTestId,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState(
@@ -64,6 +64,10 @@ const FiltersContainer = ({
     {} as IChoiceBoxesData,
   );
   const isDesktop = useDesktopViewport();
+  const initialState = useMemo(
+    () => createInitialFiltersState(getPartnerProperties()?.fuelTypes || []),
+    [],
+  );
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
     undefined,

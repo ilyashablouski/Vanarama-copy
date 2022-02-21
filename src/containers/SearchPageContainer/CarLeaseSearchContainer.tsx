@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from 'react';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -10,7 +17,6 @@ import SearchPageFilters from '../../components/SearchPageFilters';
 import SortOrder from '../../components/SortOrder';
 import {
   buildRewriteRoute,
-  createInitialFiltersState,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
@@ -43,7 +49,6 @@ import { getPartnerProperties } from '../../utils/partnerProperties';
 import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
 import { globalColors } from '../../utils/colors';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { TColor } from '../../types/color';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { IFilters } from '../FiltersContainer/interfaces';
@@ -59,52 +64,50 @@ import { GetProductCard_productCard as IProductCard } from '../../../generated/G
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
 import { ISearchPageContainerProps } from './interfaces';
+import ResultsCount from './components/ResultsCount';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
 });
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
-
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
 });
 
-const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
+const CarLeaseSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
-  preLoadFiltersData,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   preLoadVehiclesList,
   preLoadResponseCapIds,
   preLoadProductCardsData,
-  defaultSort,
 }) => {
-  const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
+  const { savedSortOrder, saveSortOrder } = useSortOrder();
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
-  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
+  const [pageTitle, setTitle] = useState(metaData?.name || '');
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
+  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
+  const [isPartnershipActive, setPartnershipActive] = useState(false);
   const [prevPosition, setPrevPosition] = useState(0);
-  const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
   const [pageOffset, setPageOffset] = useState(0);
+  const [filtersData, setFiltersData] = useState({} as IFilters);
+  const [capIds, setCapsIds] = useState<string[]>(preLoadResponseCapIds || []);
+  const [partnershipDescription, setPartnershipDescription] = useState('');
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || [],
   );
   const [cardsData, setCardsData] = useState<(IProductCard | null)[]>(
     preLoadProductCardsData?.productCard || [],
   );
-  const [capIds, setCapsIds] = useState<string[]>(preLoadResponseCapIds || []);
   const [cardsDataCache, setCardsDataCache] = useState<(IProductCard | null)[]>(
     [],
   );
@@ -113,9 +116,6 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
   );
   const [hasNextPage, setHasNextPage] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
-  );
-  const [partnershipDescription, setPartnershipDescription] = useState<string>(
-    '',
   );
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
@@ -129,18 +129,6 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
   const [totalCount, setTotalCount] = useState(
     preLoadVehiclesList?.vehicleList?.totalCount || 0,
   );
-  const [filtersData, setFiltersData] = useState({} as IFilters);
-  const breadcrumbsItems = useMemo(
-    () =>
-      metaData?.breadcrumbs?.map((el: any) => ({
-        link: { href: el.href || '', label: el.label },
-      })),
-    [metaData],
-  );
-  const initialFiltersState = useMemo(
-    () => createInitialFiltersState(getPartnerProperties()?.fuelTypes || []),
-    [],
-  );
   const fuelTypesData = useMemo(
     () =>
       filtersData?.fuelTypes?.length > 0
@@ -150,7 +138,6 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
   );
   const router = useRouter();
   const client = useApolloClient();
-  const isDesktopOrTablet = useMobileViewport();
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
@@ -272,100 +259,101 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
   );
 
   /** save to sessions storage special offers status */
-  const onSaveSpecialOffersStatus = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsSpecialOffers(e.target.checked);
-    sessionStorage.setItem('Car', JSON.stringify(e.target.checked));
-    setIsSpecialOffersOrder(e.target.checked);
-  };
+  const onSaveSpecialOffersStatus = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setIsSpecialOffers(e.target.checked);
+      sessionStorage.setItem('Car', JSON.stringify(e.target.checked));
+      setIsSpecialOffersOrder(e.target.checked);
+    },
+    [],
+  );
 
   // handler for changing sort dropdown
-  const onChangeSortOrder = (value: string) => {
-    const [type, direction] = value.split('_');
-    setSortOrder(
-      sortObjectGenerator([
-        { field: type as SortField, direction: direction as SortDirection },
-      ]),
-    );
-    saveSortOrder(
-      sortObjectGenerator([
-        { field: type as SortField, direction: direction as SortDirection },
-      ]),
-    );
-    if (isSpecialOffersOrder) {
-      setIsSpecialOffersOrder(false);
-    }
-  };
-
-  const onSearch = (filtersObject?: IFilters) => {
-    const filters = filtersObject || filtersData;
-    const onOffer = isSpecialOffers || null;
-    let fuelTypes;
-    if (filters?.fuelTypes?.length > 0) {
-      fuelTypes = filters.fuelTypes;
-    } else {
-      fuelTypes = getPartnerProperties()?.fuelTypes;
-    }
-    getVehicles(
-      createVehiclesVariables({
-        isCarSearch: true,
-        isPersonal,
-        isSpecialOffersOrder,
-        onOffer: onOffer ?? null,
-        filters,
-        query: router.query,
-        sortOrder: sortOrder as SortObject[],
-        fuelTypes,
-      }),
-    );
-    if (filtersObject) {
-      let pathname = router.route
-        .replace('[dynamicParam]', router.query?.dynamicParam as string)
-        .replace('[rangeName]', router.query?.rangeName as string)
-        .replace('[bodyStyles]', router.query?.bodyStyles as string);
-      const queryString = new URLSearchParams();
-      const query = buildRewriteRoute(filters as IFilters);
-      Object.entries(query).forEach(filter => {
-        const [key, value] = filter as [string, string | string[]];
-        if (
-          value?.length &&
-          // don't add queries in page where we have same data in route
-          !(key === 'make' || key === 'rangeName') &&
-          !(key === 'bodyStyles') &&
-          !(isPartnershipActive && key === 'fuelTypes') &&
-          !(key === 'transmissions') &&
-          !(key === 'pricePerMonth') &&
-          !(key === 'make' || key === 'rangeName' || key === 'bodyStyles')
-        ) {
-          queryString.set(key, value as string);
-        }
-      });
-      if (Object.keys(query).length) {
-        pathname += `?${decodeURIComponent(queryString.toString())}`;
-      }
-      // changing url dynamically
-      router.replace(
-        {
-          pathname: router.route,
-          query,
-        },
-        pathname,
-        { shallow: true },
+  const onChangeSortOrder = useCallback(
+    (value: string) => {
+      const [type, direction] = value.split('_');
+      setSortOrder(
+        sortObjectGenerator([
+          { field: type as SortField, direction: direction as SortDirection },
+        ]),
       );
-      // set search filters data
-      setFiltersData(filters);
-    }
-  };
+      saveSortOrder(
+        sortObjectGenerator([
+          { field: type as SortField, direction: direction as SortDirection },
+        ]),
+      );
+      if (isSpecialOffersOrder) {
+        setIsSpecialOffersOrder(false);
+      }
+    },
+    [isSpecialOffersOrder, saveSortOrder],
+  );
 
-  const tagArrayBuilder = (
-    entry: [string, string[]],
-    filtersContainerData: IFilterList,
-  ) =>
-    tagArrayBuilderHelper(entry, filtersContainerData, {
+  const onSearch = useCallback(
+    (filtersObject?: IFilters) => {
+      const filters = filtersObject || filtersData;
+      const onOffer = isSpecialOffers || null;
+      let fuelTypes;
+      if (filters?.fuelTypes?.length > 0) {
+        fuelTypes = filters.fuelTypes;
+      } else {
+        fuelTypes = getPartnerProperties()?.fuelTypes;
+      }
+      getVehicles(
+        createVehiclesVariables({
+          isCarSearch: true,
+          isPersonal,
+          isSpecialOffersOrder,
+          onOffer: onOffer ?? null,
+          filters,
+          query: router.query,
+          sortOrder: sortOrder as SortObject[],
+          fuelTypes,
+        }),
+      );
+      if (filtersObject) {
+        let pathname = router.route
+          .replace('[dynamicParam]', router.query?.dynamicParam as string)
+          .replace('[rangeName]', router.query?.rangeName as string)
+          .replace('[bodyStyles]', router.query?.bodyStyles as string);
+        const queryString = new URLSearchParams();
+        const query = buildRewriteRoute(filters as IFilters);
+        Object.entries(query).forEach(filter => {
+          const [key, value] = filter as [string, string | string[]];
+          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
+            queryString.set(key, value as string);
+          }
+        });
+        if (Object.keys(query).length) {
+          pathname += `?${decodeURIComponent(queryString.toString())}`;
+        }
+        // changing url dynamically
+        router.replace(
+          {
+            pathname: router.route,
+            query,
+          },
+          pathname,
+          { shallow: true },
+        );
+        // set search filters data
+        setFiltersData(filters);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      filtersData,
+      sortOrder,
+      isPersonal,
+      isSpecialOffers,
+      isSpecialOffersOrder,
       isPartnershipActive,
-    });
+      getVehicles,
+    ],
+  );
 
   // load more offers
-  const onLoadMore = () => {
+  const onLoadMore = useCallback(() => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
     // Chrome scroll down page after load new offers
@@ -377,7 +365,31 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
         cacheData?.vehicleList.pageInfo.hasNextPage || false,
       );
     }
-  };
+  }, [
+    cacheData?.vehicleList.edges,
+    cacheData?.vehicleList.pageInfo.endCursor,
+    cacheData?.vehicleList.pageInfo.hasNextPage,
+    cardsDataCache,
+    totalCount,
+    vehiclesList,
+  ]);
+
+  const tagArrayBuilder = useCallback(
+    (entry: [string, string[]], filtersContainerData: IFilterList) =>
+      tagArrayBuilderHelper(entry, filtersContainerData, {
+        isPartnershipActive,
+      }),
+    [isPartnershipActive],
+  );
+
+  useFirstRenderEffect(() => {
+    onSearch();
+    setLastCard('');
+  }, [sortOrder]);
+
+  useFirstRenderEffect(() => {
+    onSearch();
+  }, [isPersonal]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -449,15 +461,24 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
     }
   }, []);
 
+  // API call after load new pages
+  useEffect(() => {
+    // prevent request with empty filters
+    const queryLength = Object.keys(router?.query || {})?.length;
+    // if it's simple search page with presave special offers param made new request for actual params
+    if (!queryLength && getValueFromStorage(false, true)) {
+      // load vehicles
+      getVehicles();
+    }
+    // disabled lint because we can't add router to deps
+    // it's change every url replace
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getVehicles]);
+
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (
-      lastCard &&
-      hasNextPage &&
-      shouldUpdateCache &&
-      Object.values(filtersData).flat().length > 0
-    ) {
+    if (lastCard && hasNextPage && shouldUpdateCache) {
       setShouldUpdateCache(false);
       const isOnOffer = isSpecialOffers || null;
 
@@ -502,16 +523,26 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
     isPersonal,
   ]);
 
+  // set capsIds for cached data
+  useEffect(() => {
+    if (cacheData?.vehicleList.edges?.length) {
+      setCapsIds(
+        cacheData.vehicleList?.edges?.map(
+          vehicle => vehicle?.node?.derivativeId || '',
+        ) || [],
+      );
+    }
+  }, [cacheData, setCapsIds]);
+
   return (
     <>
       <PartnershipLogoHeader />
       <SearchPageTitle
         dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbsItems={breadcrumbsItems}
+        breadcrumbs={metaData.breadcrumbs}
         pageTitle={pageTitle}
         pageData={pageData}
         partnershipDescription={partnershipDescription}
-        isDesktopOrTablet={isDesktopOrTablet}
       />
       <div className="-mv-400 -stretch-left">
         <Checkbox
@@ -528,8 +559,6 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
             tagArrayBuilderHelper={tagArrayBuilder}
-            preLoadFilters={preLoadFiltersData}
-            initialState={initialFiltersState}
             dataUiTestId={dataUiTestId}
             renderFilters={innerProps => (
               <SearchPageFilters
@@ -539,7 +568,6 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
                 isPreloadList={!!preLoadVehiclesList}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
-                preLoadFilters={preLoadFiltersData}
                 dataUiTestId={dataUiTestId}
                 isSpecialOffers={isSpecialOffers || null}
                 setIsSpecialOffers={setIsSpecialOffers}
@@ -551,14 +579,7 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
       </div>
       <div className="row:bg-lighter -thin">
         <div className="row:results">
-          <Text
-            color="darker"
-            size="regular"
-            tag="span"
-            dataUiTestId={`${dataUiTestId}_text_results-count`}
-          >
-            {`Showing ${totalCount} Results`}
-          </Text>
+          <ResultsCount totalCount={totalCount} dataUiTestId={dataUiTestId} />
           <SortOrder
             sortValues={sortValues}
             sortOrder={(sortOrder as SortObject[])[0]}
@@ -605,4 +626,4 @@ const SearchContainer: FC<Partial<ISearchPageContainerProps>> = ({
   );
 };
 
-export default SearchContainer;
+export default CarLeaseSearchContainer;
