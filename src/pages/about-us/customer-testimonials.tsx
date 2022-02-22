@@ -1,6 +1,7 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -26,15 +27,18 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<{
   data: GenericPageTestimonialsQuery;
   testimonialsData: TestimonialsData;
+  serviceBanner?: IServiceBanner;
 }>;
 
 const CustomerTestimonialPage: NextPage<IProps> = ({
   data,
   testimonialsData,
+  serviceBanner,
 }) => {
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -51,6 +55,7 @@ const CustomerTestimonialPage: NextPage<IProps> = ({
         sections={sections}
         breadcrumbsItems={breadcrumbsItems}
         initialTestimonials={testimonialsData?.testimonials}
+        serviceBanner={serviceBanner}
       />
       {metaData && (
         <>
@@ -91,12 +96,15 @@ export async function getStaticProps(
       }),
     ]);
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

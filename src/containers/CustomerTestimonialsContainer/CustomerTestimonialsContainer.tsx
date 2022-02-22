@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
 import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
@@ -43,6 +45,7 @@ interface IProps {
   body: string | null;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   initialTestimonials: TestimonialsData['testimonials'] | undefined;
+  serviceBanner?: IServiceBanner;
 }
 
 const CustomerTestimonialsContainer: FC<IProps> = ({
@@ -50,6 +53,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   sections,
   breadcrumbsItems,
   initialTestimonials,
+  serviceBanner,
 }) => {
   const [page, setPage] = useState(initialTestimonials ? 2 : 1);
   const [testimonials, setTestimonialsData] = useState<
@@ -99,6 +103,11 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
 
   return (
     <>
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <div className="testimonials--content">
         <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
