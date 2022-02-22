@@ -8,9 +8,10 @@ import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import { onMadeLineBreaks } from '../helpers';
 import { useMobileViewport } from '../../../hooks/useMediaQuery';
+import { Nullish } from '../../../types/common';
 
 interface IProps {
-  breadcrumbs: CustomJSON | null;
+  breadcrumbs: Nullish<CustomJSON>;
   pageTitle: string;
   pageData?: GenericPageQuery;
   partnershipDescription: string;
