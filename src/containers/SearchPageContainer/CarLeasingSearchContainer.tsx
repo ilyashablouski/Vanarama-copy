@@ -78,7 +78,7 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const CarLeaseSearchContainer: FC<ISearchPageContainerProps> = ({
+const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
   pageData: pageDataSSR,
@@ -626,4 +626,4 @@ const CarLeaseSearchContainer: FC<ISearchPageContainerProps> = ({
   );
 };
 
-export default CarLeaseSearchContainer;
+export default CarLeasingSearchContainer;
