@@ -412,8 +412,9 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-mb-500"
       />
-      <div className="row:title -mt-500">
+      <div className="row:title">
         {!!breadcrumbPath.length && <Breadcrumbs items={breadcrumbPath} />}
         <Heading
           tag="h1"

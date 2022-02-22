@@ -91,8 +91,9 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-mb-500"
       />
-      <div className="row:title -mt-500">
+      <div className="row:title">
         <Breadcrumbs items={breadcrumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}

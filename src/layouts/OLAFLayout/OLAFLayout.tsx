@@ -223,6 +223,7 @@ const OLAFLayout: React.FC<IProps> = ({
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-olaf"
       />
       <ProgressSection />
       {isMobile && (

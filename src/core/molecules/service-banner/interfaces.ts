@@ -7,4 +7,5 @@ export interface IServiceBanner {
   enable?: boolean | null;
   message?: string | null;
   link?: IServiceBannerLink | null;
+  className?: string;
 }

@@ -126,8 +126,9 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-mb-500"
       />
-      <div className="row:title -mt-500">
+      <div className="row:title">
         <Heading
           tag="h1"
           size="xlarge"

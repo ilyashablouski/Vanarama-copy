@@ -49,8 +49,9 @@ const PageNotFoundContainer: NextPage<IProps> = ({
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-mb-500"
       />
-      <div className="row:title -mt-500">
+      <div className="row:title">
         <Breadcrumbs items={breadcrumbsItems} />
         <Heading
           tag="h1"

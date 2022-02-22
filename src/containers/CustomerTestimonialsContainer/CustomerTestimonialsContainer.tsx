@@ -107,6 +107,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
+        className="-mb-500"
       />
       <div className="testimonials--content">
         <Breadcrumbs items={breadcrumbsItems} />
