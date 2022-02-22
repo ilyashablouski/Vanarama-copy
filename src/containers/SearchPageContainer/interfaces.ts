@@ -46,5 +46,5 @@ export interface ISearchPageContainerProps {
   preloadManufacturer?: string;
   defaultSort?: Nullable<SortObject[]>;
   newRangePageSlug?: string;
-  dataUiTestId: string;
+  dataUiTestId?: string;
 }
