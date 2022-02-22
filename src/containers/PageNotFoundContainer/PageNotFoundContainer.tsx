@@ -2,6 +2,9 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
+import React from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,
@@ -30,6 +33,7 @@ interface IProps {
     | undefined;
   breadcrumbsItems?: Nullish<IBreadcrumbLink[]>;
   featured?: GenericPageQuery_genericPage_sections_featured | null | undefined;
+  serviceBanner?: IServiceBanner;
 }
 
 const PageNotFoundContainer: NextPage<IProps> = ({
@@ -37,10 +41,16 @@ const PageNotFoundContainer: NextPage<IProps> = ({
   featured,
   breadcrumbsItems,
   cards,
+  serviceBanner,
 }) => {
   return (
     <>
-      <div className="row:title">
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
+      <div className="row:title -mt-500">
         <Breadcrumbs items={breadcrumbsItems} />
         <Heading
           tag="h1"

@@ -21,6 +21,7 @@ import {
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const PageNotFoundContainer = dynamic(
   () => import('../../containers/PageNotFoundContainer/PageNotFoundContainer'),
@@ -29,7 +30,7 @@ const PageNotFoundContainer = dynamic(
   },
 );
 
-const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
+const PageNotFound: NextPage<IGenericPage> = ({ data, serviceBanner }) => {
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -51,6 +52,7 @@ const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
         name={name}
         cards={cards}
         breadcrumbsItems={breadcrumbs}
+        serviceBanner={serviceBanner}
       />
       {metaData && (
         <>
@@ -78,11 +80,14 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
