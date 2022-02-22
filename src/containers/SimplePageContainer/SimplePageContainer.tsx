@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -38,12 +40,13 @@ const ErrorMessage = dynamic(
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
+  serviceBanner?: IServiceBanner;
   loading?: boolean;
   error?: IErrorProps;
 }
 
 const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
-  const { data, loading, error } = prop;
+  const { data, loading, error, serviceBanner } = prop;
   const metaData = getSectionsData(['metaData'], data?.genericPage);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
@@ -84,7 +87,12 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
 
   return (
     <>
-      <div className="row:title">
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
+      <div className="row:title -mt-500">
         <Breadcrumbs items={breadcrumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}
