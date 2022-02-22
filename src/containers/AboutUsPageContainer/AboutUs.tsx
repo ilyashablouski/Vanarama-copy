@@ -4,6 +4,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
 import CarouselSwiper from 'core/organisms/carousel';
 import { SwiperSlide } from 'swiper/react';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
   GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
@@ -41,6 +42,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 
 export interface IAboutPageProps {
   data: Query;
+  serviceBanner?: IServiceBanner;
   children?: ReactNode;
 }
 

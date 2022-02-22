@@ -1,12 +1,13 @@
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import getPartnerProperties, {
   isPartnerSessionActive,
 } from 'utils/partnerProperties';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IBreadcrumb } from 'types/breadcrumbs';
+import ServiceBanner from 'core/molecules/service-banner';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -25,10 +26,14 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<IAboutPageProps>;
 
-const AboutUsLandingPage: NextPage<IProps> = ({ data: encodedData }) => {
+const AboutUsLandingPage: NextPage<IProps> = ({
+  data: encodedData,
+  serviceBanner,
+}) => {
   const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
   const featuredImage = getSectionsData(
@@ -58,8 +63,13 @@ const AboutUsLandingPage: NextPage<IProps> = ({ data: encodedData }) => {
 
   return (
     <>
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       {breadcrumbs && (
-        <div className="row:title">
+        <div className="row:title -mt-500">
           <Breadcrumbs items={breadcrumbs} />
         </div>
       )}
@@ -89,6 +99,8 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     // Obfuscate data from Googlebot
     const data = encodeData(rawData);
 
@@ -97,6 +109,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
