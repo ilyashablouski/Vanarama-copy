@@ -4,6 +4,8 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
@@ -17,6 +19,7 @@ import {
 } from '../../../utils/authentication';
 import { useAuthReset } from '../../../containers/LoginFormContainer/gql';
 import { isBrowser } from '../../../utils/deviceType';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -50,6 +53,7 @@ const Message = dynamic(() => import('../../../core/components/Message'), {
 
 interface IProps {
   query: ParsedUrlQuery;
+  serviceBanner?: IServiceBanner;
 }
 
 const metaData = {
@@ -78,7 +82,7 @@ interface IQueryParams {
 }
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
-  const { query } = props;
+  const { query, serviceBanner } = props;
   const router = useRouter();
   const { redirect, isUnauthorised } = router.query as IQueryParams;
 
@@ -118,7 +122,12 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
   return (
     <>
-      <div className="row:title">
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
+      <div className="row:title -mt-500">
         <Heading
           tag="h1"
           size="xlarge"
@@ -190,9 +199,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+
+  const { serviceBanner } = await getServiceBannerData(client);
+
   return addApolloState(client, {
     props: {
       query: context.query,
+      serviceBanner: serviceBanner || null,
     },
   });
 }

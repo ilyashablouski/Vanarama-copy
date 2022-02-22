@@ -15,7 +15,7 @@ export const serviceBannerInitialData = {
 
 // eslint-disable-next-line import/prefer-default-export
 export const getServiceBannerData = async (
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<object | NormalizedCacheObject>,
   slug?: string,
   isPreview?: boolean,
 ) => {

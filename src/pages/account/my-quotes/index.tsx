@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
 import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
@@ -10,16 +11,29 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 interface IProps {
   quotes: GetMyOrders;
   person: GetPerson_getPerson;
   partyUuid: string[];
+  serviceBanner?: IServiceBanner;
 }
 
-const MyOrdersPage: NextPage<IProps> = ({ quotes, person, partyUuid }) => {
+const MyOrdersPage: NextPage<IProps> = ({
+  quotes,
+  person,
+  partyUuid,
+  serviceBanner,
+}) => {
   return (
-    <MyOverview quote data={quotes} person={person} partyUuid={partyUuid} />
+    <MyOverview
+      quote
+      data={quotes}
+      person={person}
+      partyUuid={partyUuid}
+      serviceBanner={serviceBanner}
+    />
   );
 };
 
@@ -59,11 +73,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return addApolloState(client, {
       props: {
         quotes,
         person: data.getPerson,
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
+        serviceBanner: serviceBanner || null,
       },
     });
   } catch {

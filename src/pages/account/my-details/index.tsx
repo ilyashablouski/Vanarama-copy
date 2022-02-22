@@ -11,6 +11,8 @@ import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
 import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
 import Loading from 'core/atoms/loading';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
@@ -23,6 +25,7 @@ import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isEditPersonalInformationFeatureFlagEnabled } from '../../../utils/helpers';
 import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -41,6 +44,7 @@ interface IProps {
   orders: GetMyOrders_myOrders[];
   quotes: GetMyOrders_myOrders[];
   isEditPersonalInformationEnabled?: boolean;
+  serviceBanner?: IServiceBanner;
 }
 
 const handleNetworkError = () =>
@@ -84,6 +88,7 @@ const MyDetailsPage: NextPage<IProps> = ({
   orders,
   quotes,
   isEditPersonalInformationEnabled,
+  serviceBanner,
 }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
@@ -97,7 +102,12 @@ const MyDetailsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <div className="row:title">
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
+      <div className="row:title -mt-500">
         <Breadcrumbs items={breadcrumbItems} />
         <Heading
           tag="h1"
@@ -224,6 +234,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       }),
     ]);
+
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return addApolloState(client, {
       props: {
         person: personData.myAccountMaskedDetailsByPersonUuid,
@@ -231,6 +244,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         orders: orders.myOrders,
         quotes: quotes.myOrders,
         isEditPersonalInformationEnabled,
+        serviceBanner: serviceBanner || null,
       },
     });
   } catch {

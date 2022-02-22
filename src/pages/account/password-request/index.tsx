@@ -1,8 +1,9 @@
-import { gql, useMutation } from '@apollo/client';
+import { ApolloError, gql, useMutation } from '@apollo/client';
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import React, { useState } from 'react';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import {
   HelpMeLoginMutation,
   HelpMeLoginMutationVariables,
@@ -13,6 +14,14 @@ import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import { IPageWithError, PageTypeEnum } from '../../../types/common';
+import createApolloClient from '../../../apolloClient';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
+import { convertErrorToProps } from '../../../utils/helpers';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -25,7 +34,7 @@ const Message = dynamic(() => import('../../../core/components/Message'), {
 });
 
 interface IProps {
-  query: ParsedUrlQuery;
+  serviceBanner?: IServiceBanner;
 }
 
 export const HELP_ME_LOGIN_MUTATION = gql`
@@ -50,7 +59,7 @@ const metaData = {
   breadcrumbs: null,
 };
 
-export const PasswordRequestPage: NextPage<IProps> = () => {
+export const PasswordRequestPage: NextPage<IProps> = ({ serviceBanner }) => {
   const [isEmailExist, setIsEmailExist] = useState(true);
   const [isEmailSent, setIsEmailSent] = useState(false);
 
@@ -91,7 +100,12 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
 
   return (
     <>
-      <div className="row:title">
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
+      <div className="row:title -mt-500">
         <Heading
           tag="h1"
           size="xlarge"
@@ -123,5 +137,42 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
     </>
   );
 };
+
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+  try {
+    const client = createApolloClient({});
+
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        pageType: PageTypeEnum.ERROR,
+        error: convertErrorToProps(error),
+      },
+    };
+  }
+}
 
 export default withApollo(PasswordRequestPage);
