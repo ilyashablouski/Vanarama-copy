@@ -23,9 +23,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
-const AuthorPage: NextPage<IGenericPage> = ({ data }) => (
-  <SimplePageContainer data={data} />
+const AuthorPage: NextPage<IGenericPage> = ({ data, serviceBanner }) => (
+  <SimplePageContainer data={data} serviceBanner={serviceBanner} />
 );
 
 export async function getStaticPaths(context: GetStaticPropsContext) {
@@ -64,11 +65,14 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

@@ -17,10 +17,12 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
-const AdvancedBreakdownCoverPage: NextPage<IGenericPage> = ({ data }) => (
-  <FeaturedAndTilesContainer data={data} />
-);
+const AdvancedBreakdownCoverPage: NextPage<IGenericPage> = ({
+  data,
+  serviceBanner,
+}) => <FeaturedAndTilesContainer data={data} serviceBanner={serviceBanner} />;
 
 export async function getStaticProps(
   context: GetStaticPropsContext,
@@ -39,11 +41,14 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
