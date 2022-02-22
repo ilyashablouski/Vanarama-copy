@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Skeleton from '../../../components/Skeleton';
 
 interface IResultsCuntProps {
-  dataUiTestId: string;
+  dataUiTestId?: string;
   totalCount: number;
 }
 
