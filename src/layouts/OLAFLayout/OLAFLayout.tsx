@@ -8,6 +8,8 @@ import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
 
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -48,6 +50,7 @@ interface IProps {
     React.SetStateAction<GetDerivative_derivative | null>
   >;
   children?: ReactNode;
+  serviceBanner?: IServiceBanner;
 }
 
 const YOUR_NEEDS = [
@@ -113,6 +116,7 @@ const OLAFLayout: React.FC<IProps> = ({
   children,
   setDetailsData,
   setDerivativeData,
+  serviceBanner,
 }) => {
   const router = useRouter();
   const { data } = useStoredOrderQuery();
@@ -215,6 +219,11 @@ const OLAFLayout: React.FC<IProps> = ({
   return (
     <>
       <Head metaData={meta} />
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <ProgressSection />
       {isMobile && (
         <Button

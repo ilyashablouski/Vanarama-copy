@@ -1,8 +1,10 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
+import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
+import { ApolloError } from '@apollo/client';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { useSavePersonUuidMutation } from '../../../../gql/storedPersonUuid';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
@@ -24,6 +26,14 @@ import { useStoredOLAFDataQuery } from '../../../../gql/storedOLAFData';
 import ErrorMessages from '../../../../models/enum/ErrorMessages';
 import useProgressHistory from '../../../../hooks/useProgressHistory';
 import { useCreateUpdateCreditApplication } from '../../../../gql/creditApplication';
+import { IPageWithError, PageTypeEnum } from '../../../../types/common';
+import createApolloClient from '../../../../apolloClient';
+import { getServiceBannerData } from '../../../../utils/serviceBannerHelper';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../../utils/env';
+import { convertErrorToProps } from '../../../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -31,6 +41,10 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+
+interface IProps {
+  serviceBanner?: IServiceBanner;
+}
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -46,7 +60,7 @@ type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
-export const BusinessAboutPage: NextPage = () => {
+export const BusinessAboutPage: NextPage<IProps> = ({ serviceBanner }) => {
   const router = useRouter();
   const { companyUuid, redirect } = router.query as QueryParams;
   const { setCachedLastStep } = useProgressHistory();
@@ -165,6 +179,7 @@ export const BusinessAboutPage: NextPage = () => {
     <OLAFLayout
       setDetailsData={setDetailsData}
       setDerivativeData={setDerivativeData}
+      serviceBanner={serviceBanner}
     >
       <Heading
         color="black"
@@ -199,5 +214,42 @@ export const BusinessAboutPage: NextPage = () => {
     </OLAFLayout>
   );
 };
+
+export async function getStaticProps(
+  context: GetStaticPropsContext,
+): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+  try {
+    const client = createApolloClient({});
+
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return {
+        notFound: true,
+        revalidate,
+      };
+    }
+
+    return {
+      revalidate,
+      props: {
+        pageType: PageTypeEnum.ERROR,
+        error: convertErrorToProps(error),
+      },
+    };
+  }
+}
 
 export default BusinessAboutPage;
