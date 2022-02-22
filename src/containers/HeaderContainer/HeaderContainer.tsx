@@ -29,7 +29,7 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
-import { useLogOutMutation, useServiceBannerQuery } from './gql';
+import { useLogOutMutation } from './gql';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -53,8 +53,6 @@ const HeaderContainer: FC = () => {
   const loginLink = useMemo(() => creteLoginLink(router.asPath), [
     router.asPath,
   ]);
-
-  const { data: serviceBannerData } = useServiceBannerQuery();
 
   const [logOut] = useLogOutMutation();
   const { data: storedPersonData, refetch } = useStoredPersonQuery(
@@ -234,7 +232,6 @@ const HeaderContainer: FC = () => {
   if (partnership) {
     return (
       <Header
-        serviceBanner={serviceBannerData?.serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={loginLink}
@@ -248,7 +245,6 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
-        serviceBanner={serviceBannerData?.serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={loginLink}

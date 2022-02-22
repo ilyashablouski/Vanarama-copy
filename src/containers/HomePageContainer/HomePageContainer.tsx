@@ -5,6 +5,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -72,6 +74,7 @@ export interface IHomePageContainer extends ISpecialOffersData {
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
   migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
@@ -85,10 +88,10 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   searchPodVansData,
   searchPodCarsData,
   vehicleListUrlData,
+  serviceBanner,
 }) => {
   const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
-
   // if (loading) {
   //   return <Loading size="large" />;
   // }
@@ -117,6 +120,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <HomePageHero
         searchPodCarsData={searchPodCarsData}
         searchPodVansData={searchPodVansData}

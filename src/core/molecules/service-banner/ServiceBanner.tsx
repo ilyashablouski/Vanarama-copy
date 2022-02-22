@@ -1,24 +1,10 @@
 import React from 'react';
 import Text from 'core/atoms/text';
 import Link from 'core/atoms/link';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 
-interface IServiceBannerLink {
-  url?: string | null;
-  text?: string | null;
-}
-
-interface IServiceBannerProps {
-  enabled?: boolean | null;
-  message?: string | null;
-  link?: IServiceBannerLink | null;
-}
-
-const ServiceBanner: React.FC<IServiceBannerProps> = ({
-  enabled,
-  message,
-  link,
-}) => {
-  if (!enabled) {
+const ServiceBanner: React.FC<IServiceBanner> = ({ enable, message, link }) => {
+  if (!enable) {
     return null;
   }
 

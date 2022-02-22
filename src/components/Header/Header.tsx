@@ -19,8 +19,6 @@ import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 import HeaderWishlistLink from './HeaderWishlistLink';
 import { isUserAuthenticated } from '../../utils/authentication';
-import ServiceBanner from '../ServiceBanner';
-import { ServiceBannerQuery } from '../../../generated/ServiceBannerQuery';
 
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
@@ -76,7 +74,6 @@ export interface IHeaderProps extends IBaseProps {
   customHomePath?: string;
   onLogOut: () => void;
   person?: Person | null;
-  serviceBanner?: ServiceBannerQuery['serviceBanner'];
 }
 
 export const Header: FC<IHeaderProps> = memo(props => {
@@ -88,7 +85,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
     customHomePath,
     onLogOut,
     person,
-    serviceBanner,
   } = props;
 
   const router = useRouter();
@@ -252,11 +248,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
         />
       </div>
       <BenefitsBar countItems={5} />
-      <ServiceBanner
-        enabled={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
     </header>
   );
 });
