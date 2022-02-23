@@ -2,6 +2,8 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IPageWithError, PageTypeEnum } from 'types/common';
+import ServiceBanner from 'core/molecules/service-banner';
+import React from 'react';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -26,8 +28,12 @@ import {
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
 import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
+  data,
+  serviceBanner,
+}) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -51,6 +57,12 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   if (metaData.title?.includes('FAQ')) {
     return (
       <>
+        <ServiceBanner
+          enable={serviceBanner?.enable}
+          message={serviceBanner?.message}
+          link={serviceBanner?.link}
+          className="-mb-500"
+        />
         <FAQContainer
           title={metaData.name}
           sections={sections}
@@ -69,6 +81,12 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
 
   return (
     <>
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+        className="-mb-500"
+      />
       <FinanceGapInsuranceContainer
         sections={sections}
         breadcrumbsItems={breadcrumbsItems}
@@ -118,11 +136,14 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
