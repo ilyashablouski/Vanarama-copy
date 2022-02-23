@@ -190,7 +190,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
-    const [{ data: personData }, { data: partyUuidData }] = await Promise.all([
+    const [
+      { data: personData },
+      { data: partyUuidData },
+      { serviceBanner },
+    ] = await Promise.all([
       client.query({
         query: GET_PERSON_INFORMATION_DATA,
         variables: {
@@ -203,6 +207,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           personUuid: data.getPerson.uuid,
         },
       }),
+      getServiceBannerData(client),
     ]);
 
     const partyUuids = partyUuidData.companiesByPersonUuid.map(
@@ -225,8 +230,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       }),
     ]);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return addApolloState(client, {
       props: {

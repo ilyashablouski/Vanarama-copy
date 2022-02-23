@@ -80,17 +80,15 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
   try {
-    const { data: rawData } = await client.query<
-      GetAboutUsPageData,
-      GetAboutUsPageDataVariables
-    >({
-      query: GET_ABOUT_US_PAGE_DATA,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
-
-    const { serviceBanner } = await getServiceBannerData(client);
+    const [{ data: rawData }, { serviceBanner }] = await Promise.all([
+      client.query<GetAboutUsPageData, GetAboutUsPageDataVariables>({
+        query: GET_ABOUT_US_PAGE_DATA,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     // Obfuscate data from Googlebot
     const data = encodeData(rawData);

@@ -763,14 +763,15 @@ export async function getStaticProps(
   const client = createApolloClient({});
 
   try {
-    const [{ data }, migrationSlugs] = await Promise.all([
-      await client.query<HubVanPageData, HubVanPageDataVariables>({
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
+      client.query<HubVanPageData, HubVanPageDataVariables>({
         query: HUB_VAN_CONTENT,
         variables: {
           isPreview: !!context?.preview,
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const { data: searchPodVansData } = await client.query<
       IFilterList,
@@ -814,8 +815,6 @@ export async function getStaticProps(
     // pluck random offer until offer position available
     const offer: IExtProdCardData | null =
       offers.find(card => card?.offerPosition === 1) || null;
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

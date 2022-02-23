@@ -36,10 +36,7 @@ export async function getStaticProps(
   try {
     const client = createApolloClient({});
     const [{ data }, { serviceBanner }] = await Promise.all([
-      await client.query<
-        GetInsuranceLandingPage,
-        GetInsuranceLandingPageVariables
-      >({
+      client.query<GetInsuranceLandingPage, GetInsuranceLandingPageVariables>({
         query: GET_INSURANCE_LANDING_PAGE,
         variables: {
           isPreview: !!context?.preview,

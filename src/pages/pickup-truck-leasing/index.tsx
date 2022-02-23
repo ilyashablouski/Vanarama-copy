@@ -740,31 +740,30 @@ export async function getStaticProps(
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<
-      HubPickupPageData,
-      HubPickupPageDataVariables
-    >({
-      query: HUB_PICKUP_CONTENT,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
-    const { data: searchPodVansData } = await client.query<
-      IFilterList,
-      IFilterListVariables
-    >({
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.LCV],
-      },
-    });
+    const [
+      { data },
+      { data: searchPodVansData },
+      { serviceBanner },
+    ] = await Promise.all([
+      client.query<HubPickupPageData, HubPickupPageDataVariables>({
+        query: HUB_PICKUP_CONTENT,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.LCV],
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const {
       productsPickup,
       vehicleListUrlData,
     } = await pickupsPageOffersRequest(client);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

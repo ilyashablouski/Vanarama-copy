@@ -110,7 +110,7 @@ export async function getStaticProps(
     const paths = context?.params?.pages as string[];
 
     const [{ data }, { serviceBanner }] = await Promise.all([
-      await client.query<GenericPageQuery, GenericPageQueryVariables>({
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
         query: GENERIC_PAGE,
         variables: {
           slug: `insurance/${paths?.join('/')}`,

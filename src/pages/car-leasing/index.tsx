@@ -623,14 +623,19 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const [{ data: hubCarPage }, migrationSlugs] = await Promise.all([
-      await client.query<HubCarPageData, HubCarPageDataVariables>({
+    const [
+      { data: hubCarPage },
+      migrationSlugs,
+      { serviceBanner },
+    ] = await Promise.all([
+      client.query<HubCarPageData, HubCarPageDataVariables>({
         query: HUB_CAR_CONTENT,
         variables: {
           isPreview: !!context?.preview,
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const { data: searchPodCarsData } = await client.query<
       IFilterList,
@@ -645,8 +650,6 @@ export async function getServerSideProps(
     const { productsCar, vehicleListUrlData } = await carsPageOffersRequest(
       client,
     );
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       props: {

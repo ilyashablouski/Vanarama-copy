@@ -356,18 +356,17 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
-    // const paths = context?.params?.pages as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'electric-leasing',
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: 'electric-leasing',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const {
       productsEvVan,
@@ -376,8 +375,6 @@ export async function getStaticProps(
       productsEvCarDerivatives,
       vehicleListUrlData,
     } = await evOffersRequest(client);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

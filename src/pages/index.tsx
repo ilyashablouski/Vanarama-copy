@@ -55,7 +55,7 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const [{ data }, migrationSlugs] = await Promise.all([
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
       await client.query<HomePageData, HomePageDataVariables>({
         query: ALL_HOME_CONTENT,
         variables: {
@@ -63,9 +63,8 @@ export async function getServerSideProps(
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     const {
       productsVanDerivatives,

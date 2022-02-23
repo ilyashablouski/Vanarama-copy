@@ -30,7 +30,7 @@ export async function getStaticProps(
   try {
     const client = createApolloClient({});
     const [{ data }, { serviceBanner }] = await Promise.all([
-      await client.query<GenericPageQuery, GenericPageQueryVariables>({
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
         query: GENERIC_PAGE,
         variables: {
           slug: 'fleet',

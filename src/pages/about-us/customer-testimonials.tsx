@@ -1,7 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -73,6 +72,7 @@ export async function getStaticProps(
     const [
       genericTestimonialsPageQuery,
       testimonialsDataQuery,
+      { serviceBanner },
     ] = await Promise.all([
       client.query<
         GenericPageTestimonialsQuery,
@@ -91,9 +91,8 @@ export async function getStaticProps(
           page: 1,
         },
       }),
+      getServiceBannerData(client),
     ]);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

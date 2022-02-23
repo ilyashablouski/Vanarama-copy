@@ -37,9 +37,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
 
-    const { data } = await client.query({
-      query: GET_PERSON_QUERY,
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query({
+        query: GET_PERSON_QUERY,
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const { data: partyUuidData } = await client.query({
       query: GET_COMPANIES_BY_PERSON_UUID,
@@ -59,8 +62,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         filter: MyOrdersTypeEnum.ALL_QUOTES,
       },
     });
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return addApolloState(client, {
       props: {

@@ -1,7 +1,6 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import { addApolloState, initializeApollo } from 'apolloClient';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
@@ -43,9 +42,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
 
-    const { data } = await client.query({
-      query: GET_PERSON_QUERY,
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query({
+        query: GET_PERSON_QUERY,
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const { data: partyUuidData } = await client.query({
       query: GET_COMPANIES_BY_PERSON_UUID,
@@ -65,8 +67,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         filter: MyOrdersTypeEnum.ALL_ORDERS,
       },
     });
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return addApolloState(client, {
       props: {

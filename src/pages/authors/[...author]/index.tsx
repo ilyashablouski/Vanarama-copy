@@ -54,18 +54,16 @@ export async function getStaticProps(
     const client = createApolloClient({});
     const paths = context?.params?.author as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: `authors/${paths?.join('/')}`,
-        isPreview: !!context?.preview,
-      },
-    });
-
-    const { serviceBanner } = await getServiceBannerData(client);
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: `authors/${paths?.join('/')}`,
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
