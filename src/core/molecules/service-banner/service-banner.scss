@@ -2,10 +2,4 @@
   background-color: #ECEDF1;
   grid-column: full;
   padding: 9px 0 9px 0;
-
-
-  &.-olaf {
-    --page-gap: calc(var(--layout-gap) / 1.5);
-    margin-bottom: calc(var(--page-gap) / 2);
-  }
 }
