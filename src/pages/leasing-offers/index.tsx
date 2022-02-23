@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import { MutableRefObject, useRef } from 'react';
+import React, { MutableRefObject, useRef } from 'react';
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,

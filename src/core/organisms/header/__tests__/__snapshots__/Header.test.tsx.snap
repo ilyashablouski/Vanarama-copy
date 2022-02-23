@@ -633,18 +633,24 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
         <div
           className="image -expand -plain"
         >
-          <div
+          <span
             style={
               Object {
+                "background": "none",
+                "border": 0,
                 "bottom": 0,
                 "boxSizing": "border-box",
                 "display": "block",
+                "height": "initial",
                 "left": 0,
                 "margin": 0,
+                "opacity": 1,
                 "overflow": "hidden",
+                "padding": 0,
                 "position": "absolute",
                 "right": 0,
                 "top": 0,
+                "width": "initial",
               }
             }
           >
@@ -713,7 +719,7 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
                 }
               />
             </noscript>
-          </div>
+          </span>
         </div>
       </div>
     </div>
@@ -1159,18 +1165,24 @@ exports[`<Header /> renders correctly with message 1`] = `
         <div
           className="image -expand -plain"
         >
-          <div
+          <span
             style={
               Object {
+                "background": "none",
+                "border": 0,
                 "bottom": 0,
                 "boxSizing": "border-box",
                 "display": "block",
+                "height": "initial",
                 "left": 0,
                 "margin": 0,
+                "opacity": 1,
                 "overflow": "hidden",
+                "padding": 0,
                 "position": "absolute",
                 "right": 0,
                 "top": 0,
+                "width": "initial",
               }
             }
           >
@@ -1239,7 +1251,7 @@ exports[`<Header /> renders correctly with message 1`] = `
                 }
               />
             </noscript>
-          </div>
+          </span>
         </div>
       </div>
     </div>

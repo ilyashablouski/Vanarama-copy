@@ -34,18 +34,24 @@ exports[`<ImageV2 /> renders ImageV2 correctly 1`] = `
 <div
   className="image -expand"
 >
-  <div
+  <span
     style={
       Object {
+        "background": "none",
+        "border": 0,
         "bottom": 0,
         "boxSizing": "border-box",
         "display": "block",
+        "height": "initial",
         "left": 0,
         "margin": 0,
+        "opacity": 1,
         "overflow": "hidden",
+        "padding": 0,
         "position": "absolute",
         "right": 0,
         "top": 0,
+        "width": "initial",
       }
     }
   >
@@ -112,7 +118,7 @@ exports[`<ImageV2 /> renders ImageV2 correctly 1`] = `
         }
       />
     </noscript>
-  </div>
+  </span>
 </div>
 `;
 
@@ -120,18 +126,24 @@ exports[`<ImageV2 /> renders ImageV2 correctly with optional props 1`] = `
 <div
   className="image class -small"
 >
-  <div
+  <span
     style={
       Object {
+        "background": "none",
+        "border": 0,
         "bottom": 0,
         "boxSizing": "border-box",
         "display": "block",
+        "height": "initial",
         "left": 0,
         "margin": 0,
+        "opacity": 1,
         "overflow": "hidden",
+        "padding": 0,
         "position": "absolute",
         "right": 0,
         "top": 0,
+        "width": "initial",
       }
     }
   >
@@ -198,6 +210,6 @@ exports[`<ImageV2 /> renders ImageV2 correctly with optional props 1`] = `
         }
       />
     </noscript>
-  </div>
+  </span>
 </div>
 `;

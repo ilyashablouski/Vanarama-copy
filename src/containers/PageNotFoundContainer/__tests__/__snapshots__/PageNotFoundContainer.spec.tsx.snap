@@ -19,11 +19,11 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
       <div
         class="image -white -expand"
       >
-        <div
-          style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+        <span
+          style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
         >
-          <div
-            style="display: block; box-sizing: border-box; padding-top: 45%;"
+          <span
+            style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 45% 0px 0px 0px;"
           />
           <img
             class="image--native"
@@ -34,8 +34,7 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=60/https://images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg 3840w"
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
-          <noscript />
-        </div>
+        </span>
       </div>
       <div
         class="full-height"
@@ -60,8 +59,8 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <div
             class="image card-image -expand -plain"
           >
-            <div
-              style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
             >
               <img
                 class="image--native"
@@ -72,7 +71,7 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
           <div
             class="title -flex-h"
@@ -129,8 +128,8 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <div
             class="image card-image -expand -plain"
           >
-            <div
-              style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
             >
               <img
                 class="image--native"
@@ -141,7 +140,7 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
           <div
             class="title -flex-h"

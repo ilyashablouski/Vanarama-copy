@@ -1,8 +1,8 @@
+import React, { useContext, useMemo } from 'react';
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import React, { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import ImageV2 from 'core/atoms/image/ImageV2';
