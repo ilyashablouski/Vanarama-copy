@@ -15,7 +15,7 @@ import { Nullable } from '../../types/common';
 
 export interface ISearchPageContainerProps {
   isServer: boolean;
-  isCarSearch?: boolean;
+  isCarSearch: boolean;
   isManufacturerPage?: boolean;
   isSimpleSearchPage?: boolean;
   isSpecialOfferPage?: boolean;

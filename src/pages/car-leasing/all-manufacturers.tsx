@@ -11,7 +11,7 @@ import {
 } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../containers/SearchPageContainer';
+import { AllManufacturersSearchContainer } from '../../containers/SearchPageContainer';
 import withApollo from '../../hocs/withApollo';
 import {
   manufacturerPage,
@@ -44,11 +44,10 @@ const Page: NextPage<IProps> = ({
   manufacturers,
   manufacturersUrls: encodedData,
 }) => (
-  <SearchPageContainer
+  <AllManufacturersSearchContainer
     dataUiTestId="cars-search-page"
     isServer={isServer}
     isCarSearch
-    isAllManufacturersPage
     metaData={metaData}
     topInfoSection={decodeData(topInfoSectionEncodedData)}
     preLoadManufacturers={manufacturers}
