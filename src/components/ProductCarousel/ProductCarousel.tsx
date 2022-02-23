@@ -15,6 +15,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataUiTestIdMask,
   className,
   dataUiTestId,
+  lazyLoadForCarouselImages,
 }) => {
   if (data.productCard?.length && data.productCard?.length > 1) {
     return (
@@ -39,6 +40,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     }
                     productType={productType}
                     customCTABackground={customCTABackground}
+                    lazyLoadForCarouselImages={lazyLoadForCarouselImages}
                   />
                 )}
               </SwiperSlide>
@@ -62,6 +64,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               dataUiTestIdMask={dataUiTestIdMask}
               productType={productType}
               customCTABackground={customCTABackground}
+              lazyLoadForCarouselImages={lazyLoadForCarouselImages}
             />
           ),
       )}

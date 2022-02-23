@@ -1,4 +1,6 @@
 import React from 'react';
+import FrontParkingSensors from 'core/assets/icons/FrontParkingSensors';
+import FrontRearParkingSensors from 'core/assets/icons/FrontRearParkingSensors';
 import AirCondition from '../core/assets/icons/AirConditioning';
 import Alloys from '../core/assets/icons/Alloys';
 import Bluetooth from '../core/assets/icons/Bluetooth';
@@ -34,6 +36,7 @@ import WarrantyRosette2 from '../core/assets/icons/WarrantyRosette2';
 import WarrantyRosette3 from '../core/assets/icons/WarrantyRosette3';
 import WarrantyRosette4 from '../core/assets/icons/WarrantyRosette4';
 import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5';
+import RearParkingSensors from '../core/assets/icons/RearParkingSensors';
 
 const IconMap = new Map();
 
@@ -46,7 +49,7 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('DamageCover', <DamageCover />)
   .set('Emissions', <Emissions />)
   .set('ElectricDrivingRange(WLTP)', <ElectricRangeSmall />)
-  .set('ElectricDriving Range (WLTP)', <ElectricRange />)
+  .set('ElectricDriving Range(WLTP)', <ElectricRange />)
   .set('FixedMonthlyPayments', <Calendar />)
   .set('FuelEconomy', <FuelEconomy />)
   .set('FuelType', <FuelType />)
@@ -71,6 +74,9 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('WarrantyRosette3', <WarrantyRosette3 />)
   .set('WarrantyRosette4', <WarrantyRosette4 />)
   .set('WarrantyRosette5', <WarrantyRosette5 />)
-  .set('0-62mph', <Speedometer />);
+  .set('0-62mph', <Speedometer />)
+  .set('FrontParkingSensors', <FrontParkingSensors />)
+  .set('FrontandRearParkingSensors', <FrontRearParkingSensors />)
+  .set('RearParkingSensors', <RearParkingSensors />);
 
 export default IconMap;

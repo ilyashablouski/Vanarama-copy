@@ -1,3 +1,4 @@
+import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import {
   productFilter_productFilter as IProductFilter,
   productFilter_productFilter,
@@ -10,6 +11,7 @@ import { GlobalSearchCardsData_productCard as ICardsData } from '../../../genera
 import { ProductDerivativeSort } from '../../../generated/globalTypes';
 import { productDerivatives_productDerivatives as IProductDerivatives } from '../../../generated/productDerivatives';
 import { Nullable } from '../../types/common';
+import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 
 export enum ITabs {
   Filter,
@@ -40,4 +42,12 @@ export interface IProps {
   vansData?: Nullable<ICardsData[]>;
   defaultSort?: ProductDerivativeSort[];
   isAllProductsRequest: boolean;
+}
+
+export interface IVehicleListForRender {
+  data: ICard;
+  derivativeId: string;
+  title: ICardTitleProps;
+  url: string;
+  capBodyStyle: string;
 }

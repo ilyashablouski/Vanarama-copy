@@ -20,6 +20,7 @@ interface ICustomerAlsoViewedContainerProps {
   leaseType: string;
   vehicleType?: VehicleTypeEnum;
   initProductCard?: Nullable<GetProductCard>;
+  lazyLoadForCarouselImages?: boolean;
 }
 
 const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> = ({
@@ -27,6 +28,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   leaseType,
   vehicleType,
   initProductCard,
+  lazyLoadForCarouselImages,
 }) => {
   const [productCardData, setProductCardData] = useState(initProductCard);
 
@@ -63,6 +65,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
             leaseType={leaseType}
             data={productCardData}
             dataTestIdBtn="customer-also-view"
+            lazyLoadForCarouselImages={lazyLoadForCarouselImages}
           />
         </div>
       </div>

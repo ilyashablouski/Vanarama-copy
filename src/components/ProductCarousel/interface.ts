@@ -12,6 +12,7 @@ export interface IProductCarouselProps extends IBaseProps {
   productType?: string;
   customCTABackground?: string;
   dataUiTestIdMask?: string;
+  lazyLoadForCarouselImages?: boolean;
 }
 
 export interface IProductCarouselCard extends IProductCarouselProps {

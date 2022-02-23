@@ -45,7 +45,11 @@ import {
   vehicleList,
   vehicleListVariables,
 } from '../../../../../generated/vehicleList';
-import { formatUrl } from '../../../../utils/url';
+import {
+  formatUrl,
+  getManufacturerJson,
+  isManufacturerMigrated,
+} from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
@@ -165,14 +169,17 @@ export async function getServerSideProps(
       query: { ...context.query },
     };
 
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      true,
-      NEW_RANGE_SLUGS.includes(trimSlug(contextData.req?.url || ''))
-        ? 'isNewRangePage'
-        : 'isRangePage',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        true,
+        NEW_RANGE_SLUGS.includes(trimSlug(contextData.req?.url || ''))
+          ? 'isNewRangePage'
+          : 'isRangePage',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     defaultSort = sortObjectGenerator([
       {
         field: SortField.offerRanking,
@@ -217,13 +224,20 @@ export async function getServerSideProps(
         if (resp.data.bodyStyleList) {
           bodyStyleList = await Promise.all(
             resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
+              const formattedUrl = formatUrl(
+                `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
+              );
               const { data: slug } = await getGenericSearchPageSlug(
-                formatUrl(
-                  `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
-                ),
+                formattedUrl,
               );
               return {
                 ...listItem,
+                url: isManufacturerMigrated(
+                  migrationSlugs?.vehicles?.car?.manufacturers || [],
+                  manufacturerName,
+                )
+                  ? `/${formattedUrl}`
+                  : null,
                 legacyUrl: slug?.genericPage.metaData.legacyUrl,
               };
             }),
@@ -295,6 +309,7 @@ export async function getServerSideProps(
       props: {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
+        migrationSlugs: migrationSlugs || null,
         isServer: !!context.req,
         vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
         bodyStyleList: bodyStyleList ? encodeData(bodyStyleList) : null,

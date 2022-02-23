@@ -166,7 +166,7 @@ jest.mock('../gql', () => ({
   useSearchResultPage: jest.fn(),
 }));
 
-jest.mock('../RangeCard', () => () => {
+jest.mock('../components/RangeCard', () => () => {
   return <div />;
 });
 // ARRANGE

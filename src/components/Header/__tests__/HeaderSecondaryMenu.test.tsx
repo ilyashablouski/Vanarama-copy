@@ -13,6 +13,7 @@ const mocks = {
   isTabletOrMobile: false,
   isMenuOpen: false,
   isSecondaryMenuOpen: false,
+  dataUiTestId: 'header_secondary-menu_CARS',
   promotionalImage: {
     url: '',
     image: {

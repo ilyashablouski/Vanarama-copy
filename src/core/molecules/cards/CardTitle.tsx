@@ -9,7 +9,7 @@ import Button from '../../atoms/button';
 import Icon from '../../atoms/icon';
 import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 
-interface ICardTitle {
+export interface ICardTitle {
   title: string;
   description?: string;
   score?: number;

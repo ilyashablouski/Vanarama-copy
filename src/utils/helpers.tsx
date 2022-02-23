@@ -325,11 +325,11 @@ export const arraysAreEqual = (
     return JSON.stringify(first) === JSON.stringify(second);
   }
   if (sortByKey) {
-    const firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
-    const secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    const firstArray = first?.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    const secondArray = second?.sort((a, b) => a[sortByKey] - b[sortByKey]);
     return JSON.stringify(firstArray) === JSON.stringify(secondArray);
   }
-  return JSON.stringify(first.sort()) === JSON.stringify(second.sort());
+  return JSON.stringify(first?.sort()) === JSON.stringify(second?.sort());
 };
 
 export const getVehicleConfigId = (

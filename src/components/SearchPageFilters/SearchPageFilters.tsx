@@ -537,7 +537,11 @@ const SearchPageFilters = ({
                       </div>
                     )}
 
-                  <FormGroup label={filter.label} dataTestId={filter.label}>
+                  <FormGroup
+                    label={filter.label}
+                    dataTestId={filter.label}
+                    dataUiTestId={`${dataUiTestId}_formgroup_${filter.label}`}
+                  >
                     {choiceBoxesData?.[filter.accessor]?.length > 0 && (
                       <Choiceboxes
                         dataUiTestId={dataUiTestId}

@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useContext,
+} from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
@@ -49,7 +55,11 @@ import { genericPagesQuery_genericPages as IGenericPages } from '../../../genera
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import Skeleton from '../../components/Skeleton';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
+import {
+  getProductPageBreadCrumb,
+  ManufacturersSlugContext,
+  removeUrlQueryPart,
+} from '../../utils/url';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
@@ -173,6 +183,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
+
+  const migratedManufacturers = useContext(ManufacturersSlugContext);
+
   const pdpContentRef = React.useRef<HTMLDivElement>(null);
   const leaseScannerRef = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
@@ -345,9 +358,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         genericPages,
         genericPageHead?.genericPage.metaData.slug || '',
         cars,
+        (cars
+          ? migratedManufacturers?.vehicles?.car?.manufacturers
+          : migratedManufacturers?.vehicles?.lcv?.manufacturers) || [],
       )
     );
-  }, [cars, data, genericPageHead, genericPages]);
+  }, [cars, data, genericPageHead, genericPages, migratedManufacturers]);
 
   const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
     data,
@@ -866,6 +882,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             capsId={capsId || []}
             vehicleType={vehicleType}
             leaseType={leaseType.toUpperCase() || ''}
+            lazyLoadForCarouselImages
           />
         </LazyLoadComponent>
       )}

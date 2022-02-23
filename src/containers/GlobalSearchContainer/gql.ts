@@ -39,11 +39,7 @@ import {
   mapPartnerVehicleTypes,
   PARTNER_COOKIE_NAME,
 } from '../../utils/partnerProperties';
-
-export interface IGSVehiclesCardsData<T> {
-  LCV: T;
-  CAR: T;
-}
+import { IGSVehiclesCardsData } from './interfaces';
 
 export const PRODUCT_DERIVATIVE = gql`
   fragment productDerivative on ProductDerivative {

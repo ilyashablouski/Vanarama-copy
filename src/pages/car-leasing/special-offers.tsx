@@ -31,6 +31,7 @@ import {
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
 import { Nullable } from '../../types/common';
+import { getManufacturerJson } from '../../utils/url';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -75,12 +76,15 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const { data } = (await ssrCMSQueryExecutor(
-      client,
-      contextData,
-      true,
-      'isSpecialOfferPage',
-    )) as ApolloQueryResult<GenericPageQuery>;
+    const [{ data }, migrationSlugs] = await Promise.all([
+      (await ssrCMSQueryExecutor(
+        client,
+        contextData,
+        true,
+        'isSpecialOfferPage',
+      )) as ApolloQueryResult<GenericPageQuery>,
+      getManufacturerJson(),
+    ]);
     if (!Object.keys(context.query).length) {
       vehiclesList = await client
         .query<vehicleList, vehicleListVariables>({
@@ -117,6 +121,7 @@ export async function getServerSideProps(
     return {
       props: {
         pageData: encodeData(data),
+        migrationSlugs: migrationSlugs || null,
         metaData: data?.genericPage?.metaData || null,
         isServer: !!context.req,
         vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,

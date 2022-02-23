@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import getTitleTag from '../../utils/getTitleTag';
-import { getFeaturedClassPartial } from '../../utils/layout';
-import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import Skeleton from '../../components/Skeleton';
+import { IBaseProps } from 'core/interfaces/base';
+import getTitleTag from '../../../utils/getTitleTag';
+import { getFeaturedClassPartial } from '../../../utils/layout';
+import { manufacturerPage_manufacturerPage_sections as sections } from '../../../../generated/manufacturerPage';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -17,16 +18,22 @@ const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={3} />,
 });
 
-interface ITopInfoBlockProps {
+interface ITopInfoBlockProps extends IBaseProps {
   topInfoSection: sections;
 }
 
 // It should common component for all search pages which contain info block on the top of page
-const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
+const TopInfoBlock: FC<ITopInfoBlockProps> = ({
+  topInfoSection,
+  dataUiTestId,
+}) => {
   const featuredImage = topInfoSection.featured?.image?.file;
 
-  return topInfoSection ? (
-    <section className={`row:${getFeaturedClassPartial(topInfoSection)}`}>
+  return (
+    <section
+      className={`row:${getFeaturedClassPartial(topInfoSection)}`}
+      data-uitestid={dataUiTestId}
+    >
       <ImageV2
         quality={60}
         width={featuredImage?.details.image.width}
@@ -68,9 +75,7 @@ const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
         </div>
       </article>
     </section>
-  ) : (
-    <></>
   );
-});
+};
 
 export default React.memo(TopInfoBlock);

@@ -30,7 +30,7 @@ const KeyInformation: React.FC<IKeyInformationProps> = ({
         <div className="pdp--feature-grid--item" key={info.name || ''}>
           <Icon
             name={info.name?.replace(' ', '')}
-            icon={IconMap.get(info.name?.replace(' ', ''))}
+            icon={IconMap.get(info.name?.replace(/\s/g, ''))}
             color="orange"
             className="icon-custom"
             size="large"

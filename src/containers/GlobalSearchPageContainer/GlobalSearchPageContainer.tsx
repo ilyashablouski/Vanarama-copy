@@ -1,10 +1,11 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
 import OptionsSharp from 'core/assets/icons/OptionsSharp';
 import SwapVerticalSharp from 'core/assets/icons/SwapVerticalSharp';
 import cx from 'classnames';
+import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import {
   productDerivatives as ITextSearchQuery,
   productDerivatives_productDerivatives_derivatives as IVehiclesList,
@@ -12,16 +13,15 @@ import {
 import {
   buildFiltersRequestObject,
   DEFAULT_SORT,
+  getVehicleListForRender,
   isSimilarPage,
-  productCardDataMapper,
 } from './helpers';
 import {
   useGSCardsData,
   useTextSearchList,
-  IGSVehiclesCardsData,
 } from '../GlobalSearchContainer/gql';
 import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
-import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
+import CommonDescriptionContainer from '../SearchPageContainer/sections/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import {
   ProductDerivativeSort,
@@ -32,7 +32,13 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
 import Drawer from '../../core/molecules/drawer/Drawer';
-import { IFiltersData, IProps, ISelectedTags, ITabs } from './interfaces';
+import {
+  IFiltersData,
+  IProps,
+  ISelectedTags,
+  ITabs,
+  IVehicleListForRender,
+} from './interfaces';
 import { pluralise } from '../../utils/dates';
 import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
@@ -44,6 +50,9 @@ import {
 } from '../../components/GlobalSearchPageSort/helpers';
 import { filtersConfig as config } from '../../components/GlobalSearchPageFilters/config';
 import { generateQueryObject } from '../../components/GlobalSearchPageFilters/helpers';
+import { ManufacturersSlugContext } from '../../utils/url';
+import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
+import { IGSVehiclesCardsData } from '../GlobalSearchContainer/interfaces';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -62,6 +71,11 @@ const GlobalSearchPageContainer = memo(
     isAllProductsRequest,
   }: IProps) => {
     const router = useRouter();
+
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
+
     const searchTerm = useMemo(
       () => decodeURIComponent(router?.query.searchTerm as string),
       [router?.query.searchTerm],
@@ -75,13 +89,6 @@ const GlobalSearchPageContainer = memo(
     const [isPersonal, setIsPersonal] = useState(true);
     const [isSpecialOffer, setIsSpecialOffer] = useState(false);
 
-    const [vehiclesList, setVehicleList] = useState<(IVehiclesList | null)[]>(
-      preLoadProductDerivatives?.derivatives || [],
-    );
-    const [vehiclesListCache, setVehicleListCache] = useState<
-      (IVehiclesList | null)[]
-    >([]);
-
     const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>(
       vansData || [],
     );
@@ -93,6 +100,19 @@ const GlobalSearchPageContainer = memo(
       LCV: lcvCardsData,
       CAR: carCardsData,
     };
+
+    const [vehiclesList, setVehicleList] = useState<
+      (IVehicleListForRender | null)[]
+    >(
+      getVehicleListForRender(
+        preLoadProductDerivatives?.derivatives || [],
+        vehiclesCardsData,
+        migratedManufacturers,
+      ),
+    );
+    const [vehiclesListCache, setVehicleListCache] = useState<
+      (IVehiclesList | null)[]
+    >([]);
 
     const [totalResults, setTotalResults] = useState(
       preLoadProductDerivatives?.total || 0,
@@ -175,7 +195,13 @@ const GlobalSearchPageContainer = memo(
           });
         }
         setTotalResults(vehicles.productDerivatives?.total || 0);
-        return setVehicleList(vehicles?.productDerivatives?.derivatives || []);
+        return setVehicleList(
+          getVehicleListForRender(
+            vehicles?.productDerivatives?.derivatives || [],
+            vehiclesCardsData,
+            migratedManufacturers,
+          ),
+        );
       },
       0,
       isPersonal,
@@ -289,14 +315,27 @@ const GlobalSearchPageContainer = memo(
 
     useFirstRenderEffect(() => {
       if (preLoadProductDerivatives?.derivatives) {
-        setVehicleList(preLoadProductDerivatives?.derivatives);
+        setVehicleList(
+          getVehicleListForRender(
+            preLoadProductDerivatives?.derivatives || [],
+            vehiclesCardsData,
+            migratedManufacturers,
+          ),
+        );
         setCarCardsData(carsData || []);
         setLcvCardsData(vansData || []);
       }
     }, [preLoadProductDerivatives]);
 
     const onLoadMore = () => {
-      setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
+      setVehicleList(prevState => [
+        ...prevState,
+        ...getVehicleListForRender(
+          vehiclesListCache,
+          vehiclesCardsData,
+          migratedManufacturers,
+        ),
+      ]);
       getVehiclesCache({
         variables: {
           filters: buildFiltersRequestObject(
@@ -335,13 +374,6 @@ const GlobalSearchPageContainer = memo(
         }, 0),
       [activeFilters],
     );
-
-    const getProductCardData = (
-      capId: string,
-      vehicleType: VehicleTypeEnum,
-    ) => {
-      return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
-    };
 
     const tabsHandler = (tab: ITabs) => {
       if (isShowDrawer) {
@@ -466,22 +498,12 @@ const GlobalSearchPageContainer = memo(
                 <VehicleCard
                   key={
                     (vehicle?.derivativeId || `${vehicle?.capBodyStyle}`) +
-                    (vehicle?.vehicleType || '')
+                    (vehicle?.data?.vehicleType || '')
                   }
-                  data={{
-                    ...productCardDataMapper(vehicle),
-                    ...getProductCardData(
-                      vehicle?.derivativeId?.toString() || '',
-                      (vehicle?.vehicleType as VehicleTypeEnum) ||
-                        VehicleTypeEnum.LCV,
-                    ),
-                  }}
-                  derivativeId={vehicle?.derivativeId?.toString()}
-                  url={vehicle?.lqUrl || vehicle?.url || ''}
-                  title={{
-                    title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
-                    description: vehicle?.derivativeName || '',
-                  }}
+                  data={vehicle?.data as ICard}
+                  derivativeId={vehicle?.derivativeId}
+                  url={vehicle?.url || ''}
+                  title={vehicle?.title as ICardTitleProps}
                   isPersonalPrice={isPersonal}
                   dataUiTestId="global-search-page-container"
                 />

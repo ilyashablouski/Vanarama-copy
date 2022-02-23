@@ -9,17 +9,17 @@ import Accordion from 'core/molecules/accordion/Accordion';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_carousel,
-} from '../../../generated/GenericPageQuery';
-import { getSectionsData } from '../../utils/getSectionsData';
-import ThreeColumnSection from '../../components/ThreeColumnSection';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import getTitleTag from '../../utils/getTitleTag';
-import RouterLink from '../../components/RouterLink';
-import ReviewsTwoColumn from '../../components/ReviewsTwoColumn';
-import Skeleton from '../../components/Skeleton';
-import { getRangeReviews } from './gql';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import RelatedCarousel from '../../components/RelatedCarousel';
+} from '../../../../generated/GenericPageQuery';
+import { getSectionsData } from '../../../utils/getSectionsData';
+import ThreeColumnSection from '../../../components/ThreeColumnSection';
+import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import getTitleTag from '../../../utils/getTitleTag';
+import RouterLink from '../../../components/RouterLink';
+import ReviewsTwoColumn from '../../../components/ReviewsTwoColumn';
+import Skeleton from '../../../components/Skeleton';
+import { getRangeReviews } from '../gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import RelatedCarousel from '../../../components/RelatedCarousel';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -31,6 +31,7 @@ type NewRangeContentProps = {
   isNewPage: boolean;
   isRangePage: boolean;
   isNewRangeCarousel: boolean;
+  dataUiTestId: string;
 };
 
 interface ItemAccordion {
@@ -45,6 +46,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   newCarousel,
   isRangePage,
   isNewRangeCarousel,
+  dataUiTestId,
 }) => {
   let countListAccordion = 0;
 
@@ -89,7 +91,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
 
   return (
     <>
-      <div className="row:default">
+      <div className="row:default" data-uitestid={dataUiTestId}>
         <ThreeColumnSection
           title={getSectionsData(
             ['sectionsAsArray', 'cards', '0', 'name'],
@@ -503,7 +505,11 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </div>
       </div>
       {isNewRangeCarousel && (
-        <RelatedCarousel cards={newCarousel.cards} title={newCarousel.title} />
+        <RelatedCarousel
+          cards={newCarousel.cards}
+          title={newCarousel.title}
+          dataUiTestId={`${dataUiTestId}_related`}
+        />
       )}
     </>
   );

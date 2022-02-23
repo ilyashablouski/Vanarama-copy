@@ -22,6 +22,7 @@ import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import { IManufacturersSlug } from '../../types/manufacturerSlug';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -70,6 +71,7 @@ export interface IHomePageContainer extends ISpecialOffersData {
   data: HomePageData | undefined;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
+  migrationSlugs?: IManufacturersSlug;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({

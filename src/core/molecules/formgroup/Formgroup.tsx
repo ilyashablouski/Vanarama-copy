@@ -36,6 +36,7 @@ const Formgroup: React.FC<IFormgroupProps> = ({
       '-invalid': error,
     })}
     data-testid={dataTestId}
+    data-uitestid={dataUiTestId}
   >
     {label && (
       <label

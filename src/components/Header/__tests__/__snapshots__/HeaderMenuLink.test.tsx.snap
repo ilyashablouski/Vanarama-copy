@@ -28,6 +28,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
     >
       <ul
         className="menu-secondary"
+        data-uitestid="header_secondary-menu_Vans_menu-secondary"
       >
         <li
           className="menu-li menu-title"
@@ -50,6 +51,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
         >
           <button
             className="link -white -black -initial-size -clear"
+            data-uitestid="header_secondary-menu_Vans_button_VANS Special Offers"
           >
             <div
               className="button--inner"
@@ -64,6 +66,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
         >
           <button
             className="link -inherit -black -initial-size -clear"
+            data-uitestid="header_secondary-menu_Vans_button_Vans By Manufacturer"
             onFocus={[Function]}
             onMouseOver={[Function]}
           >
@@ -80,6 +83,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
         >
           <button
             className="link -inherit -black -initial-size -clear"
+            data-uitestid="header_secondary-menu_Vans_button_Vans By Size"
             onFocus={[Function]}
             onMouseOver={[Function]}
           >
@@ -96,6 +100,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
         >
           <button
             className="link -inherit -black -initial-size -clear"
+            data-uitestid="header_secondary-menu_Vans_button_Vans By Type"
             onFocus={[Function]}
             onMouseOver={[Function]}
           >
@@ -128,6 +133,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
       </ul>
       <ul
         className="menu-tertiary -open"
+        data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Manufacturer"
       >
         <li
           className="menu-li menu-title"
@@ -363,6 +369,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
       </ul>
       <ul
         className="menu-tertiary"
+        data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Size"
       >
         <li
           className="menu-li menu-title"
@@ -436,6 +443,7 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
       </ul>
       <ul
         className="menu-tertiary"
+        data-uitestid="header_secondary-menu_Vans_menu-tertiary_Vans By Type"
       >
         <li
           className="menu-li menu-title"

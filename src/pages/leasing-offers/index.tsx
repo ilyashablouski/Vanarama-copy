@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import React, { MutableRefObject, useRef } from 'react';
-import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import ImageV2 from 'core/atoms/image/ImageV2';
@@ -18,10 +22,6 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import {
   IPageWithData,
@@ -29,6 +29,7 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
+import { getManufacturerJson } from '../../utils/url';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -334,22 +335,22 @@ export const OffersPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<
-      GenericPageHeadQuery,
-      GenericPageHeadQueryVariables
-    >({
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: 'leasing-offers',
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, migrationSlugs] = await Promise.all([
+      client.query<GenericPageHeadQuery, GenericPageHeadQueryVariables>({
+        query: GENERIC_PAGE_HEAD,
+        variables: {
+          slug: 'leasing-offers',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getManufacturerJson(),
+    ]);
 
     const {
       productsVanDerivatives,
@@ -362,10 +363,10 @@ export async function getStaticProps(
     } = await specialOffersRequest(client);
 
     return {
-      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         genericPageCMS: data,
+        migrationSlugs: migrationSlugs || null,
         productsVanDerivatives: productsVanDerivatives || null,
         productsCarDerivatives: productsCarDerivatives || null,
         productsPickupDerivatives: productsPickupDerivatives || null,
@@ -377,19 +378,16 @@ export async function getStaticProps(
     };
   } catch (error) {
     const apolloError = error as ApolloError;
-    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
       return {
         notFound: true,
-        revalidate,
       };
     }
 
     return {
-      revalidate,
       props: {
         pageType: PageTypeEnum.ERROR,
         error: convertErrorToProps(error),

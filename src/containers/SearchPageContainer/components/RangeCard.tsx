@@ -1,12 +1,17 @@
-import React, { memo } from 'react';
+import React, { memo, useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import { getRangeImages, useModelImages } from './gql';
-import { formatToSlugFormat, formatUrl } from '../../utils/url';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { genericPagesQuery_genericPages as IGenericPages } from '../../../generated/genericPagesQuery';
-import Skeleton from '../../components/Skeleton';
+import RouterLink from '../../../components/RouterLink/RouterLink';
+import { getRangeImages, useModelImages } from '../gql';
+import {
+  formatToSlugFormat,
+  formatUrl,
+  isManufacturerMigrated,
+  ManufacturersSlugContext,
+} from '../../../utils/url';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { genericPagesQuery_genericPages as IGenericPages } from '../../../../generated/genericPagesQuery';
+import Skeleton from '../../../components/Skeleton';
 
 const Price = dynamic(() => import('core/atoms/price'), {
   loading: () => <Skeleton count={1} />,
@@ -65,7 +70,10 @@ const RangeCard = memo(
   }: IVehicleCardProps) => {
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
-
+    const isCarSearch = useMemo(() => searchType.includes('car'), [searchType]);
+    const { vehicles: migratedManufacturers } = useContext(
+      ManufacturersSlugContext,
+    );
     const nextUrl = isAllManufacturersCard
       ? getManufacturerUrl(manufacturersUrls || [], searchType, title)
       : getRangeUrl(
@@ -74,11 +82,23 @@ const RangeCard = memo(
           title,
           query.dynamicParam as string,
         );
+    const manufacturerName = useMemo(
+      () => nextUrl?.slug?.slice(1).split('/')[1] || '',
+      [nextUrl?.slug],
+    );
 
     // test using of slug for routing, only for Abarth
-    const href = nextUrl?.slug?.includes('abarth')
-      ? nextUrl?.slug
-      : nextUrl?.legacyUrl || nextUrl?.slug;
+    const href =
+      nextUrl?.slug?.includes('abarth') ||
+      // getting manufacturer name from url
+      isManufacturerMigrated(
+        (isCarSearch
+          ? migratedManufacturers.car.manufacturers
+          : migratedManufacturers.lcv.manufacturers) || [],
+        manufacturerName,
+      )
+        ? nextUrl?.slug
+        : nextUrl?.legacyUrl || nextUrl?.slug;
 
     const { data: imagesData } = getRangeImages(
       id,

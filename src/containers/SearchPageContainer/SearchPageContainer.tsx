@@ -4,7 +4,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, { useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -16,7 +16,6 @@ import {
   tagArrayBuilderHelper,
 } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { getRangesList, useManufacturerList, useVehiclesList } from './gql';
@@ -34,14 +33,12 @@ import {
   getCapsIds,
   getNumberOfVehicles,
   isPreviousPage,
-  onMadeLineBreaks,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   scrollIntoPreviousView,
-  createInitialFiltersState,
   getValueFromStorage,
   createProductCacheVariables,
   createProductCardVariables,
@@ -55,7 +52,7 @@ import {
   getPartnershipTitle,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import TopInfoBlock from './TopInfoBlock';
+import TopInfoBlock from './sections/TopInfoBlock';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
@@ -69,10 +66,9 @@ import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
-import useMediaQuery from '../../hooks/useMediaQuery';
-import ResultsContainer from './ResultsContainer';
-import ReadMoreBlock from './ReadMoreBlock';
+import TopOffersContainer from './sections/TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
+import ResultsContainer from './sections/ResultsContainer';
+import ReadMoreBlock from './sections/ReadMoreBlock';
 import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
@@ -84,17 +80,16 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
-import NewRangeContent from './NewRangeContent';
+import NewRangeContent from './sections/NewRangeContent';
 import { ISearchPageContainerProps } from './interfaces';
-import TopCategoryInfoBlock from './TopCategoryInfoBlock';
-import SearchPageTitle from './SearchPageTitle';
-import SearchPageMarkdown from './SearchPageMarkdown';
+import TopCategoryInfoBlock from './sections/TopCategoryInfoBlock';
+import SearchPageTitle from './sections/SearchPageTitle';
+import SearchPageMarkdown from './components/SearchPageMarkdown';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RelatedCarousel from '../../components/RelatedCarousel';
+import TermsAndConditions from './sections/TermsAndConditions';
+import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={2} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -110,7 +105,7 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
+const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   isServer,
   isCarSearch = false,
   isSimpleSearchPage,
@@ -144,7 +139,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   defaultSort,
   newRangePageSlug,
   dataUiTestId,
-}: ISearchPageContainerProps) => {
+}) => {
   // assign here as when inline causing hook lint errors
 
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -153,13 +148,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   );
   const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
   const applyColumns = !isEvPage ? '-columns' : '';
-  const initialFiltersState = useMemo(
-    () =>
-      createInitialFiltersState(
-        (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
-      ),
-    [isPartnershipActive],
-  );
 
   const client = useApolloClient();
   const router = useRouter();
@@ -175,8 +163,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       ? true
       : getValueFromStorage(isServer, isCarSearch) ?? false,
   );
-
-  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
@@ -344,10 +330,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
     preLoadFiltersData,
   ]);
 
-  const titleWithBreaks = useMemo(() => onMadeLineBreaks(pageTitle), [
-    pageTitle,
-  ]);
-
   // listen for any updates to metaDataSSR
   useEffect(() => {
     setMetaData(metaDataSSR);
@@ -357,7 +339,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   // Make list query for all makes page
   const [
     getManufacturerList,
-    { data: manufatcurersData },
+    { data: manufacturersData },
   ] = useManufacturerList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
@@ -622,10 +604,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   }, [manufacturers, setTotalCount, isAllManufacturersPage]);
 
   useEffect(() => {
-    if (manufatcurersData?.manufacturerList && isAllManufacturersPage) {
-      setManufacturers(manufatcurersData);
+    if (manufacturersData?.manufacturerList && isAllManufacturersPage) {
+      setManufacturers(manufacturersData);
     }
-  }, [manufatcurersData, setManufacturers, isAllManufacturersPage]);
+  }, [manufacturersData, setManufacturers, isAllManufacturersPage]);
 
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
@@ -670,14 +652,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
   const tiles: Tiles = useMemo(
     () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
     [pageData],
-  );
-
-  const breadcrumbsItems = useMemo(
-    () =>
-      metaData?.breadcrumbs?.map((el: any) => ({
-        link: { href: el.href || '', label: el.label },
-      })),
-    [metaData],
   );
 
   const fuelTypesData = useMemo(
@@ -866,12 +840,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
       <PartnershipLogoHeader />
       <SearchPageTitle
         dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbsItems={breadcrumbsItems}
+        breadcrumbs={metaData.breadcrumbs}
         pageTitle={pageTitle}
-        titleWithBreaks={titleWithBreaks}
         pageData={pageData}
         partnershipDescription={partnershipDescription}
-        isDesktopOrTablet={isDesktopOrTablet}
         isPartnershipActive={isPartnershipActive}
         isNewPage={isNewPage}
       />
@@ -882,20 +854,22 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           </div>
         </div>
       )}
-      {isNewPage && isRangePage
-        ? null
-        : !(isSpecialOfferPage && isCarSearch) &&
-          featured && (
-            <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
-          )}
-      {isNewPage && isRangePage ? (
+      {!(isNewPage && isRangePage) &&
+        !(isSpecialOfferPage && isCarSearch) &&
+        featured && (
+          <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+        )}
+      {isNewPage && isRangePage && (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
           pageData={pageData}
         />
-      ) : null}
+      )}
       {isAllManufacturersPage && topInfoSection && (
-        <TopInfoBlock topInfoSection={topInfoSection} />
+        <TopInfoBlock
+          topInfoSection={topInfoSection}
+          dataUiTestId={`${dataUiTestId}_top-info-block`}
+        />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -942,7 +916,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
             setType={value => setIsPersonal(value)}
             tagArrayBuilderHelper={tagArrayBuilder}
             preLoadFilters={preLoadFiltersData}
-            initialState={initialFiltersState}
             dataUiTestId={dataUiTestId}
             renderFilters={innerProps => (
               <SearchPageFilters
@@ -1012,7 +985,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               customCTAColor={customCTAColor}
             />
           </div>
-          {!(isManufacturerPage || isAllManufacturersPage) ? (
+          {!(isManufacturerPage || isAllManufacturersPage) && (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -1027,8 +1000,6 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
                 />
               )}
             </div>
-          ) : (
-            <></>
           )}
         </div>
       </div>
@@ -1036,16 +1007,10 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         <ReadMoreBlock featured={featured} />
       )}
       {pageData?.genericPage?.sections?.featured2?.body && (
-        <div className="row:text">
-          <Heading tag="h2" size="large" color="black" className="-mb-300">
-            {pageData.genericPage.sections.featured2.title}
-          </Heading>
-          <Text color="darker" size="regular" tag="div">
-            <SearchPageMarkdown
-              markdown={pageData.genericPage.sections.featured2.body}
-            />
-          </Text>
-        </div>
+        <FeaturedSectionBlock
+          title={pageData.genericPage.sections.featured2.title}
+          body={pageData.genericPage.sections.featured2.body}
+        />
       )}
       {isDynamicFilterPage && tiles?.tiles?.length && (
         <WhyLeaseWithVanaramaTiles
@@ -1068,26 +1033,26 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
               </LazyLoadComponent>
             ))}
 
-          {isNewPage && isRangePage
-            ? null
-            : !isDynamicFilterPage &&
-              tiles?.tiles?.length && (
-                <WhyLeaseWithVanaramaTiles
-                  tiles={tiles.tiles}
-                  title={tiles.tilesTitle || ''}
-                  titleTag={tiles.titleTag}
-                />
-              )}
+          {!(isNewPage && isRangePage) &&
+            !isDynamicFilterPage &&
+            tiles?.tiles?.length && (
+              <WhyLeaseWithVanaramaTiles
+                tiles={tiles.tiles}
+                title={tiles.tilesTitle || ''}
+                titleTag={tiles.titleTag}
+              />
+            )}
 
-          {isNewPage && isRangePage ? (
+          {isNewPage && isRangePage && (
             <NewRangeContent
               newCarousel={newCarousel}
               isNewPage={isNewPage}
               isRangePage={isRangePage}
               pageData={pageData}
               isNewRangeCarousel={isNewRangeCarousel}
+              dataUiTestId={`${dataUiTestId}_new-range-content`}
             />
-          ) : null}
+          )}
 
           {isCarousel && (
             <RelatedCarousel
@@ -1099,22 +1064,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
         </>
       )}
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <div className="row:text">
-          <Text size="regular" color="dark">
-            Photos and videos are for illustration purposes only.{' '}
-            <RouterLink
-              link={{
-                href: '/legal/terms-and-conditions',
-                label: 'Terms and conditions apply',
-              }}
-              classNames={{ color: 'teal' }}
-              dataUiTestId={`${dataUiTestId}_link_terms-and-conditions`}
-            >
-              Terms and conditions apply
-            </RouterLink>
-            .
-          </Text>
-        </div>
+        <TermsAndConditions dataUiTestId={dataUiTestId} />
       </LazyLoadComponent>
       {metaData && (
         <>
@@ -1122,7 +1072,7 @@ const SearchPageContainer: React.FC<ISearchPageContainerProps> = ({
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
-      {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
+      {isNewPage && isRangePage && <ButtonBottomToTop />}
     </>
   );
 };

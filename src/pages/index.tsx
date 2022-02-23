@@ -21,6 +21,7 @@ import {
 } from '../../generated/filterList';
 import { specialOffersRequest } from '../utils/offers';
 import { decodeData, encodeData } from '../utils/data';
+import { getManufacturerJson } from '../utils/url';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
@@ -54,12 +55,15 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const { data } = await client.query<HomePageData, HomePageDataVariables>({
-      query: ALL_HOME_CONTENT,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, migrationSlugs] = await Promise.all([
+      await client.query<HomePageData, HomePageDataVariables>({
+        query: ALL_HOME_CONTENT,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getManufacturerJson(),
+    ]);
     const {
       productsVanDerivatives,
       productsCarDerivatives,
@@ -90,6 +94,7 @@ export async function getServerSideProps(
     return {
       props: {
         data: encodeData(data) || null,
+        migrationSlugs: migrationSlugs || null,
         productsVanDerivatives: productsVanDerivatives || null,
         productsCarDerivatives: productsCarDerivatives || null,
         productsPickupDerivatives: productsPickupDerivatives || null,

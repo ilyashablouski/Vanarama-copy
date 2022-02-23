@@ -1,9 +1,14 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
-import { isMobile, checkOfferLabel, getFullPriceFromCard } from './utils';
+import {
+  isMobile,
+  checkOfferLabel,
+  getFullPriceFromCard,
+  VAN_LEASING_TEST_ID,
+} from './utils';
 
 Cypress.Commands.add('scrollToFooter', () => {
   const timeToWait = 500;
-  let timeoutMs = 3000;
+  let timeoutMs = 3500;
   while (timeoutMs > 0) {
     timeoutMs -= timeToWait;
     cy.wait(timeToWait);
@@ -53,10 +58,12 @@ Cypress.Commands.add('checkSpecialOffer', dataUiTestId => {
 });
 
 Cypress.Commands.add('changeLeaseType', dataUiTstId => {
-  cy.get(`span[data-uitestid=${dataUiTstId}_Business]`).click();
+  if (dataUiTstId === VAN_LEASING_TEST_ID) {
+    cy.get(`span[data-uitestid=${dataUiTstId}_Business]`).click();
+  }
   const oldPrices = [];
 
-  cy.get('div.card.product')
+  cy.get('div div.card')
     .as('productCards')
     .then($cards => {
       $cards.each(function collectPrice() {
@@ -116,7 +123,9 @@ Cypress.Commands.add(
     )
       .should('be.visible')
       .click();
-    cy.get('a[data-uitestid=header-wishlist_link]').click();
+    cy.get('a[data-uitestid=header-wishlist_link]')
+      .should('exist')
+      .click();
     cy.location('pathname').should('eq', '/wishlist');
     cy.get('div.card.product')
       .should('be.visible')
@@ -155,21 +164,23 @@ Cypress.Commands.add(
           .toLowerCase();
         expect(compareCardTitle, 'manufacturer').to.equal(productCardTitle);
       });
-    cy.get(
-      'button[data-uitestid=comparator-bar-vehicle_card-remove-button-1]',
-    ).click();
+    cy.get('button[data-uitestid=comparator-bar-vehicle_card-remove-button-1]')
+      .should('exist')
+      .click();
   },
 );
 
 Cypress.Commands.add('loadMoreBtn', dataUiTestId => {
   cy.intercept('POST', '/graphql').as('graphqlRequest');
-  cy.get(`button[data-uitestid=${dataUiTestId}_button_load-more]`).click();
+  cy.get(`button[data-uitestid=${dataUiTestId}_button_load-more]`)
+    .click()
+    .click();
   cy.wait('@graphqlRequest');
   cy.get('.card.product').should('have.length', 36);
 });
 
 Cypress.Commands.add('termsAndConditions', ({ dataUiTestId, link }) => {
-  cy.scrollTo('bottom');
+  cy.scrollToFooter();
   cy.get(`a[data-uitestid=${dataUiTestId}_link_terms-and-conditions]`)
     .should('be.visible')
     .click();

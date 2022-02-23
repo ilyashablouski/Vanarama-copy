@@ -47,7 +47,6 @@ function getBanner(card: GetPdpContent_pdpContent_banners): JSX.Element {
               color: 'teal',
             }}
           />
-          s
         </Text>
       </div>
     </div>
