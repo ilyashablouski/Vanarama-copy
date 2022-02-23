@@ -45,7 +45,7 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
 
 const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
-  isCarSearch,
+  isCarSearch = false,
   isServer,
   metaData: metaDataSSR,
   topInfoSection,
