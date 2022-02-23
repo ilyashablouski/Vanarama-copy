@@ -4,7 +4,6 @@ import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { SwiperSlide } from 'swiper/react';
-import ServiceBanner from 'core/molecules/service-banner';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -42,7 +41,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   breadcrumbsItems,
   carousel,
   activePageRoute,
-  serviceBanner,
 }) => {
   const [activePage] = useState(activePageRoute || 1);
 
@@ -253,12 +251,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">

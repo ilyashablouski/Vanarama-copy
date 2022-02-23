@@ -1,4 +1,3 @@
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import {
   GenericPageQuery_genericPage_sections_carousel,
   GenericPageQuery_genericPage_featuredImage,
@@ -20,5 +19,4 @@ export interface ICategoryPage {
   featuredImage?: GenericPageQuery_genericPage_featuredImage | null | undefined;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   activePageRoute?: number;
-  serviceBanner?: IServiceBanner;
 }

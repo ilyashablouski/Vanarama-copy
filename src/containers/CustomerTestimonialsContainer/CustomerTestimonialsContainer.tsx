@@ -3,8 +3,6 @@ import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
 import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import {
   TestimonialsData,
   TestimonialsDataVariables,

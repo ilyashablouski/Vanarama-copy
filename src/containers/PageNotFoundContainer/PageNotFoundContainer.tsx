@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import React from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,

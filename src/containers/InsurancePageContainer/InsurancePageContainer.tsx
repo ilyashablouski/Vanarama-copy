@@ -2,7 +2,6 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
-import React from 'react';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
