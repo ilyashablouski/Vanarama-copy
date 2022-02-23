@@ -21,8 +21,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <div
           class="image -white -expand"
         >
-          <div
-            style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+          <span
+            style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
           >
             <img
               class="image--native"
@@ -33,8 +33,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=70/https://images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg 3840w"
               style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
             />
-            <noscript />
-          </div>
+          </span>
         </div>
       </div>
     </div>
@@ -70,8 +69,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <div
             class="image card-image -expand -plain"
           >
-            <div
-              style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
             >
               <img
                 class="image--native"
@@ -82,7 +81,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
           <div
             class="title"
@@ -116,8 +115,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <div
             class="image card-image -expand -plain"
           >
-            <div
-              style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
             >
               <img
                 class="image--native"
@@ -128,7 +127,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
           <div
             class="title"
@@ -162,8 +161,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <div
             class="image card-image -expand -plain"
           >
-            <div
-              style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
             >
               <img
                 class="image--native"
@@ -174,7 +173,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
           <div
             class="title"

@@ -29,11 +29,11 @@ const getUrlForVehicleCard = (
 interface IProps {
   isManufacturerPage?: boolean;
   isAllManufacturersPage?: boolean;
-  ranges: rangeList;
+  ranges?: rangeList;
   isPersonal?: boolean;
   rangesUrls?: IGenericPages['items'];
   isCarSearch?: boolean;
-  manufacturers: manufacturerList;
+  manufacturers?: manufacturerList;
   manufacturersUrls?: IGenericPages['items'];
   cardsData: Nullable<IProductCard>[];
   vehiclesList: any;

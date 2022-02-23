@@ -1,3 +1,4 @@
+import React from 'react';
 import FrontParkingSensors from 'core/assets/icons/FrontParkingSensors';
 import FrontRearParkingSensors from 'core/assets/icons/FrontRearParkingSensors';
 import AirCondition from '../core/assets/icons/AirConditioning';

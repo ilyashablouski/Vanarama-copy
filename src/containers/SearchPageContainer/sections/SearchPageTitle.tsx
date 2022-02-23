@@ -6,42 +6,49 @@ import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 import CommonDescriptionContainer from './CommonDescriptionContainer';
-import { IBreadcrumbLink } from '../../../types/breadcrumbs';
+import { onMadeLineBreaks } from '../helpers';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
 import { Nullish } from '../../../types/common';
 
 interface IProps {
-  breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
+  breadcrumbs: Nullish<CustomJSON>;
   pageTitle: string;
-  titleWithBreaks: string[];
   pageData?: GenericPageQuery;
   partnershipDescription: string;
-  isDesktopOrTablet: boolean;
-  isPartnershipActive: boolean;
-  isNewPage: boolean;
+  isPartnershipActive?: boolean;
+  isNewPage?: boolean;
   dataUiTestId?: string;
 }
 
 const SearchPageTitle = ({
-  breadcrumbsItems,
+  breadcrumbs,
   pageTitle,
-  titleWithBreaks,
   pageData,
   partnershipDescription,
   isPartnershipActive,
-  isDesktopOrTablet,
   isNewPage,
   dataUiTestId,
 }: IProps) => {
+  const isDesktopOrTablet = useMobileViewport();
+
   const headingText = useMemo(
     () =>
       isDesktopOrTablet
         ? pageTitle
-        : titleWithBreaks.map(line => (
+        : onMadeLineBreaks(pageTitle).map(line => (
             <React.Fragment key={line}>
               {line} <br />
             </React.Fragment>
           )),
-    [isDesktopOrTablet, pageTitle, titleWithBreaks],
+    [isDesktopOrTablet, pageTitle],
+  );
+
+  const breadcrumbsItems = useMemo(
+    () =>
+      breadcrumbs?.map((el: any) => ({
+        link: { href: el.href || '', label: el.label },
+      })),
+    [breadcrumbs],
   );
 
   return (
