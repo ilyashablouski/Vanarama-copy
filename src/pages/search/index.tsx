@@ -4,6 +4,7 @@ import {
   NextPage,
 } from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import {
   INotFoundPageData,
   ISearchPageProps,
@@ -52,6 +53,7 @@ import {
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -66,6 +68,7 @@ interface IProps extends ISearchPageProps {
   notFoundPageData?: INotFoundPageData;
   defaultSort: ProductDerivativeSort[];
   isAllProductsRequest: boolean;
+  serviceBanner?: IServiceBanner;
 }
 
 const Page: NextPage<IProps> = ({
@@ -78,6 +81,7 @@ const Page: NextPage<IProps> = ({
   vansData,
   defaultSort,
   isAllProductsRequest,
+  serviceBanner,
 }) => (
   <GlobalSearchPageContainer
     metaData={metaData}
@@ -89,6 +93,7 @@ const Page: NextPage<IProps> = ({
     isAllProductsRequest={isAllProductsRequest}
     pageData={decodeData(pageData)}
     preLoadProductDerivatives={decodeData(productDerivatives)}
+    serviceBanner={serviceBanner}
   />
 );
 export async function getServerSideProps(
@@ -208,6 +213,8 @@ export async function getServerSideProps(
       .then(({ data: productFilterData }) => productFilterData.productFilter)
       .catch(() => null);
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       props: {
         isServer: !!context.req,
@@ -225,6 +232,7 @@ export async function getServerSideProps(
         defaultSort: sortOrder,
         isAllProductsRequest,
         initialFilters,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
