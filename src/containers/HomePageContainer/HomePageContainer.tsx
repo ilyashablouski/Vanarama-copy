@@ -6,7 +6,6 @@ import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -25,6 +24,7 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { IManufacturersSlug } from '../../types/manufacturerSlug';
+import { ServiceBannerQuery } from '../../../generated/ServiceBannerQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -88,7 +88,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   searchPodVansData,
   searchPodCarsData,
   vehicleListUrlData,
-  serviceBanner,
 }) => {
   const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
@@ -120,11 +119,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       <HomePageHero
         searchPodCarsData={searchPodCarsData}
         searchPodVansData={searchPodVansData}
