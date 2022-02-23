@@ -9,8 +9,6 @@ import {
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import ImageV2 from 'core/atoms/image/ImageV2';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -64,7 +62,6 @@ const RouterLink = dynamic(() =>
 type IProps = IPageWithData<
   ISpecialOffersData & {
     genericPageCMS?: GenericPageHeadQuery;
-    serviceBanner?: IServiceBanner;
   }
 >;
 
@@ -77,7 +74,6 @@ export const OffersPage: NextPage<IProps> = ({
   productsVan,
   vehicleListUrlData: encodedData,
   productsVanDerivatives,
-  serviceBanner,
 }) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
@@ -94,12 +90,6 @@ export const OffersPage: NextPage<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       {breadcrumbsItems && (
         <div className="row:title">
           <Breadcrumbs items={breadcrumbsItems} />

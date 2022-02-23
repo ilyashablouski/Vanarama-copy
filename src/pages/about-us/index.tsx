@@ -7,7 +7,6 @@ import getPartnerProperties, {
 } from 'utils/partnerProperties';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IBreadcrumb } from 'types/breadcrumbs';
-import ServiceBanner from 'core/molecules/service-banner';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -30,10 +29,7 @@ import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<IAboutPageProps>;
 
-const AboutUsLandingPage: NextPage<IProps> = ({
-  data: encodedData,
-  serviceBanner,
-}) => {
+const AboutUsLandingPage: NextPage<IProps> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
   const featuredImage = getSectionsData(
@@ -63,12 +59,6 @@ const AboutUsLandingPage: NextPage<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       {breadcrumbs && (
         <div className="row:title">
           <Breadcrumbs items={breadcrumbs} />

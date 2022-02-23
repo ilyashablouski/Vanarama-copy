@@ -20,8 +20,8 @@ import {
 import { PageTypeEnum } from '../../types/common';
 import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
-const FleetPage: NextPage<IGenericPage> = ({ data, serviceBanner }) => (
-  <FleetLandingPage data={decodeData(data)} serviceBanner={serviceBanner} />
+const FleetPage: NextPage<IGenericPage> = ({ data }) => (
+  <FleetLandingPage data={decodeData(data)} />
 );
 
 export async function getStaticProps(
@@ -29,18 +29,16 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'fleet',
-        isPreview: !!context?.preview,
-      },
-    });
-
-    const { serviceBanner } = await getServiceBannerData(client);
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      await client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: 'fleet',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

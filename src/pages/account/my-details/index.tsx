@@ -11,8 +11,6 @@ import { GET_COMPANIES_BY_PERSON_UUID } from 'gql/companies';
 import { GET_MY_ORDERS_DATA } from 'containers/OrdersInformation/gql';
 import { GET_PERSON_QUERY } from 'containers/LoginFormContainer/gql';
 import Loading from 'core/atoms/loading';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
@@ -44,7 +42,6 @@ interface IProps {
   orders: GetMyOrders_myOrders[];
   quotes: GetMyOrders_myOrders[];
   isEditPersonalInformationEnabled?: boolean;
-  serviceBanner?: IServiceBanner;
 }
 
 const handleNetworkError = () =>
@@ -88,7 +85,6 @@ const MyDetailsPage: NextPage<IProps> = ({
   orders,
   quotes,
   isEditPersonalInformationEnabled,
-  serviceBanner,
 }) => {
   const [resetPassword, setResetPassword] = useState(false);
   const router = useRouter();
@@ -102,12 +98,6 @@ const MyDetailsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Breadcrumbs items={breadcrumbItems} />
         <Heading

@@ -18,7 +18,6 @@ import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -105,7 +104,6 @@ export const CarsPage: NextPage<IProps> = ({
   searchPodCarsData: searchPodCarsDataEncoded,
   productsCar,
   vehicleListUrlData: vehicleListUrlDataEncoded,
-  serviceBanner,
 }) => {
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
@@ -165,11 +163,6 @@ export const CarsPage: NextPage<IProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       <Hero
         searchPodCarsData={searchPodCarsData}
         smallPrint={freeInsuranceSmallPrint}

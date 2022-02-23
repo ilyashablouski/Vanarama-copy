@@ -1,6 +1,5 @@
 import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import InsurancePageContainer from '../../containers/InsurancePageContainer/InsurancePageContainer';
 import createApolloClient from '../../apolloClient';
 import GET_INSURANCE_LANDING_PAGE from '../../containers/InsurancePageContainer/gql';
@@ -23,16 +22,12 @@ import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<{
   data: GetInsuranceLandingPage;
-  serviceBanner?: IServiceBanner;
 }>;
 
-const InsurancePage: NextPage<IProps> = ({
-  data: encodedData,
-  serviceBanner,
-}) => {
+const InsurancePage: NextPage<IProps> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
 
-  return <InsurancePageContainer data={data} serviceBanner={serviceBanner} />;
+  return <InsurancePageContainer data={data} />;
 };
 
 export async function getStaticProps(
@@ -40,17 +35,18 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<
-      GetInsuranceLandingPage,
-      GetInsuranceLandingPageVariables
-    >({
-      query: GET_INSURANCE_LANDING_PAGE,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
-
-    const { serviceBanner } = await getServiceBannerData(client);
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      await client.query<
+        GetInsuranceLandingPage,
+        GetInsuranceLandingPageVariables
+      >({
+        query: GET_INSURANCE_LANDING_PAGE,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

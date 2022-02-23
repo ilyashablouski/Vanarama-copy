@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import React, { useState } from 'react';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import {
   HelpMeLoginMutation,
   HelpMeLoginMutationVariables,
@@ -59,7 +58,7 @@ const metaData = {
   breadcrumbs: null,
 };
 
-export const PasswordRequestPage: NextPage<IProps> = ({ serviceBanner }) => {
+export const PasswordRequestPage: NextPage = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
   const [isEmailSent, setIsEmailSent] = useState(false);
 
@@ -100,12 +99,6 @@ export const PasswordRequestPage: NextPage<IProps> = ({ serviceBanner }) => {
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Heading
           tag="h1"

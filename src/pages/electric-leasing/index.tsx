@@ -8,8 +8,6 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import useLeaseType from '../../hooks/useLeaseType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import FeaturedOnBanner from '../../components/FeaturedOnBanner';
@@ -74,7 +72,6 @@ const ProductCarousel = dynamic(
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
-    serviceBanner?: IServiceBanner;
   }
 >;
 
@@ -135,7 +132,6 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvVanDerivatives,
   productsEvCarDerivatives,
   vehicleListUrlData,
-  serviceBanner,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
@@ -163,11 +159,6 @@ export const EVHubPage: NextPage<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       <Hero>
         <div className="hero--left">
           <div className="nlol" style={{ left: 'auto' }}>

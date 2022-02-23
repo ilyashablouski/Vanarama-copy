@@ -3,8 +3,6 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { IBreadcrumb } from '../../types/breadcrumbs';
 import {
@@ -28,14 +26,9 @@ const Text = dynamic(() => import('core/atoms/text'), {
 interface IProps {
   data: GenericPageQuery | undefined;
   leasingOffers?: boolean;
-  serviceBanner?: IServiceBanner;
 }
 
-const FeaturedAndTilesContainer: FC<IProps> = ({
-  data,
-  leasingOffers,
-  serviceBanner,
-}) => {
+const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
 
@@ -77,12 +70,6 @@ const FeaturedAndTilesContainer: FC<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Breadcrumbs items={breadcrumbs} />
         <Heading size="xlarge" color="black" tag="h1">

@@ -2,7 +2,6 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IPageWithError, PageTypeEnum } from 'types/common';
-import ServiceBanner from 'core/molecules/service-banner';
 import React from 'react';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
@@ -30,10 +29,7 @@ import { convertErrorToProps } from '../../../utils/helpers';
 import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
 import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
-  data,
-  serviceBanner,
-}) => {
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -57,12 +53,6 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
   if (metaData.title?.includes('FAQ')) {
     return (
       <>
-        <ServiceBanner
-          enable={serviceBanner?.enable}
-          message={serviceBanner?.message}
-          link={serviceBanner?.link}
-          className="-mb-500"
-        />
         <FAQContainer
           title={metaData.name}
           sections={sections}
@@ -81,12 +71,6 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <FinanceGapInsuranceContainer
         sections={sections}
         breadcrumbsItems={breadcrumbsItems}
@@ -125,18 +109,16 @@ export async function getStaticProps(
     const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: `insurance/${paths?.join('/')}`,
-        isPreview: !!context?.preview,
-      },
-    });
-
-    const { serviceBanner } = await getServiceBannerData(client);
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      await client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: `insurance/${paths?.join('/')}`,
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,

@@ -4,8 +4,6 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
@@ -53,7 +51,6 @@ const Message = dynamic(() => import('../../../core/components/Message'), {
 
 interface IProps {
   query: ParsedUrlQuery;
-  serviceBanner?: IServiceBanner;
 }
 
 const metaData = {
@@ -82,7 +79,7 @@ interface IQueryParams {
 }
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
-  const { query, serviceBanner } = props;
+  const { query } = props;
   const router = useRouter();
   const { redirect, isUnauthorised } = router.query as IQueryParams;
 
@@ -122,12 +119,6 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Heading
           tag="h1"

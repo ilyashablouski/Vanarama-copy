@@ -17,22 +17,15 @@ interface IProps {
   orders: GetMyOrders;
   person: GetPerson_getPerson;
   partyUuid: string[];
-  serviceBanner?: IServiceBanner;
 }
 
-const MyOrdersPage: NextPage<IProps> = ({
-  orders,
-  person,
-  partyUuid,
-  serviceBanner,
-}) => {
+const MyOrdersPage: NextPage<IProps> = ({ orders, person, partyUuid }) => {
   return (
     <MyOverview
       quote={false}
       data={orders}
       person={person}
       partyUuid={partyUuid}
-      serviceBanner={serviceBanner}
     />
   );
 };

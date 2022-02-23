@@ -8,8 +8,6 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -98,7 +96,6 @@ type IProps = IPageWithData<
     data: HubVanPageData;
     searchPodVansData: IFilterList;
     offer: Nullable<IExtProdCardData>;
-    serviceBanner?: IServiceBanner;
   }
 >;
 
@@ -113,7 +110,6 @@ export const VansPage: NextPage<IProps> = ({
   productsLargeVanDerivatives,
   vehicleListUrlData: encodeVehicleListUrlData,
   offer,
-  serviceBanner,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
@@ -164,11 +160,6 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       <Hero
         dataUiTestId="van-leasing-page_hero"
         searchPodVansData={searchPodVansData}

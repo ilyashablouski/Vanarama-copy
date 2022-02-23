@@ -32,13 +32,11 @@ import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 type IProps = IPageWithData<{
   data: GenericPageTestimonialsQuery;
   testimonialsData: TestimonialsData;
-  serviceBanner?: IServiceBanner;
 }>;
 
 const CustomerTestimonialPage: NextPage<IProps> = ({
   data,
   testimonialsData,
-  serviceBanner,
 }) => {
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -55,7 +53,6 @@ const CustomerTestimonialPage: NextPage<IProps> = ({
         sections={sections}
         breadcrumbsItems={breadcrumbsItems}
         initialTestimonials={testimonialsData?.testimonials}
-        serviceBanner={serviceBanner}
       />
       {metaData && (
         <>

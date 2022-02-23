@@ -1,5 +1,4 @@
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import {
   productFilter_productFilter as IProductFilter,
   productFilter_productFilter,
@@ -43,7 +42,6 @@ export interface IProps {
   vansData?: Nullable<ICardsData[]>;
   defaultSort?: ProductDerivativeSort[];
   isAllProductsRequest: boolean;
-  serviceBanner?: IServiceBanner;
 }
 
 export interface IVehicleListForRender {

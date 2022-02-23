@@ -1,5 +1,4 @@
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import createApolloClient from '../apolloClient';
 import {
   GenericPageQuery,
@@ -31,7 +30,6 @@ export interface IGenericPage {
   pageHead?: GenericPageHeadQuery;
   error?: IErrorProps;
   articleUrl?: string;
-  serviceBanner?: IServiceBanner;
 }
 
 export type IGenericPageProps = IPageWithData<IGenericPage> | IPageWithError;

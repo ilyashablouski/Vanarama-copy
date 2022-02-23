@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
 import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
@@ -17,23 +16,11 @@ interface IProps {
   quotes: GetMyOrders;
   person: GetPerson_getPerson;
   partyUuid: string[];
-  serviceBanner?: IServiceBanner;
 }
 
-const MyOrdersPage: NextPage<IProps> = ({
-  quotes,
-  person,
-  partyUuid,
-  serviceBanner,
-}) => {
+const MyOrdersPage: NextPage<IProps> = ({ quotes, person, partyUuid }) => {
   return (
-    <MyOverview
-      quote
-      data={quotes}
-      person={person}
-      partyUuid={partyUuid}
-      serviceBanner={serviceBanner}
-    />
+    <MyOverview quote data={quotes} person={person} partyUuid={partyUuid} />
   );
 };
 

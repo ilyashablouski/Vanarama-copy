@@ -2,8 +2,6 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -40,13 +38,12 @@ const ErrorMessage = dynamic(
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
-  serviceBanner?: IServiceBanner;
   loading?: boolean;
   error?: IErrorProps;
 }
 
 const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
-  const { data, loading, error, serviceBanner } = prop;
+  const { data, loading, error } = prop;
   const metaData = getSectionsData(['metaData'], data?.genericPage);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
@@ -87,12 +84,6 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Breadcrumbs items={breadcrumbs} />
         <Heading tag="h1" size="xlarge" color="black">

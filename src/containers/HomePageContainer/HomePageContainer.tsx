@@ -24,7 +24,6 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { IManufacturersSlug } from '../../types/manufacturerSlug';
-import { ServiceBannerQuery } from '../../../generated/ServiceBannerQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,

@@ -30,7 +30,7 @@ const PageNotFoundContainer = dynamic(
   },
 );
 
-const PageNotFound: NextPage<IGenericPage> = ({ data, serviceBanner }) => {
+const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -52,7 +52,6 @@ const PageNotFound: NextPage<IGenericPage> = ({ data, serviceBanner }) => {
         name={name}
         cards={cards}
         breadcrumbsItems={breadcrumbs}
-        serviceBanner={serviceBanner}
       />
       {metaData && (
         <>

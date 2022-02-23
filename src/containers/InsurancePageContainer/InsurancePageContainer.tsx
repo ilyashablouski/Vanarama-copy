@@ -1,8 +1,6 @@
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import React from 'react';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
@@ -45,20 +43,11 @@ const InsuranceNewsSection = dynamic(
 
 interface IInsurancePageContainer {
   data: GetInsuranceLandingPage | undefined;
-  serviceBanner?: IServiceBanner;
 }
 
-const InsurancePageContainer = ({
-  data,
-  serviceBanner,
-}: IInsurancePageContainer) => {
+const InsurancePageContainer = ({ data }: IInsurancePageContainer) => {
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       {data?.insuranceLandingPage?.sections?.hero && (
         <InsuranceHeroSection {...data?.insuranceLandingPage?.sections?.hero} />
       )}

@@ -81,7 +81,6 @@ const Page: NextPage<IProps> = ({
   vansData,
   defaultSort,
   isAllProductsRequest,
-  serviceBanner,
 }) => (
   <GlobalSearchPageContainer
     metaData={metaData}
@@ -93,7 +92,6 @@ const Page: NextPage<IProps> = ({
     isAllProductsRequest={isAllProductsRequest}
     pageData={decodeData(pageData)}
     preLoadProductDerivatives={decodeData(productDerivatives)}
-    serviceBanner={serviceBanner}
   />
 );
 export async function getServerSideProps(
@@ -113,7 +111,7 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const [{ data }, migrationSlugs] = await Promise.all([
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
       (await ssrCMSQueryExecutor(
         client,
         contextData,
@@ -121,6 +119,7 @@ export async function getServerSideProps(
         'isGlobalSearch',
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const initialFilters = buildInitialFilterState(context.query);
     const sortOrder = DEFAULT_SORT;
@@ -212,8 +211,6 @@ export async function getServerSideProps(
       })
       .then(({ data: productFilterData }) => productFilterData.productFilter)
       .catch(() => null);
-
-    const { serviceBanner } = await getServiceBannerData(client);
 
     return {
       props: {

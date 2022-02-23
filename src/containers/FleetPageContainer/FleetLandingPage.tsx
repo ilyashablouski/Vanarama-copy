@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
-import ServiceBanner from 'core/molecules/service-banner';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { IGenericPage } from '../../gql/genericPage';
@@ -38,18 +37,13 @@ const WhyLeaseWithVanaramaTiles = dynamic(
   },
 );
 
-const FleetLandingPage: React.FC<IGenericPage> = ({ data, serviceBanner }) => {
+const FleetLandingPage: React.FC<IGenericPage> = ({ data }) => {
   const { hero, leadText, featured1, featured2, featured3, featured4, tiles } =
     data.genericPage.sections || {};
   const { metaData, featuredImage } = data.genericPage;
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-      />
       {hero && (
         <HeroSection
           heroLabel={hero.heroLabel}

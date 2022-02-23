@@ -4,7 +4,6 @@ import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ApolloError } from '@apollo/client';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
@@ -39,7 +38,7 @@ const metaData = {
   schema: null,
   breadcrumbs: null,
 };
-export const PasswordResetPage: NextPage<IProps> = ({ serviceBanner }) => {
+export const PasswordResetPage: NextPage = () => {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
 
@@ -52,12 +51,6 @@ export const PasswordResetPage: NextPage<IProps> = ({ serviceBanner }) => {
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         <Heading
           tag="h1"

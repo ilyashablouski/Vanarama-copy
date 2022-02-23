@@ -25,8 +25,8 @@ import {
 import { convertErrorToProps } from '../../../utils/helpers';
 import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
-const AboutUsPage: NextPage<IGenericPage> = ({ data, serviceBanner }) => (
-  <SimplePageContainer data={data} serviceBanner={serviceBanner} />
+const AboutUsPage: NextPage<IGenericPage> = ({ data }) => (
+  <SimplePageContainer data={data} />
 );
 
 export async function getStaticPaths(context: GetStaticPropsContext) {

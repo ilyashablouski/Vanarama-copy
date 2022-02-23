@@ -34,7 +34,6 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   searchPodVansData,
   searchPodCarsData,
   vehicleListUrlData,
-  serviceBanner,
 }) => (
   <HomePageContainer
     data={decodeData(data)}
@@ -47,7 +46,6 @@ export const HomePage: NextPage<IHomePageContainer> = ({
     searchPodVansData={decodeData(searchPodVansData)}
     searchPodCarsData={decodeData(searchPodCarsData)}
     vehicleListUrlData={decodeData(vehicleListUrlData)}
-    serviceBanner={serviceBanner}
   />
 );
 

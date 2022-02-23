@@ -4,8 +4,6 @@ import React, { CSSProperties, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import Select from 'core/atoms/select';
-import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
-import ServiceBanner from 'core/molecules/service-banner';
 import { useSaveOrderMutation } from '../../gql/storedOrder';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
@@ -74,7 +72,6 @@ interface IMyOverviewProps {
   quote: boolean;
   person: Person;
   partyUuid: string[];
-  serviceBanner?: IServiceBanner;
 }
 
 const createDefaultBreadcrumbs = (isQuote?: boolean) => [
@@ -183,7 +180,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
   quote,
   person,
   partyUuid,
-  serviceBanner,
 }) => {
   const router = useRouter();
   const [data, setData] = useState(dataForFirstRender);
@@ -408,12 +404,6 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="row:title">
         {!!breadcrumbPath.length && <Breadcrumbs items={breadcrumbPath} />}
         <Heading

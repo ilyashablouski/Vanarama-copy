@@ -45,7 +45,6 @@ interface IProps {
   body: string | null;
   breadcrumbsItems: Nullish<IBreadcrumbLink[]>;
   initialTestimonials: TestimonialsData['testimonials'] | undefined;
-  serviceBanner?: IServiceBanner;
 }
 
 const CustomerTestimonialsContainer: FC<IProps> = ({
@@ -53,7 +52,6 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   sections,
   breadcrumbsItems,
   initialTestimonials,
-  serviceBanner,
 }) => {
   const [page, setPage] = useState(initialTestimonials ? 2 : 1);
   const [testimonials, setTestimonialsData] = useState<
@@ -103,12 +101,6 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
 
   return (
     <>
-      <ServiceBanner
-        enable={serviceBanner?.enable}
-        message={serviceBanner?.message}
-        link={serviceBanner?.link}
-        className="-mb-500"
-      />
       <div className="testimonials--content">
         <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">

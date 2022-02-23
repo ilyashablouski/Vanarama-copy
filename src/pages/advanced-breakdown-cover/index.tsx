@@ -19,10 +19,9 @@ import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
 import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
-const AdvancedBreakdownCoverPage: NextPage<IGenericPage> = ({
-  data,
-  serviceBanner,
-}) => <FeaturedAndTilesContainer data={data} serviceBanner={serviceBanner} />;
+const AdvancedBreakdownCoverPage: NextPage<IGenericPage> = ({ data }) => (
+  <FeaturedAndTilesContainer data={data} />
+);
 
 export async function getStaticProps(
   context: GetStaticPropsContext,

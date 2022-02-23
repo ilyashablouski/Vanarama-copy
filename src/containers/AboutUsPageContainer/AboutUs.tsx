@@ -42,7 +42,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 
 export interface IAboutPageProps {
   data: Query;
-  serviceBanner?: IServiceBanner;
   children?: ReactNode;
 }
 

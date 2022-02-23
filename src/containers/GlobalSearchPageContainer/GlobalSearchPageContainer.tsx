@@ -6,7 +6,6 @@ import OptionsSharp from 'core/assets/icons/OptionsSharp';
 import SwapVerticalSharp from 'core/assets/icons/SwapVerticalSharp';
 import cx from 'classnames';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
-import ServiceBanner from 'core/molecules/service-banner';
 import {
   productDerivatives as ITextSearchQuery,
   productDerivatives_productDerivatives_derivatives as IVehiclesList,
@@ -70,7 +69,6 @@ const GlobalSearchPageContainer = memo(
     initialFilters,
     defaultSort,
     isAllProductsRequest,
-    serviceBanner,
   }: IProps) => {
     const router = useRouter();
 
@@ -443,12 +441,6 @@ const GlobalSearchPageContainer = memo(
 
     return (
       <>
-        <ServiceBanner
-          enable={serviceBanner?.enable}
-          message={serviceBanner?.message}
-          link={serviceBanner?.link}
-          className="-mb-500"
-        />
         <div className="row:title">
           <Breadcrumbs items={breadcrumbsItems} />
           <CommonDescriptionContainer pageData={pageData} />
