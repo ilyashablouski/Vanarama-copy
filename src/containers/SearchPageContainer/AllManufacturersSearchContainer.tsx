@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
@@ -45,18 +45,18 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
 
 const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
-  isCarSearch,
+  isCarSearch = false,
   isServer,
   metaData: metaDataSSR,
   topInfoSection,
   preLoadManufacturers,
   manufacturersUrls,
 }) => {
-  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
+  const [isPartnershipActive, setPartnershipActive] = useState(false);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     getValueFromStorage(isServer, isCarSearch) ?? false,
   );
@@ -73,10 +73,8 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
-  const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
-  const [partnershipDescription, setPartnershipDescription] = useState<string>(
-    '',
-  );
+  const [pageTitle, setTitle] = useState(metaData?.name || '');
+  const [partnershipDescription, setPartnershipDescription] = useState('');
 
   const client = useApolloClient();
   const router = useRouter();
@@ -91,48 +89,58 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
   );
 
   // new search with new filters
-  const onSearch = (filtersObject?: IFilters) => {
-    const filters = filtersObject || filtersData;
-    getManufacturerList(
-      createManufacturerListVariables(isCarSearch, isPersonal, filters),
-    );
-    if (filtersObject) {
-      let pathname = router.route
-        .replace('[dynamicParam]', router.query?.dynamicParam as string)
-        .replace('[rangeName]', router.query?.rangeName as string)
-        .replace('[bodyStyles]', router.query?.bodyStyles as string);
-      const queryString = new URLSearchParams();
-      const query = buildRewriteRoute(filters as IFilters);
-      Object.entries(query).forEach(filter => {
-        const [key, value] = filter as [string, string | string[]];
-        if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
-          queryString.set(key, value as string);
-        }
-      });
-      if (Object.keys(query).length) {
-        pathname += `?${decodeURIComponent(queryString.toString())}`;
-      }
-      // changing url dynamically
-      router.replace(
-        {
-          pathname: router.route,
-          query,
-        },
-        pathname,
-        { shallow: true },
+  const onSearch = useCallback(
+    (filtersObject?: IFilters) => {
+      const filters = filtersObject || filtersData;
+      getManufacturerList(
+        createManufacturerListVariables(isCarSearch, isPersonal, filters),
       );
-      // set search filters data
-      setFiltersData(filters);
-    }
-  };
-
-  const tagArrayBuilder = (
-    entry: [string, string[]],
-    filtersContainerData: IFilterList,
-  ) =>
-    tagArrayBuilderHelper(entry, filtersContainerData, {
+      if (filtersObject) {
+        let pathname = router.route
+          .replace('[dynamicParam]', router.query?.dynamicParam as string)
+          .replace('[rangeName]', router.query?.rangeName as string)
+          .replace('[bodyStyles]', router.query?.bodyStyles as string);
+        const queryString = new URLSearchParams();
+        const query = buildRewriteRoute(filters as IFilters);
+        Object.entries(query).forEach(filter => {
+          const [key, value] = filter as [string, string | string[]];
+          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
+            queryString.set(key, value as string);
+          }
+        });
+        if (Object.keys(query).length) {
+          pathname += `?${decodeURIComponent(queryString.toString())}`;
+        }
+        // changing url dynamically
+        router.replace(
+          {
+            pathname: router.route,
+            query,
+          },
+          pathname,
+          { shallow: true },
+        );
+        // set search filters data
+        setFiltersData(filters);
+      }
+    },
+    [
+      getManufacturerList,
+      filtersData,
+      isCarSearch,
       isPartnershipActive,
-    });
+      isPersonal,
+      router,
+    ],
+  );
+
+  const tagArrayBuilder = useCallback(
+    (entry: [string, string[]], filtersContainerData: IFilterList) =>
+      tagArrayBuilderHelper(entry, filtersContainerData, {
+        isPartnershipActive,
+      }),
+    [isPartnershipActive],
+  );
 
   // listen for any updates to metaDataSSR
   useEffect(() => {
