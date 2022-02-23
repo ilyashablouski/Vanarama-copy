@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import Skeleton from '../../Skeleton';
 
 const Text = dynamic(() => import('core/atoms/text'), {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { IRegisterFormValues } from '../../components/RegisterForm/interfaces';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import { IRegisterFormContainerProps } from './interfaces';

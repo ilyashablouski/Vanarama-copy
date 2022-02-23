@@ -1,4 +1,7 @@
 module.exports = {
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc/jest'],
+  },
   testPathIgnorePatterns: ['./cypress/'],
   coveragePathIgnorePatterns: ['/node_modules/'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],

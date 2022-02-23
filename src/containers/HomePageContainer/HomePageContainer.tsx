@@ -195,26 +195,26 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="car-view-offer"
                     dataUiTestIdMask="ui-car"
                   />
-                </LazyLoadComponent>
 
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Car Offers',
-                      href: '/car-leasing-special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-cars"
-                  >
-                    <div className="button--inner">View All Car Offers</div>
-                  </RouterLink>
-                </div>
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Car Offers',
+                        href: '/car-leasing-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-cars"
+                    >
+                      <div className="button--inner">View All Car Offers</div>
+                    </RouterLink>
+                  </div>
+                </LazyLoadComponent>
               </div>
             </TabPanel>
             <TabPanel index={0}>

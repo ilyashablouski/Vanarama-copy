@@ -813,19 +813,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
-
-        <LazyLoadComponent
-          visibleByDefault={isServerRenderOrAppleDevice}
-          placeholder={<span className="-d-block -h-400" />}
-        >
-          <WhyChooseLeasing warrantyDetails={warrantyDetails} />
-          {!!accordionQAData.length && (
-            <WhyChooseVanarama
-              accordionsData={accordionQAData}
-              title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
-            />
-          )}
-        </LazyLoadComponent>
+        <WhyChooseLeasing warrantyDetails={warrantyDetails} />
+        {!!accordionQAData.length && (
+          <WhyChooseVanarama
+            accordionsData={accordionQAData}
+            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
+          />
+        )}
         <section className="pdp--reviews" id="reviews">
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
