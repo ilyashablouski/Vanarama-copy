@@ -17,6 +17,8 @@ import decode from 'decode-html';
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -64,6 +66,7 @@ import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -94,6 +97,7 @@ const getFuelType = (product: IProduct | null) =>
 interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
   searchPodCarsData: IFilterList;
+  serviceBanner?: IServiceBanner;
 }
 
 export const CarsPage: NextPage<IProps> = ({
@@ -101,6 +105,7 @@ export const CarsPage: NextPage<IProps> = ({
   searchPodCarsData: searchPodCarsDataEncoded,
   productsCar,
   vehicleListUrlData: vehicleListUrlDataEncoded,
+  serviceBanner,
 }) => {
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
@@ -160,6 +165,11 @@ export const CarsPage: NextPage<IProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <Hero
         searchPodCarsData={searchPodCarsData}
         smallPrint={freeInsuranceSmallPrint}
@@ -643,6 +653,8 @@ export async function getServerSideProps(
       client,
     );
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       props: {
         data: encodeData(hubCarPage),
@@ -650,6 +662,7 @@ export async function getServerSideProps(
         searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

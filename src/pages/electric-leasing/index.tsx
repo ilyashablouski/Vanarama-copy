@@ -8,6 +8,8 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import useLeaseType from '../../hooks/useLeaseType';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import FeaturedOnBanner from '../../components/FeaturedOnBanner';
@@ -38,6 +40,7 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import { decodeData, encodeData } from '../../utils/data';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -71,6 +74,7 @@ const ProductCarousel = dynamic(
 type IProps = IPageWithData<
   IEvOffersData & {
     data: GenericPageQuery;
+    serviceBanner?: IServiceBanner;
   }
 >;
 
@@ -131,6 +135,7 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvVanDerivatives,
   productsEvCarDerivatives,
   vehicleListUrlData,
+  serviceBanner,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
@@ -158,6 +163,11 @@ export const EVHubPage: NextPage<IProps> = ({
 
   return (
     <>
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <Hero>
         <div className="hero--left">
           <div className="nlol" style={{ left: 'auto' }}>
@@ -376,6 +386,8 @@ export async function getStaticProps(
       vehicleListUrlData,
     } = await evOffersRequest(client);
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
@@ -386,6 +398,7 @@ export async function getStaticProps(
         productsEvVanDerivatives: productsEvVanDerivatives || null,
         productsEvCarDerivatives: productsEvCarDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

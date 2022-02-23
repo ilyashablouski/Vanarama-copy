@@ -7,6 +7,8 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import ServiceBanner from 'core/molecules/service-banner';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isWished } from '../../utils/wishlistHelpers';
@@ -65,6 +67,7 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -102,6 +105,7 @@ type IProps = IPageWithData<
   IPickupsPageOffersData & {
     data: HubPickupPageData;
     searchPodVansData: IFilterList;
+    serviceBanner?: IServiceBanner;
   }
 >;
 
@@ -110,6 +114,7 @@ export const PickupsPage: NextPage<IProps> = ({
   searchPodVansData: searchPodVansDataEncoded,
   productsPickup,
   vehicleListUrlData: vehicleListUrlDataEncode,
+  serviceBanner,
 }) => {
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
@@ -175,6 +180,11 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
+      <ServiceBanner
+        enable={serviceBanner?.enable}
+        message={serviceBanner?.message}
+        link={serviceBanner?.link}
+      />
       <Hero
         dataUiTestId="pickup-truck-leasing-page_hero"
         searchPodVansData={searchPodVansData}
@@ -763,6 +773,8 @@ export async function getStaticProps(
       vehicleListUrlData,
     } = await pickupsPageOffersRequest(client);
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
@@ -771,6 +783,7 @@ export async function getStaticProps(
         searchPodVansData: encodeData(searchPodVansData),
         productsPickup: productsPickup || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
