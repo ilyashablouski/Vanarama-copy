@@ -25,8 +25,12 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
-const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData }) => {
+const CategoryPage: NextPage<IGenericPage> = ({
+  data: encodedData,
+  serviceBanner,
+}) => {
   const data = decodeData(encodedData);
 
   const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
@@ -45,6 +49,7 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData }) => {
         metaData={metaData}
         tiles={tiles}
         featuredImage={data?.genericPage.featuredImage}
+        serviceBanner={serviceBanner}
       />
       {metaData.slug && !metaData.schema && (
         <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
@@ -72,11 +77,14 @@ export async function getStaticProps(
     // Obfuscate data from Googlebot
     const data = encodeData(genericPage);
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
