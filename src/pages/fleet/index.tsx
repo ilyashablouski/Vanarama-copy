@@ -18,9 +18,10 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { PageTypeEnum } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
-const FleetPage: NextPage<IGenericPage> = ({ data }) => (
-  <FleetLandingPage data={decodeData(data)} />
+const FleetPage: NextPage<IGenericPage> = ({ data, serviceBanner }) => (
+  <FleetLandingPage data={decodeData(data)} serviceBanner={serviceBanner} />
 );
 
 export async function getStaticProps(
@@ -39,11 +40,14 @@ export async function getStaticProps(
       },
     });
 
+    const { serviceBanner } = await getServiceBannerData(client);
+
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
