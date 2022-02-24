@@ -30,6 +30,7 @@ import {
 } from '../../types/common';
 import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
 import { getManufacturerJson } from '../../utils/url';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -341,7 +342,7 @@ export async function getServerSideProps(
   const client = createApolloClient({});
 
   try {
-    const [{ data }, migrationSlugs] = await Promise.all([
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
       client.query<GenericPageHeadQuery, GenericPageHeadQueryVariables>({
         query: GENERIC_PAGE_HEAD,
         variables: {
@@ -350,6 +351,7 @@ export async function getServerSideProps(
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
 
     const {
@@ -374,6 +376,7 @@ export async function getServerSideProps(
         productsPickup: productsPickup || null,
         productsVan: productsVan || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

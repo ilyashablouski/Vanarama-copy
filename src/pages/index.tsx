@@ -22,6 +22,7 @@ import {
 import { specialOffersRequest } from '../utils/offers';
 import { decodeData, encodeData } from '../utils/data';
 import { getManufacturerJson } from '../utils/url';
+import { getServiceBannerData } from '../utils/serviceBannerHelper';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
@@ -55,7 +56,7 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const [{ data }, migrationSlugs] = await Promise.all([
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
       await client.query<HomePageData, HomePageDataVariables>({
         query: ALL_HOME_CONTENT,
         variables: {
@@ -63,7 +64,9 @@ export async function getServerSideProps(
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
+
     const {
       productsVanDerivatives,
       productsCarDerivatives,
@@ -104,6 +107,7 @@ export async function getServerSideProps(
         searchPodVansData: encodeData(searchPodVansData),
         searchPodCarsData: encodeData(searchPodCarsData),
         vehicleListUrlData: encodeData(vehicleListUrlData) || null,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

@@ -10,6 +10,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 interface IProps {
   quotes: GetMyOrders;
@@ -36,9 +37,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
 
-    const { data } = await client.query({
-      query: GET_PERSON_QUERY,
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query({
+        query: GET_PERSON_QUERY,
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const { data: partyUuidData } = await client.query({
       query: GET_COMPANIES_BY_PERSON_UUID,
@@ -64,6 +68,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         quotes,
         person: data.getPerson,
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
+        serviceBanner: serviceBanner || null,
       },
     });
   } catch {

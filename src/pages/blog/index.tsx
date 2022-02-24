@@ -25,6 +25,7 @@ import {
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
 import { convertErrorToProps } from '../../utils/helpers';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData }) => {
   const data = decodeData(encodedData);
@@ -58,16 +59,16 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
     const client = createApolloClient({});
-    const { data: genericPage } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'blog',
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data: genericPage }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: 'blog',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     // Obfuscate data from Googlebot
     const data = encodeData(genericPage);
@@ -77,6 +78,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

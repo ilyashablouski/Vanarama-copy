@@ -63,6 +63,7 @@ import {
   Nullable,
   PageTypeEnum,
 } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -762,14 +763,15 @@ export async function getStaticProps(
   const client = createApolloClient({});
 
   try {
-    const [{ data }, migrationSlugs] = await Promise.all([
-      await client.query<HubVanPageData, HubVanPageDataVariables>({
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
+      client.query<HubVanPageData, HubVanPageDataVariables>({
         query: HUB_VAN_CONTENT,
         variables: {
           isPreview: !!context?.preview,
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const { data: searchPodVansData } = await client.query<
       IFilterList,
@@ -829,6 +831,7 @@ export async function getStaticProps(
         productsLargeVanDerivatives: productsLargeVanDerivatives || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
         offer,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

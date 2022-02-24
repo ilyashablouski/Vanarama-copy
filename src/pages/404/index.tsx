@@ -21,6 +21,7 @@ import {
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
 import { PageTypeEnum } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const PageNotFoundContainer = dynamic(
   () => import('../../containers/PageNotFoundContainer/PageNotFoundContainer'),
@@ -67,22 +68,24 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IGenericPageProps>> {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: '404',
-        isPreview: !!context?.preview,
-      },
-    });
+
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: '404',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

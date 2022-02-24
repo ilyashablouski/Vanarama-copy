@@ -5,6 +5,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -72,6 +73,7 @@ export interface IHomePageContainer extends ISpecialOffersData {
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
   migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
@@ -88,7 +90,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
-
   // if (loading) {
   //   return <Loading size="large" />;
   // }

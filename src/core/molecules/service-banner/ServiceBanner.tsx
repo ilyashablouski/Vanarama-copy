@@ -1,29 +1,21 @@
 import React from 'react';
 import Text from 'core/atoms/text';
 import Link from 'core/atoms/link';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import cx from 'classnames';
 
-interface IServiceBannerLink {
-  url?: string | null;
-  text?: string | null;
-}
-
-interface IServiceBannerProps {
-  enabled?: boolean | null;
-  message?: string | null;
-  link?: IServiceBannerLink | null;
-}
-
-const ServiceBanner: React.FC<IServiceBannerProps> = ({
-  enabled,
+const ServiceBanner: React.FC<IServiceBanner> = ({
+  enable,
   message,
   link,
+  className,
 }) => {
-  if (!enabled) {
+  if (!enable) {
     return null;
   }
 
   return (
-    <div className="service-banner">
+    <div className={cx('service-banner', className)}>
       <div className="-ml-600 -mr-600 -a-center">
         <Text color="black">{message}</Text>
         {` `}

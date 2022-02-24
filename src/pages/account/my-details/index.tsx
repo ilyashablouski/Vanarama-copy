@@ -23,6 +23,7 @@ import { isUserAuthenticatedSSR } from '../../../utils/authentication';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isEditPersonalInformationFeatureFlagEnabled } from '../../../utils/helpers';
 import useAccountRouteChangeStart from '../../../hooks/useAccountRouteChangeStart';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -189,7 +190,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { data } = await client.query({
       query: GET_PERSON_QUERY,
     });
-    const [{ data: personData }, { data: partyUuidData }] = await Promise.all([
+    const [
+      { data: personData },
+      { data: partyUuidData },
+      { serviceBanner },
+    ] = await Promise.all([
       client.query({
         query: GET_PERSON_INFORMATION_DATA,
         variables: {
@@ -202,6 +207,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           personUuid: data.getPerson.uuid,
         },
       }),
+      getServiceBannerData(client),
     ]);
 
     const partyUuids = partyUuidData.companiesByPersonUuid.map(
@@ -224,6 +230,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       }),
     ]);
+
     return addApolloState(client, {
       props: {
         person: personData.myAccountMaskedDetailsByPersonUuid,
@@ -231,6 +238,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         orders: orders.myOrders,
         quotes: quotes.myOrders,
         isEditPersonalInformationEnabled,
+        serviceBanner: serviceBanner || null,
       },
     });
   } catch {

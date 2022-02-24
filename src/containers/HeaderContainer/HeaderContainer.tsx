@@ -10,6 +10,7 @@ import {
   removePartnerProperties,
 } from 'utils/partnerProperties';
 import Cookies from 'js-cookie';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
@@ -29,7 +30,7 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
-import { useLogOutMutation, useServiceBannerQuery } from './gql';
+import { useLogOutMutation } from './gql';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -42,7 +43,11 @@ const creteLoginLink = (redirect: string) => ({
   as: '/account/login-register',
 });
 
-const HeaderContainer: FC = () => {
+interface IProps {
+  serviceBanner?: IServiceBanner;
+}
+
+const HeaderContainer: FC<IProps> = ({ serviceBanner }) => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
   const client = useApolloClient();
@@ -53,8 +58,6 @@ const HeaderContainer: FC = () => {
   const loginLink = useMemo(() => creteLoginLink(router.asPath), [
     router.asPath,
   ]);
-
-  const { data: serviceBannerData } = useServiceBannerQuery();
 
   const [logOut] = useLogOutMutation();
   const { data: storedPersonData, refetch } = useStoredPersonQuery(
@@ -234,7 +237,7 @@ const HeaderContainer: FC = () => {
   if (partnership) {
     return (
       <Header
-        serviceBanner={serviceBannerData?.serviceBanner}
+        serviceBanner={serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={loginLink}
@@ -248,7 +251,7 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
-        serviceBanner={serviceBannerData?.serviceBanner}
+        serviceBanner={serviceBanner}
         person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={loginLink}
