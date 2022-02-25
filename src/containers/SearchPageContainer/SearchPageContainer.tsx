@@ -146,7 +146,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
+  const [isPartnershipActive, setPartnershipActive] = useState(false);
   const applyColumns = !isEvPage ? '-columns' : '';
 
   const client = useApolloClient();
@@ -210,10 +210,8 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
 
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
-  const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
-  const [partnershipDescription, setPartnershipDescription] = useState<string>(
-    '',
-  );
+  const [pageTitle, setTitle] = useState(metaData?.name || '');
+  const [partnershipDescription, setPartnershipDescription] = useState('');
 
   const [prevPosition, setPrevPosition] = useState(0);
 
