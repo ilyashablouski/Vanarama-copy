@@ -1,13 +1,22 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
+import { ApolloError } from '@apollo/client';
 import DirectorDetailsFormContainer from '../../../../containers/DirectorDetailsFormContainer';
 import SecureModalLayout from '../../../../containers/SecureModalLayout';
-import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import { useStoredOrderQuery } from '../../../../gql/storedOrder';
+import createApolloClient from '../../../../apolloClient';
+import { getServiceBannerData } from '../../../../utils/serviceBannerHelper';
 
 const handleSubmitError = () =>
   toast.error(
@@ -46,5 +55,33 @@ export const DirectorDetailsPage: NextPage = () => {
     </OLAFLayout>
   );
 };
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
+
+  try {
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
+}
 
 export default DirectorDetailsPage;
