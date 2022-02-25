@@ -2,7 +2,6 @@ import React, { FC, SyntheticEvent } from 'react';
 import Image from 'next/image';
 import cx from 'classnames';
 
-import { optimizedLoader } from './helpers';
 import { IImageV2Props } from './interfaces';
 
 const PLACEHOLDER_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
@@ -38,7 +37,6 @@ const ImageV2: FC<IImageV2Props> = ({
   };
 
   const layout = width && height ? 'responsive' : 'fill';
-  const loader = optimisedHost ? optimizedLoader : undefined;
 
   return (
     <div
@@ -57,7 +55,6 @@ const ImageV2: FC<IImageV2Props> = ({
         height={height}
         src={src}
         layout={layout}
-        loader={loader}
         sizes={sizes}
         quality={quality}
         data-testid={dataTestId}
