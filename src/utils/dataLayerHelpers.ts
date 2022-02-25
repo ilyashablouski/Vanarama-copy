@@ -296,14 +296,32 @@ export const pushPageData = async ({
     };
   }
 
-  pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
-  pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
-  pushDetail('deviceType', getDeviceType(), data);
-  pushDetail(
-    'visitorEmail',
-    personEmail ? sha256(personEmail) : 'undefined',
-    data,
-  );
+  function delayedPushDetails() {
+    let count = 0;
+    const blueConicCookie = Cookies.get('BCSessionID');
+    const intervalID = setInterval(() => {
+      // eslint-disable-next-line no-plusplus
+      count++;
+      if (blueConicCookie !== undefined || count === 3) {
+        pushDetailsAfterCorrectBCUID();
+        clearInterval(intervalID);
+      }
+    }, 100);
+
+    function pushDetailsAfterCorrectBCUID() {
+      pushDetail('BCUID', blueConicCookie || 'undefined', data);
+      pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
+      pushDetail('deviceType', getDeviceType(), data);
+      pushDetail(
+        'visitorEmail',
+        personEmail ? sha256(personEmail) : 'undefined',
+        data,
+      );
+    }
+  }
+
+  delayedPushDetails();
+
   window.dataLayer.push(data);
 };
 
