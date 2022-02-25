@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import { IPageWithData, IPageWithError, PageTypeEnum } from 'types/common';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import getPartnerProperties, {
   isPartnerSessionActive,
 } from 'utils/partnerProperties';
@@ -25,6 +25,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertErrorToProps } from '../../utils/helpers';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<IAboutPageProps>;
 
@@ -79,15 +80,15 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   const client = createApolloClient({});
   try {
-    const { data: rawData } = await client.query<
-      GetAboutUsPageData,
-      GetAboutUsPageDataVariables
-    >({
-      query: GET_ABOUT_US_PAGE_DATA,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data: rawData }, { serviceBanner }] = await Promise.all([
+      client.query<GetAboutUsPageData, GetAboutUsPageDataVariables>({
+        query: GET_ABOUT_US_PAGE_DATA,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     // Obfuscate data from Googlebot
     const data = encodeData(rawData);
@@ -97,6 +98,7 @@ export async function getStaticProps(
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

@@ -4,6 +4,7 @@ import {
   NextPage,
 } from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import {
   INotFoundPageData,
   ISearchPageProps,
@@ -52,6 +53,7 @@ import {
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -66,6 +68,7 @@ interface IProps extends ISearchPageProps {
   notFoundPageData?: INotFoundPageData;
   defaultSort: ProductDerivativeSort[];
   isAllProductsRequest: boolean;
+  serviceBanner?: IServiceBanner;
 }
 
 const Page: NextPage<IProps> = ({
@@ -108,7 +111,7 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
-    const [{ data }, migrationSlugs] = await Promise.all([
+    const [{ data }, migrationSlugs, { serviceBanner }] = await Promise.all([
       (await ssrCMSQueryExecutor(
         client,
         contextData,
@@ -116,6 +119,7 @@ export async function getServerSideProps(
         'isGlobalSearch',
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const initialFilters = buildInitialFilterState(context.query);
     const sortOrder = DEFAULT_SORT;
@@ -225,6 +229,7 @@ export async function getServerSideProps(
         defaultSort: sortOrder,
         isAllProductsRequest,
         initialFilters,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

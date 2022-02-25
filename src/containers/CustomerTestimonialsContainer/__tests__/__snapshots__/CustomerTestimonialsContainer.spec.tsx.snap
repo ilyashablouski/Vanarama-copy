@@ -174,11 +174,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <div
-              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
             >
-              <div
-                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              <span
+                style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
               />
               <img
                 alt="Fleet-Icon"
@@ -189,7 +189,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
         </div>
         <div>
@@ -212,11 +212,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <div
-              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
             >
-              <div
-                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              <span
+                style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
               />
               <img
                 alt="Fleet-Icon"
@@ -227,7 +227,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
         </div>
         <div>
@@ -250,11 +250,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           <div
             class="image -expand -round"
           >
-            <div
-              style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+            <span
+              style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
             >
-              <div
-                style="display: block; box-sizing: border-box; padding-top: 100%;"
+              <span
+                style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
               />
               <img
                 alt="Fleet-Icon"
@@ -265,7 +265,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                 style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
               />
               <noscript />
-            </div>
+            </span>
           </div>
         </div>
         <div>
@@ -315,11 +315,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <div
-                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
                 >
-                  <div
-                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  <span
+                    style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                   />
                   <img
                     class="image--native"
@@ -329,7 +329,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                     style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                   />
                   <noscript />
-                </div>
+                </span>
               </div>
             </div>
             <span
@@ -358,11 +358,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <div
-                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
                 >
-                  <div
-                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  <span
+                    style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                   />
                   <img
                     class="image--native"
@@ -372,7 +372,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                     style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                   />
                   <noscript />
-                </div>
+                </span>
               </div>
             </div>
             <span
@@ -401,11 +401,11 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               <div
                 class="image -large -round -inline"
               >
-                <div
-                  style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
                 >
-                  <div
-                    style="display: block; box-sizing: border-box; padding-top: 100%;"
+                  <span
+                    style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                   />
                   <img
                     class="image--native"
@@ -415,7 +415,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
                     style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                   />
                   <noscript />
-                </div>
+                </span>
               </div>
             </div>
             <span

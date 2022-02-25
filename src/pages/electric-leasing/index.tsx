@@ -38,6 +38,7 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import { decodeData, encodeData } from '../../utils/data';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -355,18 +356,17 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
-    // const paths = context?.params?.pages as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'electric-leasing',
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: 'electric-leasing',
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const {
       productsEvVan,
@@ -386,6 +386,7 @@ export async function getStaticProps(
         productsEvVanDerivatives: productsEvVanDerivatives || null,
         productsEvCarDerivatives: productsEvCarDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

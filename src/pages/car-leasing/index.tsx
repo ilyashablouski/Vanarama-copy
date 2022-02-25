@@ -17,6 +17,7 @@ import decode from 'decode-html';
 import CardLabel from 'core/molecules/cards/CardLabel';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { decodeData, encodeData, normalizeString } from '../../utils/data';
 import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -64,6 +65,7 @@ import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import HeadingSection from '../../components/HeadingSection';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -94,6 +96,7 @@ const getFuelType = (product: IProduct | null) =>
 interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
   searchPodCarsData: IFilterList;
+  serviceBanner?: IServiceBanner;
 }
 
 export const CarsPage: NextPage<IProps> = ({
@@ -620,14 +623,19 @@ export async function getServerSideProps(
   const client = createApolloClient({}, context);
 
   try {
-    const [{ data: hubCarPage }, migrationSlugs] = await Promise.all([
-      await client.query<HubCarPageData, HubCarPageDataVariables>({
+    const [
+      { data: hubCarPage },
+      migrationSlugs,
+      { serviceBanner },
+    ] = await Promise.all([
+      client.query<HubCarPageData, HubCarPageDataVariables>({
         query: HUB_CAR_CONTENT,
         variables: {
           isPreview: !!context?.preview,
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
     const { data: searchPodCarsData } = await client.query<
       IFilterList,
@@ -650,6 +658,7 @@ export async function getServerSideProps(
         searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
