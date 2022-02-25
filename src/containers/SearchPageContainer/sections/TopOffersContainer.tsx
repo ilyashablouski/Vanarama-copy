@@ -45,15 +45,15 @@ const CarouselSwiper = dynamic(
 interface IProps {
   isPersonal: boolean;
   isCarSearch: boolean;
-  isManufacturerPage: boolean;
-  isBodyPage: boolean;
-  isSpecialOfferPage: boolean;
-  isPickups: boolean;
-  isRangePage: boolean;
-  isTransmissionPage: boolean;
-  isFuelPage: boolean;
-  isBudgetPage: boolean;
-  isDynamicFilterPage: boolean;
+  isManufacturerPage?: boolean;
+  isBodyPage?: boolean;
+  isSpecialOfferPage?: boolean;
+  isPickups?: boolean;
+  isRangePage?: boolean;
+  isTransmissionPage?: boolean;
+  isFuelPage?: boolean;
+  isBudgetPage?: boolean;
+  isDynamicFilterPage?: boolean;
   preLoadVehiclesList?: Nullable<IVehiclesData>;
   preLoadProductCardsData?: Nullable<GetProductCard>;
   preloadBodyStyleList?: Nullable<IModelsData[]>;
