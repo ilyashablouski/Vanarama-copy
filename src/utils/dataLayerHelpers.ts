@@ -297,27 +297,30 @@ export const pushPageData = async ({
   }
 
   function delayedPushDetails() {
-    let count = 0;
-    const blueConicCookie = Cookies.get('BCSessionID');
+    let attemptNumber = 0;
+    const MAX_NUMBER_OF_ATTEMPTS = 3;
     const intervalID = setInterval(() => {
-      // eslint-disable-next-line no-plusplus
-      count++;
-      if (blueConicCookie !== undefined || count === 3) {
-        pushDetailsAfterCorrectBCUID();
+      const blueConicCookie = Cookies.get('BCSessionID');
+      attemptNumber += 1;
+      if (
+        typeof blueConicCookie !== 'undefined' ||
+        attemptNumber === MAX_NUMBER_OF_ATTEMPTS
+      ) {
+        pushDetailsAfterCheckBCUID();
         clearInterval(intervalID);
       }
     }, 100);
+  }
 
-    function pushDetailsAfterCorrectBCUID() {
-      pushDetail('BCUID', blueConicCookie || 'undefined', data);
-      pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
-      pushDetail('deviceType', getDeviceType(), data);
-      pushDetail(
-        'visitorEmail',
-        personEmail ? sha256(personEmail) : 'undefined',
-        data,
-      );
-    }
+  function pushDetailsAfterCheckBCUID() {
+    pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
+    pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
+    pushDetail('deviceType', getDeviceType(), data);
+    pushDetail(
+      'visitorEmail',
+      personEmail ? sha256(personEmail) : 'undefined',
+      data,
+    );
   }
 
   delayedPushDetails();
