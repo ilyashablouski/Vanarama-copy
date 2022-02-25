@@ -35,8 +35,8 @@ interface IProps {
   isCarSearch?: boolean;
   manufacturers?: manufacturerList;
   manufacturersUrls?: IGenericPages['items'];
-  cardsData: Nullable<IProductCard>[];
-  vehiclesList: any;
+  cardsData?: Nullable<IProductCard>[];
+  vehiclesList?: any;
   isModelPage?: boolean;
   customCTAColor?: string;
   dataUiTestId?: string;
@@ -107,7 +107,7 @@ const ResultsContainer = memo(
           ))}
       </>
     ) : (
-      !!cardsData.length &&
+      !!cardsData?.length &&
         vehiclesList?.map((vehicle: IVehicles, index: number) => (
           <VehicleCard
             dataUiTestId={`${dataUiTestId}_product-card-${index}`}
