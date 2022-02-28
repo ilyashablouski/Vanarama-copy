@@ -64,7 +64,7 @@
     "lodash.compact": "^3.0.1",
     "lodash.flatten": "^4.4.0",
     "lodash.isequal": "^4.5.0",
-    "next": "^12.0.10",
+    "next": "12.1.0",
     "next-compose-plugins": "2.2.1",
     "next-images": "1.8.1",
     "next-with-apollo": "5.2.1",
