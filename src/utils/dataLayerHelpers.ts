@@ -296,14 +296,36 @@ export const pushPageData = async ({
     };
   }
 
-  pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
-  pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
-  pushDetail('deviceType', getDeviceType(), data);
-  pushDetail(
-    'visitorEmail',
-    personEmail ? sha256(personEmail) : 'undefined',
-    data,
-  );
+  const MAX_NUMBER_OF_ATTEMPTS = 3;
+
+  function delayedPushDetails() {
+    let attemptNumber = 0;
+    const intervalID = setInterval(() => {
+      const blueConicCookie = Cookies.get('BCSessionID');
+      attemptNumber += 1;
+      if (
+        typeof blueConicCookie !== 'undefined' ||
+        attemptNumber === MAX_NUMBER_OF_ATTEMPTS
+      ) {
+        pushDetailsAfterCheckBCUID();
+        clearInterval(intervalID);
+      }
+    }, 100);
+  }
+
+  function pushDetailsAfterCheckBCUID() {
+    pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
+    pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
+    pushDetail('deviceType', getDeviceType(), data);
+    pushDetail(
+      'visitorEmail',
+      personEmail ? sha256(personEmail) : 'undefined',
+      data,
+    );
+  }
+
+  delayedPushDetails();
+
   window.dataLayer.push(data);
 };
 
