@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   HttpLink,
   NormalizedCacheObject,
+  Operation,
 } from '@apollo/client';
 // import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -116,6 +117,18 @@ const retryLink = new RetryLink({
   },
 });
 
+function extractQuery(operation: Operation) {
+  const query = operation.query.loc?.source.body;
+
+  return query;
+}
+
+function extractQueryVariables(operation: Operation) {
+  const variables = operation.variables;
+
+  return JSON.stringify(variables, null, 4);
+}
+
 const logLink = new ApolloLink((operation, forward) => {
   if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
     const query = {
@@ -125,7 +138,8 @@ const logLink = new ApolloLink((operation, forward) => {
     };
 
     console.log('\n[GraphQL query]:');
-    console.log(`${JSON.stringify(query, null, 4)}\n`);
+    console.dir(extractQuery(operation));
+    console.dir(extractQueryVariables(operation));
   }
 
   return forward(operation).map(result => {
