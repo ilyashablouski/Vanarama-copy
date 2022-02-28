@@ -118,15 +118,20 @@ const retryLink = new RetryLink({
 });
 
 function extractQuery(operation: Operation) {
-  const query = operation.query.loc?.source.body;
+  let query = operation.query.loc?.source.body;
 
-  return query;
+  if (query) {
+    query = query
+      .replace(/\n/g, '')
+      .replace(/\s\s+/g, ' ')
+      .trim();
+  }
+
+  return JSON.stringify(query, null, 4);
 }
 
 function extractQueryVariables(operation: Operation) {
-  const variables = operation.variables;
-
-  return JSON.stringify(variables, null, 4);
+  return JSON.stringify(operation.variables || {}, null, 4);
 }
 
 const logLink = new ApolloLink((operation, forward) => {
@@ -138,8 +143,8 @@ const logLink = new ApolloLink((operation, forward) => {
     };
 
     console.log('\n[GraphQL query]:');
-    console.dir(extractQuery(operation));
-    console.dir(extractQueryVariables(operation));
+    console.log(extractQuery(operation));
+    console.log(extractQueryVariables(operation));
   }
 
   return forward(operation).map(result => {
