@@ -25,7 +25,7 @@ import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
 import { isServer } from './utils/deviceType';
 
-import { formatQueryVariables } from './utils/logging';
+import formatQueryVariables from './utils/logging';
 
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
 let apolloClient: ApolloClient<NormalizedCacheObject | object>;
