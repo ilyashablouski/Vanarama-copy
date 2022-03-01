@@ -5,7 +5,6 @@ import {
   InMemoryCache,
   HttpLink,
   NormalizedCacheObject,
-  Operation,
 } from '@apollo/client';
 // import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -25,6 +24,8 @@ import { Env } from './utils/env';
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
 import { isServer } from './utils/deviceType';
+
+import { formatQueryVariables } from './utils/logging';
 
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
 let apolloClient: ApolloClient<NormalizedCacheObject | object>;
@@ -117,28 +118,13 @@ const retryLink = new RetryLink({
   },
 });
 
-function extractQuery(operation: Operation) {
-  let query = operation.query.loc?.source.body;
-
-  if (query) {
-    query = query
-      .replace(/\n/g, '')
-      .replace(/\s\s+/g, ' ')
-      .trim();
-  }
-
-  return JSON.stringify(query, null, 4);
-}
-
-function extractQueryVariables(operation: Operation) {
-  return JSON.stringify(operation.variables || {}, null, 4);
-}
-
 const logLink = new ApolloLink((operation, forward) => {
   if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
-    console.log('\n[GraphQL query]:');
-    console.log(extractQuery(operation));
-    console.log(extractQueryVariables(operation));
+    if (operation.query.loc?.source.body) {
+      console.log('\n[GraphQL query]:');
+      console.log(operation.query.loc?.source.body);
+      console.log(formatQueryVariables(operation.variables));
+    }
   }
 
   return forward(operation).map(result => {
