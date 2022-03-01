@@ -136,23 +136,19 @@ function extractQueryVariables(operation: Operation) {
 
 const logLink = new ApolloLink((operation, forward) => {
   if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
-    const query = {
-      name: operation.operationName,
-      variables: operation.variables,
-      extensions: operation.extensions,
-    };
-
     console.log('\n[GraphQL query]:');
     console.log(extractQuery(operation));
     console.log(extractQueryVariables(operation));
   }
 
   return forward(operation).map(result => {
-    if (result.data) {
-      console.log(
-        `\n[GraphQL response]: Received data for ${operation.operationName}`,
-      );
-      console.log(`\n[GraphQL response data]:`, result.data);
+    if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
+      if (result.data) {
+        console.log(
+          `\n[GraphQL response]: Received data for ${operation.operationName}`,
+        );
+        console.log(`\n[GraphQL response data]:`, result.data);
+      }
     }
 
     return result;
