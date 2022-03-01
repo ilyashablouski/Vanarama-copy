@@ -88,7 +88,8 @@ export function prepareSlugPart(part: string | string[]) {
 
 const transmissions = ['automatic'];
 export const fuelMapper = {
-  hybrid: 'Diesel/plugin Elec Hybrid,Petrol/plugin Elec Hybrid',
+  hybrid:
+    'Diesel/plugin Elec Hybrid,Petrol/plugin Elec Hybrid, Petrol/electric Hybrid',
   electric: 'Electric',
 };
 
