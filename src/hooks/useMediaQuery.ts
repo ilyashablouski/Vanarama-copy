@@ -29,3 +29,7 @@ export function useMobileViewport() {
 export function useDesktopViewport() {
   return useMediaQuery('(min-width: 1216px)');
 }
+
+export function useDesktopOrTabletViewport() {
+  return useMediaQuery('(min-width: 768px)');
+}
