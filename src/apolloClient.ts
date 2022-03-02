@@ -25,6 +25,8 @@ import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
 import { isServer } from './utils/deviceType';
 
+import formatQueryVariables from './utils/logging';
+
 export const APOLLO_STATE_PROP_NAME = 'APOLLO_CACHE';
 let apolloClient: ApolloClient<NormalizedCacheObject | object>;
 
@@ -118,22 +120,21 @@ const retryLink = new RetryLink({
 
 const logLink = new ApolloLink((operation, forward) => {
   if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
-    const query = {
-      name: operation.operationName,
-      variables: operation.variables,
-      extensions: operation.extensions,
-    };
-
-    console.log('\n[GraphQL query]:');
-    console.log(`${JSON.stringify(query, null, 4)}\n`);
+    if (operation.query.loc?.source.body) {
+      console.log('\n[GraphQL query]:');
+      console.log(operation.query.loc?.source.body);
+      console.log(formatQueryVariables(operation.variables));
+    }
   }
 
   return forward(operation).map(result => {
-    if (result.data) {
-      console.log(
-        `\n[GraphQL response]: Received data for ${operation.operationName}`,
-      );
-      console.log(`\n[GraphQL response data]:`, result.data);
+    if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
+      if (result.data) {
+        console.log(
+          `\n[GraphQL response]: Received data for ${operation.operationName}`,
+        );
+        console.log(`\n[GraphQL response data]:`, result.data);
+      }
     }
 
     return result;
