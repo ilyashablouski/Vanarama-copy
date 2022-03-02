@@ -1,8 +1,15 @@
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import { useState } from 'react';
-import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import { ApolloError } from '@apollo/client';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import SecureModalLayout from '../../../../containers/SecureModalLayout';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
@@ -11,6 +18,8 @@ import { GetDerivative_derivative as IDerivative } from '../../../../../generate
 import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
 import { useStoredOrderQuery } from '../../../../gql/storedOrder';
+import createApolloClient from '../../../../apolloClient';
+import { getServiceBannerData } from '../../../../utils/serviceBannerHelper';
 
 const handleSubmitError = () =>
   toast.error(
@@ -64,5 +73,33 @@ const BusinessSummaryPage: NextPage = () => {
     </OLAFLayout>
   );
 };
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
+
+  try {
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
+}
 
 export default BusinessSummaryPage;
