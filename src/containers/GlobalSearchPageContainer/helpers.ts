@@ -190,7 +190,7 @@ export const getVehicleListForRender = (
       data: {
         ...productCardDataMapper(vehicle),
         ...vehiclesCardsData?.[vehicleType].find(
-          x => x?.capId === derivativeId,
+          productCard => productCard?.capId === derivativeId,
         ),
       },
       derivativeId,
