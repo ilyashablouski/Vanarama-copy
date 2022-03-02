@@ -1,11 +1,17 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import { ApolloError } from '@apollo/client';
 import { useSavePersonUuidMutation } from '../../../../gql/storedPersonUuid';
-import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
@@ -25,18 +31,8 @@ import { useStoredOLAFDataQuery } from '../../../../gql/storedOLAFData';
 import ErrorMessages from '../../../../models/enum/ErrorMessages';
 import useProgressHistory from '../../../../hooks/useProgressHistory';
 import { useCreateUpdateCreditApplication } from '../../../../gql/creditApplication';
-import {
-  IPageWithError,
-  IPageWithoutData,
-  PageTypeEnum,
-} from '../../../../types/common';
 import createApolloClient from '../../../../apolloClient';
 import { getServiceBannerData } from '../../../../utils/serviceBannerHelper';
-import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../../../utils/env';
-import { convertErrorToProps } from '../../../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -213,41 +209,31 @@ export const BusinessAboutPage: NextPage = () => {
   );
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IPageWithoutData | IPageWithError>> {
-  try {
-    const client = createApolloClient({});
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
 
+  try {
     const { serviceBanner } = await getServiceBannerData(client);
 
     return {
-      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        pageType: PageTypeEnum.DEFAULT,
         serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
     const apolloError = error as ApolloError;
-    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
-      return {
-        notFound: true,
-        revalidate,
-      };
+      return { notFound: true };
     }
 
-    return {
-      revalidate,
-      props: {
-        pageType: PageTypeEnum.ERROR,
-        error: convertErrorToProps(error),
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 

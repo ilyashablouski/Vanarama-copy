@@ -1,6 +1,10 @@
 import dynamic from 'next/dynamic';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import Cookies from 'js-cookie';
@@ -14,7 +18,9 @@ import {
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import SecureModalLayout from '../../../containers/SecureModalLayout';
-import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
@@ -38,16 +44,6 @@ import {
 } from '../../../utils/addHeapProperties';
 import createApolloClient from '../../../apolloClient';
 import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
-import {
-  DEFAULT_REVALIDATE_INTERVAL,
-  DEFAULT_REVALIDATE_INTERVAL_ERROR,
-} from '../../../utils/env';
-import {
-  IPageWithError,
-  IPageWithoutData,
-  PageTypeEnum,
-} from '../../../types/common';
-import { convertErrorToProps } from '../../../utils/helpers';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -239,41 +235,31 @@ const AboutYouPage: NextPage = () => {
   );
 };
 
-export async function getStaticProps(
-  context: GetStaticPropsContext,
-): Promise<GetStaticPropsResult<IPageWithoutData | IPageWithError>> {
-  try {
-    const client = createApolloClient({});
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
 
+  try {
     const { serviceBanner } = await getServiceBannerData(client);
 
     return {
-      revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
-        pageType: PageTypeEnum.DEFAULT,
         serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
     const apolloError = error as ApolloError;
-    const revalidate = DEFAULT_REVALIDATE_INTERVAL_ERROR;
 
     // handle graphQLErrors as 404
     // Next will render our custom pages/404
     if (apolloError?.graphQLErrors?.length) {
-      return {
-        notFound: true,
-        revalidate,
-      };
+      return { notFound: true };
     }
 
-    return {
-      revalidate,
-      props: {
-        pageType: PageTypeEnum.ERROR,
-        error: convertErrorToProps(error),
-      },
-    };
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
   }
 }
 
