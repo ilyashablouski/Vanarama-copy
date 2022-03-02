@@ -147,10 +147,18 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     }
     return [''];
   }, [isPickups]);
+  const vehicleType = useMemo(
+    () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
+    [isCarSearch],
+  );
+  const leaseType = useMemo(
+    () => (isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS),
+    [isPersonal],
+  );
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
-    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    vehicleType,
     data => {
       setCardsData(data?.productCard || []);
       if (prevPosition) {
@@ -161,15 +169,15 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
 
   const [getProductCacheCardData] = useProductCardDataLazyQuery(
     capIds,
-    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    vehicleType,
     data => {
       setCardsDataCache(data?.productCard || []);
     },
   );
 
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
-    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     isSpecialOffers || null,
     async vehicles => {
       try {
@@ -193,8 +201,8 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
 
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
-    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     isSpecialOffers || null,
     async vehiclesData => {
       let vehicles = vehiclesData;
@@ -259,9 +267,9 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
           );
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
-      } catch (e) {
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.error('Error:', e);
+        console.error('Error:', err);
       }
     },
     RESULTS_PER_REQUEST,
@@ -271,10 +279,10 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
 
   /** save to sessions storage special offers status */
   const onSaveSpecialOffersStatus = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setIsSpecialOffers(e.target.checked);
-      sessionStorage.setItem('Car', JSON.stringify(e.target.checked));
-      setIsSpecialOffersOrder(e.target.checked);
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setIsSpecialOffers(event.target.checked);
+      sessionStorage.setItem('Car', JSON.stringify(event.target.checked));
+      setIsSpecialOffersOrder(event.target.checked);
     },
     [],
   );
@@ -415,10 +423,8 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   }, [data]);
 
   useEffect(() => {
-    setCachedLeaseType(
-      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    );
-  }, [isPersonal, setCachedLeaseType]);
+    setCachedLeaseType(leaseType);
+  }, [leaseType, setCachedLeaseType]);
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();

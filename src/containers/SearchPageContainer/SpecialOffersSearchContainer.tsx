@@ -156,10 +156,18 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     }
     return [''];
   }, [isPickups]);
+  const vehicleType = useMemo(
+    () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
+    [isCarSearch],
+  );
+  const leaseType = useMemo(
+    () => (isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS),
+    [isPersonal],
+  );
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
-    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    vehicleType,
     data => {
       setCardsData(data?.productCard || []);
       if (prevPosition) {
@@ -169,7 +177,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   );
   const [getProductCacheCardData] = useProductCardDataLazyQuery(
     capIds,
-    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    vehicleType,
     data => {
       setCardsDataCache(data?.productCard || []);
     },
@@ -177,8 +185,8 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
 
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
-    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     isSpecialOffers || null,
     async vehicles => {
       try {
@@ -202,8 +210,8 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
 
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
-    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     true,
     async vehiclesData => {
       let vehicles = vehiclesData;
@@ -267,9 +275,9 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           );
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
-      } catch (e) {
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.error('Error:', e);
+        console.error('Error:', err);
       }
     },
     RESULTS_PER_REQUEST,
@@ -438,10 +446,8 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   }, [pageOffset]);
 
   useEffect(() => {
-    setCachedLeaseType(
-      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    );
-  }, [isPersonal, setCachedLeaseType]);
+    setCachedLeaseType(leaseType);
+  }, [leaseType, setCachedLeaseType]);
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();
