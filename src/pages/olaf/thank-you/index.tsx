@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import Confetti from 'react-confetti';
-import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
+import { ApolloError } from '@apollo/client';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../layouts/OLAFLayout/OLAFLayout';
 import Skeleton from '../../../components/Skeleton';
 import ThankYouOrderContainer from '../../../containers/ThankYouOrderContainer';
 import { isBrowser } from '../../../utils/deviceType';
+import createApolloClient from '../../../apolloClient';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -130,5 +139,33 @@ const ThankYouPage: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
+
+  try {
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
+}
 
 export default ThankYouPage;
