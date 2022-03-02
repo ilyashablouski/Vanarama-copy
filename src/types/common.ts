@@ -14,6 +14,12 @@ export enum PageTypeEnum {
   ERROR = 'ERROR',
 }
 
+export type IPageWithoutData = {
+  pageType: PageTypeEnum.DEFAULT;
+  migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
+};
+
 export type IPageWithData<T> = {
   pageType: PageTypeEnum.DEFAULT;
   migrationSlugs?: IManufacturersSlug;
