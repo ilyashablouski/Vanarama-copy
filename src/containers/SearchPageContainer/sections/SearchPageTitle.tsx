@@ -7,7 +7,7 @@ import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import { onMadeLineBreaks } from '../helpers';
-import { useMobileViewport } from '../../../hooks/useMediaQuery';
+import { useDesktopOrTabletViewport } from '../../../hooks/useMediaQuery';
 import { Nullish } from '../../../types/common';
 
 interface IProps {
@@ -29,7 +29,7 @@ const SearchPageTitle = ({
   isNewPage,
   dataUiTestId,
 }: IProps) => {
-  const isDesktopOrTablet = useMobileViewport();
+  const isDesktopOrTablet = useDesktopOrTabletViewport();
 
   const headingText = useMemo(
     () =>
