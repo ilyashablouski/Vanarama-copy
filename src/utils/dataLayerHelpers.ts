@@ -296,9 +296,10 @@ export const pushPageData = async ({
     };
   }
 
+  const MAX_NUMBER_OF_ATTEMPTS = 3;
+
   function delayedPushDetails() {
     let attemptNumber = 0;
-    const MAX_NUMBER_OF_ATTEMPTS = 3;
     const intervalID = setInterval(() => {
       const blueConicCookie = Cookies.get('BCSessionID');
       attemptNumber += 1;
