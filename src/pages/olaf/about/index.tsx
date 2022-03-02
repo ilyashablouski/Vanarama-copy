@@ -1,9 +1,14 @@
 import dynamic from 'next/dynamic';
 import { useState, useRef, useCallback, useMemo } from 'react';
-import { NextPage } from 'next';
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import * as toast from 'core/atoms/toast/Toast';
 import Cookies from 'js-cookie';
+import { ApolloError } from '@apollo/client';
 import { useSavePersonUuidMutation } from '../../../gql/storedPersonUuid';
 import { useSaveOrderMutation } from '../../../gql/storedOrder';
 import {
@@ -13,7 +18,9 @@ import {
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import SecureModalLayout from '../../../containers/SecureModalLayout';
-import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
+import OLAFLayout, {
+  IOlafPageProps,
+} from '../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
@@ -35,6 +42,8 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../../utils/addHeapProperties';
+import createApolloClient from '../../../apolloClient';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -225,5 +234,33 @@ const AboutYouPage: NextPage = () => {
     </OLAFLayout>
   );
 };
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<IOlafPageProps>> {
+  const client = createApolloClient({}, context);
+
+  try {
+    const { serviceBanner } = await getServiceBannerData(client);
+
+    return {
+      props: {
+        serviceBanner: serviceBanner || null,
+      },
+    };
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    // handle graphQLErrors as 404
+    // Next will render our custom pages/404
+    if (apolloError?.graphQLErrors?.length) {
+      return { notFound: true };
+    }
+
+    // throw any other errors
+    // Next will render our custom pages/_error
+    throw error;
+  }
+}
 
 export default AboutYouPage;
