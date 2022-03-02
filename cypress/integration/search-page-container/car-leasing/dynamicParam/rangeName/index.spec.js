@@ -14,12 +14,7 @@ describe(
     const cardContainer = 'search-results';
 
     beforeEach(() => {
-      cy.visitAndWait(APP_URL, [
-        {
-          route: '/graphql',
-          alias: 'graphqlRequests',
-        },
-      ]);
+      cy.visit(APP_URL);
       cy.clearSessionStorage();
       cy.get('[data-uitestid=cookieBar-accept-button]').click();
       cy.get('button.header-navtoggle').click();
