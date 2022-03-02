@@ -8,6 +8,7 @@ import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import Modal from 'core/molecules/modal';
 
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -48,6 +49,10 @@ interface IProps {
     React.SetStateAction<GetDerivative_derivative | null>
   >;
   children?: ReactNode;
+}
+
+export interface IOlafPageProps {
+  serviceBanner?: IServiceBanner;
 }
 
 const YOUR_NEEDS = [
