@@ -15,12 +15,7 @@ describe(`
   const cardContainer = 'search-results';
 
   beforeEach(() => {
-    cy.visitAndWait(`${APP_URL}/van-leasing`, [
-      {
-        route: '/graphql',
-        alias: 'graphqlRequests',
-      },
-    ]);
+    cy.visit(`${APP_URL}/van-leasing`);
     cy.clearSessionStorage();
     cy.get('[data-uitestid=cookieBar-accept-button]').click();
     cy.scrollToFooter();
@@ -63,12 +58,14 @@ describe(`
   });
 
   it('filtering results by body type and transmission', () => {
-    cy.get(`span[data-uitestid="${dataUiTestId}_span_Body Type"]`).click();
-    cy.get(`span[data-uitestid=${dataUiTestId}_span_Crew]`).click();
     cy.get(`span[data-uitestid=${dataUiTestId}_span_Transmission]`).click();
     cy.get(`span[data-uitestid=${dataUiTestId}_span_Automatic]`).click();
+    cy.get(`span[data-uitestid="${dataUiTestId}_span_Fuel Type"]`).click();
+    cy.get(`span[data-uitestid="${dataUiTestId}_span_Diesel"]`).click();
     cy.location().should(location => {
-      expect(location.search).to.eq('?transmissions=Automatic&bodyStyles=Crew');
+      expect(location.search).to.eq(
+        '?transmissions=Automatic&fuelTypes=Diesel',
+      );
     });
   });
 
