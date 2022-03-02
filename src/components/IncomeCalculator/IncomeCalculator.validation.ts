@@ -15,7 +15,7 @@ const createValidationSchema = (monthlyPayment: number) =>
       .required('Please enter your phone and internet'),
     creditCardPayments: yup
       .string()
-      .required('Please enter your credit car payments'),
+      .required('Please enter your credit card payments'),
     utilities: yup.string().required('Please enter your utilities'),
     insurance: yup.string().required('Please enter your car insurance'),
     carFinance: yup.string().required('Please enter your car finance'),
