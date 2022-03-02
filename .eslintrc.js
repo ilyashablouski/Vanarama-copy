@@ -34,7 +34,7 @@ module.exports = {
       'error',
       { required: { some: ['nesting', 'id'] } },
     ],
-    'id-length': ['warn', { min: 3 }],
+    'id-length': ['warn', { min: 2 }],
   },
   overrides: [
     {
