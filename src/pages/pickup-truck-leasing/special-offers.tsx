@@ -11,7 +11,7 @@ import {
   RESULTS_PER_REQUEST,
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../containers/SearchPageContainer';
+import { SpecialOffersSearchContainer } from '../../containers/SearchPageContainer';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
@@ -48,7 +48,7 @@ const Page: NextPage<IProps> = ({
   productCardsData,
   responseCapIds,
 }) => (
-  <SearchPageContainer
+  <SpecialOffersSearchContainer
     dataUiTestId="pickups-search-page"
     isServer={isServer}
     isSpecialOfferPage

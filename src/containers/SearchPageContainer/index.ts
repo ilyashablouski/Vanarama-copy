@@ -1,6 +1,11 @@
-import CarLeasingSearchContainer from './CarLeasingSearchContainer';
+import SearchContainer from './SearchContainer';
 import AllManufacturersSearchContainer from './AllManufacturersSearchContainer';
+import SpecialOffersSearchContainer from './SpecialOffersSearchContainer';
 
 export { default } from './SearchPageContainer';
 
-export { CarLeasingSearchContainer, AllManufacturersSearchContainer };
+export {
+  SearchContainer,
+  AllManufacturersSearchContainer,
+  SpecialOffersSearchContainer,
+};

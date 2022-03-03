@@ -14,7 +14,7 @@ import { SortObject } from '../../../generated/globalTypes';
 import { Nullable } from '../../types/common';
 
 export interface ISearchPageContainerProps {
-  isServer: boolean;
+  isServer?: boolean;
   isCarSearch?: boolean;
   isManufacturerPage?: boolean;
   isSimpleSearchPage?: boolean;
