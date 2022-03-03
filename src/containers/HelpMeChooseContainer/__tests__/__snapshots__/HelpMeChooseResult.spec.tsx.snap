@@ -193,7 +193,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
   >
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -204,7 +204,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -465,7 +467,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -476,7 +478,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -737,7 +741,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -748,7 +752,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -1009,7 +1015,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -1020,7 +1026,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -1281,7 +1289,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -1292,7 +1300,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -1553,7 +1563,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -1564,7 +1574,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -1825,7 +1837,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -1836,7 +1848,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -2097,7 +2111,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -2108,7 +2122,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -2369,7 +2385,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -2380,7 +2396,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -2641,7 +2659,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -2652,7 +2670,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -2913,7 +2933,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -2924,7 +2944,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -3185,7 +3207,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -3196,7 +3218,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >
@@ -3457,7 +3481,7 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
     </div>
     <div>
       <div
-        className="card -compact -inline"
+        className="card -compact helper -inline"
         data-testid="card"
       >
         <div
@@ -3468,7 +3492,9 @@ exports[`<HelpMeChooseResult /> should render correct 1`] = `
           >
             7-10 Day Delivery
           </div>
-          <div>
+          <div
+            className="hot-offer"
+          >
             <i
               className="icon -white"
             >

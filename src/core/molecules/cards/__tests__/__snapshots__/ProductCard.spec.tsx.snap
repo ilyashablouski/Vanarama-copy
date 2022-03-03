@@ -14,7 +14,9 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
       >
         In Stock - 14-21 Days Delivery
       </div>
-      <div>
+      <div
+        class="hot-offer"
+      >
         <span>
           Hot Offer
         </span>
