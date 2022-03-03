@@ -18,6 +18,7 @@ import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 // @ts-ignore
 import decode from 'decode-html';
+import TrustPilot from 'core/molecules/trustpilot';
 
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
@@ -745,7 +746,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-
+        <section className="trustpilot row:trustpilot">
+          <TrustPilot />
+        </section>
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
