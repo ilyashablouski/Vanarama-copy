@@ -42,6 +42,7 @@ const CardHeader: FC<ICardHeaderProps> = memo(props => {
       {(accentIcon || accentText) && (
         <div
           style={accentStyles}
+          className={normalizeString(accentText)}
           data-uitestid={
             dataUiTestId
               ? `${dataUiTestId}_${normalizeString(accentText)}`

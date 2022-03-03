@@ -79,6 +79,49 @@ $small: 0.875rem;
     }
   }
 
+  &.helper {
+    & .card-header {
+      z-index: 1;
+      width: auto!important;
+      grid-column-start: 1;
+      justify-self: flex-start;
+      margin-top: 9px!important;
+      margin-left: 9px!important;
+      border-radius: 4px;
+
+
+      & div:not(.hot-offer) {
+        display: none;
+      }
+
+      & .hot-offer {
+        padding: 3px 8px 3px 6px!important;
+
+        & .icon svg {
+          top: 0!important;
+        }
+
+        & span {
+          display: block!important;
+          margin-left: 5px;
+          line-height: 0;
+        }
+      }
+
+      @media (max-width: 1215px){
+        justify-self: stretch;
+        margin-top: 0px !important;
+        margin-left: 0px !important;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        & div:not(.hot-offer) {
+          display: flex;
+        }
+      }
+    }
+  }
+
   // Core layout -> mobile/tablet
   @include mobile-tablet {
     grid-template-columns: 0 [content-start] repeat(4, minmax(0, 1fr)) [content-end] 0;
