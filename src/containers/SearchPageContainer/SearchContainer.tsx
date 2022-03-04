@@ -1,10 +1,10 @@
 import {
   ChangeEvent,
   FC,
+  useCallback,
   useEffect,
   useMemo,
   useState,
-  useCallback,
 } from 'react';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -78,9 +78,11 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
+const SearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
+  isCarSearch = false,
+  isPickups,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   preLoadVehiclesList,
@@ -88,7 +90,7 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   preLoadProductCardsData,
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder();
-  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
@@ -100,7 +102,7 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   const [prevPosition, setPrevPosition] = useState(0);
   const [pageOffset, setPageOffset] = useState(0);
   const [filtersData, setFiltersData] = useState({} as IFilters);
-  const [capIds, setCapsIds] = useState<string[]>(preLoadResponseCapIds || []);
+  const [capIds, setCapsIds] = useState(preLoadResponseCapIds || []);
   const [partnershipDescription, setPartnershipDescription] = useState('');
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || [],
@@ -139,9 +141,24 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   const router = useRouter();
   const client = useApolloClient();
 
+  const manualBodyStyle = useMemo(() => {
+    if (isPickups) {
+      return ['Pickup'];
+    }
+    return [''];
+  }, [isPickups]);
+  const vehicleType = useMemo(
+    () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
+    [isCarSearch],
+  );
+  const leaseType = useMemo(
+    () => (isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS),
+    [isPersonal],
+  );
+
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
-    VehicleTypeEnum.CAR,
+    vehicleType,
     data => {
       setCardsData(data?.productCard || []);
       if (prevPosition) {
@@ -152,15 +169,15 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
 
   const [getProductCacheCardData] = useProductCardDataLazyQuery(
     capIds,
-    VehicleTypeEnum.CAR,
+    vehicleType,
     data => {
       setCardsDataCache(data?.productCard || []);
     },
   );
 
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
-    [VehicleTypeEnum.CAR],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     isSpecialOffers || null,
     async vehicles => {
       try {
@@ -179,13 +196,13 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
     },
     RESULTS_PER_REQUEST,
     lastCard,
-    [],
+    isPickups ? manualBodyStyle : [],
   );
 
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
-    [VehicleTypeEnum.CAR],
-    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    [vehicleType],
+    leaseType,
     isSpecialOffers || null,
     async vehiclesData => {
       let vehicles = vehiclesData;
@@ -241,29 +258,31 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
         if (responseCapIds.length) {
           setVehicleList(vehicles.vehicleList?.edges || []);
           setTotalCount(vehicles.vehicleList.totalCount);
-          getProductCardData(createProductCacheVariables(responseCapIds, true));
+          getProductCardData(
+            createProductCacheVariables(responseCapIds, isCarSearch),
+          );
           setLastCard(vehicles.vehicleList.pageInfo.endCursor || '');
           setShouldUpdateCache(
             vehicles.vehicleList.pageInfo.hasNextPage || false,
           );
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
-      } catch (e) {
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.error('Error:', e);
+        console.error('Error:', err);
       }
     },
     RESULTS_PER_REQUEST,
     undefined,
-    [],
+    isPickups ? manualBodyStyle : [],
   );
 
   /** save to sessions storage special offers status */
   const onSaveSpecialOffersStatus = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setIsSpecialOffers(e.target.checked);
-      sessionStorage.setItem('Car', JSON.stringify(e.target.checked));
-      setIsSpecialOffersOrder(e.target.checked);
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setIsSpecialOffers(event.target.checked);
+      sessionStorage.setItem('Car', JSON.stringify(event.target.checked));
+      setIsSpecialOffersOrder(event.target.checked);
     },
     [],
   );
@@ -301,11 +320,13 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
       }
       getVehicles(
         createVehiclesVariables({
-          isCarSearch: true,
+          isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
+          isManualBodyStyle: isPickups,
           onOffer: onOffer ?? null,
           filters,
+          manualBodyStyle,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
           fuelTypes,
@@ -395,17 +416,15 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   useEffect(() => {
     if (data && !cardsData.length && loading) {
       getProductCardData(
-        createProductCardVariables(data.vehicleList.edges, true),
+        createProductCardVariables(data.vehicleList.edges, isCarSearch),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
-    setCachedLeaseType(
-      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    );
-  }, [isPersonal, setCachedLeaseType]);
+    setCachedLeaseType(leaseType);
+  }, [leaseType, setCachedLeaseType]);
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();
@@ -456,17 +475,19 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
     if (partnerActive) {
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
-      setPartnershipDescription(getPartnershipDescription(partnerActive, true));
-      setTitle(getPartnershipTitle(partnerActive, true));
+      setPartnershipDescription(
+        getPartnershipDescription(partnerActive, isCarSearch, isPickups),
+      );
+      setTitle(getPartnershipTitle(partnerActive, isCarSearch, isPickups));
     }
-  }, []);
+  }, [isCarSearch, isPickups]);
 
   // API call after load new pages
   useEffect(() => {
     // prevent request with empty filters
     const queryLength = Object.keys(router?.query || {})?.length;
     // if it's simple search page with presave special offers param made new request for actual params
-    if (!queryLength && getValueFromStorage(false, true)) {
+    if (!queryLength && getValueFromStorage(false, isCarSearch)) {
       // load vehicles
       getVehicles();
     }
@@ -485,7 +506,7 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
           createInitialVehiclesVariables({
-            isCarSearch: true,
+            isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
             onOffer: isOnOffer ?? null,
@@ -499,7 +520,7 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
       }
       getVehiclesCache(
         createInitialVehiclesVariables({
-          isCarSearch: true,
+          isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
           onOffer: isOnOffer ?? null,
@@ -563,7 +584,8 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
-                isCarSearch
+                isCarSearch={isCarSearch}
+                isPickups={isPickups}
                 preSearchVehicleCount={totalCount}
                 isPreloadList={!!preLoadVehiclesList}
                 isPartnershipActive={isPartnershipActive}
@@ -626,4 +648,4 @@ const CarLeasingSearchContainer: FC<ISearchPageContainerProps> = ({
   );
 };
 
-export default CarLeasingSearchContainer;
+export default SearchContainer;

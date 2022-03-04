@@ -774,6 +774,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <section className="trustpilot row:trustpilot">
           <TrustPilot />
         </section>
+        {!!accordionQAData.length && (
+          <WhyChooseVanarama
+            accordionsData={accordionQAData}
+            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
+          />
+        )}
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
@@ -842,12 +848,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         )}
         <WhyChooseLeasing warrantyDetails={warrantyDetails} />
-        {!!accordionQAData.length && (
-          <WhyChooseVanarama
-            accordionsData={accordionQAData}
-            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
-          />
-        )}
         <section className="pdp--reviews" id="reviews">
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
