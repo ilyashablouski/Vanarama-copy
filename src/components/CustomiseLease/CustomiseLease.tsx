@@ -7,7 +7,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
@@ -20,7 +19,6 @@ import { getOptionFromList, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 import CustomLeaseSelect from './CustomLeaseSelect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
@@ -432,24 +430,19 @@ const CustomiseLease = ({
           </div>
         </div>
       )}
-      <LazyLoadComponent
-        visibleByDefault={isServerRenderOrAppleDevice}
-        placeholder={<span className="-d-block -h-900" />}
-      >
-        <OrderSummary
-          quoteByCapId={quoteByCapId}
-          stateVAT={stateVAT}
-          maintenance={maintenance}
-          colours={colourData}
-          trims={trimData}
-          trim={Number(trim)}
-          pickups={pickups}
-          isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
-          isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
-          roadsideAssistance={roadsideAssistance}
-          warrantyDetails={warrantyDetails}
-        />
-      </LazyLoadComponent>
+      <OrderSummary
+        quoteByCapId={quoteByCapId}
+        stateVAT={stateVAT}
+        maintenance={maintenance}
+        colours={colourData}
+        trims={trimData}
+        trim={Number(trim)}
+        pickups={pickups}
+        isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+        isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
+        roadsideAssistance={roadsideAssistance}
+        warrantyDetails={warrantyDetails}
+      />
       {!isMobile && (
         <div
           className={cx(

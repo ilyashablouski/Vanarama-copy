@@ -1,6 +1,6 @@
+import React from 'react';
 import { render, waitFor, screen, act } from '@testing-library/react';
 import preloadAll from 'jest-next-dynamic';
-import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
 import {

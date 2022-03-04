@@ -1,3 +1,4 @@
+import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import CompetitionHeroSection from '../CompetitionLandingPageContainer/sections/CompetitionHeroSection';

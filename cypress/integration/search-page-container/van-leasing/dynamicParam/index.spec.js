@@ -11,17 +11,12 @@ describe(`
   const cardContainer = 'top-offers';
 
   beforeEach(() => {
-    cy.visitAndWait(`${APP_URL}/van-leasing`, [
-      {
-        route: '/graphql',
-        alias: 'graphqlRequests',
-      },
-    ]);
+    cy.visit(`${APP_URL}/van-leasing`);
     cy.clearSessionStorage();
     cy.get('[data-uitestid=cookieBar-accept-button]').click();
     cy.scrollToFooter();
     cy.get(
-      `a[data-uitestid="${dataUiTestId}_search-by-manufacturer_citroen_link"]`,
+      `a[data-uitestid="van-leasing-page_search-by-manufacturer_citroen_link"]`,
     ).click();
   });
 
@@ -68,11 +63,13 @@ describe(`
 
   it('filtering results by body type and transmission', () => {
     cy.get(`span[data-uitestid="${dataUiTestId}_span_Body Type"]`).click();
-    cy.get(`span[data-uitestid=${dataUiTestId}_span_Crew]`).click();
+    cy.get(`span[data-uitestid="${dataUiTestId}_span_Small Van"]`).click();
     cy.get(`span[data-uitestid=${dataUiTestId}_span_Transmission]`).click();
     cy.get(`span[data-uitestid=${dataUiTestId}_span_Automatic]`).click();
     cy.location().should(location => {
-      expect(location.search).to.eq('?transmissions=Automatic&bodyStyles=Crew');
+      expect(location.search).to.eq(
+        '?transmissions=Automatic&bodyStyles=Small+Van',
+      );
     });
   });
 

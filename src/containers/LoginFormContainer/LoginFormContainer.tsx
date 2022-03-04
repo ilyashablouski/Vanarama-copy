@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import LoginForm from '../../components/LoginForm/LoginForm';

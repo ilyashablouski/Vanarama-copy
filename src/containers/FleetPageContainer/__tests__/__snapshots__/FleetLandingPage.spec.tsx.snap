@@ -29,11 +29,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image hero--image hero--image-fleet -pt-000 -expand -plain"
             >
-              <div
-                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
               >
-                <div
-                  style="display: block; box-sizing: border-box; padding-top: 35.476190476190474%;"
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 35.476190476190474% 0px 0px 0px;"
                 />
                 <img
                   class="image--native"
@@ -41,12 +41,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                   data-testid="fleet_hero-image"
                   decoding="async"
                   sizes="100vw"
-                  src="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-                  srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/width=640,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 640w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=750,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 750w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=828,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 828w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1080,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1080w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1200,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=1920,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1920w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=2048,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 2048w, https://dev.vanarama-nonprod.com/cdn-cgi/image/width=3840,quality=70/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 3840w"
+                  src="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=3840&q=70"
+                  srcset="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=640&q=70 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=750&q=70 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=828&q=70 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1080&q=70 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1200&q=70 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=1920&q=70 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=2048&q=70 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FAssets%2Fimages%2Finsurance%2Fhome-hero%2Finsurance-hero.png&w=3840&q=70 3840w"
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
-                <noscript />
-              </div>
+              </span>
             </div>
           </div>
         </div>
@@ -535,11 +534,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
       <div
         class="image -expand"
       >
-        <div
-          style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+        <span
+          style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
         >
-          <div
-            style="display: block; box-sizing: border-box; padding-top: 45%;"
+          <span
+            style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 45% 0px 0px 0px;"
           />
           <img
             class="image--native"
@@ -551,7 +550,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
           <noscript />
-        </div>
+        </span>
       </div>
       <div
         class="-inset -middle -col-400"
@@ -673,11 +672,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <div
-                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
               >
-                <div
-                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                 />
                 <img
                   class="image--native"
@@ -689,7 +688,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
-              </div>
+              </span>
             </div>
           </div>
           <span
@@ -718,11 +717,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <div
-                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
               >
-                <div
-                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                 />
                 <img
                   class="image--native"
@@ -734,7 +733,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
-              </div>
+              </span>
             </div>
           </div>
           <span
@@ -763,11 +762,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <div
-                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
               >
-                <div
-                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                 />
                 <img
                   class="image--native"
@@ -779,7 +778,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
-              </div>
+              </span>
             </div>
           </div>
           <span
@@ -808,11 +807,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <div
               class="image -large -round -inline"
             >
-              <div
-                style="display: block; overflow: hidden; position: relative; box-sizing: border-box; margin: 0px;"
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative;"
               >
-                <div
-                  style="display: block; box-sizing: border-box; padding-top: 100%;"
+                <span
+                  style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 100% 0px 0px 0px;"
                 />
                 <img
                   class="image--native"
@@ -824,7 +823,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                   style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
                 />
                 <noscript />
-              </div>
+              </span>
             </div>
           </div>
           <span

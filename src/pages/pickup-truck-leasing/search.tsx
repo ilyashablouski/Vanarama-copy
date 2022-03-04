@@ -5,7 +5,7 @@ import {
 } from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../apolloClient';
-import SearchPageContainer from '../../containers/SearchPageContainer';
+import { SearchContainer } from '../../containers/SearchPageContainer';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
@@ -22,11 +22,10 @@ const Page: NextPage<IProps> = ({
   metaData,
 }) => {
   return (
-    <SearchPageContainer
+    <SearchContainer
       dataUiTestId="pickups-search-page"
       isServer={isServer}
       isPickups
-      isSimpleSearchPage
       metaData={metaData}
       pageData={decodeData(encodedData)}
     />

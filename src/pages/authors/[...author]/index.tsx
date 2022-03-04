@@ -23,6 +23,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const AuthorPage: NextPage<IGenericPage> = ({ data }) => (
   <SimplePageContainer data={data} />
@@ -53,22 +54,23 @@ export async function getStaticProps(
     const client = createApolloClient({});
     const paths = context?.params?.author as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: `authors/${paths?.join('/')}`,
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: `authors/${paths?.join('/')}`,
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

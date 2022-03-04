@@ -37,8 +37,8 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     class="image card-image -expand -plain"
                     data-uitestid="top-offers_product-card-0_img-wrapper"
                   >
-                    <div
-                      style="display: block; overflow: hidden; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; margin: 0px;"
+                    <span
+                      style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
                     >
                       <img
                         class="image--native"
@@ -51,8 +51,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         srcset="/_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=640&q=60 640w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=750&q=60 750w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=828&q=60 828w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1080&q=60 1080w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1200&q=60 1200w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=1920&q=60 1920w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=2048&q=60 2048w, /_next/image?url=https%3A%2F%2Fdev.vanarama-nonprod.com%2FvehiclePlaceholder.jpg&w=3840&q=60 3840w"
                         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
                       />
-                      <noscript />
-                    </div>
+                    </span>
                   </div>
                   <div
                     class="title"

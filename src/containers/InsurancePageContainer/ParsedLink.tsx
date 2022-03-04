@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { TColor } from '../../types/color';
 import { TSize } from '../../types/size';

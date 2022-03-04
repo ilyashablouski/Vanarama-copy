@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';

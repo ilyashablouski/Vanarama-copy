@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import { ReactChild, ReactPortal } from 'react';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { IBreadcrumb } from './breadcrumbs';
 import { IManufacturersSlug } from './manufacturerSlug';
 
@@ -13,9 +14,16 @@ export enum PageTypeEnum {
   ERROR = 'ERROR',
 }
 
+export type IPageWithoutData = {
+  pageType: PageTypeEnum.DEFAULT;
+  migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
+};
+
 export type IPageWithData<T> = {
   pageType: PageTypeEnum.DEFAULT;
   migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
 } & T;
 
 export type IPageWithError = {

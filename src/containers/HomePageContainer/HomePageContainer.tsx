@@ -5,6 +5,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import TrustPilot from 'core/molecules/trustpilot';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -72,6 +73,7 @@ export interface IHomePageContainer extends ISpecialOffersData {
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
   migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
@@ -88,7 +90,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 }) => {
   const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
-
   // if (loading) {
   //   return <Loading size="large" />;
   // }
@@ -187,26 +188,26 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="car-view-offer"
                     dataUiTestIdMask="ui-car"
                   />
-                </LazyLoadComponent>
 
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Car Offers',
-                      href: '/car-leasing-special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-cars"
-                  >
-                    <div className="button--inner">View All Car Offers</div>
-                  </RouterLink>
-                </div>
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Car Offers',
+                        href: '/car-leasing-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-cars"
+                    >
+                      <div className="button--inner">View All Car Offers</div>
+                    </RouterLink>
+                  </div>
+                </LazyLoadComponent>
               </div>
             </TabPanel>
             <TabPanel index={0}>
@@ -229,25 +230,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="van-view-offer"
                     dataUiTestIdMask="ui-van"
                   />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Van Offers',
+                        href: '/special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-vans"
+                    >
+                      <div className="button--inner">View All Van Offers</div>
+                    </RouterLink>
+                  </div>
                 </LazyLoadComponent>
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Van Offers',
-                      href: '/special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-vans"
-                  >
-                    <div className="button--inner">View All Van Offers</div>
-                  </RouterLink>
-                </div>
               </div>
             </TabPanel>
             <TabPanel index={1}>
@@ -272,25 +273,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="pickup-view-offer"
                     dataUiTestIdMask="ui-pickup"
                   />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Truck Offers',
+                        href: '/pickup-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-pickups"
+                    >
+                      <div className="button--inner">View All Truck Offers</div>
+                    </RouterLink>
+                  </div>
                 </LazyLoadComponent>
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Truck Offers',
-                      href: '/pickup-special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-pickups"
-                  >
-                    <div className="button--inner">View All Truck Offers</div>
-                  </RouterLink>
-                </div>
               </div>
             </TabPanel>
           </TabPanels>

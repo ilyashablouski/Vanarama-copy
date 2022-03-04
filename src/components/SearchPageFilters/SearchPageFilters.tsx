@@ -167,7 +167,7 @@ const SearchPageFilters = ({
           ? null
           : isSpecialOffers,
       ...filtersObject,
-    }).then(resp => {
+    })?.then(resp => {
       // if groupedRanges is empty -> search params is incorrect
       if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
         // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550

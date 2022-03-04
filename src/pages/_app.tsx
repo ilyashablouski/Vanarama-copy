@@ -46,6 +46,7 @@ import {
 import { ICustomAppProps, PageTypeEnum } from '../types/common';
 import ErrorPage from './_error';
 import useFirstRenderEffect from '../hooks/useFirstRenderEffect';
+import { serviceBannerInitialData } from '../utils/serviceBannerHelper';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -82,6 +83,12 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
     pageProps.pageType !== PageTypeEnum.ERROR
       ? pageProps?.migrationSlugs || manufacturersSlugInitialState
       : manufacturersSlugInitialState,
+  );
+
+  const [serviceBanner] = useState(
+    pageProps.pageType !== PageTypeEnum.ERROR
+      ? pageProps?.serviceBanner
+      : serviceBannerInitialData.serviceBanner,
   );
 
   const client = useApolloClient();
@@ -196,7 +203,7 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <main className={cx(resolveMainClass())}>
-        <HeaderContainer />
+        <HeaderContainer serviceBanner={serviceBanner} />
         <CompareContext.Provider
           value={{
             compareVehicles,

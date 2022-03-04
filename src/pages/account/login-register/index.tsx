@@ -17,6 +17,7 @@ import {
 } from '../../../utils/authentication';
 import { useAuthReset } from '../../../containers/LoginFormContainer/gql';
 import { isBrowser } from '../../../utils/deviceType';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -190,9 +191,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+
+  const { serviceBanner } = await getServiceBannerData(client);
+
   return addApolloState(client, {
     props: {
       query: context.query,
+      serviceBanner: serviceBanner || null,
     },
   });
 }
