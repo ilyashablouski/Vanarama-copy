@@ -7,6 +7,7 @@ import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import {
   GET_CAR_DATA,
   GET_COLOUR_AND_TRIM_GROUP_LIST,
@@ -80,6 +81,7 @@ import {
   GetColourAndTrimGroupListVariables,
 } from '../../../../generated/GetColourAndTrimGroupList';
 import { IManufacturersSlug } from '../../../types/manufacturerSlug';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -96,6 +98,7 @@ interface IProps {
   colourData: Nullable<IOptionsList[]>;
   trimData: Nullable<IOptionsList[]>;
   migrationSlugs?: IManufacturersSlug;
+  serviceBanner?: IServiceBanner;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -243,7 +246,11 @@ export async function getServerSideProps(
       };
     }
 
-    const [vehicleConfigurationByUrlQuery, migrationSlugs] = await Promise.all([
+    const [
+      vehicleConfigurationByUrlQuery,
+      migrationSlugs,
+      { serviceBanner },
+    ] = await Promise.all([
       client.query<
         VehicleConfigurationByUrl,
         VehicleConfigurationByUrlVariables
@@ -254,6 +261,7 @@ export async function getServerSideProps(
         },
       }),
       getManufacturerJson(),
+      getServiceBannerData(client),
     ]);
 
     const capId =
@@ -414,6 +422,7 @@ export async function getServerSideProps(
         leaseTypeQuery: leaseType,
         colourData: sortByHotOffer(colourData),
         trimData: sortByHotOffer(colorAndTrimData.data.trimGroupList),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {
