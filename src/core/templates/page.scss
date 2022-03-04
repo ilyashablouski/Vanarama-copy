@@ -64,6 +64,7 @@
   gap: 1rem;
   border: 1px solid #ea6308 !important;
   border-radius: $border-radius-medium;
+  align-items: center;
 
   .text {
     white-space: initial;
@@ -95,9 +96,6 @@
     svg {
       width: 50px;
     }
-  }
-  .image-wrapper {
-    align-items: center;
   }
   a {
     color: #007f83;
