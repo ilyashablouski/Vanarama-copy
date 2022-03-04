@@ -230,25 +230,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="van-view-offer"
                     dataUiTestIdMask="ui-van"
                   />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Van Offers',
+                        href: '/special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-vans"
+                    >
+                      <div className="button--inner">View All Van Offers</div>
+                    </RouterLink>
+                  </div>
                 </LazyLoadComponent>
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Van Offers',
-                      href: '/special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-vans"
-                  >
-                    <div className="button--inner">View All Van Offers</div>
-                  </RouterLink>
-                </div>
               </div>
             </TabPanel>
             <TabPanel index={1}>
@@ -273,25 +273,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestIdBtn="pickup-view-offer"
                     dataUiTestIdMask="ui-pickup"
                   />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Truck Offers',
+                        href: '/pickup-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-pickups"
+                    >
+                      <div className="button--inner">View All Truck Offers</div>
+                    </RouterLink>
+                  </div>
                 </LazyLoadComponent>
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Truck Offers',
-                      href: '/pickup-special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-pickups"
-                  >
-                    <div className="button--inner">View All Truck Offers</div>
-                  </RouterLink>
-                </div>
               </div>
             </TabPanel>
           </TabPanels>
