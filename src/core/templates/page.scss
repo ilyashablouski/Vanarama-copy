@@ -96,11 +96,9 @@
       width: 50px;
     }
   }
-
-  > :not(.icon):not(.image) {
-    grid-area: text;
+  .image-wrapper {
+    align-items: center;
   }
-
   a {
     color: #007f83;
     text-decoration: underline;

@@ -23,15 +23,17 @@ interface IProps {
 function getBanner(card: GetPdpContent_pdpContent_banners): JSX.Element {
   return (
     <div className="banner">
-      <ImageV2
-        sizes="30vw"
-        quality={60}
-        width={card.image?.file?.details.image.width}
-        height={card.image?.file?.details.image.height}
-        src={card.image?.file?.url || ''}
-        size="regular"
-        plain
-      />
+      <div className="image-wrapper">
+        <ImageV2
+          sizes="30vw"
+          quality={60}
+          width={card.image?.file?.details.image.width}
+          height={card.image?.file?.details.image.height}
+          src={card.image?.file?.url || ''}
+          size="regular"
+          plain
+        />
+      </div>
       <div className="-pr-600">
         <Heading color="black" size="regular">
           <span>{card.title}</span>
