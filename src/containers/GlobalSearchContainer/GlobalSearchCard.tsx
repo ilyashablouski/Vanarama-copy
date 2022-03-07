@@ -44,7 +44,7 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
   return (
     <RouterLink
       className="card-mini"
-      data-uitestid={dataUiTestId}
+      dataUiTestId={dataUiTestId}
       link={{
         label: data.derivativeName ?? '',
         href: data.url ?? '',
