@@ -125,7 +125,7 @@ exports[`Banner should correct render 1`] = `
     <span
       className="text -pr-100 -regular -black"
     >
-      So you can return it anytime, no charge, should the worst happen.
+      If the worst happens, we'll help you return your vehicle.
     </span>
     <a
       className="link -teal"
@@ -264,7 +264,7 @@ exports[`Banner should correct render with text for vans 1`] = `
     <span
       className="text -pr-100 -regular -black"
     >
-      So you can return it anytime, no charge, should the worst happen.
+      If the worst happens, we'll help you return your vehicle.
     </span>
     <a
       className="link -teal"
