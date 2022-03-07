@@ -10,5 +10,5 @@ export interface ILinkProps extends IBaseProps {
   plain?: boolean;
   solid?: boolean;
   children?: React.ReactNode;
-  onClick?(e: React.MouseEvent): void;
+  onClick?(event: React.MouseEvent): void;
 }

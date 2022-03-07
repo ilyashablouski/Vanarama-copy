@@ -1,9 +1,9 @@
 const useAutoFocus = (numOfFields: number) => {
   return {
-    handleAutoFocus: (e: {
+    handleAutoFocus: (event: {
       target: { maxLength: number; value: string; name: string };
     }) => {
-      const { maxLength, value, name } = e.target;
+      const { maxLength, value, name } = event.target;
       const [fieldName, fieldIndex] = name.split('-');
 
       if (value.length >= maxLength) {

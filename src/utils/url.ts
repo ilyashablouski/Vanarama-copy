@@ -305,9 +305,9 @@ export const getManufacturerJson = async () => {
       `https://${process.env.SEO_BUCKET_NAME}/migration/data.json`,
     );
     return (await jsonData.json()) as IManufacturersSlug;
-  } catch (e) {
+  } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Failed to get manufacturers with slug', e);
+    console.error('Failed to get manufacturers with slug', error);
     return manufacturersSlugInitialState;
   }
 };

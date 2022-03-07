@@ -28,7 +28,7 @@ export interface IStructuredListProps extends IBaseProps {
   heading?: string;
   headingSize?: TSize;
   priceTag?: { price: number; info: string; size?: TSize; color?: TColor };
-  onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
+  onChange?(event: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
   /**
    * Callback function called when the user clicks the "Edit" link
    */
@@ -64,7 +64,7 @@ export interface IListItemProps extends IBaseProps {
   editing?: boolean;
   testId?: number;
   dataAbTestId?: string;
-  onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
+  onChange?(event: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
   labelElementAttributes?: IElementAttributes;
   valueElementAttributes?: IElementAttributes;
 }

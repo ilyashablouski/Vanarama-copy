@@ -3,8 +3,8 @@ import { ILink } from 'core/interfaces/link';
 function checker(value: string) {
   const allowed = ['vanarama.com', 'vanarama-nonprod.com'];
 
-  for (let i = 0; i < allowed.length; i += 1) {
-    if (value.indexOf(allowed[i]) > -1) {
+  for (let index = 0; index < allowed.length; index += 1) {
+    if (value.indexOf(allowed[index]) > -1) {
       return true;
     }
   }
