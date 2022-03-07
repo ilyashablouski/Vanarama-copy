@@ -727,7 +727,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                     <span>Worth average £538.</span>
                     <RouterLink
                       link={{
-                        href: '/legal/terms-and-conditions',
+                        href:
+                          '/legal/terms-and-conditions/one-year-free-insurance',
                         label: '',
                       }}
                       classNames={{ color: 'teal', size: 'small' }}
