@@ -47,7 +47,7 @@ const Banner: React.FC<IBanner> = ({ vans, className }) => {
           )}
         </Heading>
         <Text className="-pr-100" color="black" size="regular">
-          So you can return it anytime, no charge, should the worst happen.
+          If the worst happens, we&apos;ll help you return your vehicle.
         </Text>
         <RouterLink
           link={{
