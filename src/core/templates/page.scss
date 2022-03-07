@@ -725,6 +725,14 @@
           border: 1px solid $border-color;
           border-bottom: 2px solid $border-color;
           padding: 1rem;
+          height: 175px;
+          display: block;
+          @include mobile {
+            overflow: hidden;
+          }
+          @include mobile375() {
+            padding: 1rem 0;
+          }
         }
       }
 
