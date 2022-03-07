@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
+import RouterLink from '../../components/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { FuelTypeEnum } from '../../../entities/global';
@@ -26,7 +26,6 @@ interface IProps {
 }
 
 const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
-  const router = useRouter();
   const isSpecialOffer = useMemo(() => data.onOffer, [data.onOffer]);
   const isCar = useMemo(() => data.vehicleType === VehicleTypeEnum.CAR, [
     data.vehicleType,
@@ -43,7 +42,14 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
   );
 
   return (
-    <div className="card-mini" data-uitestid={dataUiTestId}>
+    <RouterLink
+      className="card-mini"
+      dataUiTestId={dataUiTestId}
+      link={{
+        label: data.derivativeName ?? '',
+        href: data.url ?? '',
+      }}
+    >
       {isSpecialOffer && (
         <span
           className="hot-offer"
@@ -93,10 +99,9 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
           className="arrow-cta"
           dataUiTestId={`${dataUiTestId}_arrow-cta-button`}
           label={<span className="arrow-cta" />}
-          onClick={() => router.push(`/${data.url}` || '')}
         />
       </div>
-    </div>
+    </RouterLink>
   );
 };
 
