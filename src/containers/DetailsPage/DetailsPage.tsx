@@ -18,6 +18,7 @@ import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 // @ts-ignore
 import decode from 'decode-html';
+import TrustPilot from 'core/molecules/trustpilot';
 
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
@@ -745,7 +746,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-
+        <section className="trustpilot row:trustpilot">
+          <TrustPilot />
+        </section>
+        {!!accordionQAData.length && (
+          <WhyChooseVanarama
+            accordionsData={accordionQAData}
+            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
+          />
+        )}
         {shouldBannersRender && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
@@ -813,19 +822,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
-
-        <LazyLoadComponent
-          visibleByDefault={isServerRenderOrAppleDevice}
-          placeholder={<span className="-d-block -h-400" />}
-        >
-          <WhyChooseLeasing warrantyDetails={warrantyDetails} />
-          {!!accordionQAData.length && (
-            <WhyChooseVanarama
-              accordionsData={accordionQAData}
-              title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
-            />
-          )}
-        </LazyLoadComponent>
+        <WhyChooseLeasing warrantyDetails={warrantyDetails} />
         <section className="pdp--reviews" id="reviews">
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}

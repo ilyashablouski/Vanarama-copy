@@ -18,6 +18,7 @@ import {
   IPageWithError,
   PageTypeEnum,
 } from '../../types/common';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<{
   data: GetInsuranceLandingPage;
@@ -34,21 +35,22 @@ export async function getStaticProps(
 ): Promise<GetStaticPropsResult<IProps | IPageWithError>> {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<
-      GetInsuranceLandingPage,
-      GetInsuranceLandingPageVariables
-    >({
-      query: GET_INSURANCE_LANDING_PAGE,
-      variables: {
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GetInsuranceLandingPage, GetInsuranceLandingPageVariables>({
+        query: GET_INSURANCE_LANDING_PAGE,
+        variables: {
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data: encodeData(data),
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICards } from '../../../generated/GenericPageQuery';
 import RouterLink from '../RouterLink/RouterLink';

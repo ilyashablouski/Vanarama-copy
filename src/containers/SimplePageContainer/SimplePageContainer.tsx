@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';

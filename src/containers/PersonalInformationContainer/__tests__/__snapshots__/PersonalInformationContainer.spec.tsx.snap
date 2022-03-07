@@ -17,7 +17,7 @@ exports[`should render PersonalInformationContainer correctly 1`] = `
           Personal Information
         </p>
         <section
-          class="structured-list  -styled-headers"
+          class="structured-list -styled-headers"
         >
           <div
             class="structured-list-tbody"

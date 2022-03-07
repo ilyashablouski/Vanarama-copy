@@ -6,7 +6,7 @@ import {
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
-import SearchPageContainer from '../../containers/SearchPageContainer';
+import { SearchContainer } from '../../containers/SearchPageContainer';
 import {
   getCapsIds,
   getCustomFuelTypesFromCookies,
@@ -49,11 +49,9 @@ const Page: NextPage<IProps> = ({
   productCardsData,
   responseCapIds,
 }) => (
-  <SearchPageContainer
+  <SearchContainer
     dataUiTestId="vans-search-page"
     isServer={isServer}
-    isCarSearch={false}
-    isSimpleSearchPage
     metaData={metaData}
     pageData={decodeData(pageData)}
     preLoadVehiclesList={decodeData(vehiclesList)}

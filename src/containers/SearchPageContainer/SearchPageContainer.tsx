@@ -33,14 +33,12 @@ import {
   getCapsIds,
   getNumberOfVehicles,
   isPreviousPage,
-  onMadeLineBreaks,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
   NEW_RANGE_SLUGS,
   scrollIntoPreviousView,
-  createInitialFiltersState,
   getValueFromStorage,
   createProductCacheVariables,
   createProductCardVariables,
@@ -69,7 +67,6 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './sections/TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
-import useMediaQuery from '../../hooks/useMediaQuery';
 import ResultsContainer from './sections/ResultsContainer';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import SortOrder from '../../components/SortOrder';
@@ -149,15 +146,8 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
-  const [isPartnershipActive, setPartnershipActive] = useState<boolean>(false);
+  const [isPartnershipActive, setPartnershipActive] = useState(false);
   const applyColumns = !isEvPage ? '-columns' : '';
-  const initialFiltersState = useMemo(
-    () =>
-      createInitialFiltersState(
-        (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
-      ),
-    [isPartnershipActive],
-  );
 
   const client = useApolloClient();
   const router = useRouter();
@@ -173,8 +163,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
       ? true
       : getValueFromStorage(isServer, isCarSearch) ?? false,
   );
-
-  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
@@ -222,10 +210,8 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
 
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
-  const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
-  const [partnershipDescription, setPartnershipDescription] = useState<string>(
-    '',
-  );
+  const [pageTitle, setTitle] = useState(metaData?.name || '');
+  const [partnershipDescription, setPartnershipDescription] = useState('');
 
   const [prevPosition, setPrevPosition] = useState(0);
 
@@ -340,10 +326,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     router.query,
     isBodyStylePage,
     preLoadFiltersData,
-  ]);
-
-  const titleWithBreaks = useMemo(() => onMadeLineBreaks(pageTitle), [
-    pageTitle,
   ]);
 
   // listen for any updates to metaDataSSR
@@ -670,14 +652,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     [pageData],
   );
 
-  const breadcrumbsItems = useMemo(
-    () =>
-      metaData?.breadcrumbs?.map((el: any) => ({
-        link: { href: el.href || '', label: el.label },
-      })),
-    [metaData],
-  );
-
   const fuelTypesData = useMemo(
     () =>
       filtersData?.fuelTypes?.length > 0
@@ -864,12 +838,10 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
       <PartnershipLogoHeader />
       <SearchPageTitle
         dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbsItems={breadcrumbsItems}
+        breadcrumbs={metaData.breadcrumbs}
         pageTitle={pageTitle}
-        titleWithBreaks={titleWithBreaks}
         pageData={pageData}
         partnershipDescription={partnershipDescription}
-        isDesktopOrTablet={isDesktopOrTablet}
         isPartnershipActive={isPartnershipActive}
         isNewPage={isNewPage}
       />
@@ -885,12 +857,12 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         featured && (
           <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
         )}
-      {isNewPage && isRangePage ? (
+      {isNewPage && isRangePage && (
         <TopCategoryInfoBlock
           dataUiTestId={`${dataUiTestId}_top-category-info`}
           pageData={pageData}
         />
-      ) : null}
+      )}
       {isAllManufacturersPage && topInfoSection && (
         <TopInfoBlock
           topInfoSection={topInfoSection}
@@ -942,7 +914,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
             setType={value => setIsPersonal(value)}
             tagArrayBuilderHelper={tagArrayBuilder}
             preLoadFilters={preLoadFiltersData}
-            initialState={initialFiltersState}
             dataUiTestId={dataUiTestId}
             renderFilters={innerProps => (
               <SearchPageFilters

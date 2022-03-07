@@ -6,23 +6,36 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <div
+      <span
         style={
           Object {
+            "background": "none",
+            "border": 0,
             "boxSizing": "border-box",
             "display": "block",
+            "height": "initial",
             "margin": 0,
+            "opacity": 1,
             "overflow": "hidden",
+            "padding": 0,
             "position": "relative",
+            "width": "initial",
           }
         }
       >
-        <div
+        <span
           style={
             Object {
+              "background": "none",
+              "border": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "height": "initial",
+              "margin": 0,
+              "opacity": 1,
+              "padding": 0,
               "paddingTop": "29.655172413793103%",
+              "width": "initial",
             }
           }
         />
@@ -89,7 +102,7 @@ Array [
             }
           />
         </noscript>
-      </div>
+      </span>
     </div>
   </div>,
   <div>
@@ -113,23 +126,36 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <div
+      <span
         style={
           Object {
+            "background": "none",
+            "border": 0,
             "boxSizing": "border-box",
             "display": "block",
+            "height": "initial",
             "margin": 0,
+            "opacity": 1,
             "overflow": "hidden",
+            "padding": 0,
             "position": "relative",
+            "width": "initial",
           }
         }
       >
-        <div
+        <span
           style={
             Object {
+              "background": "none",
+              "border": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "height": "initial",
+              "margin": 0,
+              "opacity": 1,
+              "padding": 0,
               "paddingTop": "100%",
+              "width": "initial",
             }
           }
         />
@@ -196,7 +222,7 @@ Array [
             }
           />
         </noscript>
-      </div>
+      </span>
     </div>
   </div>,
 ]
@@ -208,23 +234,36 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <div
+      <span
         style={
           Object {
+            "background": "none",
+            "border": 0,
             "boxSizing": "border-box",
             "display": "block",
+            "height": "initial",
             "margin": 0,
+            "opacity": 1,
             "overflow": "hidden",
+            "padding": 0,
             "position": "relative",
+            "width": "initial",
           }
         }
       >
-        <div
+        <span
           style={
             Object {
+              "background": "none",
+              "border": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "height": "initial",
+              "margin": 0,
+              "opacity": 1,
+              "padding": 0,
               "paddingTop": "29.655172413793103%",
+              "width": "initial",
             }
           }
         />
@@ -293,7 +332,7 @@ Array [
             }
           />
         </noscript>
-      </div>
+      </span>
     </div>
   </div>,
   <div>
@@ -317,23 +356,36 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <div
+      <span
         style={
           Object {
+            "background": "none",
+            "border": 0,
             "boxSizing": "border-box",
             "display": "block",
+            "height": "initial",
             "margin": 0,
+            "opacity": 1,
             "overflow": "hidden",
+            "padding": 0,
             "position": "relative",
+            "width": "initial",
           }
         }
       >
-        <div
+        <span
           style={
             Object {
+              "background": "none",
+              "border": 0,
               "boxSizing": "border-box",
               "display": "block",
+              "height": "initial",
+              "margin": 0,
+              "opacity": 1,
+              "padding": 0,
               "paddingTop": "100%",
+              "width": "initial",
             }
           }
         />
@@ -402,7 +454,7 @@ Array [
             }
           />
         </noscript>
-      </div>
+      </span>
     </div>
   </div>,
 ]

@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IPageWithError, PageTypeEnum } from 'types/common';
+import React from 'react';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -26,6 +27,7 @@ import {
 } from '../../../utils/env';
 import { convertErrorToProps } from '../../../utils/helpers';
 import { getBreadCrumbsItems } from '../../../utils/breadcrumbs';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -107,22 +109,23 @@ export async function getStaticProps(
     const client = createApolloClient({});
     const paths = context?.params?.pages as string[];
 
-    const { data } = await client.query<
-      GenericPageQuery,
-      GenericPageQueryVariables
-    >({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: `insurance/${paths?.join('/')}`,
-        isPreview: !!context?.preview,
-      },
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query<GenericPageQuery, GenericPageQueryVariables>({
+        query: GENERIC_PAGE,
+        variables: {
+          slug: `insurance/${paths?.join('/')}`,
+          isPreview: !!context?.preview,
+        },
+      }),
+      getServiceBannerData(client),
+    ]);
 
     return {
       revalidate: context?.preview ? 1 : DEFAULT_REVALIDATE_INTERVAL,
       props: {
         pageType: PageTypeEnum.DEFAULT,
         data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

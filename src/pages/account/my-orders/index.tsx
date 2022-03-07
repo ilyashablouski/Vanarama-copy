@@ -10,6 +10,7 @@ import { GetMyOrders } from '../../../../generated/GetMyOrders';
 import { GetPerson_getPerson } from '../../../../generated/GetPerson';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { isUserAuthenticatedSSR } from '../../../utils/authentication';
+import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
 
 interface IProps {
   orders: GetMyOrders;
@@ -41,9 +42,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
 
-    const { data } = await client.query({
-      query: GET_PERSON_QUERY,
-    });
+    const [{ data }, { serviceBanner }] = await Promise.all([
+      client.query({
+        query: GET_PERSON_QUERY,
+      }),
+      getServiceBannerData(client),
+    ]);
 
     const { data: partyUuidData } = await client.query({
       query: GET_COMPANIES_BY_PERSON_UUID,
@@ -69,6 +73,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         orders,
         person: data.getPerson,
         partyUuid: [...partyUuids, data.getPerson.partyUuid],
+        serviceBanner: serviceBanner || null,
       },
     });
   } catch {

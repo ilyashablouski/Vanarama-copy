@@ -26,6 +26,7 @@ import {
   PageTypeEnum,
 } from '../../types/common';
 import { getBreadCrumbsItems } from '../../utils/breadcrumbs';
+import { getServiceBannerData } from '../../utils/serviceBannerHelper';
 
 type IProps = IPageWithData<{
   data: GenericPageTestimonialsQuery;
@@ -71,6 +72,7 @@ export async function getStaticProps(
     const [
       genericTestimonialsPageQuery,
       testimonialsDataQuery,
+      { serviceBanner },
     ] = await Promise.all([
       client.query<
         GenericPageTestimonialsQuery,
@@ -89,6 +91,7 @@ export async function getStaticProps(
           page: 1,
         },
       }),
+      getServiceBannerData(client),
     ]);
 
     return {
@@ -97,6 +100,7 @@ export async function getStaticProps(
         pageType: PageTypeEnum.DEFAULT,
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,
+        serviceBanner: serviceBanner || null,
       },
     };
   } catch (error) {

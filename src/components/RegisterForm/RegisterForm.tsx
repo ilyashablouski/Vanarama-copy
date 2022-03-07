@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import TextInput from 'core/atoms/textinput';
 import { useForm, FormContext as FormProvider } from 'react-hook-form';

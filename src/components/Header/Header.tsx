@@ -10,6 +10,8 @@ import Logo from 'core/atoms/logo';
 import Button from 'core/atoms/button';
 import Icon from 'core/atoms/icon';
 import BenefitsBar from 'core/organisms/benefits-bar/BenefitsBar';
+import ServiceBanner from 'core/molecules/service-banner';
+import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
@@ -19,8 +21,6 @@ import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 import HeaderWishlistLink from './HeaderWishlistLink';
 import { isUserAuthenticated } from '../../utils/authentication';
-import ServiceBanner from '../ServiceBanner';
-import { ServiceBannerQuery } from '../../../generated/ServiceBannerQuery';
 
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
@@ -76,7 +76,7 @@ export interface IHeaderProps extends IBaseProps {
   customHomePath?: string;
   onLogOut: () => void;
   person?: Person | null;
-  serviceBanner?: ServiceBannerQuery['serviceBanner'];
+  serviceBanner?: IServiceBanner;
 }
 
 export const Header: FC<IHeaderProps> = memo(props => {
@@ -253,7 +253,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
       </div>
       <BenefitsBar countItems={5} />
       <ServiceBanner
-        enabled={serviceBanner?.enable}
+        enable={serviceBanner?.enable}
         message={serviceBanner?.message}
         link={serviceBanner?.link}
       />

@@ -320,7 +320,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                           }
                         : undefined
                     }
-                    className="-compact"
+                    className="-compact helper"
                     inline
                     imageSrc={mainImageUrl}
                     wished={isWished(
