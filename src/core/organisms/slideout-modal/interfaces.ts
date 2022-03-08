@@ -5,11 +5,11 @@ import { IBaseProps } from '../../interfaces/base';
 export interface INavItemProps {
   label: string;
   selected?: string[];
-  onClick?(e: MouseEvent): void;
+  onClick?(event: MouseEvent): void;
 }
 
 export interface IPanelMainMenu {
-  setOpenPanel(e: string | null): void;
+  setOpenPanel(event: string | null): void;
   searchFilters: ISearchFilters;
   selectedFilters?: ISelectedFilters;
 }
@@ -17,7 +17,7 @@ export interface IPanelMainMenu {
 export interface IPanelHeaderProps extends IFilter {
   panelId: string;
   label: string;
-  setOpenPanel(e: string | null): void;
+  setOpenPanel(event: string | null): void;
 }
 
 export interface IPanelBody extends IFilter {
@@ -26,7 +26,7 @@ export interface IPanelBody extends IFilter {
 
 export interface IPanelProps extends IFilter {
   panelId: string;
-  setOpenPanel(e: string | null): void;
+  setOpenPanel(event: string | null): void;
 }
 
 interface ISearchFilters {
@@ -64,7 +64,7 @@ export interface IPanelsData {
 interface IFilter {
   searchFilters: ISearchFilters;
   selectedFilters?: ISelectedFilters;
-  setSelectedFiltersState(e: ISelectedFilters): void;
+  setSelectedFiltersState(event: ISelectedFilters): void;
 }
 
 export interface IFilterManufacturerAndModel extends IFilter {}

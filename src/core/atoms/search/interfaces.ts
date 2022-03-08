@@ -6,6 +6,6 @@ export interface ISearchProps extends IBaseProps {
   placeholder?: string;
   results?: string[];
   onSelect?: (value: string) => void;
-  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
   isIntermediateState?: boolean;
 }
