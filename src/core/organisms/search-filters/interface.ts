@@ -16,7 +16,7 @@ export type TSelectedWithOrder = {
   value: string;
 };
 export interface ISearchFilterTagsProps extends IBaseProps {
-  onRemove?: (e: React.MouseEvent) => void;
+  onRemove?: (event: React.MouseEvent) => void;
   onClearAll?: () => void;
   selectedFilters: TSelectedWithOrder[];
 }

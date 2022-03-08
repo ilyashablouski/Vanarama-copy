@@ -1,9 +1,9 @@
 function addAdditionalData(data) {
   try {
     JSON.parse(data);
-  } catch (e) {
+  } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(`additionalData doesn't contain JSON\n${e}`);
+    console.error(`additionalData doesn't contain JSON\n${error}`);
     return;
   }
   // eslint-disable-next-line no-undef

@@ -29,7 +29,7 @@ const handle = app.getRequestHandler();
 const PORT = process.env.PORT || 3000;
 
 if (cluster.isMaster) {
-  for (let i = 0; i < process.env.UV_THREADPOOL_SIZE; i += 1) {
+  for (let index = 0; index < process.env.UV_THREADPOOL_SIZE; index += 1) {
     cluster.fork();
   }
 
