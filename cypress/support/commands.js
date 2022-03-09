@@ -63,7 +63,8 @@ Cypress.Commands.add('changeLeaseType', dataUiTstId => {
   }
   const oldPrices = [];
 
-  cy.get('div div.card')
+  cy.wait(1000)
+    .get('div div.card')
     .as('productCards')
     .then($cards => {
       $cards.each(function collectPrice() {
