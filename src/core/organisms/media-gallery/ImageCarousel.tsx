@@ -23,8 +23,6 @@ function ImageCarousel({
 
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
-  const isDesktop = useDesktopViewport();
-
   function handleFullScreenSliderChange(activeIndex: number) {
     slider?.slideToLoop(activeIndex);
   }
