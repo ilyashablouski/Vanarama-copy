@@ -333,7 +333,7 @@ describe('createLeaseSettings', () => {
         {
           vehicleProduct: {
             trim: 'test trim',
-            derivativeCapId: 123,
+            derivativeCapId: '123',
             annualMileage: 300,
             maintenance: null,
           },
@@ -375,7 +375,7 @@ describe('createLeaseSettings', () => {
 
     expect(
       createLeaseSettings(
-        (values as unknown) as OrderInputObject,
+        values as OrderInputObject,
         leaseScannerData as Nullable<ILeaseScannerData>,
         data as GetVehicleDetails,
         mileage,
