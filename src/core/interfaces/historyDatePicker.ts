@@ -11,5 +11,5 @@ export interface IHistoryDatePickerProps extends IBaseProps {
   years: IDropdown;
   month?: number;
   year?: number;
-  onChange?(e: ChangeEvent<HTMLInputElement>): void;
+  onChange?(event: ChangeEvent<HTMLInputElement>): void;
 }

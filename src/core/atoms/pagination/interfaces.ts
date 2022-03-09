@@ -7,8 +7,8 @@ export interface IPaginationProps extends IBaseProps {
   path: string;
   pathForFirstPage?: string;
   selected: number;
-  onClick?(e: MouseEvent): void;
-  onClickBackArray?(e: MouseEvent): void;
-  onClickNextArray?(e: MouseEvent): void;
+  onClick?(event: MouseEvent): void;
+  onClickBackArray?(event: MouseEvent): void;
+  onClickNextArray?(event: MouseEvent): void;
   pathWithHtml?: boolean;
 }

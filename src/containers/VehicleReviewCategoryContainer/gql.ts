@@ -168,8 +168,8 @@ export const getReviewsHubCategoryStaticPath = async (
 
   let paths = [] as { params: { pageNumber: string } }[];
   const countPages = Math.ceil((cards.length || 0) / 12);
-  for (let i = 1; i <= countPages; i += 1) {
-    paths = [...paths, { params: { pageNumber: i.toString() } }];
+  for (let index = 1; index <= countPages; index += 1) {
+    paths = [...paths, { params: { pageNumber: index.toString() } }];
   }
 
   return {

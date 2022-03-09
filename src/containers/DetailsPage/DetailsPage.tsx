@@ -75,6 +75,7 @@ import {
 } from '../../../generated/GetPdpContent';
 import {
   buildAccordionItems,
+  createLeaseSettings,
   filterBannersBySlug,
   parseQuoteParams,
   removeImacaColoursDuplications,
@@ -483,6 +484,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const onSubmitClick = (values: OrderInputObject) => {
+    const leaseSettings = createLeaseSettings(
+      values,
+      leaseScannerData,
+      data,
+      mileage,
+    );
+    window.sessionStorage.setItem(
+      `leaseSettings-${capId}`,
+      JSON.stringify(leaseSettings),
+    );
+
     setOrderInputObject(values);
     if (isFreeInsurance) {
       setIsModalVisible(true);
