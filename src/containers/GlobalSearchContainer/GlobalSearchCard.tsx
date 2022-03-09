@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
@@ -7,6 +7,8 @@ import RouterLink from '../../components/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { FuelTypeEnum } from '../../../entities/global';
+import { getCardUrl } from './helpers';
+import { ManufacturersSlugContext } from '../../utils/url';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -26,6 +28,9 @@ interface IProps {
 }
 
 const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
+  const { vehicles: migratedManufacturers } = useContext(
+    ManufacturersSlugContext,
+  );
   const isSpecialOffer = useMemo(() => data.onOffer, [data.onOffer]);
   const isCar = useMemo(() => data.vehicleType === VehicleTypeEnum.CAR, [
     data.vehicleType,
@@ -40,6 +45,16 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
     () => (data.rental as number).toFixed(2).split('.')[1],
     [data.rental],
   );
+  const url = useMemo(
+    () =>
+      getCardUrl(
+        data,
+        isCar
+          ? migratedManufacturers?.car?.manufacturers
+          : migratedManufacturers?.lcv?.manufacturers,
+      ),
+    [data, isCar, migratedManufacturers],
+  );
 
   return (
     <RouterLink
@@ -47,7 +62,7 @@ const GlobalSearchCard = ({ data, imgUrl, dataUiTestId }: IProps) => {
       dataUiTestId={dataUiTestId}
       link={{
         label: data.derivativeName ?? '',
-        href: data.url ?? '',
+        href: url ?? '',
       }}
     >
       {isSpecialOffer && (
