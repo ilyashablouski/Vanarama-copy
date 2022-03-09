@@ -8,7 +8,6 @@ import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import FullScreenImageCarousel from 'core/organisms/full-screen-carousel';
 import cx from 'classnames';
 import { IImageCarouselProps } from './interfaces';
-import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 
 SwiperCore.use([Navigation, Thumbs]);
 
