@@ -37,7 +37,7 @@ describe(
         'not.have.class',
         '-truncate',
       );
-      cy.get('a[href$="/a8.html"]')
+      cy.get('p a[href$="/a8.html"]')
         .as('A8Link')
         .should('be.visible');
       cy.get(`button[data-uitestid=${dataUiTestId}_button_read-more]`).click();
