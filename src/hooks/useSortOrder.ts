@@ -48,7 +48,7 @@ export default function useSortOrder(
       try {
         const res = client.readQuery({ query });
         return res.sortOrder;
-      } catch (e) {
+      } catch (error) {
         return sortPresetValue || initState;
       }
     },

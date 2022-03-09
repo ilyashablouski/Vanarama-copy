@@ -1436,6 +1436,8 @@
 
   &:hover,
   &:focus {
+    opacity: 1;
+
     .copy {
       .arrow-cta {
         transform: scale(1.15);

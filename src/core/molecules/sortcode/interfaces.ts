@@ -26,6 +26,9 @@ export interface ISortCodeProps extends IBaseProps {
   /**
    * Called when the value is changed. First argument is the change event, second is the value.
    */
-  onChange: (e: ChangeEvent<HTMLInputElement>, value: SortCodeValue) => void;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement>,
+    value: SortCodeValue,
+  ) => void;
   value?: SortCodeValue;
 }

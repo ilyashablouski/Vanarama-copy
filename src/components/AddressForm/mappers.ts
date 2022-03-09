@@ -18,9 +18,9 @@ export const responseToInitialFormValues = (
      */
     history: [...addresses]
       .sort(
-        (a, b) =>
-          new Date(b.startedOn ?? '').getTime() -
-          new Date(a.startedOn ?? '').getTime(),
+        (firstAddress, secondAddress) =>
+          new Date(secondAddress.startedOn ?? '').getTime() -
+          new Date(firstAddress.startedOn ?? '').getTime(),
       )
       .map(address => {
         const movedIn = address.startedOn ? new Date(address.startedOn) : '';
