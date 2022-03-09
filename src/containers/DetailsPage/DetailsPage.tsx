@@ -75,6 +75,7 @@ import {
 } from '../../../generated/GetPdpContent';
 import {
   buildAccordionItems,
+  createLeaseSettings,
   filterBannersBySlug,
   parseQuoteParams,
   removeImacaColoursDuplications,
@@ -483,26 +484,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const onSubmitClick = (values: OrderInputObject) => {
-    const trim = data?.derivativeInfo?.trims?.find(
-      trimItem =>
-        trimItem?.optionDescription ===
-        values.lineItems[0].vehicleProduct?.trim,
+    const leaseSettings = createLeaseSettings(
+      values,
+      leaseScannerData,
+      data,
+      mileage,
     );
-
-    const leaseSettings = {
-      capId: values.lineItems[0].vehicleProduct?.derivativeCapId
-        ? Number(values.lineItems[0].vehicleProduct.derivativeCapId)
-        : null,
-      mileage: values.lineItems[0].vehicleProduct?.annualMileage,
-      maintenance: values.lineItems[0].vehicleProduct?.maintenance,
-      mileageValue: data?.leaseAdjustParams?.mileages
-        ? data.leaseAdjustParams.mileages.indexOf(mileage || 0) + 1
-        : null,
-      term: leaseScannerData?.quoteByCapId?.term,
-      upfront: leaseScannerData?.quoteByCapId?.upfront,
-      colour: leaseScannerData?.quoteByCapId?.colour,
-      trim: trim?.id,
-    };
     window.sessionStorage.setItem(
       `leaseSettings-${capId}`,
       JSON.stringify(leaseSettings),
