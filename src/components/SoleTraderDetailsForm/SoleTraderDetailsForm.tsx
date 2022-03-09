@@ -278,6 +278,11 @@ SoleTraderDetailsForm.fragments = {
         firstName
         lastName
         gender
+        emailAddresses {
+          __typename
+          primary
+          value
+        }
         dateOfBirth
         countryOfBirth
         nationality
@@ -318,6 +323,11 @@ SoleTraderDetailsForm.fragments = {
       firstName
       lastName
       gender
+      emailAddresses {
+        __typename
+        primary
+        value
+      }
       dateOfBirth
       countryOfBirth
       nationality
