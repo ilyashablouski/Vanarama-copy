@@ -16,7 +16,6 @@ export interface ISoleTraderDetailsFormValues {
   placeOfBirth: string;
   maritalStatus: string;
   nationality: string;
-  email: string;
   adultsInHousehold: string;
   dependants: string;
   occupation: string;

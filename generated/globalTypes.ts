@@ -329,6 +329,7 @@ export interface CompanyV2InputObject {
   tradingSince?: CustomDate | null;
   turnoverOutsideUk?: number | null;
   uuid: string;
+  vehicleRegistrationNumber?: string | null;
   withTradingAddress?: boolean | null;
 }
 
