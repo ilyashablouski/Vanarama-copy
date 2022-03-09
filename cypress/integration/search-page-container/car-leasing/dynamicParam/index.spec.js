@@ -81,15 +81,19 @@ describe(
         .then($el => {
           bodyStyle = $el.text();
         });
-      cy.get('@AccordionBodyType').click();
-      cy.get(`span[data-uitestid=${dataUiTestId}_span_Transmission]`)
-        .click()
-        .as('AccordionTransmission');
-      cy.get(`span[data-uitestid=${dataUiTestId}_span_Automatic]`).click();
-      cy.get('@AccordionTransmission').click();
+      cy.get(`span[data-uitestid="cars-search-page_span_Budget"]`)
+        .as('BudgetAccordion')
+        .click();
+      cy.get('select[data-uitestid="cars-search-page_select_from"]').select(
+        '0',
+      );
+      cy.get('select[data-uitestid="cars-search-page_select_to"]').select(
+        '350',
+      );
+      cy.get('@BudgetAccordion').click();
       cy.location().should(location => {
         expect(location.search).to.eq(
-          `?transmissions=Automatic&bodyStyles=${bodyStyle}`,
+          `?bodyStyles=${bodyStyle}&pricePerMonth=0|350`,
         );
       });
     });
