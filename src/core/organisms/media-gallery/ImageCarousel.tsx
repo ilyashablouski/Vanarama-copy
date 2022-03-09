@@ -95,8 +95,6 @@ function ImageCarousel({
             initialSlide={activeSlideIndex}
             resistanceRatio={0.55}
             onSwiper={setThumbsSlider}
-            centeredSlides={isDesktop}
-            centeredSlidesBounds={isDesktop}
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
