@@ -241,24 +241,6 @@ const CustomiseLease = ({
     setTempColorValue(colour);
   }, [colour]);
 
-  const setSessionValues = () => {
-    const mileageValue = mileages.indexOf(mileage || 0) + 1;
-    const leaseSettings = {
-      capId,
-      mileage,
-      maintenance,
-      mileageValue,
-      term: quoteByCapId?.term,
-      upfront: quoteByCapId?.upfront,
-      colour: quoteByCapId?.colour,
-      trim: quoteByCapId?.trim,
-    };
-    window.sessionStorage.setItem(
-      `leaseSettings-${capId}`,
-      JSON.stringify(leaseSettings),
-    );
-  };
-
   const handleClickResetTermAndUpfront = () => {
     setMileage(defaultMileageValue);
     setUpfront(defaultUpfrontValue);
@@ -476,7 +458,6 @@ const CustomiseLease = ({
                 leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
                 lineItems: [lineItem],
               });
-              setSessionValues();
             }}
             headingText={`PM ${stateVAT}. VAT`}
             leasingProviders={LEASING_PROVIDERS}
