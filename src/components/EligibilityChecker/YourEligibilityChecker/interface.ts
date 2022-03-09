@@ -30,7 +30,7 @@ export interface IFormProps {
   handleSubmit: (
     callback: OnSubmit<IYourEligiblityCheckerValues>,
   ) => (
-    e?: React.BaseSyntheticEvent<object, any, any> | undefined,
+    event?: React.BaseSyntheticEvent<object, any, any> | undefined,
   ) => Promise<void>;
   register: any;
   triggerValidation: (

@@ -31,9 +31,9 @@ export const getServiceBannerData = async (
       },
     });
     return data;
-  } catch (e) {
+  } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Failed to get service banner with slug', e);
+    console.error('Failed to get service banner with slug', error);
     return serviceBannerInitialData;
   }
 };
