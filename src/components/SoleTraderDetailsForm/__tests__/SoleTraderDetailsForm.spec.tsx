@@ -138,7 +138,7 @@ describe('<SoleTraderDetailsForm />', () => {
   });
 });
 
-describe('formValuesToAssociate', async () => {
+describe('formValuesToAssociate', () => {
   const personId = '7c350898-0eb9-4d06-99c3-9e395396fca1';
   const commonValues = {
     title: 'Mr',

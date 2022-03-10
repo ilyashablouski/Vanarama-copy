@@ -48,7 +48,7 @@ describe('useDebounce', () => {
     // Update the value and run all timers to just short of the duration
     act(() => {
       rerender('updated');
-      jest.runTimersToTime(499);
+      jest.advanceTimersByTime(499);
     });
 
     // The value should not be updated yet as the debounce period has not expired
@@ -56,7 +56,7 @@ describe('useDebounce', () => {
 
     // Run to the end of the debounce period
     act(() => {
-      jest.runTimersToTime(1);
+      jest.advanceTimersByTime(1);
     });
 
     // The value should now be updated
