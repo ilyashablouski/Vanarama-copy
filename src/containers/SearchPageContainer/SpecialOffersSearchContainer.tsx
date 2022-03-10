@@ -23,6 +23,7 @@ import {
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
   getPartnershipTitle,
+  getValueFromStorage,
   isPreviousPage,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
@@ -54,6 +55,7 @@ import { globalColors } from '../../utils/colors';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
+  GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
@@ -65,11 +67,12 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
-
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
@@ -79,6 +82,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isCarSearch = false,
   isPickups,
+  isSpecialOfferPage,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   preLoadVehiclesList,
@@ -143,6 +147,10 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
+  const tiles: Tiles = useMemo(
+    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
+    [pageData],
+  );
   const fuelTypesData = useMemo(
     () =>
       filtersData?.fuelTypes?.length > 0
@@ -212,7 +220,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    true,
+    isSpecialOfferPage,
     async vehiclesData => {
       let vehicles = vehiclesData;
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
@@ -268,7 +276,9 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           setVehicleList(vehicles.vehicleList?.edges || []);
           // use range length for manufacture page
           setTotalCount(vehicles.vehicleList.totalCount);
-          getProductCardData(createProductCacheVariables(responseCapIds, true));
+          getProductCardData(
+            createProductCacheVariables(responseCapIds, isCarSearch),
+          );
           setLastCard(vehicles.vehicleList.pageInfo.endCursor || '');
           setShouldUpdateCache(
             vehicles.vehicleList.pageInfo.hasNextPage || false,
@@ -282,14 +292,14 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     },
     RESULTS_PER_REQUEST,
     undefined,
-    [],
+    isPickups ? manualBodyStyle : [],
   );
 
   // new search with new filters
   const onSearch = useCallback(
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
-      const onOffer = true;
+      const onOffer = isSpecialOfferPage;
       let fuelTypes;
       if (filters?.fuelTypes?.length > 0) {
         fuelTypes = filters.fuelTypes;
@@ -305,8 +315,8 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           onOffer: onOffer ?? null,
           filters,
           query: router.query,
-          manualBodyStyle,
           sortOrder: sortOrder as SortObject[],
+          manualBodyStyle,
           fuelTypes,
         }),
       );
@@ -346,12 +356,14 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
       isPartnershipActive,
       isPersonal,
       isPickups,
+      isSpecialOfferPage,
       isSpecialOffersOrder,
       manualBodyStyle,
       router,
       sortOrder,
     ],
   );
+
   // handler for changing sort dropdown
   const onChangeSortOrder = useCallback(
     (value: string) => {
@@ -403,14 +415,15 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     [isPartnershipActive],
   );
 
-  useFirstRenderEffect(() => {
-    onSearch();
-    setLastCard('');
-  }, [sortOrder]);
-
-  useFirstRenderEffect(() => {
-    onSearch();
-  }, [isPersonal]);
+  // prevent case when we navigate use back/forward button and useCallback return empty result list
+  useEffect(() => {
+    if (data && !cardsData.length && loading) {
+      getProductCardData(
+        createProductCardVariables(data.vehicleList.edges, isCarSearch),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   // listen for any updates to metaDataSSR
   useEffect(() => {
@@ -418,87 +431,28 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     setPageData(pageDataSSR);
   }, [metaDataSSR, pageDataSSR]);
 
-  // prevent case when we navigate use back/forward button and useCallback return empty result list
+  // API call after load new pages
   useEffect(() => {
-    if (data && !cardsData.length && loading) {
-      getProductCardData(
-        createProductCardVariables(data.vehicleList.edges, true),
-      );
+    // prevent request with empty filters
+    const queryLength = Object.keys(router?.query || {})?.length;
+    // if it's simple search page with presave special offers param made new request for actual params
+    if (
+      !queryLength &&
+      getValueFromStorage(false, isCarSearch) &&
+      !isSpecialOfferPage
+    ) {
+      // load vehicles
+      getVehicles();
     }
+    // disabled lint because we can't add router to deps
+    // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-
-  // using for scroll page to top only for page mount
-  useEffect(() => {
-    if (window) {
-      window.scrollTo(0, 0);
-    }
-    if (window && !isPreviousPage(router.query)) {
-      removeSessionStorageItem('searchPageScrollData');
-    }
-    // can't add a window to deps, because it isn't exist in SSR
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    scrollIntoPreviousView(pageOffset, prevPosition, setPrevPosition);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageOffset]);
-
-  useEffect(() => {
-    setCachedLeaseType(leaseType);
-  }, [leaseType, setCachedLeaseType]);
-
-  useEffect(() => {
-    const partnerActive = getPartnerProperties();
-
-    if (partnerActive) {
-      setCustomCTAColor(partnerActive.color);
-      setCustomTextColor(globalColors.white);
-      setPartnershipDescription(
-        getPartnershipDescription(partnerActive, isCarSearch, isPickups),
-      );
-      setTitle(getPartnershipTitle(partnerActive, isCarSearch, isPickups));
-    }
-  }, [isCarSearch, isPickups]);
-
-  // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
-  // Next doesn't call a ssr requests, this workaround should call request for page data on client side
-  useEffect(() => {
-    if (router.query.isChangePage === 'true') {
-      const fetchPageData = async () => {
-        const type = Object.entries(
-          dynamicQueryTypeCheck(router.query.dynamicParam as string),
-        ).find(element => element[1])?.[0];
-        const context = {
-          req: {
-            url: router.route.replace(
-              '[dynamicParam]',
-              router.query.dynamicParam as string,
-            ),
-          },
-          query: { ...router.query },
-        };
-        const { data: genericPageData, errors } = (await ssrCMSQueryExecutor(
-          client,
-          context,
-          false,
-          type as string,
-        )) as ApolloQueryResult<GenericPageQuery>;
-        if (data && !errors?.[0]) {
-          setPageData(genericPageData);
-          setMetaData(genericPageData.genericPage.metaData);
-          setLastCard('');
-        }
-      };
-      fetchPageData();
-    }
-  }, [router, router.query, client, data]);
+  }, [getVehicles, isCarSearch, isSpecialOfferPage]);
 
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && hasNextPage && shouldUpdateCache) {
+    if (lastCard && hasNextPage && shouldUpdateCache && isSpecialOfferPage) {
       setShouldUpdateCache(false);
       const isOnOffer = isSpecialOffers || null;
 
@@ -542,7 +496,29 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     sortOrder,
     isSpecialOffersOrder,
     isPersonal,
+    isSpecialOfferPage,
   ]);
+
+  useFirstRenderEffect(() => {
+    onSearch();
+    setLastCard('');
+  }, [sortOrder]);
+
+  useFirstRenderEffect(() => {
+    onSearch();
+  }, [isPersonal]);
+
+  // using for scroll page to top only for page mount
+  useEffect(() => {
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+    if (window && !isPreviousPage(router.query)) {
+      removeSessionStorageItem('searchPageScrollData');
+    }
+    // can't add a window to deps, because it isn't exist in SSR
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // set capsIds for cached data
   useEffect(() => {
@@ -560,6 +536,61 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     setPartnershipActive(!!partnerActive);
   }, [isPartnershipActive]);
 
+  useEffect(() => {
+    scrollIntoPreviousView(pageOffset, prevPosition, setPrevPosition);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageOffset]);
+
+  useEffect(() => {
+    setCachedLeaseType(leaseType);
+  }, [isPersonal, leaseType, setCachedLeaseType]);
+
+  useEffect(() => {
+    const partnerActive = getPartnerProperties();
+
+    if (partnerActive) {
+      setCustomCTAColor(partnerActive.color);
+      setCustomTextColor(globalColors.white);
+      setPartnershipDescription(
+        getPartnershipDescription(partnerActive, isCarSearch, isPickups),
+      );
+      setTitle(getPartnershipTitle(partnerActive, isCarSearch, isPickups));
+    }
+  }, [isCarSearch, isPickups]);
+
+  // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
+  // Next doesn't call a ssr requests, this workaround should call request for page data on client side
+  useEffect(() => {
+    if (router.query.isChangePage === 'true') {
+      const fetchPageData = async () => {
+        const type = Object.entries(
+          dynamicQueryTypeCheck(router.query.dynamicParam as string),
+        ).find(element => element[1])?.[0];
+        const context = {
+          req: {
+            url: router.route.replace(
+              '[dynamicParam]',
+              router.query.dynamicParam as string,
+            ),
+          },
+          query: { ...router.query },
+        };
+        const { data: genericPageData, errors } = (await ssrCMSQueryExecutor(
+          client,
+          context,
+          false,
+          type as string,
+        )) as ApolloQueryResult<GenericPageQuery>;
+        if (genericPageData && !errors?.[0]) {
+          setPageData(genericPageData);
+          setMetaData(genericPageData.genericPage.metaData);
+          setLastCard('');
+        }
+      };
+      fetchPageData();
+    }
+  }, [router, router.query, client]);
+
   return (
     <>
       <PartnershipLogoHeader />
@@ -571,14 +602,17 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         partnershipDescription={partnershipDescription}
         isPartnershipActive={isPartnershipActive}
       />
+      {!(isSpecialOfferPage && isCarSearch) && featured && (
+        <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+      )}
       <TopOffersContainer
         dataUiTestId={`${dataUiTestId}_top-offers`}
         isCarSearch={isCarSearch}
-        isPickups={isPickups}
         shouldForceUpdate={shouldUpdateTopOffers}
         setShouldForceUpdate={setShouldUpdateTopOffers}
         isPersonal={isPersonal}
-        isSpecialOfferPage
+        isPickups={isPickups || false}
+        isSpecialOfferPage={isSpecialOfferPage || false}
       />
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
@@ -641,13 +675,33 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           </div>
         </div>
       </div>
-      {isCarSearch && featured && <ReadMoreBlock featured={featured} />}
-      {pageData && isCarousel && (
-        <RelatedCarousel
-          cards={carousel.cards}
-          title={carousel.title}
-          dataUiTestId={`${dataUiTestId}_related`}
+      {isSpecialOfferPage && isCarSearch && featured && (
+        <ReadMoreBlock featured={featured} />
+      )}
+      {pageData?.genericPage?.sections?.featured2?.body && (
+        <FeaturedSectionBlock
+          title={pageData.genericPage.sections.featured2.title}
+          body={pageData.genericPage.sections.featured2.body}
         />
+      )}
+      {pageData && (
+        <>
+          {tiles?.tiles?.length && (
+            <WhyLeaseWithVanaramaTiles
+              tiles={tiles.tiles}
+              title={tiles.tilesTitle || ''}
+              titleTag={tiles.titleTag}
+            />
+          )}
+
+          {isCarousel && (
+            <RelatedCarousel
+              cards={carousel.cards}
+              title={carousel.title}
+              dataUiTestId={`${dataUiTestId}_related`}
+            />
+          )}
+        </>
       )}
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <TermsAndConditions dataUiTestId={dataUiTestId} />
