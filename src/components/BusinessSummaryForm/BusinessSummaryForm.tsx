@@ -55,7 +55,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Complete Your Order';
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
@@ -108,6 +108,15 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         You&apos;re nearly there! Just check everything is correct and complete
         your order. We&apos;ll have you in the driving seat in no time
       </Text>
+      <Button
+        disabled={isSubmitting}
+        className="olaf-summary__continue-btn"
+        type="button"
+        color="teal"
+        label={selectLabel}
+        dataTestId="olaf_summary_continue_button"
+        onClick={onSubmit}
+      />
       <Form className="olaf--summary">
         <BusinessSummaryFormAboutSection
           person={person}
@@ -151,7 +160,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         type="button"
         color="teal"
         label={selectLabel}
-        dataTestId="olaf_summary_continue_buttton"
+        dataTestId="olaf_summary_continue_button"
         onClick={onSubmit}
       />
     </div>

@@ -32,9 +32,15 @@ export default function generateLimitedSteps() {
     },
     {
       href: '/b2b/olaf/summary/[companyUuid]',
-      label: 'Summary',
+      label: 'Review Your Order',
       dataPath: undefined,
       step: 6,
+    },
+    {
+      href: '/olaf/thank-you?isB2b=1',
+      label: 'Order Summary',
+      dataPath: undefined,
+      step: 7,
     },
   ];
 }
