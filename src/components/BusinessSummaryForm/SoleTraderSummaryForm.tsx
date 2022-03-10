@@ -107,7 +107,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         </Text>
         <Button
           disabled={isSubmitting}
-          style={{ width: '220px' }}
           className="olaf-summary__continue-btn"
           type="button"
           color="teal"
