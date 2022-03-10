@@ -9,7 +9,7 @@ import {
 describe(`
   [Search Page Container]
   Van Leasing 
-  - manufacturers range
+  - range page
   `, () => {
   const dataUiTestId = VAN_LEASING_TEST_ID;
   const cardContainer = 'search-results';

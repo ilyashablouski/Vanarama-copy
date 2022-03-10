@@ -324,7 +324,7 @@ describe('<BusinessSummaryFormContainer />', () => {
 
   //   component.root
   //     .findByProps({
-  //       'data-testid': 'olaf_summary_continue_buttton',
+  //       'data-testid': 'olaf_summary_continue_button',
   //     })
   //     .props.onClick();
 

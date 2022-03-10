@@ -184,6 +184,18 @@ const SummaryForm: FCWithFragments<IProps> = ({
           complete your order. We&apos;ll have you in the driving seat in no
           time
         </Text>
+        <Button
+          className="olaf-summary__continue-btn"
+          type="button"
+          color="teal"
+          label="Complete Your Order"
+          dataTestId="olaf_summary_continue_button"
+          disabled={isSubmit || isSubmitDisabled}
+          onClick={() => {
+            setIsSubmit(true);
+            return handleSubmit();
+          }}
+        />
         <SummaryFormDetailsSection
           person={person}
           onEdit={handleEdit('/olaf/about')}
@@ -223,8 +235,8 @@ const SummaryForm: FCWithFragments<IProps> = ({
         <Button
           type="button"
           color="teal"
-          label="Submit"
-          dataTestId="olaf_summary_continue_buttton"
+          label="Complete Your Order"
+          dataTestId="olaf_summary_continue_button"
           disabled={isSubmit || isSubmitDisabled}
           onClick={() => {
             setIsSubmit(true);

@@ -129,12 +129,6 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           <FormikSelectField name="nationality" label="Nationality">
             <OptionsWithFavourites options={dropdownData.nationalities} />
           </FormikSelectField>
-          <FormikTextField
-            name="email"
-            label="Email"
-            dataTestId="email-addr"
-            disabled
-          />
           <FormikSelectField
             name="adultsInHousehold"
             label="Adults Living in Household"

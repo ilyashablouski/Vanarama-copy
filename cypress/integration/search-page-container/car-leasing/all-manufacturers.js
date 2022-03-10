@@ -5,7 +5,7 @@ import { APP_URL, CAR_LEASING_TEST_ID } from '../../../support/utils';
 describe(`
   [Search Page Container]
   Car Leasing
-  - manufacturer page
+  - all manufacturers page
   `, () => {
   const dataUiTestId = CAR_LEASING_TEST_ID;
 

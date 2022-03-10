@@ -1645,25 +1645,6 @@
         place-items: baseline start;
         --owl-gap: 0;
 
-        // .structured-list-row .structured-list-td {
-        //   line-height: unset;
-
-        //   &.structured-list-content--nowrap {
-        //     font-weight: 500;
-        //   }
-        // }
-
-        // .-styled-headers {
-        //   &:not(:first-child) {
-        //     margin-top: 3rem;
-        //   }
-
-        //   .text {
-        //     font-weight: $font-weight-semibold;
-        //     color: $black;
-        //   }
-        // }
-
         @include desktop {
           max-width: 100%;
           padding-right: 5rem;
@@ -1807,6 +1788,10 @@
             font-size: 1.125rem;
           }
         }
+      }
+
+      &__continue-btn {
+        max-width: 220px;
       }
     }
 
