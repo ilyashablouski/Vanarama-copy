@@ -32,13 +32,7 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
 import Drawer from '../../core/molecules/drawer/Drawer';
-import {
-  IFiltersData,
-  IProps,
-  ISelectedTags,
-  ITabs,
-  IVehicleListForRender,
-} from './interfaces';
+import { IFiltersData, IProps, ISelectedTags, ITabs } from './interfaces';
 import { pluralise } from '../../utils/dates';
 import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
@@ -101,14 +95,8 @@ const GlobalSearchPageContainer = memo(
       CAR: carCardsData,
     };
 
-    const [vehiclesList, setVehicleList] = useState<
-      (IVehicleListForRender | null)[]
-    >(
-      getVehicleListForRender(
-        preLoadProductDerivatives?.derivatives || [],
-        vehiclesCardsData,
-        migratedManufacturers,
-      ),
+    const [vehiclesList, setVehicleList] = useState<(IVehiclesList | null)[]>(
+      preLoadProductDerivatives?.derivatives || [],
     );
     const [vehiclesListCache, setVehicleListCache] = useState<
       (IVehiclesList | null)[]
@@ -195,13 +183,7 @@ const GlobalSearchPageContainer = memo(
           });
         }
         setTotalResults(vehicles.productDerivatives?.total || 0);
-        return setVehicleList(
-          getVehicleListForRender(
-            vehicles?.productDerivatives?.derivatives || [],
-            vehiclesCardsData,
-            migratedManufacturers,
-          ),
-        );
+        return setVehicleList(vehicles?.productDerivatives?.derivatives || []);
       },
       0,
       isPersonal,
@@ -315,27 +297,14 @@ const GlobalSearchPageContainer = memo(
 
     useFirstRenderEffect(() => {
       if (preLoadProductDerivatives?.derivatives) {
-        setVehicleList(
-          getVehicleListForRender(
-            preLoadProductDerivatives?.derivatives || [],
-            vehiclesCardsData,
-            migratedManufacturers,
-          ),
-        );
+        setVehicleList(preLoadProductDerivatives?.derivatives || []);
         setCarCardsData(carsData || []);
         setLcvCardsData(vansData || []);
       }
     }, [preLoadProductDerivatives]);
 
     const onLoadMore = () => {
-      setVehicleList(prevState => [
-        ...prevState,
-        ...getVehicleListForRender(
-          vehiclesListCache,
-          vehiclesCardsData,
-          migratedManufacturers,
-        ),
-      ]);
+      setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
       getVehiclesCache({
         variables: {
           filters: buildFiltersRequestObject(
@@ -439,6 +408,15 @@ const GlobalSearchPageContainer = memo(
       setSortOrder(generateSortArray(value));
     };
 
+    const vehiclesListForRender = useMemo(() => {
+      return getVehicleListForRender(
+        vehiclesList,
+        vehiclesCardsData,
+        migratedManufacturers,
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [vehiclesCardsData]);
+
     return (
       <>
         <div className="row:title">
@@ -494,7 +472,7 @@ const GlobalSearchPageContainer = memo(
           />
           <div className="row:results">
             <div className="row:cards-3col">
-              {vehiclesList?.map(vehicle => (
+              {vehiclesListForRender?.map(vehicle => (
                 <VehicleCard
                   key={
                     (vehicle?.derivativeId || `${vehicle?.capBodyStyle}`) +
