@@ -32,7 +32,7 @@ export default function generateSoleTraderSteps() {
     },
     {
       href: '/b2b/olaf/sole-trader/summary/[companyUuid]',
-      label: 'Review your order',
+      label: 'Review Your Order',
       dataPath: undefined,
       step: 6,
     },

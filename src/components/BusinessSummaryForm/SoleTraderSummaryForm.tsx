@@ -70,7 +70,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Complete Your Order';
 
   const handleEdit = (
     url: string,
@@ -105,6 +105,16 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           complete your order. We&apos;ll have you in the driving seat in no
           time
         </Text>
+        <Button
+          disabled={isSubmitting}
+          style={{ width: '220px' }}
+          className="olaf-summary__continue-btn"
+          type="button"
+          color="teal"
+          label={selectLabel}
+          dataTestId="olaf_summary_continue_buttton"
+          onClick={onSubmit}
+        />
         <Form className="olaf--summary">
           <BusinessSummaryFormAboutSection
             soletrader
