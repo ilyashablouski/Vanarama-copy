@@ -429,7 +429,6 @@ export function moveFactoryOrderToEnd(
 export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
-  NOVUNA_LEASE = 'DIG-8639',
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
 }
 
@@ -457,17 +456,6 @@ export function isUpdatedServicePlanFeatureFlagEnabled(
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
-
-const hitachiNewNameStartTime = Number(new Date(2022, 1, 14, 0, 1, 0));
-export function isHitachiChangedName() {
-  const currentTime = Date.now();
-
-  if (currentTime >= hitachiNewNameStartTime) {
-    return true;
-  }
-
-  return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
-}
 
 export function isEditPersonalInformationFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
