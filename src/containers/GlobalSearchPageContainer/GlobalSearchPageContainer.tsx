@@ -408,14 +408,16 @@ const GlobalSearchPageContainer = memo(
       setSortOrder(generateSortArray(value));
     };
 
-    const vehiclesListForRender = useMemo(() => {
-      return getVehicleListForRender(
-        vehiclesList,
-        vehiclesCardsData,
-        migratedManufacturers,
-      );
+    const vehiclesListForRender = useMemo(
+      () =>
+        getVehicleListForRender(
+          vehiclesList,
+          vehiclesCardsData,
+          migratedManufacturers,
+        ),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [vehiclesCardsData]);
+      [vehiclesCardsData],
+    );
 
     return (
       <>
