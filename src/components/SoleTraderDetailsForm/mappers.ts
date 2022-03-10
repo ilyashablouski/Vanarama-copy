@@ -52,7 +52,6 @@ export const responseToInitialFormValues = (
   soleTrader: SoleTrader | null | undefined,
 ): ISoleTraderDetailsFormValues => {
   const st: any = soleTrader || person;
-  const email = person?.emailAddresses.find(addr => addr.primary)?.value || '';
   const dateOfBirth = st?.dateOfBirth && new Date(st.dateOfBirth);
   const addresses = st?.addresses || [];
 
@@ -62,7 +61,6 @@ export const responseToInitialFormValues = (
     gender: st?.gender || '',
     placeOfBirth: st?.countryOfBirth || '',
     dependants: st?.noOfDependants || '',
-    email,
     maritalStatus: st?.maritalStatus || '',
     nationality: st?.nationality || '',
     title: st?.title || '',

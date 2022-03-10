@@ -19,12 +19,6 @@ export const validationSchema = Yup.object().shape(
     firstName: nameType.required('Please enter a first name'),
     lastName: nameType.required('Please enter a last name'),
     gender: Yup.string().required('Please select a gender'),
-    email: Yup.string()
-      .max(
-        254,
-        'Oops, this email is too long. Please keep it to 254 characters',
-      )
-      .email('Oops, this email address is invalid'),
     placeOfBirth: Yup.string().required('Please select your place of birth'),
     maritalStatus: Yup.string().required('Please enter your marital status'),
     nationality: Yup.string().required('Please enter your nationality'),
