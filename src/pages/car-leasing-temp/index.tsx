@@ -12,7 +12,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
-import CarHubPageContainer from '../../containers/CarHubPageContainer/CarHubPageContainer';
+import CarHubPageContainer from '../../containers/CarHubPageContainer';
 import { PageTypeEnum } from '../../types/common';
 
 interface IProps {
