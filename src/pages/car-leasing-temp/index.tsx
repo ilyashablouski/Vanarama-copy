@@ -6,16 +6,27 @@ import {
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { isRedesignCarHubFeatureFlagEnabled } from '../../utils/helpers';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
+import { GENERIC_PAGE } from '../../gql/genericPage';
+import createApolloClient from '../../apolloClient';
+import CarHubPageContainer from '../../containers/CarHubPageContainer';
+import { PageTypeEnum } from '../../types/common';
 
-interface IProps {}
+interface IProps {
+  data: GenericPageQuery;
+}
 
-export const CarsPage: NextPage<IProps> = () => {
-  return <></>;
+export const CarsPage: NextPage<IProps> = ({ data }) => {
+  return <CarHubPageContainer data={data} pageType={PageTypeEnum.DEFAULT} />;
 };
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IProps>> {
+  const client = createApolloClient({});
   try {
     const isFeatureFlagEnabled = isRedesignCarHubFeatureFlagEnabled(
       context.req.headers.cookie,
@@ -23,9 +34,22 @@ export async function getServerSideProps(
     if (!isFeatureFlagEnabled) {
       return { notFound: true };
     }
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'car-leasing-dummy',
+        sectionsAsArray: true,
+        isPreview: !!context?.preview,
+      },
+    });
 
     return {
-      props: {},
+      props: {
+        data: data || null,
+      },
     };
   } catch (error) {
     const apolloError = error as ApolloError;
