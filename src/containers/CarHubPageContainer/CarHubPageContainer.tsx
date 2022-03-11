@@ -20,13 +20,12 @@ import HeadingSection from '../../components/HeadingSection';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import RelatedCarousel from '../../components/RelatedCarousel';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import RelatedCarousel from '../../components/RelatedCarousel';
-import RouterLink from '../../components/RouterLink';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
@@ -129,11 +128,6 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
 
       {features1 && getFeaturesSection(features1)}
 
-      {features2LeadTextSection &&
-        getHeadingSection(features2LeadTextSection, true)}
-
-      {features2 && getFeaturesSection(features2)}
-
       {cards?.cards?.length && (
         <div className="row:bg-lighter">
           <Heading
@@ -163,6 +157,12 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           />
         </div>
       )}
+
+      {features2LeadTextSection &&
+        getHeadingSection(features2LeadTextSection, true)}
+
+      {features2 && getFeaturesSection(features2)}
+
       {sectionsAsArray?.cards?.[1]?.cards?.length && (
         <RelatedCarousel
           cards={sectionsAsArray?.cards?.[1]?.cards || []}
