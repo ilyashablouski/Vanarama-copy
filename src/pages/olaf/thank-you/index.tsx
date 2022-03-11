@@ -57,72 +57,60 @@ const ThankYouPage: NextPage = () => {
       </OLAFLayout>
       {isB2b && (
         <div className="row:features-4col">
-          <Tile plain className="-align-center">
-            <span>
-              <ImageV2
-                size="large"
-                width={500}
-                height={325}
-                quality={60}
-                src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
-                inline
-                round
-              />
-            </span>
+          <Tile plain centered className="-align-center">
+            <ImageV2
+              objectFit="cover"
+              size="large"
+              quality={60}
+              src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
+              inline
+              round
+            />
             <span className="tile--link">
               <Heading color="black" size="regular">
                 Free, Safe & Contactless Delivery Direct To Your Door
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center">
-            <span>
-              <ImageV2
-                size="large"
-                width={500}
-                height={325}
-                quality={60}
-                src="https://source.unsplash.com/collection/2102317/500x325?sig=403419"
-                inline
-                round
-              />
-            </span>
+          <Tile plain centered className="-align-center">
+            <ImageV2
+              objectFit="cover"
+              size="large"
+              quality={60}
+              src="https://source.unsplash.com/collection/2102317/500x325?sig=403419"
+              inline
+              round
+            />
             <span className="tile--link">
               <Heading color="black" size="regular">
                 Rated Excellent On TrustPilot
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center">
-            <span>
-              <ImageV2
-                size="large"
-                width={500}
-                height={325}
-                quality={60}
-                src="https://source.unsplash.com/collection/2102317/500x325?sig=403430"
-                inline
-                round
-              />
-            </span>
+          <Tile plain centered className="-align-center">
+            <ImageV2
+              objectFit="cover"
+              size="large"
+              quality={60}
+              src="https://source.unsplash.com/collection/2102317/500x325?sig=403430"
+              inline
+              round
+            />
             <span className="tile--link">
               <Heading color="black" size="regular">
                 Free 30-Day Returns
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center">
-            <span>
-              <ImageV2
-                size="large"
-                width={500}
-                height={325}
-                quality={60}
-                src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
-                inline
-                round
-              />
-            </span>
+          <Tile plain centered className="-align-center">
+            <ImageV2
+              objectFit="cover"
+              size="large"
+              quality={60}
+              src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
+              inline
+              round
+            />
             <span className="tile--link">
               <Heading color="black" size="regular">
                 The Best Price Or We&apos;ll Give You £100*
