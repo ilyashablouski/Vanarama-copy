@@ -1,6 +1,7 @@
 import { hotOfferColorList } from 'core/molecules/color-selection/mocks';
 import {
   LeaseTypeEnum,
+  OrderInputObject,
   PdpVehicleType,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
@@ -9,12 +10,15 @@ import { GetVehicleDetails } from '../../../../generated/GetVehicleDetails';
 import { IWishlistProduct } from '../../../types/wishlist';
 import {
   convertProductDetailsToWishlistProduct,
+  createLeaseSettings,
   filterBannersBySlug,
   pdpCarType,
   pdpVanType,
   removeImacaColoursDuplications,
 } from '../helpers';
 import { PdpBanners } from '../../../models/enum/PdpBanners';
+import { Nullable } from '../../../types/common';
+import { ILeaseScannerData } from '../../CustomiseLeaseContainer/interfaces';
 
 const capId = '93456';
 
@@ -319,5 +323,63 @@ describe('filterBannersByTitle', () => {
     expect(filterBannersBySlug(bannerList, PdpBanners.freeInsurance)).toEqual(
       bannerList.slice(1),
     );
+  });
+});
+
+describe('createLeaseSettings', () => {
+  it('should works correct', () => {
+    const values = {
+      lineItems: [
+        {
+          vehicleProduct: {
+            trim: 'test trim',
+            derivativeCapId: '123',
+            annualMileage: 300,
+            maintenance: null,
+          },
+        },
+      ],
+    };
+    const leaseScannerData = {
+      quoteByCapId: {
+        term: 24,
+        upfront: 1,
+        colour: '123',
+      },
+    };
+    const data = {
+      derivativeInfo: {
+        trims: [
+          {
+            optionDescription: 'test trim',
+            id: '123',
+          },
+        ],
+      },
+      leaseAdjustParams: {
+        mileages: [300],
+      },
+    };
+    const mileage = 300;
+
+    const result = {
+      capId: 123,
+      mileage: 300,
+      maintenance: null,
+      mileageValue: 1,
+      term: 24,
+      upfront: 1,
+      colour: '123',
+      trim: '123',
+    };
+
+    expect(
+      createLeaseSettings(
+        values as OrderInputObject,
+        leaseScannerData as Nullable<ILeaseScannerData>,
+        data as GetVehicleDetails,
+        mileage,
+      ),
+    ).toMatchObject(result);
   });
 });

@@ -32,9 +32,15 @@ export default function generateConsumerSteps() {
     },
     {
       href: '/olaf/summary',
-      label: 'Summary',
+      label: 'Review Your Order',
       dataPath: undefined,
       step: 6,
+    },
+    {
+      href: '/olaf/thank-you',
+      label: 'Order Summary',
+      dataPath: undefined,
+      step: 7,
     },
   ];
 }

@@ -429,8 +429,8 @@ export function moveFactoryOrderToEnd(
 export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
-  NOVUNA_LEASE = 'DIG-8639',
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
+  CAR_HUB_REDESIGN = 'DIG-9034',
 }
 
 function isFeatureFlagEnabled(
@@ -454,20 +454,15 @@ export function isUpdatedServicePlanFeatureFlagEnabled(
   return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
 }
 
+export function isRedesignCarHubFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.CAR_HUB_REDESIGN);
+}
+
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
-
-const hitachiNewNameStartTime = Number(new Date(2022, 1, 14, 0, 1, 0));
-export function isHitachiChangedName() {
-  const currentTime = Date.now();
-
-  if (currentTime >= hitachiNewNameStartTime) {
-    return true;
-  }
-
-  return Cookies.get(FeatureFlags.NOVUNA_LEASE) === '1';
-}
 
 export function isEditPersonalInformationFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,

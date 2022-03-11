@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-import { PdpVehicleType } from '../../../generated/globalTypes';
+import {
+  OrderInputObject,
+  PdpVehicleType,
+} from '../../../generated/globalTypes';
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { GetImacaAssets_getImacaAssets_colours as IImacaColour } from '../../../generated/GetImacaAssets';
 import {
@@ -15,6 +18,7 @@ import { formatProductPageUrl } from '../../utils/url';
 
 import RouterLink from '../../components/RouterLink';
 import { PdpBanners } from '../../models/enum/PdpBanners';
+import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 
 export const removeImacaColoursDuplications = (
   colourList: Array<IImacaColour>,
@@ -147,3 +151,30 @@ export function isBannerAvailable(card: IPdpBanner | undefined): boolean {
 
   return true;
 }
+
+export const createLeaseSettings = (
+  values: OrderInputObject,
+  leaseScannerData: Nullable<ILeaseScannerData>,
+  data?: GetVehicleDetails,
+  mileage?: Nullable<number>,
+) => {
+  const trim = data?.derivativeInfo?.trims?.find(
+    trimItem =>
+      trimItem?.optionDescription === values.lineItems[0].vehicleProduct?.trim,
+  );
+
+  return {
+    capId: values.lineItems[0].vehicleProduct?.derivativeCapId
+      ? Number(values.lineItems[0].vehicleProduct.derivativeCapId)
+      : null,
+    mileage: values.lineItems[0].vehicleProduct?.annualMileage,
+    maintenance: values.lineItems[0].vehicleProduct?.maintenance,
+    mileageValue: data?.leaseAdjustParams?.mileages
+      ? data.leaseAdjustParams.mileages.indexOf(mileage || 0) + 1
+      : null,
+    term: leaseScannerData?.quoteByCapId?.term,
+    upfront: leaseScannerData?.quoteByCapId?.upfront,
+    colour: leaseScannerData?.quoteByCapId?.colour,
+    trim: trim?.id,
+  };
+};

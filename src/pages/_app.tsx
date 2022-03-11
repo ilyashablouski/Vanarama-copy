@@ -203,7 +203,6 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <main className={cx(resolveMainClass())}>
-        <HeaderContainer serviceBanner={serviceBanner} />
         <CompareContext.Provider
           value={{
             compareVehicles,
@@ -211,9 +210,13 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
           }}
         >
           {pageProps.pageType === PageTypeEnum.ERROR ? (
-            <ErrorPage errorData={pageProps.error} />
+            <>
+              <HeaderContainer serviceBanner={serviceBanner} />
+              <ErrorPage errorData={pageProps.error} />
+            </>
           ) : (
             <ManufacturersSlugContext.Provider value={migrationSlugs}>
+              <HeaderContainer serviceBanner={serviceBanner} />
               <Component {...pageProps} />
             </ManufacturersSlugContext.Provider>
           )}
