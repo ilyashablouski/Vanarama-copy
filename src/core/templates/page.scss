@@ -175,17 +175,6 @@
           grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 0.5rem;
         }
       }
-
-      .tile {
-        .image img {
-          object-fit: cover;
-        }
-        span {
-          width: 100% !important;
-          height: 100% !important;
-        }
-      }
-
     }
   }
 
