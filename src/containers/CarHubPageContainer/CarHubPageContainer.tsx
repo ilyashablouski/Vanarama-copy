@@ -1,12 +1,14 @@
 import { memo, FC } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Heading from 'core/atoms/heading';
+import TrustPilot from 'core/molecules/trustpilot';
 import Head from '../../components/Head/Head';
 import { IPageWithData } from '../../types/common';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 import { normalizeString } from '../../utils/data';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
@@ -16,6 +18,9 @@ type IProps = IPageWithData<{
 const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const { sectionsAsArray } = data?.genericPage;
   const cards = sectionsAsArray?.cards?.[0];
+  const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
+  const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
+  const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
 
   return (
     <>
@@ -48,6 +53,17 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           />
         </div>
       )}
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.genericPage.metaData && (
         <>
           <Head
