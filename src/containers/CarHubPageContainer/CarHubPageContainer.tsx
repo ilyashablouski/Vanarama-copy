@@ -9,6 +9,8 @@ import getTitleTag from '../../utils/getTitleTag';
 import CardsSectionCarousel from '../../components/CardsSectionCarousel';
 import { normalizeString } from '../../utils/data';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import RelatedCarousel from '../../components/RelatedCarousel';
+import RouterLink from '../../components/RouterLink';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
@@ -52,6 +54,30 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
             }
           />
         </div>
+      )}
+      {sectionsAsArray?.cards?.[1]?.cards?.length && (
+        <RelatedCarousel
+          cards={sectionsAsArray?.cards?.[1]?.cards || []}
+          title={sectionsAsArray?.cards?.[1]?.name || ''}
+          className="blog-carousel"
+          renderNewPagination
+        >
+          <RouterLink
+            link={{
+              href: '/guides/cars',
+              label: 'Learn About Electric Cars',
+            }}
+            className="button"
+            withoutDefaultClassName
+            classNames={{
+              color: 'primary',
+              solid: true,
+              size: 'regular',
+            }}
+          >
+            <div className="button--inner">Learn About Electric Cars</div>
+          </RouterLink>
+        </RelatedCarousel>
       )}
       {tiles && (
         <WhyLeaseWithVanaramaTiles
