@@ -1,21 +1,10 @@
-module.exports = {
-  transform: {
-    '^.+\\.(t|j)sx?$': ['@swc/jest'],
-  },
-  testPathIgnorePatterns: ['./cypress/'],
-  coveragePathIgnorePatterns: ['/node_modules/'],
-  transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
-  setupFiles: ['dotenv/config'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  coverageReporters: ['json', 'lcov', 'text', 'text-summary'],
-  moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/mocks.js',
-    '\\.(css|less|scss)$': 'identity-obj-proxy',
-    '^core/(.*)': '<rootDir>/src/core/$1',
-  },
-  coverageDirectory: './.coverage',
-  testResultsProcessor: 'jest-sonar-reporter',
-  clearMocks: true,
-  testTimeout: 30000,
-};
+// jest.config.js
+const nextJest = require('next/jest');
+const customJestConfig = require('./customJestConfig');
+
+const createJestConfig = nextJest({
+  dir: './',
+});
+
+// createJestConfig is exported in this way to ensure that next/jest can load the Next.js config which is async
+module.exports = createJestConfig(customJestConfig);
