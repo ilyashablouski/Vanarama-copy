@@ -430,6 +430,7 @@ export enum FeatureFlags {
   UPDATED_SERVICE_PLAN = 'DIG-7556',
   BLACK_FRIDAY = 'DIG-7658',
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
+  CAR_HUB_REDESIGN = 'DIG-9034',
 }
 
 function isFeatureFlagEnabled(
@@ -451,6 +452,12 @@ export function isUpdatedServicePlanFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.UPDATED_SERVICE_PLAN);
+}
+
+export function isRedesignCarHubFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.CAR_HUB_REDESIGN);
 }
 
 export const isCookieBarFeatureEnabled = () => {
