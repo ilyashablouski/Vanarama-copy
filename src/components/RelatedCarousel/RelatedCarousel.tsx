@@ -33,6 +33,7 @@ interface IProps extends IBaseProps {
   title: Nullable<string>;
   renderNewPagination?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
 const renderCarouselSlide = (card: ICarouselCard, dataUiTestId?: string) => (
@@ -87,6 +88,7 @@ const RelatedCarousel = ({
   renderNewPagination,
   className,
   dataUiTestId,
+  children,
 }: IProps) => {
   const resultCards = useMemo(
     () => cards?.filter(item => !!item) as ICarouselCard[],
@@ -121,6 +123,7 @@ const RelatedCarousel = ({
               renderCarouselSlide(item, `${dataUiTestId}_${index}`),
             )}
           </CarouselSwiper>
+          {children}
         </div>
       </div>
     </LazyLoadComponent>

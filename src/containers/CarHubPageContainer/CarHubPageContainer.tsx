@@ -1,6 +1,7 @@
 import React, { memo, FC } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Heading from 'core/atoms/heading';
+import TrustPilot from 'core/molecules/trustpilot';
 import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -23,6 +24,9 @@ import Skeleton from '../../components/Skeleton';
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import RelatedCarousel from '../../components/RelatedCarousel';
+import RouterLink from '../../components/RouterLink';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
@@ -108,6 +112,9 @@ const getHeadingSection = (
 const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const { sectionsAsArray } = data?.genericPage;
   const cards = sectionsAsArray?.cards?.[0];
+  const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
+  const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
+  const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
 
   const features1LeadTextSection = sectionsAsArray?.leadText?.[1];
   const features2LeadTextSection = sectionsAsArray?.leadText?.[2];
@@ -156,6 +163,41 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           />
         </div>
       )}
+      {sectionsAsArray?.cards?.[1]?.cards?.length && (
+        <RelatedCarousel
+          cards={sectionsAsArray?.cards?.[1]?.cards || []}
+          title={sectionsAsArray?.cards?.[1]?.name || ''}
+          className="blog-carousel"
+          renderNewPagination
+        >
+          <RouterLink
+            link={{
+              href: '/guides/cars',
+              label: 'Learn About Electric Cars',
+            }}
+            className="button"
+            withoutDefaultClassName
+            classNames={{
+              color: 'primary',
+              solid: true,
+              size: 'regular',
+            }}
+          >
+            <div className="button--inner">Learn About Electric Cars</div>
+          </RouterLink>
+        </RelatedCarousel>
+      )}
+      {tiles && (
+        <WhyLeaseWithVanaramaTiles
+          tiles={tiles}
+          title={tilesTitle || ''}
+          titleTag={tilesTitleTag}
+        />
+      )}
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.genericPage.metaData && (
         <>
           <Head
