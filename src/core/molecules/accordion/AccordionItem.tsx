@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { toDataAbTestIdFormat } from '../../../utils/helpers';
 import AccordionHeading from './AccordionHeading';
 import RouterLink from '../../../components/RouterLink';
+import { IBaseProps } from "core/interfaces/base";
 
 export interface IAccordionItem {
   id: number | string;
@@ -11,12 +12,12 @@ export interface IAccordionItem {
   children?: React.ReactNode;
 }
 
-interface IProps {
+interface IProps extends IBaseProps {
   item: IAccordionItem;
   dataAbTestId?: string;
 }
 
-const AccordionItem: React.FC<IProps> = ({ item, dataAbTestId }) => {
+const AccordionItem: React.FC<IProps> = ({ item, dataAbTestId, className }) => {
   const [setActive, setActiveState] = useState(false);
 
   const toggleAccordion = () => {
@@ -26,7 +27,7 @@ const AccordionItem: React.FC<IProps> = ({ item, dataAbTestId }) => {
   return (
     <li
       key={item.id}
-      className={cx('accordion-item', {
+      className={cx('accordion-item', className, {
         'accordion-item--active': setActive,
       })}
       data-testid={setActive ? 'accordion-item--active' : 'accordion-item'}

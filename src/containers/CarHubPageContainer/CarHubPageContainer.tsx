@@ -6,6 +6,7 @@ import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
+import AccordionItem from 'core/molecules/accordion/AccordionItem';
 import Head from '../../components/Head/Head';
 import { IPageWithData } from '../../types/common';
 import {
@@ -121,6 +122,27 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const features1 = sectionsAsArray?.featured?.slice(0, 5);
   const features2 = sectionsAsArray?.featured?.slice(5);
 
+  const manufacturers = sectionsAsArray?.accordion?.[0]?.accordionEntries?.[0]?.entryBody?.split(
+    /\n\n/,
+  );
+  const manufacturersList = manufacturers?.map(manufacture => {
+    const splitedManufacture = manufacture.split(']');
+    const title = splitedManufacture[0].slice(1);
+    const link = splitedManufacture[1].slice(
+      1,
+      splitedManufacture[1].length - 1,
+    );
+
+    return (
+      <div key={title || ''}>
+        <RouterLink
+          link={{ href: link || '', label: title || '' }}
+          classNames={{ color: 'black', size: 'small' }}
+        />
+      </div>
+    );
+  });
+
   return (
     <>
       {features1LeadTextSection &&
@@ -187,6 +209,20 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           </RouterLink>
         </RelatedCarousel>
       )}
+
+      {manufacturers && (
+        <section className="row: full-width accordion">
+          <AccordionItem
+            item={{
+              id: 1,
+              title: 'Manufacturers',
+              children: manufacturersList,
+            }}
+            className="bordered"
+          />
+        </section>
+      )}
+
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}
