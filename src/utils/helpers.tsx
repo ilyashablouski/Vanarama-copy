@@ -431,6 +431,7 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
   CAR_HUB_REDESIGN = 'DIG-9034',
+  BC_SESSION_ID_DELAY = 'DIG-9132',
 }
 
 function isFeatureFlagEnabled(
@@ -469,3 +470,7 @@ export function isEditPersonalInformationFeatureFlagEnabled(
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.EDIT_PERSONAL_INFORMATION);
 }
+
+export const isBCSessionIDDelayFeatureFlagEnabled = () => {
+  return Cookies.get(FeatureFlags.BC_SESSION_ID_DELAY) === '1';
+};
