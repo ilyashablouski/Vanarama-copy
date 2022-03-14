@@ -1,9 +1,11 @@
-import React, { memo, FC } from 'react';
+import React, { memo, FC, useMemo } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Heading from 'core/atoms/heading';
 import TrustPilot from 'core/molecules/trustpilot';
 import ReactMarkdown from 'react-markdown/with-html';
 import AccordionItem from 'core/molecules/accordion/AccordionItem';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Accordion from 'core/molecules/accordion';
 import Head from '../../components/Head/Head';
 import { IPageWithData } from '../../types/common';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -14,6 +16,8 @@ import HeadingSection from '../../components/HeadingSection';
 import RouterLink from '../../components/RouterLink';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import RelatedCarousel from '../../components/RelatedCarousel';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { accordionItemsMapper } from './helpers';
 import FeaturedSection from '../../components/FeaturedSection';
 
 type IProps = IPageWithData<{
@@ -27,6 +31,15 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
   const tilesTitle = sectionsAsArray?.tiles?.[0]?.tilesTitle;
   const tilesTitleTag = sectionsAsArray?.tiles?.[0]?.titleTag;
+
+  const accordionFAQs = useMemo(
+    () =>
+      accordionItemsMapper(
+        sectionsAsArray?.faqs?.[0]?.questionSets?.[0]?.questionAnswers || [],
+      ),
+    [sectionsAsArray?.faqs],
+  );
+  const accordionTitle = sectionsAsArray?.faqs?.[0]?.questionSets?.[0]?.title;
 
   const features1LeadTextSection = sectionsAsArray?.leadText?.[1];
   const features2LeadTextSection = sectionsAsArray?.leadText?.[2];
@@ -97,6 +110,20 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
 
       {features2 &&
         features2?.map(featured => <FeaturedSection featured={featured} />)}
+
+      <LazyLoadComponent
+        visibleByDefault={isServerRenderOrAppleDevice}
+        placeholder={<span className="-d-block -h-300" />}
+      >
+        <div className="row:bg-white">
+          <div className="tile--accordion">
+            <Heading size="large" color="black">
+              {accordionTitle}
+            </Heading>
+            <Accordion items={accordionFAQs || []} />
+          </div>
+        </div>
+      </LazyLoadComponent>
 
       {sectionsAsArray?.cards?.[1]?.cards?.length && (
         <RelatedCarousel
