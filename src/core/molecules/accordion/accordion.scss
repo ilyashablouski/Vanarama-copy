@@ -10,12 +10,54 @@
   width: 100%;
   background: $white;
 
+  &.full-width {
+    max-width: 100%;
+  }
+
   &-item {
     transition: all $duration-small $transition-soft;
     overflow: visible;
 
     &:not(:first-child) {
       border-top: 1px solid $border-color;
+    }
+
+    &--active.bordered .accordion--content {
+      display: grid;
+    }
+
+    &.bordered {
+      border: 2px solid #CDD6DE;
+      border-radius: 5px;
+
+      & .accordion--content {
+        border-top: 2px solid #CDD6DE;
+        grid-template-columns: repeat(6, 1fr);
+        margin-top: 0;
+
+        @include tablet {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include mobile {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      & .accordion--title {
+        text-align: center;
+        font-weight: 600;
+
+        & .text {
+          font-size: 18px;
+        }
+      }
+
+      & a {
+        color: #44576A;
+        font-size: 18px;
+        line-height: 35px;
+      }
     }
   }
 

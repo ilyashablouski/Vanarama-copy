@@ -2,6 +2,8 @@ import React, { memo, FC } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Heading from 'core/atoms/heading';
 import TrustPilot from 'core/molecules/trustpilot';
+import ReactMarkdown from 'react-markdown/with-html';
+import AccordionItem from 'core/molecules/accordion/AccordionItem';
 import Head from '../../components/Head/Head';
 import { IPageWithData } from '../../types/common';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -35,6 +37,9 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const features2 = sectionsAsArray?.featured?.filter(
     featured => featured?.link,
   );
+
+  const manufacturers =
+    sectionsAsArray?.accordion?.[0]?.accordionEntries?.[0]?.entryBody;
 
   return (
     <>
@@ -97,6 +102,7 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
         <RelatedCarousel
           cards={sectionsAsArray?.cards?.[1]?.cards || []}
           title={sectionsAsArray?.cards?.[1]?.name || ''}
+          description={sectionsAsArray?.cards?.[1]?.description}
           className="blog-carousel"
           renderNewPagination
         >
@@ -117,6 +123,22 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           </RouterLink>
         </RelatedCarousel>
       )}
+
+      {manufacturers && (
+        <section className="row: full-width accordion">
+          <AccordionItem
+            item={{
+              id: 1,
+              title: 'Manufacturers',
+              children: (
+                <ReactMarkdown allowDangerousHtml source={manufacturers} />
+              ),
+            }}
+            className="bordered"
+          />
+        </section>
+      )}
+
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}
