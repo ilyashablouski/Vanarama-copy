@@ -25,7 +25,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
@@ -124,10 +124,9 @@ const Page: NextPage<IProps> = ({
   }, [router.query.dynamicParam]);
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="vans-search-page"
       isServer={isServer}
-      isCarSearch={false}
       isManufacturerPage={
         pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
       }
