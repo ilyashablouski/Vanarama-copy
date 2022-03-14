@@ -171,6 +171,7 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
         <RelatedCarousel
           cards={sectionsAsArray?.cards?.[1]?.cards || []}
           title={sectionsAsArray?.cards?.[1]?.name || ''}
+          description={sectionsAsArray?.cards?.[1]?.description}
           className="blog-carousel"
           renderNewPagination
         >
