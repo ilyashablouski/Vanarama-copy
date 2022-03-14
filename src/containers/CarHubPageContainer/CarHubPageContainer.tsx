@@ -20,11 +20,6 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { accordionItemsMapper } from './helpers';
 import FeaturedSection from '../../components/FeaturedSection';
 
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-
-
 type IProps = IPageWithData<{
   data: GenericPageQuery;
   dataUiTestId?: string;
