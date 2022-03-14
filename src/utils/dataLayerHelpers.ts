@@ -27,6 +27,7 @@ import { getStoredPersonEmail } from '../gql/storedPersonEmail';
 import { getStoredPersonUuid } from '../gql/storedPersonUuid';
 import { Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
+import { isBCSessionIDDelayFeatureFlagEnabled } from './helpers';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -296,24 +297,39 @@ export const pushPageData = async ({
     };
   }
 
-  const MAX_NUMBER_OF_ATTEMPTS = 3;
+  if (isBCSessionIDDelayFeatureFlagEnabled()) {
+    const MAX_NUMBER_OF_ATTEMPTS = 3;
 
-  function delayedPushDetails() {
-    let attemptNumber = 0;
-    const intervalID = setInterval(() => {
-      const blueConicCookie = Cookies.get('BCSessionID');
-      attemptNumber += 1;
-      if (
-        typeof blueConicCookie !== 'undefined' ||
-        attemptNumber === MAX_NUMBER_OF_ATTEMPTS
-      ) {
-        pushDetailsAfterCheckBCUID();
-        clearInterval(intervalID);
-      }
-    }, 100);
-  }
+    const pushDetailsAfterCheckBCUID = () => {
+      pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
+      pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
+      pushDetail('deviceType', getDeviceType(), data);
+      pushDetail(
+        'visitorEmail',
+        personEmail ? sha256(personEmail) : 'undefined',
+        data,
+      );
 
-  function pushDetailsAfterCheckBCUID() {
+      window.dataLayer.push(data);
+    };
+
+    const delayedPushDetails = () => {
+      let attemptNumber = 0;
+      const intervalID = setInterval(() => {
+        const blueConicCookie = Cookies.get('BCSessionID');
+        attemptNumber += 1;
+        if (
+          typeof blueConicCookie === 'undefined' ||
+          attemptNumber === MAX_NUMBER_OF_ATTEMPTS
+        ) {
+          pushDetailsAfterCheckBCUID();
+          clearInterval(intervalID);
+        }
+      }, 100);
+    };
+
+    delayedPushDetails();
+  } else {
     pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
     pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
     pushDetail('deviceType', getDeviceType(), data);
@@ -322,11 +338,9 @@ export const pushPageData = async ({
       personEmail ? sha256(personEmail) : 'undefined',
       data,
     );
+
+    window.dataLayer.push(data);
   }
-
-  delayedPushDetails();
-
-  window.dataLayer.push(data);
 };
 
 const getProductData = ({
