@@ -1,10 +1,10 @@
 import cx from 'classnames';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { IBaseProps } from 'core/interfaces/base';
 import { toDataAbTestIdFormat } from '../../../utils/helpers';
 import AccordionHeading from './AccordionHeading';
 import RouterLink from '../../../components/RouterLink';
-import { IBaseProps } from "core/interfaces/base";
 
 export interface IAccordionItem {
   id: number | string;

@@ -122,26 +122,8 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const features1 = sectionsAsArray?.featured?.slice(0, 5);
   const features2 = sectionsAsArray?.featured?.slice(5);
 
-  const manufacturers = sectionsAsArray?.accordion?.[0]?.accordionEntries?.[0]?.entryBody?.split(
-    /\n\n/,
-  );
-  const manufacturersList = manufacturers?.map(manufacture => {
-    const splitedManufacture = manufacture.split(']');
-    const title = splitedManufacture[0].slice(1);
-    const link = splitedManufacture[1].slice(
-      1,
-      splitedManufacture[1].length - 1,
-    );
-
-    return (
-      <div key={title || ''}>
-        <RouterLink
-          link={{ href: link || '', label: title || '' }}
-          classNames={{ color: 'black', size: 'small' }}
-        />
-      </div>
-    );
-  });
+  const manufacturers =
+    sectionsAsArray?.accordion?.[0]?.accordionEntries?.[0]?.entryBody;
 
   return (
     <>
@@ -216,7 +198,9 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
             item={{
               id: 1,
               title: 'Manufacturers',
-              children: manufacturersList,
+              children: (
+                <ReactMarkdown allowDangerousHtml source={manufacturers} />
+              ),
             }}
             className="bordered"
           />
