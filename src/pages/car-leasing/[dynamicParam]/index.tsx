@@ -24,7 +24,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import {
   rangeList,
   rangeListVariables,
@@ -129,7 +129,7 @@ const Page: NextPage<IProps> = ({
   }
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
