@@ -6,6 +6,7 @@ import Media from 'core/atoms/media';
 import ImageV2 from 'core/atoms/image/ImageV2';
 import ReactMarkdown from 'react-markdown/with-html';
 import dynamic from 'next/dynamic';
+import AccordionItem from 'core/molecules/accordion/AccordionItem';
 import Head from '../../components/Head/Head';
 import { IPageWithData } from '../../types/common';
 import {
@@ -121,6 +122,9 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
   const features1 = sectionsAsArray?.featured?.slice(0, 5);
   const features2 = sectionsAsArray?.featured?.slice(5);
 
+  const manufacturers =
+    sectionsAsArray?.accordion?.[0]?.accordionEntries?.[0]?.entryBody;
+
   return (
     <>
       {features1LeadTextSection &&
@@ -187,6 +191,22 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
           </RouterLink>
         </RelatedCarousel>
       )}
+
+      {manufacturers && (
+        <section className="row: full-width accordion">
+          <AccordionItem
+            item={{
+              id: 1,
+              title: 'Manufacturers',
+              children: (
+                <ReactMarkdown allowDangerousHtml source={manufacturers} />
+              ),
+            }}
+            className="bordered"
+          />
+        </section>
+      )}
+
       {tiles && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles}
