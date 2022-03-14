@@ -261,22 +261,6 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         </Formgroup>
       </Formgroup>
 
-      <Formgroup
-        controlId="monthlyAmountBeingReplaced"
-        hint="Your Current Monthly Finance Payment"
-        error={errors.monthlyAmountBeingReplaced?.message?.toString()}
-      >
-        <TextInput
-          prefix="£"
-          dataTestId="sole-trader-company-details_monthly-amount-being-replaced"
-          id="monthly-amount-being-replaced"
-          name="monthlyAmountBeingReplaced"
-          ref={register(
-            annualValidator('Please fill in monthly amount being replaced'),
-          )}
-        />
-      </Formgroup>
-
       <Button
         color="primary"
         className="-mb-500"

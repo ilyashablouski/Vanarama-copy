@@ -88,10 +88,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     await waitFor(() =>
       expect(screen.getByTestId('company-details_heading')).toBeVisible(),
     );
-
-    expect(
-      screen.getByText('Please fill in monthly amount being replaced'),
-    ).toBeVisible();
   });
 
   it('should correctly submit form', async () => {
@@ -146,14 +142,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     );
     fireEvent.input(
       screen.getByTestId('sole-trader-company-details_annual-expenses'),
-      {
-        target: { value: '123' },
-      },
-    );
-    fireEvent.input(
-      screen.getByTestId(
-        'sole-trader-company-details_monthly-amount-being-replaced',
-      ),
       {
         target: { value: '123' },
       },
