@@ -19,13 +19,20 @@ import RelatedCarousel from '../../components/RelatedCarousel';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { accordionItemsMapper } from './helpers';
 import FeaturedSection from '../../components/FeaturedSection';
+import { filterList as IFilterList } from '../../../generated/filterList';
+import CarHubHeroContainer from './CarHubHeroContainer';
 
 type IProps = IPageWithData<{
   data: GenericPageQuery;
   dataUiTestId?: string;
+  searchPodCarsData: IFilterList;
 }>;
 
-const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
+const CarHubPageContainer: FC<IProps> = ({
+  data,
+  dataUiTestId,
+  searchPodCarsData,
+}) => {
   const { sectionsAsArray } = data?.genericPage;
   const cards = sectionsAsArray?.cards?.[0];
   const tiles = sectionsAsArray?.tiles?.[0]?.tiles;
@@ -56,6 +63,11 @@ const CarHubPageContainer: FC<IProps> = ({ data, dataUiTestId }) => {
 
   return (
     <>
+      <CarHubHeroContainer
+        sectionsAsArray={sectionsAsArray}
+        searchPodCarsData={searchPodCarsData}
+      />
+
       {features1LeadTextSection && (
         <HeadingSection
           titleTag={features1LeadTextSection?.titleTag}
