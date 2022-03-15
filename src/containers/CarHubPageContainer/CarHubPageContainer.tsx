@@ -15,6 +15,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Accordion from 'core/molecules/accordion';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import Choiceboxes from 'core/atoms/choiceboxes';
+import dynamic from 'next/dynamic';
 import Head from '../../components/Head/Head';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
@@ -40,6 +41,11 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
 import VehicleCard from '../../components/VehicleCard/VehicleCard';
 import EligibilityCheckerComponent from './EligibilityCheckerComponent';
+import Skeleton from '../../components/Skeleton';
+
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps extends ICarsPageOffersData {
   data: GenericPageQuery;
@@ -125,6 +131,17 @@ const CarHubPageContainer: FC<IProps> = ({
       </section>
 
       <div className="row:bg-lighter">
+        <Heading size="large" color="black" tag="h2" className="-a-center">
+          Car Leasing Hot Offers
+        </Heading>
+        <Text
+          className="-justify-content-row -mb-400"
+          tag="p"
+          size="regular"
+          color="darker"
+        >
+          Find the best deal on your brand new car.
+        </Text>
         <section className="row:cards-3col">
           <Choiceboxes
             className="-cols-2"
