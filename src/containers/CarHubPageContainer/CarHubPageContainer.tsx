@@ -87,6 +87,8 @@ const CarHubPageContainer: FC<IProps> = ({
   );
   const accordionTitle = sectionsAsArray?.faqs?.[0]?.questionSets?.[0]?.title;
 
+  const eligibilityBlockText = sectionsAsArray?.leadText?.[0];
+
   const features1LeadTextSection = sectionsAsArray?.leadText?.[1];
   const features2LeadTextSection = sectionsAsArray?.leadText?.[2];
 
@@ -108,6 +110,14 @@ const CarHubPageContainer: FC<IProps> = ({
 
   return (
     <>
+      {eligibilityBlockText && (
+        <HeadingSection
+          titleTag={eligibilityBlockText.titleTag}
+          header={eligibilityBlockText.heading}
+          description={eligibilityBlockText.description}
+          dataUiTestId="car-leasing-page_heading-section"
+        />
+      )}
       <section className="row:eligibility-checker-cta">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <EligibilityCheckerComponent />
