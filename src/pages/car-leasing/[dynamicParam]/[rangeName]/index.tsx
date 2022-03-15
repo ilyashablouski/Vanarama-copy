@@ -14,7 +14,7 @@ import {
 } from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
-import SearchPageContainer from '../../../../containers/SearchPageContainer';
+import { RangeSearchContainer } from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
   RESULTS_PER_REQUEST,
@@ -125,7 +125,7 @@ const Page: NextPage<IProps> = ({
   }
 
   return (
-    <SearchPageContainer
+    <RangeSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
