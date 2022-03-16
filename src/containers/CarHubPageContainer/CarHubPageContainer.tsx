@@ -42,6 +42,8 @@ import useLeaseType from '../../hooks/useLeaseType';
 import VehicleCard from '../../components/VehicleCard/VehicleCard';
 import EligibilityCheckerComponent from './EligibilityCheckerComponent';
 import Skeleton from '../../components/Skeleton';
+import { filterList as IFilterList } from '../../../generated/filterList';
+import CarHubHeroContainer from './CarHubHeroContainer';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -52,11 +54,13 @@ interface IProps extends ICarsPageOffersData {
   dataUiTestId?: string;
   serviceBanner?: IServiceBanner;
   pageType: PageTypeEnum.DEFAULT;
+  searchPodCarsData: IFilterList;
 }
 
 const CarHubPageContainer: FC<IProps> = ({
   data,
   dataUiTestId,
+  searchPodCarsData,
   productsCar,
   vehicleListUrlData,
 }) => {
@@ -116,6 +120,10 @@ const CarHubPageContainer: FC<IProps> = ({
 
   return (
     <>
+      <CarHubHeroContainer
+        sectionsAsArray={sectionsAsArray}
+        searchPodCarsData={searchPodCarsData}
+      />
       {eligibilityBlockText && (
         <HeadingSection
           titleTag={eligibilityBlockText.titleTag}
