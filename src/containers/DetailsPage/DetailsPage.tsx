@@ -275,6 +275,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleValue = useMemo(() => data?.vehicleDetails?.vehicleValue, [
     data,
   ]);
+  const pdpVehicleType = pdpContentData?.pdpContent?.vehicleType?.[0];
 
   useEffect(() => {
     setSessionStorage('vehicleValue', vehicleValue);
@@ -298,7 +299,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   useEffect(() => {
     async function pushAnalytics() {
-      await pushPageData({ pathname: router.pathname });
+      await pushPageData({
+        router,
+        pdpVehicleType,
+      });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
         document.title,
