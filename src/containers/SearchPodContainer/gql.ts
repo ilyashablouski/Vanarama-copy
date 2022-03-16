@@ -50,12 +50,14 @@ export function useFilterList(
   filters = {},
   skip = false,
   fuelTypes?: string[],
+  bodyStyles?: string[],
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery(GET_SEARCH_POD_DATA, {
     variables: {
       vehicleTypes,
       onOffer,
+      bodyStyles,
       ...filters,
       fuelTypes,
     },
