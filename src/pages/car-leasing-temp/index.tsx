@@ -25,10 +25,21 @@ interface IProps extends ICarsPageOffersData {
   serviceBanner?: IServiceBanner;
 }
 
-export const CarsPage: NextPage<IProps> = ({ data: encodedData }) => {
+export const CarsPage: NextPage<IProps> = ({
+  data: encodedData,
+  vehicleListUrlData: vehicleListUrlDataEncoded,
+  productsCar,
+}) => {
   const decodedData: GenericPageQuery = decodeData(encodedData);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
+
   return (
-    <CarHubPageContainer data={decodedData} pageType={PageTypeEnum.DEFAULT} />
+    <CarHubPageContainer
+      data={decodedData}
+      pageType={PageTypeEnum.DEFAULT}
+      vehicleListUrlData={vehicleListUrlData}
+      productsCar={productsCar}
+    />
   );
 };
 

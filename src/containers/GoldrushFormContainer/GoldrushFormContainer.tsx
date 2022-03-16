@@ -70,7 +70,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   };
   async function pushAnalytics(values: IGoldrushFromValues) {
     await savePersonDataInLocalStorage(values);
-    await pushPageData({ pathname: router.pathname });
+    await pushPageData({ router });
   }
 
   const goldrushForm = () => (

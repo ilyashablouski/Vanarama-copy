@@ -13,6 +13,10 @@ import RouterLink from '../RouterLink';
 import Skeleton from '../Skeleton';
 import Pagination from '../BlogCarousel/Pagination';
 
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={2} />,
+});
+
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
 });
@@ -31,6 +35,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 interface IProps extends IBaseProps {
   cards: (ICarouselCard | null)[] | null;
   title: Nullable<string>;
+  description?: Nullable<string>;
   renderNewPagination?: boolean;
   className?: string;
   children?: React.ReactNode;
@@ -89,6 +94,7 @@ const RelatedCarousel = ({
   className,
   dataUiTestId,
   children,
+  description,
 }: IProps) => {
   const resultCards = useMemo(
     () => cards?.filter(item => !!item) as ICarouselCard[],
@@ -110,6 +116,18 @@ const RelatedCarousel = ({
             >
               {title}
             </Heading>
+          )}
+          {description && (
+            <Text
+              tag="span"
+              size="small"
+              color="darker"
+              dataUiTestId={
+                dataUiTestId ? `${dataUiTestId}_description` : undefined
+              }
+            >
+              {description}
+            </Text>
           )}
           <CarouselSwiper
             countItems={resultCards.length}
