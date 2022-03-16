@@ -35,14 +35,19 @@ interface IProps extends ICarsPageOffersData {
 export const CarsPage: NextPage<IProps> = ({
   data: encodedData,
   searchPodCarsData: encodedSearchPodCarsData,
+  vehicleListUrlData: vehicleListUrlDataEncoded,
+  productsCar,
 }) => {
   const decodedData: GenericPageQuery = decodeData(encodedData);
   const searchPodCarsData = decodeData(encodedSearchPodCarsData);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
   return (
     <CarHubPageContainer
       data={decodedData}
       pageType={PageTypeEnum.DEFAULT}
       searchPodCarsData={searchPodCarsData}
+      vehicleListUrlData={vehicleListUrlData}
+      productsCar={productsCar}
     />
   );
 };
