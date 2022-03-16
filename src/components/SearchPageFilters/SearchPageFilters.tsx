@@ -21,7 +21,10 @@ import {
 } from '../../containers/FiltersContainer/helpers';
 import Skeleton from '../Skeleton';
 import { useFilterList } from '../../containers/SearchPodContainer/gql';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  PdpVehicleType,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   manufacturerHandler,
   modelHandler,
@@ -151,6 +154,7 @@ const SearchPageFilters = ({
     undefined,
     !!preLoadFilters,
     filterFuelTypes,
+    isPickups && isSpecialOffers ? [PdpVehicleType.Pickup] : undefined,
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
