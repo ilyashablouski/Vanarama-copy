@@ -2,7 +2,7 @@
 
 import Cookies from 'js-cookie';
 import { sha256 } from 'js-sha256';
-import { NextRouter } from 'next/router';
+import { NextRouter, Router, SingletonRouter } from 'next/router';
 import { routerItems } from '../core/atoms/breadcrumbs-v2/helpers';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
@@ -17,7 +17,7 @@ import {
 } from '../../generated/globalTypes';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
-import { PAGES } from './pageTypes';
+import { PAGES, SITE_SECTIONS } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
 import { CurrencyCodeEnum } from '../../entities/global';
@@ -27,6 +27,7 @@ import { getStoredPersonEmail } from '../gql/storedPersonEmail';
 import { getStoredPersonUuid } from '../gql/storedPersonUuid';
 import { Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
+import { isBCSessionIDDelayFeatureFlagEnabled } from './helpers';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -98,9 +99,10 @@ interface IPageDataLayer {
 }
 
 interface IPageData {
-  pathname?: string;
+  router?: Router | SingletonRouter | NextRouter;
   pageType?: string;
   siteSection?: string;
+  pdpVehicleType?: Nullish<string>;
 }
 
 interface ICategory {
@@ -257,9 +259,10 @@ export const checkForGtmDomEvent = (callback: () => void) => {
 };
 
 export const pushPageData = async ({
-  pathname,
+  router,
   pageType,
   siteSection,
+  pdpVehicleType,
 }: IPageData) => {
   if (!window.dataLayer) {
     return;
@@ -271,6 +274,16 @@ export const pushPageData = async ({
     getStoredPersonEmail(client, 'no-cache'),
   ]);
   const personEmail = person?.emailAddresses?.[0]?.value || email;
+  const pathname = router?.pathname;
+  const isPdpOrSearchElectricSection = () => {
+    if (pdpVehicleType) {
+      return pdpVehicleType?.includes('Electric');
+    }
+    if (router?.query.fuelTypes) {
+      return router?.query.fuelTypes.includes('Electric');
+    }
+    return false;
+  };
 
   let data = {};
 
@@ -283,7 +296,9 @@ export const pushPageData = async ({
     }
     data = {
       pageType,
-      siteSection,
+      siteSection: isPdpOrSearchElectricSection()
+        ? SITE_SECTIONS.electric
+        : siteSection,
     };
   } else {
     const pageData = PAGES.find(pages =>
@@ -292,28 +307,45 @@ export const pushPageData = async ({
 
     data = {
       pageType: pageData?.pageType || 'undefined',
-      siteSection: pageData?.siteSection || 'undefined',
+      siteSection: isPdpOrSearchElectricSection()
+        ? SITE_SECTIONS.electric
+        : pageData?.siteSection || 'undefined',
     };
   }
 
-  const MAX_NUMBER_OF_ATTEMPTS = 3;
+  if (isBCSessionIDDelayFeatureFlagEnabled()) {
+    const MAX_NUMBER_OF_ATTEMPTS = 3;
 
-  function delayedPushDetails() {
-    let attemptNumber = 0;
-    const intervalID = setInterval(() => {
-      const blueConicCookie = Cookies.get('BCSessionID');
-      attemptNumber += 1;
-      if (
-        typeof blueConicCookie !== 'undefined' ||
-        attemptNumber === MAX_NUMBER_OF_ATTEMPTS
-      ) {
-        pushDetailsAfterCheckBCUID();
-        clearInterval(intervalID);
-      }
-    }, 100);
-  }
+    const pushDetailsAfterCheckBCUID = () => {
+      pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
+      pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
+      pushDetail('deviceType', getDeviceType(), data);
+      pushDetail(
+        'visitorEmail',
+        personEmail ? sha256(personEmail) : 'undefined',
+        data,
+      );
 
-  function pushDetailsAfterCheckBCUID() {
+      window.dataLayer.push(data);
+    };
+
+    const delayedPushDetails = () => {
+      let attemptNumber = 0;
+      const intervalID = setInterval(() => {
+        const blueConicCookie = Cookies.get('BCSessionID');
+        attemptNumber += 1;
+        if (
+          typeof blueConicCookie === 'undefined' ||
+          attemptNumber === MAX_NUMBER_OF_ATTEMPTS
+        ) {
+          pushDetailsAfterCheckBCUID();
+          clearInterval(intervalID);
+        }
+      }, 100);
+    };
+
+    delayedPushDetails();
+  } else {
     pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
     pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
     pushDetail('deviceType', getDeviceType(), data);
@@ -322,11 +354,9 @@ export const pushPageData = async ({
       personEmail ? sha256(personEmail) : 'undefined',
       data,
     );
+
+    window.dataLayer.push(data);
   }
-
-  delayedPushDetails();
-
-  window.dataLayer.push(data);
 };
 
 const getProductData = ({

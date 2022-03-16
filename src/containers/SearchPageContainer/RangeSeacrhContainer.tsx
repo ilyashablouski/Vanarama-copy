@@ -6,16 +6,24 @@ import {
   useMemo,
   useState,
 } from 'react';
-import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
+import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
+import SearchPageMarkdown from './components/SearchPageMarkdown';
+import ReadMoreBlock from './sections/ReadMoreBlock';
+import TopCategoryInfoBlock from './sections/TopCategoryInfoBlock';
+import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
+import ResultsCount from './components/ResultsCount';
 import SortOrder from '../../components/SortOrder';
 import {
+  bodyUrlsSlugMapper,
   buildRewriteRoute,
   createInitialVehiclesVariables,
   createProductCacheVariables,
@@ -29,6 +37,7 @@ import {
   getPartnershipTitle,
   getValueFromStorage,
   isPreviousPage,
+  NEW_RANGE_SLUGS,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
   sortObjectGenerator,
@@ -43,39 +52,37 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import ResultsContainer from './sections/ResultsContainer';
-import Skeleton from '../../components/Skeleton';
+import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
+import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { getPartnerProperties } from '../../utils/partnerProperties';
+import NewRangeContent from './sections/NewRangeContent';
+import RelatedCarousel from '../../components/RelatedCarousel';
 import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
-import { globalColors } from '../../utils/colors';
+import useSortOrder from '../../hooks/useSortOrder';
+import useLeaseType from '../../hooks/useLeaseType';
+import { rangeList } from '../../../generated/rangeList';
+import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
+import { IFilters } from '../FiltersContainer/interfaces';
 import { TColor } from '../../types/color';
+import { getSectionsData } from '../../utils/getSectionsData';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
-import { IFilters } from '../FiltersContainer/interfaces';
-import useSortOrder from '../../hooks/useSortOrder';
+import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { getRangesList, useVehiclesList } from './gql';
 import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
-import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
-import useLeaseType from '../../hooks/useLeaseType';
-import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
-import { ISearchPageContainerProps } from './interfaces';
-import ResultsCount from './components/ResultsCount';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { rangeList } from '../../../generated/rangeList';
-import { getSectionsData } from '../../utils/getSectionsData';
-import ReadMoreBlock from './sections/ReadMoreBlock';
-import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
-import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import RelatedCarousel from '../../components/RelatedCarousel';
+import { globalColors } from '../../utils/colors';
+import Skeleton from '../../components/Skeleton';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -88,18 +95,27 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const SearchContainer: FC<ISearchPageContainerProps> = ({
+const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
   isCarSearch = false,
-  isPickups,
-  pageData: pageDataSSR,
+  isRangePage,
+  isModelPage,
   metaData: metaDataSSR,
+  pageData: pageDataSSR,
   preLoadVehiclesList,
-  preLoadResponseCapIds,
   preLoadProductCardsData,
+  preLoadResponseCapIds,
+  preLoadFiltersData,
+  preLoadTopOffersList,
+  preLoadTopOffersCardsData,
+  preloadBodyStyleList,
+  preloadManufacturer,
+  preloadRange,
+  newRangePageSlug,
+  defaultSort,
 }) => {
-  const { savedSortOrder, saveSortOrder } = useSortOrder();
+  const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
@@ -112,6 +128,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
+  const [shouldUpdateTopOffers, setShouldUpdateTopOffers] = useState(false);
   const [shouldUpdateCache, setShouldUpdateCache] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo?.hasNextPage ?? true,
   );
@@ -157,12 +174,24 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
+  const isNewPage = useMemo(
+    () => !!newRangePageSlug && NEW_RANGE_SLUGS.includes(newRangePageSlug),
+    [newRangePageSlug],
+  );
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
     [pageData],
   );
   const carousel: CarouselData = useMemo(
     () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
+    [pageData],
+  );
+  const newCarousel: CarouselData = useMemo(
+    () =>
+      getSectionsData(
+        ['sectionsAsArray', 'carousel', '0'],
+        pageData?.genericPage,
+      ),
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -176,19 +205,27 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
         : getPartnerProperties()?.fuelTypes,
     [filtersData],
   );
-  const shouldRenderCheckbox = useMemo(() => !isPartnershipActive, [
-    isPartnershipActive,
-  ]);
+  const shouldRenderCheckbox = useMemo(
+    () => !isRangePage && !isModelPage && !isPartnershipActive,
+    [isRangePage, isModelPage, isPartnershipActive],
+  );
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
+  const isNewRangeCarousel = useMemo(() => !!newCarousel?.cards?.length, [
+    newCarousel?.cards?.length,
+  ]);
   const manualBodyStyle = useMemo(() => {
-    if (isPickups) {
-      return ['Pickup'];
+    if (isModelPage) {
+      return [
+        bodyUrlsSlugMapper[
+          router.query.bodyStyles as keyof typeof bodyUrlsSlugMapper
+        ] ?? router.query.bodyStyles,
+      ];
     }
-    return [''];
-  }, [isPickups]);
 
+    return [''];
+  }, [isModelPage, router.query]);
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],
@@ -227,7 +264,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isSpecialOffers || null,
+    isRangePage ? null : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -245,7 +282,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     },
     RESULTS_PER_REQUEST,
     lastCard,
-    isPickups ? manualBodyStyle : [],
+    isModelPage ? manualBodyStyle : [],
   );
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
@@ -323,7 +360,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     },
     RESULTS_PER_REQUEST,
     undefined,
-    isPickups ? manualBodyStyle : [],
+    isModelPage ? manualBodyStyle : [],
   );
 
   // new search with new filters
@@ -331,7 +368,13 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
 
-      const onOffer = isSpecialOffers || null;
+      let onOffer;
+      // set onOffer value to actual depend on page type
+      if (isRangePage || isModelPage) {
+        onOffer = null;
+      } else {
+        onOffer = isSpecialOffers || null;
+      }
       let fuelTypes;
       if (filters?.fuelTypes?.length > 0) {
         fuelTypes = filters.fuelTypes;
@@ -343,7 +386,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          isManualBodyStyle: isPickups,
+          isManualBodyStyle: isModelPage,
           onOffer: onOffer ?? null,
           filters,
           query: router.query,
@@ -362,7 +405,15 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
         const query = buildRewriteRoute(filters as IFilters);
         Object.entries(query).forEach(filter => {
           const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
+          if (
+            value?.length &&
+            !(isRangePage && (key === 'make' || key === 'rangeName')) &&
+            !(isPartnershipActive && key === 'fuelTypes') &&
+            !(
+              isModelPage &&
+              (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
+            )
+          ) {
             queryString.set(key, value as string);
           }
         });
@@ -386,9 +437,10 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
       filtersData,
       getVehicles,
       isCarSearch,
+      isModelPage,
       isPartnershipActive,
       isPersonal,
-      isPickups,
+      isRangePage,
       isSpecialOffers,
       isSpecialOffersOrder,
       manualBodyStyle,
@@ -454,8 +506,10 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     (entry: [string, string[]], filtersContainerData: IFilterList) =>
       tagArrayBuilderHelper(entry, filtersContainerData, {
         isPartnershipActive,
+        isRangePage,
+        isModelPage,
       }),
-    [isPartnershipActive],
+    [isModelPage, isPartnershipActive, isRangePage],
   );
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
@@ -479,7 +533,11 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     // prevent request with empty filters
     const queryLength = Object.keys(router?.query || {})?.length;
     // if it's simple search page with presave special offers param made new request for actual params
-    if (!queryLength && getValueFromStorage(false, isCarSearch)) {
+    if (
+      !queryLength &&
+      getValueFromStorage(false, isCarSearch) &&
+      !isRangePage
+    ) {
       // load vehicles
       getVehicles();
     }
@@ -491,9 +549,17 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && hasNextPage && shouldUpdateCache) {
+    if (
+      lastCard &&
+      hasNextPage &&
+      shouldUpdateCache &&
+      ((isRangePage && filtersData.rangeSlug) ||
+        (isModelPage && filtersData.rangeSlug))
+    ) {
       setShouldUpdateCache(false);
-      const isOnOffer = isSpecialOffers || null;
+      const isOnOffer = !(isRangePage || isModelPage)
+        ? isSpecialOffers || null
+        : null;
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
@@ -532,6 +598,8 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     shouldUpdateCache,
     hasNextPage,
     filtersData,
+    isRangePage,
+    isModelPage,
     sortOrder,
     isSpecialOffersOrder,
     isPersonal,
@@ -598,11 +666,11 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
       setPartnershipDescription(
-        getPartnershipDescription(partnerActive, isCarSearch, isPickups),
+        getPartnershipDescription(partnerActive, isCarSearch),
       );
-      setTitle(getPartnershipTitle(partnerActive, isCarSearch, isPickups));
+      setTitle(getPartnershipTitle(partnerActive, isCarSearch));
     }
-  }, [isCarSearch, isPickups]);
+  }, [isCarSearch]);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
   // Next doesn't call a ssr requests, this workaround should call request for page data on client side
@@ -647,9 +715,36 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
         pageData={pageData}
         partnershipDescription={partnershipDescription}
         isPartnershipActive={isPartnershipActive}
+        isNewPage={isNewPage}
       />
-      {featured && (
+      {pageData && isModelPage && (
+        <div className="row:text -columns">
+          <SearchPageMarkdown markdown={pageData?.genericPage.body} />
+        </div>
+      )}
+      {!(isNewPage && isRangePage) && featured && (
         <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+      )}
+      {isNewPage && isRangePage && (
+        <TopCategoryInfoBlock
+          dataUiTestId={`${dataUiTestId}_top-category-info`}
+          pageData={pageData}
+        />
+      )}
+      {isRangePage && (
+        <TopOffersContainer
+          dataUiTestId={`${dataUiTestId}_top-offers`}
+          isCarSearch={isCarSearch}
+          shouldForceUpdate={shouldUpdateTopOffers}
+          setShouldForceUpdate={setShouldUpdateTopOffers}
+          isPersonal={isPersonal}
+          isRangePage={isRangePage || false}
+          preLoadVehiclesList={preLoadTopOffersList}
+          preloadBodyStyleList={preloadBodyStyleList}
+          preLoadProductCardsData={preLoadTopOffersCardsData}
+          preloadManufacturer={preloadManufacturer}
+          preloadRange={preloadRange}
+        />
       )}
 
       {shouldRenderCheckbox && (
@@ -669,18 +764,23 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
             tagArrayBuilderHelper={tagArrayBuilder}
+            preLoadFilters={preLoadFiltersData}
             dataUiTestId={dataUiTestId}
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
                 isCarSearch={isCarSearch}
-                isPickups={isPickups}
+                isRangePage={isRangePage}
                 preSearchVehicleCount={totalCount}
+                isModelPage={isModelPage}
                 isPreloadList={!!preLoadVehiclesList}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
+                preLoadFilters={preLoadFiltersData}
                 dataUiTestId={dataUiTestId}
-                isSpecialOffers={isSpecialOffers || null}
+                isSpecialOffers={
+                  (isSpecialOffers && !(isRangePage || isModelPage)) || null
+                }
                 setIsSpecialOffers={setIsSpecialOffers}
                 {...innerProps}
               />
@@ -706,6 +806,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
               isCarSearch={isCarSearch}
               cardsData={cardsData}
               vehiclesList={vehiclesList}
+              isModelPage={isModelPage}
               customCTAColor={customCTAColor}
             />
           </div>
@@ -733,11 +834,22 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
       )}
       {pageData && (
         <>
-          {tiles?.tiles?.length && (
+          {!(isNewPage && isRangePage) && tiles?.tiles?.length && (
             <WhyLeaseWithVanaramaTiles
               tiles={tiles.tiles}
               title={tiles.tilesTitle || ''}
               titleTag={tiles.titleTag}
+            />
+          )}
+
+          {isNewPage && isRangePage && (
+            <NewRangeContent
+              newCarousel={newCarousel}
+              isNewPage={isNewPage}
+              isRangePage={isRangePage}
+              pageData={pageData}
+              isNewRangeCarousel={isNewRangeCarousel}
+              dataUiTestId={`${dataUiTestId}_new-range-content`}
             />
           )}
 
@@ -759,8 +871,9 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
+      {isNewPage && isRangePage && <ButtonBottomToTop />}
     </>
   );
 };
 
-export default SearchContainer;
+export default RangeSearchContainer;
