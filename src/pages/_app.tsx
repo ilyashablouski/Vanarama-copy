@@ -136,7 +136,9 @@ const MyApp: React.FC<ICustomAppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     async function pushAnalytics() {
-      await pushPageData({ pathname: router.pathname });
+      await pushPageData({
+        router,
+      });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
         document.title,

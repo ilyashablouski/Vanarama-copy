@@ -118,7 +118,7 @@ const Page: NextPage<IProps> = ({
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
-      pathname: router.pathname,
+      router,
     });
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
