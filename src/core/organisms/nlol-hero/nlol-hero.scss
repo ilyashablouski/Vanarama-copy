@@ -414,3 +414,75 @@
     }
   }
 }
+
+.cars-hub-hero {
+  &.row\:bg-hero {
+    padding-bottom: 30px!important;
+  }
+
+  & .cars-hub-hero--title {
+    color: #0A0D10;
+    font-size: 36px;
+    line-height: 42px;
+    font-family: $font-family-heading;
+    font-weight: normal;
+  }
+
+  & .cars-hub-hero--description {
+    position: relative;
+    padding-right: 165px;
+
+    & p {
+      font-size: 16px;
+      line-height: 24px;
+      color: #43576A;
+      text-transform: uppercase;
+      font-family: $font-family-body;
+      font-weight: bold;
+
+      &:first-child {
+        margin-bottom: 7px;
+      }
+    }
+
+    & h2 {
+      font-size: 28px;
+      line-height: 20px;
+      color: #F26500;
+    }
+
+    & a {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      font-size: 20px;
+      line-height: 26px;
+      padding: 9px 22px;
+      display: inline-block;
+
+      @include mobile {
+        position: static;
+        margin-top: 6px;
+      }
+    }
+
+    @include mobile {
+      padding-right: 0;
+    }
+  }
+
+  & .cars-hub-hero--term {
+    margin-top: 30px;
+
+    & p {
+      font-size: 10px;
+      line-height: 12px;
+      color: #43576A;
+      text-align: left;
+
+      @include mobile {
+        text-align: center;
+      }
+    }
+  }
+}
