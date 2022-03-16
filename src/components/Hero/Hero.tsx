@@ -46,6 +46,7 @@ const Hero: React.FC<IHeroProps> = ({
   isCustomSearchButtonLabel,
   className,
   dataUiTestId,
+  isCurve = true,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -114,9 +115,11 @@ const Hero: React.FC<IHeroProps> = ({
               from rendering as expected. This issue is happening when rehydrating on the client-side */}
           {renderHeroRight()}
         </div>
-        <div className="hero--decals">
-          <HeroCurve />
-        </div>
+        {isCurve && (
+          <div className="hero--decals">
+            <HeroCurve />
+          </div>
+        )}
       </div>
       {smallPrint || customCTALink ? (
         <div className="nlol-small-print-cta">
