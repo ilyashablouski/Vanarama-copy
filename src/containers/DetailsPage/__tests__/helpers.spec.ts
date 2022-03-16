@@ -301,7 +301,7 @@ describe('pdpVanType/pdpCarType', () => {
     details.vehicleConfigurationByCapId!.onOffer = false;
     expect(pdpCarType(details)).toEqual(PdpVehicleType.ElectricCar);
   });
-  it('should be return Pickup type', () => {
+  it('should be returned Van type', () => {
     expect(pdpVanType(details)).toEqual(PdpVehicleType.Van);
   });
 });
