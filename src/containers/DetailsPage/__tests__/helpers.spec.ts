@@ -304,6 +304,10 @@ describe('pdpVanType/pdpCarType', () => {
   it('should be returned Van type', () => {
     expect(pdpVanType(details)).toEqual(PdpVehicleType.Van);
   });
+  it('should be returned Pickup type', () => {
+    details.derivativeInfo!.name = 'Invincible X D/Cab Pick Up 2.8 D-4D Auto';
+    expect(pdpVanType(details)).toEqual(PdpVehicleType.Pickup);
+  });
 });
 
 describe('removeImacaColoursDuplications', () => {
