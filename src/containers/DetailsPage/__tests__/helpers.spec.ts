@@ -302,7 +302,7 @@ describe('pdpVanType/pdpCarType', () => {
     expect(pdpCarType(details)).toEqual(PdpVehicleType.ElectricCar);
   });
   it('should be return Pickup type', () => {
-    expect(pdpVanType(details)).toEqual(PdpVehicleType.Pickup);
+    expect(pdpVanType(details)).toEqual(PdpVehicleType.Van);
   });
 });
 
