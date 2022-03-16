@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
-import Hero, { HeroPrompt } from "../../components/Hero";
+import ReactMarkdown from 'react-markdown/with-html';
+import Icon from 'core/atoms/icon';
+import Hero from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { filterList as IFilterList } from '../../../generated/filterList';
 import { GenericPageQuery_genericPage_sectionsAsArray } from '../../../generated/GenericPageQuery';
-import ReactMarkdown from 'react-markdown/with-html';
-import Icon from "core/atoms/icon";
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
@@ -31,8 +31,11 @@ const CarHubHeroContainer: FC<IProps> = ({
 }) => {
   const heroSection = sectionsAsArray?.hero?.[0];
   const heroImage = heroSection?.image?.file;
+  const heroImageDetails = heroImage?.details.image;
   const heroBody = heroSection?.body || '';
   const heroTerms = heroSection?.heroTerms || '';
+  const title = heroSection?.title;
+  const heroCta = heroSection?.heroCta?.[0];
 
   return (
     <Hero
@@ -49,16 +52,14 @@ const CarHubHeroContainer: FC<IProps> = ({
           optimisedHost
           lazyLoad={false}
           className="cars-hub-hero--image"
-          width={heroImage?.details.image.width ?? 1710}
-          height={heroImage?.details.image.height ?? 1278}
+          width={heroImageDetails?.width ?? 1710}
+          height={heroImageDetails?.height ?? 1278}
           src={
             heroImage?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />
-        <h2 className="cars-hub-hero--title">
-          {sectionsAsArray?.hero?.[0]?.title}
-        </h2>
+        <h2 className="cars-hub-hero--title">{title}</h2>
         <div className="cars-hub-hero--description">
           <ReactMarkdown
             allowDangerousHtml
@@ -68,18 +69,18 @@ const CarHubHeroContainer: FC<IProps> = ({
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
-              paragraph: props => <Text {...props} tag="p" color="darker" className="foo" />,
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
           <RouterLink
             link={{
-              href: sectionsAsArray?.hero?.[0]?.heroCta?.[0]?.url || '',
-              label: sectionsAsArray?.hero?.[0]?.heroCta?.[0]?.text || '',
+              href: heroCta?.url || '',
+              label: heroCta?.text || '',
             }}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
           >
-            {sectionsAsArray?.hero?.[0]?.heroCta?.[0]?.text}{' '}
+            {heroCta?.text}{' '}
             <Icon
               icon={<ArrowForward />}
               className="-regular md hydrated"
