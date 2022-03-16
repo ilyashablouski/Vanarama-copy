@@ -35,7 +35,7 @@ export const SITE_SECTIONS = {
   cars: 'Cars',
   vans: 'Vans',
   pickUps: 'Pick-Ups',
-  electric: 'Electric',
+  electric: 'EV',
   wishlist: 'Wishlist',
   ecommerce: 'Ecommerce',
   insurance: 'Insurance',

@@ -35,7 +35,7 @@ import {
   setStoredWishlistVehiclesIds,
 } from '../gql/storedWishlistVehicleIds';
 
-export const getLocalWishlistState = async (client: ApolloClient<object>) =>
+export const getLocalWishlistState = (client: ApolloClient<object>) =>
   getStoredWishlistVehiclesIds(client).then(
     ids => (ids || []).filter(item => item !== null) as string[],
   );
@@ -53,67 +53,78 @@ export const isWished = (
     return configId === getVehicleConfigId(product);
   });
 
-export const initializeWishlistState = async (client: ApolloClient<object>) => {
-  let wishlistVehicleIds: Array<string>;
+const initializeEmptyWishlist = () => {
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistNoLongerAvailable: false,
+    wishlistInitialized: true,
+  });
+};
 
-  if (!isUserAuthenticated()) {
-    wishlistVehicleIds = await getLocalWishlistState(client);
-  } else {
-    const person = await getStoredPerson(client);
-    const savedWishlistVehicleIds = await client.query<
-      GetWishlistVehicleIds,
-      GetWishlistVehicleIdsVariables
+export const initializeWishlistState = async (client: ApolloClient<object>) => {
+  try {
+    let wishlistVehicleIds: Array<string>;
+
+    if (!isUserAuthenticated()) {
+      wishlistVehicleIds = await getLocalWishlistState(client);
+    } else {
+      const person = await getStoredPerson(client);
+      const savedWishlistVehicleIds = await client.query<
+        GetWishlistVehicleIds,
+        GetWishlistVehicleIdsVariables
+      >({
+        query: GET_WISHLIST_VEHICLE_IDS,
+        variables: {
+          partyUuid: person?.partyUuid || '',
+        },
+      });
+
+      wishlistVehicleIds = getWishlistVehicleIdsFromQuery(
+        savedWishlistVehicleIds,
+      );
+    }
+
+    if (!wishlistVehicleIds.length) {
+      initializeEmptyWishlist();
+      return;
+    }
+
+    /* fetch the configuration list of the vehicles
+       saved in the users wishlist */
+    const vehicleConfigList = await client.query<
+      GetVehicleConfigList,
+      GetVehicleConfigListVariables
     >({
-      query: GET_WISHLIST_VEHICLE_IDS,
+      query: GET_VEHICLE_CONFIG_LIST,
       variables: {
-        partyUuid: person?.partyUuid || '',
+        configIds: wishlistVehicleIds,
       },
     });
 
-    wishlistVehicleIds = getWishlistVehicleIdsFromQuery(
-      savedWishlistVehicleIds,
+    /* filter wished vehicles to remove ids
+       missing from config list / unpublished vehicles ids */
+    const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId =>
+      getVehicleConfigListFromQuery(vehicleConfigList).some(
+        vehicleConfiguration =>
+          vehicleConfiguration.configId === configId &&
+          vehicleConfiguration.published,
+      ),
     );
+
+    await setLocalWishlistState(
+      client,
+      wishlistVar({
+        ...wishlistVar(),
+        wishlistNoLongerAvailable:
+          resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
+        wishlistVehicleIds: resultWishlistVehicleIds,
+      }),
+    );
+  } catch (error) {
+    /* eslint-disable no-console */
+    console.error('[Wishlist initialization error]', error);
+    initializeEmptyWishlist();
   }
-
-  if (!wishlistVehicleIds.length) {
-    return wishlistVar({
-      ...wishlistVar(),
-      wishlistNoLongerAvailable: false,
-      wishlistInitialized: true,
-    });
-  }
-
-  /* fetch the configuration list of the vehicles
-     saved in the users wishlist */
-  const vehicleConfigList = await client.query<
-    GetVehicleConfigList,
-    GetVehicleConfigListVariables
-  >({
-    query: GET_VEHICLE_CONFIG_LIST,
-    variables: {
-      configIds: wishlistVehicleIds,
-    },
-  });
-
-  /* filter wished vehicles to remove ids
-     missing from config list / unpublished vehicles ids */
-  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId =>
-    getVehicleConfigListFromQuery(vehicleConfigList).some(
-      vehicleConfiguration =>
-        vehicleConfiguration.configId === configId &&
-        vehicleConfiguration.published,
-    ),
-  );
-
-  return setLocalWishlistState(
-    client,
-    wishlistVar({
-      ...wishlistVar(),
-      wishlistNoLongerAvailable:
-        resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
-      wishlistVehicleIds: resultWishlistVehicleIds,
-    }),
-  );
 };
 
 export const resetWishlistNoLongerAvailable = () => {
