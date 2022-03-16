@@ -70,7 +70,7 @@ export function setStoredWishlistVehiclesIds(
 ) {
   return client
     .mutate<SaveWishlistVehiclesIds, SaveWishlistVehiclesIdsVariables>({
-      mutation: STORED_WISHLIST_VEHICLES_IDS_QUERY,
+      mutation: SAVE_WISHLIST_VEHICLES_IDS_MUTATION,
       variables: {
         ids,
       },

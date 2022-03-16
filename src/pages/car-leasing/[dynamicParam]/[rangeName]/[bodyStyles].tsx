@@ -16,7 +16,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../../containers/SearchPageContainer';
+import { RangeSearchContainer } from '../../../../containers/SearchPageContainer';
 import { GET_VEHICLE_LIST } from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
@@ -94,7 +94,7 @@ const Page: NextPage<IProps> = ({
   }, []);
 
   return (
-    <SearchPageContainer
+    <RangeSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch

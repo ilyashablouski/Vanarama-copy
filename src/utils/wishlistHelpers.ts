@@ -83,6 +83,8 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   }
 
+  /* fetch the configuration list of the vehicles
+     saved in the users wishlist */
   const vehicleConfigList = await client.query<
     GetVehicleConfigList,
     GetVehicleConfigListVariables
@@ -93,6 +95,8 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     },
   });
 
+  /* filter wished vehicles to remove ids
+     missing from config list / unpublished vehicles ids */
   const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId =>
     getVehicleConfigListFromQuery(vehicleConfigList).some(
       vehicleConfiguration =>
