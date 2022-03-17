@@ -13,14 +13,34 @@ on:
       env:
         type: string
         required: true
+      tag:
+        type: string
+        required: true
+      github_sha:
+        type: string
+        required: true
 
 concurrency: 
   group: ${{ github.ref }}
   cancel-in-progress: true      
 
 jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    outputs:
+      github_actions_role_secret: ${{ steps.variables.outputs.github_actions_role_secret }}
+    steps:
+      - id: variables
+        run: |
+          env_upper=$(echo ${{ github.event.inputs.env }} | tr '[:lower:]' '[:upper:]')
+          env_upper=${env_upper//-/_}
+          github_actions_role_secret="GRID_${env_upper}_ACTIONS_ROLE"
+          echo "::set-output name=github_actions_role_secret::${github_actions_role_secret}"
+
   init:
     runs-on: ubuntu-latest
+    needs: [set-env]
+
     # These permissions are required to use Github OIDC.
     permissions:
       id-token: write
@@ -33,7 +53,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.ECR_REGION }}
-          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
+          role-to-assume: ${{ secrets[needs.set-env.outputs.github_actions_role_secret] }}
       - uses: aws-actions/amazon-ecr-login@v1
       - name: Create repository if not exists
         if: ${{ github.event.inputs.force_rebuild != 'true' }}
@@ -41,42 +61,32 @@ jobs:
 
   package:
     runs-on: ubuntu-latest
-    needs: [init]
-    outputs:
-      tag: ${{ steps.create-tag.outputs.tag }}
+    needs: [init, set-env]
 
     permissions:
       id-token: write
-      contents: read    
+      contents: read
 
     steps:
-      - id: create-tag
-        run: |
-          echo "workflow input env: ${{ github.event.inputs.env }}"
-
-          pr_number=${{ github.event.pull_request.number }}
-          head_ref=${{ github.head_ref }}
-          head_ref=${head_ref/\//"-"}          
-          tag=${head_ref/feature-/"feature-PR$pr_number-B${{ github.run_number }}-"}
-          echo $tag
-          echo "::set-output name=tag::$tag"
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.github_sha }}
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.ECR_REGION }}
-          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
+          role-to-assume: ${{ secrets[needs.set-env.outputs.github_actions_role_secret] }}
       - name: Curl build-env-var
         run: |
           curl ${{ env.BUILD_ENV_EXEC_S3_PATH }} --output build-env-var.linux-amd64
           chmod +x build-env-var.linux-amd64
       - uses: aws-actions/amazon-ecr-login@v1
       - name: Pull latest develop image for cache
-        run: docker pull ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest || true
+        run: docker pull ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:latest || true
       - name: Docker build
         run: |
-          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
-          eval "$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${{ env.ENV }}/${{ env.STACK }}/${{ env.APP }} -envTemplate=env.template -envStdout)"
-          docker build -t ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG} \
+          ARTEFACT_TAG=${{ github.event.inputs.tag }}
+          eval "$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${{ github.event.inputs.env }}/${{ env.STACK }}/${{ env.APP }} -envTemplate=env.template -envStdout)"
+          docker build -t ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG} \
           --build-arg NPM_TOKEN=${{ secrets.GRID_NPM_TOKEN }} \
           --build-arg PRERENDER_SERVICE_URL=${PRERENDER_SERVICE_URL} \
           --build-arg API_KEY=${API_KEY} \
@@ -90,9 +100,9 @@ jobs:
           --build-arg NODE_ENV=${NODE_ENV} \
           --build-arg HOST_DOMAIN=${HOST_DOMAIN} \
           --build-arg SEO_BUCKET_NAME=${SEO_BUCKET_NAME} \
-          --cache-from ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest .
+          --cache-from ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:latest .
       # - name: Docker push
       #   run: |
       #     ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
-      #     docker push ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
+      #     docker push ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
       #     echo "Pushed image ${ARTEFACT_TAG}"
