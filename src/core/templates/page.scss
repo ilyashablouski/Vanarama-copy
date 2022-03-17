@@ -334,7 +334,7 @@
         }
 
         & .swiper-slide {
-          @include mobile {
+          @include mobile-tablet {
             padding: 0 0.1px;
           }
         }
