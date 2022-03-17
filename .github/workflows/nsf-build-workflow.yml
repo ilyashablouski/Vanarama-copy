@@ -101,8 +101,8 @@ jobs:
           --build-arg HOST_DOMAIN=${HOST_DOMAIN} \
           --build-arg SEO_BUCKET_NAME=${SEO_BUCKET_NAME} \
           --cache-from ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:latest .
-      # - name: Docker push
-      #   run: |
-      #     ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
-      #     docker push ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
-      #     echo "Pushed image ${ARTEFACT_TAG}"
+      - name: Docker push
+        run: |
+          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
+          docker push ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
+          echo "Pushed image ${ARTEFACT_TAG}"
