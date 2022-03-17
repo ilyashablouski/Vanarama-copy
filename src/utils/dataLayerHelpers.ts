@@ -287,6 +287,12 @@ export const pushPageData = async ({
 
   let data = {};
 
+  console.log('router: ', router);
+  console.log(
+    'isPdpOrSearchElectricSection(): ',
+    isPdpOrSearchElectricSection(),
+  );
+
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
     pathname === '/van-leasing/[dynamicParam]'
@@ -296,11 +302,10 @@ export const pushPageData = async ({
     }
     data = {
       pageType,
-      siteSection: isPdpOrSearchElectricSection()
-        ? SITE_SECTIONS.electric
-        : siteSection,
+      siteSection,
     };
   } else {
+    console.log('We are in lof');
     const pageData = PAGES.find(pages =>
       pages.pages.find(page => pathname?.includes(page)),
     );
