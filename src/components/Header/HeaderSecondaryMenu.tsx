@@ -31,6 +31,8 @@ const FlameSharp = dynamic(() => import('core/assets/icons/FlameSharp'), {
 const MIN_PROMO_IMAGES_NUMBER = 1;
 const MAX_PROMO_IMAGES_NUMBER = 2;
 
+/* the menu should be rendered by default only on the server
+   and in tests (to match snapshots). otherwise, it should be lazy loaded */
 const isMenuVisibleByDefault = isServer() || isTesting;
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
