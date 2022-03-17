@@ -1,15 +1,18 @@
-/* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect, useMemo } from 'react';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import cx from 'classnames';
-import { IBaseProps } from 'core/interfaces/base';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import RouterLink from '../RouterLink/RouterLink';
-import { IHeaderLink, IHeaderPromoImageLink } from './Header';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+import cx from 'classnames';
+
+import { IBaseProps } from 'core/interfaces/base';
+import { isServer } from '../../utils/deviceType';
+import { isTesting } from '../../utils/env';
+
 import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink';
+
+import { IHeaderLink, IHeaderPromoImageLink } from './Header';
 import Label from './Label';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const ImageV2 = dynamic(() => import('core/atoms/image/ImageV2'), {
   loading: () => <Skeleton count={4} />,
@@ -25,6 +28,11 @@ const FlameSharp = dynamic(() => import('core/assets/icons/FlameSharp'), {
   ssr: false,
 });
 
+const MIN_PROMO_IMAGES_NUMBER = 1;
+const MAX_PROMO_IMAGES_NUMBER = 2;
+
+const isMenuVisibleByDefault = isServer() || isTesting;
+
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
   title: string;
@@ -34,9 +42,6 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   isSecondaryMenuOpen: boolean;
   promoImagesLinks?: Array<IHeaderPromoImageLink>;
 }
-
-const MIN_PROMO_IMAGES_NUMBER = 1;
-const MAX_PROMO_IMAGES_NUMBER = 2;
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   const router = useRouter();
@@ -110,7 +115,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
       className="menu-secondary--wrapper-outer"
       data-testid="menu-secondary--wrapper-outer"
     >
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+      <LazyLoadComponent visibleByDefault={isMenuVisibleByDefault}>
         <div className="menu-secondary--wrapper-inner">
           <ul
             className="menu-secondary"
