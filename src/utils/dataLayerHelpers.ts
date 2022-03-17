@@ -112,6 +112,12 @@ interface ICategory {
   electricCars?: Nullish<boolean>;
 }
 
+interface IPdpOrSearchElectricSection {
+  pdpVehicleType?: Nullish<string>;
+  queryFuelTypes?: string[] | Nullish<string>;
+  queryDynamicParam?: string[] | Nullish<string>;
+}
+
 declare global {
   interface Window {
     dataLayerHasGtmDomEvent: (dataLayer: object[]) => boolean;
@@ -258,6 +264,26 @@ export const checkForGtmDomEvent = (callback: () => void) => {
   }
 };
 
+export const isPdpOrSearchElectricSection = ({
+  pdpVehicleType,
+  queryFuelTypes,
+  queryDynamicParam,
+}: IPdpOrSearchElectricSection): boolean => {
+  console.log('pdpVehicleType', pdpVehicleType);
+  console.log('queryFuelTypes', queryFuelTypes);
+  console.log('queryDynamicParam', queryDynamicParam);
+  if (pdpVehicleType) {
+    return pdpVehicleType?.includes('Electric');
+  }
+  if (queryFuelTypes) {
+    return queryFuelTypes.includes('Electric');
+  }
+  if (queryDynamicParam) {
+    return queryDynamicParam.includes('electric');
+  }
+  return false;
+};
+
 export const pushPageData = async ({
   router,
   pageType,
@@ -275,17 +301,12 @@ export const pushPageData = async ({
   ]);
   const personEmail = person?.emailAddresses?.[0]?.value || email;
   const pathname = router?.pathname;
-  const isPdpOrSearchElectricSection = () => {
-    if (pdpVehicleType) {
-      return pdpVehicleType?.includes('Electric');
-    }
-    if (router?.query.fuelTypes) {
-      return router?.query.fuelTypes.includes('Electric');
-    }
-    return false;
-  };
+  const queryFuelTypes = router?.query.fuelTypes;
+  const queryDynamicParam = router?.query.dynamicParam;
 
   let data = {};
+
+  console.log('Router: ', router);
 
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
@@ -296,7 +317,11 @@ export const pushPageData = async ({
     }
     data = {
       pageType,
-      siteSection: isPdpOrSearchElectricSection()
+      siteSection: isPdpOrSearchElectricSection({
+        pdpVehicleType,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
         ? SITE_SECTIONS.electric
         : siteSection,
     };
@@ -307,7 +332,11 @@ export const pushPageData = async ({
 
     data = {
       pageType: pageData?.pageType || 'undefined',
-      siteSection: isPdpOrSearchElectricSection()
+      siteSection: isPdpOrSearchElectricSection({
+        pdpVehicleType,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
         ? SITE_SECTIONS.electric
         : pageData?.siteSection || 'undefined',
     };
