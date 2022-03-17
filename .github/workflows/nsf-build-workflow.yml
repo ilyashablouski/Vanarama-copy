@@ -34,7 +34,7 @@ jobs:
         run: |
           env_upper=$(echo ${{ github.event.inputs.env }} | tr '[:lower:]' '[:upper:]')
           env_upper=${env_upper//-/_}
-          github_actions_role_secret="GRID_${env_upper}_ACTIONS_ROLE"
+          github_actions_role_secret="GRID_${env_upper}_GHA_ACTION_ROLE"
           echo "::set-output name=github_actions_role_secret::${github_actions_role_secret}"
 
   init:
