@@ -1,11 +1,12 @@
 import React from 'react';
-import { MockedProvider } from '@apollo/client/testing';
+import { ApolloProvider } from '@apollo/client';
 import { render, waitFor, screen } from '@testing-library/react';
 import CarHubPageContainer from '../CarHubPageContainer';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { PageTypeEnum } from '../../../types/common';
 import { IManufacturersSlug } from '../../../types/manufacturerSlug';
+import createApolloClient from '../../../apolloClient';
 
 const data = {
   genericPage: {
@@ -462,11 +463,12 @@ jest.mock('next/router', () => ({
     pathname: '/car-leasing-temp',
   }),
 }));
+const client = createApolloClient({});
 
 describe('CarHubPageContainer', () => {
   it('should render correctly with data', async () => {
     const getComponent = render(
-      <MockedProvider addTypename={false}>
+      <ApolloProvider client={client}>
         <CarHubPageContainer
           data={data as GenericPageQuery}
           searchPodCarsData={searchPodCarsData}
@@ -475,7 +477,7 @@ describe('CarHubPageContainer', () => {
           migrationSlugs={{} as IManufacturersSlug}
           pageType={PageTypeEnum.DEFAULT}
         />
-      </MockedProvider>,
+      </ApolloProvider>,
     );
 
     await waitFor(() => {
