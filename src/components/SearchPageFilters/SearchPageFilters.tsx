@@ -132,6 +132,11 @@ const SearchPageFilters = ({
     (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
   );
 
+  const bodyStyles = useMemo(
+    () => (isPickups && isSpecialOffers ? [PdpVehicleType.Pickup] : undefined),
+    [isPickups, isSpecialOffers],
+  );
+
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isManufacturerPage ||
@@ -154,7 +159,7 @@ const SearchPageFilters = ({
     undefined,
     !!preLoadFilters,
     filterFuelTypes,
-    isPickups && isSpecialOffers ? [PdpVehicleType.Pickup] : undefined,
+    bodyStyles,
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
@@ -171,6 +176,7 @@ const SearchPageFilters = ({
           ? null
           : isSpecialOffers,
       ...filtersObject,
+      bodyStyles,
     })?.then(resp => {
       // if groupedRanges is empty -> search params is incorrect
       if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
