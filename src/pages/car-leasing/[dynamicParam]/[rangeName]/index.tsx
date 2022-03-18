@@ -49,6 +49,7 @@ import {
   formatUrl,
   getManufacturerJson,
   isManufacturerMigrated,
+  removeUrlQueryPart,
 } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
@@ -174,7 +175,9 @@ export async function getServerSideProps(
         client,
         contextData,
         true,
-        NEW_RANGE_SLUGS.includes(trimSlug(contextData.req?.url || ''))
+        NEW_RANGE_SLUGS.includes(
+          removeUrlQueryPart(trimSlug(contextData.req?.url || '')),
+        )
           ? 'isNewRangePage'
           : 'isRangePage',
       )) as ApolloQueryResult<GenericPageQuery>,
@@ -326,7 +329,9 @@ export async function getServerSideProps(
           ?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
-        newRangePageSlug: trimSlug(contextData.req?.url || ''),
+        newRangePageSlug: removeUrlQueryPart(
+          trimSlug(contextData.req?.url || ''),
+        ),
       },
     };
   } catch (error) {
