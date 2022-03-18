@@ -122,19 +122,21 @@ const SearchPageFilters = ({
     fuelTypes: filtersData?.fuelTypes || null,
   };
 
+  const bodyStyles = useMemo(
+    () =>
+      isPickups && isSpecialOffers
+        ? [PdpVehicleType.Pickup]
+        : selectedFiltersState.bodyStyles,
+    [isPickups, isSpecialOffers, selectedFiltersState],
+  );
   /** memo object for search filter */
   const filtersObject = useMemo(
-    () => filtersSearchMapper(selectedFiltersState),
-    [selectedFiltersState],
+    () => ({ ...filtersSearchMapper(selectedFiltersState), bodyStyles }),
+    [selectedFiltersState, bodyStyles],
   );
 
   const [filterFuelTypes] = useState<string[] | undefined>(
     (isPartnershipActive && getPartnerProperties()?.fuelTypes) || [],
-  );
-
-  const bodyStyles = useMemo(
-    () => (isPickups && isSpecialOffers ? [PdpVehicleType.Pickup] : undefined),
-    [isPickups, isSpecialOffers],
   );
 
   const { refetch } = useFilterList(
@@ -176,7 +178,6 @@ const SearchPageFilters = ({
           ? null
           : isSpecialOffers,
       ...filtersObject,
-      bodyStyles,
     })?.then(resp => {
       // if groupedRanges is empty -> search params is incorrect
       if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
