@@ -750,7 +750,7 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                 </div>
               </div>
               <button
-                class="swiper-prev"
+                class="benefits-bar_navigation swiper-prev"
                 type="button"
               >
                 <i
@@ -769,7 +769,7 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
                 </i>
               </button>
               <button
-                class="swiper-next"
+                class="benefits-bar_navigation swiper-next"
                 type="button"
               >
                 <i
