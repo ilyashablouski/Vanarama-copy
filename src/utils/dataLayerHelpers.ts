@@ -273,13 +273,13 @@ export const isPdpOrSearchElectricSection = ({
   console.log('queryFuelTypes', queryFuelTypes);
   console.log('queryDynamicParam', queryDynamicParam);
   if (pdpVehicleType) {
-    return pdpVehicleType?.includes('Electric');
+    return pdpVehicleType === 'Electric';
   }
   if (queryFuelTypes) {
-    return queryFuelTypes.includes('Electric');
+    return queryFuelTypes === 'Electric';
   }
   if (queryDynamicParam) {
-    return queryDynamicParam.includes('electric');
+    return queryDynamicParam === 'electric';
   }
   return false;
 };

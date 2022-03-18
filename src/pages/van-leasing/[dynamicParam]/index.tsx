@@ -121,7 +121,7 @@ const Page: NextPage<IProps> = ({
     });
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.dynamicParam]);
+  }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   return (
     <SearchPageContainer
