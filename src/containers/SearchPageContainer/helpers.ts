@@ -24,7 +24,7 @@ import {
   vehicleList_vehicleList_edges as IVehicles,
 } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
-import { arraysAreEqual } from '../../utils/helpers';
+import { arraysAreEqual } from '../../utils/array';
 import { IPartnerProperties } from '../../utils/partnerProperties';
 
 export const RESULTS_PER_REQUEST = 12;

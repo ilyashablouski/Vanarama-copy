@@ -13,7 +13,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
-import { arraysAreEqual } from '../../utils/helpers';
+import { arraysAreEqual } from '../../utils/array';
 import { createInitialFiltersState } from '../SearchPageContainer/helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
