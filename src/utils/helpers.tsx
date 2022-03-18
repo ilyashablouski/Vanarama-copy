@@ -469,9 +469,12 @@ export function isManufacturerPageFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
   resolvedUrl: string,
 ) {
-  const manufacturer = removeUrlQueryPart(resolvedUrl);
-  if (!manufacturer || !ManufacturerPages.includes(manufacturer)) {
+  if (!resolvedUrl) {
     return false;
   }
-  return isFeatureFlagEnabled(cookies, FeatureFlags.MANUFACTURER_PAGE);
+  const manufacturer = removeUrlQueryPart(resolvedUrl);
+  if (ManufacturerPages.includes(manufacturer)) {
+    return isFeatureFlagEnabled(cookies, FeatureFlags.MANUFACTURER_PAGE);
+  }
+  return false;
 }
