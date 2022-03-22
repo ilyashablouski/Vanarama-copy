@@ -417,6 +417,7 @@ export enum FeatureFlags {
   CAR_HUB_REDESIGN = 'DIG-9034',
   BC_SESSION_ID_DELAY = 'DIG-9132',
   MANUFACTURER_PAGE = 'DIG-9065',
+  COLOUR_AND_TRIM_OVERLAY = 'DIG-9208',
 }
 
 const ManufacturerPages = [
@@ -477,4 +478,10 @@ export function isManufacturerPageFeatureFlagEnabled(
     return isFeatureFlagEnabled(cookies, FeatureFlags.MANUFACTURER_PAGE);
   }
   return false;
+}
+
+export function isColourAndTrimOverlayFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+) {
+  return isFeatureFlagEnabled(cookies, FeatureFlags.COLOUR_AND_TRIM_OVERLAY);
 }
