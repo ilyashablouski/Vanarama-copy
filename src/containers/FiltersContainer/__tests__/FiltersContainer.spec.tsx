@@ -59,6 +59,7 @@ const mocksResponse: MockedResponse[] = [
       variables: {
         vehicleTypes: ['CAR'],
         onOffer: true,
+        bodyStyles: [],
         fuelTypes: [],
       },
     },

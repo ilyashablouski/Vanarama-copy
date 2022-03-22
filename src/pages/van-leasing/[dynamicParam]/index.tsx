@@ -25,7 +25,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
@@ -117,17 +117,16 @@ const Page: NextPage<IProps> = ({
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.vans,
-      pathname: router.pathname,
+      router,
     });
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam]);
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="vans-search-page"
       isServer={isServer}
-      isCarSearch={false}
       isManufacturerPage={
         pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
       }

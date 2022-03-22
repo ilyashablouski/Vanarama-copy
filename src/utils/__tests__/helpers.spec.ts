@@ -1,6 +1,5 @@
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
-  arraysAreEqual,
   toCurrencyDisplay,
   toPriceFormat,
   getOrderList,
@@ -12,6 +11,7 @@ import {
   moveFactoryOrderToEnd,
   sortByHotOffer,
 } from '../helpers';
+import { arraysAreEqual } from '../array';
 
 describe('arraysAreEqual', () => {
   it('should order by sortByKey argument and compare 2 array of objects, to check they are equal', () => {

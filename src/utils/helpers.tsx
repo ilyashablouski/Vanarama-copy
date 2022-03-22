@@ -13,6 +13,7 @@ import { getLocalStorage } from './windowLocalStorage';
 import { GetImacaAssets_getImacaAssets_colours } from '../../generated/GetImacaAssets';
 import { IOption, IOptionsList } from '../types/detailsPage';
 import { GetColourAndTrimGroupList_colourGroupList as ColorGroupList } from '../../generated/GetColourAndTrimGroupList';
+import { removeUrlQueryPart } from './url';
 
 export enum LeadTimeList {
   FACTORY_ORDER = 'Factory Order',
@@ -315,23 +316,6 @@ export const getOrderList = ({
   return orderList;
 };
 
-export const arraysAreEqual = (
-  first: any[],
-  second: any[],
-  sortByKey?: string | null,
-  unsorted?: boolean,
-) => {
-  if (unsorted) {
-    return JSON.stringify(first) === JSON.stringify(second);
-  }
-  if (sortByKey) {
-    const firstArray = first?.sort((a, b) => a[sortByKey] - b[sortByKey]);
-    const secondArray = second?.sort((a, b) => a[sortByKey] - b[sortByKey]);
-    return JSON.stringify(firstArray) === JSON.stringify(secondArray);
-  }
-  return JSON.stringify(first?.sort()) === JSON.stringify(second?.sort());
-};
-
 export const getVehicleConfigId = (
   product: Nullish<GetProductCard_productCard>,
 ) => `${product?.vehicleType}-${product?.capId}`;
@@ -432,7 +416,13 @@ export enum FeatureFlags {
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
   CAR_HUB_REDESIGN = 'DIG-9034',
   BC_SESSION_ID_DELAY = 'DIG-9132',
+  MANUFACTURER_PAGE = 'DIG-9065',
 }
+
+const ManufacturerPages = [
+  '/car-leasing/mercedes-benz',
+  '/car-leasing/polestar',
+];
 
 function isFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
@@ -474,3 +464,17 @@ export function isEditPersonalInformationFeatureFlagEnabled(
 export const isBCSessionIDDelayFeatureFlagEnabled = () => {
   return Cookies.get(FeatureFlags.BC_SESSION_ID_DELAY) === '1';
 };
+
+export function isManufacturerPageFeatureFlagEnabled(
+  cookies: Cookies.CookiesStatic<object> | string | undefined,
+  resolvedUrl: string,
+) {
+  if (!resolvedUrl) {
+    return false;
+  }
+  const manufacturer = removeUrlQueryPart(resolvedUrl);
+  if (ManufacturerPages.includes(manufacturer)) {
+    return isFeatureFlagEnabled(cookies, FeatureFlags.MANUFACTURER_PAGE);
+  }
+  return false;
+}

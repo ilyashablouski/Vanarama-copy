@@ -21,7 +21,10 @@ import {
 } from '../../containers/FiltersContainer/helpers';
 import Skeleton from '../Skeleton';
 import { useFilterList } from '../../containers/SearchPodContainer/gql';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  PdpVehicleType,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   manufacturerHandler,
   modelHandler,
@@ -119,10 +122,17 @@ const SearchPageFilters = ({
     fuelTypes: filtersData?.fuelTypes || null,
   };
 
+  const bodyStyles = useMemo(
+    () =>
+      isPickups && isSpecialOffers
+        ? [PdpVehicleType.Pickup]
+        : selectedFiltersState.bodyStyles,
+    [isPickups, isSpecialOffers, selectedFiltersState],
+  );
   /** memo object for search filter */
   const filtersObject = useMemo(
-    () => filtersSearchMapper(selectedFiltersState),
-    [selectedFiltersState],
+    () => ({ ...filtersSearchMapper(selectedFiltersState), bodyStyles }),
+    [selectedFiltersState, bodyStyles],
   );
 
   const [filterFuelTypes] = useState<string[] | undefined>(
@@ -151,6 +161,7 @@ const SearchPageFilters = ({
     undefined,
     !!preLoadFilters,
     filterFuelTypes,
+    bodyStyles,
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
