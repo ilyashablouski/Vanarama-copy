@@ -1,7 +1,7 @@
 name: develop-workflow
 
 env:
-  APP: cap-gql
+  APP: next-storefront
   STACK: grid
   ECR_REGION: eu-west-2
   ENVIRONMENT: dev
@@ -55,7 +55,7 @@ jobs:
     uses: Autorama/autorama-reusable-github-workflows/.github/workflows/ci-nodejs-workflow.yml@master
     with:
       env: dev
-      app: cap-gql
+      app: next-storefront
       stack: grid
       ecr_region: eu-west-2
     secrets:
@@ -86,7 +86,7 @@ jobs:
       build_env_exec_s3_path: https://build-env-var.s3.eu-west-2.amazonaws.com/build-env-var.linux-amd64
       tag: ${{ needs.set-env.outputs.tag }}
       github_sha: ${{ github.sha }}
-  
+
   deploy:
     runs-on: ubuntu-latest
     needs: [ ci, package ]
