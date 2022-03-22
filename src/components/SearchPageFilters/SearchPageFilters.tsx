@@ -122,10 +122,17 @@ const SearchPageFilters = ({
     fuelTypes: filtersData?.fuelTypes || null,
   };
 
+  const bodyStyles = useMemo(
+    () =>
+      isPickups && isSpecialOffers
+        ? [PdpVehicleType.Pickup]
+        : selectedFiltersState.bodyStyles,
+    [isPickups, isSpecialOffers, selectedFiltersState],
+  );
   /** memo object for search filter */
   const filtersObject = useMemo(
-    () => filtersSearchMapper(selectedFiltersState),
-    [selectedFiltersState],
+    () => ({ ...filtersSearchMapper(selectedFiltersState), bodyStyles }),
+    [selectedFiltersState, bodyStyles],
   );
 
   const [filterFuelTypes] = useState<string[] | undefined>(
@@ -154,7 +161,7 @@ const SearchPageFilters = ({
     undefined,
     !!preLoadFilters,
     filterFuelTypes,
-    isPickups && isSpecialOffers ? [PdpVehicleType.Pickup] : undefined,
+    bodyStyles,
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {

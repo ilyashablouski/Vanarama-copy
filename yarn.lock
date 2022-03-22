@@ -19454,7 +19454,6 @@ __metadata:
     paths.macro: ^3.0.1
     postcss-loader: ^3.0.0
     postcss-preset-env: ^6.7.0
-    prerender-node: ^3.2.5
     prettier: ^1.19.1
     qs: ^6.10.1
     raw-loader: ^4.0.2
@@ -21656,15 +21655,6 @@ __metadata:
   version: 1.1.2
   resolution: "prelude-ls@npm:1.1.2"
   checksum: c4867c87488e4a0c233e158e4d0d5565b609b105d75e4c05dc760840475f06b731332eb93cc8c9cecb840aa8ec323ca3c9a56ad7820ad2e63f0261dadcb154e4
-  languageName: node
-  linkType: hard
-
-"prerender-node@npm:^3.2.5":
-  version: 3.2.5
-  resolution: "prerender-node@npm:3.2.5"
-  dependencies:
-    request: ^2.88.0
-  checksum: 65e38294ae2166044419bdd130e0b499cb0074ac46ea008be5645a357ac64c330de17427c03aed1befc3bdc59db419265436a37820578317f948cae32390c067
   languageName: node
   linkType: hard
 

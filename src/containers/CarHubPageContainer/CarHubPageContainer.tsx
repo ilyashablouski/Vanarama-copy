@@ -213,7 +213,9 @@ const CarHubPageContainer: FC<IProps> = ({
       )}
 
       {features1 &&
-        features1?.map(featured => <FeaturedSection featured={featured} />)}
+        features1?.map(featured => (
+          <FeaturedSection featured={featured} key={featured?.title} />
+        ))}
 
       {cards?.cards?.length && (
         <div className="row:bg-lighter">
@@ -255,7 +257,9 @@ const CarHubPageContainer: FC<IProps> = ({
       )}
 
       {features2 &&
-        features2?.map(featured => <FeaturedSection featured={featured} />)}
+        features2?.map(featured => (
+          <FeaturedSection featured={featured} key={featured?.title} />
+        ))}
 
       <LazyLoadComponent
         visibleByDefault={isServerRenderOrAppleDevice}

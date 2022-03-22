@@ -102,7 +102,7 @@ interface IPageData {
   router?: Router | SingletonRouter | NextRouter;
   pageType?: string;
   siteSection?: string;
-  isElectricPdp?: boolean;
+  pdpVehicleType?: Nullish<string>;
 }
 
 interface ICategory {
