@@ -102,7 +102,7 @@ interface IPageData {
   router?: Router | SingletonRouter | NextRouter;
   pageType?: string;
   siteSection?: string;
-  pdpVehicleType?: Nullish<string>;
+  isElectricPdp?: boolean;
 }
 
 interface ICategory {
@@ -113,7 +113,7 @@ interface ICategory {
 }
 
 interface IPdpOrSearchElectricSection {
-  pdpVehicleType?: Nullish<string>;
+  isElectricPdp?: boolean;
   queryFuelTypes?: string[] | Nullish<string>;
   queryDynamicParam?: string[] | Nullish<string>;
 }
@@ -265,15 +265,15 @@ export const checkForGtmDomEvent = (callback: () => void) => {
 };
 
 export const isPdpOrSearchElectricSection = ({
-  pdpVehicleType,
+  isElectricPdp,
   queryFuelTypes,
   queryDynamicParam,
 }: IPdpOrSearchElectricSection): boolean => {
-  console.log('pdpVehicleType', pdpVehicleType);
+  console.log('pdpVehicleType', isElectricPdp);
   console.log('queryFuelTypes', queryFuelTypes);
   console.log('queryDynamicParam', queryDynamicParam);
-  if (pdpVehicleType) {
-    return pdpVehicleType === 'Electric';
+  if (isElectricPdp) {
+    return true;
   }
   if (queryFuelTypes) {
     return queryFuelTypes === 'Electric';
@@ -288,7 +288,7 @@ export const pushPageData = async ({
   router,
   pageType,
   siteSection,
-  pdpVehicleType,
+  isElectricPdp,
 }: IPageData) => {
   if (!window.dataLayer) {
     return;
@@ -318,7 +318,7 @@ export const pushPageData = async ({
     data = {
       pageType,
       siteSection: isPdpOrSearchElectricSection({
-        pdpVehicleType,
+        isElectricPdp,
         queryFuelTypes,
         queryDynamicParam,
       })
@@ -333,7 +333,7 @@ export const pushPageData = async ({
     data = {
       pageType: pageData?.pageType || 'undefined',
       siteSection: isPdpOrSearchElectricSection({
-        pdpVehicleType,
+        isElectricPdp,
         queryFuelTypes,
         queryDynamicParam,
       })

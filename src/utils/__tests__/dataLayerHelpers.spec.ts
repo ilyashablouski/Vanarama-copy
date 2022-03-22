@@ -69,7 +69,7 @@ describe('dataLayerHelpers', () => {
         ' with electric vehicle',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          pdpVehicleType: 'Electric Hot Offers Cars',
+          isElectricPdp: true,
           queryFuelTypes: undefined,
           queryDynamicParam: undefined,
         });
@@ -82,7 +82,7 @@ describe('dataLayerHelpers', () => {
         ' with "Electric" fuelTypes query param',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          pdpVehicleType: undefined,
+          isElectricPdp: false,
           queryFuelTypes: 'Electric',
           queryDynamicParam: undefined,
         });
@@ -95,7 +95,7 @@ describe('dataLayerHelpers', () => {
         ' with "electric" dynamicParam query param',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          pdpVehicleType: undefined,
+          isElectricPdp: false,
           queryFuelTypes: undefined,
           queryDynamicParam: 'electric',
         });
@@ -108,7 +108,7 @@ describe('dataLayerHelpers', () => {
         ' or not on electric search pages',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          pdpVehicleType: undefined,
+          isElectricPdp: false,
           queryFuelTypes: undefined,
           queryDynamicParam: undefined,
         });
