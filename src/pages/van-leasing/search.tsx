@@ -4,6 +4,8 @@ import {
   NextPage,
 } from 'next';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
 import { SearchContainer } from '../../containers/SearchPageContainer';
@@ -33,6 +35,8 @@ import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
 import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
+import { pushPageData } from '../../utils/dataLayerHelpers';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../utils/pageTypes';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -48,17 +52,28 @@ const Page: NextPage<IProps> = ({
   vehiclesList,
   productCardsData,
   responseCapIds,
-}) => (
-  <SearchContainer
-    dataUiTestId="vans-search-page"
-    isServer={isServer}
-    metaData={metaData}
-    pageData={decodeData(pageData)}
-    preLoadVehiclesList={decodeData(vehiclesList)}
-    preLoadProductCardsData={decodeData(productCardsData)}
-    preLoadResponseCapIds={responseCapIds}
-  />
-);
+}) => {
+  const router = useRouter();
+  useEffect(() => {
+    pushPageData({
+      pageType: PAGE_TYPES.PLP,
+      siteSection: SITE_SECTIONS.vans,
+      router,
+    });
+  }, [router.query.fuelTypes]);
+
+  return (
+    <SearchContainer
+      dataUiTestId="vans-search-page"
+      isServer={isServer}
+      metaData={metaData}
+      pageData={decodeData(pageData)}
+      preLoadVehiclesList={decodeData(vehiclesList)}
+      preLoadProductCardsData={decodeData(productCardsData)}
+      preLoadResponseCapIds={responseCapIds}
+    />
+  );
+};
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,

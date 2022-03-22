@@ -269,9 +269,6 @@ export const isPdpOrSearchElectricSection = ({
   queryFuelTypes,
   queryDynamicParam,
 }: IPdpOrSearchElectricSection): boolean => {
-  console.log('pdpVehicleType', isElectricPdp);
-  console.log('queryFuelTypes', queryFuelTypes);
-  console.log('queryDynamicParam', queryDynamicParam);
   if (isElectricPdp) {
     return true;
   }
@@ -306,11 +303,11 @@ export const pushPageData = async ({
 
   let data = {};
 
-  console.log('Router: ', router);
-
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
-    pathname === '/van-leasing/[dynamicParam]'
+    pathname === '/van-leasing/[dynamicParam]' ||
+    pathname === '/car-leasing/search' ||
+    pathname === '/van-leasing/search'
   ) {
     if (!pageType) {
       return;
