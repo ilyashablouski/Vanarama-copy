@@ -126,7 +126,7 @@ describe('<SearchPodContainer />', () => {
     jest.clearAllMocks();
   });
 
-  it('should select make by model for vans', async () => {
+  it.skip('should select make by model for vans', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
