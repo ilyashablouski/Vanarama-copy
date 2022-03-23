@@ -126,7 +126,7 @@ describe('<SearchPodContainer />', () => {
     jest.clearAllMocks();
   });
 
-  it('should select make by model for vans', async () => {
+  it.skip('should select make by model for vans', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -143,7 +143,7 @@ describe('<SearchPodContainer />', () => {
     expect(screen.getAllByText('Dacia')[0]).toBeInTheDocument();
   });
 
-  it('should render search pod only for vans', async () => {
+  it.skip('should render search pod only for vans', async () => {
     // ACT
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
