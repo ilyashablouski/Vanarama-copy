@@ -1,6 +1,7 @@
 import {
   getCategory,
   getCategoryAboutYouData,
+  isPdpOrSearchElectricSection,
   pushToDataLayer,
 } from '../dataLayerHelpers';
 
@@ -60,5 +61,60 @@ describe('dataLayerHelpers', () => {
         },
       ]);
     });
+  });
+
+  describe('isPdpOrSearchElectricSection', () => {
+    it(
+      'isPdpOrSearchElectricSection should return true if user on PDP' +
+        ' with electric vehicle',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          isElectricPdp: true,
+          queryFuelTypes: undefined,
+          queryDynamicParam: undefined,
+        });
+
+        expect(actual).toEqual(true);
+      },
+    );
+    it(
+      'isPdpOrSearchElectricSection should return true if user on search pages' +
+        ' with "Electric" fuelTypes query param',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          isElectricPdp: false,
+          queryFuelTypes: 'Electric',
+          queryDynamicParam: undefined,
+        });
+
+        expect(actual).toEqual(true);
+      },
+    );
+    it(
+      'isPdpOrSearchElectricSection should return true if user on search pages' +
+        ' with "electric" dynamicParam query param',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          isElectricPdp: false,
+          queryFuelTypes: undefined,
+          queryDynamicParam: 'electric',
+        });
+
+        expect(actual).toEqual(true);
+      },
+    );
+    it(
+      'isPdpOrSearchElectricSection should return false if user not on electric PDP' +
+        ' or not on electric search pages',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          isElectricPdp: false,
+          queryFuelTypes: undefined,
+          queryDynamicParam: undefined,
+        });
+
+        expect(actual).toEqual(false);
+      },
+    );
   });
 });

@@ -102,7 +102,7 @@ interface IPageData {
   router?: Router | SingletonRouter | NextRouter;
   pageType?: string;
   siteSection?: string;
-  pdpVehicleType?: Nullish<string>;
+  isElectricPdp?: boolean;
 }
 
 interface ICategory {
@@ -110,6 +110,12 @@ interface ICategory {
   vans: Nullish<boolean>;
   pickups: Nullish<boolean>;
   electricCars?: Nullish<boolean>;
+}
+
+interface IPdpOrSearchElectricSection {
+  isElectricPdp?: boolean;
+  queryFuelTypes?: string[] | Nullish<string>;
+  queryDynamicParam?: string[] | Nullish<string>;
 }
 
 declare global {
@@ -258,11 +264,28 @@ export const checkForGtmDomEvent = (callback: () => void) => {
   }
 };
 
+export const isPdpOrSearchElectricSection = ({
+  isElectricPdp,
+  queryFuelTypes,
+  queryDynamicParam,
+}: IPdpOrSearchElectricSection): boolean => {
+  if (isElectricPdp) {
+    return true;
+  }
+  if (queryFuelTypes) {
+    return queryFuelTypes === 'Electric';
+  }
+  if (queryDynamicParam) {
+    return queryDynamicParam === 'electric';
+  }
+  return false;
+};
+
 export const pushPageData = async ({
   router,
   pageType,
   siteSection,
-  pdpVehicleType,
+  isElectricPdp,
 }: IPageData) => {
   if (!window.dataLayer) {
     return;
@@ -275,44 +298,42 @@ export const pushPageData = async ({
   ]);
   const personEmail = person?.emailAddresses?.[0]?.value || email;
   const pathname = router?.pathname;
-  const isPdpOrSearchElectricSection = () => {
-    if (pdpVehicleType) {
-      return pdpVehicleType?.includes('Electric');
-    }
-    if (router?.query.fuelTypes) {
-      return router?.query.fuelTypes.includes('Electric');
-    }
-    return false;
-  };
+  const queryFuelTypes = router?.query.fuelTypes;
+  const queryDynamicParam = router?.query.dynamicParam;
 
   let data = {};
 
-  console.log('router: ', router);
-  console.log(
-    'isPdpOrSearchElectricSection(): ',
-    isPdpOrSearchElectricSection(),
-  );
-
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
-    pathname === '/van-leasing/[dynamicParam]'
+    pathname === '/van-leasing/[dynamicParam]' ||
+    pathname === '/car-leasing/search' ||
+    pathname === '/van-leasing/search'
   ) {
     if (!pageType) {
       return;
     }
     data = {
       pageType,
-      siteSection,
+      siteSection: isPdpOrSearchElectricSection({
+        isElectricPdp,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
+        ? SITE_SECTIONS.electric
+        : siteSection,
     };
   } else {
-    console.log('We are in lof');
     const pageData = PAGES.find(pages =>
       pages.pages.find(page => pathname?.includes(page)),
     );
 
     data = {
       pageType: pageData?.pageType || 'undefined',
-      siteSection: isPdpOrSearchElectricSection()
+      siteSection: isPdpOrSearchElectricSection({
+        isElectricPdp,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
         ? SITE_SECTIONS.electric
         : pageData?.siteSection || 'undefined',
     };
