@@ -22,7 +22,7 @@ jobs:
     # These permissions are required to use Github OIDC.
     permissions:
       id-token: write
-      contents: read    
+      contents: read
     
     steps:
       # Uses OIDC to assume the role in AWS rather than maintaining AWS credentials 
