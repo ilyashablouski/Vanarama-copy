@@ -65,7 +65,7 @@ jobs:
     steps:
       - id: create-tag
         run: |
-          tag=${{ github.event.inputs.tag }}_${{ github.event.inputs.env }}
+          tag=${{ github.event.inputs.tag }}-${{ github.event.inputs.env }}
           echo "::set-output name=tag::$tag"
       - uses: actions/checkout@v2
         with:
