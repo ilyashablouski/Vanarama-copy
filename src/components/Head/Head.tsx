@@ -10,11 +10,22 @@ import {
   PAGES_WITHOUT_DEFERRED_STYLES,
 } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
+import { Env } from '../../utils/env';
 import { getCanonicalUrl } from '../../utils/url';
+
+const env: any = process?.env?.ENV || '';
+
+// Script environments
+const scriptEnvs = {
+  // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+
+  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
+};
 
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
+  scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
 ].filter(value => value !== '');
 
