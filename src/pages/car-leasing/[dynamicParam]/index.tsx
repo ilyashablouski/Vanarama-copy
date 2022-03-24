@@ -63,6 +63,7 @@ import {
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { isManufacturerPageFeatureFlagEnabled } from "../../../utils/helpers";
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -83,6 +84,7 @@ interface IProps extends ISearchPageProps {
   topOffersList?: Nullable<vehicleList>;
   topOffersCardsData?: Nullable<GetProductCard>;
   defaultSort?: Nullable<SortObject[]>;
+  isManufacturerFeatureFlagEnabled?: boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -99,6 +101,7 @@ const Page: NextPage<IProps> = ({
   ranges,
   rangesUrls,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const router = useRouter();
   // De-obfuscate data for user
@@ -155,13 +158,14 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
+      isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
     />
   );
 };
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IProps>> {
-  const { query, req } = context;
+  const { query, req, resolvedUrl } = context;
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
@@ -323,6 +327,10 @@ export async function getServerSideProps(
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
     ]);
+    const isManufacturerFeatureFlagEnabled = isManufacturerPageFeatureFlagEnabled(
+      req.headers.cookie,
+      resolvedUrl,
+    );
     return {
       props: {
         isServer: !!req,
@@ -343,6 +351,7 @@ export async function getServerSideProps(
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
+        isManufacturerFeatureFlagEnabled,
       },
     };
   } catch (error) {

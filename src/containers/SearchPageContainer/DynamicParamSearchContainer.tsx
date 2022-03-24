@@ -1,4 +1,4 @@
-import {
+import React, {
   ChangeEvent,
   FC,
   useCallback,
@@ -11,6 +11,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown/with-html';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
@@ -83,6 +84,8 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
+import { HeroHeading } from '../../components/Hero';
+import HeroBackground from '../../components/Hero/HeroBackground';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -116,6 +119,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -183,8 +187,16 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
+  const hero = useMemo(
+    () => getSectionsData(['sections', 'hero'], pageData?.genericPage),
+    [pageData],
+  );
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
+    [pageData],
+  );
+  const featured1 = useMemo(
+    () => getSectionsData(['sections', 'featured1'], pageData?.genericPage),
     [pageData],
   );
   const carousel: CarouselData = useMemo(
@@ -744,17 +756,38 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   return (
     <>
+      {isManufacturerFeatureFlagEnabled && hero && (
+        <>
+          <HeroBackground
+            backgroundUrl={hero.image.file.url}
+            hideCurve
+            className="-below-content"
+          >
+            <>
+              <HeroHeading text={hero.title || ''} />
+              <div className="-w-440">
+                <ReactMarkdown allowDangerousHtml source={hero.body || ''} />
+              </div>
+            </>
+          </HeroBackground>
+        </>
+      )}
       <PartnershipLogoHeader />
-      <SearchPageTitle
-        dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbs={metaData.breadcrumbs}
-        pageTitle={pageTitle}
-        pageData={pageData}
-        partnershipDescription={partnershipDescription}
-        isPartnershipActive={isPartnershipActive}
-      />
-      {featured && (
-        <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
+      {!isManufacturerFeatureFlagEnabled && (
+        <SearchPageTitle
+          dataUiTestId={`${dataUiTestId}_page-title`}
+          breadcrumbs={metaData.breadcrumbs}
+          pageTitle={pageTitle}
+          pageData={pageData}
+          partnershipDescription={partnershipDescription || ''}
+          isPartnershipActive={isPartnershipActive}
+        />
+      )}
+      {(featured || featured1) && (
+        <ReadMoreBlock
+          featured={featured || featured1}
+          dataUiTestId={dataUiTestId}
+        />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -862,12 +895,13 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           )}
         </div>
       </div>
-      {pageData?.genericPage?.sections?.featured2?.body && (
-        <FeaturedSectionBlock
-          title={pageData.genericPage.sections.featured2.title}
-          body={pageData.genericPage.sections.featured2.body}
-        />
-      )}
+      {pageData?.genericPage?.sections?.featured2?.body &&
+        !isManufacturerPage && (
+          <FeaturedSectionBlock
+            title={pageData.genericPage.sections.featured2.title}
+            body={pageData.genericPage.sections.featured2.body}
+          />
+        )}
       {isDynamicFilterPage && tiles?.tiles?.length && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles.tiles}
