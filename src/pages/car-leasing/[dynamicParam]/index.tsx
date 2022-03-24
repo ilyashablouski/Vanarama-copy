@@ -63,7 +63,7 @@ import {
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
-import { isManufacturerPageFeatureFlagEnabled } from "../../../utils/helpers";
+import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
 
 interface IPageType {
   isBodyStylePage: boolean;
