@@ -110,3 +110,9 @@ jobs:
           ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
           docker push ${{ secrets.GRID_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
           echo "Pushed image ${ARTEFACT_TAG}"
+      - name: Push release Tag
+        run: |
+          git config user.email devops@techamigos.com
+          git config user.name 'devops'
+          git tag -a ${{ steps.create-tag.outputs.tag }} -m "Tagging a New ${{ github.event.inputs.env }} Release"
+          git push origin ${{ steps.create-tag.outputs.tag }}
