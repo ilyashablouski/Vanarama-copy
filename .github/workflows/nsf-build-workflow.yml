@@ -50,7 +50,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: ${{ github.event.inputs.github_sha }}
           token: ${{ secrets.GRID_GIT_TOKEN  }}
       - id: variables
         run: |
