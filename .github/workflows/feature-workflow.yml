@@ -1,21 +1,18 @@
-name: develop-workflow
-
+name: feature-workflow
 env:
-  APP: cap-gql
+  APP: next-storefront
+  ENV: dev
   STACK: grid
   ECR_REGION: eu-west-2
-  ENVIRONMENT: dev
   BUILD_ENV_EXEC_S3_PATH: https://build-env-var.s3.eu-west-2.amazonaws.com/build-env-var.linux-amd64
-
 on:
-  push:
+  pull_request:
+    types: [opened, reopened, labeled, synchronize]
     branches:
-      - develop
-
-concurrency:
+      - develop    
+concurrency: 
   group: ${{ github.ref }}
-  cancel-in-progress: true
-
+  cancel-in-progress: true      
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -31,114 +28,139 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.ECR_REGION }}
-          role-to-assume: ${{ secrets.GRID_UAT_GHA_ACTION_ROLE }}          
+          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
       - uses: aws-actions/amazon-ecr-login@v1
       - name: Create repository if not exists
         if: ${{ github.event.inputs.force_rebuild != 'true' }}
         run: aws ecr describe-repositories --repository-names ${{ env.APP }} --region ${{ env.ECR_REGION }} || aws ecr create-repository --repository-name ${{ env.APP }} --region ${{ env.ECR_REGION }}
-
-  set-env:
+    
+  lint:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn typecheck
+
+  unit-test:
+    runs-on: ubuntu-latest
+    env:
+      # this makes the babel-jest-react magic happen and means all tests pass. If this is set to 
+      # development then some tests will fail.
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn test --coverage --maxWorkers=2
+
+  package:
+    runs-on: ubuntu-latest
+    needs: [init]
     outputs:
       tag: ${{ steps.create-tag.outputs.tag }}
+
+    permissions:
+      id-token: write
+      contents: read    
+
     steps:
       - id: create-tag
         run: |
-          github_sha=${{ github.sha }}
-          github_sha_short=$(git rev-parse --short "$github_sha")
-          tag="develop-${github_sha_short}"
-          echo "tag"
+          pr_number=${{ github.event.pull_request.number }}
+          head_ref=${{ github.head_ref }}
+          head_ref=${head_ref/\//"-"}          
+          tag=${head_ref/feature-/"feature-PR$pr_number-B${{ github.run_number }}-"}
           echo $tag
           echo "::set-output name=tag::$tag"
-
-  ci:
-    uses: Autorama/autorama-reusable-github-workflows/.github/workflows/ci-nodejs-workflow.yml@master
-    with:
-      env: dev
-      app: cap-gql
-      stack: grid
-      ecr_region: eu-west-2
-    secrets:
-      aws_actions_role: ${{ secrets.GRID_DEV_GHA_ACTION_ROLE }}
-
-  sonarcloud-scan:
-    needs: [ ci ]
-    uses: Autorama/autorama-reusable-github-workflows/.github/workflows/ci-nodejs-sonarcloud-workflow.yml@master
-    secrets:
-      grid_github_token: ${{ secrets.GITHUB_TOKEN }}
-      grid_sonar_token: ${{ secrets.GRID_SONAR_CLOUD_TOKEN }}
-
-  fossa-scan:
-    uses: Autorama/autorama-reusable-github-workflows/.github/workflows/ci-fossa-scan.yml@master
-    with :
-      ref: ${{ github.head_ref }}
-    secrets:
-      fossa-api-key: ${{ secrets.GRID_FOSSA_API_KEY }}
-
-  package:
-    uses: Autorama/autorama-reusable-github-workflows/.github/workflows/nodejs-build-workflow.yml@master
-    needs: [init, set-env]
-    with:
-      env: dev
-      app: next-storefront
-      stack: grid
-      ecr_region: eu-west-2
-      build_env_exec_s3_path: https://build-env-var.s3.eu-west-2.amazonaws.com/build-env-var.linux-amd64
-      tag: ${{ needs.set-env.outputs.tag }}
-      github_sha: ${{ github.sha }}
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.ECR_REGION }}
+          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
+      - name: Curl build-env-var
+        run: |
+          curl ${{ env.BUILD_ENV_EXEC_S3_PATH }} --output build-env-var.linux-amd64
+          chmod +x build-env-var.linux-amd64
+      - uses: aws-actions/amazon-ecr-login@v1
+      - name: Pull latest develop image for cache
+        run: docker pull ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest || true
+      - name: Docker build
+        run: |
+          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
+          eval "$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${{ env.ENV }}/${{ env.STACK }}/${{ env.APP }} -envTemplate=env.template -envStdout)"
+          docker build -t ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG} \
+          --build-arg NPM_TOKEN=${{ secrets.GRID_NPM_TOKEN }} \
+          --build-arg PRERENDER_SERVICE_URL=${PRERENDER_SERVICE_URL} \
+          --build-arg API_KEY=${API_KEY} \
+          --build-arg API_URL=${API_URL} \
+          --build-arg ENV=${ENV} \
+          --build-arg GTM_ID=${GTM_ID} \
+          --build-arg HEAP_ID=${HEAP_ID} \
+          --build-arg MICROBLINK_URL=${MICROBLINK_URL} \
+          --build-arg IMG_OPTIMISATION_HOST=${IMG_OPTIMISATION_HOST} \
+          --build-arg LOQATE_KEY=${LOQATE_KEY} \
+          --build-arg NODE_ENV=${NODE_ENV} \
+          --build-arg HOST_DOMAIN=${HOST_DOMAIN} \
+          --build-arg SEO_BUCKET_NAME=${SEO_BUCKET_NAME} \
+          --cache-from ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest .
+      - name: Docker push
+        run: |
+          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
+          docker push ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
+          echo "Pushed image ${ARTEFACT_TAG}"
   
   deploy:
     runs-on: ubuntu-latest
-    needs: [ ci, package ]
+    needs: [package, unit-test, typecheck, lint]
+    
+    # Only trigger the deployment if the feature is labeled with 'deploy'
+    if: contains(github.event.pull_request.labels.*.name, 'deploy')
+    
     steps:
       - name: Start deployment
+        uses: bobheadxi/deployments@v0.6.1
         id: deployment
-        uses: avakar/create-deployment@v1
         with:
-          auto_merge: false
-          environment: ${{ env.ENVIRONMENT }}
-          required_contexts: ""
-          # todo: send artifact tag name
-          payload: '{"tag":"${{ needs.package.outputs.tag }}"}'
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GRID_GIT_TOKEN }}
-      - name: Trigger deployment
-        id: deployments
-        uses: docker://techamigos/harness-cd-invoker:latest
-        with: 
-          APPLICATION_ID: ${{ secrets.GRID_PLATFORM_HARNESS_APP_ID }}
-          HARNESS_ENDPOINT: ${{ secrets.GRID_HARNESS_ENDPOINT }}
-          HARNESS_API_KEY: ${{ secrets.GRID_HARNESS_API_KEY }}
-          SERVICE_NAME: ${{ env.APP }}
-          ENVIRONMENT: ${{ env.ENVIRONMENT }}
-          WORKFLOW_OR_PIPELINE_NAME: ecs-deploy-release-candidate-wf
-          DEPLOYMENT_ID: ${{ steps.deployment.outputs.deployment_id }}
-          GITHUB_SHA: ${{ github.sha }}
-          ENVIRONMENT_INFRA_DEFINITION: grid-dev-ecs
-          FEATURE_PREFIX: ""
-          PR_NUMBER: ""
-          DEBUG_WF: false
-          EXECUTION_TYPE: WORKFLOW
-          ARTEFACT_ID: ${{ needs.package.outputs.tag }}
-      - name: Harness workflow or pipeline outcome
-        if: ${{ steps.deployments.outputs.execution_status == 'RUNNING' }}
+          step: start
+          token: ${{ secrets.GRID_GIT_TOKEN }}
+          ref: ${{ github.head_ref }}
+          env: feature
+      - name: Trigger harness workflow
         run: |
-          echo "Deployment id: ${{ steps.deployment.outputs.deployment_id }}"
-  promote-to-uat:
-    runs-on: ubuntu-latest
-    needs: [ deploy ]
-    environment: uat
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: release-candidate
-          token: '${{ secrets.GRID_GIT_TOKEN }}'
-      - name: Update release branch
-        run: |
-          git config user.email devops@techamigos.com
-          git config user.name 'devops'
-          git fetch --all
-          git merge remotes/origin/develop -m "merge develop into release-candidate"
-          git push origin release-candidate
+          echo "Deployment id is ${{ steps.deployment.outputs.deployment_id}}"
+          curl -X POST -H 'content-type: application/json' \
+          --url https://app.harness.io/gateway/api/webhooks/L1Oc4FuQT9NyorwwHhyBVnReKRI00noR8XTWhaZJ?accountId=EXo9ax1NTw2-KO2kOVqDIQ \
+          -d '{ 
+          "application":"KXsbP_C3S4K5Py29GoHJyg", 
+          "parameters":{
+            "github_sha":"${{ github.event.pull_request.head.sha }}", 
+            "deployment_id":"${{ steps.deployment.outputs.deployment_id }}", 
+            "pr_number":"${{ github.event.pull_request.number }}"
+           }, 
+          "artifacts":[{ 
+            "artifactSourceName":"next-storefront", 
+            "service":"next-storefront", 
+            "buildNumber":"${{ needs.package.outputs.tag }}" 
+           }]}'            
