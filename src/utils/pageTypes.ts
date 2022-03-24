@@ -35,7 +35,7 @@ export const SITE_SECTIONS = {
   cars: 'Cars',
   vans: 'Vans',
   pickUps: 'Pick-Ups',
-  electric: 'Electric',
+  electric: 'EV',
   wishlist: 'Wishlist',
   ecommerce: 'Ecommerce',
   insurance: 'Insurance',
@@ -151,7 +151,7 @@ export const PAGES = [
     siteSection: SITE_SECTIONS.cars,
   },
   {
-    pages: ['/car-leasing/all-car-manufacturers', '/car-leasing/search'],
+    pages: ['/car-leasing/all-car-manufacturers'],
     pageType: PAGE_TYPES.PLP,
     siteSection: SITE_SECTIONS.cars,
   },

@@ -329,7 +329,11 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         const query = buildRewriteRoute(filters as IFilters);
         Object.entries(query).forEach(filter => {
           const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
+          if (
+            value?.length &&
+            !(isPartnershipActive && key === 'fuelTypes') &&
+            !(isPickups && isSpecialOfferPage && key === 'bodyStyles')
+          ) {
             queryString.set(key, value as string);
           }
         });
