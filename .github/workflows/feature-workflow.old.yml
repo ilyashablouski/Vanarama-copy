@@ -1,0 +1,166 @@
+name: feature-workflow
+env:
+  APP: next-storefront
+  ENV: dev
+  STACK: grid
+  ECR_REGION: eu-west-2
+  BUILD_ENV_EXEC_S3_PATH: https://build-env-var.s3.eu-west-2.amazonaws.com/build-env-var.linux-amd64
+on:
+  pull_request:
+    types: [opened, reopened, labeled, synchronize]
+    branches:
+      - develop    
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true      
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    # These permissions are required to use Github OIDC.
+    permissions:
+      id-token: write
+      contents: read    
+    
+    steps:
+      # Uses OIDC to assume the role in AWS rather than maintaining AWS credentials 
+      # in Github. There is a corresponding OIDC provider in IAM setup to receive tokens
+      # from Github. See https://github.com/aws-actions/configure-aws-credentials#assuming-a-role
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.ECR_REGION }}
+          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
+      - uses: aws-actions/amazon-ecr-login@v1
+      - name: Create repository if not exists
+        if: ${{ github.event.inputs.force_rebuild != 'true' }}
+        run: aws ecr describe-repositories --repository-names ${{ env.APP }} --region ${{ env.ECR_REGION }} || aws ecr create-repository --repository-name ${{ env.APP }} --region ${{ env.ECR_REGION }}
+    
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn typecheck
+
+  unit-test:
+    runs-on: ubuntu-latest
+    env:
+      # this makes the babel-jest-react magic happen and means all tests pass. If this is set to 
+      # development then some tests will fail.
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.1'
+          architecture: 'x64'
+      - run: yarn install --immutable
+      - run: yarn test --coverage --maxWorkers=2
+
+  package:
+    runs-on: ubuntu-latest
+    needs: [init]
+    outputs:
+      tag: ${{ steps.create-tag.outputs.tag }}
+
+    permissions:
+      id-token: write
+      contents: read    
+
+    steps:
+      - id: create-tag
+        run: |
+          pr_number=${{ github.event.pull_request.number }}
+          head_ref=${{ github.head_ref }}
+          head_ref=${head_ref/\//"-"}          
+          tag=${head_ref/feature-/"feature-PR$pr_number-B${{ github.run_number }}-"}
+          echo $tag
+          echo "::set-output name=tag::$tag"
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.ECR_REGION }}
+          role-to-assume: ${{ secrets.GRID_NON_PROD_ACTIONS_ROLE }}          
+      - name: Curl build-env-var
+        run: |
+          curl ${{ env.BUILD_ENV_EXEC_S3_PATH }} --output build-env-var.linux-amd64
+          chmod +x build-env-var.linux-amd64
+      - uses: aws-actions/amazon-ecr-login@v1
+      - name: Pull latest develop image for cache
+        run: docker pull ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest || true
+      - name: Docker build
+        run: |
+          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
+          eval "$(./build-env-var.linux-amd64 -ignoreMissing -ssmPrefix=/${{ env.ENV }}/${{ env.STACK }}/${{ env.APP }} -envTemplate=env.template -envStdout)"
+          docker build -t ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG} \
+          --build-arg NPM_TOKEN=${{ secrets.GRID_NPM_TOKEN }} \
+          --build-arg PRERENDER_SERVICE_URL=${PRERENDER_SERVICE_URL} \
+          --build-arg API_KEY=${API_KEY} \
+          --build-arg API_URL=${API_URL} \
+          --build-arg ENV=${ENV} \
+          --build-arg GTM_ID=${GTM_ID} \
+          --build-arg HEAP_ID=${HEAP_ID} \
+          --build-arg MICROBLINK_URL=${MICROBLINK_URL} \
+          --build-arg IMG_OPTIMISATION_HOST=${IMG_OPTIMISATION_HOST} \
+          --build-arg LOQATE_KEY=${LOQATE_KEY} \
+          --build-arg NODE_ENV=${NODE_ENV} \
+          --build-arg HOST_DOMAIN=${HOST_DOMAIN} \
+          --build-arg SEO_BUCKET_NAME=${SEO_BUCKET_NAME} \
+          --cache-from ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:latest .
+      - name: Docker push
+        run: |
+          ARTEFACT_TAG=${{ steps.create-tag.outputs.tag }}
+          docker push ${{ secrets.GRID_NON_PROD_REPO_PREFIX }}/${{ env.APP }}:${ARTEFACT_TAG}
+          echo "Pushed image ${ARTEFACT_TAG}"
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [package, unit-test, typecheck, lint]
+    
+    # Only trigger the deployment if the feature is labeled with 'deploy'
+    if: contains(github.event.pull_request.labels.*.name, 'deploy')
+    
+    steps:
+      - name: Start deployment
+        uses: bobheadxi/deployments@v0.6.1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GRID_GIT_TOKEN }}
+          ref: ${{ github.head_ref }}
+          env: feature
+      - name: Trigger harness workflow
+        run: |
+          echo "Deployment id is ${{ steps.deployment.outputs.deployment_id}}"
+          curl -X POST -H 'content-type: application/json' \
+          --url https://app.harness.io/gateway/api/webhooks/L1Oc4FuQT9NyorwwHhyBVnReKRI00noR8XTWhaZJ?accountId=EXo9ax1NTw2-KO2kOVqDIQ \
+          -d '{ 
+          "application":"KXsbP_C3S4K5Py29GoHJyg", 
+          "parameters":{
+            "github_sha":"${{ github.event.pull_request.head.sha }}", 
+            "deployment_id":"${{ steps.deployment.outputs.deployment_id }}", 
+            "pr_number":"${{ github.event.pull_request.number }}"
+           }, 
+          "artifacts":[{ 
+            "artifactSourceName":"next-storefront", 
+            "service":"next-storefront", 
+            "buildNumber":"${{ needs.package.outputs.tag }}" 
+           }]}'            
