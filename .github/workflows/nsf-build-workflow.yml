@@ -77,7 +77,7 @@ jobs:
           ref: ${{ github.event.inputs.github_sha }}
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{  github.event.inputs.ecr_region }}
+          aws-region: ${{ env.ECR_REGION }}
           role-to-assume: ${{ secrets[needs.set-env.outputs.github_actions_role_secret] }}
       - name: Curl build-env-var
         run: |
