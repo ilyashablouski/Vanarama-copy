@@ -78,7 +78,7 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.ECR_REGION }}
-          role-to-assume: ${{ secrets[needs.set-env.outputs.github_actions_role_secret] }}
+          role-to-assume: ${{ secrets.GRID_PROD_ACTIONS_ROLE }}
       - name: Curl build-env-var
         run: |
           curl ${{ env.BUILD_ENV_EXEC_S3_PATH }} --output build-env-var.linux-amd64
