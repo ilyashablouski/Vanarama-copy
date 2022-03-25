@@ -10,6 +10,7 @@ import {
   removeUrlQueryPart,
   getProductPageBreadCrumb,
   formatToSlugFormat,
+  generateRangeSlugs,
   getCanonicalUrl,
   getMetadataForPagination,
   shouldManufacturersStateUpdate,
@@ -375,6 +376,24 @@ describe('Url utils', () => {
     it('formatToSlugFormat should return valid slug value', () => {
       const actual = formatToSlugFormat('test ID.3.');
       expect(actual).toEqual('test-id-3');
+    });
+  });
+
+  describe('generateRangeSlugs', () => {
+    it('generateRangeSlugs should return valid slug collection', () => {
+      const mockRangeList = {
+        rangeList: [
+          { rangeName: '7 series', rangeId: null, count: null, minPrice: null },
+          { rangeName: '2 series', rangeId: null, count: null, minPrice: null },
+          { rangeName: '3 series', rangeId: null, count: null, minPrice: null },
+        ],
+      };
+      const actual = generateRangeSlugs(mockRangeList, 'bmw');
+      expect(actual).toEqual([
+        'car-leasing/bmw/7-series',
+        'car-leasing/bmw/2-series',
+        'car-leasing/bmw/3-series',
+      ]);
     });
   });
 
