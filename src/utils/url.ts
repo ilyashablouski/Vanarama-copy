@@ -15,6 +15,8 @@ import { arraysAreEqual } from './array';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
+const MANUFACTURERS_WITH_SLUGS = ['abarth'];
+
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
     value ? `&${key}=${value}` : '',
@@ -93,7 +95,12 @@ export const generateUrlForBreadcrumb = (
   manufacturersWithSlug: string[],
 ) => {
   // use slugs instead of legacy url
-  if (isManufacturerMigrated(manufacturersWithSlug, manufacturer)) {
+  if (
+    isManufacturerMigrated(
+      [...manufacturersWithSlug, ...MANUFACTURERS_WITH_SLUGS],
+      manufacturer,
+    )
+  ) {
     return (
       pageData?.slug ||
       slugArray
