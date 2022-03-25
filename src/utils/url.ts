@@ -15,8 +15,6 @@ import { arraysAreEqual } from './array';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
-const MANUFACTURERS_WITH_SLUGS = ['abarth'];
-
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
     value ? `&${key}=${value}` : '',
@@ -54,17 +52,27 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
 export const formatUrl = (value: string) =>
   value.toLocaleLowerCase().replace(/ /g, '-');
 
+export const isManufacturerMigrated = (
+  migratedManufacturers: string[],
+  vehicleManufacturerName: string,
+) =>
+  !!vehicleManufacturerName &&
+  migratedManufacturers.some(
+    manufacturerName =>
+      manufacturerName.toLowerCase().replace('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replace('-', ' '),
+  );
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
-  isManufacturerMigrated = false,
+  isMigrated = false,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
   return (
-    (isManufacturerMigrated
-      ? edge?.node?.url
-      : edge?.node?.legacyUrl || edge?.node?.url) || ''
+    (isMigrated ? edge?.node?.url : edge?.node?.legacyUrl || edge?.node?.url) ||
+    ''
   );
 };
 
@@ -85,12 +93,7 @@ export const generateUrlForBreadcrumb = (
   manufacturersWithSlug: string[],
 ) => {
   // use slugs instead of legacy url
-  if (
-    [
-      ...manufacturersWithSlug.map(value => value.toLowerCase()),
-      ...MANUFACTURERS_WITH_SLUGS,
-    ].includes(manufacturer.toLowerCase())
-  ) {
+  if (isManufacturerMigrated(manufacturersWithSlug, manufacturer)) {
     return (
       pageData?.slug ||
       slugArray
@@ -335,14 +338,3 @@ export const shouldManufacturersStateUpdate = (
   );
   return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
 };
-
-export const isManufacturerMigrated = (
-  migratedManufacturers: string[],
-  vehicleManufacturerName: string,
-) =>
-  !!vehicleManufacturerName &&
-  migratedManufacturers.some(
-    manufacturerName =>
-      manufacturerName.toLowerCase().replace('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replace('-', ' '),
-  );
