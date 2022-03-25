@@ -49,11 +49,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
-import {
-  formatToSlugFormat,
-  generateRangeSlugs,
-  getManufacturerJson,
-} from '../../../utils/url';
+import { generateRangeSlugs, getManufacturerJson } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
