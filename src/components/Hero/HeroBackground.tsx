@@ -10,11 +10,12 @@ const HeroBackground: React.FC<IHeroProps> = ({
   hideCurve,
   smallPrint,
   expand,
+  className,
 }) => {
   return (
     <div
       style={{ '--hero-bg': `url(${backgroundUrl})` }}
-      className={cx('row:bg-hero', {
+      className={cx('row:bg-hero', className, {
         '-expand': expand,
       })}
     >
