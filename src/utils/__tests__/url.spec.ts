@@ -497,13 +497,16 @@ describe('Url utils', () => {
       'Alfa Romeo',
       'Cupra',
       'Dacia',
-      'Land Rover',
+      'Jaguar Land Rover',
     ];
     it('isManufacturerMigrated should return true', () => {
       expect(isManufacturerMigrated(manufacturersList, 'Dacia')).toEqual(true);
       expect(isManufacturerMigrated(manufacturersList, 'Alfa Romeo')).toEqual(
         true,
       );
+      expect(
+        isManufacturerMigrated(manufacturersList, 'Jaguar Land Rover'),
+      ).toEqual(true);
     });
     it('isManufacturerMigrated should return false', () => {
       expect(isManufacturerMigrated(manufacturersList, 'BMW')).toEqual(false);
