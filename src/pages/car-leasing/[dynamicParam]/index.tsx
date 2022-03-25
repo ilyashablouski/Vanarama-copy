@@ -53,7 +53,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
-import { formatToSlugFormat, getManufacturerJson } from '../../../utils/url';
+import { formatToSlugFormat, generateRangeSlugs, getManufacturerJson } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
@@ -248,14 +248,8 @@ export async function getServerSideProps(
         },
       })
       .then(resp => resp.data);
-    const slugs =
-      ranges.rangeList &&
-      ranges.rangeList.map(
-        (range: IRange) =>
-          `car-leasing/${formatToSlugFormat(
-            query.make as string,
-          )}/${formatToSlugFormat(range.rangeName || '')}`,
-      );
+    const slugs = generateRangeSlugs(ranges, query.make);
+
     rangesUrls =
       slugs &&
       (await client
