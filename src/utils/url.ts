@@ -65,8 +65,8 @@ export const isManufacturerMigrated = (
   !!vehicleManufacturerName &&
   migratedManufacturers.some(
     manufacturerName =>
-      manufacturerName.toLowerCase().replace('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replace('-', ' '),
+      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
   );
 
 export const getLegacyUrl = (
@@ -242,6 +242,21 @@ export const formatToSlugFormat = (value: string) => {
   return formattedSlug;
 };
 
+export const generateRangeSlugs = (
+  ranges: IRangeList,
+  make: string,
+): Nullable<string[]> => {
+  return (
+    ranges.rangeList &&
+    ranges.rangeList.map(
+      (range: IRange) =>
+        `car-leasing/${formatToSlugFormat(make as string)}/${formatToSlugFormat(
+          range.rangeName || '',
+        )}`,
+    )
+  );
+};
+
 export function trimStartSlash(url: string) {
   return url.startsWith('/') ? url.slice(1) : url;
 }
@@ -348,30 +363,4 @@ export const shouldManufacturersStateUpdate = (
     oldState?.vehicles?.lcv?.manufacturers,
   );
   return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
-};
-
-export const isManufacturerMigrated = (
-  migratedManufacturers: string[],
-  vehicleManufacturerName: string,
-) =>
-  !!vehicleManufacturerName &&
-  migratedManufacturers.some(
-    manufacturerName =>
-      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
-  );
-
-export const generateRangeSlugs = (
-  ranges: IRangeList,
-  make: string,
-): Nullable<string[]> => {
-  return (
-    ranges.rangeList &&
-    ranges.rangeList.map(
-      (range: IRange) =>
-        `car-leasing/${formatToSlugFormat(make as string)}/${formatToSlugFormat(
-          range.rangeName || '',
-        )}`,
-    )
-  );
 };
