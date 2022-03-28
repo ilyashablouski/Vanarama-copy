@@ -286,7 +286,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleValue = useMemo(() => data?.vehicleDetails?.vehicleValue, [
     data,
   ]);
-  const pdpVehicleType = pdpContentData?.pdpContent?.vehicleType?.[0];
+
+  const isElectric = useMemo(
+    () => data?.derivativeInfo?.fuelType?.name === 'Electric',
+    [data?.derivativeInfo?.fuelType?.name],
+  );
 
   useEffect(() => {
     setSessionStorage('vehicleValue', vehicleValue);
@@ -312,7 +316,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     async function pushAnalytics() {
       await pushPageData({
         router,
-        pdpVehicleType,
+        isElectricPdp: isElectric,
       });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
@@ -396,11 +400,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     isCar,
     isInsurance,
   ]);
-
-  const isElectric = useMemo(
-    () => data?.derivativeInfo?.fuelType?.name === 'Electric',
-    [data?.derivativeInfo?.fuelType?.name],
-  );
 
   const vehicleImages = useMemo(
     () =>

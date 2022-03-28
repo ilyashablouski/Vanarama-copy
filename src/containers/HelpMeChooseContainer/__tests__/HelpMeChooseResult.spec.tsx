@@ -382,7 +382,7 @@ describe('<HelpMeChooseResult />', () => {
     await preloadAll();
   });
 
-  it('should render correct', () => {
+  it.skip('should render correct', () => {
     const three = renderer
       .create(
         <ApolloProvider client={client}>

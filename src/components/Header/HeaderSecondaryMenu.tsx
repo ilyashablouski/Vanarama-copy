@@ -1,12 +1,9 @@
 import React, { FC, memo, useState, useEffect, useMemo } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 
 import { IBaseProps } from 'core/interfaces/base';
-import { isServer } from '../../utils/deviceType';
-import { isTesting } from '../../utils/env';
 
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink';
@@ -30,10 +27,6 @@ const FlameSharp = dynamic(() => import('core/assets/icons/FlameSharp'), {
 
 const MIN_PROMO_IMAGES_NUMBER = 1;
 const MAX_PROMO_IMAGES_NUMBER = 2;
-
-/* the menu should be rendered by default only on the server
-   and in tests (to match snapshots). otherwise, it should be lazy loaded */
-const isMenuVisibleByDefault = isServer() || isTesting;
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
@@ -117,215 +110,202 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
       className="menu-secondary--wrapper-outer"
       data-testid="menu-secondary--wrapper-outer"
     >
-      <LazyLoadComponent visibleByDefault={isMenuVisibleByDefault}>
-        <div className="menu-secondary--wrapper-inner">
-          <ul
-            className="menu-secondary"
-            data-uitestid={`${dataUiTestId}_menu-secondary`}
+      <div className="menu-secondary--wrapper-inner">
+        <ul
+          className="menu-secondary"
+          data-uitestid={`${dataUiTestId}_menu-secondary`}
+        >
+          <li
+            className={linkClassName({
+              title: true,
+            })}
           >
-            <li className={linkClassName({ title: true })}>
-              <Button
-                withoutDefaultClass
-                className="link"
-                onClick={el => {
-                  el.preventDefault();
-                  onClickTitle();
-                }}
-                dataTestId="menu-title"
-                color="black"
-                fill="clear"
-                label={title}
-              />
+            <Button
+              withoutDefaultClass
+              className="link"
+              onClick={el => {
+                el.preventDefault();
+                onClickTitle();
+              }}
+              dataTestId="menu-title"
+              color="black"
+              fill="clear"
+              label={title}
+            />
+          </li>
+          {links.map((link: IHeaderLink) => (
+            <li
+              key={`${link.label}_${title}`}
+              className={linkClassName({
+                open: !!link.children?.length && activeTertiaryMenu === link.id,
+                highlight: link.highlight,
+                withChildren: !!link.children?.length,
+              })}
+              data-testid={link.label}
+            >
+              {!link.href ? (
+                <Button
+                  withoutDefaultClass
+                  className={link.highlight ? 'link -white' : 'link -inherit'}
+                  color="black"
+                  fill="clear"
+                  size="initial-size"
+                  label={link.highlightLabel ? link.highlightLabel : link.label}
+                  dataUiTestId={`${dataUiTestId}_button_${link.label}`}
+                  onClick={
+                    isTabletOrMobile && link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                  onMouseOver={
+                    !isTabletOrMobile && link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                  onFocus={
+                    link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                >
+                  {link.highlight && (
+                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
+                  )}
+                </Button>
+              ) : (
+                <RouterLink
+                  link={link}
+                  classNames={{
+                    color: (!!link.highlight && 'white') || 'inherit',
+                  }}
+                  onClick={
+                    isTabletOrMobile && link.children?.length
+                      ? el => {
+                          el.preventDefault();
+                          setActiveTertiaryMenu(link.id || null);
+                        }
+                      : undefined
+                  }
+                  onMouseOver={
+                    !isTabletOrMobile && link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                  onFocus={
+                    link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                >
+                  {link.highlight && (
+                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
+                  )}
+                  <span>{link.label}</span>
+                  {link.highlightLabel && <Label text={link.highlightLabel} />}
+                </RouterLink>
+              )}
             </li>
-            {links.map((link: IHeaderLink) => (
-              <li
-                key={`${link.label}_${title}`}
-                className={linkClassName({
-                  open:
-                    !!link.children?.length && activeTertiaryMenu === link.id,
-                  highlight: link.highlight,
-                  withChildren: !!link.children?.length,
+          ))}
+        </ul>
+        {tertiaryLinks.map(tertiaryBlock => {
+          const { promoImageLink, children: secondaryLinks } = tertiaryBlock;
+
+          return (
+            <React.Fragment key={`menu-tertiary-${tertiaryBlock.id}`}>
+              <ul
+                className={cx('menu-tertiary', {
+                  '-open': activeTertiaryMenu === tertiaryBlock.id,
                 })}
-                data-testid={link.label}
+                data-uitestid={`${dataUiTestId}_menu-tertiary_${tertiaryBlock.label}`}
               >
-                {!link.href ? (
-                  <>
-                    <Button
-                      key={`${link.label}_${title}`}
-                      withoutDefaultClass
-                      className={
-                        link.highlight ? 'link -white' : 'link -inherit'
-                      }
-                      color="black"
-                      fill="clear"
-                      size="initial-size"
-                      label={
-                        link.highlightLabel ? link.highlightLabel : link.label
-                      }
-                      dataUiTestId={`${dataUiTestId}_button_${link.label}`}
-                      onClick={
-                        isTabletOrMobile && link.children?.length
-                          ? () => {
-                              setActiveTertiaryMenu(link?.id || '');
-                            }
-                          : undefined
-                      }
-                      onMouseOver={
-                        !isTabletOrMobile && link.children?.length
-                          ? () => {
-                              setActiveTertiaryMenu(link?.id || '');
-                            }
-                          : undefined
-                      }
-                      onFocus={
-                        link.children?.length
-                          ? () => {
-                              setActiveTertiaryMenu(link?.id || '');
-                            }
-                          : undefined
-                      }
-                    >
-                      {link.highlight && (
+                <li className={linkClassName({ title: true })}>
+                  <Button
+                    withoutDefaultClass
+                    className="link"
+                    onClick={el => {
+                      el.preventDefault();
+                      setActiveTertiaryMenu(null);
+                    }}
+                    dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
+                    color="black"
+                    fill="clear"
+                    label={tertiaryBlock.label}
+                  />
+                </li>
+                {secondaryLinks?.map((secondaryLink: IHeaderLink) => (
+                  <li
+                    key={secondaryLink.label}
+                    className={linkClassName({
+                      highlight: secondaryLink.highlight,
+                      half: secondaryLinks.length > 4 && title !== 'ELECTRIC',
+                    })}
+                  >
+                    <RouterLink link={secondaryLink} as={secondaryLink.as}>
+                      {secondaryLink.highlight && (
                         <Icon
                           icon={<FlameSharp />}
                           color="white"
                           size="xsmall"
                         />
                       )}
-                    </Button>
-                  </>
-                ) : (
-                  <RouterLink
-                    link={link}
-                    classNames={{
-                      color: (!!link.highlight && 'white') || 'inherit',
-                    }}
-                    onClick={
-                      isTabletOrMobile && link.children?.length
-                        ? el => {
-                            el.preventDefault();
-                            setActiveTertiaryMenu(link.id || null);
-                          }
-                        : undefined
-                    }
-                    onMouseOver={
-                      !isTabletOrMobile && link.children?.length
-                        ? () => {
-                            setActiveTertiaryMenu(link?.id || '');
-                          }
-                        : undefined
-                    }
-                    onFocus={
-                      link.children?.length
-                        ? () => {
-                            setActiveTertiaryMenu(link?.id || '');
-                          }
-                        : undefined
-                    }
-                  >
-                    {link.highlight && (
-                      <Icon icon={<FlameSharp />} color="white" size="xsmall" />
-                    )}
-                    <span>{link.label}</span>
-                    {link.highlightLabel && (
-                      <Label text={link.highlightLabel} />
-                    )}
-                  </RouterLink>
-                )}
-              </li>
-            ))}
-          </ul>
-          {tertiaryLinks.map(tertiaryBlock => {
-            const { promoImageLink, children: secondaryLinks } = tertiaryBlock;
-
-            return (
-              <React.Fragment key={`menu-tertiary-${tertiaryBlock.id}`}>
-                <ul
-                  className={cx('menu-tertiary', {
-                    '-open': activeTertiaryMenu === tertiaryBlock.id,
-                  })}
-                  data-uitestid={`${dataUiTestId}_menu-tertiary_${tertiaryBlock.label}`}
-                >
-                  <li className={linkClassName({ title: true })}>
-                    <Button
-                      withoutDefaultClass
-                      className="link"
-                      onClick={el => {
-                        el.preventDefault();
-                        setActiveTertiaryMenu(null);
-                      }}
-                      dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
-                      color="black"
-                      fill="clear"
-                      label={tertiaryBlock.label}
-                    />
-                  </li>
-                  {secondaryLinks?.map((secondaryLink: IHeaderLink) => (
-                    <li
-                      key={secondaryLink.label}
-                      className={linkClassName({
-                        highlight: secondaryLink.highlight,
-                        half: secondaryLinks.length > 4 && title !== 'ELECTRIC',
-                      })}
-                    >
-                      <RouterLink link={secondaryLink} as={secondaryLink.as}>
-                        {secondaryLink.highlight && (
-                          <Icon
-                            icon={<FlameSharp />}
-                            color="white"
-                            size="xsmall"
-                          />
-                        )}
-                        <span>{secondaryLink.label}</span>
-                      </RouterLink>
-                    </li>
-                  ))}
-                </ul>
-                {promoImageLink?.url && (
-                  <div
-                    className={cx('menu-featured', 'tertiary', {
-                      '-hide':
-                        activeTertiaryMenu !== tertiaryBlock.id &&
-                        activeTertiaryMenu !== '',
-                    })}
-                  >
-                    <RouterLink
-                      link={{
-                        href: promoImageLink?.url,
-                        label: '',
-                      }}
-                    >
-                      <ImageV2
-                        quality={60}
-                        width={promoImageLink?.image.width ?? 800}
-                        height={promoImageLink?.image.height ?? 800}
-                        alt={promoImageLink?.image.fileName}
-                        src={
-                          promoImageLink?.image.url || '/img-placeholder.png'
-                        }
-                      />
+                      <span>{secondaryLink.label}</span>
                     </RouterLink>
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
+                  </li>
+                ))}
+              </ul>
+              {promoImageLink?.url && (
+                <div
+                  key={promoImageLink.url}
+                  className={cx('menu-featured', 'tertiary', {
+                    '-hide':
+                      activeTertiaryMenu !== tertiaryBlock.id &&
+                      activeTertiaryMenu !== '',
+                  })}
+                >
+                  <RouterLink
+                    link={{
+                      href: promoImageLink?.url,
+                      label: '',
+                    }}
+                  >
+                    <ImageV2
+                      quality={60}
+                      width={promoImageLink?.image.width ?? 800}
+                      height={promoImageLink?.image.height ?? 800}
+                      alt={promoImageLink?.image.fileName}
+                      src={promoImageLink?.image.url || '/img-placeholder.png'}
+                    />
+                  </RouterLink>
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
 
-          {resultPromoImagesLinks?.map(promoImageLink => (
-            <div className="menu-featured" key={promoImageLink.url}>
-              <RouterLink link={{ href: promoImageLink?.url, label: '' }}>
-                <ImageV2
-                  quality={60}
-                  width={promoImageLink.image.width ?? 800}
-                  height={promoImageLink.image.height ?? 800}
-                  src={promoImageLink?.image.url || '/img-placeholder.png'}
-                  alt={promoImageLink?.image.fileName}
-                />
-              </RouterLink>
-            </div>
-          ))}
-        </div>
-      </LazyLoadComponent>
+        {resultPromoImagesLinks?.map(promoImageLink => (
+          <div className="menu-featured" key={promoImageLink.url}>
+            <RouterLink link={{ href: promoImageLink?.url, label: '' }}>
+              <ImageV2
+                quality={60}
+                width={promoImageLink.image.width ?? 800}
+                height={promoImageLink.image.height ?? 800}
+                src={promoImageLink?.image.url || '/img-placeholder.png'}
+                alt={promoImageLink?.image.fileName}
+              />
+            </RouterLink>
+          </div>
+        ))}
+      </div>
     </div>
   );
 });

@@ -678,6 +678,11 @@
           padding-bottom: calc(var(--page-gap) * 4) !important;
         }
 
+        &.-below-content {
+          padding-top: calc(var(--page-gap) * 5.7);
+          padding-bottom: calc(var(--page-gap) * 1.38) !important;
+        }
+
         & + [class*='row\:bg-'] {
           --page-gap: calc(var(--layout-gap) * 1);
         }
