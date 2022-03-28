@@ -817,6 +817,11 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   max-width: 100%;
 }
 
+.-w-440 {
+  width: 440px;
+  max-width: 100%;
+}
+
 // 100% height utility
 .full-height {
   height: 100%;

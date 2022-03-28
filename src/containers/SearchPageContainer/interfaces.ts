@@ -47,4 +47,5 @@ export interface ISearchPageContainerProps {
   defaultSort?: Nullable<SortObject[]>;
   newRangePageSlug?: string;
   dataUiTestId?: string;
+  isManufacturerFeatureFlagEnabled?: boolean;
 }
