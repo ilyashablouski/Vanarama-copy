@@ -93,6 +93,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   roadsideAssistance,
   warrantyDetails,
   dataUiTestId,
+  toggleColorAndTrimModalVisible,
+  isColourAndTrimOverlay,
 }) => {
   const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
     isFactoryOrderSelect(colourData, `${colour}`),
@@ -386,6 +388,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         warrantyDetails={warrantyDetails}
         setIsHotOffer={setIsHotOffer}
         setIsFactoryOrder={setIsFactoryOrder}
+        toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+        isColourAndTrimOverlay={isColourAndTrimOverlay}
       />
       <Modal
         className="-mt-000 callBack"

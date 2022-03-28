@@ -2143,3 +2143,62 @@
     position: relative;
   }
 }
+
+.color-trim {
+  height: calc(100vh - 90px);
+  padding-right: 45px;
+  padding-top: 45px;
+  position: relative;
+  overflow-y: auto;
+
+  @include mobile-tablet {
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 50px;
+  }
+
+  & .color-trim-header {
+    padding-bottom: 20px;
+
+    & .icon {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+
+      & svg {
+        font-size: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  & .image {
+    height: 550px;
+
+    @include mobile-tablet {
+      height: 330px;
+    }
+  }
+
+  & .-container {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CDD6DE;
+  }
+}
+
+.color-trim-footer {
+  border-top: 1px solid #CDD6DE;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  height: 90px;
+  margin-right: 45px;
+  align-items: flex-start;
+
+  @include mobile-tablet {
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-right: 0;
+  }
+}

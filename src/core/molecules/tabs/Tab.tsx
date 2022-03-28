@@ -6,6 +6,7 @@ import { panelId, tabId } from './utils';
 
 interface IProps extends IBaseProps {
   index: number;
+  onClick?: () => void;
 }
 
 const Tab: React.FC<IProps> = ({
@@ -14,6 +15,7 @@ const Tab: React.FC<IProps> = ({
   dataTestId,
   dataUiTestId,
   index,
+  onClick,
 }) => {
   const { activeIndex, baseId, onChange } = useTabsContext();
   const active = index === activeIndex;
@@ -25,7 +27,7 @@ const Tab: React.FC<IProps> = ({
       className={cx(className, { '-active': active })}
       data-testid={dataTestId}
       data-uitestid={dataUiTestId}
-      onClick={e => onChange(index, e)}
+      onClick={onClick || (e => onChange(index, e))}
       role="tab"
       type="button"
     >
