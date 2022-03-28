@@ -65,10 +65,25 @@ describe('dataLayerHelpers', () => {
 
   describe('isPdpOrSearchElectricSection', () => {
     it(
+      'isPdpOrSearchElectricSection should return true if user on manufacturer or range pages' +
+        ' with electric vehicle',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          initialFilterFuelType: undefined,
+          isElectricPdp: true,
+          queryFuelTypes: undefined,
+          queryDynamicParam: undefined,
+        });
+
+        expect(actual).toEqual(true);
+      },
+    );
+    it(
       'isPdpOrSearchElectricSection should return true if user on PDP' +
         ' with electric vehicle',
       () => {
         const actual = isPdpOrSearchElectricSection({
+          initialFilterFuelType: undefined,
           isElectricPdp: true,
           queryFuelTypes: undefined,
           queryDynamicParam: undefined,
@@ -82,8 +97,9 @@ describe('dataLayerHelpers', () => {
         ' with "Electric" fuelTypes query param',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          isElectricPdp: false,
-          queryFuelTypes: 'Electric',
+          initialFilterFuelType: 'Electric',
+          isElectricPdp: undefined,
+          queryFuelTypes: undefined,
           queryDynamicParam: undefined,
         });
 
@@ -95,6 +111,7 @@ describe('dataLayerHelpers', () => {
         ' with "electric" dynamicParam query param',
       () => {
         const actual = isPdpOrSearchElectricSection({
+          initialFilterFuelType: undefined,
           isElectricPdp: false,
           queryFuelTypes: undefined,
           queryDynamicParam: 'electric',
@@ -108,6 +125,7 @@ describe('dataLayerHelpers', () => {
         ' or not on electric search pages',
       () => {
         const actual = isPdpOrSearchElectricSection({
+          initialFilterFuelType: undefined,
           isElectricPdp: false,
           queryFuelTypes: undefined,
           queryDynamicParam: undefined,
