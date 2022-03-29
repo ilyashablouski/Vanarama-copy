@@ -55,6 +55,11 @@
           color: $black;
           background: var(--tabs-border-left);
           background-color: $light;
+
+          & .color-picker g,
+          & .color-picker .picker {
+            fill: black;
+          }
         }
       }
 

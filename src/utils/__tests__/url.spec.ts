@@ -10,6 +10,7 @@ import {
   removeUrlQueryPart,
   getProductPageBreadCrumb,
   formatToSlugFormat,
+  generateRangeSlugs,
   getCanonicalUrl,
   getMetadataForPagination,
   shouldManufacturersStateUpdate,
@@ -378,6 +379,24 @@ describe('Url utils', () => {
     });
   });
 
+  describe('generateRangeSlugs', () => {
+    it('generateRangeSlugs should return valid slug collection', () => {
+      const mockRangeList = {
+        rangeList: [
+          { rangeName: '7 series', rangeId: null, count: null, minPrice: null },
+          { rangeName: '2 series', rangeId: null, count: null, minPrice: null },
+          { rangeName: '3 series', rangeId: null, count: null, minPrice: null },
+        ],
+      };
+      const actual = generateRangeSlugs(mockRangeList, 'bmw');
+      expect(actual).toEqual([
+        'car-leasing/bmw/7-series',
+        'car-leasing/bmw/2-series',
+        'car-leasing/bmw/3-series',
+      ]);
+    });
+  });
+
   describe('getCanonicalUrl', () => {
     const origin = 'http://localhost';
 
@@ -478,13 +497,16 @@ describe('Url utils', () => {
       'Alfa Romeo',
       'Cupra',
       'Dacia',
-      'Land Rover',
+      'Jaguar Land Rover',
     ];
     it('isManufacturerMigrated should return true', () => {
       expect(isManufacturerMigrated(manufacturersList, 'Dacia')).toEqual(true);
       expect(isManufacturerMigrated(manufacturersList, 'Alfa Romeo')).toEqual(
         true,
       );
+      expect(
+        isManufacturerMigrated(manufacturersList, 'Jaguar Land Rover'),
+      ).toEqual(true);
     });
     it('isManufacturerMigrated should return false', () => {
       expect(isManufacturerMigrated(manufacturersList, 'BMW')).toEqual(false);

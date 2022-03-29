@@ -42,6 +42,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import {
   addImacaHexToColourList,
+  isColourAndTrimOverlayFeatureFlagEnabled,
   moveFactoryOrderToEnd,
   sortByHotOffer,
   toPriceFormat,
@@ -99,6 +100,7 @@ interface IProps {
   trimData: Nullable<IOptionsList[]>;
   migrationSlugs?: IManufacturersSlug;
   serviceBanner?: IServiceBanner;
+  isColourAndTrimOverlay: boolean;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -114,6 +116,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   imacaAssets,
   colourData,
   trimData,
+  isColourAndTrimOverlay,
 }) => {
   // De-obfuscate data for user
   const productCard = decodeData(encodedData);
@@ -211,6 +214,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         leaseTypeQuery={leaseTypeQuery}
         colourData={colourData}
         trimData={trimData}
+        isColourAndTrimOverlay={isColourAndTrimOverlay}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -224,6 +228,10 @@ export async function getServerSideProps(
   const path = context.resolvedUrl || '';
 
   try {
+    const isColourAndTrimOverlay = isColourAndTrimOverlayFeatureFlagEnabled(
+      context.req.headers.cookie,
+    );
+
     const { data } = await client.query<
       GenericPageHeadQuery,
       GenericPageHeadQueryVariables
@@ -423,6 +431,7 @@ export async function getServerSideProps(
         colourData: sortByHotOffer(colourData),
         trimData: sortByHotOffer(colorAndTrimData.data.trimGroupList),
         serviceBanner: serviceBanner || null,
+        isColourAndTrimOverlay,
       },
     };
   } catch (error) {

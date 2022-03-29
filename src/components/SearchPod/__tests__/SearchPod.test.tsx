@@ -47,13 +47,13 @@ describe('<SearchPod />', () => {
     mocks = resetMocks();
   });
 
-  it.skip('tabs should be changeable', () => {
+  it('tabs should be changeable', () => {
     render(<SearchPod {...mocks} />);
     fireEvent.click(screen.getByTestId('Carstab'));
 
     expect(mocks.onChangeTab).toBeCalled();
   });
-  it.skip('search button should be clickable', () => {
+  it('search button should be clickable', () => {
     render(<SearchPod {...mocks} />);
     fireEvent.click(screen.getByTestId('CarssearchBtn'));
     expect(mocks.onSearch).toBeCalled();
