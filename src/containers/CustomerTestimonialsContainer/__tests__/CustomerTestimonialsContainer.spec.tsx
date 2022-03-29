@@ -253,7 +253,7 @@ describe('<CustomerTestimonialsContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it.skip('should match snapshot', async () => {
+  it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false} mocks={mocked}>
