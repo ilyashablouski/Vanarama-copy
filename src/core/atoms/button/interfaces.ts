@@ -16,4 +16,5 @@ export interface IButtonProps
   size?: TSize;
   withoutDefaultClass?: boolean;
   customCTAColor?: string;
+  iconClassName?: string;
 }

@@ -80,4 +80,13 @@
       fill: var(--class-color);
     }
   }
+
+  &.color-picker {
+    height: 24px;
+  }
+
+  &.color-picker.uncolored g,
+  &.color-picker.uncolored .picker,{
+    fill: #658098;
+  }
 }

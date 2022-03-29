@@ -215,4 +215,10 @@
 
   @include colour-selector(-primary, $teal, colour);
   @include colour-selector(-secondary, darker, contrast);
+
+  &.-white-teal {
+    border-color: #197f85;
+    background: white;
+    color: #197f85;
+  }
 }

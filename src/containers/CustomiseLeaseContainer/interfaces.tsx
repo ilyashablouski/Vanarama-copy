@@ -54,6 +54,8 @@ export interface IProps {
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
   dataUiTestId?: string;
+  toggleColorAndTrimModalVisible: () => void;
+  isColourAndTrimOverlay: boolean;
 }
 
 export interface IQuoteDataInputs {
