@@ -23,7 +23,7 @@ describe('<SearchPodContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it.skip('renders correctly with data', async () => {
+  it('renders correctly with data', async () => {
     (filterTypeAndBudget as jest.Mock).mockReturnValue([
       jest.fn(),
       {

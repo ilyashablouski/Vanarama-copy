@@ -20,7 +20,7 @@ import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
 import { PAGES, SITE_SECTIONS } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
-import { CurrencyCodeEnum } from '../../entities/global';
+import { CurrencyCodeEnum, FuelTypeEnum } from '../../entities/global';
 import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
@@ -103,6 +103,7 @@ interface IPageData {
   pageType?: string;
   siteSection?: string;
   isElectricPdp?: boolean;
+  initialFilterFuelType?: Nullish<string>;
 }
 
 interface ICategory {
@@ -113,6 +114,7 @@ interface ICategory {
 }
 
 interface IPdpOrSearchElectricSection {
+  initialFilterFuelType?: Nullish<string>;
   isElectricPdp?: boolean;
   queryFuelTypes?: string[] | Nullish<string>;
   queryDynamicParam?: string[] | Nullish<string>;
@@ -265,20 +267,18 @@ export const checkForGtmDomEvent = (callback: () => void) => {
 };
 
 export const isPdpOrSearchElectricSection = ({
+  initialFilterFuelType,
   isElectricPdp,
   queryFuelTypes,
   queryDynamicParam,
 }: IPdpOrSearchElectricSection): boolean => {
-  if (isElectricPdp) {
-    return true;
-  }
-  if (queryFuelTypes) {
-    return queryFuelTypes === 'Electric';
-  }
-  if (queryDynamicParam) {
-    return queryDynamicParam === 'electric';
-  }
-  return false;
+  const isElectricPage =
+    isElectricPdp ||
+    [initialFilterFuelType, queryFuelTypes, queryDynamicParam].some(
+      param => param === FuelTypeEnum.ELECTRIC || param === 'electric',
+    );
+
+  return isElectricPage;
 };
 
 export const pushPageData = async ({
@@ -286,6 +286,7 @@ export const pushPageData = async ({
   pageType,
   siteSection,
   isElectricPdp,
+  initialFilterFuelType,
 }: IPageData) => {
   if (!window.dataLayer) {
     return;
@@ -306,6 +307,8 @@ export const pushPageData = async ({
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
     pathname === '/van-leasing/[dynamicParam]' ||
+    pathname === '/car-leasing/[dynamicParam]/[rangeName]' ||
+    pathname === '/van-leasing/[dynamicParam]/[rangeName]' ||
     pathname === '/car-leasing/search' ||
     pathname === '/van-leasing/search'
   ) {
@@ -315,6 +318,7 @@ export const pushPageData = async ({
     data = {
       pageType,
       siteSection: isPdpOrSearchElectricSection({
+        initialFilterFuelType,
         isElectricPdp,
         queryFuelTypes,
         queryDynamicParam,
@@ -330,6 +334,7 @@ export const pushPageData = async ({
     data = {
       pageType: pageData?.pageType || 'undefined',
       siteSection: isPdpOrSearchElectricSection({
+        initialFilterFuelType,
         isElectricPdp,
         queryFuelTypes,
         queryDynamicParam,
