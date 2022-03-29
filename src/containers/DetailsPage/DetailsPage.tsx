@@ -1028,7 +1028,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         onCloseDrawer={toggleColorAndTrimModalVisible}
       >
         <ColourAndTrimModal
-          data={data}
           price={
             +toPriceFormat(
               leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
@@ -1044,6 +1043,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setSelectedTrim={setTrim}
           sortedTrimList={trimList}
           setIsFactoryOrder={setIsFactoryOrder}
+          imageUrl={data?.vehicleImages?.[0]?.imageUrls?.[0] || ''}
+          manufacturerName={data?.derivativeInfo?.manufacturer.name || ''}
         />
       </CenteredDrawer>
       <Head

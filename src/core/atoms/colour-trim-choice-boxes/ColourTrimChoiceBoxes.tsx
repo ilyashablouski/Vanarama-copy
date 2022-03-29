@@ -28,8 +28,9 @@ function ColourTrimChoiceBoxes({
     <div className="row:cards-1col">
       {data?.options?.map(option => {
         return (
-          <>
+          <React.Fragment key={option?.optionId}>
             <input
+              data-testid={option?.optionId}
               id={option?.label || ''}
               type="radio"
               name={data.leadTime || ''}
@@ -55,6 +56,7 @@ function ColourTrimChoiceBoxes({
                   color="orange"
                   size="small"
                   className="-b -mb-100"
+                  dataTestId="HOT OFFER"
                 >
                   <Icon icon={<Flame />} color="orange" />
                   HOT OFFER
@@ -68,7 +70,7 @@ function ColourTrimChoiceBoxes({
                 />
               )}
             </label>
-          </>
+          </React.Fragment>
         );
       })}
     </div>

@@ -10,7 +10,6 @@ import ColourTrimChoiceBoxes from 'core/atoms/colour-trim-choice-boxes/ColourTri
 import Tab from 'core/molecules/tabs/Tab';
 import TabList from 'core/molecules/tabs/TabList';
 import Tabs from 'core/molecules/tabs';
-import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { IOptionsList } from '../../types/detailsPage';
 import { Nullable } from '../../types/common';
 
@@ -19,7 +18,7 @@ const choices = (
   selectedItem: Nullable<number>,
   setSelectedItem: (optionId: number, isFactoryOrder?: boolean) => void,
 ) => (
-  <div>
+  <div key={item.leadTime}>
     <Heading tag="span" size="small" color="black" className="-mb-400">
       {item?.leadTime}
     </Heading>
@@ -32,7 +31,6 @@ const choices = (
 );
 
 interface IColourAndTrimModalProps {
-  data?: GetVehicleDetails;
   price: number;
   toggleColorAndTrimModalVisible: () => void;
   headingText: string;
@@ -44,6 +42,8 @@ interface IColourAndTrimModalProps {
   selectedTrim: Nullable<number>;
   setSelectedTrim: React.Dispatch<React.SetStateAction<number | null>>;
   setIsFactoryOrder: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  imageUrl: string;
+  manufacturerName: string;
 }
 
 const MobileTabs = [
@@ -58,7 +58,6 @@ const MobileTabs = [
 ];
 
 const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
-  data,
   price,
   toggleColorAndTrimModalVisible,
   headingText,
@@ -70,9 +69,10 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
   setSelectedTrim,
   sortedTrimList,
   setIsFactoryOrder,
+  imageUrl,
+  manufacturerName,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
-  const image = data?.vehicleImages?.[0];
 
   const changeColour = (
     optionId: number,
@@ -92,7 +92,11 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
           <Text color="black" size="large" className="-b">
             Choose Your Color & Trim
           </Text>
-          <Icon icon={<Close />} onClick={toggleColorAndTrimModalVisible} />
+          <Icon
+            dataTestId="icon-close"
+            icon={<Close />}
+            onClick={toggleColorAndTrimModalVisible}
+          />
         </div>
 
         <div className="-container -mb-400">
@@ -100,8 +104,8 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
             quality={60}
             objectFit="cover"
             lazyLoad
-            src={image?.imageUrls?.[0] || ''}
-            alt={data?.derivativeInfo?.manufacturer.name}
+            src={imageUrl}
+            alt={manufacturerName}
             plain
           />
         </div>
