@@ -100,6 +100,8 @@ const Page: NextPage<IProps> = ({
   isManufacturerFeatureFlagEnabled,
 }) => {
   const router = useRouter();
+  const initialFilterFuelType =
+    filtersData?.fuelTypes && filtersData?.fuelTypes[0];
   // De-obfuscate data for user
   const vehiclesList = decodeData(encodedData);
   const productCardsData = decodeData(productEncodedData);
@@ -118,9 +120,8 @@ const Page: NextPage<IProps> = ({
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
       router,
+      initialFilterFuelType,
     });
-    // it's should executed only when page init
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
