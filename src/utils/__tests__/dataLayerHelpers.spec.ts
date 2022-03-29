@@ -69,8 +69,8 @@ describe('dataLayerHelpers', () => {
         ' with electric vehicle',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          initialFilterFuelType: undefined,
-          isElectricPdp: true,
+          initialFilterFuelType: 'Electric',
+          isElectricPdp: false,
           queryFuelTypes: undefined,
           queryDynamicParam: undefined,
         });
@@ -97,9 +97,9 @@ describe('dataLayerHelpers', () => {
         ' with "Electric" fuelTypes query param',
       () => {
         const actual = isPdpOrSearchElectricSection({
-          initialFilterFuelType: 'Electric',
+          initialFilterFuelType: undefined,
           isElectricPdp: undefined,
-          queryFuelTypes: undefined,
+          queryFuelTypes: 'Electric',
           queryDynamicParam: undefined,
         });
 
