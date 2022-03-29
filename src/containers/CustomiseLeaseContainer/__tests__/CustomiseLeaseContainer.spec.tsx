@@ -148,6 +148,8 @@ const props = {
   setMileage: jest.fn(),
   colour: 1234,
   setColour: jest.fn(),
+  isColourAndTrimOverlay: true,
+  toggleColorAndTrimModalVisible: () => {},
 };
 
 describe('<CustomiseLeaseContainer />', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import Icon from '../../../atoms/icon';
 import Flame from '../../../assets/icons/Flame';
 
@@ -20,6 +20,8 @@ describe('<MediaGallery />', () => {
         accentText: 'Hot Offer',
         text: 'dealText',
       },
+      isColourAndTrimOverlay: true,
+      toggleColorAndTrimModalVisible: jest.fn(),
     };
   };
 
@@ -32,5 +34,8 @@ describe('<MediaGallery />', () => {
   it('should be render', () => {
     const { container } = render(<MediaGallery {...mocks} />);
     expect(container.getElementsByClassName('pdp--flag').length).toBe(1);
+
+    fireEvent.click(screen.getByText('Colour'));
+    expect(mocks.toggleColorAndTrimModalVisible).toBeCalled();
   });
 });

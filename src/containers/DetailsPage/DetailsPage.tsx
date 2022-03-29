@@ -23,6 +23,7 @@ import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
 import { useDeletePersonUuidMutation } from 'gql/storedPersonUuid';
+import CenteredDrawer from 'core/molecules/centered-drawer/CenteredDrawer';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -143,6 +144,7 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
+const ColourAndTrimModal = dynamic(() => import('./ColourAndTrimModal'));
 
 interface IDetailsPageProps {
   capId: number;
@@ -162,6 +164,7 @@ interface IDetailsPageProps {
   colourData: Nullable<IOptionsList[]>;
   trimData: Nullable<IOptionsList[]>;
   dataUiTestId?: string;
+  isColourAndTrimOverlay: boolean;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -182,6 +185,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   pdpContent: pdpContentData,
   imacaAssets,
   dataUiTestId,
+  isColourAndTrimOverlay,
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
@@ -200,6 +204,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isColorAndTrimModalVisible, setIsColorAndTrimModalVisible] = useState(
+    false,
+  );
   const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
   const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isPlayingLeaseAnimation, setIsPlayingLeaseAnimation] = useState(false);
@@ -210,6 +217,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
+
+  const toggleColorAndTrimModalVisible = () => {
+    setIsColorAndTrimModalVisible(prevState => !prevState);
+  };
 
   const resultImacaAssets = useMemo(() => {
     const imacaColourList = imacaAssets?.colours
@@ -710,6 +721,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           className="pdp--media-gallery"
           colour={colour}
           setColour={setColour}
+          isColourAndTrimOverlay={isColourAndTrimOverlay}
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
         />
         {(isElectric || isFreeInsurance) && (
           <div className="extras pdp">
@@ -836,6 +849,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             pickups={pickups}
             roadsideAssistance={vehicleDetails?.roadsideAssistance}
             warrantyDetails={warrantyDetails}
+            toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+            isColourAndTrimOverlay={isColourAndTrimOverlay}
           />
         )}
         <WhyChooseLeasing warrantyDetails={warrantyDetails} />
@@ -889,6 +904,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           pickups={pickups}
           roadsideAssistance={vehicleDetails?.roadsideAssistance}
           warrantyDetails={warrantyDetails}
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+          isColourAndTrimOverlay={isColourAndTrimOverlay}
         />
       )}
       {(!!productCard || !!capsId?.length) && (
@@ -962,6 +979,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           isBusinessLease={leaseType === LeaseTypeEnum.BUSINESS}
         />
       )}
+      <CenteredDrawer
+        isOpen={isColorAndTrimModalVisible}
+        onCloseDrawer={toggleColorAndTrimModalVisible}
+      >
+        <ColourAndTrimModal
+          data={data}
+          price={
+            +toPriceFormat(
+              leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+            )
+          }
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+          headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+        />
+      </CenteredDrawer>
       <Head
         metaData={metaData}
         featuredImage={genericPageHead?.genericPage.featuredImage || null}
