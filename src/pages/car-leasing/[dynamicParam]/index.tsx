@@ -119,8 +119,6 @@ const Page: NextPage<IProps> = ({
       router,
       initialFilterFuelType,
     });
-    // it's should execued only when page init
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
