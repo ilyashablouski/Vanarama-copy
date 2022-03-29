@@ -37,7 +37,13 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
+import {
+  toPriceFormat,
+  getOptionFromList,
+  checkIsHotOffer,
+  isFactoryOrderSelect,
+  isHotOfferSelect,
+} from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -81,7 +87,7 @@ import {
   parseQuoteParams,
   removeImacaColoursDuplications,
 } from './helpers';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
 import { PdpBanners } from '../../models/enum/PdpBanners';
@@ -89,6 +95,7 @@ import FreeInsuranceBanner from './FreeInsuranceBanner';
 import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
 import { IOptionsList } from '../../types/detailsPage';
+import { useTrim } from '../../gql/carpage';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -202,6 +209,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [colour, setColour] = useState<Nullable<number>>(
     parseQuoteParams(quote?.quoteByCapId?.colour),
   );
+  const [trim, setTrim] = useState<number | null>(
+    parseQuoteParams(quote?.quoteByCapId?.trim),
+  );
+  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
+    isFactoryOrderSelect(colourData, `${colour}`),
+  );
+  const [isHotOffer, setIsHotOffer] = useState<Nullish<boolean>>(
+    isHotOfferSelect(colourData, `${colour}`),
+  );
+  // if user selected 'hot offer' colour, need remove 'factory order' trim
+  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(
+    checkIsHotOffer(trimData, isHotOffer, isFactoryOrder),
+  );
+
+  const [getTrim] = useTrim(result => {
+    setTrimList(
+      checkIsHotOffer(result.trimGroupList, isHotOffer, isFactoryOrder),
+    );
+  });
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isColorAndTrimModalVisible, setIsColorAndTrimModalVisible] = useState(
@@ -364,6 +390,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       clearTimeout(timerId);
     };
   }, [price]);
+
+  useFirstRenderEffect(() => {
+    getTrim({
+      variables: {
+        capId: `${capId}`,
+        vehicleType: quote?.quoteByCapId?.vehicleType as VehicleTypeEnum,
+        colourId: colour as number,
+      },
+    });
+  }, [colour]);
 
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
@@ -835,7 +871,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
-            trimData={trimData}
             colourData={colourData}
             setLeadTime={setLeadTime}
             isPlayingLeaseAnimation={isPlayingLeaseAnimation}
@@ -846,11 +881,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setMileage={setMileage}
             colour={colour}
             setColour={setColour}
+            trim={trim}
+            setTrim={setTrim}
             pickups={pickups}
             roadsideAssistance={vehicleDetails?.roadsideAssistance}
             warrantyDetails={warrantyDetails}
             toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
             isColourAndTrimOverlay={isColourAndTrimOverlay}
+            setIsFactoryOrder={setIsFactoryOrder}
+            trimList={trimList}
+            setIsHotOffer={setIsHotOffer}
           />
         )}
         <WhyChooseLeasing warrantyDetails={warrantyDetails} />
@@ -888,7 +928,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
-          trimData={trimData}
           colourData={colourData}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
@@ -901,11 +940,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setMileage={setMileage}
           colour={colour}
           setColour={setColour}
+          trim={trim}
+          setTrim={setTrim}
           pickups={pickups}
           roadsideAssistance={vehicleDetails?.roadsideAssistance}
           warrantyDetails={warrantyDetails}
           toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
           isColourAndTrimOverlay={isColourAndTrimOverlay}
+          setIsFactoryOrder={setIsFactoryOrder}
+          trimList={trimList}
+          setIsHotOffer={setIsHotOffer}
         />
       )}
       {(!!productCard || !!capsId?.length) && (
@@ -992,6 +1036,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           }
           toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
           headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+          colourData={colourData}
+          isMobile={isMobile}
+          selectedColour={colour}
+          setSelectedColour={setColour}
+          selectedTrim={trim}
+          setSelectedTrim={setTrim}
+          sortedTrimList={trimList}
+          setIsFactoryOrder={setIsFactoryOrder}
         />
       </CenteredDrawer>
       <Head
