@@ -15,7 +15,7 @@ const ColourTrimColumn: FC<IProps> = ({
   selectedItem,
   setSelectedItem,
 }) => (
-  <div key={item.leadTime}>
+  <div>
     <Heading tag="span" size="small" color="black" className="-mb-400">
       {item?.leadTime}
     </Heading>

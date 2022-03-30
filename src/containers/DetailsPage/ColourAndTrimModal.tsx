@@ -128,6 +128,7 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
                     item={item}
                     selectedItem={selectedColour}
                     setSelectedItem={changeColour}
+                    key={item.leadTime}
                   />
                 );
               })}
@@ -153,6 +154,7 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
                     item={item}
                     selectedItem={selectedTrim}
                     setSelectedItem={changeTrim}
+                    key={item.leadTime}
                   />
                 );
               })}
