@@ -93,7 +93,8 @@ function MediaGallery({
                 images={images}
                 imageAltText={imageAltText}
                 renderImageDecoration={() =>
-                  shouldRenderImaca && (
+                  shouldRenderImaca &&
+                  !isColourAndTrimOverlay && (
                     <button
                       type="button"
                       className="gallery-select-color-btn"
@@ -130,7 +131,11 @@ function MediaGallery({
               </TabPanel>
             )}
           </TabPanels>
-          <TabList className="media-gallery__tabs">
+          <TabList
+            className={cx('media-gallery__tabs', {
+              'with-colour-picker': isColourAndTrimOverlay,
+            })}
+          >
             {shouldRenderImaca && (
               <Tab index={0} dataUiTestId="details-page_tab_360">
                 <Icon className="rotate" icon={<MediaRotate />} />
@@ -151,7 +156,7 @@ function MediaGallery({
                   className="color-picker uncolored"
                   icon={<ColourPicker />}
                 />
-                Colour
+                Select Colour
               </Tab>
             )}
             {videoSrc && (
