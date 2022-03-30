@@ -35,7 +35,7 @@ describe('<MediaGallery />', () => {
     const { container } = render(<MediaGallery {...mocks} />);
     expect(container.getElementsByClassName('pdp--flag').length).toBe(1);
 
-    fireEvent.click(screen.getByText('Colour'));
+    fireEvent.click(screen.getByText('Select Colour'));
     expect(mocks.toggleColorAndTrimModalVisible).toBeCalled();
   });
 });

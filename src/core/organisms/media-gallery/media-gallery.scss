@@ -9,6 +9,18 @@
     @include mobile {
       margin-top: 0;
     }
+
+    &.with-colour-picker button {
+      @include mobile-tablet {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+
+        & .icon {
+          margin-right: 0!important;
+        }
+      }
+    }
   }
 }
 
