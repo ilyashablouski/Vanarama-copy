@@ -6,29 +6,12 @@ import Text from 'core/atoms/text/Text';
 import Icon from 'core/atoms/icon';
 import Close from 'core/assets/icons/Close';
 import Heading from 'core/atoms/heading';
-import ColourTrimChoiceBoxes from 'core/atoms/colour-trim-choice-boxes/ColourTrimChoiceBoxes';
 import Tab from 'core/molecules/tabs/Tab';
 import TabList from 'core/molecules/tabs/TabList';
 import Tabs from 'core/molecules/tabs';
+import ColourTrimColumn from 'core/atoms/colour-trim-column/ColourTrimColumn';
 import { IOptionsList } from '../../types/detailsPage';
 import { Nullable } from '../../types/common';
-
-const choices = (
-  item: IOptionsList,
-  selectedItem: Nullable<number>,
-  setSelectedItem: (optionId: number, isFactoryOrder?: boolean) => void,
-) => (
-  <div key={item.leadTime}>
-    <Heading tag="span" size="small" color="black" className="-mb-400">
-      {item?.leadTime}
-    </Heading>
-    <ColourTrimChoiceBoxes
-      data={item}
-      selectedItem={selectedItem}
-      setSelectedItem={setSelectedItem}
-    />
-  </div>
-);
 
 interface IColourAndTrimModalProps {
   price: number;
@@ -49,11 +32,11 @@ interface IColourAndTrimModalProps {
 const MobileTabs = [
   {
     tabName: 'Colour',
-    type: 1,
+    index: 1,
   },
   {
     tabName: 'Trim',
-    type: 2,
+    index: 2,
   },
 ];
 
@@ -119,7 +102,7 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
           >
             <TabList>
               {MobileTabs.map(tab => (
-                <Tab index={tab.type} key={tab.tabName} className="-p-400">
+                <Tab index={tab.index} key={tab.tabName} className="-p-400">
                   {tab.tabName}
                 </Tab>
               ))}
@@ -140,7 +123,13 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
             </Heading>
             <div className="row:cards-3col">
               {colourData?.map(item => {
-                return choices(item, selectedColour, changeColour);
+                return (
+                  <ColourTrimColumn
+                    item={item}
+                    selectedItem={selectedColour}
+                    setSelectedItem={changeColour}
+                  />
+                );
               })}
             </div>
           </div>
@@ -159,7 +148,13 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
             </Heading>
             <div className="row:cards-3col">
               {sortedTrimList?.map(item => {
-                return choices(item, selectedTrim, changeTrim);
+                return (
+                  <ColourTrimColumn
+                    item={item}
+                    selectedItem={selectedTrim}
+                    setSelectedItem={changeTrim}
+                  />
+                );
               })}
             </div>
           </div>
