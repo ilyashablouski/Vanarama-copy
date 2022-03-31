@@ -75,18 +75,6 @@ const props = {
       ],
     },
   ],
-  trimData: [
-    {
-      leadTime: '14-21 Day Delivery',
-      options: [
-        {
-          label: 'Leather - Cranberry red',
-          optionId: 104562,
-          hotOffer: false,
-        },
-      ],
-    },
-  ],
   vehicleType: VehicleTypeEnum.CAR,
   onCompletedCallBack: jest.fn(),
   setLeadTime: jest.fn(),
@@ -150,6 +138,22 @@ const props = {
   setColour: jest.fn(),
   isColourAndTrimOverlay: true,
   toggleColorAndTrimModalVisible: () => {},
+  trim: 104562,
+  setTrim: () => {},
+  trimList: [
+    {
+      leadTime: '14-21 Day Delivery',
+      options: [
+        {
+          label: 'Leather - Cranberry red',
+          optionId: 104562,
+          hotOffer: false,
+        },
+      ],
+    },
+  ],
+  setIsHotOffer: () => {},
+  setIsFactoryOrder: () => {},
 };
 
 describe('<CustomiseLeaseContainer />', () => {

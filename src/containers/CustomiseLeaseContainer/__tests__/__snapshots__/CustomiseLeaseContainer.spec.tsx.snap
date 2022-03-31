@@ -619,7 +619,7 @@ Array [
         >
           Select Interior:
         </div>
-        
+        Leather - Cranberry red
       </div>
       <span
         className="icon select--chevron"
@@ -884,6 +884,23 @@ Array [
               data-testid="colour"
             >
               Solid - Polar white
+            </div>
+          </div>
+          <div
+            className="structured-list-row"
+          >
+            <div
+              className="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-6-Trim / Interior:"
+              data-uitestid="details-page_order-summary_Trim / Interior:"
+            >
+              Trim / Interior:
+            </div>
+            <div
+              className="structured-list-td"
+              data-testid="trim"
+            >
+              Leather - Cranberry red
             </div>
           </div>
           <div

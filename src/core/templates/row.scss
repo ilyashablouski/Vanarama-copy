@@ -2188,6 +2188,17 @@
   & .-container {
     padding-bottom: 20px;
     border-bottom: 1px solid #CDD6DE;
+
+    @include mobile {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  & .color-trim-box {
+    background: #F3F5F7;
+    padding: 23px;
+    margin-bottom: 20px;
   }
 }
 
