@@ -29,7 +29,7 @@ interface IColourAndTrimModalProps {
   manufacturerName: string;
 }
 
-const MobileTabs = [
+const MOBILE_TABS = [
   {
     tabName: 'Colour',
     index: 1,
@@ -101,7 +101,7 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
             className="-mb-400"
           >
             <TabList>
-              {MobileTabs.map(tab => (
+              {MOBILE_TABS.map(tab => (
                 <Tab index={tab.index} key={tab.tabName} className="-p-400">
                   {tab.tabName}
                 </Tab>
