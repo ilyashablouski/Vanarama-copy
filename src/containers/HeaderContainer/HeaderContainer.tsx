@@ -3,7 +3,6 @@ import { useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
-import { ILink } from 'core/interfaces/link';
 import {
   clearInactiveSessionFuelTypes,
   getPartnerProperties,
@@ -13,13 +12,9 @@ import Cookies from 'js-cookie';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
-import { IHeaderLink } from '../../components/Header/Header';
-import { convertChildrenNavLink, convertPromoImageLink, getTopLinks } from "./helpers";
+import { getTopLinks } from './helpers';
 import { useStoredPersonQuery } from '../../gql/storedPerson';
-import {
-  GetPrimaryHeaderData as HeaderData,
-  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
-} from '../../../generated/GetPrimaryHeaderData';
+import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -31,7 +26,6 @@ import {
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
 import { useLogOutMutation } from './gql';
-import { isBrowser, TABLET_WIDTH } from "../../utils/deviceType";
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -83,9 +77,7 @@ const HeaderContainer: FC<IProps> = ({ serviceBanner }) => {
   }, [router.asPath]);
 
   useEffect(() => {
-    if (isBrowser()) {
-      setIsTabletOrMobile(mediaQueryResult);
-    }
+    setIsTabletOrMobile(mediaQueryResult);
   }, [mediaQueryResult]);
 
   const [partnership, setPartnership] = useState<string | null>(null);
