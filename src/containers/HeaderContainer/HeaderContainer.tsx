@@ -14,7 +14,7 @@ import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
-import { convertChildrenNavLink, convertPromoImageLink } from './helpers';
+import { convertChildrenNavLink, convertPromoImageLink, getTopLinks } from "./helpers";
 import { useStoredPersonQuery } from '../../gql/storedPerson';
 import {
   GetPrimaryHeaderData as HeaderData,
@@ -31,6 +31,7 @@ import {
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
 import { useLogOutMutation } from './gql';
+import { isBrowser, TABLET_WIDTH } from "../../utils/deviceType";
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -51,7 +52,9 @@ const HeaderContainer: FC<IProps> = ({ serviceBanner }) => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
   const client = useApolloClient();
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
+  const mediaQueryResult = useMediaQuery({ query: '(max-width: 1215px)' });
+  const [isTabletOrMobile, setIsTabletOrMobile] = useState(false);
+
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
 
@@ -79,6 +82,12 @@ const HeaderContainer: FC<IProps> = ({ serviceBanner }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath]);
 
+  useEffect(() => {
+    if (isBrowser()) {
+      setIsTabletOrMobile(mediaQueryResult);
+    }
+  }, [mediaQueryResult]);
+
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
   const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
@@ -91,97 +100,9 @@ const HeaderContainer: FC<IProps> = ({ serviceBanner }) => {
       highlight: true,
     })) || [];
 
-  const topLinks = data?.primaryHeader.linkGroups?.reduce(
-    (link, linksGroup) => {
-      const transformLinks = linksGroup?.links?.map(el => ({
-        href: el?.url || '',
-        label: el?.text || '',
-        id: el?.url || '',
-        highlightLabel: el?.label || '',
-      }));
-      let headerTopLinks: IHeaderLink;
-      if (transformLinks && transformLinks?.length > 1) {
-        const linksGroupUrl = transformLinks.shift() as ILink;
-        const specialOffersLinks = {
-          ...(transformLinks.shift() as ILink),
-          highlight: !!linksGroup?.linkGroups?.length,
-        };
-        const transformGroupLink =
-          linksGroup?.linkGroups &&
-          (linksGroup?.linkGroups as LinkGroups[]).map(el => ({
-            label: el.name || '',
-            href: '',
-            id: el?.name || '',
-            children: el.links?.map(convertChildrenNavLink),
-          }));
-        const childrenGroupLinks = transformGroupLink?.length
-          ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
-          : [specialOffersLinks, ...transformLinks];
-
-        headerTopLinks = {
-          href: linksGroupUrl?.href || '',
-          label: linksGroup?.name || '',
-          id: linksGroupUrl.id || '',
-          promoImagesLinks: linksGroup?.promotionalImages?.map(
-            convertPromoImageLink,
-          ),
-          children: isTabletOrMobile
-            ? [linksGroupUrl, ...childrenGroupLinks]
-            : childrenGroupLinks,
-        };
-      } else if (linksGroup?.linkGroups?.length) {
-        const transformGroupLink =
-          linksGroup?.linkGroups &&
-          (linksGroup?.linkGroups as LinkGroups[]).map(el => {
-            const childrenLinkArray: ILink[] = el.links!.map(
-              convertChildrenNavLink,
-            );
-            const linksGroupUrl = childrenLinkArray.shift() as ILink;
-            const specialOffersLinks = {
-              ...(childrenLinkArray.shift() as ILink),
-              highlight: true,
-            };
-            const childrenLink = [specialOffersLinks, ...childrenLinkArray];
-
-            return {
-              label: el.name || '',
-              href: linksGroupUrl.href,
-              id: el?.name || '',
-              promoImageLink: convertPromoImageLink(el.promotionalImage),
-              children: isTabletOrMobile
-                ? [linksGroupUrl, ...childrenLink]
-                : childrenLink,
-            };
-          });
-
-        const linksGroupUrl = transformLinks?.shift() as ILink;
-        headerTopLinks = {
-          href: linksGroupUrl?.href || '',
-          label: linksGroup?.name || '',
-          id: linksGroupUrl?.id || '',
-          promoImagesLinks: linksGroup?.promotionalImages?.map(
-            convertPromoImageLink,
-          ),
-          children: isTabletOrMobile
-            ? [linksGroupUrl, ...transformGroupLink]
-            : transformGroupLink,
-        };
-      } else {
-        const linksGroupUrl = transformLinks?.shift() as ILink;
-        headerTopLinks = {
-          href: linksGroupUrl?.href || '',
-          label: linksGroup?.name || '',
-          id: linksGroupUrl?.id || '',
-          promoImagesLinks: linksGroup?.promotionalImages?.map(
-            convertPromoImageLink,
-          ),
-        };
-      }
-      link.push(headerTopLinks);
-      return link;
-    },
-    [] as any[],
-  );
+  const topLinks = useMemo(() => {
+    return getTopLinks(data.primaryHeader.linkGroups, isTabletOrMobile);
+  }, [data.primaryHeader.linkGroups, isTabletOrMobile]);
 
   // check if user is on a partnership journey
   useEffect(() => {

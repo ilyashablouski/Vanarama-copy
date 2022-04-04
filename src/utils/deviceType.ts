@@ -1,5 +1,7 @@
 import { isMobileOnly, isTablet } from 'react-device-detect';
 
+export const TABLET_WIDTH = 1215;
+
 export const DEVICE_TYPES = {
   desktop: 'Desktop',
   mobile: 'Mobile',
