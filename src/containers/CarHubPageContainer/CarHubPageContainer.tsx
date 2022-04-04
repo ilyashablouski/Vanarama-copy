@@ -127,6 +127,7 @@ const CarHubPageContainer: FC<IProps> = ({
       {eligibilityBlockText && (
         <HeadingSection
           titleTag={eligibilityBlockText.titleTag}
+          centeredOnMobile
           header={eligibilityBlockText.heading}
           description={eligibilityBlockText.description}
           dataUiTestId="car-leasing-page_heading-section"
@@ -209,6 +210,7 @@ const CarHubPageContainer: FC<IProps> = ({
           description={features1LeadTextSection?.description}
           dataUiTestId="car-leasing-page_features1-heading-section"
           largeText
+          centeredOnMobile
         />
       )}
 
@@ -247,12 +249,14 @@ const CarHubPageContainer: FC<IProps> = ({
         </div>
       )}
 
-      {features1LeadTextSection && (
+      {features2LeadTextSection && (
         <HeadingSection
           titleTag={features2LeadTextSection?.titleTag}
           header={features2LeadTextSection?.heading}
+          centeredOnMobile
           description={features2LeadTextSection?.description}
           dataUiTestId="car-leasing-page_features1-heading-section"
+          largeText
         />
       )}
 
