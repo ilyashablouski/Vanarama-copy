@@ -265,7 +265,6 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               </ul>
               {promoImageLink?.url && (
                 <div
-                  key={promoImageLink.url}
                   className={cx('menu-featured', 'tertiary', {
                     '-hide':
                       activeTertiaryMenu !== tertiaryBlock.id &&

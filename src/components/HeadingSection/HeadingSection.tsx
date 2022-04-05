@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import Skeleton from '../Skeleton';
 import getTitleTag from '../../utils/getTitleTag';
 import { Nullish } from '../../types/common';
@@ -17,6 +18,7 @@ interface IPageHeadingSection {
   description?: Nullable<string>;
   largeText?: boolean;
   dataUiTestId?: string;
+  centeredOnMobile?: boolean;
 }
 
 const HeadingSection = ({
@@ -25,6 +27,7 @@ const HeadingSection = ({
   description,
   largeText,
   dataUiTestId,
+  centeredOnMobile,
 }: IPageHeadingSection) =>
   header || description ? (
     <section className="row:lead-text">
@@ -32,6 +35,7 @@ const HeadingSection = ({
         <Heading
           size={`${largeText ? 'large' : 'xlarge'}`}
           color="black"
+          className={cx({ '-a-center': centeredOnMobile })}
           tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
           dataUiTestId={dataUiTestId ? `${dataUiTestId}_title` : undefined}
         >
@@ -42,6 +46,7 @@ const HeadingSection = ({
         <Text
           tag="span"
           size="lead"
+          className={cx({ '-a-center': centeredOnMobile })}
           color="darker"
           dataUiTestId={
             dataUiTestId ? `${dataUiTestId}_description` : undefined
