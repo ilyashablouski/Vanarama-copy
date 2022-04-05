@@ -54,17 +54,27 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
 export const formatUrl = (value: string) =>
   value.toLocaleLowerCase().replace(/ /g, '-');
 
+export const isManufacturerMigrated = (
+  migratedManufacturers: string[],
+  vehicleManufacturerName: string,
+) =>
+  !!vehicleManufacturerName &&
+  migratedManufacturers.some(
+    manufacturerName =>
+      manufacturerName.toLowerCase().replace('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replace('-', ' '),
+  );
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
-  isManufacturerMigrated = false,
+  isMigrated = false,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
   return (
-    (isManufacturerMigrated
-      ? edge?.node?.url
-      : edge?.node?.legacyUrl || edge?.node?.url) || ''
+    (isMigrated ? edge?.node?.url : edge?.node?.legacyUrl || edge?.node?.url) ||
+    ''
   );
 };
 
@@ -86,10 +96,10 @@ export const generateUrlForBreadcrumb = (
 ) => {
   // use slugs instead of legacy url
   if (
-    [
-      ...manufacturersWithSlug.map(value => value.toLowerCase()),
-      ...MANUFACTURERS_WITH_SLUGS,
-    ].includes(manufacturer.toLowerCase())
+    isManufacturerMigrated(
+      [...manufacturersWithSlug, ...MANUFACTURERS_WITH_SLUGS],
+      manufacturer,
+    )
   ) {
     return (
       pageData?.slug ||
@@ -335,14 +345,3 @@ export const shouldManufacturersStateUpdate = (
   );
   return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
 };
-
-export const isManufacturerMigrated = (
-  migratedManufacturers: string[],
-  vehicleManufacturerName: string,
-) =>
-  !!vehicleManufacturerName &&
-  migratedManufacturers.some(
-    manufacturerName =>
-      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
-  );
