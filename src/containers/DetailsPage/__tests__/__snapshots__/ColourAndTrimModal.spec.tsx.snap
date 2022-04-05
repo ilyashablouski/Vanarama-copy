@@ -12,7 +12,7 @@ exports[`<ColourAndTrimModal> should render correctly 1`] = `
         <span
           class="text -b -large -black"
         >
-          Choose Your Color & Trim
+          Choose Your Colour & Trim
         </span>
         <i
           class="icon"
