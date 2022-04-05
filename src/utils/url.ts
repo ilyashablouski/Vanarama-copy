@@ -343,5 +343,6 @@ export const isManufacturerMigrated = (
   !!vehicleManufacturerName &&
   migratedManufacturers.some(
     manufacturerName =>
-      manufacturerName.toLowerCase() === vehicleManufacturerName.toLowerCase(),
+      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
   );

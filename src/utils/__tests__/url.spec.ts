@@ -14,6 +14,7 @@ import {
   getMetadataForPagination,
   shouldManufacturersStateUpdate,
   manufacturersSlugInitialState,
+  isManufacturerMigrated,
 } from '../url';
 
 describe('Url utils', () => {
@@ -468,6 +469,28 @@ describe('Url utils', () => {
       expect(
         getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
       ).toEqual(metaDataWithCanonicalUrl);
+    });
+  });
+
+  describe('isManufacturerMigrated', () => {
+    const manufacturersList = [
+      'Abarth',
+      'Alfa Romeo',
+      'Cupra',
+      'Dacia',
+      'Jaguar Land Rover',
+    ];
+    it('isManufacturerMigrated should return true', () => {
+      expect(isManufacturerMigrated(manufacturersList, 'Dacia')).toEqual(true);
+      expect(isManufacturerMigrated(manufacturersList, 'Alfa Romeo')).toEqual(
+        true,
+      );
+      expect(
+        isManufacturerMigrated(manufacturersList, 'Jaguar Land Rover'),
+      ).toEqual(true);
+    });
+    it('isManufacturerMigrated should return false', () => {
+      expect(isManufacturerMigrated(manufacturersList, 'BMW')).toEqual(false);
     });
   });
 });
