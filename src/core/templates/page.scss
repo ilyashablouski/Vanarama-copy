@@ -200,6 +200,12 @@
           border-right: 0;
           border-left: 0;
         }
+
+        &.with-colour-picker .tabs__list [role='tab'] {
+          @include mobile-tablet {
+            font-size: $font-size-200 !important;
+          }
+        }
       }
 
       .tabs__list {
@@ -229,7 +235,7 @@
           margin-right: 0.7em;
           color: inherit;
 
-          &.video svg, &.picture svg {
+          &.video svg, &.picture svg, &.color-picker svg {
             width: $em-400;
             height: 2.5em;
           }
@@ -240,7 +246,7 @@
           }
 
           @include mobile {
-            &.video svg, &.picture svg {
+            &.video svg, &.picture svg, &.color-picker svg {
               width: 1.3em;
               height: $em-500;
             }
@@ -331,6 +337,12 @@
         @include mobile {
           @include margin-inline(-$rem-400);
           width: 100vw;
+        }
+
+        & .swiper-slide {
+          @include mobile-tablet {
+            padding: 0 0.1px;
+          }
         }
       }
 

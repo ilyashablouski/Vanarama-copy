@@ -24,12 +24,8 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
-import {
-  rangeList,
-  rangeListVariables,
-  rangeList_rangeList as IRange,
-} from '../../../../generated/rangeList';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
+import { rangeList, rangeListVariables } from '../../../../generated/rangeList';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
@@ -53,7 +49,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
-import { formatToSlugFormat, getManufacturerJson } from '../../../utils/url';
+import { generateRangeSlugs, getManufacturerJson } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
@@ -63,6 +59,7 @@ import {
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -83,6 +80,7 @@ interface IProps extends ISearchPageProps {
   topOffersList?: Nullable<vehicleList>;
   topOffersCardsData?: Nullable<GetProductCard>;
   defaultSort?: Nullable<SortObject[]>;
+  isManufacturerFeatureFlagEnabled?: boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -99,8 +97,11 @@ const Page: NextPage<IProps> = ({
   ranges,
   rangesUrls,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const router = useRouter();
+  const initialFilterFuelType =
+    filtersData?.fuelTypes && filtersData?.fuelTypes[0];
   // De-obfuscate data for user
   const vehiclesList = decodeData(encodedData);
   const productCardsData = decodeData(productEncodedData);
@@ -118,18 +119,17 @@ const Page: NextPage<IProps> = ({
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
-      pathname: router.pathname,
+      router,
+      initialFilterFuelType,
     });
-    // it's should executed only when page init
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.dynamicParam]);
+  }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
     return <FeaturedAndTilesContainer data={pageData} />;
   }
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
@@ -155,13 +155,14 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
+      isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
     />
   );
 };
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IProps>> {
-  const { query, req } = context;
+  const { query, req, resolvedUrl } = context;
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
@@ -248,14 +249,8 @@ export async function getServerSideProps(
         },
       })
       .then(resp => resp.data);
-    const slugs =
-      ranges.rangeList &&
-      ranges.rangeList.map(
-        (range: IRange) =>
-          `car-leasing/${formatToSlugFormat(
-            query.make as string,
-          )}/${formatToSlugFormat(range.rangeName || '')}`,
-      );
+    const slugs = generateRangeSlugs(ranges, query.make);
+
     rangesUrls =
       slugs &&
       (await client
@@ -323,6 +318,10 @@ export async function getServerSideProps(
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
     ]);
+    const isManufacturerFeatureFlagEnabled = isManufacturerPageFeatureFlagEnabled(
+      req.headers.cookie,
+      resolvedUrl,
+    );
     return {
       props: {
         isServer: !!req,
@@ -343,6 +342,7 @@ export async function getServerSideProps(
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
+        isManufacturerFeatureFlagEnabled,
       },
     };
   } catch (error) {

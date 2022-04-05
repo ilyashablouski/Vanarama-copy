@@ -76,4 +76,37 @@ describe('<Tabs />', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenCalledWith(1337, expect.any(Object));
   });
+
+  it('should call onClick instead of onChange', () => {
+    const onChange = jest.fn();
+    const onClick = jest.fn();
+    render(
+      <Tabs activeIndex={33} onChange={onChange}>
+        <TabList>
+          <Tab onClick={onClick} index={1337}>
+            Tab one
+          </Tab>
+          <Tab index={2222}>Tab two</Tab>
+          <Tab index={33}>Tab three</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel index={1337}>
+            <h1>Tab one</h1>
+          </TabPanel>
+          <TabPanel index={2222}>
+            <h1>Tab two</h1>
+          </TabPanel>
+          <TabPanel index={33}>
+            <h1>Tab three</h1>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>,
+    );
+
+    const tab = screen.getByRole('tab', { name: /tab one/i });
+    fireEvent.click(tab);
+
+    expect(onChange).toHaveBeenCalledTimes(0);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
 });

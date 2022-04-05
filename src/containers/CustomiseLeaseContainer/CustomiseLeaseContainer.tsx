@@ -15,14 +15,6 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Skeleton from '../../components/Skeleton';
 import getLineItem from '../../utils/getLineItem';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { useTrim } from '../../gql/carpage';
-import { Nullable, Nullish } from '../../types/common';
-import { IOptionsList } from '../../types/detailsPage';
-import {
-  checkIsHotOffer,
-  isFactoryOrderSelect,
-  isHotOfferSelect,
-} from '../../utils/helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -81,7 +73,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeaseScannerData,
   isPlayingLeaseAnimation,
   setIsPlayingLeaseAnimation,
-  trimData,
   colourData,
   mileage,
   colour,
@@ -93,13 +84,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   roadsideAssistance,
   warrantyDetails,
   dataUiTestId,
+  toggleColorAndTrimModalVisible,
+  isColourAndTrimOverlay,
+  trim,
+  trimList,
+  setTrim,
+  setIsHotOffer,
+  setIsFactoryOrder,
 }) => {
-  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
-    isFactoryOrderSelect(colourData, `${colour}`),
-  );
-  const [isHotOffer, setIsHotOffer] = useState<Nullish<boolean>>(
-    isHotOfferSelect(colourData, `${colour}`),
-  );
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
   >(quote || null);
@@ -108,12 +100,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
   const [term, setTerm] = useState<number | null>(
     quote?.quoteByCapId?.term || null,
-  );
-  const [trim, setTrim] = useState<number | null>(
-    parseQuoteParams(quote?.quoteByCapId?.trim),
-  );
-  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(
-    checkIsHotOffer(trimData, isHotOffer, isFactoryOrder),
   );
 
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
@@ -126,11 +112,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [isStartScreen, setIsStartScreen] = useState<boolean>(true);
   const isMobile = useMobileViewport();
-  const [getTrim] = useTrim(result => {
-    setTrimList(
-      checkIsHotOffer(result.trimGroupList, isHotOffer, isFactoryOrder),
-    );
-  });
+
   const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
     updatedQuote => {
       setIsRestoreLeaseSettings(false);
@@ -232,14 +214,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         upfront,
         leaseType,
         colour: colour || parseQuoteParams(currentQuoteColour),
-      },
-    });
-
-    getTrim({
-      variables: {
-        capId: `${capId}`,
-        vehicleType,
-        colourId: colour as number,
       },
     });
 
@@ -386,6 +360,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         warrantyDetails={warrantyDetails}
         setIsHotOffer={setIsHotOffer}
         setIsFactoryOrder={setIsFactoryOrder}
+        toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+        isColourAndTrimOverlay={isColourAndTrimOverlay}
       />
       <Modal
         className="-mt-000 callBack"

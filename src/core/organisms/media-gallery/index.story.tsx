@@ -30,6 +30,8 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           setColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
+          toggleColorAndTrimModalVisible={() => {}}
+          isColourAndTrimOverlay={false}
         />
       </div>
     </div>
@@ -55,6 +57,8 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           setColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
+          toggleColorAndTrimModalVisible={() => {}}
+          isColourAndTrimOverlay={false}
         />
       </div>
     </div>
@@ -81,6 +85,8 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           setColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
+          toggleColorAndTrimModalVisible={() => {}}
+          isColourAndTrimOverlay={false}
         />
       </div>
     </div>

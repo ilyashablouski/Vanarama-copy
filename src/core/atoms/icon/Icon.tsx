@@ -5,9 +5,10 @@ import SyncCircleOutline from '../../assets/icons/SyncCircleOutline';
 import { IIconProps } from './interfaces';
 
 const Icon: FC<IIconProps> = memo(props => {
-  const { className, icon, color, size, ...rest } = props;
+  const { className, icon, color, size, dataTestId, ...rest } = props;
   return (
     <i
+      data-testid={dataTestId}
       {...rest}
       className={cx('icon', className, {
         [`-${color}`]: color,

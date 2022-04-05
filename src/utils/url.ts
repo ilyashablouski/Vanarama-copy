@@ -7,11 +7,15 @@ import {
   genericPagesQuery_genericPages as IGenericPages,
   genericPagesQuery_genericPages_items as IGenericPagesItems,
 } from '../../generated/genericPagesQuery';
+import {
+  rangeList as IRangeList,
+  rangeList_rangeList as IRange,
+} from '../../generated/rangeList';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
 import { IManufacturersSlug } from '../types/manufacturerSlug';
-import { arraysAreEqual } from './helpers';
+import { arraysAreEqual } from './array';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -54,17 +58,27 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
 export const formatUrl = (value: string) =>
   value.toLocaleLowerCase().replace(/ /g, '-');
 
+export const isManufacturerMigrated = (
+  migratedManufacturers: string[],
+  vehicleManufacturerName: string,
+) =>
+  !!vehicleManufacturerName &&
+  migratedManufacturers.some(
+    manufacturerName =>
+      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
+  );
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
-  isManufacturerMigrated = false,
+  isMigrated = false,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
   return (
-    (isManufacturerMigrated
-      ? edge?.node?.url
-      : edge?.node?.legacyUrl || edge?.node?.url) || ''
+    (isMigrated ? edge?.node?.url : edge?.node?.legacyUrl || edge?.node?.url) ||
+    ''
   );
 };
 
@@ -86,10 +100,10 @@ export const generateUrlForBreadcrumb = (
 ) => {
   // use slugs instead of legacy url
   if (
-    [
-      ...manufacturersWithSlug.map(value => value.toLowerCase()),
-      ...MANUFACTURERS_WITH_SLUGS,
-    ].includes(manufacturer.toLowerCase())
+    isManufacturerMigrated(
+      [...manufacturersWithSlug, ...MANUFACTURERS_WITH_SLUGS],
+      manufacturer,
+    )
   ) {
     return (
       pageData?.slug ||
@@ -228,6 +242,21 @@ export const formatToSlugFormat = (value: string) => {
   return formattedSlug;
 };
 
+export const generateRangeSlugs = (
+  ranges: IRangeList,
+  make: string,
+): Nullable<string[]> => {
+  return (
+    ranges.rangeList &&
+    ranges.rangeList.map(
+      (range: IRange) =>
+        `car-leasing/${formatToSlugFormat(make as string)}/${formatToSlugFormat(
+          range.rangeName || '',
+        )}`,
+    )
+  );
+};
+
 export function trimStartSlash(url: string) {
   return url.startsWith('/') ? url.slice(1) : url;
 }
@@ -335,14 +364,3 @@ export const shouldManufacturersStateUpdate = (
   );
   return isNewStateExist && !(isCarsSlugsEqual && isLcvSlugsEqual);
 };
-
-export const isManufacturerMigrated = (
-  migratedManufacturers: string[],
-  vehicleManufacturerName: string,
-) =>
-  !!vehicleManufacturerName &&
-  migratedManufacturers.some(
-    manufacturerName =>
-      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
-  );

@@ -23,6 +23,7 @@ import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
 import { useDeletePersonUuidMutation } from 'gql/storedPersonUuid';
+import CenteredDrawer from 'core/molecules/centered-drawer/CenteredDrawer';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -36,7 +37,13 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat, getOptionFromList } from '../../utils/helpers';
+import {
+  toPriceFormat,
+  getOptionFromList,
+  checkIsHotOffer,
+  isFactoryOrderSelect,
+  isHotOfferSelect,
+} from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -80,7 +87,7 @@ import {
   parseQuoteParams,
   removeImacaColoursDuplications,
 } from './helpers';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { useDeletePersonEmailMutation } from '../../gql/storedPersonEmail';
 import { useSaveQuoteMutation } from '../../gql/storedQuote';
 import { PdpBanners } from '../../models/enum/PdpBanners';
@@ -88,6 +95,7 @@ import FreeInsuranceBanner from './FreeInsuranceBanner';
 import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
 import { IOptionsList } from '../../types/detailsPage';
+import { useTrim } from '../../gql/carpage';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -143,6 +151,7 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
+const ColourAndTrimModal = dynamic(() => import('./ColourAndTrimModal'));
 
 interface IDetailsPageProps {
   capId: number;
@@ -162,6 +171,7 @@ interface IDetailsPageProps {
   colourData: Nullable<IOptionsList[]>;
   trimData: Nullable<IOptionsList[]>;
   dataUiTestId?: string;
+  isColourAndTrimOverlay: boolean;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -182,6 +192,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   pdpContent: pdpContentData,
   imacaAssets,
   dataUiTestId,
+  isColourAndTrimOverlay,
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
@@ -198,8 +209,30 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [colour, setColour] = useState<Nullable<number>>(
     parseQuoteParams(quote?.quoteByCapId?.colour),
   );
+  const [trim, setTrim] = useState<number | null>(
+    parseQuoteParams(quote?.quoteByCapId?.trim),
+  );
+  const [isFactoryOrder, setIsFactoryOrder] = useState<boolean | undefined>(
+    isFactoryOrderSelect(colourData, `${colour}`),
+  );
+  const [isHotOffer, setIsHotOffer] = useState<Nullish<boolean>>(
+    isHotOfferSelect(colourData, `${colour}`),
+  );
+  // if user selected 'hot offer' colour, need remove 'factory order' trim
+  const [trimList, setTrimList] = useState<Nullable<IOptionsList[]>>(
+    checkIsHotOffer(trimData, isHotOffer, isFactoryOrder),
+  );
+
+  const [getTrim] = useTrim(result => {
+    setTrimList(
+      checkIsHotOffer(result.trimGroupList, isHotOffer, isFactoryOrder),
+    );
+  });
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isColorAndTrimModalVisible, setIsColorAndTrimModalVisible] = useState(
+    false,
+  );
   const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
   const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isPlayingLeaseAnimation, setIsPlayingLeaseAnimation] = useState(false);
@@ -210,6 +243,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
+
+  const toggleColorAndTrimModalVisible = () => {
+    setIsColorAndTrimModalVisible(prevState => !prevState);
+  };
 
   const resultImacaAssets = useMemo(() => {
     const imacaColourList = imacaAssets?.colours
@@ -276,6 +313,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     data,
   ]);
 
+  const isElectric = useMemo(
+    () => data?.derivativeInfo?.fuelType?.name === 'Electric',
+    [data?.derivativeInfo?.fuelType?.name],
+  );
+
   useEffect(() => {
     setSessionStorage('vehicleValue', vehicleValue);
   }, [vehicleValue]);
@@ -298,7 +340,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   useEffect(() => {
     async function pushAnalytics() {
-      await pushPageData({ pathname: router.pathname });
+      await pushPageData({
+        router,
+        isElectricPdp: isElectric,
+      });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
         document.title,
@@ -346,6 +391,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     };
   }, [price]);
 
+  useFirstRenderEffect(() => {
+    getTrim({
+      variables: {
+        capId: `${capId}`,
+        vehicleType: quote?.quoteByCapId?.vehicleType as VehicleTypeEnum,
+        colourId: colour as number,
+      },
+    });
+  }, [colour]);
+
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
 
@@ -381,11 +436,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     isCar,
     isInsurance,
   ]);
-
-  const isElectric = useMemo(
-    () => data?.derivativeInfo?.fuelType?.name === 'Electric',
-    [data?.derivativeInfo?.fuelType?.name],
-  );
 
   const vehicleImages = useMemo(
     () =>
@@ -707,6 +757,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           className="pdp--media-gallery"
           colour={colour}
           setColour={setColour}
+          isColourAndTrimOverlay={isColourAndTrimOverlay}
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
         />
         {(isElectric || isFreeInsurance) && (
           <div className="extras pdp">
@@ -819,7 +871,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
-            trimData={trimData}
             colourData={colourData}
             setLeadTime={setLeadTime}
             isPlayingLeaseAnimation={isPlayingLeaseAnimation}
@@ -830,9 +881,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setMileage={setMileage}
             colour={colour}
             setColour={setColour}
+            trim={trim}
+            setTrim={setTrim}
             pickups={pickups}
             roadsideAssistance={vehicleDetails?.roadsideAssistance}
             warrantyDetails={warrantyDetails}
+            toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+            isColourAndTrimOverlay={isColourAndTrimOverlay}
+            setIsFactoryOrder={setIsFactoryOrder}
+            trimList={trimList}
+            setIsHotOffer={setIsHotOffer}
           />
         )}
         <WhyChooseLeasing warrantyDetails={warrantyDetails} />
@@ -870,7 +928,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
-          trimData={trimData}
           colourData={colourData}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
@@ -883,9 +940,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setMileage={setMileage}
           colour={colour}
           setColour={setColour}
+          trim={trim}
+          setTrim={setTrim}
           pickups={pickups}
           roadsideAssistance={vehicleDetails?.roadsideAssistance}
           warrantyDetails={warrantyDetails}
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+          isColourAndTrimOverlay={isColourAndTrimOverlay}
+          setIsFactoryOrder={setIsFactoryOrder}
+          trimList={trimList}
+          setIsHotOffer={setIsHotOffer}
         />
       )}
       {(!!productCard || !!capsId?.length) && (
@@ -959,6 +1023,30 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           isBusinessLease={leaseType === LeaseTypeEnum.BUSINESS}
         />
       )}
+      <CenteredDrawer
+        isOpen={isColorAndTrimModalVisible}
+        onCloseDrawer={toggleColorAndTrimModalVisible}
+      >
+        <ColourAndTrimModal
+          price={
+            +toPriceFormat(
+              leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+            )
+          }
+          toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+          headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+          colourData={colourData}
+          isMobile={isMobile}
+          selectedColour={colour}
+          setSelectedColour={setColour}
+          selectedTrim={trim}
+          setSelectedTrim={setTrim}
+          sortedTrimList={trimList}
+          setIsFactoryOrder={setIsFactoryOrder}
+          imageUrl={data?.vehicleImages?.[0]?.imageUrls?.[0] || ''}
+          manufacturerName={data?.derivativeInfo?.manufacturer.name || ''}
+        />
+      </CenteredDrawer>
       <Head
         metaData={metaData}
         featuredImage={genericPageHead?.genericPage.featuredImage || null}

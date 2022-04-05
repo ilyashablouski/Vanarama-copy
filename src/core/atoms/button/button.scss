@@ -215,4 +215,16 @@
 
   @include colour-selector(-primary, $teal, colour);
   @include colour-selector(-secondary, darker, contrast);
+
+  &.-white-teal {
+    border-color: #197f85;
+    background: white;
+    color: #197f85;
+
+    &:hover {
+      border-color: #678098;
+      background: #f3f5f7;
+      color: #0a0d10;
+    }
+  }
 }

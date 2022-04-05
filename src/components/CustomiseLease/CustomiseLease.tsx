@@ -12,6 +12,7 @@ import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
 import Refresh from 'core/assets/icons/Refresh';
+import ColourPicker from 'core/assets/icons/ColourPicker';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
@@ -149,6 +150,8 @@ const CustomiseLease = ({
   warrantyDetails,
   setIsHotOffer,
   setIsFactoryOrder,
+  toggleColorAndTrimModalVisible,
+  isColourAndTrimOverlay,
 }: IProps) => {
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -261,6 +264,19 @@ const CustomiseLease = ({
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
+      {isColourAndTrimOverlay && (
+        <Button
+          customCTAColor={customCTA || 'null'}
+          className="-fullwidth"
+          label="Select Colour & Trim"
+          onClick={toggleColorAndTrimModalVisible}
+          color="white-teal"
+          size="regular"
+          icon={<ColourPicker />}
+          iconPosition="before"
+          iconClassName="color-picker"
+        />
+      )}
       {choices(
         'leaseType',
         leaseTypes,
