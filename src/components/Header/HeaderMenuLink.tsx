@@ -58,7 +58,6 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
 
   return (
     <li
-      key={link.id}
       className={linkClassName({
         open: isSecondaryMenuOpen,
         highlight: link.highlight,
@@ -66,7 +65,6 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
       ref={(!!link.children?.length && hoverRef) || null}
     >
       <RouterLink
-        key={link.id}
         link={link}
         dataUiTestId={`header-${link.label}-link`}
         onClick={

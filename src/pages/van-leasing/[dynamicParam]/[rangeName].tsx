@@ -9,7 +9,7 @@ import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../apolloClient';
 import { GET_VEHICLE_LIST } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { RangeSearchContainer } from '../../../containers/SearchPageContainer';
 import {
   countOfUniqueQueries,
   getCapsIds,
@@ -43,6 +43,8 @@ import {
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
 import { getManufacturerJson } from '../../../utils/url';
+import { pushPageData } from '../../../utils/dataLayerHelpers';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -68,11 +70,22 @@ const Page: NextPage<IProps> = ({
   defaultSort,
 }) => {
   const router = useRouter();
+  const initialFilterFuelType =
+    filtersData?.fuelTypes && filtersData?.fuelTypes[0];
   // De-obfuscate data for user
   const vehiclesList = decodeData(encodedData);
   const productCardsData = decodeData(productEncodedData);
   const topOffersList = decodeData(topOffersListEncodedData);
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
+
+  useEffect(() => {
+    pushPageData({
+      pageType: PAGE_TYPES.rangePage,
+      siteSection: SITE_SECTIONS.vans,
+      router,
+      initialFilterFuelType,
+    });
+  }, [router.query.fuelTypes]);
 
   useEffect(() => {
     if (!router.query.make) {
@@ -95,7 +108,7 @@ const Page: NextPage<IProps> = ({
   }, []);
 
   return (
-    <SearchPageContainer
+    <RangeSearchContainer
       dataUiTestId="vans-search-page"
       isServer={isServer}
       isCarSearch={false}

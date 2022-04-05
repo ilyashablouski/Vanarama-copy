@@ -14,6 +14,7 @@ import TabPanels from 'core/molecules/tabs/TabPanels';
 import MediaVideo from 'core/assets/icons/MediaVideo';
 import MediaRotate from 'core/assets/icons/MediaRotate';
 import MediaPicture from 'core/assets/icons/MediaPicture';
+import ColourPicker from 'core/assets/icons/ColourPicker';
 
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 
@@ -36,6 +37,8 @@ function MediaGallery({
   colour,
   setColour,
   className,
+  toggleColorAndTrimModalVisible,
+  isColourAndTrimOverlay,
 }: IMediaGalleryProps) {
   const [activeTab, setActiveTab] = useState(activeTabIndex ?? 1);
   const [isOpenColourSelect, setIsOpenColourSelect] = useState(false);
@@ -90,7 +93,8 @@ function MediaGallery({
                 images={images}
                 imageAltText={imageAltText}
                 renderImageDecoration={() =>
-                  shouldRenderImaca && (
+                  shouldRenderImaca &&
+                  !isColourAndTrimOverlay && (
                     <button
                       type="button"
                       className="gallery-select-color-btn"
@@ -127,7 +131,11 @@ function MediaGallery({
               </TabPanel>
             )}
           </TabPanels>
-          <TabList className="media-gallery__tabs">
+          <TabList
+            className={cx('media-gallery__tabs', {
+              'with-colour-picker': isColourAndTrimOverlay,
+            })}
+          >
             {shouldRenderImaca && (
               <Tab index={0} dataUiTestId="details-page_tab_360">
                 <Icon className="rotate" icon={<MediaRotate />} />
@@ -138,8 +146,21 @@ function MediaGallery({
               <Icon className="picture" icon={<MediaPicture />} />
               Photos
             </Tab>
+            {isColourAndTrimOverlay && (
+              <Tab
+                index={2}
+                dataUiTestId="details-page_tab_Colour"
+                onClick={toggleColorAndTrimModalVisible}
+              >
+                <Icon
+                  className="color-picker uncolored"
+                  icon={<ColourPicker />}
+                />
+                Select Colour
+              </Tab>
+            )}
             {videoSrc && (
-              <Tab index={2} dataUiTestId="details-page_tab_Video">
+              <Tab index={3} dataUiTestId="details-page_tab_Video">
                 <Icon className="video" icon={<MediaVideo />} />
                 Video
               </Tab>

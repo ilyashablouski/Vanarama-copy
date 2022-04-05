@@ -25,7 +25,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
@@ -101,6 +101,8 @@ const Page: NextPage<IProps> = ({
   topOffersCardsData: topOffersCardsEncodedData,
 }) => {
   const router = useRouter();
+  const initialFilterFuelType =
+    filtersData?.fuelTypes && filtersData?.fuelTypes[0];
   // De-obfuscate data for user
   const vehiclesList = decodeData(encodedData);
   const productCardsData = decodeData(productEncodedData);
@@ -117,17 +119,15 @@ const Page: NextPage<IProps> = ({
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.vans,
-      pathname: router.pathname,
+      router,
+      initialFilterFuelType,
     });
-    // it's should executed only when page init
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.dynamicParam]);
+  }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="vans-search-page"
       isServer={isServer}
-      isCarSearch={false}
       isManufacturerPage={
         pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
       }

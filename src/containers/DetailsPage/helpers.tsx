@@ -107,7 +107,7 @@ export const pdpVanType = (data: GetVehicleDetails): PdpVehicleType => {
     case data.derivativeInfo?.fuelType.name === 'Electric':
       return PdpVehicleType.ElectricVan;
 
-    case !data?.derivativeInfo?.bodyType?.slug?.match('van'):
+    case data?.derivativeInfo?.name?.toLowerCase().includes('pick up'):
       return PdpVehicleType.Pickup;
 
     default:

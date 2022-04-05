@@ -2,7 +2,7 @@
 
 import Cookies from 'js-cookie';
 import { sha256 } from 'js-sha256';
-import { NextRouter } from 'next/router';
+import { NextRouter, Router, SingletonRouter } from 'next/router';
 import { routerItems } from '../core/atoms/breadcrumbs-v2/helpers';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
@@ -17,10 +17,10 @@ import {
 } from '../../generated/globalTypes';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
-import { PAGES } from './pageTypes';
+import { PAGES, SITE_SECTIONS } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
-import { CurrencyCodeEnum } from '../../entities/global';
+import { CurrencyCodeEnum, FuelTypeEnum } from '../../entities/global';
 import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
@@ -99,9 +99,11 @@ interface IPageDataLayer {
 }
 
 interface IPageData {
-  pathname?: string;
+  router?: Router | SingletonRouter | NextRouter;
   pageType?: string;
   siteSection?: string;
+  isElectricPdp?: boolean;
+  initialFilterFuelType?: Nullish<string>;
 }
 
 interface ICategory {
@@ -109,6 +111,13 @@ interface ICategory {
   vans: Nullish<boolean>;
   pickups: Nullish<boolean>;
   electricCars?: Nullish<boolean>;
+}
+
+interface IPdpOrSearchElectricSection {
+  initialFilterFuelType?: Nullish<string>;
+  isElectricPdp?: boolean;
+  queryFuelTypes?: string[] | Nullish<string>;
+  queryDynamicParam?: string[] | Nullish<string>;
 }
 
 declare global {
@@ -257,10 +266,27 @@ export const checkForGtmDomEvent = (callback: () => void) => {
   }
 };
 
+export const isPdpOrSearchElectricSection = ({
+  initialFilterFuelType,
+  isElectricPdp,
+  queryFuelTypes,
+  queryDynamicParam,
+}: IPdpOrSearchElectricSection): boolean => {
+  const isElectricPage =
+    isElectricPdp ||
+    [initialFilterFuelType, queryFuelTypes, queryDynamicParam].some(
+      param => param === FuelTypeEnum.ELECTRIC || param === 'electric',
+    );
+
+  return isElectricPage;
+};
+
 export const pushPageData = async ({
-  pathname,
+  router,
   pageType,
   siteSection,
+  isElectricPdp,
+  initialFilterFuelType,
 }: IPageData) => {
   if (!window.dataLayer) {
     return;
@@ -272,19 +298,33 @@ export const pushPageData = async ({
     getStoredPersonEmail(client, 'no-cache'),
   ]);
   const personEmail = person?.emailAddresses?.[0]?.value || email;
+  const pathname = router?.pathname;
+  const queryFuelTypes = router?.query.fuelTypes;
+  const queryDynamicParam = router?.query.dynamicParam;
 
   let data = {};
 
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
-    pathname === '/van-leasing/[dynamicParam]'
+    pathname === '/van-leasing/[dynamicParam]' ||
+    pathname === '/car-leasing/[dynamicParam]/[rangeName]' ||
+    pathname === '/van-leasing/[dynamicParam]/[rangeName]' ||
+    pathname === '/car-leasing/search' ||
+    pathname === '/van-leasing/search'
   ) {
     if (!pageType) {
       return;
     }
     data = {
       pageType,
-      siteSection,
+      siteSection: isPdpOrSearchElectricSection({
+        initialFilterFuelType,
+        isElectricPdp,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
+        ? SITE_SECTIONS.electric
+        : siteSection,
     };
   } else {
     const pageData = PAGES.find(pages =>
@@ -293,7 +333,14 @@ export const pushPageData = async ({
 
     data = {
       pageType: pageData?.pageType || 'undefined',
-      siteSection: pageData?.siteSection || 'undefined',
+      siteSection: isPdpOrSearchElectricSection({
+        initialFilterFuelType,
+        isElectricPdp,
+        queryFuelTypes,
+        queryDynamicParam,
+      })
+        ? SITE_SECTIONS.electric
+        : pageData?.siteSection || 'undefined',
     };
   }
 

@@ -61,6 +61,7 @@ $include-presentation-styles: false !default;
 // @import '../atoms/tooltip/tooltip.scss';
 @import '../atoms/hot-offer/hot-offer.scss';
 @import '../atoms/custom-select/custom-select.scss';
+@import '../atoms/colour-trim-choice-boxes/colour-trim-choice-boxes.scss';
 
 // components (molecules)
 @import '../molecules/formgroup/formgroup.scss';
@@ -79,6 +80,7 @@ $include-presentation-styles: false !default;
 @import '../molecules/tile/tile.scss';
 @import '../molecules/drawer/drawer.scss';
 @import '../molecules/drawer/deranged-form-in-drawer.scss';
+@import '../molecules/centered-drawer/centered-drawer.scss';
 @import '../molecules/trustpilot/trustpilot.scss';
 // @import '../molecules/typeahead/typeahead.scss';
 @import '../molecules/step/step.scss';
