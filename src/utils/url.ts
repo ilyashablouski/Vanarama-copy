@@ -7,6 +7,10 @@ import {
   genericPagesQuery_genericPages as IGenericPages,
   genericPagesQuery_genericPages_items as IGenericPagesItems,
 } from '../../generated/genericPagesQuery';
+import {
+  rangeList as IRangeList,
+  rangeList_rangeList as IRange,
+} from '../../generated/rangeList';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
@@ -61,8 +65,8 @@ export const isManufacturerMigrated = (
   !!vehicleManufacturerName &&
   migratedManufacturers.some(
     manufacturerName =>
-      manufacturerName.toLowerCase().replace('-', ' ') ===
-      vehicleManufacturerName.toLowerCase().replace('-', ' '),
+      manufacturerName.toLowerCase().replaceAll('-', ' ') ===
+      vehicleManufacturerName.toLowerCase().replaceAll('-', ' '),
   );
 
 export const getLegacyUrl = (
@@ -236,6 +240,21 @@ export const formatToSlugFormat = (value: string) => {
   }
 
   return formattedSlug;
+};
+
+export const generateRangeSlugs = (
+  ranges: IRangeList,
+  make: string,
+): Nullable<string[]> => {
+  return (
+    ranges.rangeList &&
+    ranges.rangeList.map(
+      (range: IRange) =>
+        `car-leasing/${formatToSlugFormat(make as string)}/${formatToSlugFormat(
+          range.rangeName || '',
+        )}`,
+    )
+  );
 };
 
 export function trimStartSlash(url: string) {
