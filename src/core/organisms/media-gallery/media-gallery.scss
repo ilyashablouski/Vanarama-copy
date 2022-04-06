@@ -9,6 +9,16 @@
     @include mobile {
       margin-top: 0;
     }
+
+    &.with-colour-picker button {
+      @include mobile-tablet {
+        flex-direction: column;
+
+        & .icon {
+          margin-right: 0!important;
+        }
+      }
+    }
   }
 }
 

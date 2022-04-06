@@ -82,29 +82,15 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
   });
 
   it('should show additional fields validation messages', async () => {
-    fireEvent.click(
-      screen.getByTestId('sole-trader-company-details_existing-vehicle'),
-    );
     fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     await waitFor(() =>
       expect(screen.getByTestId('company-details_heading')).toBeVisible(),
     );
-
-    expect(
-      screen.getByText('Please enter vehicle registration number'),
-    ).toBeVisible();
-    expect(
-      screen.getByText('Please fill in monthly amount being replaced'),
-    ).toBeVisible();
   });
 
   it('should correctly submit form', async () => {
-    fireEvent.click(
-      screen.getByTestId('sole-trader-company-details_existing-vehicle'),
-    );
-
     fireEvent.input(
       screen.getByTestId('sole-trader-company-details_trading-name'),
       {
@@ -156,22 +142,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     );
     fireEvent.input(
       screen.getByTestId('sole-trader-company-details_annual-expenses'),
-      {
-        target: { value: '123' },
-      },
-    );
-    fireEvent.input(
-      screen.getByTestId(
-        'sole-trader-company-details_vehicle-egistration-number',
-      ),
-      {
-        target: { value: 'ab1233' },
-      },
-    );
-    fireEvent.input(
-      screen.getByTestId(
-        'sole-trader-company-details_monthly-amount-being-replaced',
-      ),
       {
         target: { value: '123' },
       },

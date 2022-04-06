@@ -14,7 +14,7 @@ import {
 } from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
-import SearchPageContainer from '../../../../containers/SearchPageContainer';
+import { RangeSearchContainer } from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
   RESULTS_PER_REQUEST,
@@ -59,8 +59,9 @@ import {
   filterList_filterList as IFilterList,
 } from '../../../../../generated/filterList';
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import { PAGE_TYPES } from '../../../../utils/pageTypes';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
+import { pushPageData } from '../../../../utils/dataLayerHelpers';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -94,12 +95,23 @@ const Page: NextPage<IProps> = ({
   newRangePageSlug,
 }) => {
   const router = useRouter();
+  const initialFilterFuelType =
+    filtersData?.fuelTypes && filtersData?.fuelTypes[0];
   // De-obfuscate data for user
   const vehiclesList = decodeData(encodedData);
   const productCardsData = decodeData(productEncodedData);
   const bodyStyleList = decodeData(bodyStyleEncodedData);
   const topOffersList = decodeData(topOffersListEncodedData);
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
+
+  useEffect(() => {
+    pushPageData({
+      pageType: PAGE_TYPES.rangePage,
+      siteSection: SITE_SECTIONS.cars,
+      router,
+      initialFilterFuelType,
+    });
+  }, [router.query.fuelTypes]);
 
   useEffect(() => {
     if (!router.query.make) {
@@ -126,7 +138,7 @@ const Page: NextPage<IProps> = ({
   }
 
   return (
-    <SearchPageContainer
+    <RangeSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch

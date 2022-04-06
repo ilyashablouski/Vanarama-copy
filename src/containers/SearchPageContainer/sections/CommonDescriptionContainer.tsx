@@ -20,9 +20,7 @@ interface IProps {
 
 const CommonDescriptionContainer = memo(
   ({ pageData, customDescription }: IProps) => {
-    const description =
-      pageData?.genericPage?.intro ||
-      pageData?.genericPage?.sections?.featured1?.body;
+    const description = pageData?.genericPage?.intro;
     const featuredImage = pageData?.genericPage?.featuredImage?.file;
     const title = pageData?.genericPage.metaData.name;
 

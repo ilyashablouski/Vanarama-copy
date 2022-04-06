@@ -15,7 +15,7 @@ import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
 import { GetVehicleDetails_derivativeInfo as IDerivativeInfo } from '../../generated/GetVehicleDetails';
 import { IManufacturersSlug } from '../types/manufacturerSlug';
-import { arraysAreEqual } from './helpers';
+import { arraysAreEqual } from './array';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 

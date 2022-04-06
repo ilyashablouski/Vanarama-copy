@@ -78,7 +78,7 @@ export const renderParagraph = (props: IMarkdownParagraph) => {
     const iframeSrc = isChangeToIframe[0].props.value
       .split('href="')[1]
       .split('"')[0];
-    return <Media src={iframeSrc || ''} height="350px" width="100%" />;
+    return <Media src={iframeSrc || ''} width="100%" height="360px" />;
   }
 
   return <Text {...props} tag="p" color="darker" />;

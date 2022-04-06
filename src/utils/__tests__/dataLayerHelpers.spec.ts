@@ -1,6 +1,7 @@
 import {
   getCategory,
   getCategoryAboutYouData,
+  isPdpOrSearchElectricSection,
   pushToDataLayer,
 } from '../dataLayerHelpers';
 
@@ -59,6 +60,63 @@ describe('dataLayerHelpers', () => {
           bodyType: { name: 'Pick-Up-test' },
         },
       ]);
+    });
+  });
+
+  describe('isPdpOrSearchElectricSection', () => {
+    it('isPdpOrSearchElectricSection should return true if user on manufacturer or range pages with electric vehicle', () => {
+      const actual = isPdpOrSearchElectricSection({
+        initialFilterFuelType: 'Electric',
+        isElectricPdp: false,
+        queryFuelTypes: undefined,
+        queryDynamicParam: undefined,
+      });
+
+      expect(actual).toEqual(true);
+    });
+    it('isPdpOrSearchElectricSection should return true if user on PDP with electric vehicle', () => {
+      const actual = isPdpOrSearchElectricSection({
+        initialFilterFuelType: undefined,
+        isElectricPdp: true,
+        queryFuelTypes: undefined,
+        queryDynamicParam: undefined,
+      });
+
+      expect(actual).toEqual(true);
+    });
+    it('isPdpOrSearchElectricSection should return true if user on search pages with "Electric" fuelTypes query param', () => {
+      const actual = isPdpOrSearchElectricSection({
+        initialFilterFuelType: undefined,
+        isElectricPdp: undefined,
+        queryFuelTypes: 'Electric',
+        queryDynamicParam: undefined,
+      });
+
+      expect(actual).toEqual(true);
+    });
+    it(
+      'isPdpOrSearchElectricSection should return true if user on search pages with "electric" dynamicParam query' +
+        ' param',
+      () => {
+        const actual = isPdpOrSearchElectricSection({
+          initialFilterFuelType: undefined,
+          isElectricPdp: false,
+          queryFuelTypes: undefined,
+          queryDynamicParam: 'electric',
+        });
+
+        expect(actual).toEqual(true);
+      },
+    );
+    it('isPdpOrSearchElectricSection should return false if user not on electric PDP or not on electric search pages', () => {
+      const actual = isPdpOrSearchElectricSection({
+        initialFilterFuelType: undefined,
+        isElectricPdp: false,
+        queryFuelTypes: undefined,
+        queryDynamicParam: undefined,
+      });
+
+      expect(actual).toEqual(false);
     });
   });
 });

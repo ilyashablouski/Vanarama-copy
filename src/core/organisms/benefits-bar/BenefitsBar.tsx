@@ -18,8 +18,8 @@ const Slider: FC<ICarouselProps> = () => (
         slidesPerView="auto"
         watchOverflow
         navigation={{
-          prevEl: `.swiper-prev`,
-          nextEl: `.swiper-next`,
+          prevEl: `.benefits-bar_navigation.swiper-prev`,
+          nextEl: `.benefits-bar_navigation.swiper-next`,
         }}
         loop
         autoplay={{
@@ -45,10 +45,10 @@ const Slider: FC<ICarouselProps> = () => (
           </SwiperSlide>
         ))}
       </Swiper>
-      <button className="swiper-prev" type="button">
+      <button className="benefits-bar_navigation swiper-prev" type="button">
         <Icon icon={<ChevronBack />} className="benefits-bar__icon" />
       </button>
-      <button className="swiper-next" type="button">
+      <button className="benefits-bar_navigation swiper-next" type="button">
         <Icon icon={<ChevronForward />} className="benefits-bar__icon" />
       </button>
     </div>
