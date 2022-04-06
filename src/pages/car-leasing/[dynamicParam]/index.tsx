@@ -25,11 +25,7 @@ import {
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
-import {
-  rangeList,
-  rangeListVariables,
-  rangeList_rangeList as IRange,
-} from '../../../../generated/rangeList';
+import { rangeList, rangeListVariables } from '../../../../generated/rangeList';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
