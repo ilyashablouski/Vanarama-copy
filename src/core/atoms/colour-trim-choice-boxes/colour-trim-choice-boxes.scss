@@ -1,0 +1,27 @@
+.colour-trim-checkbox {
+  background: white;
+  padding: 16px 32px;
+  border: 1px solid #C0CAD4;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: #44576A;
+
+  & .colour-box {
+    position: absolute;
+    top: calc(50% - 14px);
+    right: 16px;
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: linear-gradient(-27deg, transparent 0%, rgba(244,244,244,0.3) 50%, transparent 50%);
+  }
+
+  &.active {
+    border: 1px solid#177f85;
+    color: #197F85;
+  }
+}

@@ -42,6 +42,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import {
   addImacaHexToColourList,
+  isColourAndTrimOverlayFeatureFlagEnabled,
   moveFactoryOrderToEnd,
   sortByHotOffer,
   toPriceFormat,
@@ -100,6 +101,7 @@ interface IProps {
   trimData: Nullable<IOptionsList[]>;
   migrationSlugs?: IManufacturersSlug;
   serviceBanner?: IServiceBanner;
+  isColourAndTrimOverlay: boolean;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -115,6 +117,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   leaseTypeQuery,
   colourData,
   trimData,
+  isColourAndTrimOverlay,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -237,6 +240,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         genericPages={genericPages}
         productCard={productCard}
         leaseTypeQuery={leaseTypeQuery}
+        isColourAndTrimOverlay={isColourAndTrimOverlay}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -249,6 +253,10 @@ export async function getServerSideProps(
   const client = createApolloClient({});
   const path = context.resolvedUrl || '';
   try {
+    const isColourAndTrimOverlay = isColourAndTrimOverlayFeatureFlagEnabled(
+      context.req.headers.cookie,
+    );
+
     const { data } = await client.query<
       GenericPageHeadQuery,
       GenericPageHeadQueryVariables
@@ -439,6 +447,7 @@ export async function getServerSideProps(
         productCard: productCard || null,
         leaseTypeQuery: leaseType,
         serviceBanner: serviceBanner || null,
+        isColourAndTrimOverlay,
       },
     };
   } catch (error) {
