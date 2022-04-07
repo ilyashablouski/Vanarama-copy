@@ -59,10 +59,18 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
     iconList,
     targetId,
   } = (featured as IFeatured) || {};
+  const isDefaultIncluded = useMemo(() => layout?.includes('Default'), [
+    layout,
+  ]);
   const isReadMoreIncluded = useMemo(() => layout?.includes('Read More'), [
     layout,
   ]);
   const [readmore, setReadMore] = useState(isReadMoreIncluded);
+
+  if (!body || (!isDefaultIncluded && !isReadMoreIncluded && !image)) {
+    return null;
+  }
+
   return (
     <section
       className={`row:${getFeaturedClassPartial({ layout })}`}

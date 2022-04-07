@@ -1,20 +1,11 @@
-import React, {
-  ChangeEvent,
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown/with-html';
 import { ISearchPageContainerProps } from './interfaces';
-import PartnershipLogoHeader from '../PartnershipLogoHeader';
-import SearchPageTitle from './sections/SearchPageTitle';
-import SearchPageMarkdown from './components/SearchPageMarkdown';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
@@ -32,8 +23,6 @@ import {
   getCapsIds,
   getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
-  getPartnershipDescription,
-  getPartnershipTitle,
   getValueFromStorage,
   isPreviousPage,
   RESULTS_PER_REQUEST,
@@ -50,7 +39,6 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import ResultsContainer from './sections/ResultsContainer';
-import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import RelatedCarousel from '../../components/RelatedCarousel';
@@ -62,12 +50,7 @@ import { rangeList } from '../../../generated/rangeList';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { TColor } from '../../types/color';
-import { getSectionsData } from '../../utils/getSectionsData';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_sections_carousel as CarouselData,
-  GenericPageQuery_genericPage_sections_tiles as Tiles,
-} from '../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import {
   findPreselectFilterValue,
   tagArrayBuilderHelper,
@@ -83,10 +66,10 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
+import { HeroHeading } from '../../components/Hero';
+import HeroBackground from '../../components/Hero/HeroBackground';
+import FeaturedSection from '../../components/FeaturedSection';
 
-const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -95,14 +78,13 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: true,
 });
 
-const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
+const FeatureFlagDynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
   isCarSearch = false,
   isManufacturerPage,
   isBodyStylePage,
   isFuelPage,
-  isEvPage,
   isBudgetPage,
   isTransmissionPage,
   pageData: pageDataSSR,
@@ -116,6 +98,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -170,35 +153,22 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>();
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
-  const [pageTitle, setTitle] = useState(metaData?.name || '');
-  const [partnershipDescription, setPartnershipDescription] = useState('');
 
   const [prevPosition, setPrevPosition] = useState(0);
 
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isEvPage ? '-columns' : '';
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
-  const featured = useMemo(
-    () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
-    [pageData],
-  );
-  const featured1 = useMemo(
-    () => getSectionsData(['sections', 'featured1'], pageData?.genericPage),
-    [pageData],
-  );
-  const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
-    [pageData],
-  );
-  const tiles: Tiles = useMemo(
-    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
-    [pageData],
-  );
+  const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
+
+  const titleFeatured = pageData?.genericPage.sectionsAsArray?.featured?.[0];
+  const featureds = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
+  const carousel = pageData?.genericPage.sectionsAsArray?.carousel?.[0];
+  const tiles = pageData?.genericPage.sectionsAsArray?.tiles?.[0];
   const fuelTypesData = useMemo(
     () =>
       filtersData?.fuelTypes?.length > 0
@@ -210,13 +180,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => isManufacturerPage || isDynamicFilterPage,
     [isManufacturerPage, isDynamicFilterPage],
   );
-  const shouldRenderCheckbox = useMemo(
-    () => !isManufacturerPage && !isDynamicFilterPage && !isPartnershipActive,
-    [isManufacturerPage, isDynamicFilterPage, isPartnershipActive],
-  );
-  const isCarousel = useMemo(() => !!carousel?.cards?.length, [
-    carousel?.cards?.length,
-  ]);
+
   const manualBodyStyle = useMemo(() => {
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
@@ -498,16 +462,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     [isSpecialOffersOrder, saveSortOrder],
   );
 
-  /** save to sessions storage special offers status */
-  const onSaveSpecialOffersStatus = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setIsSpecialOffers(event.target.checked);
-      setIsSpecialOffersOrder(event.target.checked);
-      sessionStorage.setItem('Car', JSON.stringify(event.target.checked));
-    },
-    [],
-  );
-
   // load more offers
   const onLoadMore = useCallback(() => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
@@ -703,10 +657,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     if (partnerActive) {
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
-      setPartnershipDescription(
-        getPartnershipDescription(partnerActive, isCarSearch),
-      );
-      setTitle(getPartnershipTitle(partnerActive, isCarSearch));
     }
   }, [isCarSearch]);
 
@@ -732,6 +682,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           context,
           false,
           type as string,
+          isManufacturerFeatureFlagEnabled,
         )) as ApolloQueryResult<GenericPageQuery>;
         if (genericPageData && !errors?.[0]) {
           setPageData(genericPageData);
@@ -748,20 +699,24 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   return (
     <>
-      <PartnershipLogoHeader />
-      <SearchPageTitle
-        dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbs={metaData.breadcrumbs}
-        pageTitle={pageTitle}
-        pageData={pageData}
-        partnershipDescription={partnershipDescription || ''}
-        isPartnershipActive={isPartnershipActive}
-      />
-      {(featured || featured1) && (
-        <ReadMoreBlock
-          featured={featured || featured1}
-          dataUiTestId={dataUiTestId}
-        />
+      {hero && (
+        <>
+          <HeroBackground
+            backgroundUrl={hero?.image?.file?.url}
+            hideCurve
+            className="-below-content"
+          >
+            <>
+              <HeroHeading text={hero.title || ''} />
+              <div className="-w-440">
+                <ReactMarkdown allowDangerousHtml source={hero.body || ''} />
+              </div>
+            </>
+          </HeroBackground>
+        </>
+      )}
+      {titleFeatured && (
+        <ReadMoreBlock featured={titleFeatured} dataUiTestId={dataUiTestId} />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -781,17 +736,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         />
       )}
 
-      {shouldRenderCheckbox && (
-        <div className="-mv-400 -stretch-left">
-          <Checkbox
-            id="specialOffer"
-            label="View Special Offers Only"
-            checked={isSpecialOffers}
-            onChange={onSaveSpecialOffersStatus}
-            dataUiTestId={dataUiTestId}
-          />
-        </div>
-      )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
           <FiltersContainer
@@ -869,49 +813,26 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           )}
         </div>
       </div>
-      {pageData?.genericPage?.sections?.featured2?.body &&
-        !isManufacturerPage && (
-          <FeaturedSectionBlock
-            title={pageData.genericPage.sections.featured2.title}
-            body={pageData.genericPage.sections.featured2.body}
-          />
-        )}
-      {isDynamicFilterPage && tiles?.tiles?.length && (
+
+      {featureds &&
+        featureds.map(featured => {
+          return <FeaturedSection featured={featured} />;
+        })}
+
+      {tiles?.tiles?.length && (
         <WhyLeaseWithVanaramaTiles
           tiles={tiles.tiles}
           title={tiles.tilesTitle || ''}
           titleTag={tiles.titleTag}
         />
       )}
-      {pageData && (
-        <>
-          {isDynamicFilterPage && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div className={`row:text ${applyColumns}`}>
-                <SearchPageMarkdown
-                  markdown={pageData?.genericPage.body}
-                  withoutImage
-                />
-              </div>
-            </LazyLoadComponent>
-          )}
 
-          {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <WhyLeaseWithVanaramaTiles
-              tiles={tiles.tiles}
-              title={tiles.tilesTitle || ''}
-              titleTag={tiles.titleTag}
-            />
-          )}
-
-          {isCarousel && (
-            <RelatedCarousel
-              cards={carousel.cards}
-              title={carousel.title}
-              dataUiTestId={`${dataUiTestId}_related`}
-            />
-          )}
-        </>
+      {!!carousel?.cards?.length && (
+        <RelatedCarousel
+          cards={carousel.cards}
+          title={carousel.title}
+          dataUiTestId={`${dataUiTestId}_related`}
+        />
       )}
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <TermsAndConditions dataUiTestId={dataUiTestId} />
@@ -926,4 +847,4 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   );
 };
 
-export default DynamicParamSearchContainer;
+export default FeatureFlagDynamicParamSearchContainer;
