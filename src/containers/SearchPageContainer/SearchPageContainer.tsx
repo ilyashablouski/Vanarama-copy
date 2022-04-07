@@ -541,7 +541,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
             queryString.set(key, value as string);
           }
         });
-        if (Object.keys(query).length) {
+        if (Object.keys(query).length && queryString.toString()) {
           pathname += `?${decodeURIComponent(queryString.toString())}`;
         }
         // changing url dynamically
