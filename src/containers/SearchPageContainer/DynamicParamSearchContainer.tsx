@@ -764,6 +764,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           context,
           false,
           type as string,
+          isManufacturerFeatureFlagEnabled,
         )) as ApolloQueryResult<GenericPageQuery>;
         if (genericPageData && !errors?.[0]) {
           setPageData(genericPageData);
