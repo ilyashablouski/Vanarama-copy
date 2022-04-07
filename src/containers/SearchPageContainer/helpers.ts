@@ -26,6 +26,7 @@ import {
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arraysAreEqual } from '../../utils/array';
 import { IPartnerProperties } from '../../utils/partnerProperties';
+import { SearchPageTypes } from './interfaces';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -727,4 +728,20 @@ export const getPartnershipDescription = (
     default:
       return partnerData.searchPageDescription;
   }
+};
+export const searchPageTypeMapper = (
+  pageType: SearchPageTypes = SearchPageTypes.SIMPLE_SEARCH_PAGE,
+) => {
+  return {
+    isSimpleSearchPage: pageType === SearchPageTypes.SIMPLE_SEARCH_PAGE,
+    isManufacturerPage: pageType === SearchPageTypes.MANUFACTURER_PAGE,
+    isSpecialOfferPage: pageType === SearchPageTypes.SPECIAL_OFFER_PAGE,
+    isRangePage: pageType === SearchPageTypes.RANGE_PAGE,
+    isModelPage: pageType === SearchPageTypes.MODEL_PAGE,
+    isAllManufacturersPage: pageType === SearchPageTypes.ALL_MANUFACTURERS_PAGE,
+    isBodyStylePage: pageType === SearchPageTypes.BODY_STYLE_PAGE,
+    isTransmissionPage: pageType === SearchPageTypes.TRANSMISSION_PAGE,
+    isFuelPage: pageType === SearchPageTypes.FUEL_TYPE_PAGE,
+    isBudgetPage: pageType === SearchPageTypes.BUDGET_PAGE,
+  };
 };

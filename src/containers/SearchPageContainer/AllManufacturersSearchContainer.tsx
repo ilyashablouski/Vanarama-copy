@@ -1,10 +1,10 @@
-import { FC, useEffect, useState, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { ISearchPageContainerProps } from './interfaces';
+import { ISearchPageContainerProps, SearchPageTypes } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
 import TopInfoBlock from './sections/TopInfoBlock';
@@ -266,7 +266,7 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
                 isCarSearch={isCarSearch}
                 isPreloadList={false}
                 preSearchVehicleCount={totalCount}
-                isAllManufacturersPage
+                pageType={SearchPageTypes.ALL_MANUFACTURERS_PAGE}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 dataUiTestId={dataUiTestId}

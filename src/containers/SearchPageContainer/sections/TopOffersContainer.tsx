@@ -31,6 +31,7 @@ import Skeleton from '../../../components/Skeleton';
 import VehicleCard from '../../../components/VehicleCard';
 import ModelCard from '../components/ModelCard';
 import { Nullable } from '../../../types/common';
+import { SearchPageTypes } from '../interfaces';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -45,14 +46,8 @@ const CarouselSwiper = dynamic(
 interface IProps {
   isPersonal: boolean;
   isCarSearch: boolean;
-  isManufacturerPage?: boolean;
-  isBodyPage?: boolean;
-  isSpecialOfferPage?: boolean;
+  pageType?: SearchPageTypes;
   isPickups?: boolean;
-  isRangePage?: boolean;
-  isTransmissionPage?: boolean;
-  isFuelPage?: boolean;
-  isBudgetPage?: boolean;
   isDynamicFilterPage?: boolean;
   preLoadVehiclesList?: Nullable<IVehiclesData>;
   preLoadProductCardsData?: Nullable<GetProductCard>;
@@ -68,16 +63,10 @@ const SLIDES_PER_VIEW = 3;
 
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
-  isManufacturerPage,
-  isBodyPage,
-  isBudgetPage,
-  isSpecialOfferPage,
-  isTransmissionPage,
   isPickups,
-  isRangePage,
   isPersonal,
-  isFuelPage,
   isDynamicFilterPage,
+  pageType,
   preLoadVehiclesList,
   preLoadProductCardsData,
   preloadBodyStyleList,
@@ -88,6 +77,24 @@ const TopOffersContainer: React.FC<IProps> = ({
   dataUiTestId,
 }: IProps) => {
   const router = useRouter();
+
+  const {
+    isSpecialOfferPage,
+    isManufacturerPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBudgetPage,
+    isRangePage,
+    isBodyStylePage: isBodyPage,
+  } = {
+    isSpecialOfferPage: pageType === SearchPageTypes.SPECIAL_OFFER_PAGE,
+    isManufacturerPage: pageType === SearchPageTypes.MANUFACTURER_PAGE,
+    isFuelPage: pageType === SearchPageTypes.FUEL_TYPE_PAGE,
+    isTransmissionPage: pageType === SearchPageTypes.TRANSMISSION_PAGE,
+    isBudgetPage: pageType === SearchPageTypes.BUDGET_PAGE,
+    isRangePage: pageType === SearchPageTypes.RANGE_PAGE,
+    isBodyStylePage: pageType === SearchPageTypes.BODY_STYLE_PAGE,
+  };
 
   const isDesktopLayout = useDesktopViewport();
 

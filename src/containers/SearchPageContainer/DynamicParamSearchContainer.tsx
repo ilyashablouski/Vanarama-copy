@@ -1,4 +1,4 @@
-import React, {
+import {
   ChangeEvent,
   FC,
   useCallback,
@@ -42,6 +42,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
+  searchPageTypeMapper,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -103,12 +104,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
   isCarSearch = false,
-  isManufacturerPage,
-  isBodyStylePage,
-  isFuelPage,
-  isEvPage,
-  isBudgetPage,
-  isTransmissionPage,
+  pageType,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   preLoadFiltersData,
@@ -124,6 +120,15 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+
+  const {
+    isManufacturerPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBudgetPage,
+    isBodyStylePage,
+  } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
+
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
@@ -183,7 +188,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isEvPage ? '-columns' : '';
+  const applyColumns = !isFuelPage ? '-columns' : '';
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -824,12 +829,8 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch={isCarSearch}
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
-          isManufacturerPage={isManufacturerPage || false}
-          isBodyPage={isBodyStylePage || false}
-          isBudgetPage={isBudgetPage || false}
-          isTransmissionPage={isTransmissionPage || false}
+          pageType={pageType}
           isDynamicFilterPage={isDynamicFilterPage || false}
-          isFuelPage={isFuelPage || false}
           isPersonal={isPersonal}
           preLoadVehiclesList={preLoadTopOffersList}
           preLoadProductCardsData={preLoadTopOffersCardsData}
@@ -858,19 +859,15 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
-                isCarSearch={isCarSearch}
-                isManufacturerPage={isManufacturerPage}
+                pageType={pageType}
                 preSearchVehicleCount={totalCount}
-                isBodyPage={isBodyStylePage}
-                isBudgetPage={isBudgetPage}
-                isDynamicFilterPage={isDynamicFilterPage}
-                isFuelPage={isFuelPage}
-                isTransmissionPage={isTransmissionPage}
-                isPreloadList={!!preLoadVehiclesList}
-                isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 preLoadFilters={preLoadFiltersData}
                 dataUiTestId={dataUiTestId}
+                isCarSearch={isCarSearch}
+                isDynamicFilterPage={isDynamicFilterPage}
+                isPreloadList={!!preLoadVehiclesList}
+                isPartnershipActive={isPartnershipActive}
                 isSpecialOffers={
                   (isSpecialOffers && !isDynamicFilterPage) || null
                 }
