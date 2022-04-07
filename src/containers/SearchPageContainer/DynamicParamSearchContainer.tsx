@@ -11,6 +11,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown/with-html';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
@@ -83,6 +84,9 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
+import { HeroHeading } from '../../components/Hero';
+import HeroBackground from '../../components/Hero/HeroBackground';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -116,6 +120,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -183,22 +188,49 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
+  const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
+  const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
+
+  const titleFeaturedIndexes = features?.reduce((acc, item, index) => {
+    if (
+      item?.layout?.includes('Default') ||
+      item?.layout?.includes('Read More')
+    ) {
+      return [...acc, index];
+    }
+    return acc;
+  }, [] as number[] | []);
+  const separatedFeatures = titleFeaturedIndexes?.map(
+    (featuredIndex, index) => {
+      if (index === titleFeaturedIndexes.length - 1) {
+        return features?.slice(featuredIndex);
+      }
+      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
+    },
+  );
+
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
     [pageData],
   );
-  const featured1 = useMemo(
-    () => getSectionsData(['sections', 'featured1'], pageData?.genericPage),
-    [pageData],
-  );
-  const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
-    [pageData],
-  );
-  const tiles: Tiles = useMemo(
-    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
-    [pageData],
-  );
+  const featured1 = useMemo(() => {
+    if (isManufacturerFeatureFlagEnabled) {
+      return pageData?.genericPage.sectionsAsArray?.featured?.[0];
+    }
+    return getSectionsData(['sections', 'featured1'], pageData?.genericPage);
+  }, [pageData, isManufacturerFeatureFlagEnabled]);
+  const carousel: CarouselData = useMemo(() => {
+    if (isManufacturerFeatureFlagEnabled) {
+      return pageData?.genericPage.sectionsAsArray?.carousel?.[0];
+    }
+    return getSectionsData(['sections', 'carousel'], pageData?.genericPage);
+  }, [pageData, isManufacturerFeatureFlagEnabled]);
+  const tiles: Tiles = useMemo(() => {
+    if (isManufacturerFeatureFlagEnabled) {
+      return pageData?.genericPage.sectionsAsArray?.tiles?.[0];
+    }
+    return getSectionsData(['sections', 'tiles'], pageData?.genericPage);
+  }, [pageData, isManufacturerFeatureFlagEnabled]);
   const fuelTypesData = useMemo(
     () =>
       filtersData?.fuelTypes?.length > 0
@@ -748,15 +780,33 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   return (
     <>
+      {isManufacturerFeatureFlagEnabled && hero && (
+        <>
+          <HeroBackground
+            backgroundUrl={hero?.image?.file?.url}
+            hideCurve
+            className="-below-content"
+          >
+            <>
+              <HeroHeading text={hero.title || ''} />
+              <div className="-w-440">
+                <ReactMarkdown allowDangerousHtml source={hero.body || ''} />
+              </div>
+            </>
+          </HeroBackground>
+        </>
+      )}
       <PartnershipLogoHeader />
-      <SearchPageTitle
-        dataUiTestId={`${dataUiTestId}_page-title`}
-        breadcrumbs={metaData.breadcrumbs}
-        pageTitle={pageTitle}
-        pageData={pageData}
-        partnershipDescription={partnershipDescription || ''}
-        isPartnershipActive={isPartnershipActive}
-      />
+      {!isManufacturerFeatureFlagEnabled && (
+        <SearchPageTitle
+          dataUiTestId={`${dataUiTestId}_page-title`}
+          breadcrumbs={metaData.breadcrumbs}
+          pageTitle={pageTitle}
+          pageData={pageData}
+          partnershipDescription={partnershipDescription || ''}
+          isPartnershipActive={isPartnershipActive}
+        />
+      )}
       {(featured || featured1) && (
         <ReadMoreBlock
           featured={featured || featured1}
@@ -895,6 +945,23 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
               </div>
             </LazyLoadComponent>
           )}
+
+          {separatedFeatures &&
+            separatedFeatures.map((featuresSection, index) => (
+              <div
+                key={`${featuresSection?.[0]?.title}_${featuresSection?.length}`}
+                className={index % 2 ? 'row:full-gray -pb-600' : '-mb-600'}
+              >
+                {featuresSection?.map(featuredItem => {
+                  return (
+                    <FeaturedSection
+                      key={featuredItem?.title}
+                      featured={featuredItem}
+                    />
+                  );
+                })}
+              </div>
+            ))}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
             <WhyLeaseWithVanaramaTiles

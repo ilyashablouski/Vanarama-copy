@@ -2147,6 +2147,11 @@
     margin: 0 !important;
     position: relative;
   }
+
+  &full-gray {
+    grid-column: full;
+    background: #F3F5F7;
+  }
 }
 
 .color-trim {

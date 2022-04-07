@@ -60,7 +60,6 @@ import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesConta
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
 import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
-import FeatureFlagDynamicParamSearchContainer from '../../../containers/SearchPageContainer/FeatureFlagDynamicParamSearchContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -127,40 +126,6 @@ const Page: NextPage<IProps> = ({
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
     return <FeaturedAndTilesContainer data={pageData} />;
-  }
-
-  if (isManufacturerFeatureFlagEnabled) {
-    return (
-      <FeatureFlagDynamicParamSearchContainer
-        dataUiTestId="cars-search-page"
-        isServer={isServer}
-        isCarSearch
-        isManufacturerPage={
-          pageType?.current?.isManufacturerPage ??
-          ssrPageType?.isManufacturerPage
-        }
-        isBodyStylePage={
-          pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
-        }
-        isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-        isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-        isBudgetPage={
-          pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
-        }
-        pageData={pageData}
-        metaData={metaData}
-        preLoadFiltersData={filtersData}
-        preLoadRanges={ranges}
-        rangesUrls={rangesUrls}
-        preLoadVehiclesList={vehiclesList}
-        preLoadProductCardsData={productCardsData}
-        preLoadResponseCapIds={responseCapIds}
-        preLoadTopOffersList={topOffersList}
-        preLoadTopOffersCardsData={topOffersCardsData}
-        defaultSort={defaultSort}
-        isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
-      />
-    );
   }
 
   return (
