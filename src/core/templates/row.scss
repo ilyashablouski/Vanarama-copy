@@ -2151,6 +2151,7 @@
   &full-gray {
     grid-column: full;
     background: #F3F5F7;
+    grid-template-columns: [full-start] var(--gutter, minmax(1rem, 1fr)) [content-start column-start] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [quarter column] minmax(0, 101.33333px) [third column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [half quarter column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [third column] minmax(0, 101.33333px) [quarter column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column-end content-end] var(--gutter, minmax(1rem, 1fr)) [full-end];
   }
 }
 

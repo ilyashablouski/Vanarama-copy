@@ -192,10 +192,14 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
 
   const titleFeaturedIndexes = features?.reduce((acc, item, index) => {
-    if (
-      item?.layout?.includes('Default') ||
-      item?.layout?.includes('Read More')
-    ) {
+    const isNotMediaSideItem =
+      !item?.layout?.includes('Media Right') &&
+      !item?.layout?.includes('Media Left');
+    const isMediaSideNextItem =
+      features[index + 1]?.layout?.includes('Media Right') ||
+      features[index + 1]?.layout?.includes('Media Left');
+    const isLastItem = item === features[features.length - 1];
+    if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
       return [...acc, index];
     }
     return acc;
@@ -948,10 +952,13 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           )}
 
           {separatedFeatures &&
+            isManufacturerFeatureFlagEnabled &&
             separatedFeatures.map((featuresSection, index) => (
               <div
                 key={`${featuresSection?.[0]?.title}_${featuresSection?.length}`}
-                className={index % 2 ? 'row:full-gray -pb-600' : '-mb-600'}
+                className={
+                  index % 2 ? 'row:full-gray -pb-600 -pt-600' : '-mb-600'
+                }
               >
                 {featuresSection?.map(featuredItem => {
                   return (
