@@ -4,7 +4,7 @@ import {
   NextPage,
 } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import {
   GET_LEGACY_URLS,
@@ -59,6 +59,7 @@ import {
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
 import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
 
 interface IPageType {
@@ -109,13 +110,40 @@ const Page: NextPage<IProps> = ({
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
-  const pageType = useRef<IPageType>();
-  useEffect(() => {
-    pageType.current = dynamicQueryTypeCheck(
+  const queryPageType = useRef<IPageType>();
+  const pageType = useMemo(() => {
+    if (
+      queryPageType?.current?.isManufacturerPage ??
+      ssrPageType?.isManufacturerPage
+    ) {
+      return SearchPageTypes.MANUFACTURER_PAGE;
+    }
+    if (
+      queryPageType?.current?.isBodyStylePage ??
+      ssrPageType?.isBodyStylePage
+    ) {
+      return SearchPageTypes.MANUFACTURER_PAGE;
+    }
+    if (queryPageType?.current?.isFuelType ?? ssrPageType?.isFuelType) {
+      return SearchPageTypes.FUEL_TYPE_PAGE;
+    }
+    if (queryPageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType) {
+      return SearchPageTypes.BUDGET_PAGE;
+    }
+    return SearchPageTypes.SIMPLE_SEARCH_PAGE;
+  }, [
+    ssrPageType?.isBodyStylePage,
+    ssrPageType?.isBudgetType,
+    ssrPageType?.isFuelType,
+    ssrPageType?.isManufacturerPage,
+  ]);
+
+  useLayoutEffect(() => {
+    queryPageType.current = dynamicQueryTypeCheck(
       router.query.dynamicParam as string,
     );
     pushPageData({
-      pageType: pageType?.current?.isManufacturerPage
+      pageType: queryPageType?.current?.isManufacturerPage
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
@@ -133,17 +161,7 @@ const Page: NextPage<IProps> = ({
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
-      isManufacturerPage={
-        pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
-      }
-      isBodyStylePage={
-        pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
-      }
-      isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isBudgetPage={
-        pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
-      }
+      pageType={pageType}
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}

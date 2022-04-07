@@ -4,6 +4,7 @@ import {
   IFiltersContainerInjectedProps,
 } from '../../containers/FiltersContainer/interfaces';
 import { Nullable } from '../../types/common';
+import { SearchPageTypes } from '../../containers/SearchPageContainer/interfaces';
 
 export interface ISearchPageFiltersProps
   extends IFiltersContainerInjectedProps {
@@ -12,15 +13,8 @@ export interface ISearchPageFiltersProps
   preSearchVehicleCount: number;
   isSpecialOffers: boolean | null;
   setIsSpecialOffers: (value: boolean) => void;
-  isManufacturerPage?: boolean;
   isPickups?: boolean;
-  isRangePage?: boolean;
-  isModelPage?: boolean;
-  isAllManufacturersPage?: boolean;
-  isBodyPage?: boolean;
-  isBudgetPage?: boolean;
-  isFuelPage?: boolean;
-  isTransmissionPage?: boolean;
+  pageType?: SearchPageTypes;
   isDynamicFilterPage?: boolean;
   isPartnershipActive?: boolean;
   preLoadFilters?: Nullable<IFilterList>;

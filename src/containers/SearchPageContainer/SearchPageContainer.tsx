@@ -57,6 +57,7 @@ import {
   bodyUrlsSlugMapper,
   getPartnershipDescription,
   getPartnershipTitle,
+  searchPageTypeMapper,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './sections/TopInfoBlock';
@@ -112,18 +113,8 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
 const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   isServer,
   isCarSearch = false,
-  isSimpleSearchPage,
-  isManufacturerPage,
-  isSpecialOfferPage,
   isPickups,
-  isRangePage,
-  isModelPage,
-  isAllManufacturersPage,
-  isBodyStylePage,
-  isTransmissionPage,
-  isFuelPage,
-  isBudgetPage,
-  isEvPage,
+  pageType,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   topInfoSection,
@@ -145,7 +136,18 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
 }) => {
   // assign here as when inline causing hook lint errors
-
+  const {
+    isSimpleSearchPage,
+    isManufacturerPage,
+    isSpecialOfferPage,
+    isRangePage,
+    isModelPage,
+    isAllManufacturersPage,
+    isBodyStylePage,
+    isTransmissionPage,
+    isFuelPage,
+    isBudgetPage,
+  } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(
@@ -212,7 +214,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isEvPage ? '-columns' : '';
+  const applyColumns = !isFuelPage ? '-columns' : '';
   const isNewPage = useMemo(
     () => !!newRangePageSlug && NEW_RANGE_SLUGS.includes(newRangePageSlug),
     [newRangePageSlug],
@@ -928,16 +930,9 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch={isCarSearch}
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
-          isManufacturerPage={isManufacturerPage || false}
-          isBodyPage={isBodyStylePage || false}
-          isBudgetPage={isBudgetPage || false}
-          isTransmissionPage={isTransmissionPage || false}
-          isDynamicFilterPage={isDynamicFilterPage || false}
-          isFuelPage={isFuelPage || false}
+          pageType={pageType}
           isPersonal={isPersonal}
-          isRangePage={isRangePage || false}
           isPickups={isPickups || false}
-          isSpecialOfferPage={isSpecialOfferPage || false}
           preLoadVehiclesList={preLoadTopOffersList}
           preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadTopOffersCardsData}
@@ -969,17 +964,9 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
               <SearchPageFilters
                 onSearch={onSearch}
                 isCarSearch={isCarSearch}
-                isManufacturerPage={isManufacturerPage}
-                isRangePage={isRangePage}
                 isPickups={isPickups}
+                pageType={pageType}
                 preSearchVehicleCount={totalCount}
-                isModelPage={isModelPage}
-                isAllManufacturersPage={isAllManufacturersPage}
-                isBodyPage={isBodyStylePage}
-                isBudgetPage={isBudgetPage}
-                isDynamicFilterPage={isDynamicFilterPage}
-                isFuelPage={isFuelPage}
-                isTransmissionPage={isTransmissionPage}
                 isPreloadList={!!preLoadVehiclesList}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}

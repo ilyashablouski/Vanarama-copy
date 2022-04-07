@@ -62,6 +62,7 @@ import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesCo
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { pushPageData } from '../../../../utils/dataLayerHelpers';
+import { SearchPageTypes } from '../../../../containers/SearchPageContainer/interfaces';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -142,7 +143,7 @@ const Page: NextPage<IProps> = ({
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
-      isRangePage
+      pageType={SearchPageTypes.RANGE_PAGE}
       metaData={metaData}
       pageData={pageData}
       preLoadVehiclesList={vehiclesList}

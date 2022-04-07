@@ -12,6 +12,7 @@ import {
 } from '../../../../generated/globalTypes';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { GetProductCard_productCard as IProductCard } from '../../../../generated/GetProductCard';
+import { SearchPageTypes } from '../interfaces';
 
 const mockData = {
   loading: false,
@@ -247,14 +248,8 @@ describe('<TopOffersContainer />', () => {
     return {
       isPersonal: true,
       isCarSearch: true,
-      isManufacturerPage: false,
-      isSpecialOfferPage: true,
+      pageType: SearchPageTypes.SPECIAL_OFFER_PAGE,
       isPickups: false,
-      isRangePage: false,
-      isBodyPage: false,
-      isBudgetPage: false,
-      isTransmissionPage: false,
-      isFuelPage: false,
       isDynamicFilterPage: false,
       viewModel: jest.fn(),
       manualBodyStyle: ['test'],

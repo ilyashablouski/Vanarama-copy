@@ -13,21 +13,24 @@ import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/b
 import { SortObject } from '../../../generated/globalTypes';
 import { Nullable } from '../../types/common';
 
+export enum SearchPageTypes {
+  SIMPLE_SEARCH_PAGE = 'SIMPLE_SEARCH_PAGE',
+  SPECIAL_OFFER_PAGE = 'SPECIAL_OFFER_PAGE',
+  MANUFACTURER_PAGE = 'MANUFACTURER_PAGE',
+  ALL_MANUFACTURERS_PAGE = 'ALL_MANUFACTURERS_PAGE',
+  BODY_STYLE_PAGE = 'BODY_STYLE_PAGE',
+  RANGE_PAGE = 'RANGE_PAGE',
+  MODEL_PAGE = 'MODEL_PAGE',
+  FUEL_TYPE_PAGE = 'FUEL_TYPE_PAGE',
+  TRANSMISSION_PAGE = 'TRANSMISSION_PAGE',
+  BUDGET_PAGE = 'BUDGET_PAGE',
+}
+
 export interface ISearchPageContainerProps {
   isServer?: boolean;
   isCarSearch?: boolean;
-  isManufacturerPage?: boolean;
-  isSimpleSearchPage?: boolean;
-  isSpecialOfferPage?: boolean;
+  pageType?: SearchPageTypes;
   isPickups?: boolean;
-  isRangePage?: boolean;
-  isModelPage?: boolean;
-  isAllManufacturersPage?: boolean;
-  isBodyStylePage?: boolean;
-  isTransmissionPage?: boolean;
-  isFuelPage?: boolean;
-  isBudgetPage?: boolean;
-  isEvPage?: boolean;
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   topInfoSection?: sections | null;

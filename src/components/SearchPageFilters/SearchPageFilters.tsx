@@ -40,6 +40,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { ISearchPageFiltersProps } from './interfaces';
+import { SearchPageTypes } from '../../containers/SearchPageContainer/interfaces';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -59,19 +60,12 @@ const queryParameterKeyMapper: IQueryKeyMapper = {
 const SearchPageFilters = ({
   preLoadFilters,
   onSearch,
+  pageType,
   isCarSearch,
   preSearchVehicleCount,
   isSpecialOffers,
   setIsSpecialOffers,
-  isManufacturerPage,
   isPickups,
-  isRangePage,
-  isModelPage,
-  isAllManufacturersPage,
-  isBodyPage,
-  isBudgetPage,
-  isFuelPage,
-  isTransmissionPage,
   isDynamicFilterPage,
   isPreloadList,
   isPartnershipActive = false,
@@ -92,7 +86,29 @@ const SearchPageFilters = ({
   dataUiTestId,
 }: ISearchPageFiltersProps) => {
   const router = useRouter();
-
+  const {
+    isManufacturerPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBudgetPage,
+    isBodyStylePage: isBodyPage,
+    isRangePage,
+    isModelPage,
+    isAllManufacturersPage,
+  } = useMemo(
+    () => ({
+      isManufacturerPage: pageType === SearchPageTypes.MANUFACTURER_PAGE,
+      isFuelPage: pageType === SearchPageTypes.FUEL_TYPE_PAGE,
+      isTransmissionPage: pageType === SearchPageTypes.TRANSMISSION_PAGE,
+      isBudgetPage: pageType === SearchPageTypes.BUDGET_PAGE,
+      isBodyStylePage: pageType === SearchPageTypes.BODY_STYLE_PAGE,
+      isRangePage: pageType === SearchPageTypes.RANGE_PAGE,
+      isModelPage: pageType === SearchPageTypes.MODEL_PAGE,
+      isAllManufacturersPage:
+        pageType === SearchPageTypes.ALL_MANUFACTURERS_PAGE,
+    }),
+    [pageType],
+  );
   const [manufacturerData, setManufacturerData] = useState<
     Array<IFiltersChildren>
   >(manufacturerHandler(preLoadFilters || ({} as IFilterList)));
