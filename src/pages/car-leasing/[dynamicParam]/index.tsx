@@ -60,8 +60,7 @@ import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesConta
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
 import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
-import FeatureFlagDynamicParamSearchContainer
-  from "../../../containers/SearchPageContainer/FeatureFlagDynamicParamSearchContainer";
+import FeatureFlagDynamicParamSearchContainer from '../../../containers/SearchPageContainer/FeatureFlagDynamicParamSearchContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -137,7 +136,8 @@ const Page: NextPage<IProps> = ({
         isServer={isServer}
         isCarSearch
         isManufacturerPage={
-          pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
+          pageType?.current?.isManufacturerPage ??
+          ssrPageType?.isManufacturerPage
         }
         isBodyStylePage={
           pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage

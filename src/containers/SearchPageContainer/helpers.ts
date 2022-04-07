@@ -395,12 +395,7 @@ export const ssrCMSQueryExecutor = async (
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
   if (pageType === 'isManufacturerPage' && isManufacturerFeatureFlagEnabled) {
-    return onCallQuery(
-      client,
-      GENERIC_PAGE,
-      prepareSlugPart(slug),
-      true,
-    );
+    return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug), true);
   }
   switch (pageType) {
     case 'isNewRangePage':
