@@ -196,27 +196,29 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
   const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
 
-  const titleFeaturedIndexes = features?.reduce((acc, item, index) => {
-    const isNotMediaSideItem =
-      !item?.layout?.includes('Media Right') &&
-      !item?.layout?.includes('Media Left');
-    const isMediaSideNextItem =
-      features[index + 1]?.layout?.includes('Media Right') ||
-      features[index + 1]?.layout?.includes('Media Left');
-    const isLastItem = item === features[features.length - 1];
-    if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
-      return [...acc, index];
-    }
-    return acc;
-  }, [] as number[] | []);
-  const separatedFeatures = titleFeaturedIndexes?.map(
-    (featuredIndex, index) => {
+  const titleFeaturedIndexes = useMemo(() => {
+    return features?.reduce((acc, item, index) => {
+      const isNotMediaSideItem =
+        !item?.layout?.includes('Media Right') &&
+        !item?.layout?.includes('Media Left');
+      const isMediaSideNextItem =
+        features[index + 1]?.layout?.includes('Media Right') ||
+        features[index + 1]?.layout?.includes('Media Left');
+      const isLastItem = item === features[features.length - 1];
+      if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
+        return [...acc, index];
+      }
+      return acc;
+    }, [] as number[] | []);
+  }, [features]);
+  const separatedFeatures = useMemo(() => {
+    return titleFeaturedIndexes?.map((featuredIndex, index) => {
       if (index === titleFeaturedIndexes.length - 1) {
         return features?.slice(featuredIndex);
       }
       return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
-    },
-  );
+    });
+  }, [titleFeaturedIndexes]);
 
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
