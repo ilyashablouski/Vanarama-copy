@@ -1,0 +1,794 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RangeSearchContainer /> should be render correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <nav
+        class="breadcrumbs breadcrumbs--mobile"
+        data-testid="breadcrumbs"
+      >
+        <ul
+          class="breadcrumbs__list"
+        >
+          <li
+            class="breadcrumbs__item"
+          >
+            <a
+              class="breadcrumbs__link link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              <i
+                class="icon -teal"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              Back to 
+              Home
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav
+        class="breadcrumbs breadcrumbs--desktop"
+        data-testid="breadcrumbs"
+      >
+        <ul
+          class="breadcrumbs__list"
+        >
+          <li
+            class="breadcrumbs__item"
+          >
+            <a
+              class="breadcrumbs__link link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumbs__item"
+          >
+            <span
+              class="text breadcrumbs__text -small -darker"
+            >
+              Car Leasing
+            </span>
+          </li>
+        </ul>
+      </nav>
+      <h1
+        class="heading -black -xlarge"
+        data-uitestid="undefined_page-title_heading"
+      >
+        HubCarPage
+         
+        <br />
+      </h1>
+    </div>
+    <div
+      class="-mv-400 -stretch-left"
+    >
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          class="checkbox--native visually-hidden"
+          id="specialOffer"
+          type="checkbox"
+          value=""
+        />
+        <label
+          class="checkbox--label"
+          for="specialOffer"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            View Special Offers Only
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="row:bg-light -xthin"
+    >
+      <div
+        class="row:search-filters"
+      >
+        <div
+          class="search-filters"
+        >
+          <div
+            aria-level="3"
+            class="search-filters--title"
+            role="heading"
+          >
+            <i
+              class="icon search-filters--title-icon"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <path
+                  d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
+                />
+                <path
+                  d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+                <path
+                  d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Filters
+            </span>
+            <i
+              class="icon search-filters--title-icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </div>
+          <div
+            class="toggle--wrapper search-filters--toggle"
+          >
+            <input
+              autocomplete="off"
+              checked=""
+              class="toggle toggle--input"
+              id="contractType"
+              type="checkbox"
+            />
+            <label
+              class="toggle--input-label -orange"
+              for="contractType"
+            >
+              <span
+                class="toggle--switch"
+              >
+                <span
+                  class="toggle--on"
+                >
+                  Personal
+                </span>
+                <span
+                  class="toggle--off"
+                >
+                  Business
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Make & Model
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Make
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="manufacturer"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select make
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Model
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="model"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select model
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Make & Modelbtn"
+                data-uitestid="undefined_button_Make & Model"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Budget
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price From
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="from"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select from
+                      </option>
+                      <option
+                        value="0"
+                      >
+                        £0
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price To
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="to"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select to
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                      <option
+                        value="550+"
+                      >
+                        £550+
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Budgetbtn"
+                data-uitestid="undefined_button_Budget"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Body Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Body Type"
+                data-uitestid="undefined_formgroup_Body Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Body Type
+                </label>
+                <div
+                  class="formgroup--content"
+                />
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Body Typebtn"
+                data-uitestid="undefined_button_Body Type"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Transmission
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Transmission"
+                data-uitestid="undefined_formgroup_Transmission"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Transmission
+                </label>
+                <div
+                  class="formgroup--content"
+                />
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Transmissionbtn"
+                data-uitestid="undefined_button_Transmission"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Fuel Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Fuel Type"
+                data-uitestid="undefined_formgroup_Fuel Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Fuel Type
+                </label>
+                <div
+                  class="formgroup--content"
+                />
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Fuel Typebtn"
+                data-uitestid="undefined_button_Fuel Type"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="search-filters--tags"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:bg-lighter -thin"
+    >
+      <div
+        class="row:results"
+      >
+        <span
+          class="text -regular -darker"
+          data-uitestid="undefined_text_results-count"
+        >
+          Showing 3 Results
+        </span>
+        <div
+          class="select"
+        >
+          <select
+            class="select--native"
+          >
+            <option
+              disabled=""
+              value=""
+            >
+              Please Select
+            </option>
+            <option
+              data-uitestid="undefined_rate_ASC"
+              value="rate_ASC"
+            >
+              Price Low To High
+            </option>
+            <option
+              data-uitestid="undefined_rate_DESC"
+              value="rate_DESC"
+            >
+              Price High To Low
+            </option>
+            <option
+              data-uitestid="undefined_availability_ASC"
+              value="availability_ASC"
+            >
+              Fastest Delivery Time
+            </option>
+          </select>
+          <span
+            class="icon select--chevron"
+          >
+            <i
+              class="icon -stroke -dark"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </span>
+        </div>
+        <div
+          class="row:cards-3col"
+        />
+        <div
+          class="pagination"
+        />
+      </div>
+    </div>
+    <div
+      class="row:text"
+    >
+      <span
+        class="text -regular -dark"
+      >
+        Photos and videos are for illustration purposes only.
+         
+        <a
+          class="link -teal"
+          data-testid="router-link"
+          data-uitestid="undefined_link_terms-and-conditions"
+          href="/legal/terms-and-conditions"
+        >
+          Terms and conditions apply
+        </a>
+        .
+      </span>
+    </div>
+    <script
+      type="application/ld+json"
+    >
+      {"@graph":[{"@type":"FAQPage","mainEntity":[{"name":"Why Lease A Car?","@type":"Question","acceptedAnswer":{"text":"Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford. And you can upgrade to a new one every few years","@type":"Answer"}},{"name":"How Does Car Leasing Work?","@type":"Question","acceptedAnswer":{"text":"Personal car leasing works very much like renting, but for a longer time period. You choose your new car, the contract length, how much you'd like your initial rental to be and how many miles you'll drive over the period. At the end of your lease agreement, you return the car & upgrade","@type":"Answer"}}]},{"url":"https://www.vanarama.com/car-leasing.html","name":"Vanarama","@type":"Service","@context":"http://schema.org","description":"Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford.","serviceType":"Car Leasing"}]}
+    </script>
+  </div>
+</body>
+`;
