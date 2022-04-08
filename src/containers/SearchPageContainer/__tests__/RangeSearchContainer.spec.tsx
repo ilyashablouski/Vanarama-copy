@@ -1,18 +1,10 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import {
-  GET_ALL_MANUFACTURERS_PAGE,
-  getRangesList,
-  useManufacturerList,
-  useVehiclesList,
-} from '../gql';
-import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
-import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
-import { GENERIC_PAGE } from '../../../gql/genericPage';
-import RangeSeacrhContainer from '../RangeSeacrhContainer';
+import { getRangesList, useVehiclesList } from '../gql';
+import RangeSearchContainer from '../RangeSeacrhContainer';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -72,89 +64,15 @@ const metaData = {
   ],
   __typename: 'Meta',
 };
-const mockData = {
-  loading: false,
-  refetch() {
-    return this.data;
-  },
-  data: {
-    productCard: [
-      {
-        vehicleType: VehicleTypeEnum.CAR,
-        capId: '83615',
-        manufacturerName: 'manufacturerName',
-        rangeName: 'rangeName',
-        derivativeName: 'derivativeName',
-        averageRating: 4.5,
-        isOnOffer: false,
-        offerPosition: 5,
-        leadTime: '',
-        imageUrl: '',
-        keyInformation: [],
-        businessRate: 55,
-        personalRate: 55,
-      },
-    ],
-    derivatives: [
-      {
-        id: '83615',
-        derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-        slug: '10-ecoBoost-125-st-line-nav-5dr',
-        capCode: 'capCode',
-        name: 'name',
-        manufacturer: {
-          name: 'Ford',
-          slug: 'ford',
-        },
-        model: {
-          name: 'Focus',
-          slug: 'focus',
-        },
-        fuelType: {
-          name: 'name',
-        },
-        transmission: {
-          name: 'name',
-        },
-        bodyStyle: {
-          name: 'Hatchback',
-        },
-        range: {
-          name: 'Focus',
-          slug: 'focus',
-        },
-        __typename: 'derivative',
-      },
-    ],
-  },
-  error: undefined,
-};
-
-const filterListResponse = {
-  vehicleTypes: [VehicleTypeEnum.CAR],
-  groupedRanges: [
-    {
-      parent: 'Citroën',
-      children: ['Berlingo', 'Dispatch', 'Relay'],
-    },
-    {
-      parent: 'Dacia',
-      children: ['Duster'],
-    },
-  ],
-  bodyStyles: ['Dropside Tipper', 'Large Van'],
-  transmissions: ['Automatic', 'Manual'],
-  fuelTypes: ['diesel', 'iii'],
-};
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
     rewrite: jest.fn(),
-    pathname: '/car-leasing',
+    pathname: '/car-leasing/bmw-car-leasing/3-series.html',
     query: {},
-    route: '/car-leasing',
-    asPath: '/car-leasing',
+    route: '/car-leasing/bmw-car-leasing/3-series.html',
+    asPath: '/car-leasing/bmw-car-leasing/3-series.html',
   }),
 }));
 
@@ -162,520 +80,116 @@ jest.mock('../gql', () => ({
   ...jest.requireActual('../gql'),
   useVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
-  useManufacturerList: jest.fn(),
-  useSearchResultPage: jest.fn(),
 }));
 
-jest.mock('../components/RangeCard', () => () => {
-  return <div />;
-});
 // ARRANGE
-let filterMockCalled = false;
 let vehicleMockCalled = false;
 
-(useVehiclesList as jest.Mock).mockReturnValue([
-  () => {
-    vehicleMockCalled = true;
+const list = {
+  totalCount: 3,
+  pageInfo: {
+    startCursor: 'MTM',
+    endCursor: 'MTU',
+    hasNextPage: false,
+    hasPreviousPage: false,
   },
-  {
-    data: {
-      vehicleList: {
-        totalCount: 91,
-        pageInfo: {
-          startCursor: 'MQ',
-          endCursor: 'OQ',
-          hasNextPage: true,
-          hasPreviousPage: false,
-        },
-        edges: [
-          {
-            cursor: 'MQ',
-            node: {
-              vehicleType: VehicleTypeEnum.CAR,
-              offerRanking: 1,
-              onOffer: true,
-              derivativeId: '83615',
-              capCode: 'FOFO10TN55HPTM  6   ',
-              manufacturerName: 'Ford',
-              modelName: 'Focus Hatchback',
-              derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5 Doors',
-              bodyStyle: 'Hatchback',
-              transmission: 'Manual',
-              fuelType: 'Petrol',
-              financeProfiles: [
-                {
-                  leaseType: 'PERSONAL',
-                  rate: 210.96,
-                  term: 24,
-                  upfront: 9,
-                  upfrontPayment: 1898.64,
-                  mileage: 6000,
-                  maintained: false,
-                },
-                {
-                  leaseType: 'BUSINESS',
-                  rate: 175.96,
-                  term: 24,
-                  upfront: 9,
-                  upfrontPayment: 1583.64,
-                  mileage: 6000,
-                  maintained: false,
-                },
-              ],
-            },
-          },
-        ],
+  edges: [
+    {
+      cursor: 'MTM',
+      node: {
+        bodyStyle: 'Saloon',
+        capCode: 'BM3A20SPE4SPTA4 8   ',
+        derivativeId: '97368',
+        derivativeName: '320i xDrive SE Pro 4 Doors Step Auto',
+        financeProfiles: [],
+        fuelType: 'Petrol',
+        legacyUrl:
+          'bmw-car-leasing/3-series/saloon/320i-xdrive-se-pro-4dr-step-auto-173293.html',
+        manufacturerName: 'BMW',
+        modelName: '3 Series Saloon',
+        offerRanking: 999999999,
+        onOffer: false,
+        transmission: 'Automatic',
+        url:
+          'car-leasing/bmw/3-series/saloon/320i-xdrive-se-pro-4-doors-step-auto-2019',
+        vehicleType: VehicleTypeEnum.CAR,
       },
     },
-  },
-]);
-
-(useManufacturerList as jest.Mock).mockReturnValue([
-  jest.fn(),
-  {
-    data: {
-      manufacturerList: [
-        {
-          count: 8,
-          manufacturerId: '1137',
-          manufacturerName: 'Abarth',
-          minPrice: 201.93,
-          capIds: '1151',
-        },
-        {
-          count: 21,
-          manufacturerId: '1143',
-          manufacturerName: 'Alfa Romeo',
-          minPrice: 140.99,
-          capIds: '1151',
-        },
-        {
-          count: 549,
-          manufacturerId: '1151',
-          manufacturerName: 'Audi',
-          minPrice: 168.91,
-          capIds: '1151',
-        },
-      ],
+    {
+      cursor: 'MTQ',
+      node: {
+        bodyStyle: 'Estate',
+        capCode: 'BM3120MHP5EDTA  8   ',
+        derivativeId: '97491',
+        derivativeName: '318d MHT SE Pro 5 Doors Step Auto',
+        financeProfiles: [],
+        fuelType: 'Diesel',
+        legacyUrl:
+          'bmw-car-leasing/3-series/touring/318d-mht-se-pro-5dr-step-auto-173328.html',
+        manufacturerName: 'BMW',
+        modelName: '3 Series Touring',
+        offerRanking: 999999999,
+        onOffer: false,
+        transmission: 'Automatic',
+        url:
+          'car-leasing/bmw/3-series/touring/318d-mht-se-pro-5-doors-step-auto-2019',
+        vehicleType: VehicleTypeEnum.CAR,
+      },
     },
-  },
-]);
+    {
+      cursor: 'MTU',
+      node: {
+        bodyStyle: 'Saloon',
+        capCode: 'BM3220MHP4SDTA  8   ',
+        derivativeId: '97372',
+        derivativeName: '320d MHT SE Pro 4 Doors Step Auto',
+        financeProfiles: [],
+        fuelType: 'Diesel',
+        legacyUrl:
+          'bmw-car-leasing/3-series/saloon/320d-mht-se-pro-4dr-step-auto-173297.html',
+        manufacturerName: 'BMW',
+        modelName: '3 Series Saloon',
+        offerRanking: 999999999,
+        onOffer: false,
+        transmission: 'Automatic',
+        url:
+          'car-leasing/bmw/3-series/saloon/320d-mht-se-pro-4-doors-step-auto-2019',
+        vehicleType: VehicleTypeEnum.CAR,
+      },
+    },
+  ],
+};
+
+const preLoadVehiclesList = {
+  vehicleList: list,
+};
+
+(useVehiclesList as jest.Mock).mockImplementation(() => {
+  vehicleMockCalled = true;
+
+  return [
+    jest.fn(),
+    {
+      data: preLoadVehiclesList,
+    },
+  ];
+});
 
 (getRangesList as jest.Mock).mockReturnValue([
   () => jest.fn(),
   {
-    data: {
-      rangeList: [
-        {
-          rangeName: '1 Series',
-          rangeId: '780',
-          count: 66,
-          minPrice: 205.87,
-        },
-      ],
-    },
+    data: {},
   },
 ]);
 
-const mocksResponse: MockedResponse[] = [
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: filterListResponse,
-        },
-        refetch() {
-          return this.data;
-        },
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: filterListResponse,
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
-        fuelTypes: [],
-        bodyStyles: [],
-        transmissions: ['Automatic'],
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: filterListResponse,
-        },
-        refetch: jest.fn(),
-      };
-    },
-    newData: jest.fn(() => ({
-      data: {
-        filterList: {
-          vehicleTypes: [VehicleTypeEnum.CAR],
-          groupedRanges: [
-            {
-              parent: 'Citroën',
-              children: ['Berlingo', 'Dispatch'],
-            },
-            {
-              parent: 'Dacia',
-              children: ['Duster'],
-            },
-          ],
-          bodyStyles: ['Dropside Tipper', 'Large Van'],
-          transmissions: ['Automatic', 'Manual'],
-          fuelTypes: ['diesel', 'iii', 'electro'],
-        },
-      },
-      refetch: jest.fn(),
-    })),
-  },
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
-        fuelTypes: [],
-        bodyStyles: [],
-        transmissions: ['Automatic'],
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: filterListResponse,
-        },
-      };
-    },
-    newData: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: {
-            vehicleTypes: [VehicleTypeEnum.CAR],
-            groupedRanges: [
-              {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch'],
-              },
-              {
-                parent: 'Dacia',
-                children: ['Duster'],
-              },
-            ],
-            bodyStyles: ['Dropside Tipper', 'Large Van'],
-            transmissions: ['Automatic', 'Manual'],
-            fuelTypes: ['diesel', 'iii', 'electro'],
-          },
-        },
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_PRODUCT_CARDS_DATA,
-      variables: {
-        capIds: ['83615'],
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          productCard: {
-            vehicleType: VehicleTypeEnum.CAR,
-            capId: '83615',
-            manufacturerName: 'manufacturerName',
-            rangeName: 'rangeName',
-            derivativeName: 'derivativeName',
-            averageRating: 4.5,
-            isOnOffer: false,
-            offerPosition: 5,
-            leadTime: '',
-            imageUrl: '',
-            keyInformation: [{ name: 'Transmission', value: 'Manual' }],
-            businessRate: 55,
-            personalRate: 55,
-          },
-          derivatives: mockData.data.derivatives,
-          vehicleList: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_PRODUCT_CARDS_DATA,
-      variables: {
-        capIds: [],
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          productCard: {},
-          derivatives: [],
-          vehicleList: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_PRODUCT_CARDS_DATA,
-      variables: {
-        capIds: ['83615'],
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          productCard: [
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836151',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836152',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836153',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836154',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836155',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-            {
-              vehicleType: VehicleTypeEnum.CAR,
-              capId: '836156',
-              manufacturerName: 'manufacturerName',
-              rangeName: 'rangeName',
-              derivativeName: 'derivativeName',
-              averageRating: 4.5,
-              isOnOffer: false,
-              offerPosition: 5,
-              leadTime: '',
-              imageUrl: '',
-              keyInformation: [],
-              businessRate: 55,
-              personalRate: 55,
-            },
-          ],
-          derivatives: mockData.data.derivatives,
-        },
-        vehicleList: {
-          edges: [],
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_PRODUCT_CARDS_DATA,
-      variables: {
-        capIds: ['836151', '836152', '836153', '836154', '836155', '836156'],
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          productCard: mockData.data.productCard,
-          derivatives: mockData.data.derivatives,
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: '/abarth-car-leasing/124-spider',
-      },
-    },
-    result: () => {
-      return {
-        data: {},
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: '/undefined-car-leasing/undefined',
-      },
-    },
-    result: () => {
-      return {
-        data: {},
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_ALL_MANUFACTURERS_PAGE,
-      variables: {},
-    },
-    result: () => {
-      return {
-        data: { manufacturerPage: {} },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_ALL_MANUFACTURERS_PAGE,
-      variables: {},
-    },
-    result: () => {
-      return {
-        data: { manufacturerPage: {} },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'car-leasing/search',
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          genericPage: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'car-leasing/search',
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          genericPage: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-];
 describe('<RangeSearchContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
 
     jest.clearAllMocks();
-    filterMockCalled = false;
     vehicleMockCalled = false;
     window.sessionStorage.setItem = jest.fn();
+    window.scrollTo = jest.fn();
   });
 
   Object.defineProperty(window, 'matchMedia', {
@@ -692,14 +206,34 @@ describe('<RangeSearchContainer />', () => {
     })),
   });
 
-  xit('should make a server request after render', async () => {
+  it('should make a server request after render', async () => {
     // ACT
     act(() => {
       render(
-        <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <RangeSeacrhContainer
+        <MockedProvider addTypename={false}>
+          <RangeSearchContainer
             isCarSearch
-            isServer={false}
+            metaData={metaData}
+            preLoadVehiclesList={preLoadVehiclesList}
+          />
+        </MockedProvider>,
+      );
+    });
+
+    // ASSERT
+    await waitFor(() => {
+      expect(vehicleMockCalled).toBeTruthy();
+    });
+  });
+
+  it('should be render correct list length', async () => {
+    // ACT
+    act(() => {
+      render(
+        <MockedProvider addTypename={false}>
+          <RangeSearchContainer
+            isCarSearch
+            preLoadVehiclesList={preLoadVehiclesList}
             metaData={metaData}
           />
         </MockedProvider>,
@@ -708,48 +242,26 @@ describe('<RangeSearchContainer />', () => {
 
     // ASSERT
     await waitFor(() => {
-      expect(filterMockCalled).toBeTruthy();
       expect(vehicleMockCalled).toBeTruthy();
+      expect(screen.getByText('Showing 3 Results')).toBeTruthy();
     });
   });
 
-  xit('should be render correct list length', async () => {
-    // ACT
-    act(() => {
-      render(
-        <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <RangeSeacrhContainer
-            isCarSearch
-            isServer={false}
-            metaData={metaData}
-          />
-        </MockedProvider>,
-      );
-    });
-
-    // ASSERT
-    await waitFor(() => {
-      expect(filterMockCalled).toBeTruthy();
-      expect(vehicleMockCalled).toBeTruthy();
-      expect(screen.getByText('Showing 1 Results')).toBeTruthy();
-    });
-  });
-
-  xit('should be render correctly', async () => {
+  it('should be render correctly', async () => {
     // ACT
     const getComponent = render(
-      <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <RangeSeacrhContainer
+      <MockedProvider addTypename={false}>
+        <RangeSearchContainer
           metaData={metaData}
           isCarSearch
-          isServer={false}
+          preLoadVehiclesList={preLoadVehiclesList}
         />
       </MockedProvider>,
     );
 
     await waitFor(() => {
       expect(vehicleMockCalled).toBeTruthy();
-      expect(screen.getByText('Automatic')).toBeInTheDocument();
+      expect(screen.getByText('Showing 3 Results')).toBeInTheDocument();
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
