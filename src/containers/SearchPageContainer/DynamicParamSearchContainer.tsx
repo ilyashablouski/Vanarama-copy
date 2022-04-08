@@ -22,20 +22,20 @@ import SearchPageFilters from '../../components/SearchPageFilters';
 import ResultsCount from './components/ResultsCount';
 import SortOrder from '../../components/SortOrder';
 import {
-  buildRewriteRoute,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
   createRangesVariables,
   createVehiclesVariables,
   dynamicQueryTypeCheck,
-  fuelMapper,
   getCapsIds,
+  getFuelType,
   getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
   getPartnershipTitle,
   getValueFromStorage,
+  isOnOffer,
   isPreviousPage,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
@@ -43,6 +43,7 @@ import {
   sortValues,
   ssrCMSQueryExecutor,
   searchPageTypeMapper,
+  buildUrlWithFilter,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -126,6 +127,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     isTransmissionPage,
     isBudgetPage,
     isBodyStylePage,
+    isDynamicFilterPage,
   } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
 
   const [isPersonal, setIsPersonal] = useState(
@@ -188,10 +190,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const router = useRouter();
 
   const applyColumns = !isFuelPage ? '-columns' : '';
-  const isDynamicFilterPage = useMemo(
-    () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
-    [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
-  );
+
   const hero = useMemo(
     () => getSectionsData(['sections', 'hero'], pageData?.genericPage),
     [pageData],
@@ -400,23 +399,13 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         );
         // call only manufacturer list query call after select new filter
       } else {
-        let onOffer;
         // set onOffer value to actual depend on page type
-        if (isDynamicFilterPage) {
-          onOffer = null;
-        } else {
-          onOffer = isSpecialOffers || null;
-        }
-        let fuelTypes;
-        if (isFuelPage) {
-          fuelTypes = (fuelMapper[
-            router.query.dynamicParam as keyof typeof fuelMapper
-          ] as string).split(',');
-        } else if (filters?.fuelTypes?.length > 0) {
-          fuelTypes = filters.fuelTypes;
-        } else {
-          fuelTypes = getPartnerProperties()?.fuelTypes;
-        }
+        const onOffer = isOnOffer(isSpecialOffers, pageType);
+        const fuelTypes = getFuelType(
+          filters.fuelTypes,
+          router.query.dynamicParam,
+          isFuelPage,
+        );
         getVehicles(
           createVehiclesVariables({
             isCarSearch,
@@ -434,49 +423,18 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         );
       }
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (
-            value?.length &&
-            !(isManufacturerPage && (key === 'make' || key === 'rangeName')) &&
-            !(isBodyStylePage && key === 'bodyStyles') &&
-            !((isFuelPage || isPartnershipActive) && key === 'fuelTypes') &&
-            !(isTransmissionPage && key === 'transmissions') &&
-            !(isBudgetPage && key === 'pricePerMonth')
-          ) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
-        // changing url dynamically
-        router.replace(
-          {
-            pathname: router.route,
-            query,
-          },
-          pathname,
-          { shallow: true },
-        );
+        buildUrlWithFilter(router, filters, isPartnershipActive);
         // set search filters data
         setFiltersData(filters);
       }
     },
     [
+      pageType,
       filtersData,
       getRanges,
       getVehicles,
       isBodyStylePage,
-      isBudgetPage,
       isCarSearch,
-      isDynamicFilterPage,
       isFuelPage,
       isManufacturerPage,
       isPartnershipActive,
@@ -610,7 +568,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       Object.values(filtersData).flat().length > 0
     ) {
       setShouldUpdateCache(false);
-      const isOnOffer = !isDynamicFilterPage ? isSpecialOffers || null : null;
+      const onOffer = !isDynamicFilterPage ? isSpecialOffers || null : null;
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
@@ -618,7 +576,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
             isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
-            onOffer: isOnOffer ?? null,
+            onOffer,
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
@@ -632,7 +590,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          onOffer: isOnOffer ?? null,
+          onOffer,
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
@@ -801,7 +759,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
           pageType={pageType}
-          isDynamicFilterPage={isDynamicFilterPage || false}
           isPersonal={isPersonal}
           preLoadVehiclesList={preLoadTopOffersList}
           preLoadProductCardsData={preLoadTopOffersCardsData}

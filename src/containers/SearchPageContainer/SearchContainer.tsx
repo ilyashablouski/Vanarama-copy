@@ -16,13 +16,14 @@ import SearchPageTitle from './sections/SearchPageTitle';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import SortOrder from '../../components/SortOrder';
 import {
-  buildRewriteRoute,
+  buildUrlWithFilter,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
   createVehiclesVariables,
   dynamicQueryTypeCheck,
   getCapsIds,
+  getFuelType,
   getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
@@ -331,20 +332,14 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
 
-      const onOffer = isSpecialOffers || null;
-      let fuelTypes;
-      if (filters?.fuelTypes?.length > 0) {
-        fuelTypes = filters.fuelTypes;
-      } else {
-        fuelTypes = getPartnerProperties()?.fuelTypes;
-      }
+      const fuelTypes = getFuelType(filters?.fuelTypes);
       getVehicles(
         createVehiclesVariables({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups,
-          onOffer: onOffer ?? null,
+          onOffer: isSpecialOffers,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -354,30 +349,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
       );
 
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
-        // changing url dynamically
-        router.replace(
-          {
-            pathname: router.route,
-            query,
-          },
-          pathname,
-          { shallow: true },
-        );
+        buildUrlWithFilter(router, filters, isPartnershipActive);
         // set search filters data
         setFiltersData(filters);
       }

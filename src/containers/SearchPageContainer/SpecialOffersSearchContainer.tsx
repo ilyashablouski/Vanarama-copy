@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState, useCallback } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
@@ -12,13 +12,14 @@ import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import SortOrder from '../../components/SortOrder';
 import {
-  buildRewriteRoute,
+  buildUrlWithFilter,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
   createVehiclesVariables,
   dynamicQueryTypeCheck,
   getCapsIds,
+  getFuelType,
   getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
@@ -156,12 +157,9 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         : getPartnerProperties()?.fuelTypes,
     [filtersData],
   );
-  const manualBodyStyle = useMemo(() => {
-    if (isPickups) {
-      return ['Pickup'];
-    }
-    return [''];
-  }, [isPickups]);
+  const manualBodyStyle = useMemo(() => (isPickups ? ['Pickup'] : ['']), [
+    isPickups,
+  ]);
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],
@@ -300,12 +298,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   const onSearch = useCallback(
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
-      let fuelTypes;
-      if (filters?.fuelTypes?.length > 0) {
-        fuelTypes = filters.fuelTypes;
-      } else {
-        fuelTypes = getPartnerProperties()?.fuelTypes;
-      }
+      const fuelTypes = getFuelType(filters?.fuelTypes);
       getVehicles(
         createVehiclesVariables({
           isCarSearch,
@@ -321,34 +314,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         }),
       );
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (
-            value?.length &&
-            !(isPartnershipActive && key === 'fuelTypes') &&
-            !(isPickups && key === 'bodyStyles')
-          ) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
-        // changing url dynamically
-        router.replace(
-          {
-            pathname: router.route,
-            query,
-          },
-          pathname,
-          { shallow: true },
-        );
+        buildUrlWithFilter(router, filters, isPartnershipActive);
         // set search filters data
         setFiltersData(filters);
       }
