@@ -178,28 +178,7 @@ const preLoadVehiclesList = {
 (getRangesList as jest.Mock).mockReturnValue([
   () => jest.fn(),
   {
-    data: {
-      // rangeList: [
-      //   {
-      //     rangeName: '3 Series',
-      //     rangeId: '78',
-      //     count: 66,
-      //     minPrice: 205.87,
-      //   },
-      //   // {
-      //   //   rangeName: '3 Series',
-      //   //   rangeId: '78',
-      //   //   count: 66,
-      //   //   minPrice: 205.87,
-      //   // },
-      //   // {
-      //   //   rangeName: '3 Series',
-      //   //   rangeId: '78',
-      //   //   count: 66,
-      //   //   minPrice: 205.87,
-      //   // },
-      // ],
-    },
+    data: {},
   },
 ]);
 
