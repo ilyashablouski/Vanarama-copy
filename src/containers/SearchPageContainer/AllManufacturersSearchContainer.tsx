@@ -17,7 +17,7 @@ import Head from '../../components/Head/Head';
 import ResultsCount from './components/ResultsCount';
 import Skeleton from '../../components/Skeleton';
 import {
-  buildRewriteRoute,
+  buildUrlWithFilter,
   createManufacturerListVariables,
   dynamicQueryTypeCheck,
   getPartnershipDescription,
@@ -96,30 +96,7 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
         createManufacturerListVariables(isCarSearch, isPersonal, filters),
       );
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
-        // changing url dynamically
-        router.replace(
-          {
-            pathname: router.route,
-            query,
-          },
-          pathname,
-          { shallow: true },
-        );
+        buildUrlWithFilter(router, filters, isPartnershipActive);
         // set search filters data
         setFiltersData(filters);
       }

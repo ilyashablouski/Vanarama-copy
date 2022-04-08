@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
@@ -20,7 +20,12 @@ import {
 } from '../../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../generated/bodyStyleList';
-import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from '../helpers';
+import {
+  bodyUrlsSlugMapper,
+  budgetMapper,
+  fuelMapper,
+  searchPageTypeMapper,
+} from '../helpers';
 import {
   getLegacyUrl,
   isManufacturerMigrated,
@@ -48,7 +53,6 @@ interface IProps {
   isCarSearch: boolean;
   pageType?: SearchPageTypes;
   isPickups?: boolean;
-  isDynamicFilterPage?: boolean;
   preLoadVehiclesList?: Nullable<IVehiclesData>;
   preLoadProductCardsData?: Nullable<GetProductCard>;
   preloadBodyStyleList?: Nullable<IModelsData[]>;
@@ -65,7 +69,6 @@ const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
   isPickups,
   isPersonal,
-  isDynamicFilterPage,
   pageType,
   preLoadVehiclesList,
   preLoadProductCardsData,
@@ -85,16 +88,9 @@ const TopOffersContainer: React.FC<IProps> = ({
     isTransmissionPage,
     isBudgetPage,
     isRangePage,
+    isDynamicFilterPage,
     isBodyStylePage: isBodyPage,
-  } = {
-    isSpecialOfferPage: pageType === SearchPageTypes.SPECIAL_OFFER_PAGE,
-    isManufacturerPage: pageType === SearchPageTypes.MANUFACTURER_PAGE,
-    isFuelPage: pageType === SearchPageTypes.FUEL_TYPE_PAGE,
-    isTransmissionPage: pageType === SearchPageTypes.TRANSMISSION_PAGE,
-    isBudgetPage: pageType === SearchPageTypes.BUDGET_PAGE,
-    isRangePage: pageType === SearchPageTypes.RANGE_PAGE,
-    isBodyStylePage: pageType === SearchPageTypes.BODY_STYLE_PAGE,
-  };
+  } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
 
   const isDesktopLayout = useDesktopViewport();
 

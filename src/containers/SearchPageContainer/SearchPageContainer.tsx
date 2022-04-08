@@ -34,9 +34,7 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
-  buildRewriteRoute,
   dynamicQueryTypeCheck,
-  fuelMapper,
   getCapsIds,
   getNumberOfVehicles,
   isPreviousPage,
@@ -57,7 +55,10 @@ import {
   bodyUrlsSlugMapper,
   getPartnershipDescription,
   getPartnershipTitle,
+  getFuelType,
+  isOnOffer,
   searchPageTypeMapper,
+  buildUrlWithFilter,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import TopInfoBlock from './sections/TopInfoBlock';
@@ -147,6 +148,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     isTransmissionPage,
     isFuelPage,
     isBudgetPage,
+    isDynamicFilterPage,
   } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
@@ -156,9 +158,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const [isPartnershipActive, setPartnershipActive] = useState(false);
 
   const [isSpecialOffers, setIsSpecialOffers] = useState(
-    isSpecialOfferPage
-      ? true
-      : getValueFromStorage(isServer, isCarSearch) ?? false,
+    (isSpecialOfferPage || getValueFromStorage(isServer, isCarSearch)) ?? false,
   );
 
   const [pageData, setPageData] = useState(pageDataSSR);
@@ -218,10 +218,6 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const isNewPage = useMemo(
     () => !!newRangePageSlug && NEW_RANGE_SLUGS.includes(newRangePageSlug),
     [newRangePageSlug],
-  );
-  const isDynamicFilterPage = useMemo(
-    () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
-    [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
@@ -468,6 +464,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const onSearch = useCallback(
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
+
       if (isManufacturerPage) {
         const filtersForRanges = {
           ...filters,
@@ -482,23 +479,13 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
           createManufacturerListVariables(isCarSearch, isPersonal, filters),
         );
       } else {
-        let onOffer;
         // set onOffer value to actual depend on page type
-        if (isRangePage || isModelPage || isDynamicFilterPage) {
-          onOffer = null;
-        } else {
-          onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
-        }
-        let fuelTypes;
-        if (isFuelPage) {
-          fuelTypes = (fuelMapper[
-            router.query.dynamicParam as keyof typeof fuelMapper
-          ] as string).split(',');
-        } else if (filters?.fuelTypes?.length > 0) {
-          fuelTypes = filters.fuelTypes;
-        } else {
-          fuelTypes = getPartnerProperties()?.fuelTypes;
-        }
+        const onOffer = isOnOffer(isSpecialOffers, pageType);
+        const fuelTypes = getFuelType(
+          filters.fuelTypes,
+          router.query.dynamicParam,
+          isFuelPage,
+        );
         getVehicles(
           createVehiclesVariables({
             isCarSearch,
@@ -506,7 +493,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
             isSpecialOffersOrder,
             isManualBodyStyle: isPickups || isModelPage || isBodyStylePage,
             isTransmissionPage,
-            onOffer: onOffer ?? null,
+            onOffer,
             filters,
             query: router.query,
             sortOrder: sortOrder as SortObject[],
@@ -516,73 +503,32 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         );
       }
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (
-            value?.length &&
-            // don't add queries in page where we have same data in route
-            !(
-              (isManufacturerPage || isRangePage) &&
-              (key === 'make' || key === 'rangeName')
-            ) &&
-            !(isBodyStylePage && key === 'bodyStyles') &&
-            !((isFuelPage || isPartnershipActive) && key === 'fuelTypes') &&
-            !(isTransmissionPage && key === 'transmissions') &&
-            !(isBudgetPage && key === 'pricePerMonth') &&
-            !(
-              isModelPage &&
-              (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
-            )
-          ) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length && queryString.toString()) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
-        // changing url dynamically
-        router.replace(
-          {
-            pathname: router.route,
-            query,
-          },
-          pathname,
-          { shallow: true },
-        );
+        buildUrlWithFilter(router, filters, isPartnershipActive, pageType);
         // set search filters data
         setFiltersData(filters);
       }
     },
     [
       filtersData,
-      getManufacturerList,
-      getRanges,
-      getVehicles,
-      isAllManufacturersPage,
-      isBodyStylePage,
-      isBudgetPage,
-      isCarSearch,
-      isDynamicFilterPage,
-      isFuelPage,
       isManufacturerPage,
-      isModelPage,
-      isPartnershipActive,
-      isPersonal,
-      isPickups,
-      isRangePage,
-      isSpecialOfferPage,
-      isSpecialOffers,
-      isSpecialOffersOrder,
-      isTransmissionPage,
-      manualBodyStyle,
+      isAllManufacturersPage,
       router,
+      getRanges,
+      isCarSearch,
+      isPersonal,
+      getManufacturerList,
+      isSpecialOffers,
+      pageType,
+      isFuelPage,
+      getVehicles,
+      isSpecialOffersOrder,
+      isPickups,
+      isModelPage,
+      isBodyStylePage,
+      isTransmissionPage,
       sortOrder,
+      manualBodyStyle,
+      isPartnershipActive,
     ],
   );
 
@@ -722,7 +668,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         isSimpleSearchPage)
     ) {
       setShouldUpdateCache(false);
-      const isOnOffer = !(isRangePage || isModelPage || isDynamicFilterPage)
+      const onOffer = !(isRangePage || isModelPage || isDynamicFilterPage)
         ? isSpecialOffers || null
         : null;
 
@@ -732,7 +678,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
             isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
-            onOffer: isOnOffer ?? null,
+            onOffer,
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
@@ -746,7 +692,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          onOffer: isOnOffer ?? null,
+          onOffer,
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
