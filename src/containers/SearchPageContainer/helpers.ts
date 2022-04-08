@@ -374,8 +374,8 @@ const onCallQuery = async (
   client: ApolloClient<NormalizedCacheObject | object>,
   query: DocumentNode,
   slug: string,
-  pageType?: string,
   sectionsAsArray?: boolean,
+  pageType?: string,
 ) =>
   client.query({
     query,
@@ -392,15 +392,19 @@ export const ssrCMSQueryExecutor = async (
   context: ISSRRequest,
   isCarSearch: boolean,
   pageType: string,
+  isManufacturerFeatureFlagEnabled?: boolean,
 ) => {
   const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
   // remove first slash from route and build valid path
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
+  if (pageType === 'isManufacturerPage' && isManufacturerFeatureFlagEnabled) {
+    return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug), true);
+  }
   switch (pageType) {
     case 'isNewRangePage':
-      return onCallQuery(client, GENERIC_PAGE, slug, 'rangePage', true);
+      return onCallQuery(client, GENERIC_PAGE, slug, true, 'rangePage');
     case 'isRangePage':
     case 'isManufacturerPage':
     case 'isModelPage':

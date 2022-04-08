@@ -327,19 +327,20 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
+    const isManufacturerFeatureFlagEnabled = isManufacturerPageFeatureFlagEnabled(
+      req.headers.cookie,
+      resolvedUrl,
+    );
     const [{ data }, migrationSlugs] = await Promise.all([
       (await ssrCMSQueryExecutor(
         client,
         contextData,
         true,
         type as string,
+        isManufacturerFeatureFlagEnabled,
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
     ]);
-    const isManufacturerFeatureFlagEnabled = isManufacturerPageFeatureFlagEnabled(
-      req.headers.cookie,
-      resolvedUrl,
-    );
     return {
       props: {
         isServer: !!req,

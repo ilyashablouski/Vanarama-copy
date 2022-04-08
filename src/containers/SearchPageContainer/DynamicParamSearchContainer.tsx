@@ -88,6 +88,7 @@ import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
 import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -191,10 +192,33 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   const applyColumns = !isFuelPage ? '-columns' : '';
 
-  const hero = useMemo(
-    () => getSectionsData(['sections', 'hero'], pageData?.genericPage),
-    [pageData],
-  );
+  const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
+  const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
+
+  const titleFeaturedIndexes = useMemo(() => {
+    return features?.reduce((acc, item, index) => {
+      const isNotMediaSideItem =
+        !item?.layout?.includes('Media Right') &&
+        !item?.layout?.includes('Media Left');
+      const isMediaSideNextItem =
+        features[index + 1]?.layout?.includes('Media Right') ||
+        features[index + 1]?.layout?.includes('Media Left');
+      const isLastItem = item === features[features.length - 1];
+      if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
+        return [...acc, index];
+      }
+      return acc;
+    }, [] as number[] | []);
+  }, [features]);
+  const separatedFeatures = useMemo(() => {
+    return titleFeaturedIndexes?.map((featuredIndex, index) => {
+      if (index === titleFeaturedIndexes.length - 1) {
+        return features?.slice(featuredIndex);
+      }
+      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
+    });
+  }, [titleFeaturedIndexes]);
+
   const featured = useMemo(
     () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
     [pageData],
@@ -703,6 +727,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           context,
           false,
           type as string,
+          isManufacturerFeatureFlagEnabled,
         )) as ApolloQueryResult<GenericPageQuery>;
         if (genericPageData && !errors?.[0]) {
           setPageData(genericPageData);
@@ -722,7 +747,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       {isManufacturerFeatureFlagEnabled && hero && (
         <>
           <HeroBackground
-            backgroundUrl={hero.image.file.url}
+            backgroundUrl={hero?.image?.file?.url}
             hideCurve
             className="-below-content"
           >
@@ -875,6 +900,26 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
               </div>
             </LazyLoadComponent>
           )}
+
+          {separatedFeatures &&
+            isManufacturerFeatureFlagEnabled &&
+            separatedFeatures.map((featuresSection, index) => (
+              <div
+                key={`${featuresSection?.[0]?.title}_${featuresSection?.length}`}
+                className={
+                  index % 2 ? 'row:full-gray -pb-600 -pt-600' : '-mb-600'
+                }
+              >
+                {featuresSection?.map(featuredItem => {
+                  return (
+                    <FeaturedSection
+                      key={featuredItem?.title}
+                      featured={featuredItem}
+                    />
+                  );
+                })}
+              </div>
+            ))}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
             <WhyLeaseWithVanaramaTiles
