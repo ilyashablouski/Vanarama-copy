@@ -37,13 +37,14 @@ import {
 } from '../../../../../generated/GetProductCard';
 import {
   filterList,
-  filterListVariables,
   filterList_filterList as IFilterList,
+  filterListVariables,
 } from '../../../../../generated/filterList';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { Nullable } from '../../../../types/common';
 import { getManufacturerJson } from '../../../../utils/url';
+import { SearchPageTypes } from '../../../../containers/SearchPageContainer/interfaces';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -98,7 +99,7 @@ const Page: NextPage<IProps> = ({
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
-      isModelPage
+      pageType={SearchPageTypes.MODEL_PAGE}
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}

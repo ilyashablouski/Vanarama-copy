@@ -13,6 +13,7 @@ import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
+import { SearchPageTypes } from '../interfaces';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -858,7 +859,7 @@ describe('<SearchPageContainer />', () => {
           metaData={metaData}
           isCarSearch
           isServer={false}
-          isAllManufacturersPage
+          pageType={SearchPageTypes.ALL_MANUFACTURERS_PAGE}
         />
       </MockedProvider>,
     );

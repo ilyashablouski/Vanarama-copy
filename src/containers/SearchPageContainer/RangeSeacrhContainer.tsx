@@ -12,7 +12,7 @@ import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { ISearchPageContainerProps } from './interfaces';
+import { ISearchPageContainerProps, SearchPageTypes } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
 import SearchPageMarkdown from './components/SearchPageMarkdown';
@@ -43,6 +43,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
+  searchPageTypeMapper,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -99,8 +100,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isServer,
   isCarSearch = false,
-  isRangePage,
-  isModelPage,
+  pageType,
   metaData: metaDataSSR,
   pageData: pageDataSSR,
   preLoadVehiclesList,
@@ -117,6 +117,12 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
 }) => {
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+
+  const { isRangePage, isModelPage } = useMemo(
+    () => searchPageTypeMapper(pageType),
+    [pageType],
+  );
+
   const [isPersonal, setIsPersonal] = useState(
     cachedLeaseType === LeaseTypeEnum.PERSONAL,
   );
@@ -738,7 +744,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
           isPersonal={isPersonal}
-          isRangePage={isRangePage || false}
+          pageType={SearchPageTypes.RANGE_PAGE}
           preLoadVehiclesList={preLoadTopOffersList}
           preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadTopOffersCardsData}
@@ -770,9 +776,8 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
               <SearchPageFilters
                 onSearch={onSearch}
                 isCarSearch={isCarSearch}
-                isRangePage={isRangePage}
+                pageType={pageType}
                 preSearchVehicleCount={totalCount}
-                isModelPage={isModelPage}
                 isPreloadList={!!preLoadVehiclesList}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}

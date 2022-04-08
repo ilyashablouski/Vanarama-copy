@@ -446,7 +446,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 }
 
 .-a-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .-a-middle {

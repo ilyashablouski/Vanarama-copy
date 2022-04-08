@@ -3,15 +3,9 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import {
-  GET_ALL_MANUFACTURERS_PAGE,
-  getRangesList,
-  useManufacturerList,
-  useVehiclesList,
-} from '../gql';
+import { useVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
-import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SpecialOffersSearchContainer from '../SpecialOffersSearchContainer';
 
 const metaData = {
@@ -86,7 +80,7 @@ const mockData = {
         rangeName: 'rangeName',
         derivativeName: 'derivativeName',
         averageRating: 4.5,
-        isOnOffer: false,
+        isOnOffer: true,
         offerPosition: 5,
         leadTime: '',
         imageUrl: '',
@@ -132,14 +126,25 @@ const mockData = {
 
 const filterListResponse = {
   vehicleTypes: [VehicleTypeEnum.CAR],
-  groupedRanges: [
+  groupedRangesWithSlug: [
     {
-      parent: 'Citroën',
-      children: ['Berlingo', 'Dispatch', 'Relay'],
+      parent: { label: 'Citroën', slug: 'Citroën' },
+      children: [
+        { label: 'Berlingo', slug: 'Berlingo' },
+        { label: 'Dispatch', slug: 'Dispatch' },
+        { label: 'Relay', slug: 'Relay' },
+      ],
     },
     {
-      parent: 'Dacia',
-      children: ['Duster'],
+      parent: { label: 'Dacia', slug: 'Dacia' },
+      children: [{ label: 'Duster', slug: 'Duster' }],
+    },
+    {
+      parent: { label: 'BMW', slug: 'BMW' },
+      children: [
+        { label: '3 series', slug: '3 series' },
+        { label: '4 series', slug: '4 series' },
+      ],
     },
   ],
   bodyStyles: ['Dropside Tipper', 'Large Van'],
@@ -161,30 +166,21 @@ jest.mock('next/router', () => ({
 jest.mock('../gql', () => ({
   ...jest.requireActual('../gql'),
   useVehiclesList: jest.fn(),
-  getRangesList: jest.fn(),
-  useManufacturerList: jest.fn(),
-  useSearchResultPage: jest.fn(),
 }));
 
-jest.mock('../components/RangeCard', () => () => {
-  return <div />;
-});
 // ARRANGE
 let filterMockCalled = false;
-let vehicleMockCalled = false;
 
 (useVehiclesList as jest.Mock).mockReturnValue([
-  () => {
-    vehicleMockCalled = true;
-  },
+  jest.fn(),
   {
     data: {
       vehicleList: {
-        totalCount: 91,
+        totalCount: 1,
         pageInfo: {
           startCursor: 'MQ',
           endCursor: 'OQ',
-          hasNextPage: true,
+          hasNextPage: false,
           hasPreviousPage: false,
         },
         edges: [
@@ -230,80 +226,15 @@ let vehicleMockCalled = false;
   },
 ]);
 
-(useManufacturerList as jest.Mock).mockReturnValue([
-  jest.fn(),
-  {
-    data: {
-      manufacturerList: [
-        {
-          count: 8,
-          manufacturerId: '1137',
-          manufacturerName: 'Abarth',
-          minPrice: 201.93,
-          capIds: '1151',
-        },
-        {
-          count: 21,
-          manufacturerId: '1143',
-          manufacturerName: 'Alfa Romeo',
-          minPrice: 140.99,
-          capIds: '1151',
-        },
-        {
-          count: 549,
-          manufacturerId: '1151',
-          manufacturerName: 'Audi',
-          minPrice: 168.91,
-          capIds: '1151',
-        },
-      ],
-    },
-  },
-]);
-
-(getRangesList as jest.Mock).mockReturnValue([
-  () => jest.fn(),
-  {
-    data: {
-      rangeList: [
-        {
-          rangeName: '1 Series',
-          rangeId: '780',
-          count: 66,
-          minPrice: 205.87,
-        },
-      ],
-    },
-  },
-]);
-
 const mocksResponse: MockedResponse[] = [
   {
     request: {
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: filterListResponse,
-        },
-        refetch() {
-          return this.data;
-        },
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
         onOffer: true,
+        bodyStyles: [],
+        fuelTypes: [],
       },
     },
     result: () => {
@@ -583,98 +514,14 @@ const mocksResponse: MockedResponse[] = [
       };
     },
   },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: '/abarth-car-leasing/124-spider',
-      },
-    },
-    result: () => {
-      return {
-        data: {},
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: '/undefined-car-leasing/undefined',
-      },
-    },
-    result: () => {
-      return {
-        data: {},
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_ALL_MANUFACTURERS_PAGE,
-      variables: {},
-    },
-    result: () => {
-      return {
-        data: { manufacturerPage: {} },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_ALL_MANUFACTURERS_PAGE,
-      variables: {},
-    },
-    result: () => {
-      return {
-        data: { manufacturerPage: {} },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'car-leasing/search',
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          genericPage: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
-  {
-    request: {
-      query: GENERIC_PAGE,
-      variables: {
-        slug: 'car-leasing/search',
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          genericPage: {},
-        },
-        refetch: jest.fn(),
-      };
-    },
-  },
 ];
+
 describe('<SpecialOffersSearchContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
 
     jest.clearAllMocks();
     filterMockCalled = false;
-    vehicleMockCalled = false;
     window.sessionStorage.setItem = jest.fn();
   });
 
@@ -692,7 +539,7 @@ describe('<SpecialOffersSearchContainer />', () => {
     })),
   });
 
-  xit('should make a server request after render', async () => {
+  it('should make a server request after render', async () => {
     // ACT
     act(() => {
       render(
@@ -709,20 +556,15 @@ describe('<SpecialOffersSearchContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(filterMockCalled).toBeTruthy();
-      expect(vehicleMockCalled).toBeTruthy();
     });
   });
 
-  xit('should be render correct list length', async () => {
+  it('should be render correct list length', async () => {
     // ACT
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SpecialOffersSearchContainer
-            isCarSearch
-            isServer={false}
-            metaData={metaData}
-          />
+          <SpecialOffersSearchContainer isCarSearch metaData={metaData} />
         </MockedProvider>,
       );
     });
@@ -730,25 +572,19 @@ describe('<SpecialOffersSearchContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(filterMockCalled).toBeTruthy();
-      expect(vehicleMockCalled).toBeTruthy();
-      expect(screen.getByText('Showing 1 Results')).toBeTruthy();
+      expect(screen.getByText('Showing 0 Results')).toBeTruthy();
     });
   });
 
-  xit('should be render correctly', async () => {
+  it('should be render correctly', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <SpecialOffersSearchContainer
-          metaData={metaData}
-          isCarSearch
-          isServer={false}
-        />
+        <SpecialOffersSearchContainer metaData={metaData} isCarSearch />
       </MockedProvider>,
     );
 
     await waitFor(() => {
-      expect(vehicleMockCalled).toBeTruthy();
       expect(screen.getByText('Automatic')).toBeInTheDocument();
     });
     const tree = getComponent.baseElement;

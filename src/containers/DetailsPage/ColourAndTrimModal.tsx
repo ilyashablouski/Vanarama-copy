@@ -73,7 +73,7 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
       <div className="color-trim">
         <div className="color-trim-header">
           <Text color="black" size="large" className="-b">
-            Choose Your Color & Trim
+            Choose Your Colour & Trim
           </Text>
           <Icon
             dataTestId="icon-close"
