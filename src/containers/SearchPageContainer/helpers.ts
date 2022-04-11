@@ -5,7 +5,6 @@ import {
   QueryLazyOptions,
 } from '@apollo/client';
 import { ParsedUrlQuery } from 'querystring';
-import { NextRouter } from 'next/router';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
@@ -775,8 +774,15 @@ export const getFuelType = (
   return getPartnerProperties()?.fuelTypes;
 };
 
+export const normalizePathname = (route: string, query: ParsedUrlQuery) =>
+  route
+    .replace('[dynamicParam]', query?.dynamicParam as string)
+    .replace('[rangeName]', query?.rangeName as string)
+    .replace('[bodyStyles]', query?.bodyStyles as string);
+
 export const buildUrlWithFilter = (
-  router: NextRouter,
+  route: string,
+  query: ParsedUrlQuery,
   filters: IFilters,
   isPartnershipActive: boolean,
   pageType?: SearchPageTypes,
@@ -790,13 +796,10 @@ export const buildUrlWithFilter = (
     isModelPage,
     isTransmissionPage,
   } = searchPageTypeMapper(pageType);
-  let pathname = router.route
-    .replace('[dynamicParam]', router.query?.dynamicParam as string)
-    .replace('[rangeName]', router.query?.rangeName as string)
-    .replace('[bodyStyles]', router.query?.bodyStyles as string);
+  let pathname = normalizePathname(route, query);
   const queryString = new URLSearchParams();
-  const query = buildRewriteRoute(filters);
-  Object.entries(query).forEach(filter => {
+  const queries = buildRewriteRoute(filters);
+  Object.entries(queries).forEach(filter => {
     const [key, value] = filter as [string, string | string[]];
     if (
       value?.length &&
@@ -817,18 +820,13 @@ export const buildUrlWithFilter = (
       queryString.set(key, value as string);
     }
   });
-  if (Object.keys(query).length) {
+  if (Object.keys(queries).length) {
     pathname += `?${decodeURIComponent(queryString.toString())}`;
   }
-  // changing url dynamically
-  router.replace(
-    {
-      pathname: router.route,
-      query,
-    },
+  return {
+    queries,
     pathname,
-    { shallow: true },
-  );
+  };
 };
 
 export const isOnOffer = (

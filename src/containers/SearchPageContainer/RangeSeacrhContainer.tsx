@@ -399,12 +399,28 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
       );
 
       if (filtersObject) {
-        buildUrlWithFilter(router, filters, isPartnershipActive);
+        const { queries, pathname } = buildUrlWithFilter(
+          router.route,
+          router.query,
+          filters,
+          isPartnershipActive,
+          pageType,
+        );
+        // changing url dynamically
+        router.replace(
+          {
+            pathname: router.route,
+            query: queries,
+          },
+          pathname,
+          { shallow: true },
+        );
         // set search filters data
         setFiltersData(filters);
       }
     },
     [
+      pageType,
       filtersData,
       getVehicles,
       isCarSearch,
