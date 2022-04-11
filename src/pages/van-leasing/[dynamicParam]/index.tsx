@@ -122,7 +122,7 @@ const Page: NextPage<IProps> = ({
       queryPageType?.current?.isBodyStylePage ??
       ssrPageType?.isBodyStylePage
     ) {
-      return SearchPageTypes.MANUFACTURER_PAGE;
+      return SearchPageTypes.BODY_STYLE_PAGE;
     }
     if (queryPageType?.current?.isFuelType ?? ssrPageType?.isFuelType) {
       return SearchPageTypes.FUEL_TYPE_PAGE;
