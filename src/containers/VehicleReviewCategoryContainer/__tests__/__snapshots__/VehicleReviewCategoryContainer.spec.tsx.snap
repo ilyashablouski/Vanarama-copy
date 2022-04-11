@@ -15,7 +15,9 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
     <div
       class="row:text -columns"
     >
-      <div>
+      <div
+        class="ev-hub-markdown"
+      >
         <p
           class="text -regular -darker"
         >

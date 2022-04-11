@@ -110,7 +110,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
       </div>
       {body && (
         <div className="row:text -columns">
-          <div>
+          <div className="ev-hub-markdown">
             <ReactMarkdown source={body} renderers={getMarkdownRenderers()} />
           </div>
         </div>
