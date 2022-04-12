@@ -437,7 +437,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
             isSpecialOffersOrder,
             isManualBodyStyle: isBodyStylePage,
             isTransmissionPage,
-            onOffer: onOffer ?? null,
+            onOffer,
             filters,
             query: router.query,
             sortOrder: sortOrder as SortObject[],
@@ -607,7 +607,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       Object.values(filtersData).flat().length > 0
     ) {
       setShouldUpdateCache(false);
-      const onOffer = !isDynamicFilterPage ? isSpecialOffers || null : null;
+      const onOffer = isOnOffer(isSpecialOffers, pageType);
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
