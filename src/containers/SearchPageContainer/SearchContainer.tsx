@@ -29,6 +29,7 @@ import {
   getPartnershipDescription,
   getPartnershipTitle,
   getValueFromStorage,
+  isOnOffer,
   isPreviousPage,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
@@ -331,15 +332,15 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   const onSearch = useCallback(
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
-
       const fuelTypes = getFuelType(filters?.fuelTypes);
+      const onOffer = isOnOffer(isSpecialOffers);
       getVehicles(
         createVehiclesVariables({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups,
-          onOffer: isSpecialOffers,
+          onOffer,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -479,7 +480,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     // don't make a request for cache in manufacture page
     if (lastCard && hasNextPage && shouldUpdateCache) {
       setShouldUpdateCache(false);
-      const isOnOffer = isSpecialOffers || null;
+      const onOffer = isOnOffer(isSpecialOffers);
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
@@ -487,7 +488,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
             isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
-            onOffer: isOnOffer ?? null,
+            onOffer,
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
@@ -501,7 +502,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          onOffer: isOnOffer ?? null,
+          onOffer,
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],

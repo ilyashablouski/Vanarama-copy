@@ -45,6 +45,7 @@ import {
   ssrCMSQueryExecutor,
   searchPageTypeMapper,
   buildUrlWithFilter,
+  isOnOffer,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -375,13 +376,9 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
 
-      let onOffer;
       // set onOffer value to actual depend on page type
-      if (isRangePage || isModelPage) {
-        onOffer = null;
-      } else {
-        onOffer = isSpecialOffers || null;
-      }
+      const onOffer = isOnOffer(isSpecialOffers, pageType);
+
       const fuelTypes = getFuelType(filters?.fuelTypes);
       getVehicles(
         createVehiclesVariables({
@@ -389,7 +386,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
           isPersonal,
           isSpecialOffersOrder,
           isManualBodyStyle: isModelPage,
-          onOffer: onOffer ?? null,
+          onOffer,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -427,7 +424,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
       isModelPage,
       isPartnershipActive,
       isPersonal,
-      isRangePage,
       isSpecialOffers,
       isSpecialOffersOrder,
       manualBodyStyle,
@@ -544,9 +540,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
         (isModelPage && filtersData.rangeSlug))
     ) {
       setShouldUpdateCache(false);
-      const isOnOffer = !(isRangePage || isModelPage)
-        ? isSpecialOffers || null
-        : null;
+      const onOffer = isOnOffer(isSpecialOffers, pageType);
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
@@ -554,7 +548,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
             isCarSearch,
             isPersonal,
             isSpecialOffersOrder,
-            onOffer: isOnOffer ?? null,
+            onOffer,
             first: getNumberOfVehiclesFromSessionStorage(),
             filters: filtersData,
             sortOrder: sortOrder as SortObject[],
@@ -568,7 +562,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
-          onOffer: isOnOffer ?? null,
+          onOffer,
           after: lastCard,
           filters: filtersData,
           sortOrder: sortOrder as SortObject[],
