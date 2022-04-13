@@ -20,7 +20,7 @@ import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
 import { PAGES, SITE_SECTIONS } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
-import { CurrencyCodeEnum } from '../../entities/global';
+import { CurrencyCodeEnum, FuelTypeEnum } from '../../entities/global';
 import createApolloClient from '../apolloClient';
 import { getStoredPerson } from '../gql/storedPerson';
 import { getStoredPersonEmail } from '../gql/storedPersonEmail';
@@ -275,7 +275,7 @@ export const isPdpOrSearchElectricSection = ({
   const isElectricPage =
     isElectricPdp ||
     [initialFilterFuelType, queryFuelTypes, queryDynamicParam].some(
-      param => param === 'Electric' || param === 'electric',
+      param => param === FuelTypeEnum.ELECTRIC || param === 'electric',
     );
 
   return isElectricPage;
