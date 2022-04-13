@@ -4,17 +4,17 @@ import {
   NextPage,
 } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import {
-  GET_RANGES,
   GET_LEGACY_URLS,
+  GET_RANGES,
   GET_VEHICLE_LIST,
 } from '../../../containers/SearchPageContainer/gql';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import createApolloClient from '../../../apolloClient';
-import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
+import { SITE_SECTIONS, PAGE_TYPES } from '../../../utils/pageTypes';
 import {
   bodyUrlsSlugMapper,
   budgetMapper,
@@ -25,7 +25,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
@@ -37,8 +37,8 @@ import {
 } from '../../../../generated/globalTypes';
 import {
   filterList,
-  filterListVariables,
   filterList_filterList as IFilterList,
+  filterListVariables,
 } from '../../../../generated/filterList';
 import {
   vehicleList,
@@ -50,18 +50,19 @@ import {
 } from '../../../../generated/GetProductCard';
 import {
   rangeList,
-  rangeListVariables,
   rangeList_rangeList as IRange,
+  rangeListVariables,
 } from '../../../../generated/rangeList';
 import { formatToSlugFormat, getManufacturerJson } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import {
   genericPagesQuery,
-  genericPagesQueryVariables,
   genericPagesQuery_genericPages as IGenericPage,
+  genericPagesQueryVariables,
 } from '../../../../generated/genericPagesQuery';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -109,13 +110,46 @@ const Page: NextPage<IProps> = ({
   const topOffersList = decodeData(topOffersListEncodedData);
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
-  const pageType = useRef<IPageType>();
+  const queryPageType = useRef<IPageType>();
+  const pageType = useMemo(() => {
+    if (
+      queryPageType?.current?.isManufacturerPage ??
+      ssrPageType?.isManufacturerPage
+    ) {
+      return SearchPageTypes.MANUFACTURER_PAGE;
+    }
+    if (
+      queryPageType?.current?.isBodyStylePage ??
+      ssrPageType?.isBodyStylePage
+    ) {
+      return SearchPageTypes.BODY_STYLE_PAGE;
+    }
+    if (queryPageType?.current?.isFuelType ?? ssrPageType?.isFuelType) {
+      return SearchPageTypes.FUEL_TYPE_PAGE;
+    }
+    if (
+      queryPageType?.current?.isTransmissionPage ??
+      ssrPageType?.isTransmissionPage
+    ) {
+      return SearchPageTypes.TRANSMISSION_PAGE;
+    }
+    if (queryPageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType) {
+      return SearchPageTypes.BUDGET_PAGE;
+    }
+    return SearchPageTypes.SIMPLE_SEARCH_PAGE;
+  }, [
+    ssrPageType?.isBodyStylePage,
+    ssrPageType?.isBudgetType,
+    ssrPageType?.isFuelType,
+    ssrPageType?.isManufacturerPage,
+    ssrPageType?.isTransmissionPage,
+  ]);
   useEffect(() => {
-    pageType.current = dynamicQueryTypeCheck(
+    queryPageType.current = dynamicQueryTypeCheck(
       router.query.dynamicParam as string,
     );
     pushPageData({
-      pageType: pageType?.current?.isManufacturerPage
+      pageType: queryPageType?.current?.isManufacturerPage
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.vans,
@@ -125,25 +159,11 @@ const Page: NextPage<IProps> = ({
   }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="vans-search-page"
       isServer={isServer}
-      isCarSearch={false}
-      isManufacturerPage={
-        pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
-      }
-      isBodyStylePage={
-        pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
-      }
-      isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isTransmissionPage={
-        pageType?.current?.isTransmissionPage ?? ssrPageType?.isTransmissionPage
-      }
+      pageType={pageType}
       pageData={pageData}
-      isBudgetPage={
-        pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
-      }
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadRanges={ranges}

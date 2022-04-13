@@ -51,7 +51,6 @@ const Page: NextPage<IProps> = ({
   <SpecialOffersSearchContainer
     dataUiTestId="pickups-search-page"
     isServer={isServer}
-    isSpecialOfferPage
     isPickups
     pageData={decodeData(pageData)}
     metaData={metaData}

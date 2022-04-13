@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
@@ -20,7 +20,12 @@ import {
 } from '../../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../generated/bodyStyleList';
-import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from '../helpers';
+import {
+  bodyUrlsSlugMapper,
+  budgetMapper,
+  fuelMapper,
+  searchPageTypeMapper,
+} from '../helpers';
 import {
   getLegacyUrl,
   isManufacturerMigrated,
@@ -31,6 +36,7 @@ import Skeleton from '../../../components/Skeleton';
 import VehicleCard from '../../../components/VehicleCard';
 import ModelCard from '../components/ModelCard';
 import { Nullable } from '../../../types/common';
+import { SearchPageTypes } from '../interfaces';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -45,15 +51,8 @@ const CarouselSwiper = dynamic(
 interface IProps {
   isPersonal: boolean;
   isCarSearch: boolean;
-  isManufacturerPage?: boolean;
-  isBodyPage?: boolean;
-  isSpecialOfferPage?: boolean;
+  pageType?: SearchPageTypes;
   isPickups?: boolean;
-  isRangePage?: boolean;
-  isTransmissionPage?: boolean;
-  isFuelPage?: boolean;
-  isBudgetPage?: boolean;
-  isDynamicFilterPage?: boolean;
   preLoadVehiclesList?: Nullable<IVehiclesData>;
   preLoadProductCardsData?: Nullable<GetProductCard>;
   preloadBodyStyleList?: Nullable<IModelsData[]>;
@@ -68,16 +67,9 @@ const SLIDES_PER_VIEW = 3;
 
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
-  isManufacturerPage,
-  isBodyPage,
-  isBudgetPage,
-  isSpecialOfferPage,
-  isTransmissionPage,
   isPickups,
-  isRangePage,
   isPersonal,
-  isFuelPage,
-  isDynamicFilterPage,
+  pageType,
   preLoadVehiclesList,
   preLoadProductCardsData,
   preloadBodyStyleList,
@@ -88,6 +80,17 @@ const TopOffersContainer: React.FC<IProps> = ({
   dataUiTestId,
 }: IProps) => {
   const router = useRouter();
+
+  const {
+    isSpecialOfferPage,
+    isManufacturerPage,
+    isFuelPage,
+    isTransmissionPage,
+    isBudgetPage,
+    isRangePage,
+    isDynamicFilterPage,
+    isBodyStylePage: isBodyPage,
+  } = useMemo(() => searchPageTypeMapper(pageType), [pageType]);
 
   const isDesktopLayout = useDesktopViewport();
 

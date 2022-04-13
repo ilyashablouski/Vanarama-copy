@@ -341,6 +341,13 @@
   }
 }
 
+//guides electric page
+.ev-hub-markdown {
+  .link {
+    white-space: normal;
+  }
+}
+
 @media (min-width: 768px) {
   .row {
     // Hero
@@ -373,7 +380,6 @@
 @media (max-width: 767px) {
   .link {
     white-space: unset;
-    word-break: break-all;
   }
   .heading {
     > div {

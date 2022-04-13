@@ -21,6 +21,8 @@ export interface IMediaGalleryProps extends IBaseProps {
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   imacaAssets: Nullable<IImacaAssets>;
   isCar: boolean;
+  toggleColorAndTrimModalVisible: () => void;
+  isColourAndTrimOverlay: boolean;
 }
 
 export interface IImacaViewer extends IBaseProps {

@@ -1,10 +1,10 @@
-import { FC, useEffect, useState, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { ISearchPageContainerProps } from './interfaces';
+import { ISearchPageContainerProps, SearchPageTypes } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
 import TopInfoBlock from './sections/TopInfoBlock';
@@ -17,7 +17,7 @@ import Head from '../../components/Head/Head';
 import ResultsCount from './components/ResultsCount';
 import Skeleton from '../../components/Skeleton';
 import {
-  buildRewriteRoute,
+  buildUrlWithFilter,
   createManufacturerListVariables,
   dynamicQueryTypeCheck,
   getPartnershipDescription,
@@ -96,26 +96,18 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
         createManufacturerListVariables(isCarSearch, isPersonal, filters),
       );
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
+        const { queries, pathname } = buildUrlWithFilter(
+          router.route,
+          router.query,
+          filters,
+          isPartnershipActive,
+          SearchPageTypes.ALL_MANUFACTURERS_PAGE,
+        );
         // changing url dynamically
         router.replace(
           {
             pathname: router.route,
-            query,
+            query: queries,
           },
           pathname,
           { shallow: true },
@@ -266,7 +258,7 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
                 isCarSearch={isCarSearch}
                 isPreloadList={false}
                 preSearchVehicleCount={totalCount}
-                isAllManufacturersPage
+                pageType={SearchPageTypes.ALL_MANUFACTURERS_PAGE}
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 dataUiTestId={dataUiTestId}

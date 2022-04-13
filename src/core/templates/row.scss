@@ -678,6 +678,11 @@
           padding-bottom: calc(var(--page-gap) * 4) !important;
         }
 
+        &.-below-content {
+          padding-top: calc(var(--page-gap) * 5.7);
+          padding-bottom: calc(var(--page-gap) * 1.38) !important;
+        }
+
         & + [class*='row\:bg-'] {
           --page-gap: calc(var(--layout-gap) * 1);
         }
@@ -2141,5 +2146,81 @@
     place-content: center stretch;
     margin: 0 !important;
     position: relative;
+  }
+
+  &full-gray {
+    grid-column: full;
+    background: #F3F5F7;
+    grid-template-columns: [full-start] var(--gutter, minmax(1rem, 1fr)) [content-start column-start] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [quarter column] minmax(0, 101.33333px) [third column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [half quarter column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [third column] minmax(0, 101.33333px) [quarter column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column] minmax(0, 101.33333px) [column-end content-end] var(--gutter, minmax(1rem, 1fr)) [full-end];
+  }
+}
+
+.color-trim {
+  height: calc(100vh - 90px);
+  padding-right: 45px;
+  padding-top: 45px;
+  position: relative;
+  overflow-y: auto;
+
+  @include mobile-tablet {
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 50px;
+  }
+
+  & .color-trim-header {
+    padding-bottom: 20px;
+
+    & .icon {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+
+      & svg {
+        font-size: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  & .image {
+    height: 550px;
+
+    @include mobile-tablet {
+      height: 330px;
+    }
+  }
+
+  & .-container {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #CDD6DE;
+
+    @include mobile {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  & .color-trim-box {
+    background: #F3F5F7;
+    padding: 23px;
+    margin-bottom: 20px;
+  }
+}
+
+.color-trim-footer {
+  border-top: 1px solid #CDD6DE;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  height: 90px;
+  margin-right: 45px;
+  align-items: flex-start;
+
+  @include mobile-tablet {
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-right: 0;
   }
 }

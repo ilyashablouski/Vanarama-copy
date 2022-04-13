@@ -19,16 +19,36 @@ import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
 import { getManufacturerJson } from '../../utils/url';
 import { getServiceBannerData } from '../../utils/serviceBannerHelper';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface IProps extends ICarsPageOffersData {
   data: GenericPageQuery;
   serviceBanner?: IServiceBanner;
+  searchPodCarsData: IFilterList;
 }
 
-export const CarsPage: NextPage<IProps> = ({ data: encodedData }) => {
+export const CarsPage: NextPage<IProps> = ({
+  data: encodedData,
+  searchPodCarsData: encodedSearchPodCarsData,
+  vehicleListUrlData: vehicleListUrlDataEncoded,
+  productsCar,
+}) => {
   const decodedData: GenericPageQuery = decodeData(encodedData);
+  const searchPodCarsData = decodeData(encodedSearchPodCarsData);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
   return (
-    <CarHubPageContainer data={decodedData} pageType={PageTypeEnum.DEFAULT} />
+    <CarHubPageContainer
+      data={decodedData}
+      pageType={PageTypeEnum.DEFAULT}
+      searchPodCarsData={searchPodCarsData}
+      vehicleListUrlData={vehicleListUrlData}
+      productsCar={productsCar}
+    />
   );
 };
 
@@ -56,6 +76,16 @@ export async function getServerSideProps(
       getServiceBannerData(client),
     ]);
 
+    const { data: searchPodCarsData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+      },
+    });
+
     const { productsCar, vehicleListUrlData } = await carsPageOffersRequest(
       client,
     );
@@ -67,6 +97,7 @@ export async function getServerSideProps(
         productsCar: productsCar || null,
         vehicleListUrlData: encodeData(vehicleListUrlData),
         serviceBanner: serviceBanner || null,
+        searchPodCarsData: encodeData(searchPodCarsData),
       },
     };
   } catch (error) {

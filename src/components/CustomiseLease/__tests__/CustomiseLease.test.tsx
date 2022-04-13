@@ -174,6 +174,8 @@ describe('<CustomiseLease />', () => {
       onSubmit: jest.fn(),
       showCallBackForm: jest.fn(),
       lineItem: {} as any,
+      isColourAndTrimOverlay: true,
+      toggleColorAndTrimModalVisible: () => {},
     });
 
     expect(tree).toMatchSnapshot();
@@ -320,6 +322,8 @@ describe('<CustomiseLease />', () => {
       },
       onSubmit: jest.fn(),
       lineItem: {} as any,
+      isColourAndTrimOverlay: true,
+      toggleColorAndTrimModalVisible: () => {},
     });
     expect(tree).toMatchSnapshot();
   });
@@ -337,6 +341,8 @@ describe('<CustomiseLease />', () => {
       setLeadTime: jest.fn(),
       setIsInitialLoading: jest.fn(),
       setIsPlayingLeaseAnimation: jest.fn(),
+      isColourAndTrimOverlay: true,
+      toggleColorAndTrimModalVisible: jest.fn(),
     };
   };
 
@@ -529,5 +535,8 @@ describe('<CustomiseLease />', () => {
 
     fireEvent.click(screen.getByText("See What's Included"));
     expect(mocks.setIsModalShowing).toBeCalled();
+
+    fireEvent.click(screen.getByText('Select Colour & Trim'));
+    expect(mocks.toggleColorAndTrimModalVisible).toBeCalled();
   });
 });

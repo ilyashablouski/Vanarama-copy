@@ -77,4 +77,6 @@ export interface IProps {
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
   setIsHotOffer?: Dispatch<SetStateAction<Nullish<boolean>>>;
   setIsFactoryOrder?: Dispatch<SetStateAction<boolean | undefined>>;
+  toggleColorAndTrimModalVisible: () => void;
+  isColourAndTrimOverlay: boolean;
 }

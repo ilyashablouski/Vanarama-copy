@@ -16,3 +16,5 @@ export const DEFAULT_REVALIDATE_INTERVAL =
 export const DEFAULT_REVALIDATE_INTERVAL_ERROR =
   Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
   DEFAULT_REVALIDATE_INTERVAL_ERROR_VALUE;
+
+export const isTesting = process.env.NODE_ENV === 'test';

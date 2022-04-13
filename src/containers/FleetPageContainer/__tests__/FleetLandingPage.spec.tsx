@@ -33,13 +33,18 @@ const DATA = {
             rating: '5',
           },
         ],
+        image: {
+          title: 'title',
+        },
       },
       featured2: {
         title: "What's In It For My Business?",
         titleTag: null,
         body:
           "### Every fleet is different: \nYour fleet needs are unique and that's why entrusting yours to a company you trust is important.\n\n### Best price for your business:\nChoosing a fleet management company that works with a network of funders means they can provide the very best prices on the market first time.\n\n### Compliance as standard: \nDuty of care is a key concern and goes hand-in-hand with staying compliant. Driver risk assessments and safety checks need to be carried out on time and to high standards, so work with a company that understands how to keep you organised.\n",
-        image: null,
+        image: {
+          title: 'title',
+        },
         layout: ['Media Left'],
       },
       featured3: {
@@ -67,7 +72,9 @@ const DATA = {
         titleTag: null,
         body:
           "### Maintenance when it's needed: \nNo matter which maintenance package you choose, the drivers themselves can arrange bookings through the Driverhelpline application or by calling the support team.\n\n### Comprehensive vehicle management: \nHow great would it be if drivers knew that support was just a tap on an app away? They'll benefit from the same up-to-date reporting and service-on-demand functions as you. Drivers know they're being compliant, and you can rest easy.\n\n### Peace of mind and support:\nFor drivers, the fleet management relationship shouldn't be centred on vehicle delivery, they want support. And they'll have questions they need answered. That's when having a dedicated app filled with the information they need, and a dedicated support team really will pay for itself.",
-        image: null,
+        image: {
+          title: 'title',
+        },
         layout: ['Media Left'],
       },
       leadText: {

@@ -14,7 +14,7 @@ import {
 } from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
-import SearchPageContainer from '../../../../containers/SearchPageContainer';
+import { RangeSearchContainer } from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
   RESULTS_PER_REQUEST,
@@ -62,6 +62,7 @@ import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesCo
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { pushPageData } from '../../../../utils/dataLayerHelpers';
+import { SearchPageTypes } from '../../../../containers/SearchPageContainer/interfaces';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -138,11 +139,11 @@ const Page: NextPage<IProps> = ({
   }
 
   return (
-    <SearchPageContainer
+    <RangeSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
-      isRangePage
+      pageType={SearchPageTypes.RANGE_PAGE}
       metaData={metaData}
       pageData={pageData}
       preLoadVehiclesList={vehiclesList}

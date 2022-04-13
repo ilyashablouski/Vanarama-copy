@@ -7,3 +7,20 @@ export const sum = <T extends any>(arr: T[], selector: (item: T) => number) =>
   arr.reduce((acc, _) => acc + selector(_), 0);
 
 export const isTruthy = <T extends any>(_?: T | null): _ is T => Boolean(_);
+
+export const arraysAreEqual = (
+  first: any[],
+  second: any[],
+  sortByKey?: string | null,
+  unsorted?: boolean,
+) => {
+  if (unsorted) {
+    return JSON.stringify(first) === JSON.stringify(second);
+  }
+  if (sortByKey) {
+    const firstArray = first?.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    const secondArray = second?.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+  }
+  return JSON.stringify(first?.sort()) === JSON.stringify(second?.sort());
+};

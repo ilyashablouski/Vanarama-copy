@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   VehicleTypeEnum,
   LeaseTypeEnum,
@@ -13,7 +14,7 @@ import {
   GetQuoteDetails_quoteByCapId,
   GetQuoteDetails,
 } from '../../../generated/GetQuoteDetails';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { IOptionsList } from '../../types/detailsPage';
 
 export interface ILeaseScannerData {
@@ -44,7 +45,6 @@ export interface IProps {
     React.SetStateAction<ILeaseScannerData | null>
   >;
   quote?: GetQuoteDetails;
-  trimData: Nullable<IOptionsList[]>;
   colourData: Nullable<IOptionsList[]>;
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
@@ -54,6 +54,13 @@ export interface IProps {
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
   dataUiTestId?: string;
+  toggleColorAndTrimModalVisible: () => void;
+  isColourAndTrimOverlay: boolean;
+  trim: Nullable<number>;
+  setTrim: React.Dispatch<React.SetStateAction<number | null>>;
+  trimList: Nullable<IOptionsList[]>;
+  setIsHotOffer: React.Dispatch<React.SetStateAction<Nullish<boolean>>>;
+  setIsFactoryOrder: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
 export interface IQuoteDataInputs {

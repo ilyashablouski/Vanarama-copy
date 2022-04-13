@@ -3296,7 +3296,7 @@ exports[`<Header /> renders correctly 1`] = `
         </div>
       </div>
       <button
-        className="swiper-prev"
+        className="benefits-bar_navigation swiper-prev"
         type="button"
       >
         <i
@@ -3323,7 +3323,7 @@ exports[`<Header /> renders correctly 1`] = `
         </i>
       </button>
       <button
-        className="swiper-next"
+        className="benefits-bar_navigation swiper-next"
         type="button"
       >
         <i
@@ -6650,7 +6650,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
         </div>
       </div>
       <button
-        className="swiper-prev"
+        className="benefits-bar_navigation swiper-prev"
         type="button"
       >
         <i
@@ -6677,7 +6677,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
         </i>
       </button>
       <button
-        className="swiper-next"
+        className="benefits-bar_navigation swiper-next"
         type="button"
       >
         <i

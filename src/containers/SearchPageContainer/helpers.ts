@@ -24,8 +24,12 @@ import {
   vehicleList_vehicleList_edges as IVehicles,
 } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
-import { arraysAreEqual } from '../../utils/helpers';
-import { IPartnerProperties } from '../../utils/partnerProperties';
+import { arraysAreEqual } from '../../utils/array';
+import {
+  getPartnerProperties,
+  IPartnerProperties,
+} from '../../utils/partnerProperties';
+import { SearchPageTypes } from './interfaces';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -369,8 +373,8 @@ const onCallQuery = async (
   client: ApolloClient<NormalizedCacheObject | object>,
   query: DocumentNode,
   slug: string,
-  pageType?: string,
   sectionsAsArray?: boolean,
+  pageType?: string,
 ) =>
   client.query({
     query,
@@ -387,15 +391,19 @@ export const ssrCMSQueryExecutor = async (
   context: ISSRRequest,
   isCarSearch: boolean,
   pageType: string,
+  isManufacturerFeatureFlagEnabled?: boolean,
 ) => {
   const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
   // remove first slash from route and build valid path
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
+  if (pageType === 'isManufacturerPage' && isManufacturerFeatureFlagEnabled) {
+    return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug), true);
+  }
   switch (pageType) {
     case 'isNewRangePage':
-      return onCallQuery(client, GENERIC_PAGE, slug, 'rangePage', true);
+      return onCallQuery(client, GENERIC_PAGE, slug, true, 'rangePage');
     case 'isRangePage':
     case 'isManufacturerPage':
     case 'isModelPage':
@@ -723,4 +731,115 @@ export const getPartnershipDescription = (
     default:
       return partnerData.searchPageDescription;
   }
+};
+export const searchPageTypeMapper = (
+  pageType: SearchPageTypes = SearchPageTypes.SIMPLE_SEARCH_PAGE,
+) => {
+  const constants = {
+    isSimpleSearchPage: pageType === SearchPageTypes.SIMPLE_SEARCH_PAGE,
+    isManufacturerPage: pageType === SearchPageTypes.MANUFACTURER_PAGE,
+    isSpecialOfferPage: pageType === SearchPageTypes.SPECIAL_OFFER_PAGE,
+    isRangePage: pageType === SearchPageTypes.RANGE_PAGE,
+    isModelPage: pageType === SearchPageTypes.MODEL_PAGE,
+    isAllManufacturersPage: pageType === SearchPageTypes.ALL_MANUFACTURERS_PAGE,
+    isBodyStylePage: pageType === SearchPageTypes.BODY_STYLE_PAGE,
+    isTransmissionPage: pageType === SearchPageTypes.TRANSMISSION_PAGE,
+    isFuelPage: pageType === SearchPageTypes.FUEL_TYPE_PAGE,
+    isBudgetPage: pageType === SearchPageTypes.BUDGET_PAGE,
+  };
+  const isDynamicFilterPage =
+    constants.isBodyStylePage ||
+    constants.isFuelPage ||
+    constants.isTransmissionPage ||
+    constants.isBudgetPage;
+  return {
+    ...constants,
+    isDynamicFilterPage,
+  };
+};
+
+export const getFuelType = (
+  filterFuel: string[],
+  queryFuel?: string | string[],
+  isFuelPage: boolean = false,
+) => {
+  if (isFuelPage) {
+    return (fuelMapper[queryFuel as keyof typeof fuelMapper] as string).split(
+      ',',
+    );
+  }
+  if (filterFuel?.length > 0) {
+    return filterFuel;
+  }
+  return getPartnerProperties()?.fuelTypes;
+};
+
+export const normalizePathname = (route: string, query: ParsedUrlQuery) =>
+  route
+    .replace('[dynamicParam]', query?.dynamicParam as string)
+    .replace('[rangeName]', query?.rangeName as string)
+    .replace('[bodyStyles]', query?.bodyStyles as string);
+
+export const buildUrlWithFilter = (
+  route: string,
+  query: ParsedUrlQuery,
+  filters: IFilters,
+  isPartnershipActive: boolean,
+  pageType?: SearchPageTypes,
+) => {
+  const {
+    isBodyStylePage,
+    isRangePage,
+    isBudgetPage,
+    isFuelPage,
+    isManufacturerPage,
+    isModelPage,
+    isTransmissionPage,
+  } = searchPageTypeMapper(pageType);
+  let pathname = normalizePathname(route, query);
+  const queryString = new URLSearchParams();
+  const queries = buildRewriteRoute(filters);
+  Object.entries(queries).forEach(filter => {
+    const [key, value] = filter as [string, string | string[]];
+    if (
+      value?.length &&
+      // don't add queries in page where we have same data in route
+      !(
+        (isManufacturerPage || isRangePage) &&
+        (key === 'make' || key === 'rangeName')
+      ) &&
+      !(isBodyStylePage && key === 'bodyStyles') &&
+      !((isFuelPage || isPartnershipActive) && key === 'fuelTypes') &&
+      !(isTransmissionPage && key === 'transmissions') &&
+      !(isBudgetPage && key === 'pricePerMonth') &&
+      !(
+        isModelPage &&
+        (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
+      )
+    ) {
+      queryString.set(key, value as string);
+    }
+  });
+  if (Object.keys(queries).length) {
+    pathname += `?${decodeURIComponent(queryString.toString())}`;
+  }
+  return {
+    queries,
+    pathname,
+  };
+};
+
+export const isOnOffer = (
+  isSpecialOffers: boolean,
+  pageType?: SearchPageTypes,
+): true | null => {
+  const {
+    isRangePage,
+    isModelPage,
+    isDynamicFilterPage,
+  } = searchPageTypeMapper(pageType);
+  if (isRangePage || isModelPage || isDynamicFilterPage) {
+    return null;
+  }
+  return isSpecialOffers || null;
 };

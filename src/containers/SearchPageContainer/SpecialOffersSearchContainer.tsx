@@ -4,7 +4,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { ISearchPageContainerProps } from './interfaces';
+import { ISearchPageContainerProps, SearchPageTypes } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
 import ReadMoreBlock from './sections/ReadMoreBlock';
@@ -12,18 +12,18 @@ import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import SortOrder from '../../components/SortOrder';
 import {
-  buildRewriteRoute,
+  buildUrlWithFilter,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
   createVehiclesVariables,
   dynamicQueryTypeCheck,
   getCapsIds,
+  getFuelType,
   getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
   getPartnershipTitle,
-  getValueFromStorage,
   isPreviousPage,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
@@ -82,7 +82,6 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   dataUiTestId,
   isCarSearch = false,
   isPickups,
-  isSpecialOfferPage,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   preLoadVehiclesList,
@@ -158,12 +157,9 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         : getPartnerProperties()?.fuelTypes,
     [filtersData],
   );
-  const manualBodyStyle = useMemo(() => {
-    if (isPickups) {
-      return ['Pickup'];
-    }
-    return [''];
-  }, [isPickups]);
+  const manualBodyStyle = useMemo(() => (isPickups ? ['Pickup'] : ['']), [
+    isPickups,
+  ]);
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],
@@ -217,10 +213,13 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   );
 
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
+  const [
+    getVehicles,
+    { data: vehicleData, fetchMore, called },
+  ] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isSpecialOfferPage,
+    true,
     async vehiclesData => {
       let vehicles = vehiclesData;
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
@@ -299,20 +298,14 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   const onSearch = useCallback(
     (filtersObject?: IFilters) => {
       const filters = filtersObject || filtersData;
-      const onOffer = isSpecialOfferPage;
-      let fuelTypes;
-      if (filters?.fuelTypes?.length > 0) {
-        fuelTypes = filters.fuelTypes;
-      } else {
-        fuelTypes = getPartnerProperties()?.fuelTypes;
-      }
+      const fuelTypes = getFuelType(filters?.fuelTypes);
       getVehicles(
         createVehiclesVariables({
           isCarSearch,
           isPersonal,
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups,
-          onOffer: onOffer ?? null,
+          onOffer: true,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -321,26 +314,18 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         }),
       );
       if (filtersObject) {
-        let pathname = router.route
-          .replace('[dynamicParam]', router.query?.dynamicParam as string)
-          .replace('[rangeName]', router.query?.rangeName as string)
-          .replace('[bodyStyles]', router.query?.bodyStyles as string);
-        const queryString = new URLSearchParams();
-        const query = buildRewriteRoute(filters as IFilters);
-        Object.entries(query).forEach(filter => {
-          const [key, value] = filter as [string, string | string[]];
-          if (value?.length && !(isPartnershipActive && key === 'fuelTypes')) {
-            queryString.set(key, value as string);
-          }
-        });
-        if (Object.keys(query).length) {
-          pathname += `?${decodeURIComponent(queryString.toString())}`;
-        }
+        const { queries, pathname } = buildUrlWithFilter(
+          router.route,
+          router.query,
+          filters,
+          isPartnershipActive,
+          SearchPageTypes.ALL_MANUFACTURERS_PAGE,
+        );
         // changing url dynamically
         router.replace(
           {
             pathname: router.route,
-            query,
+            query: queries,
           },
           pathname,
           { shallow: true },
@@ -356,7 +341,6 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
       isPartnershipActive,
       isPersonal,
       isPickups,
-      isSpecialOfferPage,
       isSpecialOffersOrder,
       manualBodyStyle,
       router,
@@ -417,13 +401,13 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
-    if (data && !cardsData.length && loading) {
+    if (vehicleData && !cardsData.length && loading) {
       getProductCardData(
-        createProductCardVariables(data.vehicleList.edges, isCarSearch),
+        createProductCardVariables(vehicleData.vehicleList.edges, isCarSearch),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [vehicleData]);
 
   // listen for any updates to metaDataSSR
   useEffect(() => {
@@ -431,28 +415,10 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     setPageData(pageDataSSR);
   }, [metaDataSSR, pageDataSSR]);
 
-  // API call after load new pages
-  useEffect(() => {
-    // prevent request with empty filters
-    const queryLength = Object.keys(router?.query || {})?.length;
-    // if it's simple search page with presave special offers param made new request for actual params
-    if (
-      !queryLength &&
-      getValueFromStorage(false, isCarSearch) &&
-      !isSpecialOfferPage
-    ) {
-      // load vehicles
-      getVehicles();
-    }
-    // disabled lint because we can't add router to deps
-    // it's change every url replace
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, isSpecialOfferPage]);
-
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && hasNextPage && shouldUpdateCache && isSpecialOfferPage) {
+    if (lastCard && hasNextPage && shouldUpdateCache) {
       setShouldUpdateCache(false);
       const isOnOffer = isSpecialOffers || null;
 
@@ -496,7 +462,6 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     sortOrder,
     isSpecialOffersOrder,
     isPersonal,
-    isSpecialOfferPage,
   ]);
 
   useFirstRenderEffect(() => {
@@ -602,9 +567,6 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         partnershipDescription={partnershipDescription}
         isPartnershipActive={isPartnershipActive}
       />
-      {!(isSpecialOfferPage && isCarSearch) && featured && (
-        <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
-      )}
       <TopOffersContainer
         dataUiTestId={`${dataUiTestId}_top-offers`}
         isCarSearch={isCarSearch}
@@ -612,7 +574,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         setShouldForceUpdate={setShouldUpdateTopOffers}
         isPersonal={isPersonal}
         isPickups={isPickups || false}
-        isSpecialOfferPage={isSpecialOfferPage || false}
+        pageType={SearchPageTypes.SPECIAL_OFFER_PAGE}
       />
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
@@ -675,9 +637,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           </div>
         </div>
       </div>
-      {isSpecialOfferPage && isCarSearch && featured && (
-        <ReadMoreBlock featured={featured} />
-      )}
+      {isCarSearch && featured && <ReadMoreBlock featured={featured} />}
       {pageData?.genericPage?.sections?.featured2?.body && (
         <FeaturedSectionBlock
           title={pageData.genericPage.sections.featured2.title}

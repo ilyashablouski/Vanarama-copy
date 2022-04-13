@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
-import Image from 'core/atoms/image';
+
+import ImageV2 from 'core/atoms/image/ImageV2';
 import { getYouTubeThumbnail } from 'core/atoms/media/helpers';
 
 interface IIframeContainer {
@@ -44,8 +45,10 @@ const IframeContainer = ({
             className="play-btn"
             onClick={onLoadPlayerHandler}
           />
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          <ImageV2
+            width={1000}
+            height={650}
+            objectFit="cover"
             src={
               thumbSrc ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'

@@ -4,7 +4,7 @@ import {
   NextPage,
 } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useMemo, useRef } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
 import {
   GET_LEGACY_URLS,
@@ -24,7 +24,7 @@ import {
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import { DynamicParamSearchContainer } from '../../../containers/SearchPageContainer';
 import { rangeList, rangeListVariables } from '../../../../generated/rangeList';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
@@ -59,6 +59,8 @@ import {
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
+import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
+import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -79,6 +81,7 @@ interface IProps extends ISearchPageProps {
   topOffersList?: Nullable<vehicleList>;
   topOffersCardsData?: Nullable<GetProductCard>;
   defaultSort?: Nullable<SortObject[]>;
+  isManufacturerFeatureFlagEnabled?: boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -95,6 +98,7 @@ const Page: NextPage<IProps> = ({
   ranges,
   rangesUrls,
   defaultSort,
+  isManufacturerFeatureFlagEnabled,
 }) => {
   const router = useRouter();
   const initialFilterFuelType =
@@ -106,13 +110,40 @@ const Page: NextPage<IProps> = ({
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
-  const pageType = useRef<IPageType>();
-  useEffect(() => {
-    pageType.current = dynamicQueryTypeCheck(
+  const queryPageType = useRef<IPageType>();
+  const pageType = useMemo(() => {
+    if (
+      queryPageType?.current?.isManufacturerPage ??
+      ssrPageType?.isManufacturerPage
+    ) {
+      return SearchPageTypes.MANUFACTURER_PAGE;
+    }
+    if (
+      queryPageType?.current?.isBodyStylePage ??
+      ssrPageType?.isBodyStylePage
+    ) {
+      return SearchPageTypes.BODY_STYLE_PAGE;
+    }
+    if (queryPageType?.current?.isFuelType ?? ssrPageType?.isFuelType) {
+      return SearchPageTypes.FUEL_TYPE_PAGE;
+    }
+    if (queryPageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType) {
+      return SearchPageTypes.BUDGET_PAGE;
+    }
+    return SearchPageTypes.SIMPLE_SEARCH_PAGE;
+  }, [
+    ssrPageType?.isBodyStylePage,
+    ssrPageType?.isBudgetType,
+    ssrPageType?.isFuelType,
+    ssrPageType?.isManufacturerPage,
+  ]);
+
+  useLayoutEffect(() => {
+    queryPageType.current = dynamicQueryTypeCheck(
       router.query.dynamicParam as string,
     );
     pushPageData({
-      pageType: pageType?.current?.isManufacturerPage
+      pageType: queryPageType?.current?.isManufacturerPage
         ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
@@ -126,21 +157,11 @@ const Page: NextPage<IProps> = ({
   }
 
   return (
-    <SearchPageContainer
+    <DynamicParamSearchContainer
       dataUiTestId="cars-search-page"
       isServer={isServer}
       isCarSearch
-      isManufacturerPage={
-        pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
-      }
-      isBodyStylePage={
-        pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
-      }
-      isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
-      isBudgetPage={
-        pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
-      }
+      pageType={pageType}
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}
@@ -152,13 +173,14 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
+      isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
     />
   );
 };
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<IProps>> {
-  const { query, req } = context;
+  const { query, req, resolvedUrl } = context;
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
@@ -305,12 +327,17 @@ export async function getServerSideProps(
       },
       query: { ...context.query },
     };
+    const isManufacturerFeatureFlagEnabled = isManufacturerPageFeatureFlagEnabled(
+      req.headers.cookie,
+      resolvedUrl,
+    );
     const [{ data }, migrationSlugs] = await Promise.all([
       (await ssrCMSQueryExecutor(
         client,
         contextData,
         true,
         type as string,
+        isManufacturerFeatureFlagEnabled,
       )) as ApolloQueryResult<GenericPageQuery>,
       getManufacturerJson(),
     ]);
@@ -334,6 +361,7 @@ export async function getServerSideProps(
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
+        isManufacturerFeatureFlagEnabled,
       },
     };
   } catch (error) {
