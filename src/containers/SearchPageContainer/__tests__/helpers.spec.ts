@@ -2,12 +2,19 @@ import preloadAll from 'jest-next-dynamic';
 import {
   bodyUrls,
   buildUrlWithFilter,
+  getFuelType,
   isBodyStyleForCMS,
   normalizePathname,
   onMadeLineBreaks,
   trimSlug,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
+
+const mockGetPartnerProperties = jest.fn();
+
+jest.mock('../../../utils/partnerProperties', () => ({
+  getPartnerProperties: () => mockGetPartnerProperties(),
+}));
 
 describe('<helpers />', () => {
   beforeEach(async () => {
@@ -33,6 +40,46 @@ describe('trimSlug', () => {
     expect(trimSlug('/car-leasing/land-rover/range-rover-evoque')).toBe(
       'car-leasing/land-rover/range-rover-evoque',
     );
+  });
+});
+
+describe('getFuelType', () => {
+  it('getFuelType should return fuel types from filterFuel', () => {
+    expect(getFuelType(['Electric'])).toEqual(['Electric']);
+  });
+
+  describe('should get fuel type from queryFuel for fuel page', () => {
+    it('queryFuel electric', () => {
+      expect(getFuelType(['Electric'], 'electric', true)).toEqual(['Electric']);
+    });
+
+    it('queryFuel hybrid', () => {
+      expect(getFuelType(['Electric'], 'hybrid', true)).toEqual([
+        'Diesel/plugin Elec Hybrid',
+        'Petrol/plugin Elec Hybrid',
+        'Petrol/electric Hybrid',
+      ]);
+    });
+  });
+
+  describe('should get fuel type from partner properties', () => {
+    beforeEach(() => {
+      mockGetPartnerProperties.mockReset();
+    });
+
+    it('partner properties are present', () => {
+      mockGetPartnerProperties.mockReturnValueOnce({
+        fuelTypes: ['electric'],
+      });
+
+      expect(getFuelType([])).toEqual(['electric']);
+    });
+
+    it('no partner properties', () => {
+      mockGetPartnerProperties.mockReturnValueOnce(undefined);
+
+      expect(getFuelType([])).toEqual(undefined);
+    });
   });
 });
 
