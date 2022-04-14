@@ -832,7 +832,7 @@ export const buildUrlWithFilter = (
 export const isOnOffer = (
   isSpecialOffers: boolean,
   pageType?: SearchPageTypes,
-) => {
+): true | null => {
   const {
     isRangePage,
     isModelPage,
