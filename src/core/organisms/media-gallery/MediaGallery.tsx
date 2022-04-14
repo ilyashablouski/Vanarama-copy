@@ -148,7 +148,7 @@ function MediaGallery({
             </Tab>
             {isColourAndTrimOverlay && (
               <Tab
-                index={2}
+                index={3}
                 dataUiTestId="details-page_tab_Colour"
                 onClick={toggleColorAndTrimModalVisible}
               >
@@ -160,7 +160,7 @@ function MediaGallery({
               </Tab>
             )}
             {videoSrc && (
-              <Tab index={3} dataUiTestId="details-page_tab_Video">
+              <Tab index={2} dataUiTestId="details-page_tab_Video">
                 <Icon className="video" icon={<MediaVideo />} />
                 Video
               </Tab>
