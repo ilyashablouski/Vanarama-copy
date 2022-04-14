@@ -468,8 +468,12 @@ describe('<DynamicParamSearchContainer />', () => {
 
     await waitFor(() => {
       expect(vehicleMockCalled).toBeTruthy();
-      expect(screen.getByText('Volkswagen Id.4 Electric Estate')).toBeInTheDocument();
-      expect(screen.getByText('DS DS 3 Crossback Hatchback')).toBeInTheDocument();
+      expect(
+        screen.getByText('Volkswagen Id.4 Electric Estate'),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText('DS DS 3 Crossback Hatchback'),
+      ).toBeInTheDocument();
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
