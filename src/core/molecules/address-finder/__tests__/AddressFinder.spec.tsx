@@ -253,7 +253,7 @@ describe('<AddressFinder />', () => {
       <AddressFinder apiKey="XXX-XXX-XXX" onSuggestionChange={jest.fn()}>
         <FormGroup
           controlId="input"
-          label="Enter Your Postcode"
+          label="Start typing your address"
           hintButton={
             <AddressFinder.ManualAddingButtonHint dataTestId="cannot-find-your-address" />
           }
@@ -268,7 +268,7 @@ describe('<AddressFinder />', () => {
       </AddressFinder>,
     );
 
-    const input = screen.getByLabelText(/Enter Your Postcode/);
+    const input = screen.getByLabelText(/Start typing your address/);
     fireEvent.change(input, { target: { value: 'SW1A' } });
     fireEvent.click(screen.getByTestId('cannot-find-your-address'));
 

@@ -6,6 +6,7 @@ import {
   normalizePathname,
   onMadeLineBreaks,
   trimSlug,
+  isOnOffer,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
 
@@ -13,18 +14,43 @@ describe('<helpers />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it('should work with value', async () => {
+
+  it('should work with value', () => {
     expect(onMadeLineBreaks('Volkswagen Tiguan Allspace Leasing')).toEqual([
       'Volkswagen',
       'Tiguan Allspace',
       'Leasing',
     ]);
   });
-  it('should work with custom line length', async () => {
+
+  it('should work with custom line length', () => {
     expect(onMadeLineBreaks('Volkswagen Tiguan Allspace Leasing', 26)).toEqual([
       'Volkswagen Tiguan Allspace',
       'Leasing',
     ]);
+  });
+
+  it('isOnOffer() should return null for all cases', () => {
+    expect(isOnOffer(true, SearchPageTypes.RANGE_PAGE)).toEqual(null);
+    expect(isOnOffer(true, SearchPageTypes.MODEL_PAGE)).toEqual(null);
+    expect(isOnOffer(true, SearchPageTypes.FUEL_TYPE_PAGE)).toEqual(null);
+    expect(isOnOffer(true, SearchPageTypes.BODY_STYLE_PAGE)).toEqual(null);
+    expect(isOnOffer(false, SearchPageTypes.MANUFACTURER_PAGE)).toEqual(null);
+    expect(isOnOffer(false, SearchPageTypes.SPECIAL_OFFER_PAGE)).toEqual(null);
+    expect(isOnOffer(false, SearchPageTypes.SIMPLE_SEARCH_PAGE)).toEqual(null);
+    expect(isOnOffer(false, SearchPageTypes.ALL_MANUFACTURERS_PAGE)).toEqual(
+      null,
+    );
+    expect(isOnOffer(false)).toEqual(null);
+  });
+
+  it('isOnOffer() should return true for all cases', () => {
+    expect(isOnOffer(true, SearchPageTypes.ALL_MANUFACTURERS_PAGE)).toEqual(
+      true,
+    );
+    expect(isOnOffer(true, SearchPageTypes.MANUFACTURER_PAGE)).toEqual(true);
+    expect(isOnOffer(true, SearchPageTypes.SPECIAL_OFFER_PAGE)).toEqual(true);
+    expect(isOnOffer(true, SearchPageTypes.SIMPLE_SEARCH_PAGE)).toEqual(true);
   });
 });
 
