@@ -4,8 +4,9 @@ import {
   NextPage,
 } from 'next';
 import { useRouter } from 'next/router';
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { ParsedUrlQuery } from 'querystring';
 import {
   GET_LEGACY_URLS,
   GET_RANGES,
@@ -61,6 +62,7 @@ import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
 import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
 import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
+import isObjectsShallowEqual from '../../../utils/objects';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -82,6 +84,7 @@ interface IProps extends ISearchPageProps {
   topOffersCardsData?: Nullable<GetProductCard>;
   defaultSort?: Nullable<SortObject[]>;
   isManufacturerFeatureFlagEnabled?: boolean;
+  querySSR: ParsedUrlQuery;
 }
 
 const Page: NextPage<IProps> = ({
@@ -99,6 +102,7 @@ const Page: NextPage<IProps> = ({
   rangesUrls,
   defaultSort,
   isManufacturerFeatureFlagEnabled,
+  querySSR,
 }) => {
   const router = useRouter();
   const initialFilterFuelType =
@@ -151,6 +155,21 @@ const Page: NextPage<IProps> = ({
       initialFilterFuelType,
     });
   }, [router.query.dynamicParam, router.query.fuelTypes]);
+
+  useEffect(() => {
+    if (!isObjectsShallowEqual(router.query, querySSR)) {
+      router.replace(
+        {
+          pathname: router.pathname,
+          query: {
+            ...querySSR,
+          },
+        },
+        router.asPath,
+        { shallow: true },
+      );
+    }
+  }, []);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
     return <FeaturedAndTilesContainer data={pageData} />;
@@ -362,6 +381,7 @@ export async function getServerSideProps(
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
         isManufacturerFeatureFlagEnabled,
+        querySSR: context.query,
       },
     };
   } catch (error) {
