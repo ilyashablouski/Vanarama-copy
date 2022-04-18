@@ -56,7 +56,11 @@ import {
 import ResultsContainer from './sections/ResultsContainer';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import {
+  isBrowser,
+  isServerRenderOrAppleDevice,
+  VIEWPORTS,
+} from '../../utils/deviceType';
 import RelatedCarousel from '../../components/RelatedCarousel';
 import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
@@ -91,7 +95,11 @@ import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
 import FeaturedSection from '../../components/FeaturedSection';
 
-const RESPONSIVE_MASONRY_BREAKPOINTS = { 576: 1, 768: 2, 1024: 3 };
+const RESPONSIVE_MASONRY_BREAKPOINTS = {
+  [VIEWPORTS.xsSmall]: 1,
+  [VIEWPORTS.small]: 2,
+  [VIEWPORTS.medium]: 3,
+};
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
