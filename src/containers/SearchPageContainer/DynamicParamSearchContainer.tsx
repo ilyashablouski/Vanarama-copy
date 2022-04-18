@@ -943,7 +943,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
               </div>
             ))}
 
-          {glossaryGrid &&
+          {glossaryGrid && (
             <div className="row:bg-lighter">
               <Heading
                 size="large"
@@ -968,7 +968,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
                 </Masonry>
               </ResponsiveMasonry>
             </div>
-          }
+          )}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
             <WhyLeaseWithVanaramaTiles
