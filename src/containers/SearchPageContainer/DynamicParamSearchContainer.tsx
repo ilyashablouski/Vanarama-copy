@@ -31,7 +31,6 @@ import {
   dynamicQueryTypeCheck,
   getCapsIds,
   getFuelType,
-  getNumberOfVehicles,
   getNumberOfVehiclesFromSessionStorage,
   getPartnershipDescription,
   getPartnershipTitle,
@@ -45,6 +44,7 @@ import {
   ssrCMSQueryExecutor,
   searchPageTypeMapper,
   buildUrlWithFilter,
+  createFetchMoreOptions,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -326,9 +326,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     [vehicleType],
     leaseType,
     isSpecialOffers || null,
-    async vehicles => {
+    async ({ vehicleList }) => {
       try {
-        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
+        const responseCapIds = getCapsIds(vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
           // add cache variable
@@ -350,42 +350,17 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     [vehicleType],
     leaseType,
     isManufacturerPage || isDynamicFilterPage ? true : isSpecialOffers || null,
-    async vehiclesData => {
-      let vehicles = vehiclesData;
+    async ({ vehicleList }) => {
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
+      const edges = vehicleList?.edges || [];
+      const lastCursor = edges[edges.length - 1]?.cursor;
       // backend don't return more than 24 results per one request, so we need to use recursion for get all results
       async function fetchMoreRec() {
-        const edges = vehicles?.vehicleList?.edges || [];
-        const lastCursor = edges[edges.length - 1]?.cursor;
-        if (
-          savedPageData?.offerPosition >
-            (vehicles?.vehicleList?.edges?.length || 0) &&
-          fetchMore
-        ) {
-          await fetchMore?.({
-            variables: {
-              after: lastCursor,
-              first: getNumberOfVehicles(
-                savedPageData?.offerPosition + 1 - edges.length,
-              ),
-            },
-            updateQuery: (prev, { fetchMoreResult }) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              vehicles = {
-                vehicleList: {
-                  pageInfo: fetchMoreResult.vehicleList.pageInfo,
-                  totalCount: fetchMoreResult.vehicleList.totalCount,
-                  edges: [
-                    ...(vehicles.vehicleList.edges || []),
-                    ...(fetchMoreResult?.vehicleList?.edges || []),
-                  ],
-                },
-              };
-              return vehicles;
-            },
-          });
+        const isNotEnough = savedPageData?.offerPosition > (edges?.length || 0);
+        if (isNotEnough && fetchMore) {
+          await fetchMore(
+            createFetchMoreOptions(lastCursor, savedPageData, edges),
+          );
           await fetchMoreRec();
         }
       }
@@ -395,26 +370,24 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         removeSessionStorageItem('searchPageScrollData');
       }
       try {
-        if (vehicles.vehicleList?.edges?.length === 0 && isSpecialOffers) {
+        if (edges?.length === 0 && isSpecialOffers) {
           setIsSpecialOffers(false);
           return;
         }
-        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
+        const responseCapIds = getCapsIds(edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          setVehicleList(vehicles.vehicleList?.edges || []);
+          setVehicleList(edges || []);
           // use range length for manufacture page
           if (!isManufacturerPage) {
-            setTotalCount(vehicles.vehicleList.totalCount);
+            setTotalCount(vehicleList.totalCount);
           }
           getProductCardData(
             createProductCacheVariables(responseCapIds, isCarSearch),
           );
-          setLastCard(vehicles.vehicleList.pageInfo.endCursor || '');
-          setShouldUpdateCache(
-            vehicles.vehicleList.pageInfo.hasNextPage || false,
-          );
-          setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
+          setLastCard(vehicleList.pageInfo.endCursor || '');
+          setShouldUpdateCache(vehicleList.pageInfo.hasNextPage || false);
+          setHasNextPage(vehicleList.pageInfo.hasNextPage || false);
         }
       } catch (err) {
         // eslint-disable-next-line no-console

@@ -1,6 +1,8 @@
 import {
   ApolloClient,
   DocumentNode,
+  FetchMoreOptions,
+  FetchMoreQueryOptions,
   NormalizedCacheObject,
   QueryLazyOptions,
 } from '@apollo/client';
@@ -20,8 +22,10 @@ import {
 } from '../../../generated/globalTypes';
 import { GET_ALL_MANUFACTURERS_PAGE } from './gql';
 import {
+  vehicleList,
   vehicleList_vehicleList,
   vehicleList_vehicleList_edges as IVehicles,
+  vehicleListVariables,
 } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arraysAreEqual } from '../../utils/array';
@@ -842,4 +846,35 @@ export const isOnOffer = (
     return null;
   }
   return isSpecialOffers || null;
+};
+
+export const createFetchMoreOptions = (
+  lastCursor: string | undefined,
+  savedPageData: any,
+  edges: (IVehicles | null)[],
+): FetchMoreQueryOptions<vehicleListVariables, vehicleList> &
+  FetchMoreOptions<vehicleList, vehicleListVariables> => {
+  return {
+    variables: {
+      after: lastCursor,
+      first: getNumberOfVehicles(
+        savedPageData?.offerPosition + 1 - edges.length,
+      ),
+    },
+    updateQuery: (prev, { fetchMoreResult }) => {
+      if (!fetchMoreResult) {
+        return prev;
+      }
+      return {
+        vehicleList: {
+          pageInfo: fetchMoreResult.vehicleList.pageInfo,
+          totalCount: fetchMoreResult.vehicleList.totalCount,
+          edges: [
+            ...(edges || []),
+            ...(fetchMoreResult?.vehicleList?.edges || []),
+          ],
+        },
+      };
+    },
+  };
 };
