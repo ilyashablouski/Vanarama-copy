@@ -12,7 +12,6 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
-// @ts-ignore
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
