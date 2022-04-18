@@ -13,11 +13,13 @@ const Heading: FC<IHeadingProps> = memo(
     children,
     dataTestId,
     dataUiTestId,
+    position,
   }) => (
     <Tag
       className={cx('heading', className, {
         [`-${color}`]: color,
         [`-${size}`]: size,
+        [`-${position}`]: position,
       })}
       href={href}
       data-testid={dataTestId}

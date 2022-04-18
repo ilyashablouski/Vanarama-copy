@@ -12,6 +12,8 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
+// @ts-ignore
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
@@ -90,6 +92,8 @@ import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
 import FeaturedSection from '../../components/FeaturedSection';
 
+const RESPONSIVE_MASONRY_BREAKPOINTS = { 576: 1, 768: 2, 1024: 3 };
+
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -99,6 +103,12 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
 });
 
 const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
@@ -192,8 +202,10 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
 
   const applyColumns = !isFuelPage ? '-columns' : '';
 
-  const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
-  const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
+  const sectionsAsArray = pageData?.genericPage.sectionsAsArray;
+  const hero = sectionsAsArray?.hero?.[0];
+  const features = sectionsAsArray?.featured?.slice(1);
+  const glossaryGrid = sectionsAsArray?.glossaryGrid?.[0];
 
   const titleFeaturedIndexes = useMemo(() => {
     return features?.reduce((acc, item, index) => {
@@ -220,11 +232,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   }, [titleFeaturedIndexes]);
 
   const featured = useMemo(
-    () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
-    [pageData],
-  );
-  const featured1 = useMemo(
-    () => getSectionsData(['sections', 'featured1'], pageData?.genericPage),
+    () =>
+      getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
+      sectionsAsArray?.featured?.[0],
     [pageData],
   );
   const carousel: CarouselData = useMemo(
@@ -786,11 +796,8 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           isPartnershipActive={isPartnershipActive}
         />
       )}
-      {(featured || featured1) && (
-        <ReadMoreBlock
-          featured={featured || featured1}
-          dataUiTestId={dataUiTestId}
-        />
+      {featured && (
+        <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -935,6 +942,33 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
                 })}
               </div>
             ))}
+
+          {glossaryGrid &&
+            <div className="row:bg-lighter">
+              <Heading
+                size="large"
+                color="black"
+                position="center"
+                className="-pb-500"
+              >
+                {glossaryGrid?.title}
+              </Heading>
+              <ResponsiveMasonry
+                columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
+              >
+                <Masonry columnsCount={3} gutter={10}>
+                  {glossaryGrid?.glossaryEntries?.map(item => (
+                    <div className="-bg-white -p-300" key={item?.title}>
+                      <Heading size="regular" color="black">
+                        {item?.title}
+                      </Heading>
+                      <Text color="darker">{item.body}</Text>
+                    </div>
+                  ))}
+                </Masonry>
+              </ResponsiveMasonry>
+            </div>
+          }
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
             <WhyLeaseWithVanaramaTiles
