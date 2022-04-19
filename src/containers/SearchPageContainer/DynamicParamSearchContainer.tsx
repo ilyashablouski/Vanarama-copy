@@ -45,6 +45,7 @@ import {
   searchPageTypeMapper,
   buildUrlWithFilter,
   createFetchMoreOptions,
+  sortByAlphabetic,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -213,6 +214,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const hero = sectionsAsArray?.hero?.[0];
   const features = sectionsAsArray?.featured?.slice(1);
   const glossaryGrid = sectionsAsArray?.glossaryGrid?.[0];
+  const glossaryEntries = sortByAlphabetic(
+    glossaryGrid?.glossaryEntries || null,
+  );
 
   const titleFeaturedIndexes = useMemo(() => {
     return features?.reduce((acc, item, index) => {
@@ -923,7 +927,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
               </div>
             ))}
 
-          {glossaryGrid && (
+          {glossaryEntries && glossaryEntries.length && (
             <div className="row:bg-lighter">
               <Heading
                 size="large"
@@ -933,11 +937,25 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
               >
                 {glossaryGrid?.title}
               </Heading>
-              <ResponsiveMasonry
-                columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
-              >
-                <Masonry columnsCount={3} gutter={10}>
-                  {glossaryGrid?.glossaryEntries?.map(item => (
+              {glossaryEntries?.length >= 4 && (
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
+                >
+                  <Masonry columnsCount={3} gutter="10px">
+                    {glossaryEntries?.map(item => (
+                      <div className="-bg-white -p-300" key={item?.title}>
+                        <Heading size="regular" color="black">
+                          {item?.title}
+                        </Heading>
+                        <Text color="darker">{item.body}</Text>
+                      </div>
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              )}
+              {glossaryEntries?.length < 4 && (
+                <div className="-flex-row-stretch -gap-300">
+                  {glossaryEntries?.map(item => (
                     <div className="-bg-white -p-300" key={item?.title}>
                       <Heading size="regular" color="black">
                         {item?.title}
@@ -945,8 +963,8 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
                       <Text color="darker">{item.body}</Text>
                     </div>
                   ))}
-                </Masonry>
-              </ResponsiveMasonry>
+                </div>
+              )}
             </div>
           )}
 

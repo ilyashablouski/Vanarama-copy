@@ -168,6 +168,10 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 @for $i from 1 through 7 {
   $n: $i - 1;
 
+  .-gap-#{$n}00 {
+    gap: nth($rem-list, $i) !important;
+  }
+
   // padding utility class
 
   .-pt-#{$n}00 {
@@ -301,6 +305,13 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.-flex-row-stretch {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
 }
 
 /// @deprecated
