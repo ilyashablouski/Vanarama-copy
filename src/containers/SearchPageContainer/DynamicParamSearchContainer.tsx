@@ -245,6 +245,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const featured = useMemo(
     () =>
       getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
+      getSectionsData(['sections', 'featured1'], pageData?.genericPage) ||
       sectionsAsArray?.featured?.[0],
     [pageData],
   );
