@@ -883,10 +883,7 @@ export const createFetchMoreOptions = (
 
 export const getPageTypeAndContext = (
   router: NextRouter,
-): [
-  Nullish<string>,
-  { req: { url: string }; query: { [p: string]: string | string[] } },
-] => {
+): [Nullish<string>, ISSRRequest] => {
   const type = Object.entries(
     dynamicQueryTypeCheck(router.query.dynamicParam as string),
   ).find(element => element[1])?.[0];
