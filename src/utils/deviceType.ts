@@ -6,6 +6,13 @@ export const DEVICE_TYPES = {
   tablet: 'Tablet',
 };
 
+export const VIEWPORTS = {
+  xsSmall: 576,
+  small: 768,
+  medium: 1024,
+  large: 1216,
+};
+
 export const isBrowser = () => {
   return typeof window !== 'undefined';
 };

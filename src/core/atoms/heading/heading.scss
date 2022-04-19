@@ -52,6 +52,10 @@
     }
   }
 
+  &.-center {
+    text-align: center;
+  }
+
   @include colour-selector(-primary, $black, colour);
   @include colour-selector(-secondary, dark, contrast);
 }
