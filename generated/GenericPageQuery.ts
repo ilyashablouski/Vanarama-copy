@@ -1196,6 +1196,17 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_questionSet {
   questionAnswers: (GenericPageQuery_genericPage_sectionsAsArray_questionSet_questionAnswers | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries {
+  title: string | null;
+  body: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid {
+  title: string | null;
+  titleTag: string | null;
+  glossaryEntries: GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray {
   reviews: (GenericPageQuery_genericPage_sectionsAsArray_reviews | null)[] | null;
   accordion: (GenericPageQuery_genericPage_sectionsAsArray_accordion | null)[] | null;
@@ -1211,6 +1222,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray {
   steps: (GenericPageQuery_genericPage_sectionsAsArray_steps | null)[] | null;
   tiles: (GenericPageQuery_genericPage_sectionsAsArray_tiles | null)[] | null;
   questionSet: (GenericPageQuery_genericPage_sectionsAsArray_questionSet | null)[] | null;
+  glossaryGrid: (GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid | null)[] | null;
 }
 
 export interface GenericPageQuery_genericPage {

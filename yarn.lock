@@ -19471,6 +19471,7 @@ __metadata:
     react-no-ssr: ^1.1.0
     react-player: ^2.9.0
     react-responsive: ^8.1.0
+    react-responsive-masonry: ^2.1.4
     react-test-renderer: ^17.0.2
     react-toastify: ^6.0.5
     react-webcam: ^6.0.0
@@ -22625,6 +22626,16 @@ __metadata:
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
   checksum: 3cffe5a9cbac1c5d59bf74bf9fff43c987d87ef32098b9092ea94b6637377d86c08565b9374d9397f446b3fbcd95de986ec77220a16f979687cb39b7b89e2f91
+  languageName: node
+  linkType: hard
+
+"react-responsive-masonry@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "react-responsive-masonry@npm:2.1.4"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: 0de893712ee400012b1fd8be5feeed7dc858a222345db6fa1411e6b7a07c1b79770c536771cddce8e0a93dbd3b9cc757d5c95d39e7813b6ebf05905befe2174c
   languageName: node
   linkType: hard
 
