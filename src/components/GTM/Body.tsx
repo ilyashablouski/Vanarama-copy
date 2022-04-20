@@ -5,7 +5,7 @@ const Body: FC = () => {
     <noscript>
       <iframe
         title="gtm"
-        src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_ID}`}
+        src={`https://www.googletagmanager.com/ns.html?id=GTM-P2SD8SS`}
         height="0"
         width="0"
         style={{ display: 'none', visibility: 'hidden' }}
