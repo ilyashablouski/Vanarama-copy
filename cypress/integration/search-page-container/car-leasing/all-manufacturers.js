@@ -53,7 +53,7 @@ describe(`
   });
 
   it('price changes after lease type changes', () => {
-    cy.changeLeaseType(dataUiTestId);
+    cy.changeLeaseType({ dataUiTestId, isManufacturersPage: true });
   });
 
   it('Showing more than 0 results', () => {
