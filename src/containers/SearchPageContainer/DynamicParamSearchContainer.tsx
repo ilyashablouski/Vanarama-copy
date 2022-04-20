@@ -12,11 +12,9 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
-import SearchPageMarkdown from './components/SearchPageMarkdown';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
@@ -56,12 +54,7 @@ import {
 import ResultsContainer from './sections/ResultsContainer';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
-import {
-  isBrowser,
-  isServerRenderOrAppleDevice,
-  VIEWPORTS,
-} from '../../utils/deviceType';
-import RelatedCarousel from '../../components/RelatedCarousel';
+import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
 import useSortOrder from '../../hooks/useSortOrder';
@@ -73,7 +66,6 @@ import { TColor } from '../../types/color';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import {
@@ -93,13 +85,7 @@ import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
 import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
-import FeaturedSection from '../../components/FeaturedSection';
-
-const RESPONSIVE_MASONRY_BREAKPOINTS = {
-  [VIEWPORTS.xsSmall]: 1,
-  [VIEWPORTS.small]: 2,
-  [VIEWPORTS.medium]: 3,
-};
+import DynamicParamBottomBlock from './sections/DynamicParamBottomBlock';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -110,12 +96,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
 });
 
 const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
@@ -207,46 +187,13 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isFuelPage ? '-columns' : '';
-
   const sectionsAsArray = pageData?.genericPage.sectionsAsArray;
   const hero = sectionsAsArray?.hero?.[0];
-  const features = sectionsAsArray?.featured?.slice(1);
-  const glossaryGrid = sectionsAsArray?.glossaryGrid?.[0];
-
-  const titleFeaturedIndexes = useMemo(() => {
-    return features?.reduce((acc, item, index) => {
-      const isNotMediaSideItem =
-        !item?.layout?.includes('Media Right') &&
-        !item?.layout?.includes('Media Left');
-      const isMediaSideNextItem =
-        features[index + 1]?.layout?.includes('Media Right') ||
-        features[index + 1]?.layout?.includes('Media Left');
-      const isLastItem = item === features[features.length - 1];
-      if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
-        return [...acc, index];
-      }
-      return acc;
-    }, [] as number[] | []);
-  }, [features]);
-  const separatedFeatures = useMemo(() => {
-    return titleFeaturedIndexes?.map((featuredIndex, index) => {
-      if (index === titleFeaturedIndexes.length - 1) {
-        return features?.slice(featuredIndex);
-      }
-      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
-    });
-  }, [titleFeaturedIndexes]);
-
   const featured = useMemo(
     () =>
       getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
       getSectionsData(['sections', 'featured1'], pageData?.genericPage) ||
       sectionsAsArray?.featured?.[0],
-    [pageData],
-  );
-  const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -268,9 +215,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => !isManufacturerPage && !isDynamicFilterPage && !isPartnershipActive,
     [isManufacturerPage, isDynamicFilterPage, isPartnershipActive],
   );
-  const isCarousel = useMemo(() => !!carousel?.cards?.length, [
-    carousel?.cards?.length,
-  ]);
   const manualBodyStyle = useMemo(() => {
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
@@ -892,81 +836,14 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         />
       )}
       {pageData && (
-        <>
-          {isDynamicFilterPage && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div className={`row:text ${applyColumns}`}>
-                <SearchPageMarkdown
-                  markdown={pageData?.genericPage.body}
-                  withoutImage
-                />
-              </div>
-            </LazyLoadComponent>
-          )}
-
-          {separatedFeatures &&
-            isManufacturerFeatureFlagEnabled &&
-            separatedFeatures.map((featuresSection, index) => (
-              <div
-                key={`${featuresSection?.[0]?.title}_${featuresSection?.length}`}
-                className={
-                  index % 2 ? 'row:full-gray -pb-600 -pt-600' : '-mb-600'
-                }
-              >
-                {featuresSection?.map(featuredItem => {
-                  return (
-                    <FeaturedSection
-                      key={featuredItem?.title}
-                      featured={featuredItem}
-                    />
-                  );
-                })}
-              </div>
-            ))}
-
-          {glossaryGrid && (
-            <div className="row:bg-lighter">
-              <Heading
-                size="large"
-                color="black"
-                position="center"
-                className="-pb-500"
-              >
-                {glossaryGrid?.title}
-              </Heading>
-              <ResponsiveMasonry
-                columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
-              >
-                <Masonry columnsCount={3} gutter={10}>
-                  {glossaryGrid?.glossaryEntries?.map(item => (
-                    <div className="-bg-white -p-300" key={item?.title}>
-                      <Heading size="regular" color="black">
-                        {item?.title}
-                      </Heading>
-                      <Text color="darker">{item.body}</Text>
-                    </div>
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
-            </div>
-          )}
-
-          {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <WhyLeaseWithVanaramaTiles
-              tiles={tiles.tiles}
-              title={tiles.tilesTitle || ''}
-              titleTag={tiles.titleTag}
-            />
-          )}
-
-          {isCarousel && (
-            <RelatedCarousel
-              cards={carousel.cards}
-              title={carousel.title}
-              dataUiTestId={`${dataUiTestId}_related`}
-            />
-          )}
-        </>
+        <DynamicParamBottomBlock
+          pageData={pageData}
+          tiles={tiles}
+          dataUiTestId={dataUiTestId}
+          isFuelPage={isFuelPage}
+          isDynamicFilterPage={isDynamicFilterPage}
+          isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
+        />
       )}
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <TermsAndConditions dataUiTestId={dataUiTestId} />
