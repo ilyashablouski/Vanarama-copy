@@ -18,6 +18,7 @@ import {
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Skeleton from '../../../components/Skeleton';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
+import { sortGlossaryByAlphabetic } from '../helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -84,6 +85,10 @@ const DynamicParamBottomBlock = ({
 
   const applyColumns = !isFuelPage ? '-columns' : '';
   const glossaryGrid = sectionsAsArray?.glossaryGrid?.[0];
+  const glossaryEntries = useMemo(
+    () => sortGlossaryByAlphabetic(glossaryGrid?.glossaryEntries || null),
+    [glossaryGrid],
+  );
 
   return (
     <>
@@ -116,7 +121,7 @@ const DynamicParamBottomBlock = ({
           </div>
         ))}
 
-      {glossaryGrid && (
+      {glossaryEntries && glossaryEntries.length && (
         <div className="row:bg-lighter">
           <Heading
             size="large"
@@ -126,11 +131,25 @@ const DynamicParamBottomBlock = ({
           >
             {glossaryGrid?.title}
           </Heading>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
-          >
-            <Masonry columnsCount={3} gutter={10}>
-              {glossaryGrid?.glossaryEntries?.map(item => (
+          {glossaryEntries?.length >= 4 && (
+            <ResponsiveMasonry
+              columnsCountBreakPoints={RESPONSIVE_MASONRY_BREAKPOINTS}
+            >
+              <Masonry columnsCount={3} gutter="10px">
+                {glossaryEntries?.map(item => (
+                  <div className="-bg-white -p-300" key={item?.title}>
+                    <Heading size="regular" color="black">
+                      {item?.title}
+                    </Heading>
+                    <Text color="darker">{item.body}</Text>
+                  </div>
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          )}
+          {glossaryEntries?.length < 4 && (
+            <div className="-flex-row-stretch -gap-300">
+              {glossaryEntries?.map(item => (
                 <div className="-bg-white -p-300" key={item?.title}>
                   <Heading size="regular" color="black">
                     {item?.title}
@@ -138,8 +157,8 @@ const DynamicParamBottomBlock = ({
                   <Text color="darker">{item.body}</Text>
                 </div>
               ))}
-            </Masonry>
-          </ResponsiveMasonry>
+            </div>
+          )}
         </div>
       )}
 

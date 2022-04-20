@@ -908,7 +908,11 @@ export const sortGlossaryByAlphabetic = (
   glossaryEntries:
     | GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries[]
     | null,
-) =>
-  glossaryEntries?.sort((firstItem, secondItem) =>
+) => {
+  if (!glossaryEntries) {
+    return null;
+  }
+  return [...glossaryEntries].sort((firstItem, secondItem) =>
     (firstItem?.title || '').localeCompare(secondItem?.title || ''),
   );
+};
