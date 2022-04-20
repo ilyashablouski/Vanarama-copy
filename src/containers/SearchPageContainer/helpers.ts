@@ -12,7 +12,10 @@ import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
-import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 import {
   LeaseTypeEnum,
@@ -899,4 +902,17 @@ export const getPageTypeAndContext = (
   };
 
   return [type, context];
+};
+
+export const sortGlossaryByAlphabetic = (
+  glossaryEntries:
+    | GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries[]
+    | null,
+) => {
+  if (!glossaryEntries) {
+    return null;
+  }
+  return [...glossaryEntries].sort((firstItem, secondItem) =>
+    (firstItem?.title || '').localeCompare(secondItem?.title || ''),
+  );
 };

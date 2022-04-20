@@ -8,6 +8,7 @@ import {
   onMadeLineBreaks,
   trimSlug,
   isOnOffer,
+  sortGlossaryByAlphabetic,
   getPageTypeAndContext,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
@@ -161,6 +162,48 @@ describe('buildUrlWithFilter', () => {
       pricePerMonth: '350|',
     });
     expect(pathname).toEqual('/car-leasing/estate?make=bmw&pricePerMonth=350|');
+  });
+});
+
+describe('sortByAlphabetic', () => {
+  it('should sort by alphabetic', () => {
+    const glossaryEntries = [
+      {
+        title: 'Www',
+        body: '',
+      },
+      {
+        title: '!@',
+        body: '',
+      },
+      {
+        title: '5',
+        body: '',
+      },
+      {
+        title: 'Aaa',
+        body: '',
+      },
+    ];
+    const result = [
+      {
+        title: '!@',
+        body: '',
+      },
+      {
+        title: '5',
+        body: '',
+      },
+      {
+        title: 'Aaa',
+        body: '',
+      },
+      {
+        title: 'Www',
+        body: '',
+      },
+    ];
+    expect(sortGlossaryByAlphabetic(glossaryEntries)).toMatchObject(result);
   });
 });
 
