@@ -45,7 +45,7 @@ import {
   searchPageTypeMapper,
   buildUrlWithFilter,
   createFetchMoreOptions,
-  sortByAlphabetic,
+  sortGlossaryByAlphabetic,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -214,8 +214,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const hero = sectionsAsArray?.hero?.[0];
   const features = sectionsAsArray?.featured?.slice(1);
   const glossaryGrid = sectionsAsArray?.glossaryGrid?.[0];
-  const glossaryEntries = sortByAlphabetic(
-    glossaryGrid?.glossaryEntries || null,
+  const glossaryEntries = useMemo(
+    () => sortGlossaryByAlphabetic(glossaryGrid?.glossaryEntries || null),
+    [glossaryGrid],
   );
 
   const titleFeaturedIndexes = useMemo(() => {

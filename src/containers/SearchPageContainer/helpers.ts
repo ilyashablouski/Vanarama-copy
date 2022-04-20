@@ -882,7 +882,7 @@ export const createFetchMoreOptions = (
   };
 };
 
-export const sortByAlphabetic = (
+export const sortGlossaryByAlphabetic = (
   glossaryEntries:
     | GenericPageQuery_genericPage_sectionsAsArray_glossaryGrid_glossaryEntries[]
     | null,

@@ -8,7 +8,7 @@ import {
   onMadeLineBreaks,
   trimSlug,
   isOnOffer,
-  sortByAlphabetic,
+  sortGlossaryByAlphabetic,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
 
@@ -202,6 +202,6 @@ describe('sortByAlphabetic', () => {
         body: '',
       },
     ];
-    expect(sortByAlphabetic(glossaryEntries)).toMatchObject(result);
+    expect(sortGlossaryByAlphabetic(glossaryEntries)).toMatchObject(result);
   });
 });
