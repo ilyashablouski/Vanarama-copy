@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
-import { APP_URL, CAR_LEASING_TEST_ID } from '../../../../support/utils';
+import {
+  APP_URL,
+  CAR_LEASING_TEST_ID,
+  getFullPriceFromCard,
+} from '../../../../support/utils';
 
 describe(
   `
@@ -20,28 +24,20 @@ describe(
       cy.get('button.header-navtoggle').click();
       cy.get('a[data-uitestid="header-CARS-link"]').click();
       cy.get(
-        'button[data-uitestid="header_secondary-menu_CARS_button_Cars By Manufacturer"]',
+        'button[data-uitestid="header_secondary-menu_CARS_button_Cars By Budget"]',
       ).click();
       cy.get(
-        'ul[data-uitestid="header_secondary-menu_CARS_menu-tertiary_Cars By Manufacturer"]>li:nth-child(3)',
+        'ul[data-uitestid="header_secondary-menu_CARS_menu-tertiary_Cars By Budget"]>li:nth-child(3)',
       ).click();
     });
 
-    it('read more block opens', () => {
-      cy.get(`div[data-uitestid=${dataUiTestId}_block_read-more]`).should(
-        'have.class',
-        '-truncate',
-      );
-      cy.get(`button[data-uitestid=${dataUiTestId}_button_read-more]`).click();
-      cy.get(`div[data-uitestid=${dataUiTestId}_block_read-more]`).should(
-        'not.have.class',
-        '-truncate',
-      );
-      cy.get('p a[href$="/a8.html"]')
-        .as('A8Link')
-        .should('be.visible');
-      cy.get(`button[data-uitestid=${dataUiTestId}_button_read-more]`).click();
-      cy.get('@A8Link').should('not.be.visible');
+    it('should show relevant results', () => {
+      cy.get('.card.product price').should($cards => {
+        $cards.each(function checkPrice() {
+          const price = getFullPriceFromCard(this);
+          expect(price).to.be.below(250);
+        });
+      });
     });
 
     it('hot offers carousel is scrolling', () => {
@@ -68,7 +64,7 @@ describe(
       });
     });
 
-    it('filtering results by body type and transmission', () => {
+    it('filtering results by body type and fuel type', () => {
       let bodyStyle = '';
       cy.get('div.search-filters--title').click();
       cy.get(`span[data-uitestid="${dataUiTestId}_span_Body Type"]`)
@@ -81,19 +77,15 @@ describe(
         .then($el => {
           bodyStyle = $el.text();
         });
-      cy.get(`span[data-uitestid="cars-search-page_span_Budget"]`)
-        .as('BudgetAccordion')
+      cy.get('@AccordionBodyType').click();
+      cy.get(`span[data-uitestid="${dataUiTestId}_span_Fuel Type"]`)
+        .as('FuelTypeAccordion')
         .click();
-      cy.get('select[data-uitestid="cars-search-page_select_from"]').select(
-        '0',
-      );
-      cy.get('select[data-uitestid="cars-search-page_select_to"]').select(
-        '350',
-      );
-      cy.get('@BudgetAccordion').click();
+      cy.get(`span[data-uitestid="${dataUiTestId}_span_Diesel"]`).click();
+      cy.get('@FuelTypeAccordion').click();
       cy.location().should(location => {
         expect(location.search).to.eq(
-          `?bodyStyles=${bodyStyle}&pricePerMonth=0|350`,
+          `?bodyStyles=${bodyStyle}&fuelTypes=Diesel`,
         );
       });
     });

@@ -9,6 +9,7 @@ import {
   trimSlug,
   isOnOffer,
   sortGlossaryByAlphabetic,
+  getPageTypeAndContext,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
 
@@ -203,5 +204,28 @@ describe('sortByAlphabetic', () => {
       },
     ];
     expect(sortGlossaryByAlphabetic(glossaryEntries)).toMatchObject(result);
+  });
+});
+
+describe('getPageTypeAndContext', () => {
+  it('getPageTypeAndContext should return correct page type & context values', () => {
+    const router = {
+      push: jest.fn(),
+      pathname: '/car-leasing/[dynamicParam]',
+      route: '/car-leasing/[dynamicParam]',
+      query: { dynamicParam: 'hybrid', isChangePage: 'true' },
+    } as any;
+    const [type, context] = getPageTypeAndContext(router);
+
+    expect(type).toEqual('isFuelType');
+    expect(context).toEqual({
+      req: {
+        url: '/car-leasing/hybrid',
+      },
+      query: {
+        isChangePage: 'true',
+        dynamicParam: 'hybrid',
+      },
+    });
   });
 });

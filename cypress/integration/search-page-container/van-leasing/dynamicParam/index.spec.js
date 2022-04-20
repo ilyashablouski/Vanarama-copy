@@ -74,7 +74,7 @@ describe(`
   });
 
   it('price changes after lease type changes', () => {
-    cy.changeLeaseType(dataUiTestId);
+    cy.changeLeaseType({ dataUiTestId });
   });
 
   it('first item is added to compare', () => {

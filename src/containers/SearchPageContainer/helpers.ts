@@ -7,6 +7,7 @@ import {
   QueryLazyOptions,
 } from '@apollo/client';
 import { ParsedUrlQuery } from 'querystring';
+import { NextRouter } from 'next/router';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
@@ -37,6 +38,7 @@ import {
   IPartnerProperties,
 } from '../../utils/partnerProperties';
 import { SearchPageTypes } from './interfaces';
+import { Nullish } from '../../types/common';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -880,6 +882,26 @@ export const createFetchMoreOptions = (
       };
     },
   };
+};
+
+export const getPageTypeAndContext = (
+  router: NextRouter,
+): [Nullish<string>, ISSRRequest] => {
+  const type = Object.entries(
+    dynamicQueryTypeCheck(router.query.dynamicParam as string),
+  ).find(element => element[1])?.[0];
+
+  const context = {
+    req: {
+      url: router.route.replace(
+        '[dynamicParam]',
+        router.query.dynamicParam as string,
+      ),
+    },
+    query: { ...router.query },
+  };
+
+  return [type, context];
 };
 
 export const sortGlossaryByAlphabetic = (

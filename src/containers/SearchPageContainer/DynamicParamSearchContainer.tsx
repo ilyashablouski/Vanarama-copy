@@ -16,7 +16,6 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
-import SearchPageMarkdown from './components/SearchPageMarkdown';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
@@ -28,7 +27,6 @@ import {
   createProductCardVariables,
   createRangesVariables,
   createVehiclesVariables,
-  dynamicQueryTypeCheck,
   getCapsIds,
   getFuelType,
   getNumberOfVehiclesFromSessionStorage,
@@ -45,7 +43,6 @@ import {
   searchPageTypeMapper,
   buildUrlWithFilter,
   createFetchMoreOptions,
-  sortGlossaryByAlphabetic,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -95,6 +92,7 @@ import Skeleton from '../../components/Skeleton';
 import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
 import FeaturedSection from '../../components/FeaturedSection';
+import DynamicParamBottomBlock from './sections/DynamicParamBottomBlock';
 
 const RESPONSIVE_MASONRY_BREAKPOINTS = {
   [VIEWPORTS.xsSmall]: 1,
@@ -208,8 +206,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isFuelPage ? '-columns' : '';
-
   const sectionsAsArray = pageData?.genericPage.sectionsAsArray;
   const hero = sectionsAsArray?.hero?.[0];
   const features = sectionsAsArray?.featured?.slice(1);
@@ -250,10 +246,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       sectionsAsArray?.featured?.[0],
     [pageData],
   );
-  const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
-    [pageData],
-  );
   const tiles: Tiles = useMemo(
     () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
     [pageData],
@@ -273,9 +265,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => !isManufacturerPage && !isDynamicFilterPage && !isPartnershipActive,
     [isManufacturerPage, isDynamicFilterPage, isPartnershipActive],
   );
-  const isCarousel = useMemo(() => !!carousel?.cards?.length, [
-    carousel?.cards?.length,
-  ]);
   const manualBodyStyle = useMemo(() => {
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
@@ -721,18 +710,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   useEffect(() => {
     if (router.query.isChangePage === 'true') {
       const fetchPageData = async () => {
-        const type = Object.entries(
-          dynamicQueryTypeCheck(router.query.dynamicParam as string),
-        ).find(element => element[1])?.[0];
-        const context = {
-          req: {
-            url: router.route.replace(
-              '[dynamicParam]',
-              router.query.dynamicParam as string,
-            ),
-          },
-          query: { ...router.query },
-        };
+        const [type, context] = getPageTypeAndContext(router);
         const { data: genericPageData, errors } = (await ssrCMSQueryExecutor(
           client,
           context,
