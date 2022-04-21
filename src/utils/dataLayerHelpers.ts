@@ -133,6 +133,8 @@ const PRICE_TYPE = {
   incVAT: 'Including VAT',
 };
 
+let pageDataForDataLayer = {};
+
 const client = createApolloClient({});
 
 export const pushPageViewEvent = async (path: string, title = '') => {
@@ -240,21 +242,6 @@ export const pushDetail = (
   }
 };
 
-// const setDataLayer = () => {
-//   if (
-//     !window.dataLayer.find(obj =>
-//       Object.keys(obj).some(key => key === 'pageType'),
-//     )
-//   )
-//     return;
-
-//   window.dataLayer = [];
-//   window.dataLayer.push({
-//     'gtm.start': new Date().getTime(),
-//     event: 'gtm.js',
-//   });
-// };
-
 export const checkForGtmDomEvent = (callback: () => void) => {
   window.dataLayerCallback = callback;
 
@@ -291,7 +278,7 @@ export const pushPageData = async ({
   if (!window.dataLayer) {
     return;
   }
-  // setDataLayer();
+
   const [person, personUuid, email] = await Promise.all([
     getStoredPerson(client, 'no-cache'),
     getStoredPersonUuid(client, 'no-cache'),
@@ -301,8 +288,6 @@ export const pushPageData = async ({
   const pathname = router?.pathname;
   const queryFuelTypes = router?.query.fuelTypes;
   const queryDynamicParam = router?.query.dynamicParam;
-
-  let data = {};
 
   if (
     pathname === '/car-leasing/[dynamicParam]' ||
@@ -315,7 +300,7 @@ export const pushPageData = async ({
     if (!pageType) {
       return;
     }
-    data = {
+    pageDataForDataLayer = {
       pageType,
       siteSection: isPdpOrSearchElectricSection({
         initialFilterFuelType,
@@ -331,7 +316,7 @@ export const pushPageData = async ({
       pages.pages.find(page => pathname?.includes(page)),
     );
 
-    data = {
+    pageDataForDataLayer = {
       pageType: pageData?.pageType || 'undefined',
       siteSection: isPdpOrSearchElectricSection({
         initialFilterFuelType,
@@ -348,16 +333,20 @@ export const pushPageData = async ({
     const MAX_NUMBER_OF_ATTEMPTS = 3;
 
     const pushDetailsAfterCheckBCUID = () => {
-      pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
-      pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
-      pushDetail('deviceType', getDeviceType(), data);
+      pushDetail('BCUID', 'undefined', pageDataForDataLayer);
+      pushDetail(
+        'customerId',
+        person?.uuid || personUuid || 'undefined',
+        pageDataForDataLayer,
+      );
+      pushDetail('deviceType', getDeviceType(), pageDataForDataLayer);
       pushDetail(
         'visitorEmail',
         personEmail ? sha256(personEmail) : 'undefined',
-        data,
+        pageDataForDataLayer,
       );
 
-      window.dataLayer.push(data);
+      window.dataLayer.push(pageDataForDataLayer);
     };
 
     const delayedPushDetails = () => {
@@ -377,16 +366,20 @@ export const pushPageData = async ({
 
     delayedPushDetails();
   } else {
-    pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
-    pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
-    pushDetail('deviceType', getDeviceType(), data);
+    pushDetail('BCUID', 'undefined', pageDataForDataLayer);
+    pushDetail(
+      'customerId',
+      person?.uuid || personUuid || 'undefined',
+      pageDataForDataLayer,
+    );
+    pushDetail('deviceType', getDeviceType(), pageDataForDataLayer);
     pushDetail(
       'visitorEmail',
       personEmail ? sha256(personEmail) : 'undefined',
-      data,
+      pageDataForDataLayer,
     );
 
-    window.dataLayer.push(data);
+    window.dataLayer.push(pageDataForDataLayer);
   }
 };
 
@@ -831,4 +824,13 @@ export const pushCookiePreferencesDataLayer = () => {
   window.dataLayer?.push({
     cookiePreferences: getLocalStorage('cookiePreferences'),
   });
+};
+
+export const pushPageDataWithBCUID = () => {
+  pushDetail(
+    'BCUID',
+    Cookies.get('BCSessionID') || 'undefined',
+    pageDataForDataLayer,
+  );
+  window.dataLayer.push(pageDataForDataLayer);
 };
