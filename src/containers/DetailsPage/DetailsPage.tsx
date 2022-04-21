@@ -905,7 +905,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </LazyLoadComponent>
       )}
-      {isMobile && (
+      {isMobile && leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental && (
         <div
           className={cx('lease-scanner--sticky-wrap', {
             '-fixed': isFixedLeaseScanner,
