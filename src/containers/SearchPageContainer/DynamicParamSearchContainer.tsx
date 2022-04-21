@@ -15,7 +15,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { ISearchPageContainerProps } from './interfaces';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import SearchPageTitle from './sections/SearchPageTitle';
-import SearchPageMarkdown from './components/SearchPageMarkdown';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import TopOffersContainer from './sections/TopOffersContainer';
 import SearchPageFilters from '../../components/SearchPageFilters';
@@ -27,7 +26,6 @@ import {
   createProductCardVariables,
   createRangesVariables,
   createVehiclesVariables,
-  dynamicQueryTypeCheck,
   getCapsIds,
   getFuelType,
   getNumberOfVehiclesFromSessionStorage,
@@ -44,6 +42,7 @@ import {
   searchPageTypeMapper,
   buildUrlWithFilter,
   createFetchMoreOptions,
+  getPageTypeAndContext,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -56,7 +55,6 @@ import ResultsContainer from './sections/ResultsContainer';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
 import { isBrowser, isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import RelatedCarousel from '../../components/RelatedCarousel';
 import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
 import useSortOrder from '../../hooks/useSortOrder';
@@ -68,7 +66,6 @@ import { TColor } from '../../types/color';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import {
@@ -88,7 +85,7 @@ import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
 import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
-import FeaturedSection from '../../components/FeaturedSection';
+import DynamicParamBottomBlock from './sections/DynamicParamBottomBlock';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -190,45 +187,14 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const client = useApolloClient();
   const router = useRouter();
 
-  const applyColumns = !isFuelPage ? '-columns' : '';
-
-  const hero = pageData?.genericPage.sectionsAsArray?.hero?.[0];
-  const features = pageData?.genericPage.sectionsAsArray?.featured?.slice(1);
-
-  const titleFeaturedIndexes = useMemo(() => {
-    return features?.reduce((acc, item, index) => {
-      const isNotMediaSideItem =
-        !item?.layout?.includes('Media Right') &&
-        !item?.layout?.includes('Media Left');
-      const isMediaSideNextItem =
-        features[index + 1]?.layout?.includes('Media Right') ||
-        features[index + 1]?.layout?.includes('Media Left');
-      const isLastItem = item === features[features.length - 1];
-      if (isNotMediaSideItem && (isMediaSideNextItem || isLastItem)) {
-        return [...acc, index];
-      }
-      return acc;
-    }, [] as number[] | []);
-  }, [features]);
-  const separatedFeatures = useMemo(() => {
-    return titleFeaturedIndexes?.map((featuredIndex, index) => {
-      if (index === titleFeaturedIndexes.length - 1) {
-        return features?.slice(featuredIndex);
-      }
-      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
-    });
-  }, [titleFeaturedIndexes]);
+  const sectionsAsArray = pageData?.genericPage.sectionsAsArray;
+  const hero = sectionsAsArray?.hero?.[0];
 
   const featured = useMemo(
-    () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
-    [pageData],
-  );
-  const featured1 = useMemo(
-    () => getSectionsData(['sections', 'featured1'], pageData?.genericPage),
-    [pageData],
-  );
-  const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
+    () =>
+      getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
+      getSectionsData(['sections', 'featured1'], pageData?.genericPage) ||
+      sectionsAsArray?.featured?.[0],
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -250,9 +216,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => !isManufacturerPage && !isDynamicFilterPage && !isPartnershipActive,
     [isManufacturerPage, isDynamicFilterPage, isPartnershipActive],
   );
-  const isCarousel = useMemo(() => !!carousel?.cards?.length, [
-    carousel?.cards?.length,
-  ]);
   const manualBodyStyle = useMemo(() => {
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
@@ -698,18 +661,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   useEffect(() => {
     if (router.query.isChangePage === 'true') {
       const fetchPageData = async () => {
-        const type = Object.entries(
-          dynamicQueryTypeCheck(router.query.dynamicParam as string),
-        ).find(element => element[1])?.[0];
-        const context = {
-          req: {
-            url: router.route.replace(
-              '[dynamicParam]',
-              router.query.dynamicParam as string,
-            ),
-          },
-          query: { ...router.query },
-        };
+        const [type, context] = getPageTypeAndContext(router);
         const { data: genericPageData, errors } = (await ssrCMSQueryExecutor(
           client,
           context,
@@ -759,11 +711,8 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
           isPartnershipActive={isPartnershipActive}
         />
       )}
-      {(featured || featured1) && (
-        <ReadMoreBlock
-          featured={featured || featured1}
-          dataUiTestId={dataUiTestId}
-        />
+      {featured && (
+        <ReadMoreBlock featured={featured} dataUiTestId={dataUiTestId} />
       )}
       {shouldRenderTopOffersContainer && (
         <TopOffersContainer
@@ -877,54 +826,14 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
         />
       )}
       {pageData && (
-        <>
-          {isDynamicFilterPage && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div className={`row:text ${applyColumns}`}>
-                <SearchPageMarkdown
-                  markdown={pageData?.genericPage.body}
-                  withoutImage
-                />
-              </div>
-            </LazyLoadComponent>
-          )}
-
-          {separatedFeatures &&
-            isManufacturerFeatureFlagEnabled &&
-            separatedFeatures.map((featuresSection, index) => (
-              <div
-                key={`${featuresSection?.[0]?.title}_${featuresSection?.length}`}
-                className={
-                  index % 2 ? 'row:full-gray -pb-600 -pt-600' : '-mb-600'
-                }
-              >
-                {featuresSection?.map(featuredItem => {
-                  return (
-                    <FeaturedSection
-                      key={featuredItem?.title}
-                      featured={featuredItem}
-                    />
-                  );
-                })}
-              </div>
-            ))}
-
-          {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <WhyLeaseWithVanaramaTiles
-              tiles={tiles.tiles}
-              title={tiles.tilesTitle || ''}
-              titleTag={tiles.titleTag}
-            />
-          )}
-
-          {isCarousel && (
-            <RelatedCarousel
-              cards={carousel.cards}
-              title={carousel.title}
-              dataUiTestId={`${dataUiTestId}_related`}
-            />
-          )}
-        </>
+        <DynamicParamBottomBlock
+          pageData={pageData}
+          tiles={tiles}
+          dataUiTestId={dataUiTestId}
+          isFuelPage={isFuelPage}
+          isDynamicFilterPage={isDynamicFilterPage}
+          isManufacturerFeatureFlagEnabled={isManufacturerFeatureFlagEnabled}
+        />
       )}
       <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <TermsAndConditions dataUiTestId={dataUiTestId} />

@@ -79,6 +79,7 @@ const sectionsAsArray = {
   rowText: null,
   steps: null,
   tiles: null,
+  glossaryGrid: null,
 };
 
 const expectedArray = [

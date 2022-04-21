@@ -61,7 +61,7 @@ describe(`
   });
 
   it('price changes after lease type changes', () => {
-    cy.changeLeaseType(dataUiTestId);
+    cy.changeLeaseType({ dataUiTestId });
   });
 
   it('sorting results by price from high to low', () => {

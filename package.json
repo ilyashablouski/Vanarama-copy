@@ -84,6 +84,7 @@
     "react-no-ssr": "^1.1.0",
     "react-player": "^2.9.0",
     "react-responsive": "^8.1.0",
+    "react-responsive-masonry": "^2.1.4",
     "react-toastify": "^6.0.5",
     "react-webcam": "^6.0.0",
     "remark-gfm": "^1.0.0",

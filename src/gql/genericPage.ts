@@ -426,6 +426,14 @@ export const GENERIC_PAGE = gql`
             answer
           }
         }
+        glossaryGrid {
+          title
+          titleTag
+          glossaryEntries {
+            title
+            body
+          }
+        }
       }
       intro
       body
