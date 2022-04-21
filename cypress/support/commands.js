@@ -57,30 +57,35 @@ Cypress.Commands.add('checkSpecialOffer', dataUiTestId => {
   cy.get('div.card.product').then(checkOfferLabel);
 });
 
-Cypress.Commands.add('changeLeaseType', dataUiTstId => {
-  if (dataUiTstId === VAN_LEASING_TEST_ID) {
-    cy.get(`span[data-uitestid=${dataUiTstId}_Business]`).click();
-  }
-  const oldPrices = [];
+Cypress.Commands.add(
+  'changeLeaseType',
+  ({ dataUiTestId, isManufacturersPage }) => {
+    if (dataUiTestId === VAN_LEASING_TEST_ID) {
+      cy.get(`span[data-uitestid=${dataUiTestId}_Business]`).click();
+    }
+    const oldPrices = [];
 
-  cy.wait(1000)
-    .get('div div.card')
-    .as('productCards')
-    .then($cards => {
-      $cards.each(function collectPrice() {
+    const cardSelector = `div div.card${isManufacturersPage ? '' : '.product'}`;
+    cy.wait(1000)
+      .get(cardSelector)
+      .as('productCards')
+      .should('be.visible')
+      .then($cards => {
+        $cards.each(function collectPrice() {
+          const price = getFullPriceFromCard(this);
+          oldPrices.push(price);
+        });
+      });
+    cy.get(`span[data-uitestid=${dataUiTestId}_Personal]`).click();
+
+    cy.get('@productCards').should($cards => {
+      $cards.each(function checkPrice(index) {
         const price = getFullPriceFromCard(this);
-        oldPrices.push(price);
+        expect(price).to.be.below(oldPrices[index]);
       });
     });
-  cy.get(`span[data-uitestid=${dataUiTstId}_Personal]`).click();
-
-  cy.get('@productCards').should($cards => {
-    $cards.each(function checkPrice(index) {
-      const price = getFullPriceFromCard(this);
-      expect(price).to.be.below(oldPrices[index]);
-    });
-  });
-});
+  },
+);
 
 Cypress.Commands.add(
   'openDetailsPage',

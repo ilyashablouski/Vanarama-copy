@@ -37,7 +37,7 @@ namespace Cypress {
       dataUiTestId: string;
       link: string;
     }) => void;
-    changeLeaseType: (dataUiTestId: string) => void;
+    changeLeaseType: (params: { dataUiTestId: string, isManufacturersPage?: boolean }) => void;
     getAttached: (selector: string) => void;
   }
 }
