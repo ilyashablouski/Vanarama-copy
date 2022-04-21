@@ -33,7 +33,7 @@ const isLocalEnv = process?.env?.LOCAL === 'true';
 
 // Script environments
 const scriptEnvs = {
-  gtm: [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD],
+  gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
   blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
   vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
