@@ -8,6 +8,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 import { PageTypeEnum } from '../../../types/common';
+import { OnOffer } from '../../../../entities/global';
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -24,7 +25,7 @@ const productsVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
       rangeName: 'Berlingo',
@@ -61,7 +62,7 @@ const productsCar = {
   productCarousel: [
     {
       capId: '83615',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Ford',
       derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
       rangeName: 'Focus',
@@ -98,7 +99,7 @@ const productsPickup = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Mitsubishi',
       derivativeName: 'Double Cab DI-D 150 Warrior 4WD',
       rangeName: 'L200',

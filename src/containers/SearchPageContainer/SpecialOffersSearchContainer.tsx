@@ -69,6 +69,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import WhyLeaseWithVanaramaTiles from '../../components/WhyLeaseWithVanaramaTiles';
+import { OnOffer } from '../../../entities/global';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -191,7 +192,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isSpecialOffers || null,
+    isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       try {
         const responseCapIds = getCapsIds(vehicleList?.edges || []);
@@ -241,7 +242,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
       }
       try {
         if (edges?.length === 0 && isSpecialOffers) {
-          setIsSpecialOffers(false);
+          setIsSpecialOffers(OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE);
           return;
         }
         const responseCapIds = getCapsIds(edges || []);
@@ -278,7 +279,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
           isPersonal,
           isSpecialOffersOrder,
           isManualBodyStyle: isPickups,
-          onOffer: true,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           filters,
           query: router.query,
           sortOrder: sortOrder as SortObject[],
@@ -393,7 +394,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
     // don't make a request for cache in manufacture page
     if (lastCard && hasNextPage && shouldUpdateCache) {
       setShouldUpdateCache(false);
-      const isOnOffer = isSpecialOffers || null;
+      const isOnOffer = isSpecialOffers || OnOffer.FILTER_DISABLED;
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {
         getVehicles(
@@ -555,7 +556,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 dataUiTestId={dataUiTestId}
-                isSpecialOffers={isSpecialOffers || null}
+                isSpecialOffers={isSpecialOffers || OnOffer.FILTER_DISABLED}
                 setIsSpecialOffers={setIsSpecialOffers}
                 {...innerProps}
               />

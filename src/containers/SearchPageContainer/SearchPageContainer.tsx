@@ -99,6 +99,7 @@ import RelatedCarousel from '../../components/RelatedCarousel';
 import TermsAndConditions from './sections/TermsAndConditions';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
 import ResultsCount from './components/ResultsCount';
+import { OnOffer } from '../../../entities/global';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -357,7 +358,9 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isRangePage ? null : isSpecialOffers || null,
+    isRangePage
+      ? OnOffer.FILTER_DISABLED
+      : isSpecialOffers || OnOffer.FILTER_DISABLED,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -383,7 +386,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     leaseType,
     isManufacturerPage || isDynamicFilterPage || isSpecialOfferPage
       ? true
-      : isSpecialOffers || null,
+      : isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
       const edges = vehicleList?.edges || [];
@@ -405,7 +408,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
       }
       try {
         if (edges?.length === 0 && isSpecialOffers) {
-          setIsSpecialOffers(false);
+          setIsSpecialOffers(OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE);
           return;
         }
         const responseCapIds = getCapsIds(edges || []);
@@ -655,7 +658,7 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
     ) {
       setShouldUpdateCache(false);
       const onOffer = !(isRangePage || isModelPage || isDynamicFilterPage)
-        ? isSpecialOffers || null
+        ? isSpecialOffers || OnOffer.FILTER_DISABLED
         : null;
 
       if (isPreviousPage(router.query) && isBrowser() && !called) {

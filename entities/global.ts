@@ -18,3 +18,9 @@ export enum FuelTypeEnum {
 export enum CurrencyCodeEnum {
   GBP = 'GBP',
 }
+
+export const OnOffer = {
+  FILTER_ENABLED_AND_SET_TO_TRUE: true,
+  FILTER_ENABLED_AND_SET_TO_FALSE: false,
+  FILTER_DISABLED: null,
+};

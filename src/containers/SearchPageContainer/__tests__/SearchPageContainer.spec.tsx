@@ -14,6 +14,7 @@ import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import { SearchPageTypes } from '../interfaces';
+import { OnOffer } from '../../../../entities/global';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -87,7 +88,7 @@ const mockData = {
         rangeName: 'rangeName',
         derivativeName: 'derivativeName',
         averageRating: 4.5,
-        isOnOffer: false,
+        isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         offerPosition: 5,
         leadTime: '',
         imageUrl: '',
@@ -194,7 +195,7 @@ let vehicleMockCalled = false;
             node: {
               vehicleType: VehicleTypeEnum.CAR,
               offerRanking: 1,
-              onOffer: true,
+              onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
               derivativeId: '83615',
               capCode: 'FOFO10TN55HPTM  6   ',
               manufacturerName: 'Ford',
@@ -284,7 +285,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
       },
     },
     result: () => {
@@ -304,7 +305,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       },
     },
     result: () => {
@@ -322,7 +323,7 @@ const mocksResponse: MockedResponse[] = [
   //     query: GET_SEARCH_POD_DATA,
   //     variables: {
   //       vehicleTypes: [VehicleTypeEnum.CAR],
-  //       onOffer: null,
+  //       onOffer: OnOffer.FILTER_DISABLED,
   //       manufacturerName:"",
   //       fuelTypes:[],
   //       bodyStyles:[],
@@ -362,7 +363,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],
@@ -404,7 +405,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],
@@ -447,7 +448,7 @@ const mocksResponse: MockedResponse[] = [
   //     query: GET_SEARCH_POD_DATA,
   //     variables: {
   //       vehicleTypes: [VehicleTypeEnum.CAR],
-  //       onOffer: true,
+  //       onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   //       manufacturerName:"",
   //       fuelTypes:[],
   //       bodyStyles:[],
@@ -482,7 +483,7 @@ const mocksResponse: MockedResponse[] = [
             rangeName: 'rangeName',
             derivativeName: 'derivativeName',
             averageRating: 4.5,
-            isOnOffer: false,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
@@ -535,7 +536,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -550,7 +551,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -565,7 +566,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -580,7 +581,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -595,7 +596,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -610,7 +611,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -894,7 +895,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 1,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836151',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',
@@ -930,7 +931,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 2,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836152',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',
@@ -966,7 +967,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 3,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836153',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',
@@ -1002,7 +1003,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 4,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836154',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',
@@ -1038,7 +1039,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 5,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836155',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',
@@ -1074,7 +1075,7 @@ describe('<SearchPageContainer />', () => {
                 node: {
                   vehicleType: VehicleTypeEnum.CAR,
                   offerRanking: 6,
-                  onOffer: true,
+                  onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                   derivativeId: '836156',
                   capCode: 'FOFO10TN55HPTM  6   ',
                   manufacturerName: 'Ford',

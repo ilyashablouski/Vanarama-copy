@@ -6,6 +6,7 @@ import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import SearchPageFilters from '../../../components/SearchPageFilters';
+import { OnOffer } from '../../../../entities/global';
 
 // ARRANGE
 const resetMocks = () => {
@@ -58,7 +59,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['CAR'],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         bodyStyles: [],
         fuelTypes: [],
       },
@@ -103,7 +104,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['CAR'],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         fuelTypes: ['diesel'],
         bodyStyles: [],
         transmissions: [],

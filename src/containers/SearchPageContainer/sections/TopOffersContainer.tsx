@@ -37,6 +37,7 @@ import VehicleCard from '../../../components/VehicleCard';
 import ModelCard from '../components/ModelCard';
 import { Nullable } from '../../../types/common';
 import { SearchPageTypes } from '../interfaces';
+import { OnOffer } from '../../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -170,7 +171,7 @@ const TopOffersContainer: React.FC<IProps> = ({
           leaseType: isPersonal
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
-          onOffer: true,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },
           ],

@@ -37,6 +37,7 @@ import { useManufacturerList } from './gql';
 import { removeSessionStorageItem } from '../../utils/windowSessionStorage';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import { OnOffer } from '../../../entities/global';
 
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
@@ -251,7 +252,7 @@ const AllManufacturersSearchContainer: FC<ISearchPageContainerProps> = ({
                 isPartnershipActive={isPartnershipActive}
                 setSearchFilters={setFiltersData}
                 dataUiTestId={dataUiTestId}
-                isSpecialOffers={isSpecialOffers || null}
+                isSpecialOffers={isSpecialOffers || OnOffer.FILTER_DISABLED}
                 setIsSpecialOffers={setIsSpecialOffers}
                 {...innerProps}
               />

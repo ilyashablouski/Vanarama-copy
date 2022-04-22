@@ -1,4 +1,5 @@
 import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
+import { OnOffer } from '../../../../entities/global';
 
 export const hotOfferColorList = [
   {
@@ -7,7 +8,7 @@ export const hotOfferColorList = [
     lqName: 'Hot White (K8J2)',
     hex: 'ffffff',
     matchAccuracy: 1,
-    onOffer: true,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   },
   {
     capId: 151235,
@@ -15,7 +16,7 @@ export const hotOfferColorList = [
     lqName: 'Hot Orange (K8J2)',
     hex: 'ec6409',
     matchAccuracy: 1,
-    onOffer: true,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   },
   {
     capId: 122994,
@@ -23,7 +24,7 @@ export const hotOfferColorList = [
     lqName: 'Hot Yellow (K8J2)',
     hex: 'f8bb20',
     matchAccuracy: 1,
-    onOffer: true,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   },
 ] as IColour[];
 
@@ -34,7 +35,7 @@ export const factoryColorList = [
     lqName: 'Factory Blue (K8J2)',
     hex: '678098',
     matchAccuracy: 1,
-    onOffer: false,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
   },
   {
     capId: 72500,
@@ -42,7 +43,7 @@ export const factoryColorList = [
     lqName: 'Factory Gray (K8J2)',
     hex: '44576a',
     matchAccuracy: 1,
-    onOffer: false,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
   },
   {
     capId: 72497,
@@ -50,7 +51,7 @@ export const factoryColorList = [
     lqName: 'Factory Red (K8J2)',
     hex: 'be2727',
     matchAccuracy: 1,
-    onOffer: false,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
   },
   {
     capId: 164510,
@@ -58,7 +59,7 @@ export const factoryColorList = [
     lqName: 'Factory Green (K8J2)',
     hex: '5eac35',
     matchAccuracy: 1,
-    onOffer: false,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
   },
   {
     capId: 138304,
@@ -66,6 +67,6 @@ export const factoryColorList = [
     lqName: 'Factory Black (K8J2)',
     hex: '0a0d10',
     matchAccuracy: 1,
-    onOffer: false,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
   },
 ] as IColour[];

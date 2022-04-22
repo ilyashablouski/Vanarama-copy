@@ -10,6 +10,7 @@ import {
 import createApolloClient from '../../../apolloClient';
 
 import ProductCarousel from '../ProductCarousel';
+import { OnOffer } from '../../../../entities/global';
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -23,7 +24,7 @@ const client = createApolloClient({});
 const PRODUCT_CARDS = [
   {
     capId: '44514',
-    isOnOffer: true,
+    isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
     manufacturerName: 'Citroen',
     derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
     rangeName: 'Berlingo',
