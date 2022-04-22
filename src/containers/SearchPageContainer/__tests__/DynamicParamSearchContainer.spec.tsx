@@ -9,6 +9,7 @@ import {
 import { getRangesList, useVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import DynamicParamSearchContainer from '../DynamicParamSearchContainer';
+import { OnOffer } from '../../../../entities/global';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -138,7 +139,7 @@ const edges = [
         'ds-car-leasing/ds-3/crossback-hatchback/1-2-puretech-130-performance-line-5dr-eat8-171190.html',
       vehicleType: VehicleTypeEnum.CAR,
       offerRanking: 38,
-      onOffer: true,
+      onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       derivativeId: '96003',
       capCode: 'DS3C12PI35HPTA      ',
       manufacturerName: 'DS',
@@ -169,7 +170,7 @@ const edges = [
         'volkswagen-car-leasing/id4/id4-electric-estate/109kw-life-pure-52kwh-5dr-auto-174283.html',
       vehicleType: VehicleTypeEnum.CAR,
       offerRanking: 41,
-      onOffer: true,
+      onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       derivativeId: '98046',
       capCode: 'VWI400LPU5EE A      ',
       manufacturerName: 'Volkswagen',
@@ -216,7 +217,7 @@ const preLoadCardsData = {
       modelName: 'DS 3 Crossback',
       derivativeName: '1.2 PureTech 130 Performance Line + 5dr EAT8',
       averageRating: 5,
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       offerPosition: 38,
       leadTime: '4-6 Week Delivery',
       imageUrl:
@@ -251,7 +252,7 @@ const preLoadCardsData = {
       modelName: 'Id.4 Electric Estate',
       derivativeName: '109kW Life Pure 52kWh 5dr Auto',
       averageRating: 0,
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       offerPosition: 41,
       leadTime: '8-10 Month Delivery',
       imageUrl:
@@ -364,7 +365,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         fuelTypes: [],
         bodyStyles: [],
       },

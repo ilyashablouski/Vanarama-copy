@@ -9,7 +9,7 @@ import RouterLink from '../../../../components/RouterLink';
 import { LeaseTypeEnum } from '../../../../../generated/globalTypes';
 import truncateString from '../../../../utils/truncateString';
 import { AVAILABILITY_LABELS } from '../../../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
-import { FuelTypeEnum } from '../../../../../entities/global';
+import { FuelTypeEnum, OnOffer } from '../../../../../entities/global';
 
 const Price = dynamic(() => import('core/atoms/price'));
 
@@ -89,7 +89,7 @@ const BlogCarouselCard: FC<IProps> = props => {
 
   const extras = createExtras(
     AVAILABILITY_LABELS[availability ?? ''],
-    onOffer || false,
+    onOffer || OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
     fuelType || '',
   );
   const title = {

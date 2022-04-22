@@ -63,6 +63,7 @@ import {
 import { decodeData, encodeData } from '../../../utils/data';
 import { Nullable } from '../../../types/common';
 import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
+import { OnOffer } from '../../../../entities/global';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -244,7 +245,7 @@ export async function getServerSideProps(
             variables: {
               vehicleTypes: [VehicleTypeEnum.LCV],
               leaseType: LeaseTypeEnum.BUSINESS,
-              onOffer: null,
+              onOffer: OnOffer.FILTER_DISABLED,
               first: RESULTS_PER_REQUEST,
               sort: defaultSort,
               ...filter,
@@ -303,7 +304,7 @@ export async function getServerSideProps(
     >({
       query: GET_SEARCH_POD_DATA,
       variables: {
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         vehicleTypes: [VehicleTypeEnum.LCV],
         ...filter,
       },
@@ -315,7 +316,7 @@ export async function getServerSideProps(
         variables: {
           vehicleTypes: [VehicleTypeEnum.LCV],
           leaseType: LeaseTypeEnum.BUSINESS,
-          onOffer: true,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           first: pageType.isManufacturerPage ? 6 : 9,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },

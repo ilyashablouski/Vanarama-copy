@@ -36,6 +36,7 @@ import {
 } from '../containers/GlobalSearchContainer/gql';
 import { ICarouselCard } from '../components/BlogCarousel/interface';
 import { IManufacturersSlug } from '../types/manufacturerSlug';
+import { OnOffer } from '../../entities/global';
 
 const MAX_VEHICLE_LIST_QUERY_RUN = 4;
 
@@ -491,7 +492,8 @@ export const vehicleCarouselRequest = async (
       return {
         ...(vehicleData as productDerivatives_productDerivatives_derivatives),
         rental: vehicleCard?.personalRate ?? null,
-        onOffer: vehicleCard?.isOnOffer ?? false,
+        onOffer:
+          vehicleCard?.isOnOffer ?? OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         imageUrl: vehicleCard?.imageUrl || '',
         averageRating: vehicleCard?.averageRating || undefined,
       };

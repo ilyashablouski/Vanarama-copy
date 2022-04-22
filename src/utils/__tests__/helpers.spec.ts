@@ -12,6 +12,7 @@ import {
   sortByHotOffer,
 } from '../helpers';
 import { arraysAreEqual } from '../array';
+import { OnOffer } from '../../../entities/global';
 
 describe('arraysAreEqual', () => {
   it('should order by sortByKey argument and compare 2 array of objects, to check they are equal', () => {
@@ -313,7 +314,7 @@ describe('getVehicleConfigId', () => {
         businessRate: 183.88,
         derivativeName: '1.0 TSI 110 Design 5dr',
         imageUrl: 'image.jpg',
-        isOnOffer: true,
+        isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         keyInformation: [],
         leadTime: '14-21 Day Delivery',
         manufacturerName: 'Volkswagen',

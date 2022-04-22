@@ -1,4 +1,5 @@
 import { IVehicle } from '../../../../utils/comparatorHelpers';
+import { OnOffer } from '../../../../../entities/global';
 
 const vehiclesMock = [
   {
@@ -22,7 +23,7 @@ const vehiclesMock = [
     businessRate: 132.95,
     personalRate: 159.95,
     offerPosition: 2,
-    isOnOffer: true,
+    isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
     keyInformation: [],
     vehicleType: 'CAR',
   },
@@ -35,7 +36,7 @@ const vehiclesMock = [
       capId: '12345',
     },
     bodyStyle: 'Hatchback',
-    isOnOffer: true,
+    isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
     freeInsurance: true,
     capId: '12345',
     manufacturerName: 'Ford',

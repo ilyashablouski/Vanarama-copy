@@ -5,6 +5,7 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getRangesList, useVehiclesList } from '../gql';
 import RangeSearchContainer from '../RangeSeacrhContainer';
+import { OnOffer } from '../../../../entities/global';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -108,7 +109,7 @@ const list = {
         manufacturerName: 'BMW',
         modelName: '3 Series Saloon',
         offerRanking: 999999999,
-        onOffer: false,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         transmission: 'Automatic',
         url:
           'car-leasing/bmw/3-series/saloon/320i-xdrive-se-pro-4-doors-step-auto-2019',
@@ -129,7 +130,7 @@ const list = {
         manufacturerName: 'BMW',
         modelName: '3 Series Touring',
         offerRanking: 999999999,
-        onOffer: false,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         transmission: 'Automatic',
         url:
           'car-leasing/bmw/3-series/touring/318d-mht-se-pro-5-doors-step-auto-2019',
@@ -150,7 +151,7 @@ const list = {
         manufacturerName: 'BMW',
         modelName: '3 Series Saloon',
         offerRanking: 999999999,
-        onOffer: false,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         transmission: 'Automatic',
         url:
           'car-leasing/bmw/3-series/saloon/320d-mht-se-pro-4-doors-step-auto-2019',

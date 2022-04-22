@@ -7,6 +7,7 @@ import { useVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import SpecialOffersSearchContainer from '../SpecialOffersSearchContainer';
+import { OnOffer } from '../../../../entities/global';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -80,7 +81,7 @@ const mockData = {
         rangeName: 'rangeName',
         derivativeName: 'derivativeName',
         averageRating: 4.5,
-        isOnOffer: true,
+        isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         offerPosition: 5,
         leadTime: '',
         imageUrl: '',
@@ -189,7 +190,7 @@ let filterMockCalled = false;
             node: {
               vehicleType: VehicleTypeEnum.CAR,
               offerRanking: 1,
-              onOffer: true,
+              onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
               derivativeId: '83615',
               capCode: 'FOFO10TN55HPTM  6   ',
               manufacturerName: 'Ford',
@@ -232,7 +233,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         bodyStyles: [],
         fuelTypes: [],
       },
@@ -252,7 +253,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],
@@ -294,7 +295,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],
@@ -350,7 +351,7 @@ const mocksResponse: MockedResponse[] = [
             rangeName: 'rangeName',
             derivativeName: 'derivativeName',
             averageRating: 4.5,
-            isOnOffer: false,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
@@ -403,7 +404,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -418,7 +419,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -433,7 +434,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -448,7 +449,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -463,7 +464,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',
@@ -478,7 +479,7 @@ const mocksResponse: MockedResponse[] = [
               rangeName: 'rangeName',
               derivativeName: 'derivativeName',
               averageRating: 4.5,
-              isOnOffer: false,
+              isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               offerPosition: 5,
               leadTime: '',
               imageUrl: '',

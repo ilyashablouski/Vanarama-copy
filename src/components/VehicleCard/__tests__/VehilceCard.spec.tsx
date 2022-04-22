@@ -8,6 +8,7 @@ import createApolloClient from '../../../apolloClient';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 import VehicleCard from '../VehicleCard';
+import { OnOffer } from '../../../../entities/global';
 
 describe('<VehicleCard />', () => {
   beforeEach(async () => {
@@ -36,7 +37,7 @@ describe('<VehicleCard />', () => {
         derivativeName: '1.2 [83] Elite Nav 5dr',
         imageUrl:
           'https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg',
-        isOnOffer: false,
+        isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         keyInformation: [{ name: 'Transmission', value: 'Manual' }],
         leadTime: 'Factory Order',
         manufacturerName: 'Vauxhall',

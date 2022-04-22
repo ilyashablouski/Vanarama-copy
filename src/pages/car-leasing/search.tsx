@@ -37,6 +37,7 @@ import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
 import { pushPageData } from '../../utils/dataLayerHelpers';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../utils/pageTypes';
+import { OnOffer } from '../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -116,7 +117,7 @@ export async function getServerSideProps(
               cookieString,
               'customSessionFuelTypes',
             ),
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: [
               {

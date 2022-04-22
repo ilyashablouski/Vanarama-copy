@@ -5,6 +5,7 @@ import {
   VehicleListTotalCountVariables,
 } from '../../generated/VehicleListTotalCount';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { OnOffer } from '../../entities/global';
 
 export const GET_VEHICLE_LIST_TOTAL_COUNT = gql`
   query VehicleListTotalCount(
@@ -34,7 +35,7 @@ export function useVehiclesTotalCount(
       variables: {
         vehicleTypes: [type],
         bodyStyles: bodyStyles || [],
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       },
     },
   );

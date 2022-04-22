@@ -32,6 +32,7 @@ import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
 import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
+import { OnOffer } from '../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -91,7 +92,7 @@ export async function getServerSideProps(
           variables: {
             vehicleTypes: [VehicleTypeEnum.LCV],
             leaseType: LeaseTypeEnum.BUSINESS,
-            onOffer: true,
+            onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
             first: RESULTS_PER_REQUEST,
             sort: [
               { field: SortField.offerRanking, direction: SortDirection.ASC },
