@@ -14,6 +14,7 @@ import { ProductCardData } from '../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
+import { OnOffer } from '../../../entities/global';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -460,7 +461,7 @@ const mocked: MockedResponse[] = [
         productCarousel: [
           {
             capId: '44514',
-            isOnOffer: true,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
             manufacturerName: 'Citroen',
             derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
             rangeName: 'Berlingo',
@@ -509,7 +510,7 @@ const mocked: MockedResponse[] = [
         productCarousel: [
           {
             capId: '83615',
-            isOnOffer: true,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
             manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
             rangeName: 'Focus',
@@ -559,7 +560,7 @@ const mocked: MockedResponse[] = [
         productCarousel: [
           {
             capId: '44514',
-            isOnOffer: true,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
             manufacturerName: 'Citroen',
             derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
             rangeName: 'Berlingo',
@@ -647,7 +648,7 @@ describe('<HomePage />', () => {
       productCarousel: [
         {
           capId: '44514',
-          isOnOffer: true,
+          isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           manufacturerName: 'Citroen',
           derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
           rangeName: 'Berlingo',
@@ -684,7 +685,7 @@ describe('<HomePage />', () => {
       productCarousel: [
         {
           capId: '83615',
-          isOnOffer: true,
+          isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           manufacturerName: 'Ford',
           derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
           rangeName: 'Focus',
@@ -721,7 +722,7 @@ describe('<HomePage />', () => {
       productCarousel: [
         {
           capId: '44514',
-          isOnOffer: true,
+          isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           manufacturerName: 'Mitsubishi',
           derivativeName: 'Double Cab DI-D 150 Warrior 4WD',
           rangeName: 'L200',

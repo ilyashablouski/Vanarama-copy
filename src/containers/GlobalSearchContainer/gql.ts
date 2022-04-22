@@ -40,6 +40,7 @@ import {
   PARTNER_COOKIE_NAME,
 } from '../../utils/partnerProperties';
 import { IGSVehiclesCardsData } from './interfaces';
+import { OnOffer } from '../../../entities/global';
 
 export const PRODUCT_DERIVATIVE = gql`
   fragment productDerivative on ProductDerivative {
@@ -212,7 +213,7 @@ export function useTextSearchList(
         filters: {
           ...filters,
           financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
-          onOffer: onOffer || null,
+          onOffer: onOffer || OnOffer.FILTER_DISABLED,
         },
         sort: sort || DEFAULT_SORT,
       },
@@ -390,7 +391,9 @@ export function useGlobalSearch(query?: string) {
               return {
                 ...vehicleData,
                 rental: vehicleCard?.personalRate ?? null,
-                onOffer: vehicleCard?.isOnOffer ?? false,
+                onOffer:
+                  vehicleCard?.isOnOffer ??
+                  OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
               };
             }),
           };

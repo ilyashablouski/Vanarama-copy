@@ -41,6 +41,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { ISearchPageFiltersProps } from './interfaces';
+import { OnOffer } from '../../../entities/global';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -178,7 +179,7 @@ const SearchPageFilters = ({
         isRangePage ||
         isAllManufacturersPage ||
         isDynamicFilterPage
-          ? null
+          ? OnOffer.FILTER_DISABLED
           : isSpecialOffers,
       ...filtersObject,
     })?.then(resp => {
@@ -316,7 +317,7 @@ const SearchPageFilters = ({
       }
       // check if try to preset values actual only for none special offers search
       if (isSpecialOffers && isValueLose) {
-        setIsSpecialOffers(false);
+        setIsSpecialOffers(OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE);
         setForceFiltersPreset(true);
         return;
       }

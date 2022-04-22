@@ -23,6 +23,7 @@ import { isManufacturerMigrated } from '../../utils/url';
 import { IGSVehiclesCardsData } from '../GlobalSearchContainer/interfaces';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { IManufacturersSlugVehicles } from '../../types/manufacturerSlug';
+import { OnOffer } from '../../../entities/global';
 
 export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   vehicleType: data?.vehicleType as VehicleTypeEnum,
@@ -32,7 +33,7 @@ export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   modelName: data?.modelName || null,
   derivativeName: data?.derivativeName || null,
   averageRating: null,
-  isOnOffer: data?.onOffer || null,
+  isOnOffer: data?.onOffer || OnOffer.FILTER_DISABLED,
   freeInsurance: null,
   offerPosition: data?.offerRanking || null,
   leadTime: AVAILABILITY_LABELS[data?.availability ?? ''],
@@ -128,7 +129,7 @@ export const buildFiltersRequestObject = (
     manufacturerName: undefined,
     rangeName: undefined,
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
-    onOffer: onOffer || null,
+    onOffer: onOffer || OnOffer.FILTER_DISABLED,
     mpgGroup: filters.mpgGroup?.[0],
     co2Group: filters.co2Group?.[0],
     enginePowerBhp:

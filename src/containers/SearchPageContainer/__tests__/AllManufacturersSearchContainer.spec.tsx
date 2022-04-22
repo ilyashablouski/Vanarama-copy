@@ -6,6 +6,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { GET_ALL_MANUFACTURERS_PAGE, useManufacturerList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import AllManufacturersSearchContainer from '../AllManufacturersSearchContainer';
+import { OnOffer } from '../../../../entities/global';
 
 const metaData = {
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
@@ -151,7 +152,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         bodyStyles: [],
         fuelTypes: [],
       },
@@ -173,7 +174,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],
@@ -226,7 +227,7 @@ const mocksResponse: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         fuelTypes: [],
         bodyStyles: [],
         transmissions: ['Automatic'],

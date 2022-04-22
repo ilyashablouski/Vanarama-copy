@@ -8,6 +8,7 @@ import {
 } from '../helpers';
 import { IFiltersData, IProps } from '../interfaces';
 import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../../generated/productDerivatives';
+import { OnOffer } from '../../../../entities/global';
 
 const props = {
   metaData: {
@@ -85,7 +86,7 @@ const props = {
         noOfGears: null,
         noOfSeats: null,
         offerRanking: 1,
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         rangeId: 260,
         rangeName: 'Transit Custom',
         receivedAt: '2021-04-09T00:59:43.184957Z',
@@ -154,7 +155,7 @@ const props = {
         noOfGears: 6,
         noOfSeats: 6,
         offerRanking: 1,
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         rangeId: 40,
         rangeName: 'Transit',
         receivedAt: '2021-05-20T23:31:07.327232Z',
@@ -212,7 +213,7 @@ describe('helpers', () => {
         modelName: 'testModel',
         derivativeName: 'derivativeTest',
         fullPrice: null,
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         offerRanking: 1,
         rental: 164.88,
         availability: 7,
@@ -239,7 +240,7 @@ describe('helpers', () => {
       derivativeName: 'derivativeTest',
       freeInsurance: null,
       imageUrl: '',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       keyInformation: null,
       leadTime: '7-10 Day Delivery',
       manufacturerName: 'Ford',
@@ -265,7 +266,7 @@ describe('helpers', () => {
       },
       manufacturerNames: ['bmw'],
       rangeNames: ['3 series'],
-      onOffer: null,
+      onOffer: OnOffer.FILTER_DISABLED,
       financeTypes: ['BCH'],
     });
   });
@@ -288,7 +289,7 @@ describe('helpers', () => {
       },
       manufacturerNames: ['bmw'],
       rangeNames: ['3 series'],
-      onOffer: true,
+      onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       financeTypes: ['PCH'],
     });
   });
@@ -333,7 +334,7 @@ describe('helpers', () => {
           freeInsurance: false,
           imageUrl:
             'https://images.autorama.co.uk/Photos/Models/9610/alfaromeogiulietta0319(3).jpg',
-          isOnOffer: false,
+          isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
           keyInformation: [
             {
               name: 'Transmission',
@@ -417,7 +418,7 @@ describe('helpers', () => {
           noOfGears: 6,
           noOfSeats: 5,
           offerRanking: 999999999,
-          onOffer: false,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
           rangeId: 266,
           rangeName: 'Giulietta',
           receivedAt: '2022-01-22T03:35:49.889834Z',
@@ -451,7 +452,7 @@ describe('helpers', () => {
             modelName: 'Giulietta Hatchback',
             derivativeName: '1.4 TB Sprint 5 Doors',
             averageRating: 0,
-            isOnOffer: false,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
             freeInsurance: false,
             offerPosition: 999999999,
             leadTime: 'Factory Order',

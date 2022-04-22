@@ -14,6 +14,7 @@ interface ICardIconsProps {
   className?: string;
   icons: TIcon[];
   featuredProduct?: boolean;
+  isPdpPage?: boolean;
   dataUiTestId?: string;
 }
 
@@ -32,6 +33,7 @@ const CardIcons: React.FC<ICardIconsProps> = ({
   icons,
   featuredProduct = false,
   dataUiTestId,
+  isPdpPage,
 }) => (
   <div
     className={cx(
@@ -54,13 +56,13 @@ const CardIcons: React.FC<ICardIconsProps> = ({
       >
         <Icon icon={item.icon} />
         {item.name && (
-          <Text size="xsmall" color="darker">
+          <Text size={isPdpPage ? 'small' : 'xsmall'} color="darker">
             {shortName(item.name)}
           </Text>
         )}
         <Text
-          size="xsmall"
-          color="dark"
+          size={isPdpPage ? 'regular' : 'xsmall'}
+          color={isPdpPage ? 'black' : 'dark'}
           dataUiTestId={
             dataUiTestId
               ? `${dataUiTestId}_card-icon_${item.name ? item.label : 'N/A'}`

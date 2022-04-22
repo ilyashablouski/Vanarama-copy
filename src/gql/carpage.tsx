@@ -53,6 +53,11 @@ export const GET_CAR_DATA = gql`
         name
         value
       }
+      vehicleHighlights {
+        id
+        name
+        value
+      }
       independentReview
       warrantyDetails {
         years

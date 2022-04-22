@@ -13,6 +13,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { PickupsPage } from '../../../pages/pickup-truck-leasing';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 import { PageTypeEnum } from '../../../types/common';
+import { OnOffer } from '../../../../entities/global';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -257,7 +258,7 @@ const productsData = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
       rangeName: 'Berlingo',

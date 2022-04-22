@@ -86,6 +86,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { globalColors } from '../../utils/colors';
 import Skeleton from '../../components/Skeleton';
+import { OnOffer } from '../../../entities/global';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -272,7 +273,9 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isRangePage ? null : isSpecialOffers || null,
+    isRangePage
+      ? OnOffer.FILTER_DISABLED
+      : isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       try {
         const responseCapIds = getCapsIds(vehicleList?.edges || []);
@@ -296,7 +299,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isSpecialOffers || null,
+    isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
       const edges = vehicleList?.edges || [];
@@ -319,7 +322,7 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
       }
       try {
         if (edges?.length === 0 && isSpecialOffers) {
-          setIsSpecialOffers(false);
+          setIsSpecialOffers(OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE);
           return;
         }
         const responseCapIds = getCapsIds(edges || []);

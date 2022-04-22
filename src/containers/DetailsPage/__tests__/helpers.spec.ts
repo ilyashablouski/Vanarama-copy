@@ -19,6 +19,7 @@ import {
 import { PdpBanners } from '../../../models/enum/PdpBanners';
 import { Nullable } from '../../../types/common';
 import { ILeaseScannerData } from '../../CustomiseLeaseContainer/interfaces';
+import { OnOffer } from '../../../../entities/global';
 
 const capId = '93456';
 
@@ -83,7 +84,7 @@ const productDetails = (): GetVehicleDetails => ({
     capDerivativeDescription: '1.0 TSI 110 Design 5 Doors',
     capPaintDescription: 'Metallic - Ravenna blue',
     capTrimDescription: 'Tracks 4 cloth - Black Oak /Ceramique',
-    onOffer: true,
+    onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
     offerRanking: 1,
     url:
       'car-leasing/volkswagen/t-roc/hatchback/10-tsi-110-design-5-doors-2017',
@@ -103,6 +104,7 @@ const productDetails = (): GetVehicleDetails => ({
     upfronts: [],
   },
   vehicleDetails: {
+    vehicleHighlights: [],
     freeInsurance: true,
     averageRating: 4.7,
     brochureUrl:
@@ -271,7 +273,7 @@ const wishlistProduct: IWishlistProduct = {
   derivativeName: '1.0 TSI 110 Design 5 Doors',
   rangeName: 'T-Roc',
   offerPosition: 1,
-  isOnOffer: true,
+  isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   freeInsurance: true,
 };
 

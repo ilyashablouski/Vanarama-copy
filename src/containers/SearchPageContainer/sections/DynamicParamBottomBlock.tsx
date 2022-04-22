@@ -68,12 +68,14 @@ const DynamicParamBottomBlock = ({
     }, [] as number[] | []);
   }, [features]);
   const separatedFeatures = useMemo(() => {
-    return titleFeaturedIndexes?.map((featuredIndex, index) => {
-      if (index === titleFeaturedIndexes.length - 1) {
-        return features?.slice(featuredIndex);
-      }
-      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
-    });
+    return titleFeaturedIndexes?.map(
+      (featuredIndex: number | undefined, index: number) => {
+        if (index === titleFeaturedIndexes.length - 1) {
+          return features?.slice(featuredIndex);
+        }
+        return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
+      },
+    );
   }, [titleFeaturedIndexes]);
   const carousel: CarouselData = useMemo(
     () =>

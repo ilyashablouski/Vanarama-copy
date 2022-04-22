@@ -8,6 +8,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { PageTypeEnum } from '../../../types/common';
 import { IManufacturersSlug } from '../../../types/manufacturerSlug';
 import createApolloClient from '../../../apolloClient';
+import { OnOffer } from '../../../../entities/global';
 
 const data = {
   genericPage: {
@@ -407,7 +408,7 @@ const productsCar = {
       freeInsurance: true,
       imageUrl:
         'https://images.autorama.co.uk/Photos/Vehicles/171951/hyundaitucson0421(4).jpg',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       keyInformation: [
         {
           name: 'Transmission',
