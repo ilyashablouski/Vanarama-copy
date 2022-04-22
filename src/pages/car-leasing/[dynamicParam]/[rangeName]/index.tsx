@@ -242,7 +242,7 @@ export async function getServerSideProps(
             resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
               const formattedUrl = formatUrl(
                 `car-leasing/${manufacturerName}/${rangeName}/${
-                  listItem.bodyStyle === '4X4/SUV'
+                  listItem.bodyStyle?.toUpperCase() === '4X4/SUV'
                     ? '4x4-suv'
                     : listItem.bodyStyle
                 }`,
