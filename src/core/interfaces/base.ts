@@ -14,4 +14,8 @@ export interface IBaseProps {
    * The attribute to add to the root node for automation testing
    */
   dataUiTestId?: string;
+  /**
+   * The attribute for select element by third party scripts
+   */
+  dataSelectorId?: string;
 }

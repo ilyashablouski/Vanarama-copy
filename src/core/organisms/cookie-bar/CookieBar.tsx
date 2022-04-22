@@ -79,6 +79,7 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
         </Text>
         <Button
           dataUiTestId="cookieBar-decline-button"
+          dataSelectorId="cookieBar-decline-button"
           fill="outline"
           color="primary"
           label="Don't Accept"
@@ -87,6 +88,7 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
         />
         <Button
           dataUiTestId="cookieBar-accept-button"
+          dataSelectorId="cookieBar-accept-button"
           fill="solid"
           color="primary"
           label="Accept All"
