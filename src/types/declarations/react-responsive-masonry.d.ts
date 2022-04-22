@@ -7,7 +7,7 @@ declare module 'react-responsive-masonry' {
 
   interface MasonryPropTypes {
     columnsCount: number;
-    gutter: number;
+    gutter: string;
   }
 
   export const ResponsiveMasonry: React.FC<ResponsiveMasonryPropTypes>;

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useForm, FormContext } from 'react-hook-form';
+import Checkbox from 'core/atoms/checkbox';
 import TextInput from 'core/atoms/textinput';
 import Select from 'core/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
@@ -11,6 +12,7 @@ import {
   phoneNumberValidator,
   annualValidator,
   requiredTextFieldValidator,
+  vehicleRegistrationNumberValidator,
 } from '../../utils/inputValidators';
 import {
   ISoleTraderCompanyDetailsFormValues,
@@ -260,6 +262,48 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           />
         </Formgroup>
       </Formgroup>
+      <Formgroup className="-mt-500">
+        <Checkbox
+          dataTestId="sole-trader-company-details_existing-vehicle"
+          id="existing-vehicle"
+          name="existingVehicle"
+          label="Will this replace vehicle finance you have currently?"
+          ref={register}
+          defaultChecked={!!defaultValues?.monthlyAmountBeingReplaced}
+        />
+      </Formgroup>
+
+      {existingVehicle && (
+        <>
+          <Formgroup
+            controlId="vehicleRegistrationNumber"
+            hint="Vehicle Registration Number"
+            error={errors.vehicleRegistrationNumber?.message?.toString()}
+          >
+            <TextInput
+              dataTestId="sole-trader-company-details_vehicle-egistration-number"
+              id="vehicle-registration-number"
+              name="vehicleRegistrationNumber"
+              ref={register(vehicleRegistrationNumberValidator)}
+            />
+          </Formgroup>
+          <Formgroup
+            controlId="monthlyAmountBeingReplaced"
+            hint="Your Current Monthly Finance Payment"
+            error={errors.monthlyAmountBeingReplaced?.message?.toString()}
+          >
+            <TextInput
+              prefix="£"
+              dataTestId="sole-trader-company-details_monthly-amount-being-replaced"
+              id="monthly-amount-being-replaced"
+              name="monthlyAmountBeingReplaced"
+              ref={register(
+                annualValidator('Please fill in monthly amount being replaced'),
+              )}
+            />
+          </Formgroup>
+        </>
+      )}
 
       <Button
         color="primary"
