@@ -1,5 +1,6 @@
 // import Cookies from 'js-cookie';
 import React, { FC, memo } from 'react';
+import Script from 'next/script';
 
 const DataLayer: FC = () => {
   const code = `
@@ -25,8 +26,9 @@ const DataLayer: FC = () => {
   `;
 
   return process.env.GTM_ID ? (
-    <script
+    <Script
       type="text/javascript"
+      strategy="beforeInteractive"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: code,

@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react';
+import Script from 'next/script';
 
 const VWOScript: FC = () => {
   const code = `window._vwo_code = window._vwo_code || (function(){
@@ -19,8 +20,9 @@ const VWOScript: FC = () => {
   );
 
   return (
-    <script
+    <Script
       // eslint-disable-next-line react/no-danger
+      strategy="lazyOnload"
       dangerouslySetInnerHTML={{
         __html: codeWithCustomAtribute,
       }}

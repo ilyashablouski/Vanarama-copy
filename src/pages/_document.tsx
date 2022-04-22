@@ -1,4 +1,5 @@
 import Document, { Html, Main, Head } from 'next/document';
+import Script from 'next/script';
 import dynamic from 'next/dynamic';
 
 import React from 'react';
@@ -45,9 +46,9 @@ class MyDocument extends Document {
         <Head>
           <link rel="preconnect" href="https://g562.vanarama.com" />
           {scriptEnvs.blueconic.includes(env) && (
-            <script
-              async
+            <Script
               data-cfasync="false"
+              strategy="beforeInteractive"
               src="https://g562.vanarama.com/script.js"
             />
           )}
@@ -60,7 +61,11 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <script async data-cfasync="false" src="/scripts/global.js" />
+          <Script
+            strategy="afterInteractive"
+            data-cfasync="false"
+            src="/scripts/global.js"
+          />
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           <NextScript />
           {scriptEnvs.gtm.includes(env) && (

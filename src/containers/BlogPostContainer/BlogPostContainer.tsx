@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import Script from 'next/script';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
@@ -241,7 +242,10 @@ const BlogPostContainer: NextPage<IProps> = ({
           )}
         </>
       )}
-      <script async src="https://www.riddle.com/files/js/embed.js" />
+      <Script
+        strategy="afterInteractive"
+        src="https://www.riddle.com/files/js/embed.js"
+      />
     </>
   );
 };
