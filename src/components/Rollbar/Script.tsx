@@ -1,9 +1,10 @@
 import React, { FC, memo } from 'react';
 import getConfig from 'next/config';
+import Script from 'next/script';
 
 const { publicRuntimeConfig } = getConfig();
 
-const Script: FC = () => {
+const RollbarScript: FC = () => {
   const code = `
     var _rollbarConfig = {
       accessToken: "${publicRuntimeConfig.rollbarClientToken}",
@@ -20,7 +21,8 @@ const Script: FC = () => {
   `;
 
   return publicRuntimeConfig.rollbarClientToken ? (
-    <script
+    <Script
+      strategy="lazyOnload"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: code,
@@ -29,6 +31,6 @@ const Script: FC = () => {
   ) : null;
 };
 
-Script.displayName = 'RollbarScript';
+RollbarScript.displayName = 'RollbarScript';
 
-export default memo(Script);
+export default memo(RollbarScript);
