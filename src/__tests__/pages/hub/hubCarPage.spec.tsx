@@ -12,6 +12,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { CarsPage } from '../../../pages/car-leasing';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { OnOffer } from '../../../../entities/global';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -197,7 +198,7 @@ const productsCar = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Ford',
       derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
       rangeName: 'Focus',

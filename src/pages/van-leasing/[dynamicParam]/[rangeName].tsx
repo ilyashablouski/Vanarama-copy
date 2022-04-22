@@ -46,6 +46,7 @@ import { getManufacturerJson } from '../../../utils/url';
 import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
+import { OnOffer } from '../../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -170,7 +171,7 @@ export async function getServerSideProps(
           variables: {
             vehicleTypes: [VehicleTypeEnum.LCV],
             leaseType: LeaseTypeEnum.BUSINESS,
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: (context?.query
@@ -200,7 +201,7 @@ export async function getServerSideProps(
     >({
       query: GET_SEARCH_POD_DATA,
       variables: {
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         vehicleTypes: [VehicleTypeEnum.LCV],
         manufacturerSlug: (context?.query
           ?.dynamicParam as string).toLowerCase(),
@@ -213,7 +214,7 @@ export async function getServerSideProps(
         variables: {
           vehicleTypes: [VehicleTypeEnum.LCV],
           leaseType: LeaseTypeEnum.PERSONAL,
-          onOffer: true,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           first: 9,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },

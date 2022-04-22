@@ -39,6 +39,7 @@ import {
 } from '../../utils/partnerProperties';
 import { SearchPageTypes } from './interfaces';
 import { Nullish } from '../../types/common';
+import { OnOffer } from '../../../entities/global';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -850,7 +851,7 @@ export const isOnOffer = (
   if (isRangePage || isModelPage || isDynamicFilterPage) {
     return null;
   }
-  return isSpecialOffers || null;
+  return isSpecialOffers || OnOffer.FILTER_DISABLED;
 };
 
 export const createFetchMoreOptions = (

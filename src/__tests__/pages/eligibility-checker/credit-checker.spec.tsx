@@ -7,6 +7,7 @@ import { useProductCard } from '../../../gql/productCard';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { OnOffer } from '../../../../entities/global';
 
 jest.mock('../../../gql/productCard');
 jest.mock('../../../containers/OrdersInformation/gql');
@@ -38,7 +39,7 @@ describe('<CreditChecker />', () => {
         productCarousel: [
           {
             capId: '83615',
-            isOnOffer: true,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
             manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
             rangeName: 'Focus',

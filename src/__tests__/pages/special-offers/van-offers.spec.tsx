@@ -7,6 +7,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { VanOffers } from '../../../pages/van-leasing/special-offers';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
+import { OnOffer } from '../../../../entities/global';
 
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
@@ -88,7 +89,7 @@ const productsSmallVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Volkswagen',
       derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
       rangeName: 'Transporter',
@@ -125,7 +126,7 @@ const productsMediumVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
       rangeName: 'Berlingo',
@@ -162,7 +163,7 @@ const productsLargeVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
       rangeName: 'Relay',
@@ -199,7 +200,7 @@ const productsPickup = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
       rangeName: 'Relay',
@@ -235,7 +236,7 @@ const productsSpecialist = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
       rangeName: 'Relay',
@@ -271,7 +272,7 @@ const productsDropside = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
       rangeName: 'Relay',

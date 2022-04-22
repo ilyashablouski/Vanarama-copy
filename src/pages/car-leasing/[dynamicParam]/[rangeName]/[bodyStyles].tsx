@@ -45,6 +45,7 @@ import { decodeData, encodeData } from '../../../../utils/data';
 import { Nullable } from '../../../../types/common';
 import { getManufacturerJson } from '../../../../utils/url';
 import { SearchPageTypes } from '../../../../containers/SearchPageContainer/interfaces';
+import { OnOffer } from '../../../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -144,7 +145,7 @@ export async function getServerSideProps(
     >({
       query: GET_SEARCH_POD_DATA,
       variables: {
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         vehicleTypes: [VehicleTypeEnum.CAR],
         manufacturerSlug: (query?.dynamicParam as string).toLowerCase(),
         rangeSlug: (query?.rangeName as string).toLowerCase(),
@@ -173,7 +174,7 @@ export async function getServerSideProps(
           variables: {
             vehicleTypes: [VehicleTypeEnum.CAR],
             leaseType: LeaseTypeEnum.PERSONAL,
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: (context?.query

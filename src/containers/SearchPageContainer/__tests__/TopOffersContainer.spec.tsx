@@ -13,6 +13,7 @@ import {
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { GetProductCard_productCard as IProductCard } from '../../../../generated/GetProductCard';
 import { SearchPageTypes } from '../interfaces';
+import { OnOffer } from '../../../../entities/global';
 
 const mockData = {
   loading: false,
@@ -25,7 +26,7 @@ const mockData = {
         rangeName: 'rangeName',
         derivativeName: 'derivativeName',
         averageRating: 4.5,
-        isOnOffer: false,
+        isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
         offerPosition: 5,
         leadTime: '',
         imageUrl: '',
@@ -78,7 +79,7 @@ const mocksResponse: MockedResponse[] = [
       variables: {
         bodyStyles: [],
         first: 3,
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         vehicleTypes: [VehicleTypeEnum.CAR],
       },
@@ -99,7 +100,7 @@ const mocksResponse: MockedResponse[] = [
               node: {
                 vehicleType: 'CAR',
                 offerRanking: 25,
-                onOffer: true,
+                onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                 derivativeId: '68051',
                 capCode: 'BM4S20MP15HDTA      ',
                 manufacturerName: 'BMW',
@@ -127,7 +128,7 @@ const mocksResponse: MockedResponse[] = [
               node: {
                 vehicleType: 'CAR',
                 offerRanking: 32,
-                onOffer: true,
+                onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                 derivativeId: '68051',
                 capCode: 'BM2S15MPN2CPTA  1   ',
                 manufacturerName: 'BMW',
@@ -163,7 +164,7 @@ const mocksResponse: MockedResponse[] = [
               node: {
                 vehicleType: 'CAR',
                 offerRanking: 38,
-                onOffer: true,
+                onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                 derivativeId: '68051',
                 capCode: 'BM2S15MPN2VPTA  1   ',
                 manufacturerName: 'BMW',
@@ -217,7 +218,7 @@ const mocksResponse: MockedResponse[] = [
             rangeName: 'rangeName',
             derivativeName: 'derivativeName',
             averageRating: 4.5,
-            isOnOffer: false,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
@@ -265,7 +266,7 @@ describe('<TopOffersContainer />', () => {
             rangeName: 'rangeName',
             derivativeName: 'derivativeName',
             averageRating: 4.5,
-            isOnOffer: false,
+            isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE,
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
@@ -321,7 +322,7 @@ describe('<TopOffersContainer />', () => {
                 legacyUrl: null,
                 vehicleType: VehicleTypeEnum.LCV,
                 offerRanking: 1,
-                onOffer: true,
+                onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
                 derivativeId: '44514',
                 capCode: 'CIBE156E71VDTM2 4  L',
                 manufacturerName: 'Citroen',

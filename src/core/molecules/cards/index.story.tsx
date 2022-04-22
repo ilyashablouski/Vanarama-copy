@@ -25,6 +25,7 @@ import BlogCarouselCard from './BlogCarouselCard/BlogCarouselCard';
 
 import placeholderImage from '../../assets/images/vehicle_image_placeholder.png';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import { OnOffer } from '../../../../entities/global';
 
 const FEATURES = [
   {
@@ -599,7 +600,7 @@ storiesOf(`${atomicDir(base)}/Card`, module)
       cardIndex: 1,
       cardData: {
         url: 'url',
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         capId: '12345',
         availability: 5,
         rental: 242.95,

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const { GraphQLClient, gql } = require('graphql-request');
+const { OnOffer } = require('../../generated/globalTypes');
 
 require('dotenv').config();
 
@@ -44,7 +45,7 @@ const query = gql`
 
 const variables = {
   vehicleTypes: ['CAR'],
-  onOffer: null,
+  onOffer: OnOffer.FILTER_DISABLED,
   manufacturerSlug: 'audi',
   rangeSlug: 'a4',
   bodyStyles: ['Estate'],
