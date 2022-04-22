@@ -45,6 +45,12 @@ export interface GetVehicleDetails_vehicleDetails_keyInformation {
   value: string | null;
 }
 
+export interface GetVehicleDetails_vehicleDetails_vehicleHighlights {
+  id: string | null;
+  name: string | null;
+  value: string | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails_warrantyDetails {
   years: number | null;
   mileage: number | null;
@@ -74,6 +80,7 @@ export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
   keyInformation: (GetVehicleDetails_vehicleDetails_keyInformation | null)[] | null;
+  vehicleHighlights: (GetVehicleDetails_vehicleDetails_vehicleHighlights | null)[] | null;
   independentReview: string | null;
   warrantyDetails: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
   relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;

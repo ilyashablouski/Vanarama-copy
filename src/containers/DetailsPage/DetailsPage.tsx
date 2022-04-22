@@ -24,6 +24,7 @@ import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { useSaveOrderMutation } from 'gql/storedOrder';
 import { useDeletePersonUuidMutation } from 'gql/storedPersonUuid';
 import CenteredDrawer from 'core/molecules/centered-drawer/CenteredDrawer';
+import { TIcon } from 'core/molecules/cards/CardIcons';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -96,6 +97,7 @@ import { useDeleteStoredPersonMutation } from '../../gql/storedPerson';
 import { isUserAuthenticated } from '../../utils/authentication';
 import { IOptionsList } from '../../types/detailsPage';
 import { useTrim } from '../../gql/carpage';
+import VehicleHighlights from './VehicleHighlights';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -172,6 +174,7 @@ interface IDetailsPageProps {
   trimData: Nullable<IOptionsList[]>;
   dataUiTestId?: string;
   isColourAndTrimOverlay: boolean;
+  vehicleHighlights: TIcon[];
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -193,6 +196,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   imacaAssets,
   dataUiTestId,
   isColourAndTrimOverlay,
+  vehicleHighlights,
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
@@ -759,6 +763,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setColour={setColour}
           isColourAndTrimOverlay={isColourAndTrimOverlay}
           toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
+        />
+        <VehicleHighlights
+          vehicleHighlights={vehicleHighlights || []}
+          dataUiTestId={dataUiTestId || ''}
         />
         {(isElectric || isFreeInsurance) && (
           <div className="extras pdp">

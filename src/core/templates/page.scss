@@ -575,6 +575,33 @@
         }
       }
 
+      &--vehicle-highlights {
+        @include mobile576 {
+          grid-template-rows: repeat(2, 1fr);
+        }
+        & > div {
+          border: none;
+          .-small {
+            @include mobile576 {
+              font-size: 0.9rem;
+            }
+            font-size: 1rem;
+          }
+          .-regular {
+            font-size: 1.125rem;
+          }
+          .icon {
+            @include mobile576 {
+              font-size: 2.5rem;
+              max-height: 2.5rem;
+            }
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            max-height: 3.5rem;
+          }
+        }
+      }
+
       &--content {
         display: grid;
         min-width: 0;

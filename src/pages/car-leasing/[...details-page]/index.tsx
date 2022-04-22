@@ -8,6 +8,7 @@ import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import { IServiceBanner } from 'core/molecules/service-banner/interfaces';
+import Icon from 'core/atoms/icon';
 import {
   GET_CAR_DATA,
   GET_COLOUR_AND_TRIM_GROUP_LIST,
@@ -83,6 +84,7 @@ import {
 } from '../../../../generated/GetColourAndTrimGroupList';
 import { IManufacturersSlug } from '../../../types/manufacturerSlug';
 import { getServiceBannerData } from '../../../utils/serviceBannerHelper';
+import { features } from '../../../components/ProductCarousel/helpers';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -197,6 +199,12 @@ const CarDetailsPage: NextPage<IProps> = ({
     },
   };
 
+  const vehicleHighlights = features(
+    data?.vehicleDetails?.vehicleHighlights || [],
+    `${capId}`,
+    Icon,
+  );
+
   return (
     <>
       <DetailsPage
@@ -215,6 +223,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         colourData={colourData}
         trimData={trimData}
         isColourAndTrimOverlay={isColourAndTrimOverlay}
+        vehicleHighlights={vehicleHighlights}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>

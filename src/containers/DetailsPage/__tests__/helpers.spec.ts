@@ -104,6 +104,7 @@ const productDetails = (): GetVehicleDetails => ({
     upfronts: [],
   },
   vehicleDetails: {
+    vehicleHighlights: [],
     freeInsurance: true,
     averageRating: 4.7,
     brochureUrl:
