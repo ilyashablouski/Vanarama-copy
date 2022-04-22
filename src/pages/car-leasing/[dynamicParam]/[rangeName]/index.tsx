@@ -242,7 +242,11 @@ export async function getServerSideProps(
           bodyStyleList = await Promise.all(
             resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
               const formattedUrl = formatUrl(
-                `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
+                `car-leasing/${manufacturerName}/${rangeName}/${
+                  listItem.bodyStyle?.toUpperCase() === '4X4/SUV'
+                    ? '4x4-suv'
+                    : listItem.bodyStyle
+                }`,
               );
               const { data: slug } = await getGenericSearchPageSlug(
                 formattedUrl,
