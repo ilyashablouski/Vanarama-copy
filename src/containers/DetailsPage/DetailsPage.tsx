@@ -210,6 +210,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
+  const [leaseScannerData, setLeaseScannerData] = useState<
+    Nullable<ILeaseScannerData>
+  >(null);
 
   const resultImacaAssets = useMemo(() => {
     const imacaColourList = imacaAssets?.colours
@@ -266,10 +269,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
-
-  const [leaseScannerData, setLeaseScannerData] = useState<
-    Nullable<ILeaseScannerData>
-  >(null);
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
   const vehicleValue = useMemo(() => data?.vehicleDetails?.vehicleValue, [
@@ -342,7 +341,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     if (price && !firstTimePushDataLayer) {
       onPushPDPDataLayer();
     }
-    if (isMobile) {
+    if (isMobile && leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental) {
       leaseScannerRef.current!.style.display = 'flex';
       timerId = setTimeout(() => {
         leaseScannerRef.current!.style.removeProperty('display');
