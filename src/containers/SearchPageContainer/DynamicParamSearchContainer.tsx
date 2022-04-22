@@ -199,7 +199,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     [pageData],
   );
   const tiles: Tiles = useMemo(
-    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
+    () =>
+      getSectionsData(['sections', 'tiles'], pageData?.genericPage) ||
+      sectionsAsArray?.tiles?.[0],
     [pageData],
   );
   const fuelTypesData = useMemo(
