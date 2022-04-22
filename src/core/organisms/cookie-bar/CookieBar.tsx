@@ -5,7 +5,10 @@ import Text from 'core/atoms/text';
 import Button from 'core/atoms/button';
 
 import RouterLink from '../../../components/RouterLink';
-import { pushCookiePreferencesDataLayer } from '../../../utils/dataLayerHelpers';
+import {
+  pushCookiePreferencesDataLayer,
+  pushPageDataWithBCUID,
+} from '../../../utils/dataLayerHelpers';
 import { TColor } from '../../../types/color';
 
 interface IProps {
@@ -33,6 +36,7 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
   function handleAcceptClick() {
     hideCookieBar();
     onAccept();
+    pushPageDataWithBCUID();
     pushCookiePreferencesDataLayer();
   }
 
