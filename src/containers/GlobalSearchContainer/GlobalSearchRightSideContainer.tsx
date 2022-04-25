@@ -78,7 +78,7 @@ const GlobalSearchRightSideContainer = ({
 
   const getImgUrl = (capId: string, vehicleType: VehicleTypeEnum) => {
     return (
-      vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId)
+      vehiclesCardsData?.[vehicleType].find(vehicle => vehicle?.capId === capId)
         ?.imageUrl || ''
     );
   };

@@ -44,8 +44,8 @@ function ChoiceBoxesV2({
     onChange(resultValues);
   }
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value: inputValue, checked } = e.target;
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value: inputValue, checked } = event.target;
     const value =
       typeof values?.[0] === 'number' ? parseInt(inputValue, 10) : inputValue;
     if (multiSelect) {

@@ -48,7 +48,7 @@ export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
       link: {
         label: blogCategorySlug
           .replace(/-/g, ' ')
-          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+          .replace(/^(.)|\s+(.)/g, item => item.toUpperCase()),
         href: `/${blogSlug}/${blogCategorySlug}`,
       },
     };
@@ -57,7 +57,7 @@ export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
       link: {
         label: blogPostSlug
           .replace(/-/g, ' ')
-          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+          .replace(/^(.)|\s+(.)/g, item => item.toUpperCase()),
         href: `/${blogSlug}/${blogCategorySlug}/${blogPostSlug}`,
       },
     };
@@ -110,7 +110,7 @@ export function convertSlugToBreadcrumbsSchema(
       position: slugItemIndex + 1,
       name: slugItem
         .replace(/-/g, ' ')
-        .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        .replace(/^(.)|\s+(.)/g, item => item.toUpperCase()),
       item: getUrlFromSlug(slugItemIndex, array),
     }));
 

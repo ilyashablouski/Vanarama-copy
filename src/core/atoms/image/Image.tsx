@@ -60,9 +60,11 @@ const Image: FC<IImageProps> = ({
     srcset = `${src320} 320w, ${src800} 800w, ${src1200} 1200w`;
   }
 
-  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.srcset = '';
-    e.currentTarget.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  const onError = (event: SyntheticEvent<HTMLImageElement>) => {
+    // eslint-disable-next-line no-param-reassign
+    event.currentTarget.srcset = '';
+    // eslint-disable-next-line no-param-reassign
+    event.currentTarget.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
   };
 
   return (

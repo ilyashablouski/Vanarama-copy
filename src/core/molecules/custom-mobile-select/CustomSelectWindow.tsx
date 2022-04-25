@@ -21,9 +21,9 @@ const CustomSelectWindow = ({ title, onClose, children }: IProps) => {
     }
   };
 
-  const onOverlayClick = (e: MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose(e);
+  const onOverlayClick = (event: MouseEvent) => {
+    if (event.target === event.currentTarget) {
+      onClose(event);
     }
   };
 
@@ -47,8 +47,8 @@ const CustomSelectWindow = ({ title, onClose, children }: IProps) => {
         <div
           ref={listRef}
           className="options-list-wrapper"
-          onScroll={e => {
-            e.stopPropagation();
+          onScroll={event => {
+            event.stopPropagation();
             onScrollHandle();
           }}
         >

@@ -81,15 +81,19 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
     return providedDirectorsData
       .slice()
-      .sort((a, b) => (+b.shareOfBusiness ?? 0) - (+a.shareOfBusiness ?? 0))
-      .map((d, i) => (
+      .sort(
+        (firstDirectorDetails, secondDirectorDetails) =>
+          (+secondDirectorDetails.shareOfBusiness ?? 0) -
+          (+firstDirectorDetails.shareOfBusiness ?? 0),
+      )
+      .map((directorDetails, index) => (
         <BusinessSummaryFormDirectorDetailsSection
-          director={d}
-          orderBySharehold={i}
+          director={directorDetails}
+          orderBySharehold={index}
           onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
-            directorUuid: d.uuid || '',
+            directorUuid: directorDetails.uuid || '',
           })}
-          key={d.uuid}
+          key={directorDetails.uuid}
         />
       ));
   }, [handleEdit, creditApplication]);

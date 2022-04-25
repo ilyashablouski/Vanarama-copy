@@ -25,7 +25,7 @@ export const initialEditedFormValues = (
   );
 
   if (directorUuid) {
-    const selected = directors.find(d => d.uuid === directorUuid);
+    const selected = directors.find(director => director.uuid === directorUuid);
 
     if (selected) {
       return {

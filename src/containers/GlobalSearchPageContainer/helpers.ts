@@ -96,7 +96,7 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
         order: filterOrderByNumMap[key] || 999999,
       };
     })
-    .sort((a, b) => a.order - b.order);
+    .sort((firstItem, secondItem) => firstItem.order - secondItem.order);
 
 export const buildFiltersRequestObject = (
   filters: IFiltersData,

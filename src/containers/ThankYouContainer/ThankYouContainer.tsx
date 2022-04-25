@@ -62,30 +62,30 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
           <Heading size="large" color="black">
             {sections?.carousel?.title}
           </Heading>
-          {cards?.map((c: CardData, index: number) => (
+          {cards?.map((card: CardData, index: number) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || index}
+              key={card.title || index}
               title={{
                 title: '',
                 withBtn: true,
                 link: (
-                  <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
+                  <Heading tag={getTitleTag(card.titleTag || 'span') as any}>
                     <RouterLink
                       link={{
-                        href: c.link?.legacyUrl || c.link?.url || '#',
-                        label: c.link?.text || '',
+                        href: card.link?.legacyUrl || card.link?.url || '#',
+                        label: card.link?.text || '',
                       }}
                       className="heading"
                       classNames={{ size: 'lead', color: 'black' }}
                     >
-                      {c.title}
+                      {card.title}
                     </RouterLink>
                   </Heading>
                 ),
               }}
-              imageSrc={c.image?.file?.url || ''}
-              description={c.body || ''}
+              imageSrc={card.image?.file?.url || ''}
+              description={card.body || ''}
             />
           ))}
         </div>

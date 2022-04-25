@@ -17,7 +17,7 @@ storiesOf(`${atomicDir(base)}/Select`, module)
   .add('Simple (controlled)', () => {
     const [value, setValue] = useState('');
     return (
-      <Select value={value} onChange={e => setValue(e.target.value)}>
+      <Select value={value} onChange={event => setValue(event.target.value)}>
         <option value="Detached">Detached</option>
         <option value="Semi-detached">Semi-detached</option>
         <option value="Terraced">Terraced</option>

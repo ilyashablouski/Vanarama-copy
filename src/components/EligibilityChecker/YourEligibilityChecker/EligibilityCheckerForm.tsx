@@ -103,8 +103,8 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
           placeholder="Month"
         >
-          {months.map((value: string, i: number) => (
-            <option key={value} value={i + 1}>
+          {months.map((value: string, index: number) => (
+            <option key={value} value={index + 1}>
               {value}
             </option>
           ))}

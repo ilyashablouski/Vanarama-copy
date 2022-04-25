@@ -29,7 +29,7 @@ const SortOrder = ({
           ? ''
           : `${sortOrder.field}_${sortOrder.direction}`
       }
-      onChange={e => onChangeSortOrder(e.target.value)}
+      onChange={event => onChangeSortOrder(event.target.value)}
       dataUiTestId={dataUiTestId}
     >
       {sortValues.map(option => (

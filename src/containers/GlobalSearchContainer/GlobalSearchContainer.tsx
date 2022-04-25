@@ -76,17 +76,19 @@ const GlobalSearchContainer = () => {
               setIsOpenResults(true);
             }
           }}
-          onChange={e => {
-            setFieldValue(e.target.value);
-            if (e.target.value.length > 2) {
-              setSearchValue(e.target.value);
-            } else if (e.target.value.length < 3 && isOpenResults) {
+          onChange={event => {
+            setFieldValue(event.target.value);
+            if (event.target.value.length > 2) {
+              setSearchValue(event.target.value);
+            } else if (event.target.value.length < 3 && isOpenResults) {
               setSearchValue('');
               setIsOpenResults(false);
             }
           }}
-          onKeyPress={e =>
-            e.key === 'Enter' ? onSubmit(e.target as HTMLTextAreaElement) : null
+          onKeyPress={event =>
+            event.key === 'Enter'
+              ? onSubmit(event.target as HTMLTextAreaElement)
+              : null
           }
         />
         {!isOpenResults && (

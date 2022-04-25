@@ -21,10 +21,10 @@ const SortCode: React.FC<ISortCodeProps> = ({
         {...firstInputProps}
         disabled={disabled}
         max={2}
-        onChange={e => {
-          if (isLessThanThreeCharacters(e)) {
-            onChange(e, [e.target.value, middle, last]);
-            handleAutoFocus(e);
+        onChange={event => {
+          if (isLessThanThreeCharacters(event)) {
+            onChange(event, [event.target.value, middle, last]);
+            handleAutoFocus(event);
           }
         }}
         value={first}
@@ -36,10 +36,10 @@ const SortCode: React.FC<ISortCodeProps> = ({
         {...middleInputProps}
         disabled={disabled}
         max={2}
-        onChange={e => {
-          if (isLessThanThreeCharacters(e)) {
-            onChange(e, [first, e.target.value, last]);
-            handleAutoFocus(e);
+        onChange={event => {
+          if (isLessThanThreeCharacters(event)) {
+            onChange(event, [first, event.target.value, last]);
+            handleAutoFocus(event);
           }
         }}
         value={middle}
@@ -51,9 +51,9 @@ const SortCode: React.FC<ISortCodeProps> = ({
         {...lastInputProps}
         disabled={disabled}
         max={2}
-        onChange={e => {
-          if (isLessThanThreeCharacters(e)) {
-            onChange(e, [first, middle, e.target.value]);
+        onChange={event => {
+          if (isLessThanThreeCharacters(event)) {
+            onChange(event, [first, middle, event.target.value]);
           }
         }}
         value={last}
@@ -65,8 +65,8 @@ const SortCode: React.FC<ISortCodeProps> = ({
   );
 };
 
-function isLessThanThreeCharacters(e: React.ChangeEvent<HTMLInputElement>) {
-  return e.target.value.length < 3;
+function isLessThanThreeCharacters(event: React.ChangeEvent<HTMLInputElement>) {
+  return event.target.value.length < 3;
 }
 
 export default SortCode;

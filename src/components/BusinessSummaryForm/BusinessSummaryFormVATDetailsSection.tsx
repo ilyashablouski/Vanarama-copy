@@ -23,12 +23,12 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
   const formattedPercentageData = useMemo(
     () =>
       vatDetails.turnoverPercentageOutsideUk?.reduce(
-        (prev, curr, i) => ({
+        (prev, curr, index) => ({
           percentage: `${parseInt(curr.percentage, 10) +
             parseInt(prev.percentage, 10)}`,
           // line break is ignored so using comma
           country:
-            i > 0 ? prev.country.concat(', ', curr.country) : curr.country,
+            index > 0 ? prev.country.concat(', ', curr.country) : curr.country,
         }),
         {
           percentage: '0',

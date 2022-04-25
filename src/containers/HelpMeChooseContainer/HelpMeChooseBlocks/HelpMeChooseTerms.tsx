@@ -23,7 +23,10 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(
         termsData
           .slice()
-          .sort((a: any, b: any) => (+a.key || 0) - (+b.key || 0)),
+          .sort(
+            (firstBucket: any, secondBucket: any) =>
+              (+firstBucket.key || 0) - (+secondBucket.key || 0),
+          ),
         termsValue,
         'terms',
       )}

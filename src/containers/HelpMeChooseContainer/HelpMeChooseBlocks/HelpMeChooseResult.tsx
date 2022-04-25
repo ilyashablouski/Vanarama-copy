@@ -267,7 +267,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           onSubmit={el => {
             setInitialPeriods(el.value || '');
             onChangeParams(
-              RENTAL_DATA.findIndex(r => r.value === rental) + 1,
+              RENTAL_DATA.findIndex(rentItem => rentItem.value === rental) + 1,
               el.value || '',
             );
           }}

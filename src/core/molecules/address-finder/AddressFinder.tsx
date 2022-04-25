@@ -120,8 +120,8 @@ const AddressFinder: AddressFinderComponent = ({
           showManualForm: state.showManualForm,
           inputFocused: state.focused,
           selectedSuggestion: selected,
-          onChange: e =>
-            dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
+          onChange: event =>
+            dispatch({ type: 'CHANGE_INPUT', value: event.target.value }),
           setInputBlur: () => dispatch({ type: 'BLUR_INPUT' }),
           setBlurForm: () => dispatch({ type: 'BLUR_FORM' }),
           setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),

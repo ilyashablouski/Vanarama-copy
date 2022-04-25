@@ -147,8 +147,8 @@ const FiltersContainer = ({
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
     if (tempFilterName === 'all') {
-      Object.keys(choiseBoxReference).forEach((e: string) =>
-        choiseBoxReference[e]?.current?.updateState(),
+      Object.keys(choiseBoxReference).forEach((reference: string) =>
+        choiseBoxReference[reference]?.current?.updateState(),
       );
       setTempFilterName('');
     } else if (tempFilterName) {
@@ -192,16 +192,16 @@ const FiltersContainer = ({
   // made force update for choiseboxes state
   useEffect(() => {
     if (shouldMakeChoiceboxesForceUpdate) {
-      Object.keys(choiseBoxReference).forEach((e: string) =>
-        choiseBoxReference[e]?.current?.updateState(),
+      Object.keys(choiseBoxReference).forEach((reference: string) =>
+        choiseBoxReference[reference]?.current?.updateState(),
       );
       setShouldMakeChoiceboxesForceUpdate(false);
     }
   }, [shouldMakeChoiceboxesForceUpdate, choiseBoxReference]);
 
   /** handle for dropdowns */
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value, name } = e.target;
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value, name } = event.target;
     setSelectedFiltersState({ ...selectedFiltersState, [name]: [value] });
   };
 
@@ -372,7 +372,7 @@ const FiltersContainer = ({
       <SearchFilterTags
         selectedFilters={selectedFilterTags}
         onClearAll={handleClearAll}
-        onRemove={e => handleRemoveTag(e.currentTarget.id)}
+        onRemove={event => handleRemoveTag(event.currentTarget.id)}
         dataUiTestId={dataUiTestId}
       />
     </SearchFilters>

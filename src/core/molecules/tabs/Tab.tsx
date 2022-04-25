@@ -27,7 +27,7 @@ const Tab: React.FC<IProps> = ({
       className={cx(className, { '-active': active })}
       data-testid={dataTestId}
       data-uitestid={dataUiTestId}
-      onClick={onClick || (e => onChange(index, e))}
+      onClick={onClick || (event => onChange(index, event))}
       role="tab"
       type="button"
     >

@@ -32,15 +32,15 @@ storiesOf(`${atomicDir(base)}/Sortcode`, module)
         middleInputProps={{
           dataTestId: 'middle',
           'aria-label': 'middle-label',
-          onFocus: e => {
-            action('Middle input focused')(e);
+          onFocus: event => {
+            action('Middle input focused')(event);
           },
         }}
         lastInputProps={{
           dataTestId: 'last',
           'aria-label': 'last-label',
-          onBlur: e => {
-            action('Last input blurred')(e);
+          onBlur: event => {
+            action('Last input blurred')(event);
           },
         }}
         onChange={(...args) => {

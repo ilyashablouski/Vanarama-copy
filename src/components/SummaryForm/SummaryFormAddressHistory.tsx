@@ -32,9 +32,9 @@ const SummaryFormAddressHistory: FCWithFragments<IProps> = ({
 function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
   return [...addresses]
     .sort(
-      (a, b) =>
-        new Date(b.startedOn ?? '').getTime() -
-        new Date(a.startedOn ?? '').getTime(),
+      (firstAddress, secondAddress) =>
+        new Date(secondAddress.startedOn ?? '').getTime() -
+        new Date(firstAddress.startedOn ?? '').getTime(),
     )
     .reduce(
       (acc, address, index) => [

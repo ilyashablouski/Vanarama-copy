@@ -12,8 +12,8 @@ const FilterCheckboxes: FC<IFilterCheckboxes> = props => {
     selectedFilters = {},
   } = props;
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = event.target;
 
     const newSelectedFilters = { ...selectedFilters };
 

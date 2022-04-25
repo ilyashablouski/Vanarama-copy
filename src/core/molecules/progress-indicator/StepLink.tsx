@@ -30,12 +30,12 @@ const StepLink: React.ForwardRefRenderFunction<HTMLAnchorElement, IProps> = (
       className={cx('progress-step--button', className)}
       data-testid={dataTestId}
       href={preventClick ? undefined : href}
-      onClick={e => {
+      onClick={event => {
         if (preventClick) {
-          e.preventDefault();
+          event.preventDefault();
         }
 
-        onClick?.(e);
+        onClick?.(event);
       }}
       ref={ref}
     >

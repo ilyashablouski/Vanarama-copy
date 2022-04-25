@@ -76,6 +76,7 @@ const DynamicParamBottomBlock = ({
         return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
       },
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [titleFeaturedIndexes]);
   const carousel: CarouselData = useMemo(
     () =>
