@@ -30,6 +30,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
       </span>
       <button
         class="button decline -primary -regular -outline"
+        data-selectorid="cookieBar-decline-button"
         data-uitestid="cookieBar-decline-button"
       >
         <div
@@ -40,6 +41,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
       </button>
       <button
         class="button accept -primary -regular -solid"
+        data-selectorid="cookieBar-accept-button"
         data-uitestid="cookieBar-accept-button"
       >
         <div
