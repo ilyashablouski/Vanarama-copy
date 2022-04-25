@@ -68,15 +68,21 @@ const DynamicParamBottomBlock = ({
     }, [] as number[] | []);
   }, [features]);
   const separatedFeatures = useMemo(() => {
-    return titleFeaturedIndexes?.map((featuredIndex, index) => {
-      if (index === titleFeaturedIndexes.length - 1) {
-        return features?.slice(featuredIndex);
-      }
-      return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
-    });
+    return titleFeaturedIndexes?.map(
+      (featuredIndex: number | undefined, index: number) => {
+        if (index === titleFeaturedIndexes.length - 1) {
+          return features?.slice(featuredIndex);
+        }
+        return features?.slice(featuredIndex, titleFeaturedIndexes[index + 1]);
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [titleFeaturedIndexes]);
   const carousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
+    () =>
+      getSectionsData(['sections', 'carousel'], pageData?.genericPage) ||
+      sectionsAsArray?.carousel?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [

@@ -86,10 +86,10 @@ export const LocationsPage: NextPage<IGenericPage> = ({
       {cards?.length ? (
         <section className="row:bg-lighter -thin">
           <div className="row:cards-3col">
-            {cards.map((card: ICard, i: number) => (
+            {cards.map((card: ICard, index: number) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={i.toString()}
+                key={index.toString()}
               >
                 <CardTitle
                   title={card.title || ''}

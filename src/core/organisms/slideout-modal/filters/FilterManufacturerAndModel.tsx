@@ -24,7 +24,7 @@ const FilterManufacturerAndModel: FC<IFilterManufacturerAndModel> = props => {
       <Formgroup label="Select Make">
         <Select
           name="manufacturer"
-          onChange={e => onChange('manufacturers', e.target.value)}
+          onChange={event => onChange('manufacturers', event.target.value)}
           value={selectedFilters?.manufacturers?.[0] || ''}
         >
           {searchFilters.manufacturers.map(
@@ -37,7 +37,7 @@ const FilterManufacturerAndModel: FC<IFilterManufacturerAndModel> = props => {
       <Formgroup label="Select Model">
         <Select
           name="range"
-          onChange={e => onChange('ranges', e.target.value)}
+          onChange={event => onChange('ranges', event.target.value)}
           value={selectedFilters?.ranges?.[0] || ''}
         >
           {searchFilters.ranges.map(

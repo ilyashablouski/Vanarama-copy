@@ -10,6 +10,7 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
       color = 'secondary',
       dataTestId,
       dataUiTestId,
+      dataSelectorId,
       disabled,
       fill = 'solid',
       icon,
@@ -50,6 +51,7 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
           disabled={disabled}
           data-testid={dataTestId}
           data-uitestid={dataUiTestId}
+          data-selectorid={dataSelectorId}
           ref={ref}
           style={customStyles}
         >
@@ -81,6 +83,7 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
         disabled={disabled}
         data-testid={dataTestId}
         data-uitestid={dataUiTestId}
+        data-selectorid={dataSelectorId}
         ref={ref}
       >
         <div className="button--inner">

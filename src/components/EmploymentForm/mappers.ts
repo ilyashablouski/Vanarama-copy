@@ -18,9 +18,9 @@ export const responseToInitialFormValues = (
      */
     history: [...employments]
       .sort(
-        (a, b) =>
-          new Date(b.employedSinceDate ?? '').getTime() -
-          new Date(a.employedSinceDate ?? '').getTime(),
+        (firstForm, secondForm) =>
+          new Date(secondForm.employedSinceDate ?? '').getTime() -
+          new Date(firstForm.employedSinceDate ?? '').getTime(),
       )
       .map(item => {
         const started = new Date(item.employedSinceDate ?? '');

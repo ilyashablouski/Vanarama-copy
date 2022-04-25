@@ -25,9 +25,9 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
     if (path && path.includes('#')) {
       const id = path.replace('#', '');
       const el = window.document.getElementById(id);
-      const r = el?.getBoundingClientRect();
+      const domRect = el?.getBoundingClientRect();
       window.scrollTo({
-        top: r?.top,
+        top: domRect?.top,
         behavior: 'smooth',
       });
     }

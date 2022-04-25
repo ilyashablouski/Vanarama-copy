@@ -5,10 +5,10 @@ export interface THistoryEntry {
 
 // return format like DD MMMM YYYY
 export const formatDate = (year: string, month: string, day: string) => {
-  const d = new Date(+year, +month - 1, +day);
-  const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
-  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+  const date = new Date(+year, +month - 1, +day);
+  const mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);
+  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
   return `${da} ${mo} ${ye}`;
 };
 
@@ -80,7 +80,7 @@ export const toYearsAndMonthsDisplay = (totalMonths: number) => {
   );
 };
 
-export const getMonthName = (n: number) =>
+export const getMonthName = (month: number) =>
   [
     'January',
     'February',
@@ -94,7 +94,7 @@ export const getMonthName = (n: number) =>
     'October',
     'November',
     'December',
-  ][n - 1];
+  ][month - 1];
 
 export const getMonday = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -112,9 +112,9 @@ export function calculateExtraneousEntries(
 
   // Find the first entry that satisfies the minimum number of months
   const lastValidIndex = entries
-    .filter(x => x.month && x.year)
+    .filter(date => date.month && date.year)
     .map(historyToDateObject)
-    .findIndex(x => x.getTime() < threshold.getTime());
+    .findIndex(date => date.getTime() < threshold.getTime());
 
   // Make sure there is at least one valid date
   if (lastValidIndex === -1) {
@@ -126,7 +126,9 @@ export function calculateExtraneousEntries(
 }
 
 export function calculateUnorderedEntries(entries: THistoryEntry[]) {
-  const dates = entries.filter(x => x.month && x.year).map(historyToDate);
+  const dates = entries
+    .filter(date => date.month && date.year)
+    .map(historyToDate);
 
   // Don't actually sort the array, just maintain a list of indices we need to swap
   return dates.reduce((previousValue: Array<Array<number>>, _, index) => {
@@ -158,7 +160,7 @@ export function calculateRemainingMonths(
   required: number,
 ) {
   const completed = entries
-    .filter(x => x.month && x.year)
+    .filter(date => date.month && date.year)
     .map(historyToDateObject);
 
   if (completed.length === 0) {
@@ -166,8 +168,10 @@ export function calculateRemainingMonths(
     return required;
   }
 
-  const earliest = completed.reduce((a, b) =>
-    a.getTime() < b.getTime() ? a : b,
+  const earliest = completed.reduce((previousValue, currentValue) =>
+    previousValue.getTime() < currentValue.getTime()
+      ? previousValue
+      : currentValue,
   );
   const diff = diffInMonth(earliest, new Date());
   return Math.max(required - diff, 0);
@@ -183,11 +187,11 @@ export const validateDateString = (
   const monthNumber = Number(month) - 1; // bloody 0-indexed month
   const yearNumber = Number(year);
 
-  const d = new Date(yearNumber, monthNumber, dayNumber);
+  const date = new Date(yearNumber, monthNumber, dayNumber);
 
-  const yearMatches = d.getFullYear() === yearNumber;
-  const monthMatches = d.getMonth() === monthNumber;
-  const dayMatches = d.getDate() === dayNumber;
+  const yearMatches = date.getFullYear() === yearNumber;
+  const monthMatches = date.getMonth() === monthNumber;
+  const dayMatches = date.getDate() === dayNumber;
 
   return yearMatches && monthMatches && dayMatches;
 };

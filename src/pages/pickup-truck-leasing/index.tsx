@@ -132,7 +132,10 @@ export const PickupsPage: NextPage<IProps> = ({
 
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
-    () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
+    () =>
+      productsPickup?.productCarousel?.find(
+        product => product?.isOnOffer === true,
+      ),
     [productsPickup],
   );
 

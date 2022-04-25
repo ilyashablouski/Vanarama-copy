@@ -24,7 +24,7 @@ export default function useHistory<T extends THistoryEntry>(
   );
 
   useDeepCompareEffect(() => {
-    const allDatesCompleted = entries.every(x => x.month && x.year);
+    const allDatesCompleted = entries.every(date => date.month && date.year);
     if (allDatesCompleted && remainingMonths) {
       actions.onAppend();
       return;

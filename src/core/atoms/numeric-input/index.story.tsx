@@ -9,6 +9,9 @@ storiesOf(`${atomicDir(base)}/NumericInput`, module)
   .add('Default (controlled)', () => {
     const [value, setValue] = useState('');
     return (
-      <NumericInput value={value} onChange={e => setValue(e.target.value)} />
+      <NumericInput
+        value={value}
+        onChange={event => setValue(event.target.value)}
+      />
     );
   });

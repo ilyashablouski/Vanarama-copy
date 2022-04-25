@@ -10,11 +10,11 @@ const NumericInput: React.FC<INumericInputProps> = React.forwardRef<
 >(({ onKeyPress, ...rest }, ref) => (
   <TextInput
     {...rest}
-    onKeyPress={e => {
-      if (!NUMBER_REGEX.test(e.key)) {
-        e.preventDefault();
+    onKeyPress={event => {
+      if (!NUMBER_REGEX.test(event.key)) {
+        event.preventDefault();
       } else {
-        onKeyPress?.(e);
+        onKeyPress?.(event);
       }
     }}
     ref={ref}

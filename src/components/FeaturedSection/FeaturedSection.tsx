@@ -140,7 +140,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
                 heading: props => (
                   <Heading {...props} size="lead" color="darker" tag="h3" />
                 ),
-                p: props => (
+                paragraph: props => (
                   <Text {...props} size="regular" color="darker" tag="p" />
                 ),
               }}

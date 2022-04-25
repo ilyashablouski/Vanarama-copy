@@ -21,7 +21,10 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
     mileagesData,
     mileagesValue,
     'mileages',
-  ).sort((a, b) => (+a.value || 0) - (+b.value || 0));
+  ).sort(
+    (firstBucket, secondBucket) =>
+      (+firstBucket.value || 0) - (+secondBucket.value || 0),
+  );
 
   return (
     <HelpMeChooseContainer

@@ -7,6 +7,15 @@
 // START Enums and Input Objects
 //==============================================================
 
+/**
+ * Auth service enum
+ */
+export enum AuthServiceEnum {
+  AUTH0 = "AUTH0",
+  COGNITO = "COGNITO",
+  GRID = "GRID",
+}
+
 export enum ConversionTypeEnum {
   DERANGED = "DERANGED",
   REFRIGERATED = "REFRIGERATED",
@@ -662,6 +671,8 @@ export interface PersonBankUuidInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
+  authServiceId?: AuthServiceEnum | null;
+  authZeroSub?: string | null;
   b2c?: boolean | null;
   cognitoSub?: string | null;
   company?: CompanyInputObject | null;

@@ -39,6 +39,7 @@ import {
 } from '../../utils/partnerProperties';
 import { SearchPageTypes } from './interfaces';
 import { Nullish } from '../../types/common';
+import { OnOffer } from '../../../entities/global';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -138,7 +139,8 @@ export function mapFuelSearchQueryToParam(fuelTypes: any) {
     },
   ];
   return fuelTypes.map(
-    (t: any) => types.find((f: any) => f.searchQuery === t)?.param || null,
+    (type: any) =>
+      types.find((fuel: any) => fuel.searchQuery === type)?.param || null,
   );
 }
 
@@ -149,7 +151,7 @@ export const getCookieFromHeaderString = (
   const cookies = decodeURIComponent(cookie);
   const data = cookies
     .split(';')
-    .find(c => c.includes(searchTerm))
+    .find(cookieItem => cookieItem.includes(searchTerm))
     ?.replace(`${searchTerm}=`, '');
   return data;
 };
@@ -163,7 +165,7 @@ export const getCustomFuelTypesFromCookies = (
     return undefined;
   }
   const fuelTypesObject = JSON.parse(fuelTypes);
-  const array = Object.keys(fuelTypesObject).map(f => fuelTypesObject[f]);
+  const array = Object.keys(fuelTypesObject).map(fuel => fuelTypesObject[fuel]);
   return array;
 };
 // using for get CMS slugs from url
@@ -850,7 +852,7 @@ export const isOnOffer = (
   if (isRangePage || isModelPage || isDynamicFilterPage) {
     return null;
   }
-  return isSpecialOffers || null;
+  return isSpecialOffers || OnOffer.FILTER_DISABLED;
 };
 
 export const createFetchMoreOptions = (

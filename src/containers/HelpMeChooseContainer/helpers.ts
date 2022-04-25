@@ -14,6 +14,7 @@ import {
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 import { ModelImages } from '../../../generated/ModelImages';
 import { Nullish } from '../../types/common';
+import { OnOffer } from '../../../entities/global';
 
 const MOR_MILES_VALUE = 30;
 
@@ -216,7 +217,7 @@ export const formatForCompare = (
     modelName: node?.modelName || '',
     derivativeName: node?.derivativeName || '',
     averageRating: null,
-    isOnOffer: null,
+    isOnOffer: OnOffer.FILTER_DISABLED,
     offerPosition: null,
     leadTime: null,
     imageUrl: mainImageUrl || null,

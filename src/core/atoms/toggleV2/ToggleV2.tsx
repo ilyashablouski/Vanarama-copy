@@ -37,7 +37,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         data-testid={leftDataTestId}
         name={leftName}
         checked={checked}
-        onChange={e => handleInputChange(e)}
+        onChange={event => handleInputChange(event)}
         data-uitestid={`${dataUiTestId}_input_${leftLabel}`}
       />
       <label
@@ -53,7 +53,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         data-testid={rightDataTestId}
         name={rightName}
         checked={!checked}
-        onChange={e => handleInputChange(e)}
+        onChange={event => handleInputChange(event)}
         data-uitestid={`${dataUiTestId}_input_${rightLabel}`}
       />
       <label

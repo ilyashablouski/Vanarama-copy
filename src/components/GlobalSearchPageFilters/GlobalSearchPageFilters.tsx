@@ -152,7 +152,7 @@ const GlobalSearchPageFilters = ({
   }, [activeFilters, isSpecialOffer]);
 
   const onHandleFilterStatus = (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    event: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
     if (!openedFilters.includes(key)) {
@@ -173,9 +173,9 @@ const GlobalSearchPageFilters = ({
   };
 
   const onHandleNativeMultiSelect = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const { value: inputValue, name } = e.target;
+    const { value: inputValue, name } = event.target;
     let selectedValues = activeFilters[name as keyof typeof filtersMapper]
       ? [...(activeFilters[name as keyof typeof filtersMapper] as string[])]
       : [];
@@ -214,9 +214,9 @@ const GlobalSearchPageFilters = ({
   };
 
   const onHandleNativeSelectChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const { value: inputValue, name } = e.target;
+    const { value: inputValue, name } = event.target;
     const value =
       typeof (filtersMapper[name as keyof typeof filtersMapper] as
         | string

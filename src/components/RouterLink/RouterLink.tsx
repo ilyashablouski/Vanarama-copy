@@ -69,7 +69,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       <span
         style={style}
         className={linkClassName}
-        onClick={e => onClick && onClick(e)}
+        onClick={event => onClick && onClick(event)}
         data-testid={dataTestId ?? 'withoutLink'}
         data-uitestid={dataUiTestId}
       >
@@ -104,7 +104,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         href={link.href}
         target={link.target}
         rel={setRel(link)}
-        onClick={e => onClick && onClick(e)}
+        onClick={event => onClick && onClick(event)}
         data-testid={dataTestId ?? 'link'}
         data-uitestid={dataUiTestId}
         {...(isTel && telProps)}
@@ -139,12 +139,12 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       <a
         style={style}
         className={linkClassName}
-        onClick={e => onClick && onClick(e)}
+        onClick={event => onClick && onClick(event)}
         data-testid={dataTestId ?? 'router-link'}
         data-uitestid={dataUiTestId}
         data-menu={dataMenu ?? null}
-        onMouseOver={e => onMouseOver && onMouseOver(e)}
-        onFocus={e => onFocus && onFocus(e)}
+        onMouseOver={event => onMouseOver && onMouseOver(event)}
+        onFocus={event => onFocus && onFocus(event)}
       >
         {children || link.label}
       </a>

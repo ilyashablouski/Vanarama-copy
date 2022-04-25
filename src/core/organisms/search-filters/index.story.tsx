@@ -65,17 +65,17 @@ storiesOf(`${atomicDir(base)}/SearchFilters`, module).add('Default', () =>
       );
     }, [selectedFiltersState]);
 
-    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const { value, name } = e.target;
+    const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const { value, name } = event.target;
       setSelectedFiltersState({ ...selectedFiltersState, [name]: [value] });
     };
 
-    const handleChecked = (e: {
+    const handleChecked = (event: {
       target: { name: any; value: string; checked: boolean };
     }) => {
       // eslint-disable-next-line prefer-destructuring
-      const name: keyof typeof selectedFiltersState = e.target.name;
-      const { value, checked } = e.target;
+      const name: keyof typeof selectedFiltersState = event.target.name;
+      const { value, checked } = event.target;
       const newSelectedFilters = { ...selectedFiltersState };
 
       if (!newSelectedFilters[name]) {

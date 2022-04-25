@@ -88,7 +88,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   const latestStep = cachedLastStep;
 
   // Work out the current step based on the URL
-  const currentStep = progressSteps.find(x => x.active);
+  const currentStep = progressSteps.find(step => step.active);
   // If the querystring contains `isEdit` then the current step is being edited
   const editingStep = router.query.isEdit ? currentStep?.step : 0;
   // If the current step is being edited then mark the summary step as the active step

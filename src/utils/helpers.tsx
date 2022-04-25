@@ -19,7 +19,7 @@ export enum LeadTimeList {
   FACTORY_ORDER = 'Factory Order',
 }
 
-export const genDays = () => [...Array(31)].map((_, i) => i + 1);
+export const genDays = () => [...Array(31)].map((_, day) => day + 1);
 
 export const genMonths = () => [
   'January',
@@ -38,7 +38,10 @@ export const genMonths = () => [
 
 export const genYears = (back: number) => {
   const year = new Date().getFullYear();
-  return Array.from({ length: back }, (_, i) => year - back + i + 1).reverse();
+  return Array.from(
+    { length: back },
+    (_, index) => year - back + index + 1,
+  ).reverse();
 };
 
 export const toCurrencyDisplay = (value: number) => {

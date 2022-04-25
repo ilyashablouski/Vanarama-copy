@@ -7,7 +7,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Pagination from '.';
 
-const pages = Array.from({ length: 60 }, (v, i) => i + 1);
+const pages = Array.from({ length: 60 }, (page, index) => index + 1);
 const selected = 8;
 const selectedtwo = 2;
 const pagesSecond = [5, 4, 3, 2, 1];

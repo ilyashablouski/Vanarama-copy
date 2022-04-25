@@ -19,7 +19,7 @@ storiesOf(`${atomicDir(base)}/StructuredList`, module)
       editable={false}
       list={defaultList}
       heading="Your Details"
-      onChange={e => console.log(e)}
+      onChange={event => console.log(event)}
     />
   ))
   .add('Editable', () => (
@@ -27,7 +27,7 @@ storiesOf(`${atomicDir(base)}/StructuredList`, module)
       editable
       list={editableList}
       heading="Your Details"
-      onChange={e => console.log(e)}
+      onChange={event => console.log(event)}
       onEditClicked={action('onEditClicked')}
     />
   ))

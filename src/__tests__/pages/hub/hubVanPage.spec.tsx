@@ -10,6 +10,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { VansPage } from '../../../pages/van-leasing';
 import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 import { PageTypeEnum } from '../../../types/common';
+import { OnOffer } from '../../../../entities/global';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -363,7 +364,7 @@ const derivatives = {
 };
 const offer = {
   capId: '44514',
-  isOnOffer: true,
+  isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
   bodyStyle: 'LargeVan',
   manufacturerName: 'Volkswagen',
   derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
@@ -401,7 +402,7 @@ const productsSmallVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Volkswagen',
       derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
       rangeName: 'Transporter',
@@ -438,7 +439,7 @@ const productsMediumVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
       rangeName: 'Berlingo',
@@ -475,7 +476,7 @@ const productsLargeVan = {
   productCarousel: [
     {
       capId: '44514',
-      isOnOffer: true,
+      isOnOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
       manufacturerName: 'Citroen',
       derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
       rangeName: 'Relay',

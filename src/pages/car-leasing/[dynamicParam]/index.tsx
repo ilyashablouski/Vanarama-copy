@@ -63,6 +63,7 @@ import { Nullable } from '../../../types/common';
 import { SearchPageTypes } from '../../../containers/SearchPageContainer/interfaces';
 import { isManufacturerPageFeatureFlagEnabled } from '../../../utils/helpers';
 import isObjectsShallowEqual from '../../../utils/objects';
+import { OnOffer } from '../../../../entities/global';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -154,6 +155,7 @@ const Page: NextPage<IProps> = ({
       router,
       initialFilterFuelType,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   useEffect(() => {
@@ -169,6 +171,7 @@ const Page: NextPage<IProps> = ({
         { shallow: true },
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
@@ -252,7 +255,7 @@ export async function getServerSideProps(
           variables: {
             vehicleTypes: [VehicleTypeEnum.CAR],
             leaseType: LeaseTypeEnum.PERSONAL,
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             ...filter,
@@ -305,7 +308,7 @@ export async function getServerSideProps(
   >({
     query: GET_SEARCH_POD_DATA,
     variables: {
-      onOffer: null,
+      onOffer: OnOffer.FILTER_DISABLED,
       vehicleTypes: [VehicleTypeEnum.CAR],
       ...filter,
     },
@@ -317,7 +320,7 @@ export async function getServerSideProps(
       variables: {
         vehicleTypes: [VehicleTypeEnum.CAR],
         leaseType: LeaseTypeEnum.PERSONAL,
-        onOffer: true,
+        onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
         first: pageType.isManufacturerPage ? 6 : 9,
         sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,

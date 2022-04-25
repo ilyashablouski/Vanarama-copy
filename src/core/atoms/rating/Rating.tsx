@@ -41,7 +41,7 @@ const Rating: FC<IRatingProps> = memo(props => {
     dataUiTestId,
   } = props;
 
-  let i;
+  let index;
   let value;
   const items = [];
 
@@ -57,10 +57,10 @@ const Rating: FC<IRatingProps> = memo(props => {
 
   // Full.
   if (value && value > 0) {
-    for (i = 0; i < Math.trunc(value); i += 1) {
+    for (index = 0; index < Math.trunc(value); index += 1) {
       const rate = items.length + 1;
       items.push(
-        <IconWrapper key={`full${i}`} index={rate} onClick={onClick}>
+        <IconWrapper key={`full${index}`} index={rate} onClick={onClick}>
           <Icon icon={<StarSharp />} color={color} />
         </IconWrapper>,
       );
@@ -81,10 +81,10 @@ const Rating: FC<IRatingProps> = memo(props => {
   if (value && value > 0 && !Number.isInteger(value)) {
     value += 1;
   }
-  for (i = 0; i < Math.ceil(MAX_SCORE - value); i += 1) {
+  for (index = 0; index < Math.ceil(MAX_SCORE - value); index += 1) {
     const rate = items.length + 1;
     items.push(
-      <IconWrapper key={`empty${i}`} index={rate} onClick={onClick}>
+      <IconWrapper key={`empty${index}`} index={rate} onClick={onClick}>
         <Icon icon={<StarOutline />} color={color} />
       </IconWrapper>,
     );

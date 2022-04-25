@@ -235,10 +235,10 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           align="center"
         >
           <TabList className="lead">
-            {vehicleTypes?.map((type: string, i: number) => (
+            {vehicleTypes?.map((type: string, index: number) => (
               <Tab
                 key={type}
-                index={i}
+                index={index}
                 dataUiTestId={`partnerships-home-page_carousel-tab_${type}`}
               >
                 {type}
@@ -246,12 +246,12 @@ const PartnershipsHomePage: NextPage<IProps> = ({
             ))}
           </TabList>
           <TabPanels>
-            {vehicleTypes?.map((type: string, i: number) => {
+            {vehicleTypes?.map((type: string, index: number) => {
               const vehicleType = productCarouselProperties.find(
                 product => product.type === type,
               );
               return (
-                <TabPanel index={i}>
+                <TabPanel index={index}>
                   <div style={{ maxWidth: 1216 }} className="-mh-auto">
                     <LazyLoadComponent
                       visibleByDefault={isServerRenderOrAppleDevice}

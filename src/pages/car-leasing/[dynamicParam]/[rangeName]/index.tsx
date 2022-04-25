@@ -63,6 +63,7 @@ import { PAGE_TYPES, SITE_SECTIONS } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
 import { pushPageData } from '../../../../utils/dataLayerHelpers';
 import { SearchPageTypes } from '../../../../containers/SearchPageContainer/interfaces';
+import { OnOffer } from '../../../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -112,6 +113,7 @@ const Page: NextPage<IProps> = ({
       router,
       initialFilterFuelType,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.fuelTypes]);
 
   useEffect(() => {
@@ -214,7 +216,7 @@ export async function getServerSideProps(
           variables: {
             vehicleTypes: [VehicleTypeEnum.CAR],
             leaseType: LeaseTypeEnum.PERSONAL,
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: manufacturerName,
@@ -241,7 +243,11 @@ export async function getServerSideProps(
           bodyStyleList = await Promise.all(
             resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
               const formattedUrl = formatUrl(
-                `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
+                `car-leasing/${manufacturerName}/${rangeName}/${
+                  listItem.bodyStyle?.toUpperCase() === '4X4/SUV'
+                    ? '4x4-suv'
+                    : listItem.bodyStyle
+                }`,
               );
               const { data: slug } = await getGenericSearchPageSlug(
                 formattedUrl,
@@ -283,7 +289,7 @@ export async function getServerSideProps(
     >({
       query: GET_SEARCH_POD_DATA,
       variables: {
-        onOffer: null,
+        onOffer: OnOffer.FILTER_DISABLED,
         vehicleTypes: [VehicleTypeEnum.CAR],
         manufacturerSlug: (context?.query
           ?.dynamicParam as string).toLowerCase(),
@@ -296,7 +302,7 @@ export async function getServerSideProps(
         variables: {
           vehicleTypes: [VehicleTypeEnum.CAR],
           leaseType: LeaseTypeEnum.PERSONAL,
-          onOffer: true,
+          onOffer: OnOffer.FILTER_ENABLED_AND_SET_TO_TRUE,
           first: 9,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },

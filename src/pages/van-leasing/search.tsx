@@ -37,6 +37,7 @@ import { Nullable } from '../../types/common';
 import { getManufacturerJson } from '../../utils/url';
 import { pushPageData } from '../../utils/dataLayerHelpers';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../utils/pageTypes';
+import { OnOffer } from '../../../entities/global';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -60,6 +61,7 @@ const Page: NextPage<IProps> = ({
       siteSection: SITE_SECTIONS.vans,
       router,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.fuelTypes]);
 
   return (
@@ -115,7 +117,7 @@ export async function getServerSideProps(
               cookieString,
               'customSessionFuelTypes',
             ),
-            onOffer: null,
+            onOffer: OnOffer.FILTER_DISABLED,
             first: RESULTS_PER_REQUEST,
             sort: [
               {

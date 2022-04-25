@@ -151,8 +151,8 @@ describe('Date utils', () => {
         'December',
       ];
       const actual = [];
-      for (let i = 1; i <= 12; i += 1) {
-        actual.push(getMonthName(i));
+      for (let index = 1; index <= 12; index += 1) {
+        actual.push(getMonthName(index));
       }
       expect(actual).toStrictEqual(expected);
     });

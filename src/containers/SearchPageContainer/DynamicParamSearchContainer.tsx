@@ -86,6 +86,7 @@ import Skeleton from '../../components/Skeleton';
 import { HeroHeading } from '../../components/Hero';
 import HeroBackground from '../../components/Hero/HeroBackground';
 import DynamicParamBottomBlock from './sections/DynamicParamBottomBlock';
+import { OnOffer } from '../../../entities/global';
 
 const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
   loading: () => <Skeleton count={1} />,
@@ -195,10 +196,14 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
       getSectionsData(['sections', 'featured1'], pageData?.genericPage) ||
       sectionsAsArray?.featured?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const tiles: Tiles = useMemo(
-    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
+    () =>
+      getSectionsData(['sections', 'tiles'], pageData?.genericPage) ||
+      sectionsAsArray?.tiles?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const fuelTypesData = useMemo(
@@ -271,7 +276,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isSpecialOffers || null,
+    isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       try {
         const responseCapIds = getCapsIds(vehicleList?.edges || []);
@@ -295,7 +300,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
     [vehicleType],
     leaseType,
-    isManufacturerPage || isDynamicFilterPage ? true : isSpecialOffers || null,
+    isManufacturerPage || isDynamicFilterPage
+      ? true
+      : isSpecialOffers || OnOffer.FILTER_DISABLED,
     async ({ vehicleList }) => {
       const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
       const edges = vehicleList?.edges || [];
@@ -317,7 +324,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       }
       try {
         if (edges?.length === 0 && isSpecialOffers) {
-          setIsSpecialOffers(false);
+          setIsSpecialOffers(OnOffer.FILTER_ENABLED_AND_SET_TO_FALSE);
           return;
         }
         const responseCapIds = getCapsIds(edges || []);
@@ -680,6 +687,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       };
       fetchPageData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, router.query, client, isManufacturerPage, isDynamicFilterPage]);
 
   return (

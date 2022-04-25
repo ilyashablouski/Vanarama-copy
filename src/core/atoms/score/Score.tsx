@@ -43,9 +43,9 @@ const Score: FC<IScoreProps> = props => {
   const actualScore = Math.max(Math.min(100, score), 0);
   const size = variables.scoreSize;
   const strokeWidth = variables.scoreStrokeWidth;
-  const c = size / 2;
-  const r = c - strokeWidth / 2;
-  const circumference = 2 * Math.PI * r;
+  const halfSize = size / 2;
+  const rItem = halfSize - strokeWidth / 2;
+  const circumference = 2 * Math.PI * rItem;
   const visibleProportion = 0.75;
   const scorePercentage = actualScore / 100;
 
@@ -86,17 +86,17 @@ const Score: FC<IScoreProps> = props => {
             </defs>
             <circle
               className="score-indicator--progress"
-              cx={c}
-              cy={c}
-              r={r}
+              cx={halfSize}
+              cy={halfSize}
+              r={rItem}
               fill="none"
               strokeWidth={strokeWidth}
             />
             <circle
               className="score-indicator--track"
-              cx={c}
-              cy={c}
-              r={r}
+              cx={halfSize}
+              cy={halfSize}
+              r={rItem}
               fill="none"
               strokeWidth={strokeWidth}
               strokeDasharray={circumference}
@@ -104,7 +104,9 @@ const Score: FC<IScoreProps> = props => {
                 circumference * visibleProportion * scorePercentage
               }
               transform={`rotate(${135 +
-                360 * scorePercentage * visibleProportion} ${c} ${c})`}
+                360 *
+                  scorePercentage *
+                  visibleProportion} ${halfSize} ${halfSize})`}
             />
           </svg>
           <Heading tag="span" color="black" size="large">

@@ -35,7 +35,7 @@ const CustomSelectInput = ({
         className="select--native"
         disabled={disabled}
         defaultValue={label}
-        onMouseDown={e => e.preventDefault()}
+        onMouseDown={event => event.preventDefault()}
         onClick={() => {
           setIsOpen(true);
         }}

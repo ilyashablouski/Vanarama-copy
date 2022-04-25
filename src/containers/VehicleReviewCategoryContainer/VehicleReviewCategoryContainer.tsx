@@ -47,7 +47,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
   const countPages = () => Math.ceil((cards?.length || 0) / 12);
 
   // create array with number of page for pagination
-  const pages = [...Array(countPages())].map((_el, i) => i + 1);
+  const pages = [...Array(countPages())].map((_el, index) => index + 1);
 
   const renderCards = () => {
     const indexOfLastOffer = activePage * 12;

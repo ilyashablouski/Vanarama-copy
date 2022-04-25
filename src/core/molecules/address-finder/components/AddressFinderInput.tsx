@@ -27,25 +27,25 @@ const AddressFinderInput: React.FC<Omit<
     <TextInput
       {...props}
       ref={ref}
-      onBlur={e => {
+      onBlur={event => {
         if (!preventBlur) {
           setInputBlur();
         }
         if (!formFocus) {
-          props.onBlur?.(e);
+          props.onBlur?.(event);
           setInputBlur();
         } else {
           (ref as React.RefObject<HTMLInputElement>)?.current?.focus();
-          props.onFocus?.(e);
+          props.onFocus?.(event);
           setBlurForm?.();
         }
       }}
-      onChange={e => {
-        props.onChange?.(e);
-        onChange(e);
+      onChange={event => {
+        props.onChange?.(event);
+        onChange(event);
       }}
-      onFocus={e => {
-        props.onFocus?.(e);
+      onFocus={event => {
+        props.onFocus?.(event);
         setInputFocus();
       }}
       value={value.label}

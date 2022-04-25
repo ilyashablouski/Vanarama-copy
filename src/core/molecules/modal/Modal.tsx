@@ -22,8 +22,8 @@ const Modal: FC<IModalProps> = props => {
   } = props;
 
   React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.keyCode === 27 && show) {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.keyCode === 27 && show) {
         onRequestClose?.();
       }
     };

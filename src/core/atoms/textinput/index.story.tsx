@@ -12,7 +12,12 @@ storiesOf(`${atomicDir(base)}/TextInput`, module)
   ))
   .add('Default (controlled)', () => {
     const [value, setValue] = useState('');
-    return <TextInput value={value} onChange={e => setValue(e.target.value)} />;
+    return (
+      <TextInput
+        value={value}
+        onChange={event => setValue(event.target.value)}
+      />
+    );
   })
   .add('Default with label', () => (
     <Formgroup controlId="example" label="Text Input Label">

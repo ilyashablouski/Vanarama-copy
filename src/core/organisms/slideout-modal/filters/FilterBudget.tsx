@@ -28,7 +28,7 @@ const FilterBudget: FC<IFilterBudget> = props => {
       <Formgroup label="From">
         <Select
           name="budgetFrom"
-          onChange={e => onChange(0, e.target.value)}
+          onChange={event => onChange(0, event.target.value)}
           value={selectedFilters?.budget?.[0] || ''}
         >
           {searchFilters.budget.map((range: IRangeFilter) => (
@@ -39,7 +39,7 @@ const FilterBudget: FC<IFilterBudget> = props => {
       <Formgroup label="To">
         <Select
           name="budgetTo"
-          onChange={e => onChange(1, e.target.value)}
+          onChange={event => onChange(1, event.target.value)}
           value={selectedFilters?.budget?.[1] || ''}
         >
           {searchFilters.budget.map((range: IRangeFilter) => (
