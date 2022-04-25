@@ -203,6 +203,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () =>
       getSectionsData(['sections', 'tiles'], pageData?.genericPage) ||
       sectionsAsArray?.tiles?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const fuelTypesData = useMemo(

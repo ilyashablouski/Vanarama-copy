@@ -82,6 +82,7 @@ const DynamicParamBottomBlock = ({
     () =>
       getSectionsData(['sections', 'carousel'], pageData?.genericPage) ||
       sectionsAsArray?.carousel?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
