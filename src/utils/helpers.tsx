@@ -418,7 +418,6 @@ export enum FeatureFlags {
   BLACK_FRIDAY = 'DIG-7658',
   EDIT_PERSONAL_INFORMATION = 'DIG-8722',
   CAR_HUB_REDESIGN = 'DIG-9034',
-  BC_SESSION_ID_DELAY = 'DIG-9132',
   MANUFACTURER_PAGE = 'DIG-9065',
   COLOUR_AND_TRIM_OVERLAY = 'DIG-9208',
 }
@@ -464,10 +463,6 @@ export function isEditPersonalInformationFeatureFlagEnabled(
 ) {
   return isFeatureFlagEnabled(cookies, FeatureFlags.EDIT_PERSONAL_INFORMATION);
 }
-
-export const isBCSessionIDDelayFeatureFlagEnabled = () => {
-  return Cookies.get(FeatureFlags.BC_SESSION_ID_DELAY) === '1';
-};
 
 export function isManufacturerPageFeatureFlagEnabled(
   cookies: Cookies.CookiesStatic<object> | string | undefined,
