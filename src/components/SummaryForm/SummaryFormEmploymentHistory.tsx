@@ -33,9 +33,9 @@ const SummaryFormEmploymentHistory: FCWithFragments<IProps> = ({
 function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {
   return [...employments]
     .sort(
-      (a, b) =>
-        new Date(b.employedSinceDate ?? '').getTime() -
-        new Date(a.employedSinceDate ?? '').getTime(),
+      (firstDate, secondDate) =>
+        new Date(secondDate.employedSinceDate ?? '').getTime() -
+        new Date(firstDate.employedSinceDate ?? '').getTime(),
     )
     .reduce((acc, employment, index) => {
       const values: IList[] = [

@@ -45,13 +45,16 @@ export const findPreselectFilterValue = (
   if (data?.length && typeof data[0] !== 'string') {
     const slugsArray = data
       .map(childrenWithSlug => (childrenWithSlug as IFiltersChildren)?.slug)
-      .sort((a, b) => (a?.length || 0) - (b?.length || 0));
+      .sort(
+        (firstSlug, secondSlug) =>
+          (firstSlug?.length || 0) - (secondSlug?.length || 0),
+      );
     return slugsArray?.find(element => isInclude(element || '', value)) || '';
   }
   return (
     (data as string[])
       ?.slice()
-      .sort((a, b) => a.length - b.length)
+      .sort((firstData, secondData) => firstData.length - secondData.length)
       .find(element => isInclude(element, value)) || ''
   );
 };
@@ -279,8 +282,8 @@ export const tagArrayBuilderHelper = (
               )
             : value,
       }
-    : value.map(v => ({
+    : value.map(item => ({
         order: filterOrderByNumMap[entry[0]],
-        value: v,
+        value: item,
       }));
 };

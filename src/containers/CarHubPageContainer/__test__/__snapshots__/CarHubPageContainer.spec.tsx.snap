@@ -1609,7 +1609,9 @@ Array [
         <div
           className="markdown"
         >
-          <p>
+          <p
+            className="text -regular -darker"
+          >
             test text
           </p>
         </div>
@@ -2998,7 +3000,9 @@ Array [
         <div
           className="markdown"
         >
-          <p>
+          <p
+            className="text -regular -darker"
+          >
             test text
           </p>
         </div>

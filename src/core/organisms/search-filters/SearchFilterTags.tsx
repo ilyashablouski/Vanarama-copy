@@ -16,7 +16,9 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
   return (
     <div className={cx('search-filters--tags', className)}>
       {selectedFilters
-        .sort((a, b) => a.order - b.order)
+        .sort(
+          (firstFilter, secondFilter) => firstFilter.order - secondFilter.order,
+        )
         .map(selected => {
           return (
             <Button
@@ -31,9 +33,9 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
               }
               id={selected.value}
               data-testid={dataTestId}
-              onClick={e => {
+              onClick={event => {
                 if (onRemove) {
-                  onRemove(e);
+                  onRemove(event);
                 }
               }}
               dataUiTestId={`${dataUiTestId}_selected-filters-tag_button_${selected.value}`}

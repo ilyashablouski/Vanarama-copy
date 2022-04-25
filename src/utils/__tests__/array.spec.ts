@@ -34,10 +34,10 @@ describe('Array helpers', () => {
     });
 
     describe('nested selector', () => {
-      const nestedSelector = (_: { a: number }) => _.a;
+      const nestedSelector = (_: { item: number }) => _.item;
 
       test.each([
-        [[{ a: 1 }, { a: 2 }, { a: 0 }], 3, nestedSelector],
+        [[{ item: 1 }, { item: 2 }, { item: 0 }], 3, nestedSelector],
         [[], 0, nestedSelector],
       ])('%j should return "%p"', (input, expected, selector) => {
         const actual = sum(input, selector);

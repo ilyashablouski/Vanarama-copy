@@ -70,7 +70,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const countPages = () => Math.ceil((data?.articles?.length || 0) / 9);
 
   // create array with number of page for pagination
-  const pages = [...Array(countPages())].map((_el, i) => i + 1);
+  const pages = [...Array(countPages())].map((_el, index) => index + 1);
 
   const renderArticles = () => {
     const indexOfLastOffer = activePage * 9;

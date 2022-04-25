@@ -263,7 +263,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
     () =>
       Array(countPages(data))
         .fill(0)
-        .map((_, i) => i + 1),
+        .map((_, index) => index + 1),
     [data],
   );
 
@@ -333,7 +333,9 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
 
     const sortedOffers = data.myOrders
       .slice()
-      .sort((a, b) => sortOrders(a, b, sortOrder.type));
+      .sort((firstOrder, secondOrder) =>
+        sortOrders(firstOrder, secondOrder, sortOrder.type),
+      );
 
     const placedInTurnOrders =
       sortOrder.direction === SortDirection.DESC
@@ -447,7 +449,7 @@ const MyOverview: React.FC<IMyOverviewProps> = ({
                     </Text>
                     <Select
                       value={`${sortOrder.type}_${sortOrder.direction}`}
-                      onChange={e => onChangeSortOrder(e.target.value)}
+                      onChange={event => onChangeSortOrder(event.target.value)}
                     >
                       {sortOrderValues.map(option => (
                         <option key={option.value} value={option.value}>

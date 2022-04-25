@@ -159,11 +159,14 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
                 : undefined,
           })}
         >
-          {genMonths().map((month, i) => (
+          {genMonths().map((month, index) => (
             <option
               key={month}
-              value={i + 1}
-              disabled={isMonthInFuture((i + 1).toString(), tradingSinceYear)}
+              value={index + 1}
+              disabled={isMonthInFuture(
+                (index + 1).toString(),
+                tradingSinceYear,
+              )}
             >
               {month}
             </option>

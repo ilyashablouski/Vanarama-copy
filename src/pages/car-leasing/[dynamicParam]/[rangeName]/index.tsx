@@ -113,6 +113,7 @@ const Page: NextPage<IProps> = ({
       router,
       initialFilterFuelType,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.fuelTypes]);
 
   useEffect(() => {

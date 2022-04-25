@@ -61,6 +61,7 @@ const Page: NextPage<IProps> = ({
       siteSection: SITE_SECTIONS.cars,
       router,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.fuelTypes]);
 
   return (

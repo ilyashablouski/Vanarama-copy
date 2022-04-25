@@ -31,9 +31,11 @@ const ImageV2: FC<IImageV2Props> = ({
     src = `https:${src}`;
   }
 
-  const onError = (e: SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.srcset = '';
-    e.currentTarget.src = PLACEHOLDER_URL;
+  const onError = (event: SyntheticEvent<HTMLImageElement>) => {
+    // eslint-disable-next-line no-param-reassign
+    event.currentTarget.srcset = '';
+    // eslint-disable-next-line no-param-reassign
+    event.currentTarget.src = PLACEHOLDER_URL;
   };
 
   const layout = width && height ? 'responsive' : 'fill';

@@ -30,11 +30,11 @@ const ListItem: FC<IListItemProps> = props => {
   const [input, setInput] = useState(value);
 
   const handleChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+    event: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => {
-    setInput(e.target.value);
+    setInput(event.target.value);
     if (onChange) {
-      onChange(e);
+      onChange(event);
     }
   };
 

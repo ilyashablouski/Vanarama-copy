@@ -167,8 +167,8 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
           }}
           placeholder="Month"
         >
-          {months.map((value, i) => (
-            <option key={value} value={i + 1}>
+          {months.map((value, index) => (
+            <option key={value} value={index + 1}>
               {value}
             </option>
           ))}

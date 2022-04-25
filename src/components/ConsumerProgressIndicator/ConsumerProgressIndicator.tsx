@@ -25,7 +25,8 @@ const ConsumerProgressIndicator: React.FC = () => {
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(() => generateConsumerSteps(), []);
   // Work out the current step based on the URL
-  const currentStep = steps.find(x => x.href === pathname)?.step || 1;
+  const currentStep =
+    steps.find(stepItem => stepItem.href === pathname)?.step || 1;
 
   // do not show redirect param in url
   const queryParamsMask = getUrlParam({

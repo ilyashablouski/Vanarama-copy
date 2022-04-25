@@ -58,8 +58,8 @@ const FormikTypeAheadField: React.FC<IProps> = ({
           dataTestId: name,
           ...field,
           ...rest,
-          onBlur: (e: React.FocusEvent<any>) => {
-            field.onBlur(e);
+          onBlur: (event: React.FocusEvent<any>) => {
+            field.onBlur(event);
             if (!suggestions.length && !isSelected) {
               setSearchValue('');
               helpers.setValue('');
@@ -68,8 +68,8 @@ const FormikTypeAheadField: React.FC<IProps> = ({
               helpers.setValue(suggestions[0]);
             }
           },
-          onChange: (e: React.FocusEvent<any>) => {
-            field.onChange(e);
+          onChange: (event: React.FocusEvent<any>) => {
+            field.onChange(event);
             setSelected(false);
           },
         }}

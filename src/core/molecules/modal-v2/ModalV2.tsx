@@ -26,8 +26,8 @@ function ModalV2({
   onClose,
 }: IProps) {
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape' && open) {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape' && open) {
         onClose();
       }
     }

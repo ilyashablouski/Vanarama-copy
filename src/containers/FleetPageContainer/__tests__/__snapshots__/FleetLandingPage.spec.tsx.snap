@@ -526,7 +526,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Every fleet is different:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Your fleet needs are unique and that's why entrusting yours to a company you trust is important.
             </p>
             <h3
@@ -534,7 +536,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Best price for your business:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Choosing a fleet management company that works with a network of funders means they can provide the very best prices on the market first time.
             </p>
             <h3
@@ -542,7 +546,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Compliance as standard:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Duty of care is a key concern and goes hand-in-hand with staying compliant. Driver risk assessments and safety checks need to be carried out on time and to high standards, so work with a company that understands how to keep you organised.
             </p>
           </div>
@@ -592,7 +598,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Hassle-free fleet reporting:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               From MOT notifications to duty of care compliance tasks, keeping information at your fingertips is vital to effective fleet management.
             </p>
             <h3
@@ -600,7 +608,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Protect your fleet:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Having your fleet managed and insured through one channel makes life less complicated for you.
             </p>
             <h3
@@ -608,7 +618,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Cost-effective fleet maintenance:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Easy access to all routine servicing and repairs, tyre replacement, MOTs and vehicle breakdown cover is true peace-of-mind.
             </p>
             <h3
@@ -616,7 +628,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Sale and lease back:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               Removing vehicles from outright purchase and into a lease agreement allows you to grow your business faster by giving you the option to invest cash into your business rather than the vehicles.
             </p>
             <h3
@@ -624,7 +638,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Controlling costs:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               A robust reporting platform will allow you to look at maintenance budgets, total driver costs and whole-life fleet costings at a moment's notice.
             </p>
           </div>
@@ -674,7 +690,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Maintenance when it's needed:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               No matter which maintenance package you choose, the drivers themselves can arrange bookings through the Driverhelpline application or by calling the support team.
             </p>
             <h3
@@ -682,7 +700,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Comprehensive vehicle management:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               How great would it be if drivers knew that support was just a tap on an app away? They'll benefit from the same up-to-date reporting and service-on-demand functions as you. Drivers know they're being compliant, and you can rest easy.
             </p>
             <h3
@@ -690,7 +710,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             >
               Peace of mind and support:
             </h3>
-            <p>
+            <p
+              class="text -regular -darker"
+            >
               For drivers, the fleet management relationship shouldn't be centred on vehicle delivery, they want support. And they'll have questions they need answered. That's when having a dedicated app filled with the information they need, and a dedicated support team really will pay for itself.
             </p>
           </div>

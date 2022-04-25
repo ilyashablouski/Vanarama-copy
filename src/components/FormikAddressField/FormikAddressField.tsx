@@ -44,9 +44,9 @@ const FormikAddressField: React.FC<IProps> = ({
           id={name}
           dataTestId={name}
           ref={inputRef}
-          onBlur={e => {
+          onBlur={event => {
             setIsFocused(false);
-            field.onBlur(e);
+            field.onBlur(event);
           }}
           onFocus={() => setIsFocused(true)}
         />

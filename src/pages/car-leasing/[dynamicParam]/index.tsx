@@ -155,6 +155,7 @@ const Page: NextPage<IProps> = ({
       router,
       initialFilterFuelType,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.dynamicParam, router.query.fuelTypes]);
 
   useEffect(() => {
@@ -170,6 +171,7 @@ const Page: NextPage<IProps> = ({
         { shallow: true },
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (metaData.pageType === PAGE_TYPES.nonBlogPage) {

@@ -145,8 +145,8 @@ export default function CompanyDetailsFormFields({
                 required: 'Please enter the trading since date',
               })}
             >
-              {genMonths().map((month, i) => (
-                <option key={month} value={i + 1}>
+              {genMonths().map((month, index) => (
+                <option key={month} value={index + 1}>
                   {month}
                 </option>
               ))}

@@ -141,9 +141,9 @@ export default function DirectorFieldArray({
               <Select
                 aria-label="Select director"
                 placeholder="Select Director..."
-                onChange={e =>
+                onChange={event =>
                   handleDirectorSelected(
-                    e.target.value,
+                    event.target.value,
                     arrayHelpers,
                     directors,
                   )

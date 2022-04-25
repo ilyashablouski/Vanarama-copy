@@ -196,6 +196,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       getSectionsData(['sections', 'featured'], pageData?.genericPage) ||
       getSectionsData(['sections', 'featured1'], pageData?.genericPage) ||
       sectionsAsArray?.featured?.[0],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -683,6 +684,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       };
       fetchPageData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, router.query, client, isManufacturerPage, isDynamicFilterPage]);
 
   return (
