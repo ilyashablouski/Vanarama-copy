@@ -25,12 +25,12 @@ declare global {
   }
 }
 
-enum CookiePreferencesTypeEnum {
+export enum CookiePreferencesTypeEnum {
   ACCEPT = 'ACCEPT',
   DECLINE = 'DECLINE',
 }
 
-const COOKIE_PREFERENCES_STORAGE_KEY = 'cookiePreferences';
+export const COOKIE_PREFERENCES_STORAGE_KEY = 'cookiePreferences';
 const BLUE_CONIC_OBJECTIVE_LIST = [
   'analysing_or_predicting_preferences_or_behaviour',
   'tracking_and_profiling_for_direct_marketing_and_advertising',

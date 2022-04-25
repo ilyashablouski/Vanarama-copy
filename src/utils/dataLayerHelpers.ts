@@ -28,6 +28,10 @@ import { getStoredPersonUuid } from '../gql/storedPersonUuid';
 import { Nullish } from '../types/common';
 import { getLocalStorage } from './windowLocalStorage';
 import { isBCSessionIDDelayFeatureFlagEnabled } from './helpers';
+import {
+  COOKIE_PREFERENCES_STORAGE_KEY,
+  CookiePreferencesTypeEnum,
+} from './blueConicHelpers';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -242,6 +246,15 @@ export const pushDetail = (
   }
 };
 
+export const pushPageDataWithBCUIDInDataLayer = () => {
+  pushDetail(
+    'BCUID',
+    Cookies.get('BCSessionID') || 'undefined',
+    pageDataForDataLayer,
+  );
+  window.dataLayer.push(pageDataForDataLayer);
+};
+
 export const checkForGtmDomEvent = (callback: () => void) => {
   window.dataLayerCallback = callback;
 
@@ -366,7 +379,18 @@ export const pushPageData = async ({
 
     delayedPushDetails();
   } else {
-    pushDetail('BCUID', 'undefined', pageDataForDataLayer);
+    const cookiePreferences = getLocalStorage(COOKIE_PREFERENCES_STORAGE_KEY);
+    // Push BCUID in dataLayer if cookiePreferences = "ACCEPT" on load
+    if (cookiePreferences === CookiePreferencesTypeEnum.ACCEPT) {
+      pushDetail(
+        'BCUID',
+        Cookies.get('BCSessionID') || 'undefined',
+        pageDataForDataLayer,
+      );
+    } else {
+      pushDetail('BCUID', 'undefined', pageDataForDataLayer);
+    }
+
     pushDetail(
       'customerId',
       person?.uuid || personUuid || 'undefined',
@@ -824,13 +848,4 @@ export const pushCookiePreferencesDataLayer = () => {
   window.dataLayer?.push({
     cookiePreferences: getLocalStorage('cookiePreferences'),
   });
-};
-
-export const pushPageDataWithBCUID = () => {
-  pushDetail(
-    'BCUID',
-    Cookies.get('BCSessionID') || 'undefined',
-    pageDataForDataLayer,
-  );
-  window.dataLayer.push(pageDataForDataLayer);
 };

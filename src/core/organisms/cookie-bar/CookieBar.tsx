@@ -7,7 +7,7 @@ import Button from 'core/atoms/button';
 import RouterLink from '../../../components/RouterLink';
 import {
   pushCookiePreferencesDataLayer,
-  pushPageDataWithBCUID,
+  pushPageDataWithBCUIDInDataLayer,
 } from '../../../utils/dataLayerHelpers';
 import { TColor } from '../../../types/color';
 
@@ -36,7 +36,7 @@ function CookieBar({ onAccept, onDecline, onAfterHide }: IProps) {
   function handleAcceptClick() {
     hideCookieBar();
     onAccept();
-    pushPageDataWithBCUID();
+    pushPageDataWithBCUIDInDataLayer();
     pushCookiePreferencesDataLayer();
   }
 
