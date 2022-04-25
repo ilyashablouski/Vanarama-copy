@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import Script from 'next/script';
 
 const CookieBarScript: FC = () => {
   const code = `
@@ -33,10 +32,11 @@ const CookieBarScript: FC = () => {
   `;
 
   return (
-    <Script
+    <script
+      async
       data-cfasync="false"
       type="text/javascript"
-      strategy="beforeInteractive"
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: code,
       }}

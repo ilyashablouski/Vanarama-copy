@@ -202,10 +202,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </div>
       </div>
     </div>
+    <script
+      async=""
+      src="https://www.riddle.com/files/js/embed.js"
+    />
   </div>
-  <script
-    data-nscript="afterInteractive"
-    src="https://www.riddle.com/files/js/embed.js"
-  />
 </body>
 `;
