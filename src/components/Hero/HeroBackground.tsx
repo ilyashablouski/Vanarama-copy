@@ -14,8 +14,11 @@ const HeroBackground: React.FC<IHeroProps> = ({
 }) => {
   return (
     <div
-      style={{ '--hero-bg': `url(${backgroundUrl})` }}
-      className={cx('row:bg-hero', className, {
+      style={{
+        // if use image as css variable it loading twice
+        backgroundImage: `url(${backgroundUrl}), linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4))`,
+      }}
+      className={cx('row:bg-hero hero-bg', className, {
         '-expand': expand,
       })}
     >

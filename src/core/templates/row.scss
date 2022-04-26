@@ -664,10 +664,7 @@
       );
       overflow: hidden;
 
-      &[style*='--hero-bg:'] {
-        background-image: var(--hero-bg),
-          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
-        // background-image: var(--hero-bg), $promo-gradient;
+      &.hero-bg {
         background-size: cover;
         background-position: center center;
         place-content: center stretch;
