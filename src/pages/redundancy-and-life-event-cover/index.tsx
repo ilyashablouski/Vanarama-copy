@@ -49,8 +49,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const DEFAULT_HERO_IMAGE_URL =
-  'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png';
+const DEFAULT_HERO_IMAGE_URL = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 const DEFAULT_HOT_OFFERS_COUNT = 6;
 
 type IProps = IPageWithData<
