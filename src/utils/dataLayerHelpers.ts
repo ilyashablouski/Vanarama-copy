@@ -187,6 +187,10 @@ const isElectricCarsCategory = (
       derivativeData?.fuelType?.name?.includes('Electric'),
   );
 
+const getCookiePreferences = () => {
+  return getLocalStorage(COOKIE_PREFERENCES_STORAGE_KEY);
+};
+
 export const productsMapper = (
   detailsData: OrderInputObject | null,
   derivativeData: GetDerivative_derivative | null,
@@ -342,7 +346,7 @@ export const pushPageData = async ({
   }
 
   // Push BCUID in dataLayer if cookiePreferences = "ACCEPT" on load
-  const cookiePreferences = getLocalStorage(COOKIE_PREFERENCES_STORAGE_KEY);
+  const cookiePreferences = getCookiePreferences();
 
   if (cookiePreferences === CookiePreferencesTypeEnum.ACCEPT) {
     pushDetail(
@@ -807,7 +811,17 @@ export const pushCookiePreferencesDataLayer = () => {
     return;
   }
 
-  window.dataLayer?.push({
-    cookiePreferences: getLocalStorage('cookiePreferences'),
-  });
+  const cookiePreferences = getCookiePreferences();
+
+  if (cookiePreferences === CookiePreferencesTypeEnum.ACCEPT) {
+    window.dataLayer?.push({
+      event: 'consentGTM',
+      cookiePreferences: CookiePreferencesTypeEnum.ACCEPT,
+    });
+  } else {
+    window.dataLayer?.push({
+      event: 'noconsentGTM',
+      cookiePreferences: CookiePreferencesTypeEnum.DECLINE,
+    });
+  }
 };
