@@ -23,7 +23,6 @@ import SearchPageFilters from '../../components/SearchPageFilters';
 import ResultsCount from './components/ResultsCount';
 import SortOrder from '../../components/SortOrder';
 import {
-  bodyUrlsSlugMapper,
   createInitialVehiclesVariables,
   createProductCacheVariables,
   createProductCardVariables,
@@ -75,7 +74,10 @@ import {
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
-import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
+import {
+  tagArrayBuilderHelper,
+  getManualBodyStyle,
+} from '../FiltersContainer/helpers';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { getRangesList, useVehiclesList } from './gql';
 import {
@@ -224,17 +226,10 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   const isNewRangeCarousel = useMemo(() => !!newCarousel?.cards?.length, [
     newCarousel?.cards?.length,
   ]);
-  const manualBodyStyle = useMemo(() => {
-    if (isModelPage) {
-      return [
-        bodyUrlsSlugMapper[
-          router.query.bodyStyles as keyof typeof bodyUrlsSlugMapper
-        ] ?? router.query.bodyStyles,
-      ];
-    }
-
-    return [''];
-  }, [isModelPage, router.query]);
+  const manualBodyStyle = useMemo(
+    () => getManualBodyStyle({ query: router.query, pageType }),
+    [pageType, router.query],
+  );
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],

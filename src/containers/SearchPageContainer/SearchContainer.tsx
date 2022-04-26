@@ -68,7 +68,10 @@ import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql'
 import useLeaseType from '../../hooks/useLeaseType';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
+import {
+  getManualBodyStyle,
+  tagArrayBuilderHelper,
+} from '../FiltersContainer/helpers';
 import { ISearchPageContainerProps } from './interfaces';
 import ResultsCount from './components/ResultsCount';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
@@ -185,12 +188,9 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   const isCarousel = useMemo(() => !!carousel?.cards?.length, [
     carousel?.cards?.length,
   ]);
-  const manualBodyStyle = useMemo(() => {
-    if (isPickups) {
-      return ['Pickup'];
-    }
-    return [''];
-  }, [isPickups]);
+  const manualBodyStyle = useMemo(() => getManualBodyStyle({ isPickups }), [
+    isPickups,
+  ]);
 
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),

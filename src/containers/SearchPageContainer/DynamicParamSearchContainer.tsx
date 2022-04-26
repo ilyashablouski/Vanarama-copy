@@ -69,8 +69,8 @@ import {
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import {
-  findPreselectFilterValue,
   tagArrayBuilderHelper,
+  getManualBodyStyle,
 } from '../FiltersContainer/helpers';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { getRangesList, useVehiclesList } from './gql';
@@ -221,23 +221,15 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     () => !isManufacturerPage && !isDynamicFilterPage && !isPartnershipActive,
     [isManufacturerPage, isDynamicFilterPage, isPartnershipActive],
   );
-  const manualBodyStyle = useMemo(() => {
-    if (isBodyStylePage) {
-      const bodyStyle = (router.query?.dynamicParam as string)
-        .replace('-leasing', '')
-        .replace('-', ' ');
-      // city-car is only one style with '-' we shouldn't to replace it
-      return [
-        bodyStyle.toLowerCase() === 'city-car'
-          ? findPreselectFilterValue(bodyStyle, preLoadFiltersData?.bodyStyles)
-          : findPreselectFilterValue(
-              bodyStyle.replace('-', ' '),
-              preLoadFiltersData?.bodyStyles,
-            ),
-      ];
-    }
-    return [''];
-  }, [router.query, isBodyStylePage, preLoadFiltersData]);
+  const manualBodyStyle = useMemo(
+    () =>
+      getManualBodyStyle({
+        query: router.query,
+        pageType,
+        preLoadBodyStyles: preLoadFiltersData?.bodyStyles,
+      }),
+    [pageType, router.query, preLoadFiltersData],
+  );
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],
