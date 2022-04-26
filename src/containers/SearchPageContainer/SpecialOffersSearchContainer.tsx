@@ -58,7 +58,10 @@ import {
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
-import { tagArrayBuilderHelper } from '../FiltersContainer/helpers';
+import {
+  tagArrayBuilderHelper,
+  getManualBodyStyle,
+} from '../FiltersContainer/helpers';
 import { useVehiclesList } from './gql';
 import {
   getObjectFromSessionStorage,
@@ -158,7 +161,7 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
         : getPartnerProperties()?.fuelTypes,
     [filtersData],
   );
-  const manualBodyStyle = useMemo(() => (isPickups ? ['Pickup'] : ['']), [
+  const manualBodyStyle = useMemo(() => getManualBodyStyle({ isPickups }), [
     isPickups,
   ]);
   const vehicleType = useMemo(
@@ -227,8 +230,9 @@ const SpecialOffersSearchContainer: FC<ISearchPageContainerProps> = ({
       const lastCursor = edges[edges.length - 1]?.cursor;
       // backend don't return more than 24 results per one request, so we need to use recursion for get all results
       async function fetchMoreRec() {
-        const isNotEnough = savedPageData?.offerPosition > (edges?.length || 0);
-        if (isNotEnough && fetchMore) {
+        const isNotEnoughData =
+          savedPageData?.offerPosition > (edges?.length || 0);
+        if (isNotEnoughData && fetchMore) {
           await fetchMore(
             createFetchMoreOptions(lastCursor, savedPageData, edges),
           );

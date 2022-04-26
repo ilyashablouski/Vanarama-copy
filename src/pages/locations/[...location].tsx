@@ -128,7 +128,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
               height={heroImage?.details.image.height ?? 359}
               src={
                 heroImage?.url ||
-                'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+                `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
               }
             />
           </div>

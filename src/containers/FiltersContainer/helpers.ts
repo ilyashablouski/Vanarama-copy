@@ -1,4 +1,5 @@
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
+import { ParsedUrlQuery } from 'querystring';
 import { FilterFields } from './config';
 import { IDynamicPageType, ISelectedFiltersState } from './interfaces';
 import {
@@ -9,8 +10,10 @@ import {
   bodyUrlsSlugMapper,
   budgetMapper,
   fuelMapper,
+  searchPageTypeMapper,
 } from '../SearchPageContainer/helpers';
 import { getPartnerProperties } from '../../utils/partnerProperties';
+import { SearchPageTypes } from '../SearchPageContainer/interfaces';
 
 interface ITagArrayBuilder {
   isPartnershipActive: boolean;
@@ -286,4 +289,34 @@ export const tagArrayBuilderHelper = (
         order: filterOrderByNumMap[entry[0]],
         value: item,
       }));
+};
+
+export const getManualBodyStyle = ({
+  query,
+  pageType,
+  preLoadBodyStyles,
+  isPickups,
+}: {
+  query?: ParsedUrlQuery;
+  pageType?: SearchPageTypes;
+  preLoadBodyStyles?: string[] | null;
+  isPickups?: boolean;
+}) => {
+  const { isModelPage, isBodyStylePage } = searchPageTypeMapper(pageType);
+  if (isPickups) {
+    return ['Pickup'];
+  }
+  if (isModelPage) {
+    return [
+      bodyUrlsSlugMapper[
+        query?.bodyStyles as keyof typeof bodyUrlsSlugMapper
+      ] ?? query?.bodyStyles,
+    ];
+  }
+
+  if (isBodyStylePage) {
+    const bodyStyle = (query?.dynamicParam as string).replace('-', ' ');
+    return [findPreselectFilterValue(bodyStyle, preLoadBodyStyles)];
+  }
+  return [''];
 };

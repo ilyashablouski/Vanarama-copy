@@ -1,11 +1,14 @@
 import preloadAll from 'jest-next-dynamic';
 import {
   findPreselectFilterValue,
+  getManualBodyStyle,
   getValueKey,
   tagArrayBuilderHelper,
 } from '../helpers';
 import { FilterFields } from '../config';
 import { filterList_filterList } from '../../../../generated/filterList';
+import { SearchPageTypes } from '../../SearchPageContainer/interfaces';
+import { bodyUrlsSlugMapper } from '../../SearchPageContainer/helpers';
 
 const selectedFiltersState = {
   bodyStyles: [],
@@ -89,5 +92,45 @@ describe('<helpers />', () => {
         },
       ),
     ).toMatchObject([{ order: 2, value: 'Fabia' }]);
+  });
+  it('getManualBodyStyle should return correct value', () => {
+    expect(
+      getManualBodyStyle({
+        isPickups: true,
+      }),
+    ).toEqual(['Pickup']);
+    expect(getManualBodyStyle({})).toEqual(['']);
+    expect(
+      getManualBodyStyle({
+        query: { bodyStyles: 'estate' },
+        pageType: SearchPageTypes.MODEL_PAGE,
+      }),
+    ).toEqual([bodyUrlsSlugMapper.estate]);
+    expect(
+      getManualBodyStyle({
+        query: { bodyStyles: 'test' },
+        pageType: SearchPageTypes.MODEL_PAGE,
+      }),
+    ).toEqual(['test']);
+    expect(
+      getManualBodyStyle({
+        query: { dynamicParam: '' },
+        pageType: SearchPageTypes.BUDGET_PAGE,
+        preLoadBodyStyles: [''],
+      }),
+    ).toEqual(['']);
+    expect(
+      getManualBodyStyle({
+        query: { dynamicParam: 'crew' },
+        pageType: SearchPageTypes.BODY_STYLE_PAGE,
+      }),
+    ).toEqual(['']);
+    expect(
+      getManualBodyStyle({
+        query: { dynamicParam: 'crew' },
+        pageType: SearchPageTypes.BODY_STYLE_PAGE,
+        preLoadBodyStyles: ['Crew', 'Dropside Tipper', 'Large Van'],
+      }),
+    ).toEqual(['Crew']);
   });
 });

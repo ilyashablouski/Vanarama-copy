@@ -19,7 +19,7 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import {
-  findPreselectFilterValue,
+  getManualBodyStyle,
   tagArrayBuilderHelper,
 } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
@@ -51,7 +51,6 @@ import {
   createVehiclesVariables,
   createInitialVehiclesVariables,
   getNumberOfVehiclesFromSessionStorage,
-  bodyUrlsSlugMapper,
   getPartnershipDescription,
   getPartnershipTitle,
   getFuelType,
@@ -280,40 +279,16 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
   const isNewRangeCarousel = useMemo(() => !!newCarousel?.cards?.length, [
     newCarousel?.cards?.length,
   ]);
-  const manualBodyStyle = useMemo(() => {
-    if (isPickups) {
-      return ['Pickup'];
-    }
-    if (isModelPage) {
-      return [
-        bodyUrlsSlugMapper[
-          router.query.bodyStyles as keyof typeof bodyUrlsSlugMapper
-        ] ?? router.query.bodyStyles,
-      ];
-    }
-
-    if (isBodyStylePage) {
-      const bodyStyle = (router.query?.dynamicParam as string)
-        .replace('-leasing', '')
-        .replace('-', ' ');
-      // city-car is only one style with '-' we shouldn't to replace it
-      return [
-        bodyStyle.toLowerCase() === 'city-car'
-          ? findPreselectFilterValue(bodyStyle, preLoadFiltersData?.bodyStyles)
-          : findPreselectFilterValue(
-              bodyStyle.replace('-', ' '),
-              preLoadFiltersData?.bodyStyles,
-            ),
-      ];
-    }
-    return [''];
-  }, [
-    isPickups,
-    isModelPage,
-    router.query,
-    isBodyStylePage,
-    preLoadFiltersData,
-  ]);
+  const manualBodyStyle = useMemo(
+    () =>
+      getManualBodyStyle({
+        query: router.query,
+        pageType,
+        preLoadBodyStyles: preLoadFiltersData?.bodyStyles,
+        isPickups,
+      }),
+    [isPickups, pageType, router.query, preLoadFiltersData],
+  );
   const vehicleType = useMemo(
     () => (isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV),
     [isCarSearch],
@@ -416,7 +391,9 @@ const SearchPageContainer: FC<ISearchPageContainerProps> = ({
         if (responseCapIds.length) {
           setVehicleList(edges || []);
           // use range length for manufacture page
-          setTotalCount(vehicleList.totalCount);
+          if (!isManufacturerPage && !isAllManufacturersPage) {
+            setTotalCount(vehicleList.totalCount);
+          }
           getProductCardData(
             createProductCacheVariables(responseCapIds, isCarSearch),
           );

@@ -200,7 +200,7 @@ export const PickupsPage: NextPage<IProps> = ({
             height={heroImage?.details.image.height ?? 354}
             src={
               heroImage?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
             }
           />
         </div>

@@ -36,7 +36,7 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
             height={heroImage?.details.image.height ?? 1278}
             src={
               heroImage?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
             }
           />
         </div>
