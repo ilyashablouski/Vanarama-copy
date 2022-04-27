@@ -692,7 +692,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
             className="-below-content"
           >
             <>
-              <HeroHeading text={hero.title || ''} />
+              <HeroHeading text={hero.title || ''} className="-mb-200" />
               <div className="-w-440">
                 <ReactMarkdown allowDangerousHtml source={hero.body || ''} />
               </div>
