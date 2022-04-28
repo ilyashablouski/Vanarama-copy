@@ -22,10 +22,10 @@ import {
   createProductCacheVariables,
   createProductCardVariables,
   createVehiclesVariables,
-  dynamicQueryTypeCheck,
   getCapsIds,
   getFuelType,
   getNumberOfVehiclesFromSessionStorage,
+  getPageTypeAndContext,
   getPartnershipDescription,
   getPartnershipTitle,
   getValueFromStorage,
@@ -570,18 +570,7 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   useEffect(() => {
     if (router.query.isChangePage === 'true') {
       const fetchPageData = async () => {
-        const type = Object.entries(
-          dynamicQueryTypeCheck(router.query.dynamicParam as string),
-        ).find(element => element[1])?.[0];
-        const context = {
-          req: {
-            url: router.route.replace(
-              '[dynamicParam]',
-              router.query.dynamicParam as string,
-            ),
-          },
-          query: { ...router.query },
-        };
+        const [type, context] = getPageTypeAndContext(router);
         const { data: genericPageData, errors } = (await ssrCMSQueryExecutor(
           client,
           context,
