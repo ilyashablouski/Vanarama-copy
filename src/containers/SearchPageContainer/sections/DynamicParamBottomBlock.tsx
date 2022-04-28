@@ -156,7 +156,10 @@ const DynamicParamBottomBlock = ({
                         link: props => {
                           const { href, children } = props;
                           return (
-                            <RouterLink link={{ href, label: children }} />
+                            <RouterLink
+                              classNames={{ color: 'teal' }}
+                              link={{ href, label: children }}
+                            />
                           );
                         },
                         paragraph: props => (
@@ -187,7 +190,12 @@ const DynamicParamBottomBlock = ({
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
+                        return (
+                          <RouterLink
+                            classNames={{ color: 'teal' }}
+                            link={{ href, label: children }}
+                          />
+                        );
                       },
                       paragraph: props => (
                         <Text
