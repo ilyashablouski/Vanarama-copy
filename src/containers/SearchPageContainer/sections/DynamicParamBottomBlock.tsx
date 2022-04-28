@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown';
 import {
   isServerRenderOrAppleDevice,
   VIEWPORTS,
@@ -19,6 +20,7 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import Skeleton from '../../../components/Skeleton';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import { sortGlossaryByAlphabetic } from '../helpers';
+import RouterLink from '../../../components/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -147,7 +149,29 @@ const DynamicParamBottomBlock = ({
                     <Heading size="regular" color="black">
                       {item?.title}
                     </Heading>
-                    <Text color="darker">{item.body}</Text>
+                    <ReactMarkdown
+                      allowDangerousHtml
+                      source={item.body || ''}
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink
+                              classNames={{ color: 'teal' }}
+                              link={{ href, label: children }}
+                            />
+                          );
+                        },
+                        paragraph: props => (
+                          <Text
+                            {...props}
+                            size="regular"
+                            color="darker"
+                            tag="p"
+                          />
+                        ),
+                      }}
+                    />
                   </div>
                 ))}
               </Masonry>
@@ -160,7 +184,29 @@ const DynamicParamBottomBlock = ({
                   <Heading size="regular" color="black">
                     {item?.title}
                   </Heading>
-                  <Text color="darker">{item.body}</Text>
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={item.body || ''}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink
+                            classNames={{ color: 'teal' }}
+                            link={{ href, label: children }}
+                          />
+                        );
+                      },
+                      paragraph: props => (
+                        <Text
+                          {...props}
+                          size="regular"
+                          color="darker"
+                          tag="p"
+                        />
+                      ),
+                    }}
+                  />
                 </div>
               ))}
             </div>

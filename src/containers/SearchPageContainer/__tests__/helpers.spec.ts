@@ -10,6 +10,7 @@ import {
   isOnOffer,
   sortGlossaryByAlphabetic,
   getPageTypeAndContext,
+  hasFiltersForSearch,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
 
@@ -228,4 +229,21 @@ describe('getPageTypeAndContext', () => {
       },
     });
   });
+});
+
+it('hasFiltersForSearch() must return true if you have selected one or more filters', () => {
+  const filters = {
+    bodyStyles: ['Estate'],
+    fuelTypes: [],
+    manufacturerSlug: 'bmw',
+    rangeSlug: '',
+    rate: { min: 350, max: NaN },
+    transmissions: [],
+  };
+
+  expect(hasFiltersForSearch(filters)).toEqual(true);
+});
+
+it('hasFiltersForSearch() should return false for empty object', () => {
+  expect(hasFiltersForSearch({})).toEqual(false);
 });

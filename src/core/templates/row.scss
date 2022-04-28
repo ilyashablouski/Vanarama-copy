@@ -668,7 +668,7 @@
         background-size: cover;
         background-position: center center;
         place-content: center stretch;
-        background-blend-mode: color-burn;
+        background-blend-mode: darken;
 
         &.-expand {
           padding-top: calc(var(--page-gap) * 3);

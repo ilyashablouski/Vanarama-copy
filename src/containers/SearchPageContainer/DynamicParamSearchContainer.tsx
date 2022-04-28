@@ -43,6 +43,7 @@ import {
   buildUrlWithFilter,
   createFetchMoreOptions,
   getPageTypeAndContext,
+  hasFiltersForSearch,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -539,7 +540,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       hasNextPage &&
       shouldUpdateCache &&
       isDynamicFilterPage &&
-      Object.values(filtersData).flat().length > 0
+      hasFiltersForSearch(filtersData)
     ) {
       setShouldUpdateCache(false);
       const onOffer = isOnOffer(isSpecialOffers, pageType);
@@ -692,7 +693,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
             className="-below-content"
           >
             <>
-              <HeroHeading text={hero.title || ''} />
+              <HeroHeading text={hero.title || ''} className="-mb-200" />
               <div className="-w-440">
                 <ReactMarkdown allowDangerousHtml source={hero.body || ''} />
               </div>
