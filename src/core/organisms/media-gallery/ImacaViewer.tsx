@@ -33,6 +33,9 @@ function ImacaViewer({
   setColour,
   upscaleCanvas,
   isOpenColourSelect,
+  isColourSelectorVisible = true,
+  isDisclaimerVisible = true,
+  imacaConfiguratorId,
 }: IImacaViewer) {
   const [isFullScreen, setFullScreen] = useState(false);
   const [isHintVisible, setHintVisible] = useState(true);
@@ -82,7 +85,7 @@ function ImacaViewer({
           <div className="imaca-viewer__inner">
             <div className="imaca-viewer__viewer">
               <ImacaConfigurator
-                id="viewer"
+                id={imacaConfiguratorId}
                 width={1420}
                 height={798}
                 assets={assets}
@@ -105,41 +108,43 @@ function ImacaViewer({
                 </div>
               )}
             </div>
-            {isMobileLayout && <Disclaimer />}
-            <div className="imaca-viewer__controls">
-              <button
-                type="button"
-                className="colours-toggle imaca-viewer__colours-toggle"
-                onClick={handleColorsToggleClick}
-                data-uitestid={`details-page_imaca-viewer_button_colours-toggle_${
-                  isColorSelectionOpen ? 'hide' : 'select-colour'
-                }`}
-              >
-                <Icon
-                  className="colours-toggle__icon"
-                  icon={<ColorWheelIcon />}
-                  color="dark"
-                  size="lead"
-                />
-                {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
-              </button>
-              <button
-                type="button"
-                className="fs-toggle imaca-viewer__fs-toggle"
-                onClick={handleFullScreenClick}
-              >
-                <Icon
-                  className="fs-toggle__icon"
-                  icon={<FullScreenIcon />}
-                  color="dark"
-                  size="lead"
-                />
-              </button>
-            </div>
+            {isMobileLayout && isDisclaimerVisible && <Disclaimer />}
+            {isColourSelectorVisible && (
+              <div className="imaca-viewer__controls">
+                <button
+                  type="button"
+                  className="colours-toggle imaca-viewer__colours-toggle"
+                  onClick={handleColorsToggleClick}
+                  data-uitestid={`details-page_imaca-viewer_button_colours-toggle_${
+                    isColorSelectionOpen ? 'hide' : 'select-colour'
+                  }`}
+                >
+                  <Icon
+                    className="colours-toggle__icon"
+                    icon={<ColorWheelIcon />}
+                    color="dark"
+                    size="lead"
+                  />
+                  {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
+                </button>
+                <button
+                  type="button"
+                  className="fs-toggle imaca-viewer__fs-toggle"
+                  onClick={handleFullScreenClick}
+                >
+                  <Icon
+                    className="fs-toggle__icon"
+                    icon={<FullScreenIcon />}
+                    color="dark"
+                    size="lead"
+                  />
+                </button>
+              </div>
+            )}
           </div>
-          {!isMobileLayout && <Disclaimer />}
+          {!isMobileLayout && isDisclaimerVisible && <Disclaimer />}
         </div>
-        {isColorSelectionOpen && (
+        {isColorSelectionOpen && isColourSelectorVisible && (
           <ColorSelection
             className="imaca-viewer__color-selection"
             selectedColor={selectedColor}
