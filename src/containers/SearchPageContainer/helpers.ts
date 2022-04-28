@@ -831,7 +831,7 @@ export const buildUrlWithFilter = (
       queryString.set(key, value as string);
     }
   });
-  if (Object.keys(queries).length) {
+  if (Object.keys(queries).length && queryString.toString()) {
     pathname += `?${decodeURIComponent(queryString.toString())}`;
   }
   return {
