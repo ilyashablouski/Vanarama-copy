@@ -31,6 +31,9 @@ export interface IImacaViewer extends IBaseProps {
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   upscaleCanvas: boolean;
   isOpenColourSelect?: boolean;
+  isColourSelectorVisible?: boolean;
+  isDisclaimerVisible?: boolean;
+  imacaConfiguratorId: string;
 }
 
 export interface IImageCarouselProps extends IBaseProps {
