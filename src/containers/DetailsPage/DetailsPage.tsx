@@ -1059,8 +1059,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           selectedTrim={trim}
           setSelectedTrim={setTrim}
           sortedTrimList={trimList}
-          imageUrl={data?.vehicleImages?.[0]?.imageUrls?.[0] || ''}
-          manufacturerName={data?.derivativeInfo?.manufacturer.name || ''}
+          imacaAssets={resultImacaAssets}
+          isCar={isCar}
         />
       </CenteredDrawer>
       <Head

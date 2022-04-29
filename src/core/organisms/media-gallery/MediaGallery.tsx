@@ -84,6 +84,7 @@ function MediaGallery({
                     changeColour={changeColour}
                     assets={imacaAssets!}
                     upscaleCanvas={isCar}
+                    imacaConfiguratorId="main-viewer"
                   />
                 </LazyLoadComponent>
               </TabPanel>

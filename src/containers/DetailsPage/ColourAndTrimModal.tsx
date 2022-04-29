@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ImageV2 from 'core/atoms/image/ImageV2';
+import React, { useMemo, useState } from 'react';
 import Price from 'core/atoms/price';
 import Button from 'core/atoms/button/Button';
 import Text from 'core/atoms/text/Text';
@@ -10,7 +9,11 @@ import Tab from 'core/molecules/tabs/Tab';
 import TabList from 'core/molecules/tabs/TabList';
 import Tabs from 'core/molecules/tabs';
 import ColourTrimColumn from 'core/atoms/colour-trim-column/ColourTrimColumn';
+import ImacaViewer from 'core/organisms/media-gallery/ImacaViewer';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { IOptionsList } from '../../types/detailsPage';
+import { GetImacaAssets_getImacaAssets as IImacaAssets } from '../../../generated/GetImacaAssets';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { Nullable, Nullish } from '../../types/common';
 
 interface IColourAndTrimModalProps {
@@ -28,8 +31,8 @@ interface IColourAndTrimModalProps {
   ) => void;
   selectedTrim: Nullable<number>;
   setSelectedTrim: React.Dispatch<React.SetStateAction<number | null>>;
-  imageUrl: string;
-  manufacturerName: string;
+  imacaAssets: Nullable<IImacaAssets>;
+  isCar: boolean;
 }
 
 const MOBILE_TABS = [
@@ -54,14 +57,18 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
   selectedTrim,
   setSelectedTrim,
   sortedTrimList,
-  imageUrl,
-  manufacturerName,
+  imacaAssets,
+  isCar,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
 
   const changeTrim = (optionId: Nullable<number>) => {
     setSelectedTrim(optionId);
   };
+
+  const shouldRenderImaca = useMemo(() => !!imacaAssets?.colours?.length, [
+    imacaAssets,
+  ]);
 
   return (
     <>
@@ -76,17 +83,25 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
             onClick={toggleColorAndTrimModalVisible}
           />
         </div>
-
-        <div className="-container -mb-400">
-          <ImageV2
-            quality={60}
-            objectFit="cover"
-            lazyLoad
-            src={imageUrl}
-            alt={manufacturerName}
-            plain
-          />
-        </div>
+        {shouldRenderImaca && (
+          <div className="-container -mb-400">
+            <LazyLoadComponent
+              placeholder={<div className="imaca-viewer-placeholder" />}
+              visibleByDefault={isServerRenderOrAppleDevice}
+            >
+              <ImacaViewer
+                isOpenColourSelect={false}
+                colour={selectedColour}
+                changeColour={changeColour}
+                assets={imacaAssets!}
+                upscaleCanvas={isCar}
+                isColourSelectorVisible={false}
+                isDisclaimerVisible={false}
+                imacaConfiguratorId="overlay-viewer"
+              />
+            </LazyLoadComponent>
+          </div>
+        )}
 
         {isMobile && (
           <Tabs

@@ -39,6 +39,9 @@ export interface IImacaViewer extends IBaseProps {
   ) => void;
   upscaleCanvas: boolean;
   isOpenColourSelect?: boolean;
+  isColourSelectorVisible?: boolean;
+  isDisclaimerVisible?: boolean;
+  imacaConfiguratorId: string;
 }
 
 export interface IImageCarouselProps extends IBaseProps {

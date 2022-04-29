@@ -65,8 +65,8 @@ const mock = {
   selectedTrim: 104562,
   setSelectedTrim,
   setIsFactoryOrder,
-  imageUrl: 'url',
-  manufacturerName: 'manufacturer',
+  imacaAssets: null,
+  isCar: true,
 };
 
 describe('<ColourAndTrimModal>', () => {
