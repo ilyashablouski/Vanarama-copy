@@ -919,5 +919,19 @@ export const sortGlossaryByAlphabetic = (
   );
 };
 
+export const makeSimpleSearchAPICall = (
+  router: NextRouter,
+  apiCall: () => void,
+  hasValueInStorage?: boolean,
+) => {
+  // prevent request with empty filters
+  const queryLength = Object.keys(router?.query || {})?.length;
+  // if it's simple search page with presave special offers param made new request for actual params
+  if (!queryLength && hasValueInStorage) {
+    // load vehicles
+    apiCall();
+  }
+};
+
 export const hasFiltersForSearch = (filtersData: IFilters | {}) =>
   Object.values(filtersData).flat().length > 0;

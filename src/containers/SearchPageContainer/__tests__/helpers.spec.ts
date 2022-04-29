@@ -11,6 +11,7 @@ import {
   sortGlossaryByAlphabetic,
   getPageTypeAndContext,
   hasFiltersForSearch,
+  makeSimpleSearchAPICall,
   getCapsIds,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
@@ -314,5 +315,42 @@ describe('getCapsIds', () => {
     const emptyData: IVehicles[] = [];
     expect(getCapsIds(data)).toEqual(['12345', '12346', '12347']);
     expect(getCapsIds(emptyData)).toEqual([]);
+  });
+});
+
+describe('makeSimpleSearchAPICall', () => {
+  it("makeSimpleSearchAPICall shouldn't call api if there's no data in session storage", () => {
+    const router = {
+      push: jest.fn(),
+      pathname: '/car-leasing/[dynamicParam]',
+      route: '/car-leasing/[dynamicParam]',
+      query: {},
+    } as any;
+    const apiCall = jest.fn();
+    makeSimpleSearchAPICall(router, apiCall);
+    expect(apiCall).not.toBeCalled();
+  });
+  it("makeSimpleSearchAPICall shouldn't call api if there's queries", () => {
+    const router = {
+      push: jest.fn(),
+      pathname: '/car-leasing/[dynamicParam]',
+      route: '/car-leasing/[dynamicParam]',
+      query: { dynamicParam: 'test', fuelTypes: 'test' },
+    } as any;
+    const apiCall = jest.fn();
+    makeSimpleSearchAPICall(router, apiCall);
+    expect(apiCall).not.toBeCalled();
+  });
+  it("makeSimpleSearchAPICall should call api when there's value in session storage", () => {
+    window.sessionStorage.setItem('Car', 'true');
+    const router = {
+      push: jest.fn(),
+      pathname: '/car-leasing/[dynamicParam]',
+      route: '/car-leasing/[dynamicParam]',
+      query: {},
+    } as any;
+    const apiCall = jest.fn();
+    makeSimpleSearchAPICall(router, apiCall, true);
+    expect(apiCall).toBeCalled();
   });
 });

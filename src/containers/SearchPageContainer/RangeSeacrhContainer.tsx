@@ -63,7 +63,6 @@ import TermsAndConditions from './sections/TermsAndConditions';
 import Head from '../../components/Head/Head';
 import useSortOrder from '../../hooks/useSortOrder';
 import useLeaseType from '../../hooks/useLeaseType';
-import { rangeList } from '../../../generated/rangeList';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { TColor } from '../../types/color';
@@ -79,7 +78,7 @@ import {
   getManualBodyStyle,
 } from '../FiltersContainer/helpers';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
-import { getRangesList, useVehiclesList } from './gql';
+import { useVehiclesList } from './gql';
 import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
@@ -147,7 +146,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
   );
-  const [ranges, setRanges] = useState({} as rangeList);
 
   const [capIds, setCapsIds] = useState(
     preLoadResponseCapIds || ([] as string[]),
@@ -255,13 +253,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
     data => {
       setCardsDataCache(data?.productCard || []);
     },
-  );
-
-  // Ranges list query for manufacturer page
-  const [getRanges, { data: rangesData }] = getRangesList(
-    vehicleType,
-    router.query?.dynamicParam as string,
-    leaseType,
   );
 
   // using for cache request
@@ -483,24 +474,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
     setPageData(pageDataSSR);
   }, [metaDataSSR, pageDataSSR]);
 
-  // API call after load new pages
-  useEffect(() => {
-    // prevent request with empty filters
-    const queryLength = Object.keys(router?.query || {})?.length;
-    // if it's simple search page with presave special offers param made new request for actual params
-    if (
-      !queryLength &&
-      getValueFromStorage(false, isCarSearch) &&
-      !isRangePage
-    ) {
-      // load vehicles
-      getVehicles();
-    }
-    // disabled lint because we can't add router to deps
-    // it's change every url replace
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, getRanges]);
-
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
@@ -578,14 +551,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
     // can't add a window to deps, because it isn't exist in SSR
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // initial set ranges
-  useEffect(() => {
-    if (rangesData?.rangeList) {
-      setTotalCount(rangesData.rangeList.length);
-      setRanges(rangesData);
-    }
-  }, [rangesData, setTotalCount]);
 
   // set capsIds for cached data
   useEffect(() => {
@@ -738,7 +703,6 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
           <div className="row:cards-3col">
             <ResultsContainer
               dataUiTestId={`${dataUiTestId}_search-results`}
-              ranges={ranges}
               isPersonal={isPersonal}
               isCarSearch={isCarSearch}
               cardsData={cardsData}
