@@ -3,7 +3,7 @@ import { IBaseProps } from '../../interfaces/base';
 import { IVimeoCustom } from '../../atoms/media/interface';
 import { ICardHeaderProps } from '../../molecules/cards/CardHeader';
 import { GetImacaAssets_getImacaAssets as IImacaAssets } from '../../../../generated/GetImacaAssets';
-import { Nullable } from '../../../types/common';
+import { Nullable, Nullish } from '../../../types/common';
 
 export interface IMediaGalleryProps extends IBaseProps {
   images: Array<string>;
@@ -18,7 +18,11 @@ export interface IMediaGalleryProps extends IBaseProps {
   showElectricBanner?: Nullable<boolean>;
   showInsuranceBanner?: Nullable<boolean>;
   colour: Nullable<number>;
-  setColour: React.Dispatch<React.SetStateAction<number | null>>;
+  changeColour: (
+    colorId: Nullable<number>,
+    isFactoryColour: boolean | undefined,
+    isHotOfferColour: Nullish<boolean>,
+  ) => void;
   imacaAssets: Nullable<IImacaAssets>;
   isCar: boolean;
   toggleColorAndTrimModalVisible: () => void;
@@ -28,7 +32,11 @@ export interface IMediaGalleryProps extends IBaseProps {
 export interface IImacaViewer extends IBaseProps {
   assets: IImacaAssets;
   colour: Nullable<number>;
-  setColour: React.Dispatch<React.SetStateAction<number | null>>;
+  changeColour: (
+    colorId: Nullable<number>,
+    isFactoryColour: boolean | undefined,
+    isHotOfferColour: Nullish<boolean>,
+  ) => void;
   upscaleCanvas: boolean;
   isOpenColourSelect?: boolean;
   isColourSelectorVisible?: boolean;

@@ -27,7 +27,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           videoSrc="https://player.vimeo.com/video/263419265"
           threeSixtyVideoSrc="https://player.vimeo.com/video/263419265"
           colour={1234}
-          setColour={jest.fn()}
+          changeColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
           toggleColorAndTrimModalVisible={() => {}}
@@ -54,7 +54,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
             'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
           ]}
           colour={1234}
-          setColour={jest.fn()}
+          changeColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
           toggleColorAndTrimModalVisible={() => {}}
@@ -82,7 +82,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           ]}
           videoSrc="https://player.vimeo.com/video/263419265"
           colour={1234}
-          setColour={jest.fn()}
+          changeColour={jest.fn()}
           imacaAssets={null}
           isCar={false}
           toggleColorAndTrimModalVisible={() => {}}

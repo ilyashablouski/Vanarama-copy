@@ -30,7 +30,7 @@ const Disclaimer = () => (
 function ImacaViewer({
   assets,
   colour,
-  setColour,
+  changeColour,
   upscaleCanvas,
   isOpenColourSelect,
   isColourSelectorVisible = true,
@@ -150,7 +150,7 @@ function ImacaViewer({
             selectedColor={selectedColor}
             hotOfferColorList={hotOffersColorList}
             factoryColorList={factoryColorList}
-            onChange={color => setColour(color.capId)}
+            changeColour={changeColour}
           />
         )}
       </div>
