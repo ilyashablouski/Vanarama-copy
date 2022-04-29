@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Text from 'core/atoms/text';
 import cx from 'classnames';
 import { IOptionsList } from '../../../types/detailsPage';
-import { Nullable, Nullish } from "../../../types/common";
+import { Nullable, Nullish } from '../../../types/common';
 import { LeadTimeList } from '../../../utils/helpers';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {

@@ -11,7 +11,7 @@ describe('<ColorSelection />', () => {
         selectedColor={hotOfferColorList[0]}
         hotOfferColorList={hotOfferColorList}
         factoryColorList={factoryColorList}
-        onChange={jest.fn}
+        changeColour={jest.fn}
       />,
     );
     expect(tree).toMatchSnapshot();

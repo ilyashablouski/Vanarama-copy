@@ -3,9 +3,8 @@ import React from 'react';
 import ColourAndTrimModal from '../ColourAndTrimModal';
 
 const toggleColorAndTrimModalVisible = jest.fn();
-const setSelectedColour = jest.fn();
+const changeColour = jest.fn();
 const setSelectedTrim = jest.fn();
-const setIsFactoryOrder = jest.fn();
 
 const mock = {
   price: 123,
@@ -61,10 +60,9 @@ const mock = {
   ],
   isMobile: false,
   selectedColour: 89191,
-  setSelectedColour,
+  changeColour,
   selectedTrim: 104562,
   setSelectedTrim,
-  setIsFactoryOrder,
   imacaAssets: null,
   isCar: true,
 };
@@ -103,8 +101,7 @@ describe('<ColourAndTrimModal>', () => {
     });
 
     fireEvent.click(screen.getByTestId('140521'));
-    expect(setIsFactoryOrder).toBeCalledWith(true);
-    expect(setSelectedColour).toBeCalledWith(140521);
+    expect(changeColour).toBeCalledWith(140521, true, true);
   });
 
   it('should change trim', async () => {
@@ -115,7 +112,6 @@ describe('<ColourAndTrimModal>', () => {
     });
 
     fireEvent.click(screen.getByTestId('134567'));
-    expect(setIsFactoryOrder).not.toBeCalled();
     expect(setSelectedTrim).toBeCalledWith(134567);
   });
 });

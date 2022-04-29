@@ -8,7 +8,7 @@ import Text from 'core/atoms/text';
 import Flame from 'core/assets/icons/Flame';
 import { IBaseProps } from 'core/interfaces/base';
 
-import { Nullable, Nullish } from "../../../types/common";
+import { Nullable, Nullish } from '../../../types/common';
 import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
 import { baseClassName, getClassName } from './helpers';
 

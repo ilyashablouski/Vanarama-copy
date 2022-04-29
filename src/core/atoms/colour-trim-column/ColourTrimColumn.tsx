@@ -2,7 +2,7 @@ import Heading from 'core/atoms/heading';
 import ColourTrimChoiceBoxes from 'core/atoms/colour-trim-choice-boxes/ColourTrimChoiceBoxes';
 import React, { FC } from 'react';
 import { IOptionsList } from '../../../types/detailsPage';
-import { Nullable, Nullish } from "../../../types/common";
+import { Nullable, Nullish } from '../../../types/common';
 
 interface IProps {
   item: IOptionsList;
