@@ -11,8 +11,10 @@ import {
   sortGlossaryByAlphabetic,
   getPageTypeAndContext,
   hasFiltersForSearch,
+  getCapsIds,
 } from '../helpers';
 import { SearchPageTypes } from '../interfaces';
+import { vehicleList_vehicleList_edges as IVehicles } from '../../../../generated/vehicleList';
 
 const mockGetPartnerProperties = jest.fn();
 
@@ -246,4 +248,71 @@ it('hasFiltersForSearch() must return true if you have selected one or more filt
 
 it('hasFiltersForSearch() should return false for empty object', () => {
   expect(hasFiltersForSearch({})).toEqual(false);
+});
+
+describe('getCapsIds', () => {
+  it('getCapsIds should return Ids from array of objects', () => {
+    const data: IVehicles[] = [
+      {
+        cursor: 'MIT',
+        node: {
+          url: null,
+          legacyUrl: null,
+          vehicleType: null,
+          offerRanking: null,
+          onOffer: null,
+          derivativeId: '12345',
+          capCode: null,
+          manufacturerName: null,
+          modelName: null,
+          derivativeName: null,
+          bodyStyle: null,
+          transmission: null,
+          fuelType: null,
+          financeProfiles: null,
+        },
+      },
+      {
+        cursor: 'MIT',
+        node: {
+          url: null,
+          legacyUrl: null,
+          vehicleType: null,
+          offerRanking: null,
+          onOffer: null,
+          derivativeId: '12346',
+          capCode: null,
+          manufacturerName: null,
+          modelName: null,
+          derivativeName: null,
+          bodyStyle: null,
+          transmission: null,
+          fuelType: null,
+          financeProfiles: null,
+        },
+      },
+      {
+        cursor: 'MIT',
+        node: {
+          url: null,
+          legacyUrl: null,
+          vehicleType: null,
+          offerRanking: null,
+          onOffer: null,
+          derivativeId: '12347',
+          capCode: null,
+          manufacturerName: null,
+          modelName: null,
+          derivativeName: null,
+          bodyStyle: null,
+          transmission: null,
+          fuelType: null,
+          financeProfiles: null,
+        },
+      },
+    ];
+    const emptyData: IVehicles[] = [];
+    expect(getCapsIds(data)).toEqual(['12345', '12346', '12347']);
+    expect(getCapsIds(emptyData)).toEqual([]);
+  });
 });
