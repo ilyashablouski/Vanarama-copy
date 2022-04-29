@@ -35,7 +35,7 @@ function MediaGallery({
   imageAltText,
   imacaAssets,
   colour,
-  setColour,
+  changeColour,
   className,
   toggleColorAndTrimModalVisible,
   isColourAndTrimOverlay,
@@ -81,7 +81,7 @@ function MediaGallery({
                   <ImacaViewer
                     isOpenColourSelect={isOpenColourSelect}
                     colour={colour}
-                    setColour={setColour}
+                    changeColour={changeColour}
                     assets={imacaAssets!}
                     upscaleCanvas={isCar}
                   />

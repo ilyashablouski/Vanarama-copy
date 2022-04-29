@@ -11,7 +11,7 @@ import TabList from 'core/molecules/tabs/TabList';
 import Tabs from 'core/molecules/tabs';
 import ColourTrimColumn from 'core/atoms/colour-trim-column/ColourTrimColumn';
 import { IOptionsList } from '../../types/detailsPage';
-import { Nullable } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 
 interface IColourAndTrimModalProps {
   price: number;
@@ -21,10 +21,13 @@ interface IColourAndTrimModalProps {
   colourData: Nullable<IOptionsList[]>;
   isMobile: boolean;
   selectedColour: Nullable<number>;
-  setSelectedColour: React.Dispatch<React.SetStateAction<number | null>>;
+  changeColour: (
+    colorId: Nullable<number>,
+    isFactoryOrder: boolean | undefined,
+    isHotOffer: Nullish<boolean>,
+  ) => void;
   selectedTrim: Nullable<number>;
   setSelectedTrim: React.Dispatch<React.SetStateAction<number | null>>;
-  setIsFactoryOrder: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   imageUrl: string;
   manufacturerName: string;
 }
@@ -47,24 +50,16 @@ const ColourAndTrimModal: React.FC<IColourAndTrimModalProps> = ({
   colourData,
   isMobile,
   selectedColour,
-  setSelectedColour,
+  changeColour,
   selectedTrim,
   setSelectedTrim,
   sortedTrimList,
-  setIsFactoryOrder,
   imageUrl,
   manufacturerName,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
 
-  const changeColour = (
-    optionId: number,
-    isFactoryOrder: boolean | undefined,
-  ) => {
-    setSelectedColour(optionId);
-    setIsFactoryOrder(isFactoryOrder);
-  };
-  const changeTrim = (optionId: number) => {
+  const changeTrim = (optionId: Nullable<number>) => {
     setSelectedTrim(optionId);
   };
 

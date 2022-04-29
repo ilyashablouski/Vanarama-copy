@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Text from 'core/atoms/text';
 import cx from 'classnames';
 import { IOptionsList } from '../../../types/detailsPage';
-import { Nullable } from '../../../types/common';
+import { Nullable, Nullish } from "../../../types/common";
 import { LeadTimeList } from '../../../utils/helpers';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -16,7 +16,11 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
 interface IProps {
   data: IOptionsList;
   selectedItem: Nullable<number>;
-  setSelectedItem: (optionId: number, isFactoryOrder?: boolean) => void;
+  setSelectedItem: (
+    optionId: Nullable<number>,
+    isFactoryOrder?: boolean | undefined,
+    isHotOffer?: Nullish<boolean>,
+  ) => void;
 }
 
 function ColourTrimChoiceBoxes({
@@ -41,6 +45,7 @@ function ColourTrimChoiceBoxes({
                 setSelectedItem(
                   option?.optionId as number,
                   data?.leadTime?.includes(LeadTimeList.FACTORY_ORDER) || false,
+                  option?.hotOffer,
                 );
               }}
             />

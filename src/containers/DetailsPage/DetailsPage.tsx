@@ -232,6 +232,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       checkIsHotOffer(result.trimGroupList, isHotOffer, isFactoryOrder),
     );
   });
+  const changeColour = (
+    colourId: Nullable<number>,
+    isFactoryColour: boolean | undefined,
+    isHotOfferColour: Nullish<boolean>,
+  ) => {
+    setIsFactoryOrder(isFactoryColour);
+    setIsHotOffer(isHotOfferColour);
+    setColour(colourId);
+  };
   const [leadTime, setLeadTime] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isColorAndTrimModalVisible, setIsColorAndTrimModalVisible] = useState(
@@ -760,7 +769,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           imageAltText={metaTitle}
           className="pdp--media-gallery"
           colour={colour}
-          setColour={setColour}
+          changeColour={changeColour}
           isColourAndTrimOverlay={isColourAndTrimOverlay}
           toggleColorAndTrimModalVisible={toggleColorAndTrimModalVisible}
         />
@@ -1046,11 +1055,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           colourData={colourData}
           isMobile={isMobile}
           selectedColour={colour}
-          setSelectedColour={setColour}
+          changeColour={changeColour}
           selectedTrim={trim}
           setSelectedTrim={setTrim}
           sortedTrimList={trimList}
-          setIsFactoryOrder={setIsFactoryOrder}
           imageUrl={data?.vehicleImages?.[0]?.imageUrls?.[0] || ''}
           manufacturerName={data?.derivativeInfo?.manufacturer.name || ''}
         />

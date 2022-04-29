@@ -2,12 +2,16 @@ import Heading from 'core/atoms/heading';
 import ColourTrimChoiceBoxes from 'core/atoms/colour-trim-choice-boxes/ColourTrimChoiceBoxes';
 import React, { FC } from 'react';
 import { IOptionsList } from '../../../types/detailsPage';
-import { Nullable } from '../../../types/common';
+import { Nullable, Nullish } from "../../../types/common";
 
 interface IProps {
   item: IOptionsList;
   selectedItem: Nullable<number>;
-  setSelectedItem: (optionId: number, isFactoryOrder?: boolean) => void;
+  setSelectedItem: (
+    optionId: Nullable<number>,
+    isFactoryOrder?: boolean | undefined,
+    isHotOffer?: Nullish<boolean>,
+  ) => void;
 }
 
 const ColourTrimColumn: FC<IProps> = ({

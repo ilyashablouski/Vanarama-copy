@@ -8,13 +8,17 @@ import Text from 'core/atoms/text';
 import Flame from 'core/assets/icons/Flame';
 import { IBaseProps } from 'core/interfaces/base';
 
-import { Nullish } from '../../../types/common';
+import { Nullable, Nullish } from "../../../types/common";
 import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
 import { baseClassName, getClassName } from './helpers';
 
 interface IProps extends IBaseProps {
   selectedColor: Nullish<IColour>;
-  onChange: (color: IColour) => void;
+  changeColour: (
+    colorId: Nullable<number>,
+    isFactoryColour: boolean | undefined,
+    isHotOfferColour: Nullish<boolean>,
+  ) => void;
   hotOfferColorList: Nullish<IColour[]>;
   factoryColorList: Nullish<IColour[]>;
 }
@@ -24,7 +28,7 @@ function ColorSelection({
   selectedColor,
   hotOfferColorList,
   factoryColorList,
-  onChange,
+  changeColour,
 }: IProps) {
   return (
     <div className={cx(baseClassName, className)}>
@@ -81,7 +85,9 @@ function ColorSelection({
                   id={color.lqName ?? ''}
                   className="visually-hidden"
                   checked={selectedColor?.capId === color.capId}
-                  onChange={() => onChange(color)}
+                  onChange={() =>
+                    changeColour(color.capId, false, color.onOffer)
+                  }
                 />
                 <label
                   title={color.lqName ?? ''}
@@ -126,7 +132,9 @@ function ColorSelection({
                   id={color.lqName ?? ''}
                   className="visually-hidden"
                   checked={selectedColor?.capId === color.capId}
-                  onChange={() => onChange(color)}
+                  onChange={() =>
+                    changeColour(color.capId, true, color.onOffer)
+                  }
                 />
                 <label
                   title={color.lqName ?? ''}
