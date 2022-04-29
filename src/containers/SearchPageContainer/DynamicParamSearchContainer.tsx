@@ -512,25 +512,6 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
     setPageData(pageDataSSR);
   }, [metaDataSSR, pageDataSSR]);
 
-  // API call after load new pages
-  useEffect(() => {
-    // prevent request with empty filters
-    const queryLength = Object.keys(router?.query || {})?.length;
-    // if it's simple search page with presave special offers param made new request for actual params
-    if (
-      !queryLength &&
-      getValueFromStorage(false, isCarSearch) &&
-      !isDynamicFilterPage &&
-      !isBodyStylePage
-    ) {
-      // load vehicles
-      getVehicles();
-    }
-    // disabled lint because we can't add router to deps
-    // it's change every url replace
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, isManufacturerPage, getRanges]);
-
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page

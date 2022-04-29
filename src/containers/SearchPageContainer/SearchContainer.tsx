@@ -31,6 +31,7 @@ import {
   getValueFromStorage,
   isOnOffer,
   isPreviousPage,
+  makeSimpleSearchAPICall,
   RESULTS_PER_REQUEST,
   scrollIntoPreviousView,
   sortObjectGenerator,
@@ -59,7 +60,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { IFilters } from '../FiltersContainer/interfaces';
 import useSortOrder from '../../hooks/useSortOrder';
-import { getRangesList, useVehiclesList } from './gql';
+import { useVehiclesList } from './gql';
 import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
@@ -75,7 +76,6 @@ import {
 import { ISearchPageContainerProps } from './interfaces';
 import ResultsCount from './components/ResultsCount';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { rangeList } from '../../../generated/rangeList';
 import { getSectionsData } from '../../utils/getSectionsData';
 import ReadMoreBlock from './sections/ReadMoreBlock';
 import FeaturedSectionBlock from './sections/FeaturedSectionBlock';
@@ -125,7 +125,6 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
   );
-  const [ranges, setRanges] = useState({} as rangeList);
 
   const [capIds, setCapsIds] = useState(
     preLoadResponseCapIds || ([] as string[]),
@@ -217,13 +216,6 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     data => {
       setCardsDataCache(data?.productCard || []);
     },
-  );
-
-  // Ranges list query for manufacturer page
-  const [getRanges, { data: rangesData }] = getRangesList(
-    vehicleType,
-    router.query?.dynamicParam as string,
-    leaseType,
   );
 
   // using for cache request
@@ -437,17 +429,15 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
 
   // API call after load new pages
   useEffect(() => {
-    // prevent request with empty filters
-    const queryLength = Object.keys(router?.query || {})?.length;
-    // if it's simple search page with presave special offers param made new request for actual params
-    if (!queryLength && getValueFromStorage(false, isCarSearch)) {
-      // load vehicles
-      getVehicles();
-    }
+    makeSimpleSearchAPICall(
+      router,
+      getVehicles,
+      getValueFromStorage(false, isCarSearch),
+    );
     // disabled lint because we can't add router to deps
     // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, getRanges]);
+  }, [getVehicles, isCarSearch]);
 
   // get vehicles to cache
   useEffect(() => {
@@ -518,14 +508,6 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
     // can't add a window to deps, because it isn't exist in SSR
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // initial set ranges
-  useEffect(() => {
-    if (rangesData?.rangeList) {
-      setTotalCount(rangesData.rangeList.length);
-      setRanges(rangesData);
-    }
-  }, [rangesData, setTotalCount]);
 
   // set capsIds for cached data
   useEffect(() => {
@@ -647,7 +629,6 @@ const SearchContainer: FC<ISearchPageContainerProps> = ({
           <div className="row:cards-3col">
             <ResultsContainer
               dataUiTestId={`${dataUiTestId}_search-results`}
-              ranges={ranges}
               isPersonal={isPersonal}
               isCarSearch={isCarSearch}
               cardsData={cardsData}
