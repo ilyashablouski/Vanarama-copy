@@ -918,3 +918,6 @@ export const sortGlossaryByAlphabetic = (
     (firstItem?.title || '').localeCompare(secondItem?.title || ''),
   );
 };
+
+export const hasFiltersForSearch = (filtersData: IFilters | {}) =>
+  Object.values(filtersData).flat().length > 0;

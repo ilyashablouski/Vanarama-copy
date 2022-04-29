@@ -43,6 +43,7 @@ import {
   buildUrlWithFilter,
   createFetchMoreOptions,
   getPageTypeAndContext,
+  hasFiltersForSearch,
 } from './helpers';
 import {
   LeaseTypeEnum,
@@ -539,7 +540,7 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
       hasNextPage &&
       shouldUpdateCache &&
       isDynamicFilterPage &&
-      Object.values(filtersData).flat().length > 0
+      hasFiltersForSearch(filtersData)
     ) {
       setShouldUpdateCache(false);
       const onOffer = isOnOffer(isSpecialOffers, pageType);
@@ -620,13 +621,9 @@ const DynamicParamSearchContainer: FC<ISearchPageContainerProps> = ({
   // set capsIds for cached data
   useEffect(() => {
     if (cacheData?.vehicleList.edges?.length) {
-      setCapsIds(
-        cacheData.vehicleList?.edges?.map(
-          vehicle => vehicle?.node?.derivativeId || '',
-        ) || [],
-      );
+      setCapsIds(getCapsIds(cacheData.vehicleList?.edges));
     }
-  }, [cacheData, setCapsIds, isCarSearch]);
+  }, [cacheData, setCapsIds]);
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();

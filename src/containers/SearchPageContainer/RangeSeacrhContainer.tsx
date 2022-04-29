@@ -590,13 +590,9 @@ const RangeSearchContainer: FC<ISearchPageContainerProps> = ({
   // set capsIds for cached data
   useEffect(() => {
     if (cacheData?.vehicleList.edges?.length) {
-      setCapsIds(
-        cacheData.vehicleList?.edges?.map(
-          vehicle => vehicle?.node?.derivativeId || '',
-        ) || [],
-      );
+      setCapsIds(getCapsIds(cacheData.vehicleList?.edges));
     }
-  }, [cacheData, setCapsIds, isCarSearch]);
+  }, [cacheData, setCapsIds]);
 
   useEffect(() => {
     const partnerActive = getPartnerProperties();
